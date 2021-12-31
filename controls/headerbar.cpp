@@ -15,7 +15,7 @@ namespace NickvisionApplication::Controls
         m_actionChangelog = m_actionHelp->add_action("changelog");
         m_actionAbout = m_actionHelp->add_action("about");
         insert_action_group("help", m_actionHelp);
-        m_menuHelp = Gio::Menu::create();
+        std::shared_ptr<Gio::Menu> menuHelp = Gio::Menu::create();
         std::shared_ptr<Gio::Menu> menuHelpUpdate = Gio::Menu::create();
         menuHelpUpdate->append("Check for Updates", "help.checkForUpdates");
         std::shared_ptr<Gio::Menu> menuHelpLinks = Gio::Menu::create();
@@ -24,18 +24,18 @@ namespace NickvisionApplication::Controls
         std::shared_ptr<Gio::Menu> menuHelpActions = Gio::Menu::create();
         menuHelpActions->append("Changelog", "help.changelog");
         menuHelpActions->append("About", "help.about");
-        m_menuHelp->append_section(menuHelpUpdate);
-        m_menuHelp->append_section(menuHelpLinks);
-        m_menuHelp->append_section(menuHelpActions);
-        m_btnMenuHelp.set_direction(Gtk::ArrowType::NONE);
-        m_btnMenuHelp.set_menu_model(m_menuHelp);
+        menuHelp->append_section(menuHelpUpdate);
+        menuHelp->append_section(menuHelpLinks);
+        menuHelp->append_section(menuHelpActions);
+        Gtk::MenuButton btnMenuHelp;
+        btnMenuHelp.set_direction(Gtk::ArrowType::NONE);
+        btnMenuHelp.set_menu_model(menuHelp);
         //==Settings==//
         m_btnSettings.set_icon_name("settings");
         m_btnSettings.set_tooltip_text("Settings");
-
         //==Layout==//
         pack_start(m_btnOpenFolder);
-        pack_end(m_btnMenuHelp);
+        pack_end(btnMenuHelp);
         pack_end(m_btnSettings);
     }
 

@@ -26,8 +26,6 @@ namespace NickvisionApplication::Controls
         std::shared_ptr<Gio::SimpleAction> m_actionReportABug;
         std::shared_ptr<Gio::SimpleAction> m_actionChangelog;
         std::shared_ptr<Gio::SimpleAction> m_actionAbout;
-        std::shared_ptr<Gio::Menu> m_menuHelp;
-        Gtk::MenuButton m_btnMenuHelp;
         Gtk::Button m_btnSettings;
     };
 }
