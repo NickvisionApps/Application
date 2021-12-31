@@ -20,13 +20,18 @@ namespace NickvisionApplication::Controls
 
     private:
         Gtk::Button m_btnOpenFolder;
+        Gtk::Button m_btnSettings;
         std::shared_ptr<Gio::SimpleActionGroup> m_actionHelp;
         std::shared_ptr<Gio::SimpleAction> m_actionCheckForUpdates;
         std::shared_ptr<Gio::SimpleAction> m_actionGitHubRepo;
         std::shared_ptr<Gio::SimpleAction> m_actionReportABug;
         std::shared_ptr<Gio::SimpleAction> m_actionChangelog;
         std::shared_ptr<Gio::SimpleAction> m_actionAbout;
-        Gtk::Button m_btnSettings;
+        std::shared_ptr<Gio::Menu> m_menuHelp;
+        std::shared_ptr<Gio::Menu> m_menuHelpUpdate;
+        std::shared_ptr<Gio::Menu> m_menuHelpLinks;
+        std::shared_ptr<Gio::Menu> m_menuHelpActions;
+        Gtk::MenuButton m_btnHelp;
     };
 }
 

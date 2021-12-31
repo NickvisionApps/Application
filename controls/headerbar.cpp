@@ -7,6 +7,9 @@ namespace NickvisionApplication::Controls
         //==Open Folder==//
         m_btnOpenFolder.set_icon_name("folder-open");
         m_btnOpenFolder.set_tooltip_text("Open Folder");
+        //==Settings==//
+        m_btnSettings.set_icon_name("settings");
+        m_btnSettings.set_tooltip_text("Settings");
         //==Help==//
         m_actionHelp = Gio::SimpleActionGroup::create();
         m_actionCheckForUpdates = m_actionHelp->add_action("checkForUpdates");
@@ -15,28 +18,24 @@ namespace NickvisionApplication::Controls
         m_actionChangelog = m_actionHelp->add_action("changelog");
         m_actionAbout = m_actionHelp->add_action("about");
         insert_action_group("help", m_actionHelp);
-        std::shared_ptr<Gio::Menu> menuHelp = Gio::Menu::create();
-        std::shared_ptr<Gio::Menu> menuHelpUpdate = Gio::Menu::create();
-        menuHelpUpdate->append("Check for Updates", "help.checkForUpdates");
-        std::shared_ptr<Gio::Menu> menuHelpLinks = Gio::Menu::create();
-        menuHelpLinks->append("GitHub Repo", "help.gitHubRepo");
-        menuHelpLinks->append("Report a Bug", "help.reportABug");
-        std::shared_ptr<Gio::Menu> menuHelpActions = Gio::Menu::create();
-        menuHelpActions->append("Changelog", "help.changelog");
-        menuHelpActions->append("About", "help.about");
-        menuHelp->append_section(menuHelpUpdate);
-        menuHelp->append_section(menuHelpLinks);
-        menuHelp->append_section(menuHelpActions);
-        Gtk::MenuButton btnMenuHelp;
-        btnMenuHelp.set_direction(Gtk::ArrowType::NONE);
-        btnMenuHelp.set_menu_model(menuHelp);
-        btnMenuHelp.set_tooltip_text("Help");
-        //==Settings==//
-        m_btnSettings.set_icon_name("settings");
-        m_btnSettings.set_tooltip_text("Settings");
+        m_menuHelp = Gio::Menu::create();
+        m_menuHelpUpdate = Gio::Menu::create();
+        m_menuHelpUpdate->append("Check for Updates", "help.checkForUpdates");
+        m_menuHelpLinks = Gio::Menu::create();
+        m_menuHelpLinks->append("GitHub Repo", "help.gitHubRepo");
+        m_menuHelpLinks->append("Report a Bug", "help.reportABug");
+        m_menuHelpActions = Gio::Menu::create();
+        m_menuHelpActions->append("Changelog", "help.changelog");
+        m_menuHelpActions->append("About", "help.about");
+        m_menuHelp->append_section(m_menuHelpUpdate);
+        m_menuHelp->append_section(m_menuHelpLinks);
+        m_menuHelp->append_section(m_menuHelpActions);
+        m_btnHelp.set_direction(Gtk::ArrowType::NONE);
+        m_btnHelp.set_menu_model(m_menuHelp);
+        m_btnHelp.set_tooltip_text("Help");
         //==Layout==//
         pack_start(m_btnOpenFolder);
-        pack_end(btnMenuHelp);
+        pack_end(m_btnHelp);
         pack_end(m_btnSettings);
     }
 

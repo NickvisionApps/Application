@@ -10,11 +10,11 @@ namespace NickvisionApplication::Controls
            hide();
         });
         //==Layout==//
-        Gtk::Box mainBox(Gtk::Orientation::HORIZONTAL);
+        m_mainBox.set_orientation(Gtk::Orientation::HORIZONTAL);
         m_lblMessage.set_margin_start(6);
-        mainBox.append(m_lblTitle);
-        mainBox.append(m_lblMessage);
-        add_child(mainBox);
+        m_mainBox.append(m_lblTitle);
+        m_mainBox.append(m_lblMessage);
+        add_child(m_mainBox);
         hide();
     }
 

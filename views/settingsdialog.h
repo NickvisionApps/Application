@@ -14,6 +14,9 @@ namespace NickvisionApplication::Views
 
     private:
         NickvisionApplication::Models::Configuration m_configuration;
+        Gtk::ScrolledWindow m_scroll;
+        Gtk::Box m_mainBox;
+        Gtk::Label m_lblGeneral;
         Gtk::CheckButton m_chkIsFirstTimeOpen;
     };
 }

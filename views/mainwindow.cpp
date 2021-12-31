@@ -23,17 +23,18 @@ namespace NickvisionApplication::Views
         m_headerBar.getSignalActivateChangelog().connect(sigc::mem_fun(*this, &MainWindow::changelog));
         m_headerBar.getSignalActivateAbout().connect(sigc::mem_fun(*this, &MainWindow::about));
         //==Name Field==//
-        Gtk::Label lblName("Name", Gtk::Align::START);
-        lblName.set_margin_start(6);
-        lblName.set_margin_top(6);
+        m_lblName.set_label("Name");
+        m_lblName.set_halign(Gtk::Align::START);
+        m_lblName.set_margin_start(6);
+        m_lblName.set_margin_top(6);
         m_txtName.set_margin(6);
         m_txtName.set_placeholder_text("Enter name here");
         //==Layout==//
-        Gtk::Box mainBox(Gtk::Orientation::VERTICAL);
-        mainBox.append(m_infoBar);
-        mainBox.append(lblName);
-        mainBox.append(m_txtName);
-        set_child(mainBox);
+        m_mainBox.set_orientation(Gtk::Orientation::VERTICAL);
+        m_mainBox.append(m_infoBar);
+        m_mainBox.append(m_lblName);
+        m_mainBox.append(m_txtName);
+        set_child(m_mainBox);
         maximize();
         //==Load Config==//
         Configuration configuration;

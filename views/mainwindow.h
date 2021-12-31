@@ -15,7 +15,9 @@ namespace NickvisionApplication::Views
 
     private:
         NickvisionApplication::Controls::HeaderBar m_headerBar;
+        Gtk::Box m_mainBox;
         NickvisionApplication::Controls::InfoBar m_infoBar;
+        Gtk::Label m_lblName;
         Gtk::Entry m_txtName;
         void openFolder();
         void settings();

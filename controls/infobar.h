@@ -13,6 +13,7 @@ namespace NickvisionApplication::Controls
         void showMessage(const std::string& title, const std::string& message, bool closeable = true, Gtk::MessageType messageType = Gtk::MessageType::INFO);
 
     private:
+        Gtk::Box m_mainBox;
         Gtk::Label m_lblTitle;
         Gtk::Label m_lblMessage;
     };
