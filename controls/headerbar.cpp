@@ -30,6 +30,7 @@ namespace NickvisionApplication::Controls
         Gtk::MenuButton btnMenuHelp;
         btnMenuHelp.set_direction(Gtk::ArrowType::NONE);
         btnMenuHelp.set_menu_model(menuHelp);
+        btnMenuHelp.set_tooltip_text("Help");
         //==Settings==//
         m_btnSettings.set_icon_name("settings");
         m_btnSettings.set_tooltip_text("Settings");
