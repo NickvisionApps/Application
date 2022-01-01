@@ -81,7 +81,7 @@ namespace NickvisionApplication::Views
 
     void MainWindow::checkForUpdates(const Glib::VariantBase& args)
     {
-        Updater updater("https://raw.githubusercontent.com/nlogozzo/NickvisionApplication/main/UpdateConfig.json", { "2021.12.0" });
+        Updater updater("https://raw.githubusercontent.com/nlogozzo/NickvisionApplication/main/UpdateConfig.json", { "2022.1.0" });
         m_infoBar.showMessage("Please Wait", "Checking for updates...", false);
         updater.checkForUpdates();
         m_infoBar.hide();
@@ -115,7 +115,6 @@ namespace NickvisionApplication::Views
     {
         Gtk::MessageDialog* changelogDialog = new Gtk::MessageDialog(*this, "What's New?", false, Gtk::MessageType::INFO, Gtk::ButtonsType::OK, true);
         changelogDialog->set_secondary_text("\n- Initial Release");
-        changelogDialog->set_default_size(300, -1);
         changelogDialog->signal_response().connect(sigc::bind([](int response, Gtk::MessageDialog* dialog)
         {
            delete dialog;
@@ -130,9 +129,9 @@ namespace NickvisionApplication::Views
         aboutDialog->set_modal(true);
         aboutDialog->set_hide_on_close(true);
         aboutDialog->set_program_name("NickvisionApplication");
-        aboutDialog->set_version("2021.12.0");
+        aboutDialog->set_version("2022.1.0");
         aboutDialog->set_comments("A template for creating Nickvision applications.");
-        aboutDialog->set_copyright("(C) Nickvision 2021");
+        aboutDialog->set_copyright("(C) Nickvision 2021-2022");
         aboutDialog->set_license_type(Gtk::License::GPL_3_0);
         aboutDialog->set_website("https://github.com/nlogozzo");
         aboutDialog->set_website_label("GitHub");
