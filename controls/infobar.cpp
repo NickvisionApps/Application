@@ -25,6 +25,9 @@ namespace NickvisionApplication::Controls
         set_show_close_button(closeable);
         set_message_type(messageType);
         show();
-        Glib::MainContext::get_default()->iteration(true);
+        while(Glib::MainContext::get_default()->pending())
+        {
+            Glib::MainContext::get_default()->iteration(true);
+        }
     }
 }
