@@ -49,27 +49,27 @@ namespace NickvisionApplication::Controls
         return m_btnSettings;
     }
 
-    std::shared_ptr<Gio::SimpleAction>& HeaderBar::getActionCheckForUpdates()
+    const std::shared_ptr<Gio::SimpleAction>& HeaderBar::getActionCheckForUpdates() const
     {
         return m_actionCheckForUpdates;
     }
 
-    std::shared_ptr<Gio::SimpleAction>& HeaderBar::getActionGitHubRepo()
+    const std::shared_ptr<Gio::SimpleAction>& HeaderBar::getActionGitHubRepo() const
     {
         return m_actionGitHubRepo;
     }
 
-    std::shared_ptr<Gio::SimpleAction>& HeaderBar::getActionReportABug()
+    const std::shared_ptr<Gio::SimpleAction>& HeaderBar::getActionReportABug() const
     {
         return m_actionReportABug;
     }
 
-    std::shared_ptr<Gio::SimpleAction>& HeaderBar::getActionChangelog()
+    const std::shared_ptr<Gio::SimpleAction>& HeaderBar::getActionChangelog() const
     {
         return m_actionChangelog;
     }
 
-    std::shared_ptr<Gio::SimpleAction>& HeaderBar::getActionAbout()
+    const std::shared_ptr<Gio::SimpleAction>& HeaderBar::getActionAbout() const
     {
         return m_actionAbout;
     }

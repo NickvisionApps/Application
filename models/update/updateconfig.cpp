@@ -57,7 +57,7 @@ namespace NickvisionApplication::Models::Update
         return std::nullopt;
     }
 
-    Version UpdateConfig::getLatestVersion() const
+    const Version& UpdateConfig::getLatestVersion() const
     {
         return m_latestVersion;
     }
@@ -67,7 +67,7 @@ namespace NickvisionApplication::Models::Update
         m_latestVersion = latestVersion;
     }
 
-    std::string UpdateConfig::getChangelog() const
+    const std::string& UpdateConfig::getChangelog() const
     {
         return m_changelog;
     }
