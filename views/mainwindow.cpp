@@ -15,13 +15,13 @@ namespace NickvisionApplication::Views
         set_title("NickvisionApplication");
         set_titlebar(m_headerBar);
         //==HeaderBar==//
-        m_headerBar.getSignalClickedOpenFolder().connect(sigc::mem_fun(*this, &MainWindow::openFolder));
-        m_headerBar.getSignalClickedSettings().connect(sigc::mem_fun(*this, &MainWindow::settings));
-        m_headerBar.getSignalActivateCheckForUpdates().connect(sigc::mem_fun(*this, &MainWindow::checkForUpdates));
-        m_headerBar.getSignalActivateGitHubRepo().connect(sigc::mem_fun(*this, &MainWindow::gitHubRepo));
-        m_headerBar.getSignalActivateReportABug().connect(sigc::mem_fun(*this, &MainWindow::reportABug));
-        m_headerBar.getSignalActivateChangelog().connect(sigc::mem_fun(*this, &MainWindow::changelog));
-        m_headerBar.getSignalActivateAbout().connect(sigc::mem_fun(*this, &MainWindow::about));
+        m_headerBar.getBtnOpenFolder().signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::openFolder));
+        m_headerBar.getBtnSettings().signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::settings));
+        m_headerBar.getActionCheckForUpdates()->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::checkForUpdates));
+        m_headerBar.getActionGitHubRepo()->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::gitHubRepo));
+        m_headerBar.getActionReportABug()->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::reportABug));
+        m_headerBar.getActionChangelog()->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::changelog));
+        m_headerBar.getActionAbout()->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::about));
         //==Name Field==//
         m_lblName.set_label("Name");
         m_lblName.set_halign(Gtk::Align::START);

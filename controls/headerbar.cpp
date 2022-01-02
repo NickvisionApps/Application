@@ -39,38 +39,38 @@ namespace NickvisionApplication::Controls
         pack_end(m_btnSettings);
     }
 
-    Glib::SignalProxy<void()> HeaderBar::getSignalClickedOpenFolder()
+    Gtk::Button& HeaderBar::getBtnOpenFolder()
     {
-        return m_btnOpenFolder.signal_clicked();
+        return m_btnOpenFolder;
     }
 
-    Glib::SignalProxy<void()> HeaderBar::getSignalClickedSettings()
+    Gtk::Button& HeaderBar::getBtnSettings()
     {
-        return m_btnSettings.signal_clicked();
+        return m_btnSettings;
     }
 
-    Glib::SignalProxy<void(const Glib::VariantBase&)> HeaderBar::getSignalActivateCheckForUpdates()
+    std::shared_ptr<Gio::SimpleAction>& HeaderBar::getActionCheckForUpdates()
     {
-        return m_actionCheckForUpdates->signal_activate();
+        return m_actionCheckForUpdates;
     }
 
-    Glib::SignalProxy<void(const Glib::VariantBase&)> HeaderBar::getSignalActivateGitHubRepo()
+    std::shared_ptr<Gio::SimpleAction>& HeaderBar::getActionGitHubRepo()
     {
-        return m_actionGitHubRepo->signal_activate();
+        return m_actionGitHubRepo;
     }
 
-    Glib::SignalProxy<void(const Glib::VariantBase&)> HeaderBar::getSignalActivateReportABug()
+    std::shared_ptr<Gio::SimpleAction>& HeaderBar::getActionReportABug()
     {
-        return m_actionReportABug->signal_activate();
+        return m_actionReportABug;
     }
 
-    Glib::SignalProxy<void(const Glib::VariantBase&)> HeaderBar::getSignalActivateChangelog()
+    std::shared_ptr<Gio::SimpleAction>& HeaderBar::getActionChangelog()
     {
-        return m_actionChangelog->signal_activate();
+        return m_actionChangelog;
     }
 
-    Glib::SignalProxy<void(const Glib::VariantBase&)> HeaderBar::getSignalActivateAbout()
+    std::shared_ptr<Gio::SimpleAction>& HeaderBar::getActionAbout()
     {
-        return m_actionAbout->signal_activate();
+        return m_actionAbout;
     }
 }

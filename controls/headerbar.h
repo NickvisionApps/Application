@@ -10,17 +10,20 @@ namespace NickvisionApplication::Controls
     {
     public:
         HeaderBar();
-        Glib::SignalProxy<void()> getSignalClickedOpenFolder();
-        Glib::SignalProxy<void()> getSignalClickedSettings();
-        Glib::SignalProxy<void(const Glib::VariantBase&)> getSignalActivateCheckForUpdates();
-        Glib::SignalProxy<void(const Glib::VariantBase&)> getSignalActivateGitHubRepo();
-        Glib::SignalProxy<void(const Glib::VariantBase&)> getSignalActivateReportABug();
-        Glib::SignalProxy<void(const Glib::VariantBase&)> getSignalActivateChangelog();
-        Glib::SignalProxy<void(const Glib::VariantBase&)> getSignalActivateAbout();
+        Gtk::Button& getBtnOpenFolder();
+        Gtk::Button& getBtnSettings();
+        std::shared_ptr<Gio::SimpleAction>& getActionCheckForUpdates();
+        std::shared_ptr<Gio::SimpleAction>& getActionGitHubRepo();
+        std::shared_ptr<Gio::SimpleAction>& getActionReportABug();
+        std::shared_ptr<Gio::SimpleAction>& getActionChangelog();
+        std::shared_ptr<Gio::SimpleAction>& getActionAbout();
 
     private:
+        //==Open Folder==//
         Gtk::Button m_btnOpenFolder;
+        //==Settings==//
         Gtk::Button m_btnSettings;
+        //==Help==//
         std::shared_ptr<Gio::SimpleActionGroup> m_actionHelp;
         std::shared_ptr<Gio::SimpleAction> m_actionCheckForUpdates;
         std::shared_ptr<Gio::SimpleAction> m_actionGitHubRepo;
