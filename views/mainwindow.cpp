@@ -1,14 +1,15 @@
 #include "mainwindow.h"
 #include "../models/configuration.h"
-#include "../models/update/updater.h"
+#include "../controls/progressdialog.h"
 #include "settingsdialog.h"
 
 namespace NickvisionApplication::Views
 {
     using namespace NickvisionApplication::Models;
     using namespace NickvisionApplication::Models::Update;
+    using namespace NickvisionApplication::Controls;
 
-    MainWindow::MainWindow()
+    MainWindow::MainWindow() : m_updater("https://raw.githubusercontent.com/nlogozzo/NickvisionApplication/main/UpdateConfig.json", { "2022.1.0" })
     {
         //==Settings==//
         set_default_size(800, 600);
@@ -81,24 +82,27 @@ namespace NickvisionApplication::Views
 
     void MainWindow::checkForUpdates(const Glib::VariantBase& args)
     {
-        Updater updater("https://raw.githubusercontent.com/nlogozzo/NickvisionApplication/main/UpdateConfig.json", { "2022.1.0" });
-        m_infoBar.showMessage("Please Wait", "Checking for updates...", false);
-        updater.checkForUpdates();
-        m_infoBar.hide();
-        if(updater.updateAvailable())
+        ProgressDialog* checkingDialog = new ProgressDialog(*this, "Checking for updates...", [&]() { m_updater.checkForUpdates(); });
+        checkingDialog->signal_hide().connect(sigc::bind([&](ProgressDialog* dialog)
         {
-            Gtk::MessageDialog* updateDialog = new Gtk::MessageDialog(*this, "Update Available", false, Gtk::MessageType::INFO, Gtk::ButtonsType::OK, true);
-            updateDialog->set_secondary_text("\n===V" + updater.getLatestVersion()->toString() + " Changelog===\n" + updater.getChangelog() + "\n\nPlease visit the GitHub repo or update through your package manager to get the latest version.");
-            updateDialog->signal_response().connect(sigc::bind([](int response, Gtk::MessageDialog* dialog)
+            delete dialog;
+            m_infoBar.hide();
+            if(m_updater.updateAvailable())
             {
-               delete dialog;
-            }, updateDialog));
-            updateDialog->show();
-        }
-        else
-        {
-            m_infoBar.showMessage("No Update Available", "There is no update at this time. Please check again later.");
-        }
+                Gtk::MessageDialog* updateDialog = new Gtk::MessageDialog(*this, "Update Available", false, Gtk::MessageType::INFO, Gtk::ButtonsType::OK, true);
+                updateDialog->set_secondary_text("\n===V" + m_updater.getLatestVersion()->toString() + " Changelog===\n" + m_updater.getChangelog() + "\n\nPlease visit the GitHub repo or update through your package manager to get the latest version.");
+                updateDialog->signal_response().connect(sigc::bind([](int response, Gtk::MessageDialog* dialog)
+                {
+                    delete dialog;
+                }, updateDialog));
+                updateDialog->show();
+            }
+            else
+            {
+                m_infoBar.showMessage("No Update Available", "There is no update at this time. Please check again later.");
+            }
+        }, checkingDialog));
+        checkingDialog->show();
     }
 
     void MainWindow::gitHubRepo(const Glib::VariantBase& args)

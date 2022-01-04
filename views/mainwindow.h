@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <gtkmm.h>
+#include "../models/update/updater.h"
 #include "../controls/headerbar.h"
 #include "../controls/infobar.h"
 
@@ -14,11 +15,14 @@ namespace NickvisionApplication::Views
         ~MainWindow();
 
     private:
+        NickvisionApplication::Models::Update::Updater m_updater;
+        //==UI==//
         NickvisionApplication::Controls::HeaderBar m_headerBar;
         Gtk::Box m_mainBox;
         NickvisionApplication::Controls::InfoBar m_infoBar;
         Gtk::Label m_lblName;
         Gtk::Entry m_txtName;
+        //==Slots==//
         void openFolder();
         void settings();
         void checkForUpdates(const Glib::VariantBase& args);
