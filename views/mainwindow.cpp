@@ -6,7 +6,6 @@
 namespace NickvisionApplication::Views
 {
     using namespace NickvisionApplication::Models;
-    using namespace NickvisionApplication::Models::Update;
     using namespace NickvisionApplication::Controls;
 
     MainWindow::MainWindow() : m_updater("https://raw.githubusercontent.com/nlogozzo/NickvisionApplication/main/UpdateConfig.json", { "2022.1.0" })
@@ -86,7 +85,6 @@ namespace NickvisionApplication::Views
         checkingDialog->signal_hide().connect(sigc::bind([&](ProgressDialog* dialog)
         {
             delete dialog;
-            m_infoBar.hide();
             if(m_updater.updateAvailable())
             {
                 Gtk::MessageDialog* updateDialog = new Gtk::MessageDialog(*this, "Update Available", false, Gtk::MessageType::INFO, Gtk::ButtonsType::OK, true);
