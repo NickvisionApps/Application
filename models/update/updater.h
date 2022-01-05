@@ -16,6 +16,7 @@ namespace NickvisionApplication::Models::Update
         std::optional<Version> getLatestVersion() const;
         std::string getChangelog() const;
         bool checkForUpdates();
+        bool update();
 
     private:
         std::string m_linkToConfig;

@@ -87,11 +87,26 @@ namespace NickvisionApplication::Views
             delete dialog;
             if(m_updater.updateAvailable())
             {
-                Gtk::MessageDialog* updateDialog = new Gtk::MessageDialog(*this, "Update Available", false, Gtk::MessageType::INFO, Gtk::ButtonsType::OK, true);
-                updateDialog->set_secondary_text("\n===V" + m_updater.getLatestVersion()->toString() + " Changelog===\n" + m_updater.getChangelog() + "\n\nPlease visit the GitHub repo or update through your package manager to get the latest version.");
-                updateDialog->signal_response().connect(sigc::bind([](int response, Gtk::MessageDialog* dialog)
+                Gtk::MessageDialog* updateDialog = new Gtk::MessageDialog(*this, "Update Available", false, Gtk::MessageType::INFO, Gtk::ButtonsType::YES_NO, true);
+                updateDialog->set_secondary_text("\n===V" + m_updater.getLatestVersion()->toString() + " Changelog===\n" + m_updater.getChangelog() + "\n\nNickvisionApplication can automatically download the latest executable to your Downloads directory. Would you like to continue?");
+                updateDialog->signal_response().connect(sigc::bind([&](int response, Gtk::MessageDialog* dialog)
                 {
                     delete dialog;
+                    if(response == Gtk::ResponseType::YES)
+                    {
+                        bool* success = new bool(false);
+                        ProgressDialog* downloadingDialog = new ProgressDialog(*this, "Downloading the update...", [&]() { *success = m_updater.update(); });
+                        downloadingDialog->signal_hide().connect(sigc::bind([&](ProgressDialog* dialog, bool* success)
+                        {
+                            delete dialog;
+                            if(!(*success))
+                            {
+                                m_infoBar.showMessage("Error", "Unable to download the executable. Please try again. If the issue continues, file a bug report.");
+                            }
+                            delete success;
+                        }, downloadingDialog, success));
+                        downloadingDialog->show();
+                    }
                 }, updateDialog));
                 updateDialog->show();
             }
