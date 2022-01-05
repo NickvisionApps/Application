@@ -15,6 +15,7 @@ namespace NickvisionApplication::Views
         ~MainWindow();
 
     private:
+        bool m_opened;
         NickvisionApplication::Models::Update::Updater m_updater;
         //==UI==//
         NickvisionApplication::Controls::HeaderBar m_headerBar;
@@ -23,6 +24,7 @@ namespace NickvisionApplication::Views
         Gtk::Label m_lblName;
         Gtk::Entry m_txtName;
         //==Slots==//
+        void onShow();
         void openFolder();
         void settings();
         void checkForUpdates(const Glib::VariantBase& args);

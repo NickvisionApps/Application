@@ -8,12 +8,13 @@ namespace NickvisionApplication::Views
     using namespace NickvisionApplication::Models;
     using namespace NickvisionApplication::Controls;
 
-    MainWindow::MainWindow() : m_updater("https://raw.githubusercontent.com/nlogozzo/NickvisionApplication/main/UpdateConfig.json", { "2022.1.0" })
+    MainWindow::MainWindow() : m_opened(false), m_updater("https://raw.githubusercontent.com/nlogozzo/NickvisionApplication/main/UpdateConfig.json", { "2022.1.0" })
     {
         //==Settings==//
         set_default_size(800, 600);
         set_title("NickvisionApplication");
         set_titlebar(m_headerBar);
+        signal_show().connect(sigc::mem_fun(*this, &MainWindow::onShow));
         //==HeaderBar==//
         m_headerBar.getBtnOpenFolder().signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::openFolder));
         m_headerBar.getBtnSettings().signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::settings));
@@ -36,13 +37,6 @@ namespace NickvisionApplication::Views
         m_mainBox.append(m_txtName);
         set_child(m_mainBox);
         maximize();
-        //==Load Config==//
-        Configuration configuration;
-        if(configuration.isFirstTimeOpen())
-        {
-            configuration.setIsFirstTimeOpen(false);
-        }
-        configuration.save();
     }
 
     MainWindow::~MainWindow()
@@ -50,6 +44,21 @@ namespace NickvisionApplication::Views
         //==Save Config==//
         Configuration configuration;
         configuration.save();
+    }
+
+    void MainWindow::onShow()
+    {
+        if(!m_opened)
+        {
+            m_opened = true;
+            //==Load Config==//
+            Configuration configuration;
+            if(configuration.isFirstTimeOpen())
+            {
+                configuration.setIsFirstTimeOpen(false);
+            }
+            configuration.save();
+        }
     }
 
     void MainWindow::openFolder()
