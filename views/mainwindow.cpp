@@ -108,7 +108,11 @@ namespace NickvisionApplication::Views
                         downloadingDialog->signal_hide().connect(sigc::bind([&](ProgressDialog* dialog, bool* success)
                         {
                             delete dialog;
-                            if(!(*success))
+                            if(*success)
+                            {
+                                m_infoBar.showMessage("Download Successful", "We recommend moving the new version out of your Downloads directory and running it from elsewhere to allow future updates to download smoothly.");
+                            }
+                            else
                             {
                                 m_infoBar.showMessage("Error", "Unable to download the executable. Please try again. If the issue continues, file a bug report.");
                             }
