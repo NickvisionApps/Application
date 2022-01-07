@@ -133,12 +133,12 @@ namespace NickvisionApplication::Views
 
     void MainWindow::gitHubRepo(const Glib::VariantBase& args)
     {
-        system("xdg-open https://github.com/nlogozzo/NickvisionApplication");
+        Gio::AppInfo::launch_default_for_uri("https://github.com/nlogozzo/NickvisionApplication");
     }
 
     void MainWindow::reportABug(const Glib::VariantBase& args)
     {
-        system("xdg-open https://github.com/nlogozzo/NickvisionApplication/issues/new");
+        Gio::AppInfo::launch_default_for_uri("https://github.com/nlogozzo/NickvisionApplication/issues/new");
     }
 
     void MainWindow::changelog(const Glib::VariantBase& args)
