@@ -8,7 +8,7 @@ namespace NickvisionApplication::Controls
         m_btnOpenFolder.set_icon_name("folder-open");
         m_btnOpenFolder.set_tooltip_text("Open Folder");
         //==Settings==//
-        m_btnSettings.set_icon_name("settings");
+        m_btnSettings.set_icon_name("preferences-system");
         m_btnSettings.set_tooltip_text("Settings");
         //==Help==//
         m_actionHelp = Gio::SimpleActionGroup::create();
