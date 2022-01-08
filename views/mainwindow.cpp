@@ -12,8 +12,8 @@ namespace NickvisionApplication::Views
     {
         //==Settings==//
         set_default_size(800, 600);
-        set_title("NickvisionApplication");
         set_titlebar(m_headerBar);
+        m_headerBar.setTitle("NickvisionApplication");
         signal_show().connect(sigc::mem_fun(*this, &MainWindow::onShow));
         //==HeaderBar==//
         m_headerBar.getBtnOpenFolder().signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::openFolder));
@@ -71,7 +71,7 @@ namespace NickvisionApplication::Views
         {
             if(response == Gtk::ResponseType::OK)
             {
-                set_title("NickvisionApplication (" + dialog->get_file()->get_path() + ")");
+                m_headerBar.setSubtitle(dialog->get_file()->get_path());
             }
             delete dialog;
         }, folderDialog));

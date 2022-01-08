@@ -10,6 +10,8 @@ namespace NickvisionApplication::Controls
     {
     public:
         HeaderBar();
+        void setTitle(const std::string& title);
+        void setSubtitle(const std::string& subtitle);
         Gtk::Button& getBtnOpenFolder();
         const std::shared_ptr<Gio::SimpleAction>& getActionCheckForUpdates() const;
         const std::shared_ptr<Gio::SimpleAction>& getActionGitHubRepo() const;
@@ -19,6 +21,10 @@ namespace NickvisionApplication::Controls
         const std::shared_ptr<Gio::SimpleAction>& getActionAbout() const;
 
     private:
+        //==Title Widget==//
+        Gtk::Box m_boxTitle;
+        Gtk::Label m_lblTitle;
+        Gtk::Label m_lblSubtitle;
         //==Open Folder==//
         Gtk::Button m_btnOpenFolder;
         //==Help==//

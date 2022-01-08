@@ -4,6 +4,13 @@ namespace NickvisionApplication::Controls
 {
     HeaderBar::HeaderBar()
     {
+        //==Title==//
+        m_boxTitle.set_orientation(Gtk::Orientation::VERTICAL);
+        m_boxTitle.set_halign(Gtk::Align::CENTER);
+        m_boxTitle.set_valign(Gtk::Align::CENTER);
+        m_lblTitle.get_style_context()->add_class("title");
+        m_lblSubtitle.get_style_context()->add_class("subtitle");
+        m_boxTitle.append(m_lblTitle);
         //==Open Folder==//
         m_btnOpenFolder.set_icon_name("folder-open");
         m_btnOpenFolder.set_tooltip_text("Open Folder");
@@ -33,8 +40,24 @@ namespace NickvisionApplication::Controls
         m_btnHelp.set_menu_model(m_menuHelp);
         m_btnHelp.set_tooltip_text("Help");
         //==Layout==//
+        set_title_widget(m_boxTitle);
         pack_start(m_btnOpenFolder);
         pack_end(m_btnHelp);
+    }
+
+    void HeaderBar::setTitle(const std::string& title)
+    {
+        m_lblTitle.set_text(title);
+    }
+
+    void HeaderBar::setSubtitle(const std::string& subtitle)
+    {
+        m_boxTitle.remove(m_lblSubtitle);
+        if(!subtitle.empty())
+        {
+            m_boxTitle.append(m_lblSubtitle);
+            m_lblSubtitle.set_text(subtitle);
+        }
     }
 
     Gtk::Button& HeaderBar::getBtnOpenFolder()
