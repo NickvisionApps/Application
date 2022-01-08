@@ -18,6 +18,7 @@ namespace NickvisionApplication::Views
         m_listGeneral.set_margin_start(20);
         m_listGeneral.set_margin_end(20);
         m_chkIsFirstTimeOpen.set_label("Is First Time Open");
+        m_chkIsFirstTimeOpen.set_tooltip_text("If checked, Application will ...");
         m_listGeneral.append(m_chkIsFirstTimeOpen);
         //==Layout==//
         m_mainBox.set_orientation(Gtk::Orientation::VERTICAL);

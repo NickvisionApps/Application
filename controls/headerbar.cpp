@@ -7,14 +7,12 @@ namespace NickvisionApplication::Controls
         //==Open Folder==//
         m_btnOpenFolder.set_icon_name("folder-open");
         m_btnOpenFolder.set_tooltip_text("Open Folder");
-        //==Settings==//
-        m_btnSettings.set_icon_name("preferences-system");
-        m_btnSettings.set_tooltip_text("Settings");
         //==Help==//
         m_actionHelp = Gio::SimpleActionGroup::create();
         m_actionCheckForUpdates = m_actionHelp->add_action("checkForUpdates");
         m_actionGitHubRepo = m_actionHelp->add_action("gitHubRepo");
         m_actionReportABug = m_actionHelp->add_action("reportABug");
+        m_actionSettings = m_actionHelp->add_action("settings");
         m_actionChangelog = m_actionHelp->add_action("changelog");
         m_actionAbout = m_actionHelp->add_action("about");
         insert_action_group("help", m_actionHelp);
@@ -25,8 +23,9 @@ namespace NickvisionApplication::Controls
         m_menuHelpLinks->append("GitHub Repo", "help.gitHubRepo");
         m_menuHelpLinks->append("Report a Bug", "help.reportABug");
         m_menuHelpActions = Gio::Menu::create();
+        m_menuHelpActions->append("Preferences", "help.settings");
         m_menuHelpActions->append("Changelog", "help.changelog");
-        m_menuHelpActions->append("About", "help.about");
+        m_menuHelpActions->append("About Application", "help.about");
         m_menuHelp->append_section(m_menuHelpUpdate);
         m_menuHelp->append_section(m_menuHelpLinks);
         m_menuHelp->append_section(m_menuHelpActions);
@@ -36,17 +35,11 @@ namespace NickvisionApplication::Controls
         //==Layout==//
         pack_start(m_btnOpenFolder);
         pack_end(m_btnHelp);
-        pack_end(m_btnSettings);
     }
 
     Gtk::Button& HeaderBar::getBtnOpenFolder()
     {
         return m_btnOpenFolder;
-    }
-
-    Gtk::Button& HeaderBar::getBtnSettings()
-    {
-        return m_btnSettings;
     }
 
     const std::shared_ptr<Gio::SimpleAction>& HeaderBar::getActionCheckForUpdates() const
@@ -62,6 +55,11 @@ namespace NickvisionApplication::Controls
     const std::shared_ptr<Gio::SimpleAction>& HeaderBar::getActionReportABug() const
     {
         return m_actionReportABug;
+    }
+
+    const std::shared_ptr<Gio::SimpleAction>& HeaderBar::getActionSettings() const
+    {
+        return m_actionSettings;
     }
 
     const std::shared_ptr<Gio::SimpleAction>& HeaderBar::getActionChangelog() const

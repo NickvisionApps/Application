@@ -11,23 +11,22 @@ namespace NickvisionApplication::Controls
     public:
         HeaderBar();
         Gtk::Button& getBtnOpenFolder();
-        Gtk::Button& getBtnSettings();
         const std::shared_ptr<Gio::SimpleAction>& getActionCheckForUpdates() const;
         const std::shared_ptr<Gio::SimpleAction>& getActionGitHubRepo() const;
         const std::shared_ptr<Gio::SimpleAction>& getActionReportABug() const;
+        const std::shared_ptr<Gio::SimpleAction>& getActionSettings() const;
         const std::shared_ptr<Gio::SimpleAction>& getActionChangelog() const;
         const std::shared_ptr<Gio::SimpleAction>& getActionAbout() const;
 
     private:
         //==Open Folder==//
         Gtk::Button m_btnOpenFolder;
-        //==Settings==//
-        Gtk::Button m_btnSettings;
         //==Help==//
         std::shared_ptr<Gio::SimpleActionGroup> m_actionHelp;
         std::shared_ptr<Gio::SimpleAction> m_actionCheckForUpdates;
         std::shared_ptr<Gio::SimpleAction> m_actionGitHubRepo;
         std::shared_ptr<Gio::SimpleAction> m_actionReportABug;
+        std::shared_ptr<Gio::SimpleAction> m_actionSettings;
         std::shared_ptr<Gio::SimpleAction> m_actionChangelog;
         std::shared_ptr<Gio::SimpleAction> m_actionAbout;
         std::shared_ptr<Gio::Menu> m_menuHelp;

@@ -17,10 +17,10 @@ namespace NickvisionApplication::Views
         signal_show().connect(sigc::mem_fun(*this, &MainWindow::onShow));
         //==HeaderBar==//
         m_headerBar.getBtnOpenFolder().signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::openFolder));
-        m_headerBar.getBtnSettings().signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::settings));
         m_headerBar.getActionCheckForUpdates()->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::checkForUpdates));
         m_headerBar.getActionGitHubRepo()->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::gitHubRepo));
         m_headerBar.getActionReportABug()->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::reportABug));
+        m_headerBar.getActionSettings()->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::settings));
         m_headerBar.getActionChangelog()->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::changelog));
         m_headerBar.getActionAbout()->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::about));
         //==Name Field==//
@@ -78,16 +78,6 @@ namespace NickvisionApplication::Views
         folderDialog->show();
     }
 
-    void MainWindow::settings()
-    {
-        SettingsDialog* settingsDialog = new SettingsDialog(*this);
-        settingsDialog->signal_hide().connect(sigc::bind([](SettingsDialog* dialog)
-        {
-            delete dialog;
-        }, settingsDialog));
-        settingsDialog->show();
-    }
-
     void MainWindow::checkForUpdates(const Glib::VariantBase& args)
     {
         ProgressDialog* checkingDialog = new ProgressDialog(*this, "Checking for updates...", [&]() { m_updater.checkForUpdates(); });
@@ -139,6 +129,16 @@ namespace NickvisionApplication::Views
     void MainWindow::reportABug(const Glib::VariantBase& args)
     {
         Gio::AppInfo::launch_default_for_uri("https://github.com/nlogozzo/NickvisionApplication/issues/new");
+    }
+
+    void MainWindow::settings(const Glib::VariantBase& args)
+    {
+        SettingsDialog* settingsDialog = new SettingsDialog(*this);
+        settingsDialog->signal_hide().connect(sigc::bind([](SettingsDialog* dialog)
+        {
+            delete dialog;
+        }, settingsDialog));
+        settingsDialog->show();
     }
 
     void MainWindow::changelog(const Glib::VariantBase& args)
