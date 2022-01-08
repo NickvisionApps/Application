@@ -30,7 +30,7 @@ namespace NickvisionApplication::Controls
         m_menuHelpLinks->append("GitHub Repo", "help.gitHubRepo");
         m_menuHelpLinks->append("Report a Bug", "help.reportABug");
         m_menuHelpActions = Gio::Menu::create();
-        m_menuHelpActions->append("Preferences", "help.settings");
+        m_menuHelpActions->append("Settings", "help.settings");
         m_menuHelpActions->append("Changelog", "help.changelog");
         m_menuHelpActions->append("About Application", "help.about");
         m_menuHelp->append_section(m_menuHelpUpdate);
