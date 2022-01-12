@@ -65,7 +65,8 @@ namespace NickvisionApplication::Views
     {
         Gtk::FileChooserDialog* folderDialog = new Gtk::FileChooserDialog(*this, "Select Folder", Gtk::FileChooserDialog::Action::SELECT_FOLDER, true);
         folderDialog->set_modal(true);
-        folderDialog->add_button("_Select", Gtk::ResponseType::OK);
+        Gtk::Button* btnSave = folderDialog->add_button("_Select", Gtk::ResponseType::OK);
+        btnSave->get_style_context()->add_class("suggested-action");
         folderDialog->add_button("_Cancel", Gtk::ResponseType::CANCEL);
         folderDialog->signal_response().connect(sigc::bind([&](int response, Gtk::FileChooserDialog* dialog)
         {
