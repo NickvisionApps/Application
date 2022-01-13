@@ -21,6 +21,9 @@ namespace NickvisionApplication::Views
         m_chkIsFirstTimeOpen.set_tooltip_text("If checked, Application will ...");
         m_listGeneral.append(m_chkIsFirstTimeOpen);
         //==Layout==//
+        Gtk::Button* btnSave = add_button("Save", Gtk::ResponseType::CLOSE);
+        btnSave->get_style_context()->add_class("suggested-action");
+        btnSave->signal_clicked().connect(sigc::mem_fun(*this, &Gtk::Dialog::hide));
         m_mainBox.set_orientation(Gtk::Orientation::VERTICAL);
         m_mainBox.append(m_lblGeneral);
         m_mainBox.append(m_listGeneral);
