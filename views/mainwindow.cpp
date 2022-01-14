@@ -2,6 +2,7 @@
 #include "../models/configuration.h"
 #include "../controls/progressdialog.h"
 #include "settingsdialog.h"
+#include "shortcutswindow.h"
 
 namespace NickvisionApplication::Views
 {
@@ -21,6 +22,7 @@ namespace NickvisionApplication::Views
         m_headerBar.getActionGitHubRepo()->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::gitHubRepo));
         m_headerBar.getActionReportABug()->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::reportABug));
         m_headerBar.getActionSettings()->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::settings));
+        m_headerBar.getActionShortcuts()->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::shortcuts));
         m_headerBar.getActionChangelog()->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::changelog));
         m_headerBar.getActionAbout()->signal_activate().connect(sigc::mem_fun(*this, &MainWindow::about));
         //==Name Field==//
@@ -30,6 +32,28 @@ namespace NickvisionApplication::Views
         m_lblName.set_margin_top(6);
         m_txtName.set_margin(6);
         m_txtName.set_placeholder_text("Enter name here");
+        //==Shortcuts==//
+        m_shortcutController = Gtk::ShortcutController::create();
+        m_shortcutController->set_scope(Gtk::ShortcutScope::GLOBAL);
+        //Open
+        m_shortcutOpenFolderTrigger = Gtk::KeyvalTrigger::create(GDK_KEY_O, Gdk::ModifierType::CONTROL_MASK);
+        m_shortcutOpenFolderAction = Gtk::CallbackAction::create([&](Gtk::Widget& widget, const Glib::VariantBase& args)
+        {
+            openFolder();
+            return true;
+        });
+        m_shortcutOpenFolder = Gtk::Shortcut::create(m_shortcutOpenFolderTrigger, m_shortcutOpenFolderAction);
+        m_shortcutController->add_shortcut(m_shortcutOpenFolder);
+        //About
+        m_shortcutAboutTrigger = Gtk::KeyvalTrigger::create(GDK_KEY_F1);
+        m_shortcutAboutAction = Gtk::CallbackAction::create([&](Gtk::Widget& widget, const Glib::VariantBase& args)
+        {
+            about(args);
+            return true;
+        });
+        m_shortcutAbout = Gtk::Shortcut::create(m_shortcutAboutTrigger, m_shortcutAboutAction);
+        m_shortcutController->add_shortcut(m_shortcutAbout);
+        add_controller(m_shortcutController);
         //==Layout==//
         m_mainBox.set_orientation(Gtk::Orientation::VERTICAL);
         m_mainBox.append(m_infoBar);
@@ -140,6 +164,16 @@ namespace NickvisionApplication::Views
             delete dialog;
         }, settingsDialog));
         settingsDialog->show();
+    }
+
+    void MainWindow::shortcuts(const Glib::VariantBase& args)
+    {
+        ShortcutsWindow* shortcutsWindow = new ShortcutsWindow(*this);
+        shortcutsWindow->signal_hide().connect(sigc::bind([](ShortcutsWindow* window)
+        {
+            delete window;
+        }, shortcutsWindow));
+        shortcutsWindow->show();
     }
 
     void MainWindow::changelog(const Glib::VariantBase& args)
