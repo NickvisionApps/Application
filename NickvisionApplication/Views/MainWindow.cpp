@@ -18,6 +18,7 @@ namespace NickvisionApplication::Views
 		m_isLightTheme = configuration.PreferLightTheme();
 		//==Window Settings==//
 		Maximize();
+		Connect(IDs::WINDOW, wxEVT_CLOSE_WINDOW, wxCloseEventHandler(MainWindow::OnClose));
 		//==Menu==//
 		m_menuBar = new wxMenuBar();
 		//File
@@ -116,11 +117,13 @@ namespace NickvisionApplication::Views
 		}
 	}
 
-	MainWindow::~MainWindow()
+	void MainWindow::OnClose(wxCloseEvent& WXUNUSED(event))
 	{
 		//==Save Config==//
 		Configuration configuration;
 		configuration.Save();
+		//==Finish==//
+		Destroy();
 	}
 
 	void MainWindow::NewFile(wxCommandEvent& WXUNUSED(event))
@@ -156,6 +159,11 @@ namespace NickvisionApplication::Views
 	{
 		SettingsDialog settingsDialog(this, m_isLightTheme);
 		settingsDialog.ShowModal();
+		Configuration configuration;
+		if (configuration.PreferLightTheme() != m_isLightTheme)
+		{
+			m_infoBar->ShowMessage("An application restart is required to apply a theme change.", wxICON_WARNING);
+		}
 	}
 
 	void MainWindow::CheckForUpdates(wxCommandEvent& WXUNUSED(event))

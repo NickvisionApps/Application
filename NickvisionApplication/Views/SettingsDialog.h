@@ -10,7 +10,6 @@ namespace NickvisionApplication::Views
 	{
 	public:
 		SettingsDialog(wxWindow* parent, bool isLightTheme);
-		~SettingsDialog();
 
 	private:
 		enum IDs
@@ -43,6 +42,7 @@ namespace NickvisionApplication::Views
 		wxPanel* m_pageApp = nullptr;
 		wxBoxSizer* m_boxApp = nullptr;
 		//==Slots==//
+		void OnClose(wxCloseEvent& event);
 		void TreeSelectionChanged(wxTreeEvent& event);
 	};
 }

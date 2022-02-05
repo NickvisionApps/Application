@@ -7,6 +7,7 @@ namespace NickvisionApplication::Views
 	{
 		//==Window Settings==//
 		CenterOnParent();
+		Connect(IDs::DIALOG, wxEVT_CLOSE_WINDOW, wxCloseEventHandler(SettingsDialog::OnClose));
 		//==Tree==//
 		m_mainTree = new wxTreeCtrl(this, IDs::TREE);
 		m_mainTree->SetMaxSize({ 200, -1 });
@@ -60,10 +61,13 @@ namespace NickvisionApplication::Views
 		m_chkPreferLightTheme->SetValue(m_configuration.PreferLightTheme());
 	}
 
-	SettingsDialog::~SettingsDialog()
+	void SettingsDialog::OnClose(wxCloseEvent& WXUNUSED(event))
 	{
+		//==Save Config==//
 		m_configuration.SetPreferLightTheme(m_chkPreferLightTheme->GetValue());
 		m_configuration.Save();
+		//==Finish==//
+		Destroy();
 	}
 
 	void SettingsDialog::TreeSelectionChanged(wxTreeEvent& event)

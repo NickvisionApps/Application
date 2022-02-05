@@ -10,7 +10,6 @@ namespace NickvisionApplication::Views
 	{
 	public:
 		MainWindow();
-		~MainWindow();
 
 	private:
 		enum IDs
@@ -54,6 +53,7 @@ namespace NickvisionApplication::Views
 		wxStaticText* m_lblLastName = nullptr;
 		wxTextCtrl* m_txtLastName = nullptr;
 		//==Slots==//
+		void OnClose(wxCloseEvent& event);
 		void NewFile(wxCommandEvent& event);
 		void OpenFile(wxCommandEvent& event);
 		void Exit(wxCommandEvent& event);
