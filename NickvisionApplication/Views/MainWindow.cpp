@@ -162,7 +162,7 @@ namespace NickvisionApplication::Views
 		Configuration configuration;
 		if (configuration.PreferLightTheme() != m_isLightTheme)
 		{
-			m_infoBar->ShowMessage("An application restart is required to apply a theme change.", wxICON_WARNING);
+			m_infoBar->ShowMessage("Please restart the application to apply the theme change.", wxICON_WARNING);
 		}
 	}
 
