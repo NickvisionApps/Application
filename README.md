@@ -2,6 +2,6 @@
  A template for creating Nickvision applications
  
  # Dependencies
-- [gtkmm 4](https://gtkmm.org/en/)
+- [wxwidgets](https://www.wxwidgets.org/)
 - [curlpp](http://www.curlpp.org/)
 - [jsoncpp](https://github.com/open-source-parsers/jsoncpp)

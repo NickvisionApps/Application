@@ -1,5 +1,4 @@
-#ifndef VERSION_H
-#define VERSION_H
+#pragma once
 
 #include <string>
 
@@ -9,7 +8,7 @@ namespace NickvisionApplication::Models::Update
     {
     public:
         Version(const std::string& version);
-        std::string toString() const;
+        std::string ToString() const;
         bool operator<(const Version& toCompare) const;
         bool operator==(const Version& toCompare) const;
         bool operator!=(const Version& toCompare) const;
@@ -22,4 +21,4 @@ namespace NickvisionApplication::Models::Update
     };
 }
 
-#endif // VERSION_H
+

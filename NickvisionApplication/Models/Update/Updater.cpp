@@ -1,10 +1,6 @@
-#include "updater.h"
+#include "Updater.h"
 #include <filesystem>
 #include <fstream>
-#include <unistd.h>
-#include <pwd.h>
-#include <sys/types.h>
-#include <sys/stat.h>
 #include <curlpp/cURLpp.hpp>
 #include <curlpp/Easy.hpp>
 #include <curlpp/Options.hpp>
@@ -16,59 +12,54 @@ namespace NickvisionApplication::Models::Update
 
     }
 
-    bool Updater::updateAvailable() const
+    bool Updater::UpdateAvailable() const
     {
         return m_updateAvailable && m_updateConfig.has_value();
     }
 
-    std::optional<Version> Updater::getLatestVersion() const
+    std::optional<Version> Updater::GetLatestVersion() const
     {
         if (m_updateConfig.has_value())
         {
-            return m_updateConfig->getLatestVersion();
+            return m_updateConfig->GetLatestVersion();
         }
         return std::nullopt;
     }
 
-    std::string Updater::getChangelog() const
+    std::string Updater::GetChangelog() const
     {
-        return m_updateConfig.has_value() ? m_updateConfig->getChangelog() : "";
+        return m_updateConfig.has_value() ? m_updateConfig->GetChangelog() : "";
     }
 
-    bool Updater::checkForUpdates()
+    bool Updater::CheckForUpdates()
     {
-        m_updateConfig = UpdateConfig::loadFromUrl(m_linkToConfig);
-        if (m_updateConfig.has_value() && m_updateConfig->getLatestVersion() > m_currentVersion)
+        m_updateConfig = UpdateConfig::LoadFromUrl(m_linkToConfig);
+        if (m_updateConfig.has_value() && m_updateConfig->GetLatestVersion() > m_currentVersion)
         {
             m_updateAvailable = true;
         }
-        return updateAvailable();
+        return UpdateAvailable();
     }
 
-    bool Updater::update()
+    bool Updater::Update(wxFrame* mainWindow)
     {
-        if(!updateAvailable())
+        if (!UpdateAvailable())
         {
             return false;
         }
-        std::string downloadsDir = std::string(getpwuid(getuid())->pw_dir) + "/Downloads";
-        if(std::filesystem::exists(downloadsDir))
-        {
-            std::filesystem::create_directories(downloadsDir);
-        }
-        std::string exePath = downloadsDir + "/NickvisionApplication";
+        std::string exePath = std::string(getenv("APPDATA")) + "\\Nickvision\\NickvisionApplication\\Setup.exe";
         std::ofstream exeFile(exePath, std::ios::out | std::ios::trunc | std::ios::binary);
-        if(exeFile.is_open())
+        if (exeFile.is_open())
         {
             cURLpp::Easy handle;
             try
             {
-                handle.setOpt(cURLpp::Options::Url(m_updateConfig->getLinkToExe()));
+                handle.setOpt(cURLpp::Options::Url(m_updateConfig->GetLinkToExe()));
                 handle.setOpt(cURLpp::Options::FollowLocation(true));
                 handle.setOpt(cURLpp::Options::WriteStream(&exeFile));
                 handle.perform();
             }
-            catch(...)
+            catch (...)
             {
                 return false;
             }
@@ -78,7 +69,8 @@ namespace NickvisionApplication::Models::Update
         {
             return false;
         }
-        chmod(exePath.c_str(), S_IRWXU);
+        wxExecute(exePath, wxEXEC_ASYNC | wxEXEC_HIDE_CONSOLE);
+        mainWindow->Close();
         return true;
     }
 }

@@ -1,7 +1,5 @@
-#include "updateconfig.h"
+#include "UpdateConfig.h"
 #include <fstream>
-#include <unistd.h>
-#include <pwd.h>
 #include <curlpp/cURLpp.hpp>
 #include <curlpp/Easy.hpp>
 #include <curlpp/Options.hpp>
@@ -14,10 +12,10 @@ namespace NickvisionApplication::Models::Update
 
     }
 
-    std::optional<UpdateConfig> UpdateConfig::loadFromUrl(const std::string& url)
+    std::optional<UpdateConfig> UpdateConfig::LoadFromUrl(const std::string& url)
     {
         cURLpp::Cleanup curlCleanup;
-        std::string configFilePath = std::string(getpwuid(getuid())->pw_dir) + "/.config/Nickvision/NickvisionApplication/UpdateConfig.json";
+        std::string configFilePath = std::string(getenv("APPDATA")) + "\\Nickvision\\NickvisionApplication\\UpdateConfig.json";
         std::ofstream updateConfigFileOut(configFilePath);
         if (updateConfigFileOut.is_open())
         {
@@ -25,10 +23,11 @@ namespace NickvisionApplication::Models::Update
             try
             {
                 handle.setOpt(cURLpp::Options::Url(url));
+                handle.setOpt(cURLpp::Options::FollowLocation(true));
                 handle.setOpt(cURLpp::Options::WriteStream(&updateConfigFileOut));
                 handle.perform();
             }
-            catch(...)
+            catch (...)
             {
                 return std::nullopt;
             }
@@ -46,9 +45,9 @@ namespace NickvisionApplication::Models::Update
             try
             {
                 updateConfigFileIn >> json;
-                updateConfig.setLatestVersion({ json.get("LatestVersion", "0.0.0").asString() });
-                updateConfig.setChangelog(json.get("Changelog", "").asString());
-                updateConfig.setLinkToExe(json.get("LinkToExe", "").asString());
+                updateConfig.SetLatestVersion({ json.get("LatestVersion", "0.0.0").asString() });
+                updateConfig.SetChangelog(json.get("Changelog", "").asString());
+                updateConfig.SetLinkToExe(json.get("LinkToExe", "").asString());
             }
             catch (...)
             {
@@ -62,32 +61,32 @@ namespace NickvisionApplication::Models::Update
         }
     }
 
-    const Version& UpdateConfig::getLatestVersion() const
+    const Version& UpdateConfig::GetLatestVersion() const
     {
         return m_latestVersion;
     }
 
-    void UpdateConfig::setLatestVersion(const Version& latestVersion)
+    void UpdateConfig::SetLatestVersion(const Version& latestVersion)
     {
         m_latestVersion = latestVersion;
     }
 
-    const std::string& UpdateConfig::getChangelog() const
+    const std::string& UpdateConfig::GetChangelog() const
     {
         return m_changelog;
     }
 
-    void UpdateConfig::setChangelog(const std::string& changelog)
+    void UpdateConfig::SetChangelog(const std::string& changelog)
     {
         m_changelog = changelog;
     }
 
-    const std::string& UpdateConfig::getLinkToExe() const
+    const std::string& UpdateConfig::GetLinkToExe() const
     {
         return m_linkToExe;
     }
 
-    void UpdateConfig::setLinkToExe(const std::string& linkToExe)
+    void UpdateConfig::SetLinkToExe(const std::string& linkToExe)
     {
         m_linkToExe = linkToExe;
     }

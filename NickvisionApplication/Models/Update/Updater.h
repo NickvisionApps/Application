@@ -1,10 +1,10 @@
-#ifndef UPDATER_H
-#define UPDATER_H
+#pragma once
 
 #include <string>
 #include <optional>
-#include "version.h"
-#include "updateconfig.h"
+#include <wx/wx.h>
+#include "Version.h"
+#include "UpdateConfig.h"
 
 namespace NickvisionApplication::Models::Update
 {
@@ -12,11 +12,11 @@ namespace NickvisionApplication::Models::Update
     {
     public:
         Updater(const std::string& linkToConfig, const Version& currentVersion);
-        bool updateAvailable() const;
-        std::optional<Version> getLatestVersion() const;
-        std::string getChangelog() const;
-        bool checkForUpdates();
-        bool update();
+        bool UpdateAvailable() const;
+        std::optional<Version> GetLatestVersion() const;
+        std::string GetChangelog() const;
+        bool CheckForUpdates();
+        bool Update(wxFrame* mainWindow);
 
     private:
         std::string m_linkToConfig;
@@ -26,5 +26,3 @@ namespace NickvisionApplication::Models::Update
     };
 }
 
-
-#endif // UPDATER_H

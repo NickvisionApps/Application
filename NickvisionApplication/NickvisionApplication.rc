@@ -1,0 +1,5 @@
+#include "resource.h"
+
+OPENED_FOLDER RCDATA "Resources/OpenedFolder.png"
+SETTINGS RCDATA "Resources/Settings.png"
+CHECK_FOR_UPDATES RCDATA "Resources/CheckForUpdates.png"

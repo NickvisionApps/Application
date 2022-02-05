@@ -1,4 +1,4 @@
-#include "version.h"
+#include "Version.h"
 #include <stdexcept>
 
 namespace NickvisionApplication::Models::Update
@@ -12,7 +12,7 @@ namespace NickvisionApplication::Models::Update
         }
     }
 
-    std::string Version::toString() const
+    std::string Version::ToString() const
     {
         return std::to_string(m_major) + "." + std::to_string(m_minor) + "." + std::to_string(m_build);
     }
