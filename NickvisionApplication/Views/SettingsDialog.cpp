@@ -3,7 +3,7 @@
 
 namespace NickvisionApplication::Views
 {
-	SettingsDialog::SettingsDialog(wxWindow* parent, bool isLightTheme) : wxDialog(parent, IDs::DIALOG, "Settings", wxDefaultPosition, { 600, 500 })
+	SettingsDialog::SettingsDialog(wxWindow* parent, bool isLightTheme) : wxDialog(parent, IDs::DIALOG, _("Settings"), wxDefaultPosition, { 600, 500 })
 	{
 		//==Window Settings==//
 		CenterOnParent();
@@ -11,21 +11,21 @@ namespace NickvisionApplication::Views
 		//==Tree==//
 		m_mainTree = new wxTreeCtrl(this, IDs::TREE);
 		m_mainTree->SetMaxSize({ 200, -1 });
-		m_treeNodeRoot = m_mainTree->AddRoot("Settings");
-		m_treeNodeUI = m_mainTree->AppendItem(m_treeNodeRoot, "User Interface");
-		m_treeNodeApp = m_mainTree->AppendItem(m_treeNodeRoot, "Application");
+		m_treeNodeRoot = m_mainTree->AddRoot(_("Settings"));
+		m_treeNodeUI = m_mainTree->AppendItem(m_treeNodeRoot, _("User Interface"));
+		m_treeNodeApp = m_mainTree->AppendItem(m_treeNodeRoot, _("Application"));
 		m_mainTree->ExpandAll();
 		Connect(IDs::TREE, wxEVT_TREE_SEL_CHANGED, wxTreeEventHandler(SettingsDialog::TreeSelectionChanged));
 		//==Root Page==//
 		m_pageRoot = new wxPanel(this, IDs::PAGE_ROOT);
 		m_boxRoot = new wxBoxSizer(wxVERTICAL);
-		m_lblRoot = new wxStaticText(m_pageRoot, IDs::LBL_ROOT, "Please select a category to edit.");
+		m_lblRoot = new wxStaticText(m_pageRoot, IDs::LBL_ROOT, _("Please select a category to edit."));
 		m_pageRoot->SetSizer(m_boxRoot);
 		//==UI Page==//
 		m_pageUI = new wxPanel(this, IDs::PAGE_UI);
 		m_boxUI = new wxBoxSizer(wxVERTICAL);
-		m_chkPreferLightTheme = new wxCheckBox(m_pageUI, IDs::CHK_PREFER_LIGHT_THEME, "Prefer Light Theme");
-		m_chkPreferLightTheme->SetToolTip(new wxToolTip("If checked, Application will use a light theme for the UI, else a dark theme."));
+		m_chkPreferLightTheme = new wxCheckBox(m_pageUI, IDs::CHK_PREFER_LIGHT_THEME, _("Prefer Light Theme"));
+		m_chkPreferLightTheme->SetToolTip(new wxToolTip(_("If checked, Application will use a light theme for the UI, else a dark theme.")));
 		m_pageUI->SetSizer(m_boxUI);
 		//==App Page==//
 		m_pageApp = new wxPanel(this, IDs::PAGE_APP);
@@ -45,9 +45,10 @@ namespace NickvisionApplication::Views
 		}
 		else //Dark
 		{
-			//Dark Title Bar
+			//Win32
 			BOOL enabled = TRUE;
 			DwmSetWindowAttribute(GetHWND(), DWMWA_USE_IMMERSIVE_DARK_MODE, &enabled, sizeof(enabled));
+			SetWindowTheme(GetHWND(), L"Explorer", NULL);
 			//Dialog
 			SetBackgroundColour({ 43, 43, 43 });
 			//Tree

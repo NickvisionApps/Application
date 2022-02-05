@@ -98,9 +98,10 @@ namespace NickvisionApplication::Views
 		}
 		else //Dark
 		{
-			//Dark Title Bar
+			//Win32
 			BOOL enabled = TRUE;
 			DwmSetWindowAttribute(GetHWND(), DWMWA_USE_IMMERSIVE_DARK_MODE, &enabled, sizeof(enabled));
+			SetWindowTheme(GetHWND(), L"Explorer", NULL);
 			//Window
 			SetBackgroundColour({ 32, 32, 32 });
 			//ToolBar
@@ -162,7 +163,7 @@ namespace NickvisionApplication::Views
 		Configuration configuration;
 		if (configuration.PreferLightTheme() != m_isLightTheme)
 		{
-			m_infoBar->ShowMessage("Please restart the application to apply the theme change.", wxICON_WARNING);
+			m_infoBar->ShowMessage(_("Please restart the application to apply the theme change."), wxICON_WARNING);
 		}
 	}
 
