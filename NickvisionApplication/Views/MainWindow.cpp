@@ -14,10 +14,10 @@ namespace NickvisionApplication::Views
 
 	MainWindow::MainWindow() : wxFrame(nullptr, IDs::WINDOW, "NickvisionApplication", wxDefaultPosition, wxSize(800, 600))
 	{
-		Configuration config;
-		m_isLightTheme = config.PreferLightTheme();
+		Configuration configuration;
+		m_isLightTheme = configuration.PreferLightTheme();
 		//==Window Settings==//
-		SetBackgroundColour(m_isLightTheme ? wxColour(243, 243, 243) : wxColour(32, 32, 32));
+		Maximize();
 		//==Menu==//
 		m_menuBar = new wxMenuBar();
 		//File
@@ -62,11 +62,10 @@ namespace NickvisionApplication::Views
 		Connect(IDs::TOOL_CHECK_FOR_UPDATES, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler(MainWindow::CheckForUpdates));
 		m_toolBar->Realize();
 		SetToolBar(m_toolBar);
-		//==Main Window Controls==//
-		//StatusBar
+		//==StatusBar==//
 		m_statusBar = new StatusBar(this, IDs::STATUSBAR, m_isLightTheme);
 		SetStatusBar(m_statusBar);
-		//InfoBar
+		//==InfoBar==//
 		m_infoBar = new InfoBar(this, IDs::INFOBAR, m_isLightTheme);
 		//==First Name==//
 		m_lblFirstName = new wxStaticText(this, IDs::LBL_FIRST_NAME, _("First Name"));
@@ -84,10 +83,11 @@ namespace NickvisionApplication::Views
 		m_mainBox->Add(m_lblLastName, 0, wxLEFT | wxTOP, 6);
 		m_mainBox->Add(m_txtLastName, 0, wxLEFT | wxTOP, 6);
 		SetSizer(m_mainBox);
-		Maximize();
 		//==Theme==//
 		if (m_isLightTheme) //Light
 		{
+			//Window
+			SetBackgroundColour({ 243, 243, 243 });
 			//ToolBar
 			m_toolBar->SetBackgroundColour({ 251, 251, 251 });
 			//First Name
@@ -100,6 +100,8 @@ namespace NickvisionApplication::Views
 			//Dark Title Bar
 			BOOL enabled = TRUE;
 			DwmSetWindowAttribute(GetHWND(), DWMWA_USE_IMMERSIVE_DARK_MODE, &enabled, sizeof(enabled));
+			//Window
+			SetBackgroundColour({ 32, 32, 32 });
 			//ToolBar
 			m_toolBar->SetBackgroundColour({ 43, 43, 43 });
 			m_toolBar->SetForegroundColour(*wxWHITE);
@@ -117,8 +119,8 @@ namespace NickvisionApplication::Views
 	MainWindow::~MainWindow()
 	{
 		//==Save Config==//
-		Configuration config;
-		config.Save();
+		Configuration configuration;
+		configuration.Save();
 	}
 
 	void MainWindow::NewFile(wxCommandEvent& WXUNUSED(event))

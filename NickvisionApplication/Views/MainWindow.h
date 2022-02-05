@@ -42,12 +42,13 @@ namespace NickvisionApplication::Views
 		wxMenu* m_menuFile = nullptr;
 		wxMenu* m_menuEdit = nullptr;
 		wxMenu* m_menuHelp = nullptr;
-		//==Main Window Controls==//
+		//==ToolBar==//
 		wxToolBar* m_toolBar = nullptr;
+		//==StatusBar==//
 		NickvisionApplication::Controls::StatusBar* m_statusBar = nullptr;
-		NickvisionApplication::Controls::InfoBar* m_infoBar = nullptr;
 		//==Layout==//
 		wxBoxSizer* m_mainBox = nullptr;
+		NickvisionApplication::Controls::InfoBar* m_infoBar = nullptr;
 		wxStaticText* m_lblFirstName = nullptr;
 		wxTextCtrl* m_txtFirstName = nullptr;
 		wxStaticText* m_lblLastName = nullptr;
