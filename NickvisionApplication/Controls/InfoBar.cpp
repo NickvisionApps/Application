@@ -9,6 +9,7 @@ namespace NickvisionApplication::Controls
 
 	void InfoBar::ShowMessage(const wxString& message, int icon)
 	{
+		Hide();
 		if (icon == wxICON_INFORMATION)
 		{
 			if (m_isLightTheme)

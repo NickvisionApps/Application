@@ -202,7 +202,7 @@ namespace NickvisionApplication::Views
 		}
 		else
 		{
-			m_infoBar->ShowMessage(_("There is no update available at this time. Please try again later."), wxICON_WARNING);
+			m_infoBar->ShowMessage(_("There is no update available at this time. Please try again later."), wxICON_ERROR);
 		}
 	}
 
