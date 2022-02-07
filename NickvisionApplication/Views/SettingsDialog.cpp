@@ -1,8 +1,10 @@
 #include "SettingsDialog.h"
-#include <dwmapi.h>
+#include "../Helpers/ThemeHelpers.h"
 
 namespace NickvisionApplication::Views
 {
+	using namespace NickvisionApplication::Helpers;
+
 	SettingsDialog::SettingsDialog(wxWindow* parent, bool isLightTheme) : wxDialog(parent, IDs::DIALOG, _("Settings"), wxDefaultPosition, { 600, 500 })
 	{
 		//==Window Settings==//
@@ -39,20 +41,18 @@ namespace NickvisionApplication::Views
 		if (isLightTheme) //Light
 		{
 			//Dialog
-			SetBackgroundColour({ 251, 251, 251 });
+			SetBackgroundColour(ThemeHelpers::GetSecondaryLightColor());
 			//Tree
-			m_mainTree->SetBackgroundColour({ 243, 243, 243 });
+			m_mainTree->SetBackgroundColour(ThemeHelpers::GetMainLightColor());
 		}
 		else //Dark
 		{
 			//Win32
-			BOOL enabled = TRUE;
-			DwmSetWindowAttribute(GetHWND(), DWMWA_USE_IMMERSIVE_DARK_MODE, &enabled, sizeof(enabled));
-			SetWindowTheme(GetHWND(), L"Explorer", NULL);
+			ThemeHelpers::ApplyWin32DarkMode(this);
 			//Dialog
-			SetBackgroundColour({ 43, 43, 43 });
+			SetBackgroundColour(ThemeHelpers::GetSecondaryDarkColor());
 			//Tree
-			m_mainTree->SetBackgroundColour({ 32, 32, 32 });
+			m_mainTree->SetBackgroundColour(ThemeHelpers::GetMainDarkColor());
 			m_mainTree->SetForegroundColour(*wxWHITE);
 			//Other Controls
 			m_lblRoot->SetForegroundColour(*wxWHITE);

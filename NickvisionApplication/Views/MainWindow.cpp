@@ -1,15 +1,16 @@
 #include "MainWindow.h"
 #include <fstream>
-#include <dwmapi.h>
 #include <wx/busyinfo.h>
 #include "../Models/Configuration.h"
 #include "../Models/Update/Updater.h"
+#include "../Helpers/ThemeHelpers.h"
 #include "SettingsDialog.h"
 
 namespace NickvisionApplication::Views
 {
 	using namespace NickvisionApplication::Models;
 	using namespace NickvisionApplication::Models::Update;
+	using namespace NickvisionApplication::Helpers;
 	using namespace NickvisionApplication::Controls;
 
 	MainWindow::MainWindow() : wxFrame(nullptr, IDs::WINDOW, "NickvisionApplication", wxDefaultPosition, wxSize(800, 600))
@@ -88,32 +89,30 @@ namespace NickvisionApplication::Views
 		if (m_isLightTheme) //Light
 		{
 			//Window
-			SetBackgroundColour({ 243, 243, 243 });
+			SetBackgroundColour(ThemeHelpers::GetMainLightColor());
 			//ToolBar
-			m_toolBar->SetBackgroundColour({ 251, 251, 251 });
+			m_toolBar->SetBackgroundColour(ThemeHelpers::GetSecondaryLightColor());
 			//First Name
-			m_txtFirstName->SetBackgroundColour({ 251, 251, 251 });
+			m_txtFirstName->SetBackgroundColour(ThemeHelpers::GetSecondaryLightColor());
 			//Last Name
-			m_txtLastName->SetBackgroundColour({ 251, 251, 251 });
+			m_txtLastName->SetBackgroundColour(ThemeHelpers::GetSecondaryLightColor());
 		}
 		else //Dark
 		{
 			//Win32
-			BOOL enabled = TRUE;
-			DwmSetWindowAttribute(GetHWND(), DWMWA_USE_IMMERSIVE_DARK_MODE, &enabled, sizeof(enabled));
-			SetWindowTheme(GetHWND(), L"Explorer", NULL);
+			ThemeHelpers::ApplyWin32DarkMode(this);
 			//Window
-			SetBackgroundColour({ 32, 32, 32 });
+			SetBackgroundColour(ThemeHelpers::GetMainDarkColor());
 			//ToolBar
-			m_toolBar->SetBackgroundColour({ 43, 43, 43 });
+			m_toolBar->SetBackgroundColour(ThemeHelpers::GetSecondaryDarkColor());
 			m_toolBar->SetForegroundColour(*wxWHITE);
 			//First Name
 			m_lblFirstName->SetForegroundColour(*wxWHITE);
-			m_txtFirstName->SetBackgroundColour({ 43, 43, 43 });
+			m_txtFirstName->SetBackgroundColour(ThemeHelpers::GetSecondaryDarkColor());
 			m_txtFirstName->SetForegroundColour(*wxWHITE);
 			//Last Name
 			m_lblLastName->SetForegroundColour(*wxWHITE);
-			m_txtLastName->SetBackgroundColour({ 43, 43, 43 });
+			m_txtLastName->SetBackgroundColour(ThemeHelpers::GetSecondaryDarkColor());
 			m_txtLastName->SetForegroundColour(*wxWHITE);
 		}
 	}
