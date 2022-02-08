@@ -28,6 +28,7 @@
     <ClInclude Include="Models\Update\UpdateConfig.h" />
     <ClInclude Include="Models\Update\Updater.h" />
     <ClInclude Include="Helpers\ThemeHelpers.h" />
+    <ClInclude Include="Views\SplashScreen.h" />
     <ClInclude Include="Views\SettingsDialog.h" />
     <ClInclude Include="Views\MainWindow.h" />
   </ItemGroup>
@@ -40,6 +41,7 @@
     <ClCompile Include="Models\Update\UpdateConfig.cpp" />
     <ClCompile Include="Models\Update\Updater.cpp" />
     <ClCompile Include="Helpers\ThemeHelpers.cpp" />
+    <ClCompile Include="Views\SplashScreen.cpp" />
     <ClCompile Include="Views\SettingsDialog.cpp" />
     <ClCompile Include="Views\MainWindow.cpp" />
   </ItemGroup>

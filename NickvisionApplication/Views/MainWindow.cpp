@@ -57,7 +57,7 @@ namespace NickvisionApplication::Views
 		m_toolBar = new wxToolBar(this, IDs::TOOLBAR, wxDefaultPosition, wxDefaultSize, wxTB_HORIZONTAL);
 		m_toolBar->AddTool(IDs::TOOL_OPEN_FILE, "", wxBitmap("OPENED_FOLDER", wxBITMAP_TYPE_PNG_RESOURCE))->SetShortHelp(_("Open Folder"));
 		Connect(IDs::TOOL_OPEN_FILE, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler(MainWindow::OpenFile));
-		m_toolBar->AddSeparator();
+		m_toolBar->AddStretchableSpace();
 		m_toolBar->AddTool(IDs::TOOL_SETTINGS, "", wxBitmap("SETTINGS", wxBITMAP_TYPE_PNG_RESOURCE))->SetShortHelp(_("Settings"));
 		Connect(IDs::TOOL_SETTINGS, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler(MainWindow::Settings));
 		m_toolBar->AddTool(IDs::TOOL_CHECK_FOR_UPDATES, "", wxBitmap("CHECK_FOR_UPDATES", wxBITMAP_TYPE_PNG_RESOURCE))->SetShortHelp(_("Check for Updates"));
