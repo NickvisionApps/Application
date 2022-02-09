@@ -1,6 +1,7 @@
 #pragma once
 
 #include <wx/wx.h>
+#include "../Models/Update/Updater.h"
 #include "../Controls/StatusBar.h"
 #include "../Controls/InfoBar.h"
 
@@ -10,6 +11,8 @@ namespace NickvisionApplication::Views
 	{
 	public:
 		MainWindow();
+		void LoadConfig();
+		void CheckForUpdates();
 
 	private:
 		enum IDs
@@ -19,7 +22,7 @@ namespace NickvisionApplication::Views
 			MENU_OPEN_FILE,
 			MENU_EXIT,
 			MENU_SETTINGS,
-			MENU_CHECK_FOR_UPDATES,
+			MENU_UPDATE,
 			MENU_GITHUB_REPO,
 			MENU_REPORT_A_BUG,
 			MENU_CHANGELOG,
@@ -29,13 +32,13 @@ namespace NickvisionApplication::Views
 			INFOBAR,
 			TOOL_OPEN_FILE,
 			TOOL_SETTINGS,
-			TOOL_CHECK_FOR_UPDATES,
 			LBL_FIRST_NAME,
 			TXT_FIRST_NAME,
 			LBL_LAST_NAME,
 			TXT_LAST_NAME
 		};
 		bool m_isLightTheme;
+		NickvisionApplication::Models::Update::Updater m_updater;
 		//==Menu==//
 		wxMenuBar* m_menuBar = nullptr;
 		wxMenu* m_menuFile = nullptr;
@@ -58,7 +61,7 @@ namespace NickvisionApplication::Views
 		void OpenFile(wxCommandEvent& event);
 		void Exit(wxCommandEvent& event);
 		void Settings(wxCommandEvent& event);
-		void CheckForUpdates(wxCommandEvent& event);
+		void Update(wxCommandEvent& event);
 		void GitHubRepo(wxCommandEvent& event);
 		void ReportABug(wxCommandEvent& event);
 		void Changelog(wxCommandEvent& event);

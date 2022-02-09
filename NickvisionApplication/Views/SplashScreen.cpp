@@ -8,7 +8,7 @@ namespace NickvisionApplication::Views
 	using namespace NickvisionApplication::Models;
 	using namespace NickvisionApplication::Helpers;
 
-	SplashScreen::SplashScreen(wxWindow* parent) : wxDialog(parent, IDs::DIALOG, "", wxDefaultPosition, { 700, 400 }, 0)
+	SplashScreen::SplashScreen(MainWindow* parent) : wxDialog(parent, IDs::DIALOG, "", wxDefaultPosition, { 700, 400 }, 0), m_mainWindow(parent)
 	{
 		//==Window Settings==//
 		CenterOnScreen();
@@ -50,7 +50,7 @@ namespace NickvisionApplication::Views
 		m_mainBox = new wxBoxSizer(wxVERTICAL);
 		m_mainBox->Add(m_panelTitle, 0, wxEXPAND);
 		m_mainBox->Add(m_progBar, 0, wxCENTER | wxEXPAND | wxLEFT | wxTOP | wxRIGHT, 40);
-		m_mainBox->Add(m_lblProgress, 0, wxCENTER | wxTOP, 10);
+		m_mainBox->Add(m_lblProgress, 0, wxCENTER | wxTOP, 20);
 		m_mainBox->AddStretchSpacer();
 		m_mainBox->Add(m_boxAppInfo, 0, wxEXPAND | wxBOTTOM);
 		SetSizer(m_mainBox);
@@ -69,9 +69,13 @@ namespace NickvisionApplication::Views
 		}
 		//==Thread==//
 		m_trdStartup = std::jthread([&]()
-		{
-			std::this_thread::sleep_for(std::chrono::seconds(5));
-			Close();
-		});
+			{
+				std::this_thread::sleep_for(std::chrono::seconds(1));
+				m_lblProgress->SetLabel("Loading configuration...");
+				m_mainWindow->LoadConfig();
+				m_lblProgress->SetLabel("Checking for updates...");
+				m_mainWindow->CheckForUpdates();
+				Close();
+			});
 	}
 }

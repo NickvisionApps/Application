@@ -2,13 +2,14 @@
 
 #include <thread>
 #include <wx/wx.h>
+#include "MainWindow.h"
 
 namespace NickvisionApplication::Views
 {
 	class SplashScreen : public wxDialog
 	{
 	public:
-		SplashScreen(wxWindow* parent);
+		SplashScreen(MainWindow* parent);
 
 	private:
 		enum IDs
@@ -22,6 +23,7 @@ namespace NickvisionApplication::Views
 			LBL_VERSION,
 			LBL_COPYRIGHT
 		};
+		MainWindow* m_mainWindow = nullptr;
 		std::jthread m_trdStartup;
 		//==UI==//
 		wxBoxSizer* m_mainBox = nullptr;

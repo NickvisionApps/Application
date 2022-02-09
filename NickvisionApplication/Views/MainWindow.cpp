@@ -2,7 +2,6 @@
 #include <fstream>
 #include <wx/busyinfo.h>
 #include "../Models/Configuration.h"
-#include "../Models/Update/Updater.h"
 #include "../Helpers/ThemeHelpers.h"
 #include "SettingsDialog.h"
 
@@ -13,7 +12,7 @@ namespace NickvisionApplication::Views
 	using namespace NickvisionApplication::Helpers;
 	using namespace NickvisionApplication::Controls;
 
-	MainWindow::MainWindow() : wxFrame(nullptr, IDs::WINDOW, "NickvisionApplication", wxDefaultPosition, wxSize(800, 600))
+	MainWindow::MainWindow() : wxFrame(nullptr, IDs::WINDOW, "NickvisionApplication", wxDefaultPosition, wxSize(800, 600)), m_updater("https://raw.githubusercontent.com/nlogozzo/NickvisionApplication/main/UpdateConfig.json", { "2022.2.0" })
 	{
 		Configuration configuration;
 		m_isLightTheme = configuration.PreferLightTheme();
@@ -39,8 +38,8 @@ namespace NickvisionApplication::Views
 		m_menuBar->Append(m_menuEdit, _("&Edit"));
 		//Help
 		m_menuHelp = new wxMenu();
-		m_menuHelp->Append(IDs::MENU_CHECK_FOR_UPDATES, _("&Check for Updates"));
-		Connect(IDs::MENU_CHECK_FOR_UPDATES, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainWindow::CheckForUpdates));
+		m_menuHelp->Append(IDs::MENU_UPDATE, _("&Update"));
+		Connect(IDs::MENU_UPDATE, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainWindow::Update));
 		m_menuHelp->AppendSeparator();
 		m_menuHelp->Append(IDs::MENU_GITHUB_REPO, _("&GitHub Repo"));
 		Connect(IDs::MENU_GITHUB_REPO, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainWindow::GitHubRepo));
@@ -60,8 +59,6 @@ namespace NickvisionApplication::Views
 		m_toolBar->AddStretchableSpace();
 		m_toolBar->AddTool(IDs::TOOL_SETTINGS, "", wxBitmap("SETTINGS", wxBITMAP_TYPE_PNG_RESOURCE))->SetShortHelp(_("Settings"));
 		Connect(IDs::TOOL_SETTINGS, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler(MainWindow::Settings));
-		m_toolBar->AddTool(IDs::TOOL_CHECK_FOR_UPDATES, "", wxBitmap("CHECK_FOR_UPDATES", wxBITMAP_TYPE_PNG_RESOURCE))->SetShortHelp(_("Check for Updates"));
-		Connect(IDs::TOOL_CHECK_FOR_UPDATES, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler(MainWindow::CheckForUpdates));
 		m_toolBar->Realize();
 		SetToolBar(m_toolBar);
 		//==StatusBar==//
@@ -117,6 +114,11 @@ namespace NickvisionApplication::Views
 		}
 	}
 
+	void MainWindow::LoadConfig()
+	{
+
+	}
+
 	void MainWindow::OnClose(wxCloseEvent& WXUNUSED(event))
 	{
 		//==Save Config==//
@@ -166,21 +168,20 @@ namespace NickvisionApplication::Views
 		}
 	}
 
-	void MainWindow::CheckForUpdates(wxCommandEvent& WXUNUSED(event))
+	void MainWindow::CheckForUpdates()
 	{
-		Updater updater("https://raw.githubusercontent.com/nlogozzo/NickvisionApplication/main/UpdateConfig.json", { "2022.2.0" });
-		wxBusyInfo busyChecking(wxBusyInfoFlags()
-			.Parent(this)
-			.Title(_("<b>Please Wait</b>"))
-			.Text(_("Checking for updates..."))
-			.Background(m_isLightTheme ? *wxWHITE : *wxBLACK)
-			.Foreground(m_isLightTheme ? *wxBLACK : *wxWHITE)
-			.Transparency(4 * wxALPHA_OPAQUE / 5));
-		updater.CheckForUpdates();
-		busyChecking.~wxBusyInfo();
-		if (updater.UpdateAvailable())
+		m_updater.CheckForUpdates();
+		if (m_updater.UpdateAvailable())
 		{
-			int result = wxMessageBox(_("Update Available\n\n===V" + updater.GetLatestVersion()->ToString() + " Changelog===\n" + updater.GetChangelog() + "\n\nNickvisionApplication will automatically download and install the update. Please save all work before continuing. Are you ready to update?"), _("Update Available"), wxICON_INFORMATION | wxYES_NO, this);
+			m_infoBar->ShowMessage("There is an update available. Please run the update command in the help menu to download and install the update.", wxICON_INFORMATION);
+		}
+	}
+
+	void MainWindow::Update(wxCommandEvent& WXUNUSED(event))
+	{
+		if (m_updater.UpdateAvailable())
+		{
+			int result = wxMessageBox(_("Update Available\n\n===V" + m_updater.GetLatestVersion()->ToString() + " Changelog===\n" + m_updater.GetChangelog() + "\n\nNickvisionApplication will automatically download and install the update. Please save all work before continuing. Are you ready to update?"), _("Update"), wxICON_INFORMATION | wxYES_NO, this);
 			if (result == wxYES)
 			{
 				bool updateSuccess = false;
@@ -191,7 +192,7 @@ namespace NickvisionApplication::Views
 					.Background(m_isLightTheme ? *wxWHITE : *wxBLACK)
 					.Foreground(m_isLightTheme ? *wxBLACK : *wxWHITE)
 					.Transparency(4 * wxALPHA_OPAQUE / 5));
-				updateSuccess = updater.Update(this);
+				updateSuccess = m_updater.Update(this);
 				busyUpdating.~wxBusyInfo();
 				if (!updateSuccess)
 				{
