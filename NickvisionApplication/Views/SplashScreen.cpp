@@ -8,13 +8,13 @@ namespace NickvisionApplication::Views
 	using namespace NickvisionApplication::Models;
 	using namespace NickvisionApplication::Helpers;
 
-	SplashScreen::SplashScreen(MainWindow* parent) : wxDialog(parent, IDs::DIALOG, "", wxDefaultPosition, { 700, 400 }, 0), m_mainWindow(parent)
+	SplashScreen::SplashScreen(MainWindow* parent) : wxDialog(parent, IDs::DIALOG, "", wxDefaultPosition, { 500, 300 }, 0), m_mainWindow(parent)
 	{
 		//==Window Settings==//
 		CenterOnScreen();
 		//==Title Panel==//
 		//Panel
-		m_panelTitle = new wxPanel(this, IDs::PANEL_TITLE, wxDefaultPosition, { -1, 160 });
+		m_panelTitle = new wxPanel(this, IDs::PANEL_TITLE, wxDefaultPosition, { -1, 150 });
 		m_panelTitle->SetBackgroundColour({ 0, 71, 171 });
 		//Title
 		m_lblTitle = new wxStaticText(m_panelTitle, IDs::LBL_TITLE, "NickvisionApplication");
@@ -49,10 +49,10 @@ namespace NickvisionApplication::Views
 		//==Layout==//
 		m_mainBox = new wxBoxSizer(wxVERTICAL);
 		m_mainBox->Add(m_panelTitle, 0, wxEXPAND);
-		m_mainBox->Add(m_progBar, 0, wxCENTER | wxEXPAND | wxLEFT | wxTOP | wxRIGHT, 40);
-		m_mainBox->Add(m_lblProgress, 0, wxCENTER | wxTOP, 20);
+		m_mainBox->Add(m_boxAppInfo, 0, wxEXPAND | wxTOP, 10);
 		m_mainBox->AddStretchSpacer();
-		m_mainBox->Add(m_boxAppInfo, 0, wxEXPAND | wxBOTTOM);
+		m_mainBox->Add(m_lblProgress, 0, wxLEFT | wxBOTTOM, 6);
+		m_mainBox->Add(m_progBar, 0, wxEXPAND);
 		SetSizer(m_mainBox);
 		//==Theme==//
 		Configuration configuration;
