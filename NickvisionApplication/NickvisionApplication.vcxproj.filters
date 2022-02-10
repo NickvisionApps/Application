@@ -96,8 +96,20 @@
     <Image Include="Resources\OpenedFolder.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Resources\CheckForUpdates.png">
+    <Image Include="Resources\Settings.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Resources\icon.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\icon.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\iconSplash.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon.ai" />
   </ItemGroup>
 </Project>

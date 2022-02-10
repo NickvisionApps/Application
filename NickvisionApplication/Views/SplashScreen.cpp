@@ -11,10 +11,11 @@ namespace NickvisionApplication::Views
 	SplashScreen::SplashScreen(MainWindow* parent) : wxDialog(parent, IDs::DIALOG, "", wxDefaultPosition, { 500, 300 }, 0), m_mainWindow(parent)
 	{
 		//==Window Settings==//
+		SetIcon(wxICON(APP_ICON));
 		CenterOnScreen();
 		//==Title Panel==//
 		//Panel
-		m_panelTitle = new wxPanel(this, IDs::PANEL_TITLE, wxDefaultPosition, { -1, 150 });
+		m_panelTitle = new wxPanel(this, IDs::PANEL_TITLE, wxDefaultPosition, { -1, 130 });
 		m_panelTitle->SetBackgroundColour({ 0, 71, 171 });
 		//Title
 		m_lblTitle = new wxStaticText(m_panelTitle, IDs::LBL_TITLE, "NickvisionApplication");
@@ -28,14 +29,8 @@ namespace NickvisionApplication::Views
 		//Box
 		m_boxTitle = new wxBoxSizer(wxVERTICAL);
 		m_boxTitle->Add(m_lblTitle, 0, wxCENTER | wxTOP, 30);
-		m_boxTitle->Add(m_lblDescription, 0, wxCENTER | wxTOP, 30);
+		m_boxTitle->Add(m_lblDescription, 0, wxCENTER | wxTOP, 20);
 		m_panelTitle->SetSizer(m_boxTitle);
-		//==Progress==//
-		//Prog Bar
-		m_progBar = new wxGauge(this, IDs::PROG_BAR, 10);
-		m_progBar->Pulse();
-		//Prog Label
-		m_lblProgress = new wxStaticText(this, IDs::LBL_PROGRESS, "Starting application...");
 		//==App Info==//
 		//Version
 		m_lblVersion = new wxStaticText(this, IDs::LBL_VERSION, "Version: 2022.2.0");
@@ -46,10 +41,19 @@ namespace NickvisionApplication::Views
 		m_boxAppInfo->Add(m_lblVersion, 0, wxLEFT, 6);
 		m_boxAppInfo->AddStretchSpacer();
 		m_boxAppInfo->Add(m_lblCopyright, 0, wxRIGHT, 6);
+		//==Icon==//
+		m_imgIcon = new wxStaticBitmap(this, IDs::IMG_ICON, wxBitmap("APP_ICON_SPLASH_PNG", wxBITMAP_TYPE_PNG_RESOURCE), wxDefaultPosition, { 90, 90 });
+		//==Progress==//
+		//Prog Bar
+		m_progBar = new wxGauge(this, IDs::PROG_BAR, 10);
+		m_progBar->Pulse();
+		//Prog Label
+		m_lblProgress = new wxStaticText(this, IDs::LBL_PROGRESS, "Starting application...");
 		//==Layout==//
 		m_mainBox = new wxBoxSizer(wxVERTICAL);
 		m_mainBox->Add(m_panelTitle, 0, wxEXPAND);
 		m_mainBox->Add(m_boxAppInfo, 0, wxEXPAND | wxTOP, 10);
+		m_mainBox->Add(m_imgIcon, 0, wxCENTER);
 		m_mainBox->AddStretchSpacer();
 		m_mainBox->Add(m_lblProgress, 0, wxLEFT | wxBOTTOM, 6);
 		m_mainBox->Add(m_progBar, 0, wxEXPAND);

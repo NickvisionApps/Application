@@ -18,10 +18,11 @@ namespace NickvisionApplication::Views
 			PANEL_TITLE,
 			LBL_TITLE,
 			LBL_DESCRIPTION,
-			PROG_BAR,
-			LBL_PROGRESS,
 			LBL_VERSION,
-			LBL_COPYRIGHT
+			LBL_COPYRIGHT,
+			IMG_ICON,
+			PROG_BAR,
+			LBL_PROGRESS
 		};
 		MainWindow* m_mainWindow = nullptr;
 		std::jthread m_trdStartup;
@@ -31,11 +32,12 @@ namespace NickvisionApplication::Views
 		wxBoxSizer* m_boxTitle = nullptr;
 		wxStaticText* m_lblTitle = nullptr;
 		wxStaticText* m_lblDescription = nullptr;
-		wxGauge* m_progBar = nullptr;
-		wxStaticText* m_lblProgress = nullptr;
 		wxBoxSizer* m_boxAppInfo = nullptr;
 		wxStaticText* m_lblVersion = nullptr;
 		wxStaticText* m_lblCopyright = nullptr;
+		wxStaticBitmap* m_imgIcon = nullptr;
+		wxGauge* m_progBar = nullptr;
+		wxStaticText* m_lblProgress = nullptr;
 	};
 }
 

@@ -49,8 +49,14 @@
     <ResourceCompile Include="NickvisionApplication.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Resources\icon.ico" />
+    <Image Include="Resources\icon.png" />
+    <Image Include="Resources\iconSplash.png" />
     <Image Include="Resources\Settings.png" />
     <Image Include="Resources\OpenedFolder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon.ai" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

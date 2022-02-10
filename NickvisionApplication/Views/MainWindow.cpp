@@ -17,6 +17,7 @@ namespace NickvisionApplication::Views
 		Configuration configuration;
 		m_isLightTheme = configuration.PreferLightTheme();
 		//==Window Settings==//
+		SetIcon(wxICON(APP_ICON));
 		Maximize();
 		Connect(IDs::WINDOW, wxEVT_CLOSE_WINDOW, wxCloseEventHandler(MainWindow::OnClose));
 		//==Menu==//
