@@ -16,7 +16,7 @@ namespace NickvisionApplication::Models::Update
         std::optional<Version> GetLatestVersion() const;
         std::string GetChangelog() const;
         bool CheckForUpdates();
-        bool Update(wxFrame* mainWindow);
+        bool Update(wxFrame* windowToClose);
 
     private:
         std::string m_linkToConfig;

@@ -41,7 +41,7 @@ namespace NickvisionApplication::Models::Update
         return UpdateAvailable();
     }
 
-    bool Updater::Update(wxFrame* mainWindow)
+    bool Updater::Update(wxFrame* windowToClose)
     {
         if (!UpdateAvailable())
         {
@@ -70,7 +70,7 @@ namespace NickvisionApplication::Models::Update
             return false;
         }
         wxExecute(exePath, wxEXEC_ASYNC | wxEXEC_HIDE_CONSOLE);
-        mainWindow->Close();
+        windowToClose->Close();
         return true;
     }
 }

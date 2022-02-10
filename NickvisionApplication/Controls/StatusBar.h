@@ -8,7 +8,7 @@ namespace NickvisionApplication::Controls
 	{
 	public:
 		StatusBar(wxWindow* parent, long id, bool isLightTheme);
-		wxString GetMessage() const;
+		const wxString& GetMessage() const;
 		void SetMessage(const wxString& message);
 
 	private:

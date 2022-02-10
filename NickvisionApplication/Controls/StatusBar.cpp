@@ -19,7 +19,7 @@ namespace NickvisionApplication::Controls
 		}
 	}
 
-	wxString StatusBar::GetMessage() const
+	const wxString& StatusBar::GetMessage() const
 	{
 		return m_lblMessage->GetLabelText();
 	}

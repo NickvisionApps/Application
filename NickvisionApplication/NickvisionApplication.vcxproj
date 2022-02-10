@@ -49,7 +49,7 @@
     <ResourceCompile Include="NickvisionApplication.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Resources\CheckForUpdates.png" />
+    <Image Include="Resources\Settings.png" />
     <Image Include="Resources\OpenedFolder.png" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

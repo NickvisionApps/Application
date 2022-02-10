@@ -46,7 +46,7 @@ namespace NickvisionApplication::Views
 		m_menuHelp->Append(IDs::MENU_REPORT_A_BUG, _("&Report a Bug"));
 		Connect(IDs::MENU_REPORT_A_BUG, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainWindow::ReportABug));
 		m_menuHelp->AppendSeparator();
-		m_menuHelp->Append(IDs::MENU_CHANGELOG, _("Change&log"));
+		m_menuHelp->Append(IDs::MENU_CHANGELOG, _("&Changelog"));
 		Connect(IDs::MENU_CHANGELOG, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainWindow::Changelog));
 		m_menuHelp->Append(IDs::MENU_ABOUT, _("&About Application\tF1"));
 		Connect(IDs::MENU_ABOUT, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainWindow::About));
@@ -116,7 +116,7 @@ namespace NickvisionApplication::Views
 
 	void MainWindow::LoadConfig()
 	{
-
+		Configuration configuration;
 	}
 
 	void MainWindow::OnClose(wxCloseEvent& WXUNUSED(event))

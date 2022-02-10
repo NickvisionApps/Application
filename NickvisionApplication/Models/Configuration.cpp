@@ -36,6 +36,10 @@ namespace NickvisionApplication::Models
 
 	void Configuration::Save() const
 	{
+		if (!std::filesystem::exists(m_configDir))
+		{
+			std::filesystem::create_directories(m_configDir);
+		}
 		std::ofstream configFile(m_configDir + "config.json");
 		if (configFile.is_open())
 		{
