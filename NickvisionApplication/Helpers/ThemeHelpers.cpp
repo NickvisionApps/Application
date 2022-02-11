@@ -27,6 +27,6 @@ namespace NickvisionApplication::Helpers
 	{
 		BOOL enabled = TRUE;
 		DwmSetWindowAttribute(window->GetHWND(), DWMWA_USE_IMMERSIVE_DARK_MODE, &enabled, sizeof(enabled));
-		SetWindowTheme(window->GetHWND(), L"Explorer", NULL);
+		SetWindowTheme(window->GetHWND(), L"DarkMode_Explorer", NULL);
 	}
 }
