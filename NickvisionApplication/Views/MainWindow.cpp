@@ -174,7 +174,7 @@ namespace NickvisionApplication::Views
 		m_updater.CheckForUpdates();
 		if (m_updater.UpdateAvailable())
 		{
-			m_infoBar->ShowMessage("There is an update available. Please run the update command in the help menu to download and install the update.", wxICON_INFORMATION);
+			m_infoBar->ShowMessage(_("There is an update available. Please run the update command in the help menu to download and install the update."), wxICON_INFORMATION);
 		}
 	}
 
