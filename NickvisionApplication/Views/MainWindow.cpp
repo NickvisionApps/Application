@@ -120,13 +120,13 @@ namespace NickvisionApplication::Views
 		Configuration configuration;
 	}
 
-	void MainWindow::OnClose(wxCloseEvent& WXUNUSED(event))
+	void MainWindow::OnClose(wxCloseEvent& event)
 	{
 		//==Save Config==//
 		Configuration configuration;
 		configuration.Save();
 		//==Finish==//
-		Destroy();
+		event.Skip();
 	}
 
 	void MainWindow::NewFile(wxCommandEvent& WXUNUSED(event))
