@@ -12,10 +12,8 @@ namespace NickvisionApplication::Views
 	using namespace NickvisionApplication::Helpers;
 	using namespace NickvisionApplication::Controls;
 
-	MainWindow::MainWindow() : wxFrame(nullptr, IDs::WINDOW, "NickvisionApplication", wxDefaultPosition, wxSize(800, 600)), m_updater("https://raw.githubusercontent.com/nlogozzo/NickvisionApplication/main/UpdateConfig.json", { "2022.2.0" })
+	MainWindow::MainWindow() : wxFrame(nullptr, IDs::WINDOW, "NickvisionApplication", wxDefaultPosition, wxSize(800, 600)), m_isLightTheme(false), m_updater("https://raw.githubusercontent.com/nlogozzo/NickvisionApplication/main/UpdateConfig.json", { "2022.2.0" })
 	{
-		Configuration configuration;
-		m_isLightTheme = configuration.PreferLightTheme();
 		//==Window Settings==//
 		SetIcon(wxICON(APP_ICON));
 		Maximize();
@@ -63,17 +61,17 @@ namespace NickvisionApplication::Views
 		m_toolBar->Realize();
 		SetToolBar(m_toolBar);
 		//==StatusBar==//
-		m_statusBar = new StatusBar(this, IDs::STATUSBAR, m_isLightTheme);
+		m_statusBar = new StatusBar(this, IDs::STATUSBAR);
 		SetStatusBar(m_statusBar);
 		//==InfoBar==//
-		m_infoBar = new InfoBar(this, IDs::INFOBAR, m_isLightTheme);
+		m_infoBar = new InfoBar(this, IDs::INFOBAR);
 		//==First Name==//
 		m_lblFirstName = new wxStaticText(this, IDs::LBL_FIRST_NAME, _("First Name"));
-		m_txtFirstName = new wxTextCtrl(this, IDs::TXT_FIRST_NAME, "", wxDefaultPosition, { 320, 24 }, m_isLightTheme ? 0 : wxNO_BORDER);
+		m_txtFirstName = new wxTextCtrl(this, IDs::TXT_FIRST_NAME, "", wxDefaultPosition, { 320, 24 }, wxBORDER_NONE);
 		m_txtFirstName->SetHint(_("Enter first name here"));
 		//==Last Name==//
 		m_lblLastName = new wxStaticText(this, IDs::LBL_LAST_NAME, _("Last Name"));
-		m_txtLastName = new wxTextCtrl(this, IDs::TXT_LAST_NAME, "", wxDefaultPosition, { 320, 24 }, m_isLightTheme ? 0 : wxNO_BORDER);
+		m_txtLastName = new wxTextCtrl(this, IDs::TXT_LAST_NAME, "", wxDefaultPosition, { 320, 24 }, wxBORDER_NONE);
 		m_txtLastName->SetHint(_("Enter last name here"));
 		//==Layout==//
 		m_mainBox = new wxBoxSizer(wxVERTICAL);
@@ -83,19 +81,34 @@ namespace NickvisionApplication::Views
 		m_mainBox->Add(m_lblLastName, 0, wxLEFT | wxTOP, 6);
 		m_mainBox->Add(m_txtLastName, 0, wxLEFT | wxTOP, 6);
 		SetSizer(m_mainBox);
-		//==Theme==//
-		if (m_isLightTheme) //Light
+	}
+
+	void MainWindow::SetIsLightTheme(bool isLightTheme)
+	{
+		m_isLightTheme = isLightTheme;
+		if (m_isLightTheme)
 		{
+			//Win32
+			ThemeHelpers::ApplyWin32LightMode(this);
 			//Window
 			SetBackgroundColour(ThemeHelpers::GetMainLightColor());
 			//ToolBar
 			m_toolBar->SetBackgroundColour(ThemeHelpers::GetSecondaryLightColor());
+			m_toolBar->SetForegroundColour(*wxBLACK);
+			//StatusBar
+			m_statusBar->SetIsLightTheme(true);
+			//InfoBar
+			m_infoBar->SetIsLightTheme(true);
 			//First Name
+			m_lblFirstName->SetForegroundColour(*wxBLACK);
 			m_txtFirstName->SetBackgroundColour(ThemeHelpers::GetSecondaryLightColor());
+			m_txtFirstName->SetForegroundColour(*wxBLACK);
 			//Last Name
+			m_lblLastName->SetForegroundColour(*wxBLACK);
 			m_txtLastName->SetBackgroundColour(ThemeHelpers::GetSecondaryLightColor());
+			m_txtLastName->SetForegroundColour(*wxBLACK);
 		}
-		else //Dark
+		else
 		{
 			//Win32
 			ThemeHelpers::ApplyWin32DarkMode(this);
@@ -104,6 +117,10 @@ namespace NickvisionApplication::Views
 			//ToolBar
 			m_toolBar->SetBackgroundColour(ThemeHelpers::GetSecondaryDarkColor());
 			m_toolBar->SetForegroundColour(*wxWHITE);
+			//StatusBar
+			m_statusBar->SetIsLightTheme(false);
+			//InfoBar
+			m_infoBar->SetIsLightTheme(false);
 			//First Name
 			m_lblFirstName->SetForegroundColour(*wxWHITE);
 			m_txtFirstName->SetBackgroundColour(ThemeHelpers::GetSecondaryDarkColor());
@@ -113,11 +130,14 @@ namespace NickvisionApplication::Views
 			m_txtLastName->SetBackgroundColour(ThemeHelpers::GetSecondaryDarkColor());
 			m_txtLastName->SetForegroundColour(*wxWHITE);
 		}
+		m_infoBar->Dismiss();
+		Refresh();
 	}
 
 	void MainWindow::LoadConfig()
 	{
 		Configuration configuration;
+		SetIsLightTheme(configuration.PreferLightTheme());
 	}
 
 	void MainWindow::OnClose(wxCloseEvent& event)
@@ -165,7 +185,7 @@ namespace NickvisionApplication::Views
 		Configuration configuration;
 		if (configuration.PreferLightTheme() != m_isLightTheme)
 		{
-			m_infoBar->ShowMessage(_("Please restart the application to apply the theme change."), wxICON_WARNING);
+			SetIsLightTheme(configuration.PreferLightTheme());
 		}
 	}
 
@@ -193,7 +213,7 @@ namespace NickvisionApplication::Views
 					.Background(m_isLightTheme ? *wxWHITE : *wxBLACK)
 					.Foreground(m_isLightTheme ? *wxBLACK : *wxWHITE)
 					.Transparency(4 * wxALPHA_OPAQUE / 5));
-				updateSuccess = m_updater.Update(this);
+				updateSuccess = m_updater.Update();
 				busyUpdating.~wxBusyInfo();
 				if (!updateSuccess)
 				{

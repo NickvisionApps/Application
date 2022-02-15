@@ -62,11 +62,18 @@ namespace NickvisionApplication::Views
 		Configuration configuration;
 		if (configuration.PreferLightTheme())
 		{
+			//Win32
+			ThemeHelpers::ApplyWin32LightMode(this);
+			//Dialog
 			SetBackgroundColour(ThemeHelpers::GetMainLightColor());
 		}
 		else
 		{
+			//Win32
+			ThemeHelpers::ApplyWin32DarkMode(this);
+			//Dialog
 			SetBackgroundColour(ThemeHelpers::GetMainDarkColor());
+			//Controls
 			m_lblProgress->SetForegroundColour(*wxWHITE);
 			m_lblVersion->SetForegroundColour(*wxWHITE);
 			m_lblCopyright->SetForegroundColour(*wxWHITE);

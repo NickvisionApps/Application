@@ -1,6 +1,7 @@
 #include "Updater.h"
 #include <filesystem>
 #include <fstream>
+#include <wx/wx.h>
 #include <curlpp/cURLpp.hpp>
 #include <curlpp/Easy.hpp>
 #include <curlpp/Options.hpp>
@@ -41,7 +42,7 @@ namespace NickvisionApplication::Models::Update
         return UpdateAvailable();
     }
 
-    bool Updater::Update(wxFrame* windowToClose)
+    bool Updater::Update()
     {
         if (!UpdateAvailable())
         {
@@ -70,7 +71,7 @@ namespace NickvisionApplication::Models::Update
             return false;
         }
         wxExecute(exePath, wxEXEC_ASYNC | wxEXEC_HIDE_CONSOLE);
-        windowToClose->Close();
+        wxExit();
         return true;
     }
 }

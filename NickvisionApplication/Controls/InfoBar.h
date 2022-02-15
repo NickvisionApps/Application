@@ -8,7 +8,8 @@ namespace NickvisionApplication::Controls
 	class InfoBar : public wxInfoBar
 	{
 	public:
-		InfoBar(wxWindow* parent, long id, bool isLightTheme);
+		InfoBar(wxWindow* parent, long id);
+		void SetIsLightTheme(bool isLightTheme);
 		void ShowMessage(const wxString& message, int icon = wxICON_INFORMATION);
 
 	private:

@@ -11,6 +11,7 @@ namespace NickvisionApplication::Views
 	{
 	public:
 		MainWindow();
+		void SetIsLightTheme(bool isLightTheme);
 		void LoadConfig();
 		void CheckForUpdates();
 

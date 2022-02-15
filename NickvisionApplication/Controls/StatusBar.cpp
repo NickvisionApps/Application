@@ -5,21 +5,28 @@ namespace NickvisionApplication::Controls
 {
 	using namespace NickvisionApplication::Helpers;
 
-	StatusBar::StatusBar(wxWindow* parent, long id, bool isLightTheme) : wxStatusBar(parent, id, wxSTB_SIZEGRIP)
+	StatusBar::StatusBar(wxWindow* parent, long id) : wxStatusBar(parent, id, wxSTB_SIZEGRIP)
 	{
 		m_lblMessage = new wxStaticText(this, wxID_ANY, _("Ready"), wxPoint(6, 3), wxDefaultSize);
+		SetIsLightTheme(false);
+	}
+
+	void StatusBar::SetIsLightTheme(bool isLightTheme)
+	{
 		if (isLightTheme)
 		{
 			SetBackgroundColour(ThemeHelpers::GetSecondaryLightColor());
+			m_lblMessage->SetForegroundColour(*wxBLACK);
 		}
 		else
 		{
 			SetBackgroundColour(ThemeHelpers::GetSecondaryDarkColor());
 			m_lblMessage->SetForegroundColour(*wxWHITE);
 		}
+		Refresh();
 	}
 
-	const wxString& StatusBar::GetMessage() const
+	wxString StatusBar::GetMessage() const
 	{
 		return m_lblMessage->GetLabelText();
 	}

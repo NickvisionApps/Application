@@ -2,7 +2,6 @@
 
 #include <string>
 #include <optional>
-#include <wx/wx.h>
 #include "Version.h"
 #include "UpdateConfig.h"
 
@@ -16,7 +15,7 @@ namespace NickvisionApplication::Models::Update
         std::optional<Version> GetLatestVersion() const;
         std::string GetChangelog() const;
         bool CheckForUpdates();
-        bool Update(wxFrame* windowToClose);
+        bool Update();
 
     private:
         std::string m_linkToConfig;
