@@ -140,6 +140,15 @@ namespace NickvisionApplication::Views
 		SetIsLightTheme(configuration.PreferLightTheme());
 	}
 
+	void MainWindow::CheckForUpdates()
+	{
+		m_updater.CheckForUpdates();
+		if (m_updater.UpdateAvailable())
+		{
+			m_infoBar->ShowMessage(_("There is an update available. Please run the update command in the help menu to download and install the update."), wxICON_INFORMATION);
+		}
+	}
+
 	void MainWindow::OnClose(wxCloseEvent& event)
 	{
 		//==Save Config==//
@@ -186,15 +195,6 @@ namespace NickvisionApplication::Views
 		if (configuration.PreferLightTheme() != m_isLightTheme)
 		{
 			SetIsLightTheme(configuration.PreferLightTheme());
-		}
-	}
-
-	void MainWindow::CheckForUpdates()
-	{
-		m_updater.CheckForUpdates();
-		if (m_updater.UpdateAvailable())
-		{
-			m_infoBar->ShowMessage(_("There is an update available. Please run the update command in the help menu to download and install the update."), wxICON_INFORMATION);
 		}
 	}
 
