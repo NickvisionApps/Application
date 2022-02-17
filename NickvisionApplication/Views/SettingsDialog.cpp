@@ -22,12 +22,14 @@ namespace NickvisionApplication::Views
 		m_pageRoot = new wxPanel(this, IDs::PAGE_ROOT);
 		m_boxRoot = new wxBoxSizer(wxVERTICAL);
 		m_lblRoot = new wxStaticText(m_pageRoot, IDs::LBL_ROOT, _("Please select a category to edit."));
+		m_boxRoot->Add(m_lblRoot);
 		m_pageRoot->SetSizer(m_boxRoot);
 		//==UI Page==//
 		m_pageUI = new wxPanel(this, IDs::PAGE_UI);
 		m_boxUI = new wxBoxSizer(wxVERTICAL);
 		m_chkPreferLightTheme = new wxCheckBox(m_pageUI, IDs::CHK_PREFER_LIGHT_THEME, _("Prefer Light Theme"));
 		m_chkPreferLightTheme->SetToolTip(new wxToolTip(_("If checked, Application will use a light theme for the UI, else a dark theme.")));
+		m_boxUI->Add(m_chkPreferLightTheme);
 		m_pageUI->SetSizer(m_boxUI);
 		//==App Page==//
 		m_pageApp = new wxPanel(this, IDs::PAGE_APP);
