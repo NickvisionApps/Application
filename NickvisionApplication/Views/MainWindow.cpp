@@ -137,7 +137,7 @@ namespace NickvisionApplication::Views
 	void MainWindow::LoadConfig()
 	{
 		Configuration configuration;
-		SetIsLightTheme(configuration.PreferLightTheme());
+		SetIsLightTheme(configuration.GetPreferLightTheme());
 	}
 
 	void MainWindow::CheckForUpdates()
@@ -192,9 +192,9 @@ namespace NickvisionApplication::Views
 		SettingsDialog settingsDialog(this, m_isLightTheme);
 		settingsDialog.ShowModal();
 		Configuration configuration;
-		if (configuration.PreferLightTheme() != m_isLightTheme)
+		if (configuration.GetPreferLightTheme() != m_isLightTheme)
 		{
-			SetIsLightTheme(configuration.PreferLightTheme());
+			SetIsLightTheme(configuration.GetPreferLightTheme());
 		}
 	}
 

@@ -72,7 +72,7 @@ namespace NickvisionApplication::Views
 			m_btnSave->SetForegroundColour(*wxWHITE);
 		}
 		//==Load Config==//
-		m_chkPreferLightTheme->SetValue(m_configuration.PreferLightTheme());
+		m_chkPreferLightTheme->SetValue(m_configuration.GetPreferLightTheme());
 	}
 
 	void SettingsDialog::OnClose(wxCloseEvent& WXUNUSED(event))

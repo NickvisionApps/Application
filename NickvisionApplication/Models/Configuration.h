@@ -8,7 +8,7 @@ namespace NickvisionApplication::Models
 	{
 	public:
 		Configuration();
-		bool PreferLightTheme() const;
+		bool GetPreferLightTheme() const;
 		void SetPreferLightTheme(bool preferLightTheme);
 		void Save() const;
 

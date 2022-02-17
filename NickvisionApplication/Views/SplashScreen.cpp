@@ -60,7 +60,7 @@ namespace NickvisionApplication::Views
 		SetSizer(m_mainBox);
 		//==Theme==//
 		Configuration configuration;
-		if (configuration.PreferLightTheme())
+		if (configuration.GetPreferLightTheme())
 		{
 			//Win32
 			ThemeHelpers::ApplyWin32LightMode(this);

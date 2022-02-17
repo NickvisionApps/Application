@@ -24,7 +24,7 @@ namespace NickvisionApplication::Models
 		}
 	}
 
-	bool Configuration::PreferLightTheme() const
+	bool Configuration::GetPreferLightTheme() const
 	{
 		return m_preferLightTheme;
 	}
@@ -44,7 +44,7 @@ namespace NickvisionApplication::Models
 		if (configFile.is_open())
 		{
 			Json::Value json;
-			json["PreferLightTheme"] = PreferLightTheme();
+			json["PreferLightTheme"] = GetPreferLightTheme();
 			configFile << json;
 		}
 	}
