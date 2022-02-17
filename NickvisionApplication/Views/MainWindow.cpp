@@ -53,10 +53,10 @@ namespace NickvisionApplication::Views
 		SetMenuBar(m_menuBar);
 		//==ToolBar==//
 		m_toolBar = new wxToolBar(this, IDs::TOOLBAR, wxDefaultPosition, wxDefaultSize, wxTB_HORIZONTAL);
-		m_toolBar->AddTool(IDs::TOOL_OPEN_FILE, "", wxBitmap("OPENED_FOLDER", wxBITMAP_TYPE_PNG_RESOURCE))->SetShortHelp(_("Open Folder"));
+		m_toolBar->AddTool(IDs::TOOL_OPEN_FILE, "", wxBitmap("OPENED_FOLDER", wxBITMAP_TYPE_PNG_RESOURCE), _("Open Folder"));
 		Connect(IDs::TOOL_OPEN_FILE, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler(MainWindow::OpenFile));
 		m_toolBar->AddStretchableSpace();
-		m_toolBar->AddTool(IDs::TOOL_SETTINGS, "", wxBitmap("SETTINGS", wxBITMAP_TYPE_PNG_RESOURCE))->SetShortHelp(_("Settings"));
+		m_toolBar->AddTool(IDs::TOOL_SETTINGS, "", wxBitmap("SETTINGS", wxBITMAP_TYPE_PNG_RESOURCE), _("Settings"));
 		Connect(IDs::TOOL_SETTINGS, wxEVT_COMMAND_TOOL_CLICKED, wxCommandEventHandler(MainWindow::Settings));
 		m_toolBar->Realize();
 		SetToolBar(m_toolBar);
