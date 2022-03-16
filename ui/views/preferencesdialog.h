@@ -2,9 +2,9 @@
 #define PREFERENCESDIALOG_H
 
 #include <adwaita.h>
-#include "../models/configuration.h"
+#include "../../models/configuration.h"
 
-namespace NickvisionApplication::Views
+namespace NickvisionApplication::UI::Views
 {
     typedef void (*Callback_GtkButton)(GtkButton*, gpointer*);
 

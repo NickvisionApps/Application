@@ -1,16 +1,16 @@
 #include "mainwindow.h"
 #include <utility>
 #include <tuple>
-#include "../models/configuration.h"
-#include "../ui/xmlstrings.h"
+#include "../../models/configuration.h"
+#include "../xmlstrings.h"
 #include "../controls/progressdialog.h"
 #include "preferencesdialog.h"
 
-using namespace NickvisionApplication::Controls;
 using namespace NickvisionApplication::Models;
 using namespace NickvisionApplication::UI;
+using namespace NickvisionApplication::UI::Controls;
+using namespace NickvisionApplication::UI::Views;
 using namespace NickvisionApplication::Update;
-using namespace NickvisionApplication::Views;
 
 MainWindow::MainWindow() : m_builder(gtk_builder_new_from_string(XmlStrings::getMainWindow().c_str(), -1)), m_updater("https://raw.githubusercontent.com/nlogozzo/NickvisionApplication/main/UpdateConfig.json", { "2022.3.0" })
 {

@@ -1,8 +1,8 @@
 #include "progressdialog.h"
-#include "../ui/xmlstrings.h"
+#include "../xmlstrings.h"
 
-using namespace NickvisionApplication::Controls;
 using namespace NickvisionApplication::UI;
+using namespace NickvisionApplication::UI::Controls;
 
 ProgressDialog::ProgressDialog(GtkWidget* parent, const std::string& description, const std::function<void()>& work) : m_work(work), m_isFinished(false), m_builder(gtk_builder_new_from_string(XmlStrings::getProgressDialog().c_str(), -1))
 {

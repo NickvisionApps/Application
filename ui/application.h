@@ -6,7 +6,7 @@
 #include <adwaita.h>
 #include "views/mainwindow.h"
 
-namespace NickvisionApplication
+namespace NickvisionApplication::UI
 {
     typedef void (*Callback_GtkApplication)(GtkApplication*, gpointer*);
 
@@ -20,7 +20,7 @@ namespace NickvisionApplication
     private:
         //==UI==//
         AdwApplication* m_adwApp = nullptr;
-        std::shared_ptr<NickvisionApplication::Views::MainWindow> m_mainWindow = nullptr;
+        std::shared_ptr<NickvisionApplication::UI::Views::MainWindow> m_mainWindow = nullptr;
         //==Signals==//
         void onActivate(GtkApplication* app);
     };

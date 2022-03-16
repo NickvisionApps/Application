@@ -1,9 +1,9 @@
 #include "preferencesdialog.h"
-#include "../ui/xmlstrings.h"
+#include "../xmlstrings.h"
 
 using namespace NickvisionApplication::Models;
-using namespace NickvisionApplication::Views;
 using namespace NickvisionApplication::UI;
+using namespace NickvisionApplication::UI::Views;
 
 PreferencesDialog::PreferencesDialog(GtkWidget* parent) : m_builder(gtk_builder_new_from_string(XmlStrings::getPreferencesDialog().c_str(), -1))
 {

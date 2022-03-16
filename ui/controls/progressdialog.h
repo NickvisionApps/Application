@@ -6,7 +6,7 @@
 #include <functional>
 #include <adwaita.h>
 
-namespace NickvisionApplication::Controls
+namespace NickvisionApplication::UI::Controls
 {
     class ProgressDialog
     {

@@ -2,9 +2,9 @@
 #define MAINWINDOW_H
 
 #include <adwaita.h>
-#include "../update/updater.h"
+#include "../../update/updater.h"
 
-namespace NickvisionApplication::Views
+namespace NickvisionApplication::UI::Views
 {
     typedef void (*Callback_GioAction)(GSimpleAction*, GVariant*, gpointer*);
     typedef void (*Callback_GtkWidget)(GtkWidget*, gpointer*);

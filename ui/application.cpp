@@ -1,9 +1,9 @@
 #include "application.h"
-#include "models/configuration.h"
+#include "../models/configuration.h"
 
-using namespace NickvisionApplication;
 using namespace NickvisionApplication::Models;
-using namespace NickvisionApplication::Views;
+using namespace NickvisionApplication::UI;
+using namespace NickvisionApplication::UI::Views;
 
 Application::Application(const std::string& id, GApplicationFlags flags) : m_adwApp(adw_application_new(id.c_str(), flags))
 {
