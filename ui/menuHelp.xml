@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+    <menu id="gio_menuHelp">
+        <section>
+            <item>
+                <attribute name="label" translatable="yes">Check for _Updates</attribute>
+
+                <attribute name="action">win.checkForUpdates</attribute>
+
+                <attribute name="accelerator">&lt;Control&gt;U</attribute>
+            </item>
+        </section>
+
+        <section>
+            <item>
+                <attribute name="label" translatable="yes">_GitHub Repo</attribute>
+
+                <attribute name="action">win.gitHubRepo</attribute>
+            </item>
+
+            <item>
+                <attribute name="label" translatable="yes">_Report a Bug</attribute>
+
+                <attribute name="action">win.reportABug</attribute>
+            </item>
+        </section>
+
+        <section>
+            <item>
+                <attribute name="label" translatable="yes">_Preferences</attribute>
+
+                <attribute name="action">win.preferences</attribute>
+            </item>
+
+            <item>
+                <attribute name="label" translatable="yes">_Changelog</attribute>
+
+                <attribute name="action">win.changelog</attribute>
+            </item>
+
+            <item>
+                <attribute name="label" translatable="yes">_About</attribute>
+
+                <attribute name="action">win.about</attribute>
+            </item>
+        </section>
+    </menu>
+</interface>
