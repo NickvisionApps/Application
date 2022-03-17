@@ -14,11 +14,11 @@
         <property name="hide-on-close">true</property>
 
         <child>
-            <object class="GtkBox" id="gtk_boxDiag">
+            <object class="GtkBox">
                 <property name="orientation">vertical</property>
 
                 <child>
-                    <object class="AdwHeaderBar" id="adw_headerBar">
+                    <object class="AdwHeaderBar">
                         <property name="show-end-title-buttons">true</property>
 
                         <property name="title-widget">
@@ -40,9 +40,9 @@
                 </child>
 
                 <child>
-                    <object class="AdwPreferencesPage" id="adw_prefPage">
+                    <object class="AdwPreferencesPage">
                         <child>
-                            <object class="AdwPreferencesGroup" id="adw_groupUserInterface">
+                            <object class="AdwPreferencesGroup">
                                 <property name="title" translatable="yes">User Interface</property>
 
                                 <property name="description" translatable="yes">Customize the application's user interface.</property>
@@ -66,13 +66,13 @@
                         </child>
 
                         <child>
-                            <object class="AdwPreferencesGroup" id="adw_groupApplication">
+                            <object class="AdwPreferencesGroup">
                                 <property name="title" translatable="yes">Application</property>
 
                                 <property name="description" translatable="yes">Customize application settings.</property>
 
                                 <child>
-                                    <object class="AdwActionRow" id="adw_rowIsFirstTimeOpen">
+                                    <object class="AdwActionRow">
                                         <property name="title" translatable="yes">Is First Time Open</property>
 
                                         <child>

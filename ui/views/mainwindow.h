@@ -9,6 +9,7 @@ namespace NickvisionApplication::UI::Views
     typedef void (*Callback_GioAction)(GSimpleAction*, GVariant*, gpointer*);
     typedef void (*Callback_GtkWidget)(GtkWidget*, gpointer*);
     typedef void (*Callback_GtkDialog_Response)(GtkDialog*, gint, gpointer*);
+    typedef void (*Callback_GtkListBox_Selection)(GtkListBox*, GtkListBoxRow*, gpointer*);
 
     class MainWindow
     {
@@ -36,6 +37,7 @@ namespace NickvisionApplication::UI::Views
         void preferences();
         void changelog();
         void about();
+        void onNavigationChanged();
     };
 }
 

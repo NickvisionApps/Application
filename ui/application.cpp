@@ -26,7 +26,7 @@ void Application::onActivate(GtkApplication* app)
     Configuration configuration;
     if(configuration.getTheme() == Theme::System)
     {
-        adw_style_manager_set_color_scheme(adw_style_manager_get_default(), ADW_COLOR_SCHEME_PREFER_DARK);
+        adw_style_manager_set_color_scheme(adw_style_manager_get_default(), ADW_COLOR_SCHEME_PREFER_LIGHT);
     }
     else if(configuration.getTheme() == Theme::Light)
     {

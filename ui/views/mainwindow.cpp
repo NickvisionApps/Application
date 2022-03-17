@@ -43,7 +43,9 @@ MainWindow::MainWindow() : m_builder(gtk_builder_new_from_string(XmlStrings::get
     GtkBuilder* builderMenu = gtk_builder_new_from_string(XmlStrings::getMenuHelp().c_str(), -1);
     gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(gtk_builder_get_object(m_builder, "gtk_btnHeaderHelp")), G_MENU_MODEL(gtk_builder_get_object(builderMenu, "gio_menuHelp")));
     //==Signals==//
-
+    g_signal_connect(gtk_builder_get_object(m_builder, "gtk_listNavigation"), "row-selected", G_CALLBACK((Callback_GtkListBox_Selection)[](GtkListBox* listBox, GtkListBoxRow* row, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onNavigationChanged(); }), this);
+    //==Navigation==//
+    gtk_list_box_select_row(GTK_LIST_BOX(gtk_builder_get_object(m_builder, "gtk_listNavigation")), gtk_list_box_get_row_at_index(GTK_LIST_BOX(gtk_builder_get_object(m_builder, "gtk_listNavigation")), 0));
 }
 
 MainWindow::~MainWindow()
@@ -144,7 +146,7 @@ void MainWindow::preferences()
         Configuration configuration;
         if(configuration.getTheme() == Theme::System)
         {
-           adw_style_manager_set_color_scheme(adw_style_manager_get_default(), ADW_COLOR_SCHEME_PREFER_DARK);
+           adw_style_manager_set_color_scheme(adw_style_manager_get_default(), ADW_COLOR_SCHEME_PREFER_LIGHT);
         }
         else if(configuration.getTheme() == Theme::Light)
         {
@@ -174,4 +176,18 @@ void MainWindow::about()
     gtk_show_about_dialog(GTK_WINDOW(gobj()), "program-name", "NickvisionApplication", "version", "2022.3.0", "comments", "A template for creating Nickvision applications.",
                           "copyright", "(C) Nickvision 2021-2022", "license-type", GTK_LICENSE_GPL_3_0, "website", "https://github.com/nlogozzo", "website-label", "GitHub",
                           "authors", authors, nullptr);
+}
+
+void MainWindow::onNavigationChanged()
+{
+    GtkListBoxRow* selectedRow = gtk_list_box_get_selected_row(GTK_LIST_BOX(gtk_builder_get_object(m_builder, "gtk_listNavigation")));
+    int selectedIndex = gtk_list_box_row_get_index(selectedRow);
+    if(selectedIndex == 0)
+    {
+        adw_view_stack_set_visible_child_name(ADW_VIEW_STACK(gtk_builder_get_object(m_builder, "adw_viewStack")), "Welcome");
+    }
+    else if(selectedIndex == 1)
+    {
+        adw_view_stack_set_visible_child_name(ADW_VIEW_STACK(gtk_builder_get_object(m_builder, "adw_viewStack")), "Page 1");
+    }
 }

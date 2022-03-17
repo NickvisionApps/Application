@@ -21,7 +21,7 @@ std::string XmlStrings::getProgressDialog()
                 <property name="destroy-with-parent">false</property>
 
                 <child>
-                    <object class="GtkBox" id="gtk_boxDiag">
+                    <object class="GtkBox">
                         <property name="orientation">vertical</property>
 
                         <child>
@@ -67,86 +67,182 @@ std::string XmlStrings::getMainWindow()
                 <property name="default-height">600</property>
 
                 <child>
-                    <object class="GtkBox" id="gtk_boxWin">
-                        <property name="orientation">vertical</property>
+                    <object class="AdwToastOverlay" id="adw_toastOverlay">
+                        <property name="vexpand">true</property>
 
                         <child>
-                            <object class="AdwHeaderBar" id="adw_headerBar">
-                                <property name="show-end-title-buttons">true</property>
-
-                                <property name="title-widget">
-                                    <object class="AdwWindowTitle">
-                                        <property name="title" translatable="yes">NickvisionApplication</property>
-                                    </object>
-                                </property>
-
-                                <child type="end">
-                                    <object class="GtkMenuButton" id="gtk_btnHeaderHelp">
-                                        <property name="direction">none</property>
-                                    </object>
-                                </child>
-                            </object>
-                        </child>
-
-                        <child>
-                            <object class="AdwToastOverlay" id="adw_toastOverlay">
-                                <property name="vexpand">true</property>
-
+                            <object class="AdwLeaflet" id="adw_leaflet">
                                 <child>
-                                    <object class="GtkBox" id="gtk_boxMain">
+                                    <object class="GtkBox">
+                                        <property name="width-request">240</property>
+
                                         <property name="orientation">vertical</property>
 
-                                        <property name="spacing">6</property>
-
                                         <child>
-                                            <object class="GtkLabel" id="gtk_lblFirstName">
-                                                <property name="halign">start</property>
+                                            <object class="AdwHeaderBar">
+                                                <binding name="show-end-title-buttons">
+                                                    <lookup name="folded">adw_leaflet</lookup>
+                                                </binding>
 
-                                                <property name="margin-start">10</property>
+                                                <property name="title-widget">
+                                                    <object class="AdwWindowTitle">
+                                                        <property name="title" translatable="yes">Application</property>
+                                                    </object>
+                                                </property>
 
-                                                <property name="margin-top">10</property>
-
-                                                <property name="label" translatable="yes">First Name</property>
+                                                <child type="end">
+                                                    <object class="GtkMenuButton" id="gtk_btnHeaderHelp">
+                                                        <property name="direction">none</property>
+                                                    </object>
+                                                </child>
                                             </object>
                                         </child>
 
                                         <child>
-                                            <object class="GtkEntry" id="gtk_txtFirstName">
-                                                <property name="width-request">320</property>
+                                            <object class="GtkListBox" id="gtk_listNavigation">
+                                                <style>
+                                                    <class name="navigation-sidebar"></class>
+                                                </style>
 
-                                                <property name="height-request">20</property>
+                                                <property name="vexpand">true</property>
 
-                                                <property name="margin-start">10</property>
+                                                <child>
+                                                    <object class="GtkLabel">
+                                                        <property name="halign">start</property>
 
-                                                <property name="margin-end">10</property>
+                                                        <property name="label" translatable="yes">Welcome</property>
+                                                    </object>
+                                                </child>
 
-                                                <property name="placeholder-text" translatable="yes">Enter first name here</property>
+                                                <child>
+                                                    <object class="GtkLabel">
+                                                        <property name="halign">start</property>
+
+                                                        <property name="label" translatable="yes">Page 1</property>
+                                                    </object>
+                                                </child>
+                                            </object>
+                                        </child>
+                                    </object>
+                                </child>
+
+                                <child>
+                                    <object class="AdwLeafletPage">
+                                        <property name="navigatable">false</property>
+
+                                        <property name="child">
+                                            <object class="GtkSeparator"/>
+                                        </property>
+                                    </object>
+                                 </child>
+
+                                <child>
+                                    <object class="GtkBox">
+                                        <property name="orientation">vertical</property>
+
+                                        <property name="hexpand">true</property>
+
+                                        <child>
+                                            <object class="AdwHeaderBar">
+                                                <binding name="show-start-title-buttons">
+                                                    <lookup name="folded">adw_leaflet</lookup>
+                                                </binding>
+
+                                                <property name="title-widget">
+                                                    <object class="AdwWindowTitle">
+                                                        <binding name="title">
+                                                            <lookup name="visible-child-name">adw_viewStack</lookup>
+                                                        </binding>
+                                                    </object>
+                                                </property>
                                             </object>
                                         </child>
 
                                         <child>
-                                            <object class="GtkLabel" id="gtk_lblLastName">
-                                                <property name="halign">start</property>
+                                            <object class="AdwViewStack" id="adw_viewStack">
+                                                <child>
+                                                    <object class="AdwViewStackPage">
+                                                        <property name="name">Welcome</property>
 
-                                                <property name="margin-start">10</property>
+                                                        <property name="child">
+                                                            <object class="AdwStatusPage">
+                                                                <property name="vexpand">true</property>
 
-                                                <property name="label" translatable="yes">Last Name</property>
-                                            </object>
-                                        </child>
+                                                                <property name="valign">center</property>
 
-                                        <child>
-                                            <object class="GtkEntry" id="gtk_txtLastName">
-                                                <property name="width-request">320</property>
+                                                                <property name="title" translatable="yes">Welcome to Application!</property>
 
-                                                <property name="height-request">20</property>
+                                                                <property name="description" translatable="yes">A template for creating Nickvision applications.&#xA;&#xA;Version 2022.3.0</property>
+                                                            </object>
+                                                        </property>
+                                                    </object>
+                                                </child>
 
-                                                <property name="margin-start">10</property>
+                                                <child>
+                                                    <object class="AdwViewStackPage">
+                                                        <property name="name">Page 1</property>
 
-                                                <property name="margin-end">10</property>
+                                                        <property name="child">
+                                                            <object class="GtkBox">
+                                                                <property name="orientation">vertical</property>
 
-                                                <property name="margin-bottom">10</property>
+                                                                <property name="spacing">6</property>
 
-                                                <property name="placeholder-text" translatable="yes">Enter last name here</property>
+                                                                <child>
+                                                                    <object class="GtkLabel" id="gtk_lblFirstName">
+                                                                        <property name="halign">start</property>
+
+                                                                        <property name="margin-start">10</property>
+
+                                                                        <property name="margin-top">10</property>
+
+                                                                        <property name="label" translatable="yes">First Name</property>
+                                                                    </object>
+                                                                </child>
+
+                                                                <child>
+                                                                    <object class="GtkEntry" id="gtk_txtFirstName">
+                                                                        <property name="width-request">320</property>
+
+                                                                        <property name="height-request">20</property>
+
+                                                                        <property name="margin-start">10</property>
+
+                                                                        <property name="margin-end">10</property>
+
+                                                                        <property name="placeholder-text" translatable="yes">Enter first name here</property>
+                                                                    </object>
+                                                                </child>
+
+                                                                <child>
+                                                                    <object class="GtkLabel" id="gtk_lblLastName">
+                                                                        <property name="halign">start</property>
+
+                                                                        <property name="margin-start">10</property>
+
+                                                                        <property name="label" translatable="yes">Last Name</property>
+                                                                    </object>
+                                                                </child>
+
+                                                                <child>
+                                                                    <object class="GtkEntry" id="gtk_txtLastName">
+                                                                        <property name="width-request">320</property>
+
+                                                                        <property name="height-request">20</property>
+
+                                                                        <property name="margin-start">10</property>
+
+                                                                        <property name="margin-end">10</property>
+
+                                                                        <property name="margin-bottom">10</property>
+
+                                                                        <property name="placeholder-text" translatable="yes">Enter last name here</property>
+                                                                    </object>
+                                                                </child>
+                                                            </object>
+                                                        </property>
+                                                    </object>
+                                                </child>
                                             </object>
                                         </child>
                                     </object>
@@ -231,11 +327,11 @@ std::string XmlStrings::getPreferencesDialog()
                 <property name="hide-on-close">true</property>
 
                 <child>
-                    <object class="GtkBox" id="gtk_boxDiag">
+                    <object class="GtkBox">
                         <property name="orientation">vertical</property>
 
                         <child>
-                            <object class="AdwHeaderBar" id="adw_headerBar">
+                            <object class="AdwHeaderBar">
                                 <property name="show-end-title-buttons">true</property>
 
                                 <property name="title-widget">
@@ -257,9 +353,9 @@ std::string XmlStrings::getPreferencesDialog()
                         </child>
 
                         <child>
-                            <object class="AdwPreferencesPage" id="adw_prefPage">
+                            <object class="AdwPreferencesPage">
                                 <child>
-                                    <object class="AdwPreferencesGroup" id="adw_groupUserInterface">
+                                    <object class="AdwPreferencesGroup">
                                         <property name="title" translatable="yes">User Interface</property>
 
                                         <property name="description" translatable="yes">Customize the application's user interface.</property>
@@ -283,13 +379,13 @@ std::string XmlStrings::getPreferencesDialog()
                                 </child>
 
                                 <child>
-                                    <object class="AdwPreferencesGroup" id="adw_groupApplication">
+                                    <object class="AdwPreferencesGroup">
                                         <property name="title" translatable="yes">Application</property>
 
                                         <property name="description" translatable="yes">Customize application settings.</property>
 
                                         <child>
-                                            <object class="AdwActionRow" id="adw_rowIsFirstTimeOpen">
+                                            <object class="AdwActionRow">
                                                 <property name="title" translatable="yes">Is First Time Open</property>
 
                                                 <child>
