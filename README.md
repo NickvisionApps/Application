@@ -2,11 +2,12 @@
  A template for creating Nickvision applications
  
 # Screenshots
-![MainWindow](https://user-images.githubusercontent.com/17648453/158508085-6c778211-1813-42ad-a272-0b8a646ebfcc.png)
-![CheckForUpdates](https://user-images.githubusercontent.com/17648453/158508094-0962856b-7c94-4973-817c-053342af7eb3.png)
-![AboutDialog](https://user-images.githubusercontent.com/17648453/158508103-21fc73cc-d0af-459a-8fc4-ebc88d46cbf7.png)
-![PreferencesDialog](https://user-images.githubusercontent.com/17648453/158508099-bd428573-5f36-4ace-afb4-f88f05b8fbc9.png)
-![LightMode](https://user-images.githubusercontent.com/17648453/158508110-18c841f2-d05e-4ad2-bd39-bcd9f6fbc099.png)
+![WelcomePage](https://user-images.githubusercontent.com/17648453/158732135-1514790c-e915-474e-9542-836e3ecbf142.png)
+![Page1](https://user-images.githubusercontent.com/17648453/158732137-109bd462-0079-4cb5-a1e5-29b24b392e39.png)
+![CheckForUpdates](https://user-images.githubusercontent.com/17648453/158732143-01f30bc7-9100-42df-8c1b-917c74905c0f.png)
+![Settings](https://user-images.githubusercontent.com/17648453/158732156-2327ce32-1b88-42d0-97f2-d239bbe507ac.png)
+![AboutDialog](https://user-images.githubusercontent.com/17648453/158732151-d316373e-8242-459a-a5b0-ff45c97cde77.png)
+![LightTheme](https://user-images.githubusercontent.com/17648453/158732167-5d842b10-8b9b-41b0-be07-00913d2d3c55.png)
 
 # Dependencies
 - [gtk 4](https://gtk.org/)
