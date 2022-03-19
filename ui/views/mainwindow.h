@@ -1,8 +1,11 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <string>
 #include <adwaita.h>
 #include "../../update/updater.h"
+#include "welcomepage.h"
+#include "formpage.h"
 
 namespace NickvisionApplication::UI::Views
 {
@@ -16,7 +19,8 @@ namespace NickvisionApplication::UI::Views
     public:
         MainWindow();
         ~MainWindow();
-        GtkWidget* gobj() const;
+        GtkWidget* gobj();
+        GtkBuilder* getBuilder();
         void show();
         void showMaximized();
 
@@ -30,6 +34,9 @@ namespace NickvisionApplication::UI::Views
         GSimpleAction* m_gio_actPreferences = nullptr;
         GSimpleAction* m_gio_actChangelog = nullptr;
         GSimpleAction* m_gio_actAbout = nullptr;
+        //==Pages==//
+        WelcomePage m_welcomePage;
+        FormPage m_formPage;
         //==Signals==//
         void checkForUpdates();
         void gitHubRepo();
@@ -38,6 +45,8 @@ namespace NickvisionApplication::UI::Views
         void changelog();
         void about();
         void onNavigationChanged();
+        //==Messages==//
+        void sendToast(const std::string& message);
     };
 }
 

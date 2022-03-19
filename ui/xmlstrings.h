@@ -6,6 +6,8 @@
 namespace NickvisionApplication::UI::XmlStrings
 {
     std::string getProgressDialog();
+    std::string getWelcomePage();
+    std::string getFormPage();
     std::string getMainWindow();
     std::string getMenuHelp();
     std::string getPreferencesDialog();

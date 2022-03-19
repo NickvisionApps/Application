@@ -4,7 +4,7 @@
 using namespace NickvisionApplication::UI;
 using namespace NickvisionApplication::UI::Controls;
 
-ProgressDialog::ProgressDialog(GtkWidget* parent, const std::string& description, const std::function<void()>& work) : m_work(work), m_isFinished(false), m_builder(gtk_builder_new_from_string(XmlStrings::getProgressDialog().c_str(), -1))
+ProgressDialog::ProgressDialog(GtkWidget* parent, const std::string& description, const std::function<void()>& work) : m_builder(gtk_builder_new_from_string(XmlStrings::getProgressDialog().c_str(), -1)), m_work(work), m_isFinished(false)
 {
     //==Dialog==//
     gtk_window_set_transient_for(GTK_WINDOW(gobj()), GTK_WINDOW(parent));
@@ -24,9 +24,14 @@ ProgressDialog::~ProgressDialog()
     gtk_window_destroy(GTK_WINDOW(gobj()));
 }
 
-GtkWidget* ProgressDialog::gobj() const
+GtkWidget* ProgressDialog::gobj()
 {
     return GTK_WIDGET(gtk_builder_get_object(m_builder, "gtk_progDialog"));
+}
+
+GtkBuilder* ProgressDialog::getBuilder()
+{
+    return m_builder;
 }
 
 void ProgressDialog::show()

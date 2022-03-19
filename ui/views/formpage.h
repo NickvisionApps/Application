@@ -1,28 +1,26 @@
-#ifndef PREFERENCESDIALOG_H
-#define PREFERENCESDIALOG_H
+#ifndef FORMPAGE_H
+#define FORMPAGE_H
 
 #include <adwaita.h>
-#include "../../models/configuration.h"
 
 namespace NickvisionApplication::UI::Views
 {
     typedef void (*Callback_GtkButton)(GtkButton*, gpointer*);
+    typedef void (*Callback_GtkDialog_Response)(GtkDialog*, gint, gpointer*);
 
-    class PreferencesDialog
+    class FormPage
     {
     public:
-        PreferencesDialog(GtkWidget* parent);
-        ~PreferencesDialog();
+        FormPage();
         GtkWidget* gobj();
         GtkBuilder* getBuilder();
         void show();
 
     private:
         GtkBuilder* m_builder = nullptr;
-        NickvisionApplication::Models::Configuration m_configuration;
         //==Signals==//
-        void save();
+        void openFolder();
     };
 }
 
-#endif // PREFERENCESDIALOG_H
+#endif // FORMPAGE_H

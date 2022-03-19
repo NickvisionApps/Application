@@ -3,6 +3,7 @@
 #include <tuple>
 #include "../../models/configuration.h"
 #include "../xmlstrings.h"
+#include "../messenger.h"
 #include "../controls/progressdialog.h"
 #include "preferencesdialog.h"
 
@@ -42,8 +43,14 @@ MainWindow::MainWindow() : m_builder(gtk_builder_new_from_string(XmlStrings::get
     //==Menu Button==//
     GtkBuilder* builderMenu = gtk_builder_new_from_string(XmlStrings::getMenuHelp().c_str(), -1);
     gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(gtk_builder_get_object(m_builder, "gtk_btnHeaderHelp")), G_MENU_MODEL(gtk_builder_get_object(builderMenu, "gio_menuHelp")));
+    //==Pages==//
+    adw_view_stack_add_named(ADW_VIEW_STACK(gtk_builder_get_object(m_builder, "adw_viewStack")), m_welcomePage.gobj(), "Welcome");
+    adw_view_stack_add_named(ADW_VIEW_STACK(gtk_builder_get_object(m_builder, "adw_viewStack")), m_formPage.gobj(), "Form");
     //==Signals==//
     g_signal_connect(gtk_builder_get_object(m_builder, "gtk_listNavigation"), "row-selected", G_CALLBACK((Callback_GtkListBox_Selection)[](GtkListBox* listBox, GtkListBoxRow* row, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onNavigationChanged(); }), this);
+    //==Messages==//
+    Messenger::getInstance().registerMessage("MainWindow.SendToast", [&](const std::string& parameter) { sendToast(parameter); });
+    Messenger::getInstance().registerMessage("MainWindow.CheckForUpdates", [&](const std::string& parameter) { checkForUpdates(); });
     //==Navigation==//
     gtk_list_box_select_row(GTK_LIST_BOX(gtk_builder_get_object(m_builder, "gtk_listNavigation")), gtk_list_box_get_row_at_index(GTK_LIST_BOX(gtk_builder_get_object(m_builder, "gtk_listNavigation")), 0));
 }
@@ -55,19 +62,24 @@ MainWindow::~MainWindow()
     gtk_window_destroy(GTK_WINDOW(gobj()));
 }
 
-GtkWidget* MainWindow::gobj() const
+GtkWidget* MainWindow::gobj()
 {
     return GTK_WIDGET(gtk_builder_get_object(m_builder, "adw_winMain"));
 }
 
+GtkBuilder* MainWindow::getBuilder()
+{
+    return m_builder;
+}
+
 void MainWindow::show()
 {
-    gtk_window_present(GTK_WINDOW(gobj()));
+    gtk_widget_show(gobj());
 }
 
 void MainWindow::showMaximized()
 {
-    gtk_window_present(GTK_WINDOW(gobj()));
+    gtk_widget_show(gobj());
     gtk_window_maximize(GTK_WINDOW(gobj()));
 }
 
@@ -188,6 +200,12 @@ void MainWindow::onNavigationChanged()
     }
     else if(selectedIndex == 1)
     {
-        adw_view_stack_set_visible_child_name(ADW_VIEW_STACK(gtk_builder_get_object(m_builder, "adw_viewStack")), "Page 1");
+        adw_view_stack_set_visible_child_name(ADW_VIEW_STACK(gtk_builder_get_object(m_builder, "adw_viewStack")), "Form");
     }
+}
+
+void MainWindow::sendToast(const std::string& message)
+{
+    AdwToast* toast = adw_toast_new(message.c_str());
+    adw_toast_overlay_add_toast(ADW_TOAST_OVERLAY(gtk_builder_get_object(m_builder, "adw_toastOverlay")), toast);
 }

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+    <object class="GtkBox" id="gtk_boxWelcomePage">
+        <property name="orientation">vertical</property>
+
+        <property name="spacing">6</property>
+
+        <child>
+            <object class="AdwHeaderBar">
+                <property name="show-start-title-buttons">false</property>
+
+                <property name="title-widget">
+                    <object class="AdwWindowTitle">
+                        <property name="title">Welcome</property>
+                    </object>
+                </property>
+            </object>
+        </child>
+
+        <child>
+            <object class="AdwStatusPage">
+                <property name="vexpand">true</property>
+
+                <property name="valign">center</property>
+
+                <property name="title" translatable="yes">Welcome to Application!</property>
+
+                <property name="description" translatable="yes">A template for creating Nickvision applications.&#xA;&#xA;Version 2022.3.0</property>
+
+                <child>
+                    <object class="GtkBox">
+                        <property name="orientation">vertical</property>
+
+                        <property name="spacing">6</property>
+
+                        <child>
+                            <object class="GtkButton" id="gtk_btnCheckForUpdates">
+                                <style>
+                                    <class name="pill"></class>
+                                </style>
+
+                                <property name="label" translatable="yes">Check for Updates</property>
+                            </object>
+                        </child>
+                    </object>
+                </child>
+            </object>
+        </child>
+    </object>
+</interface>

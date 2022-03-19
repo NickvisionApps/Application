@@ -35,9 +35,14 @@ PreferencesDialog::~PreferencesDialog()
     gtk_window_destroy(GTK_WINDOW(gobj()));
 }
 
-GtkWidget* PreferencesDialog::gobj() const
+GtkWidget* PreferencesDialog::gobj()
 {
     return GTK_WIDGET(gtk_builder_get_object(m_builder, "gtk_preferencesDialog"));
+}
+
+GtkBuilder* PreferencesDialog::getBuilder()
+{
+    return m_builder;
 }
 
 void PreferencesDialog::show()
