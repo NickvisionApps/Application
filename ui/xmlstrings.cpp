@@ -134,7 +134,7 @@ std::string XmlStrings::getFormPage()
 
                         <child type="start">
                             <object class="GtkButton" id="gtk_btnOpenFolder">
-                                <property name="icon-name">folder-open</property>
+                                <property name="icon-name">folder-open-symbolic</property>
                             </object>
                         </child>
                     </object>
