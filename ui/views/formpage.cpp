@@ -29,6 +29,7 @@ void FormPage::show()
 void FormPage::openFolder()
 {
     GtkWidget* openFolderDialog = gtk_file_chooser_dialog_new("Open Folder", GTK_WINDOW(gtk_widget_get_root(gobj())), GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER, "_Cancel", GTK_RESPONSE_CANCEL, "_Select", GTK_RESPONSE_ACCEPT, nullptr);
+    gtk_window_set_modal(GTK_WINDOW(openFolderDialog), true);
     g_signal_connect(openFolderDialog, "response", G_CALLBACK((Callback_GtkDialog_Response)([](GtkDialog* dialog, gint response_id, gpointer* data)
     {
         if(response_id == GTK_RESPONSE_ACCEPT)
