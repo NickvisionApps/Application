@@ -3,8 +3,8 @@
  
 # Screenshots
 ![WelcomePage](https://user-images.githubusercontent.com/17648453/158732135-1514790c-e915-474e-9542-836e3ecbf142.png)
-![Page1](https://user-images.githubusercontent.com/17648453/158732137-109bd462-0079-4cb5-a1e5-29b24b392e39.png)
-![CheckForUpdates](https://user-images.githubusercontent.com/17648453/158732143-01f30bc7-9100-42df-8c1b-917c74905c0f.png)
+![FormPage](https://user-images.githubusercontent.com/17648453/159106811-f14733f2-448f-4b88-a623-87c62d48592a.png)
+![OpenFolder](https://user-images.githubusercontent.com/17648453/159106817-4855e0d1-0e24-4203-a6e1-51dfe86aedc6.png)
 ![Settings](https://user-images.githubusercontent.com/17648453/158732156-2327ce32-1b88-42d0-97f2-d239bbe507ac.png)
 ![AboutDialog](https://user-images.githubusercontent.com/17648453/158732151-d316373e-8242-459a-a5b0-ff45c97cde77.png)
 ![LightTheme](https://user-images.githubusercontent.com/17648453/158732167-5d842b10-8b9b-41b0-be07-00913d2d3c55.png)
