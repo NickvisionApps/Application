@@ -10,6 +10,7 @@
 ![LightTheme](https://user-images.githubusercontent.com/17648453/158732167-5d842b10-8b9b-41b0-be07-00913d2d3c55.png)
 
 # Dependencies
+- [c++20](https://en.cppreference.com/w/cpp/20)
 - [gtk 4](https://gtk.org/)
 - [libadwaita](https://gnome.pages.gitlab.gnome.org/libadwaita/)
 - [curlpp](http://www.curlpp.org/)
