@@ -13,33 +13,33 @@ using namespace NickvisionApplication::UI::Controls;
 using namespace NickvisionApplication::UI::Views;
 using namespace NickvisionApplication::Update;
 
-MainWindow::MainWindow() : m_builder(gtk_builder_new_from_string(XmlStrings::getMainWindow().c_str(), -1)), m_updater("https://raw.githubusercontent.com/nlogozzo/NickvisionApplication/main/UpdateConfig.json", { "2022.3.0" })
+MainWindow::MainWindow() : Widget(XmlStrings::getMainWindow()), m_updater("https://raw.githubusercontent.com/nlogozzo/NickvisionApplication/main/UpdateConfig.json", { "2022.3.0" }), m_opened(false)
 {
     //==Help Actions==//
     //Check for Updates
     m_gio_actCheckForUpdates = g_simple_action_new("checkForUpdates", nullptr);
     g_signal_connect(m_gio_actCheckForUpdates, "activate", G_CALLBACK((Callback_GioAction)[](GSimpleAction* action, GVariant* parameter, gpointer* data) { reinterpret_cast<MainWindow*>(data)->checkForUpdates(); }), this);
-    g_action_map_add_action(G_ACTION_MAP(gobj()), G_ACTION(m_gio_actCheckForUpdates));
+    g_action_map_add_action(G_ACTION_MAP(MainWindow::gobj()), G_ACTION(m_gio_actCheckForUpdates));
     //GitHub Repo
     m_gio_actGitHubRepo = g_simple_action_new("gitHubRepo", nullptr);
     g_signal_connect(m_gio_actGitHubRepo, "activate", G_CALLBACK((Callback_GioAction)[](GSimpleAction* action, GVariant* parameter, gpointer* data) { reinterpret_cast<MainWindow*>(data)->gitHubRepo(); }), this);
-    g_action_map_add_action(G_ACTION_MAP(gobj()), G_ACTION(m_gio_actGitHubRepo));
+    g_action_map_add_action(G_ACTION_MAP(MainWindow::gobj()), G_ACTION(m_gio_actGitHubRepo));
     //Report a Bug
     m_gio_actReportABug = g_simple_action_new("reportABug", nullptr);
     g_signal_connect(m_gio_actReportABug, "activate", G_CALLBACK((Callback_GioAction)[](GSimpleAction* action, GVariant* parameter, gpointer* data) { reinterpret_cast<MainWindow*>(data)->reportABug(); }), this);
-    g_action_map_add_action(G_ACTION_MAP(gobj()), G_ACTION(m_gio_actReportABug));
+    g_action_map_add_action(G_ACTION_MAP(MainWindow::gobj()), G_ACTION(m_gio_actReportABug));
     //Settings
     m_gio_actPreferences = g_simple_action_new("preferences", nullptr);
     g_signal_connect(m_gio_actPreferences, "activate", G_CALLBACK((Callback_GioAction)[](GSimpleAction* action, GVariant* parameter, gpointer* data) { reinterpret_cast<MainWindow*>(data)->preferences(); }), this);
-    g_action_map_add_action(G_ACTION_MAP(gobj()), G_ACTION(m_gio_actPreferences));
+    g_action_map_add_action(G_ACTION_MAP(MainWindow::gobj()), G_ACTION(m_gio_actPreferences));
     //Changelog
     m_gio_actChangelog = g_simple_action_new("changelog", nullptr);
     g_signal_connect(m_gio_actChangelog, "activate", G_CALLBACK((Callback_GioAction)[](GSimpleAction* action, GVariant* parameter, gpointer* data) { reinterpret_cast<MainWindow*>(data)->changelog(); }), this);
-    g_action_map_add_action(G_ACTION_MAP(gobj()), G_ACTION(m_gio_actChangelog));
+    g_action_map_add_action(G_ACTION_MAP(MainWindow::gobj()), G_ACTION(m_gio_actChangelog));
     //About
     m_gio_actAbout = g_simple_action_new("about", nullptr);
     g_signal_connect(m_gio_actAbout, "activate", G_CALLBACK((Callback_GioAction)[](GSimpleAction* action, GVariant* parameter, gpointer* data) { reinterpret_cast<MainWindow*>(data)->about(); }), this);
-    g_action_map_add_action(G_ACTION_MAP(gobj()), G_ACTION(m_gio_actAbout));
+    g_action_map_add_action(G_ACTION_MAP(MainWindow::gobj()), G_ACTION(m_gio_actAbout));
     //==Menu Button==//
     GtkBuilder* builderMenu = gtk_builder_new_from_string(XmlStrings::getMenuHelp().c_str(), -1);
     gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(gtk_builder_get_object(m_builder, "gtk_btnHeaderHelp")), G_MENU_MODEL(gtk_builder_get_object(builderMenu, "gio_menuHelp")));
@@ -47,9 +47,11 @@ MainWindow::MainWindow() : m_builder(gtk_builder_new_from_string(XmlStrings::get
     adw_view_stack_add_named(ADW_VIEW_STACK(gtk_builder_get_object(m_builder, "adw_viewStack")), m_welcomePage.gobj(), "Welcome");
     adw_view_stack_add_named(ADW_VIEW_STACK(gtk_builder_get_object(m_builder, "adw_viewStack")), m_formPage.gobj(), "Form");
     //==Signals==//
+    g_signal_connect(MainWindow::gobj(), "show", G_CALLBACK((Callback_GtkWidget)[](GtkWidget* widget, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onStartup(); }), this);
     g_signal_connect(gtk_builder_get_object(m_builder, "gtk_listNavigation"), "row-selected", G_CALLBACK((Callback_GtkListBox_Selection)[](GtkListBox* listBox, GtkListBoxRow* row, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onNavigationChanged(); }), this);
     //==Messages==//
     Messenger::getInstance().registerMessage("MainWindow.SendToast", [&](const std::string& parameter) { sendToast(parameter); });
+    Messenger::getInstance().registerMessage("MainWindow.ChangePage", [&](const std::string& parameter) { changePage(parameter); });
     Messenger::getInstance().registerMessage("MainWindow.CheckForUpdates", [&](const std::string& parameter) { checkForUpdates(); });
     //==Navigation==//
     gtk_list_box_select_row(GTK_LIST_BOX(gtk_builder_get_object(m_builder, "gtk_listNavigation")), gtk_list_box_get_row_at_index(GTK_LIST_BOX(gtk_builder_get_object(m_builder, "gtk_listNavigation")), 0));
@@ -59,7 +61,7 @@ MainWindow::~MainWindow()
 {
     Configuration configuration;
     configuration.save();
-    gtk_window_destroy(GTK_WINDOW(gobj()));
+    gtk_window_destroy(GTK_WINDOW(MainWindow::gobj()));
 }
 
 GtkWidget* MainWindow::gobj()
@@ -67,20 +69,21 @@ GtkWidget* MainWindow::gobj()
     return GTK_WIDGET(gtk_builder_get_object(m_builder, "adw_winMain"));
 }
 
-GtkBuilder* MainWindow::getBuilder()
-{
-    return m_builder;
-}
-
-void MainWindow::show()
-{
-    gtk_widget_show(gobj());
-}
-
 void MainWindow::showMaximized()
 {
     gtk_widget_show(gobj());
     gtk_window_maximize(GTK_WINDOW(gobj()));
+}
+
+void MainWindow::onStartup()
+{
+    if(!m_opened)
+    {
+        Configuration configuration;
+        configuration.setIsFirstTimeOpen(false);
+        configuration.save();
+        m_opened = true;
+    }
 }
 
 void MainWindow::checkForUpdates()
@@ -118,8 +121,7 @@ void MainWindow::checkForUpdates()
                         }
                         else
                         {
-                            AdwToast* toast = adw_toast_new("Error: Unable to download the update.");
-                            adw_toast_overlay_add_toast(ADW_TOAST_OVERLAY(gtk_builder_get_object(pointers->second->m_builder, "adw_toastOverlay")), toast);
+                            pointers->second->sendToast("Error: Unable to download the update.");
                         }
                     })), pointers);
                     downloadingDialog->show();
@@ -129,8 +131,7 @@ void MainWindow::checkForUpdates()
         }
         else
         {
-           AdwToast* toast = adw_toast_new("There is no update at this time. Please check again later.");
-           adw_toast_overlay_add_toast(ADW_TOAST_OVERLAY(gtk_builder_get_object(pointers->second->m_builder, "adw_toastOverlay")), toast);
+           pointers->second->sendToast("There is no update at this time. Please check again later.");
         }
         delete pointers;
     })), pointers);
@@ -208,4 +209,20 @@ void MainWindow::sendToast(const std::string& message)
 {
     AdwToast* toast = adw_toast_new(message.c_str());
     adw_toast_overlay_add_toast(ADW_TOAST_OVERLAY(gtk_builder_get_object(m_builder, "adw_toastOverlay")), toast);
+}
+
+void MainWindow::changePage(const std::string& pageName)
+{
+    if(pageName == "Welcome")
+    {
+        gtk_list_box_select_row(GTK_LIST_BOX(gtk_builder_get_object(m_builder, "gtk_listNavigation")), gtk_list_box_get_row_at_index(GTK_LIST_BOX(gtk_builder_get_object(m_builder, "gtk_listNavigation")), 0));
+    }
+    else if(pageName == "Form")
+    {
+        gtk_list_box_select_row(GTK_LIST_BOX(gtk_builder_get_object(m_builder, "gtk_listNavigation")), gtk_list_box_get_row_at_index(GTK_LIST_BOX(gtk_builder_get_object(m_builder, "gtk_listNavigation")), 1));
+    }
+    else
+    {
+        gtk_list_box_select_row(GTK_LIST_BOX(gtk_builder_get_object(m_builder, "gtk_listNavigation")), gtk_list_box_get_row_at_index(GTK_LIST_BOX(gtk_builder_get_object(m_builder, "gtk_listNavigation")), 0));
+    }
 }

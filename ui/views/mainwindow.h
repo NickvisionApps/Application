@@ -3,30 +3,24 @@
 
 #include <string>
 #include <adwaita.h>
+#include "../widget.h"
 #include "../../update/updater.h"
 #include "welcomepage.h"
 #include "formpage.h"
 
 namespace NickvisionApplication::UI::Views
 {
-    typedef void (*Callback_GioAction)(GSimpleAction*, GVariant*, gpointer*);
-    typedef void (*Callback_GtkWidget)(GtkWidget*, gpointer*);
-    typedef void (*Callback_GtkDialog_Response)(GtkDialog*, gint, gpointer*);
-    typedef void (*Callback_GtkListBox_Selection)(GtkListBox*, GtkListBoxRow*, gpointer*);
-
-    class MainWindow
+    class MainWindow : public NickvisionApplication::UI::Widget
     {
     public:
         MainWindow();
         ~MainWindow();
-        GtkWidget* gobj();
-        GtkBuilder* getBuilder();
-        void show();
+        GtkWidget* gobj() override;
         void showMaximized();
 
     private:
-        GtkBuilder* m_builder = nullptr;
         NickvisionApplication::Update::Updater m_updater;
+        bool m_opened;
         //==Help Actions==//
         GSimpleAction* m_gio_actCheckForUpdates = nullptr;
         GSimpleAction* m_gio_actGitHubRepo = nullptr;
@@ -38,6 +32,7 @@ namespace NickvisionApplication::UI::Views
         WelcomePage m_welcomePage;
         FormPage m_formPage;
         //==Signals==//
+        void onStartup();
         void checkForUpdates();
         void gitHubRepo();
         void reportABug();
@@ -45,8 +40,9 @@ namespace NickvisionApplication::UI::Views
         void changelog();
         void about();
         void onNavigationChanged();
-        //==Messages==//
+        //==Other Functions==//
         void sendToast(const std::string& message);
+        void changePage(const std::string& pageName);
     };
 }
 

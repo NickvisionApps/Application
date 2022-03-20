@@ -36,7 +36,6 @@ void Application::onActivate(GtkApplication* app)
     {
         adw_style_manager_set_color_scheme(adw_style_manager_get_default(), ADW_COLOR_SCHEME_FORCE_DARK);
     }
-    configuration.setIsFirstTimeOpen(false);
     configuration.save();
     //==Main Window==//
     m_mainWindow = std::make_shared<MainWindow>();

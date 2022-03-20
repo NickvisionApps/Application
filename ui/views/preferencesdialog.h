@@ -2,23 +2,19 @@
 #define PREFERENCESDIALOG_H
 
 #include <adwaita.h>
+#include "../widget.h"
 #include "../../models/configuration.h"
 
 namespace NickvisionApplication::UI::Views
 {
-    typedef void (*Callback_GtkButton)(GtkButton*, gpointer*);
-
-    class PreferencesDialog
+    class PreferencesDialog : public NickvisionApplication::UI::Widget
     {
     public:
         PreferencesDialog(GtkWidget* parent);
         ~PreferencesDialog();
-        GtkWidget* gobj();
-        GtkBuilder* getBuilder();
-        void show();
+        GtkWidget* gobj() override;
 
     private:
-        GtkBuilder* m_builder = nullptr;
         NickvisionApplication::Models::Configuration m_configuration;
         //==Signals==//
         void save();

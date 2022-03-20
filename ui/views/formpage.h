@@ -2,22 +2,17 @@
 #define FORMPAGE_H
 
 #include <adwaita.h>
+#include "../widget.h"
 
 namespace NickvisionApplication::UI::Views
 {
-    typedef void (*Callback_GtkButton)(GtkButton*, gpointer*);
-    typedef void (*Callback_GtkDialog_Response)(GtkDialog*, gint, gpointer*);
-
-    class FormPage
+    class FormPage : public NickvisionApplication::UI::Widget
     {
     public:
         FormPage();
-        GtkWidget* gobj();
-        GtkBuilder* getBuilder();
-        void show();
+        GtkWidget* gobj() override;
 
     private:
-        GtkBuilder* m_builder = nullptr;
         //==Signals==//
         void openFolder();
     };

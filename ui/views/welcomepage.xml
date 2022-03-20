@@ -34,12 +34,12 @@
                         <property name="spacing">6</property>
 
                         <child>
-                            <object class="GtkButton" id="gtk_btnCheckForUpdates">
+                            <object class="GtkButton" id="gtk_btnOpenFolder">
                                 <style>
                                     <class name="pill"></class>
                                 </style>
 
-                                <property name="label" translatable="yes">Check for Updates</property>
+                                <property name="label" translatable="yes">Open Folder</property>
                             </object>
                         </child>
                     </object>

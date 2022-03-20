@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(UPDATE update/version.h update/version.cpp update/updateconfig.h update/updateconfig.cpp update/updater.h update/updater.cpp)
 set(MODELS models/theme.h models/configuration.h models/configuration.cpp)
-set(UI ui/application.h ui/application.cpp ui/messenger.h ui/messenger.cpp ui/xmlstrings.h ui/xmlstrings.cpp)
+set(UI ui/application.h ui/application.cpp ui/messenger.h ui/messenger.cpp ui/xmlstrings.h ui/xmlstrings.cpp ui/widget.h ui/widget.cpp)
 set(CONTROLS ui/controls/progressdialog.xml ui/controls/progressdialog.h ui/controls/progressdialog.cpp)
 set(VIEWS ui/views/welcomepage.xml ui/views/welcomepage.h ui/views/welcomepage.cpp ui/views/formpage.xml ui/views/formpage.h ui/views/formpage.cpp ui/views/mainwindow.xml ui/views/menuHelp.xml ui/views/mainwindow.h ui/views/mainwindow.cpp ui/views/preferencesdialog.xml ui/views/preferencesdialog.h ui/views/preferencesdialog.cpp)
 

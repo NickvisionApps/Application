@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
     <object class="AdwApplicationWindow" id="adw_winMain">
+        <style>
+            <class name="devel"></class>
+        </style>
+
         <property name="default-width">800</property>
 
         <property name="default-height">600</property>

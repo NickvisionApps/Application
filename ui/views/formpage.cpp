@@ -5,25 +5,17 @@
 using namespace NickvisionApplication::UI;
 using namespace NickvisionApplication::UI::Views;
 
-FormPage::FormPage() : m_builder(gtk_builder_new_from_string(XmlStrings::getFormPage().c_str(), -1))
+FormPage::FormPage() : Widget(XmlStrings::getFormPage())
 {
     //==Signals==//
     g_signal_connect(gtk_builder_get_object(m_builder, "gtk_btnOpenFolder"), "clicked", G_CALLBACK((Callback_GtkButton)[](GtkButton* button, gpointer* data) { reinterpret_cast<FormPage*>(data)->openFolder(); }), this);
+    //==Messages==//
+    Messenger::getInstance().registerMessage("FormPage.OpenFolder", [&](const std::string& parameter) { openFolder(); });
 }
 
 GtkWidget* FormPage::gobj()
 {
     return GTK_WIDGET(gtk_builder_get_object(m_builder, "gtk_boxFormPage"));
-}
-
-GtkBuilder* FormPage::getBuilder()
-{
-    return m_builder;
-}
-
-void FormPage::show()
-{
-    gtk_widget_show(gobj());
 }
 
 void FormPage::openFolder()

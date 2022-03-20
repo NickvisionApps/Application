@@ -2,23 +2,19 @@
 #define WELCOMEPAGE_H
 
 #include <adwaita.h>
+#include "../widget.h"
 
 namespace NickvisionApplication::UI::Views
 {
-    typedef void (*Callback_GtkButton)(GtkButton*, gpointer*);
-
-    class WelcomePage
+    class WelcomePage : public NickvisionApplication::UI::Widget
     {
     public:
         WelcomePage();
-        GtkWidget* gobj();
-        GtkBuilder* getBuilder();
-        void show();
+        GtkWidget* gobj() override;
 
     private:
-        GtkBuilder* m_builder = nullptr;
         //==Signals==//
-        void checkForUpdates();
+        void openFolder();
     };
 }
 

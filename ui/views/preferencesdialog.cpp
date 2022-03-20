@@ -5,10 +5,10 @@ using namespace NickvisionApplication::Models;
 using namespace NickvisionApplication::UI;
 using namespace NickvisionApplication::UI::Views;
 
-PreferencesDialog::PreferencesDialog(GtkWidget* parent) : m_builder(gtk_builder_new_from_string(XmlStrings::getPreferencesDialog().c_str(), -1))
+PreferencesDialog::PreferencesDialog(GtkWidget* parent) : Widget(XmlStrings::getPreferencesDialog())
 {
     //==Dialog==//
-    gtk_window_set_transient_for(GTK_WINDOW(gobj()), GTK_WINDOW(parent));
+    gtk_window_set_transient_for(GTK_WINDOW(PreferencesDialog::gobj()), GTK_WINDOW(parent));
     //==Signals==//
     g_signal_connect(gtk_builder_get_object(m_builder, "gtk_btnSave"), "clicked", G_CALLBACK((Callback_GtkButton)[](GtkButton* button, gpointer* data) { reinterpret_cast<PreferencesDialog*>(data)->save(); }), this);
     //==Load Config==//
@@ -32,22 +32,12 @@ PreferencesDialog::~PreferencesDialog()
     m_configuration.setTheme(static_cast<Theme>(adw_combo_row_get_selected(ADW_COMBO_ROW(gtk_builder_get_object(m_builder, "adw_rowTheme")))));
     m_configuration.setIsFirstTimeOpen(gtk_switch_get_active(GTK_SWITCH(gtk_builder_get_object(m_builder, "gtk_switchIsFirstTimeOpen"))));
     m_configuration.save();
-    gtk_window_destroy(GTK_WINDOW(gobj()));
+    gtk_window_destroy(GTK_WINDOW(PreferencesDialog::gobj()));
 }
 
 GtkWidget* PreferencesDialog::gobj()
 {
     return GTK_WIDGET(gtk_builder_get_object(m_builder, "gtk_preferencesDialog"));
-}
-
-GtkBuilder* PreferencesDialog::getBuilder()
-{
-    return m_builder;
-}
-
-void PreferencesDialog::show()
-{
-    gtk_widget_show(gobj());
 }
 
 void PreferencesDialog::save()

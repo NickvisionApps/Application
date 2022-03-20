@@ -95,12 +95,12 @@ std::string XmlStrings::getWelcomePage()
                                 <property name="spacing">6</property>
 
                                 <child>
-                                    <object class="GtkButton" id="gtk_btnCheckForUpdates">
+                                    <object class="GtkButton" id="gtk_btnOpenFolder">
                                         <style>
                                             <class name="pill"></class>
                                         </style>
 
-                                        <property name="label" translatable="yes">Check for Updates</property>
+                                        <property name="label" translatable="yes">Open Folder</property>
                                     </object>
                                 </child>
                             </object>
@@ -200,6 +200,10 @@ std::string XmlStrings::getMainWindow()
         <?xml version="1.0" encoding="UTF-8"?>
         <interface>
             <object class="AdwApplicationWindow" id="adw_winMain">
+                <style>
+                    <class name="devel"></class>
+                </style>
+
                 <property name="default-width">800</property>
 
                 <property name="default-height">600</property>
