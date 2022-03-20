@@ -1,6 +1,11 @@
 # Nickvision Application
  A template for creating Nickvision applications
 
+# Features
+- Modern gtk 4 and libadwaita design
+- Light/Dark theme support
+- Custom update framework that support checking for new updates and downloading them all from within the application
+
 # Screenshots
 ![WelcomePage](https://user-images.githubusercontent.com/17648453/159176320-6ef274a3-cc63-4c71-b064-dc8967551ea1.png)
 ![FormPage](https://user-images.githubusercontent.com/17648453/159106811-f14733f2-448f-4b88-a623-87c62d48592a.png)
