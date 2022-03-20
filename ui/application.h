@@ -8,7 +8,7 @@
 
 namespace NickvisionApplication::UI
 {
-    typedef void (*Callback_GtkApplication)(GtkApplication*, gpointer*);
+    using Callback_GtkApplication =  void (*)(GtkApplication*, gpointer*);
 
     class Application
     {
