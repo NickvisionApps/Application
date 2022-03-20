@@ -98,6 +98,8 @@ std::string XmlStrings::getWelcomePage()
                                     <object class="GtkButton" id="gtk_btnOpenFolder">
                                         <style>
                                             <class name="pill"></class>
+
+                                            <class name="suggested-action"></class>
                                         </style>
 
                                         <property name="label" translatable="yes">Open Folder</property>
