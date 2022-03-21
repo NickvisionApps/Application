@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
     <object class="AdwApplicationWindow" id="adw_winMain">
-        <style>
-            <class name="devel"></class>
-        </style>
-
         <property name="default-width">800</property>
 
         <property name="default-height">600</property>
@@ -48,18 +44,46 @@
                                 <property name="vexpand">true</property>
 
                                 <child>
-                                    <object class="GtkLabel">
-                                        <property name="halign">start</property>
+                                    <object class="GtkBox">
+                                        <property name="orientation">horizontal</property>
 
-                                        <property name="label" translatable="yes">Welcome</property>
+                                        <property name="spacing">10</property>
+
+                                        <child>
+                                            <object class="GtkImage">
+                                                <property name="icon-name">go-home-symbolic</property>
+                                            </object>
+                                        </child>
+
+                                        <child>
+                                            <object class="GtkLabel">
+                                                <property name="halign">start</property>
+
+                                                <property name="label" translatable="yes">Welcome</property>
+                                            </object>
+                                        </child>
                                     </object>
                                 </child>
 
                                 <child>
-                                    <object class="GtkLabel">
-                                        <property name="halign">start</property>
+                                    <object class="GtkBox">
+                                        <property name="orientation">horizontal</property>
 
-                                        <property name="label" translatable="yes">Form</property>
+                                        <property name="spacing">10</property>
+
+                                        <child>
+                                            <object class="GtkImage">
+                                                <property name="icon-name">view-paged-symbolic</property>
+                                            </object>
+                                        </child>
+
+                                        <child>
+                                            <object class="GtkLabel">
+                                                <property name="halign">start</property>
+
+                                                <property name="label" translatable="yes">Form</property>
+                                            </object>
+                                        </child>
                                     </object>
                                 </child>
                             </object>

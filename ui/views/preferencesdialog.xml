@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
     <object class="AdwWindow" id="gtk_preferencesDialog">
+        <style>
+            <class name="devel"></class>
+        </style>
+
         <property name="default-width">600</property>
 
         <property name="default-height">400</property>
@@ -55,7 +59,9 @@
                                             <object class="GtkStringList">
                                               <items>
                                                 <item translatable="yes">System</item>
+
                                                 <item translatable="yes">Light</item>
+
                                                 <item translatable="yes">Dark</item>
                                               </items>
                                             </object>
@@ -72,8 +78,12 @@
                                 <property name="description" translatable="yes">Customize application settings.</property>
 
                                 <child>
-                                    <object class="AdwActionRow">
+                                    <object class="AdwActionRow" id="adw_rowIsFirstTimeOpen">
                                         <property name="title" translatable="yes">Is First Time Open</property>
+
+                                        <binding name="activatable-widget">
+                                            <lookup name="child">adw_rowIsFirstTimeOpen</lookup>
+                                        </binding>
 
                                         <child>
                                             <object class="GtkSwitch" id="gtk_switchIsFirstTimeOpen">

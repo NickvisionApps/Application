@@ -18,6 +18,7 @@ namespace NickvisionApplication::UI::Views
         NickvisionApplication::Models::Configuration m_configuration;
         //==Signals==//
         void save();
+        void onRowIsFirstTimeOpenActivate();
     };
 }
 

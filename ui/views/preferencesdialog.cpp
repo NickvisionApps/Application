@@ -11,6 +11,7 @@ PreferencesDialog::PreferencesDialog(GtkWidget* parent) : Widget(XmlStrings::get
     gtk_window_set_transient_for(GTK_WINDOW(PreferencesDialog::gobj()), GTK_WINDOW(parent));
     //==Signals==//
     g_signal_connect(gtk_builder_get_object(m_builder, "gtk_btnSave"), "clicked", G_CALLBACK((Callback_GtkButton)[](GtkButton* button, gpointer* data) { reinterpret_cast<PreferencesDialog*>(data)->save(); }), this);
+    g_signal_connect(gtk_builder_get_object(m_builder, "adw_rowIsFirstTimeOpen"), "activated", G_CALLBACK((Callback_AdwActionRow)[](AdwActionRow* row, gpointer* data) { reinterpret_cast<PreferencesDialog*>(data)->onRowIsFirstTimeOpenActivate(); }), this);
     //==Load Config==//
     if(m_configuration.getTheme() == Theme::System)
     {
@@ -43,4 +44,9 @@ GtkWidget* PreferencesDialog::gobj()
 void PreferencesDialog::save()
 {
     gtk_widget_hide(gobj());
+}
+
+void PreferencesDialog::onRowIsFirstTimeOpenActivate()
+{
+    gtk_switch_set_active(GTK_SWITCH(gtk_builder_get_object(m_builder, "gtk_switchIsFirstTimeOpen")), !gtk_switch_get_active(GTK_SWITCH(gtk_builder_get_object(m_builder, "gtk_switchIsFirstTimeOpen"))));
 }

@@ -136,7 +136,7 @@ std::string XmlStrings::getFormPage()
 
                         <child type="start">
                             <object class="GtkButton" id="gtk_btnOpenFolder">
-                                <property name="icon-name">folder-open-symbolic</property>
+                                <property name="icon-name">folder-symbolic</property>
                             </object>
                         </child>
                     </object>
@@ -202,10 +202,6 @@ std::string XmlStrings::getMainWindow()
         <?xml version="1.0" encoding="UTF-8"?>
         <interface>
             <object class="AdwApplicationWindow" id="adw_winMain">
-                <style>
-                    <class name="devel"></class>
-                </style>
-
                 <property name="default-width">800</property>
 
                 <property name="default-height">600</property>
@@ -249,18 +245,46 @@ std::string XmlStrings::getMainWindow()
                                         <property name="vexpand">true</property>
 
                                         <child>
-                                            <object class="GtkLabel">
-                                                <property name="halign">start</property>
+                                            <object class="GtkBox">
+                                                <property name="orientation">horizontal</property>
 
-                                                <property name="label" translatable="yes">Welcome</property>
+                                                <property name="spacing">10</property>
+
+                                                <child>
+                                                    <object class="GtkImage">
+                                                        <property name="icon-name">go-home-symbolic</property>
+                                                    </object>
+                                                </child>
+
+                                                <child>
+                                                    <object class="GtkLabel">
+                                                        <property name="halign">start</property>
+
+                                                        <property name="label" translatable="yes">Welcome</property>
+                                                    </object>
+                                                </child>
                                             </object>
                                         </child>
 
                                         <child>
-                                            <object class="GtkLabel">
-                                                <property name="halign">start</property>
+                                            <object class="GtkBox">
+                                                <property name="orientation">horizontal</property>
 
-                                                <property name="label" translatable="yes">Form</property>
+                                                <property name="spacing">10</property>
+
+                                                <child>
+                                                    <object class="GtkImage">
+                                                        <property name="icon-name">view-paged-symbolic</property>
+                                                    </object>
+                                                </child>
+
+                                                <child>
+                                                    <object class="GtkLabel">
+                                                        <property name="halign">start</property>
+
+                                                        <property name="label" translatable="yes">Form</property>
+                                                    </object>
+                                                </child>
                                             </object>
                                         </child>
                                     </object>
@@ -354,6 +378,10 @@ std::string XmlStrings::getPreferencesDialog()
         <?xml version="1.0" encoding="UTF-8"?>
         <interface>
             <object class="AdwWindow" id="gtk_preferencesDialog">
+                <style>
+                    <class name="devel"></class>
+                </style>
+
                 <property name="default-width">600</property>
 
                 <property name="default-height">400</property>
@@ -408,7 +436,9 @@ std::string XmlStrings::getPreferencesDialog()
                                                     <object class="GtkStringList">
                                                       <items>
                                                         <item translatable="yes">System</item>
+
                                                         <item translatable="yes">Light</item>
+
                                                         <item translatable="yes">Dark</item>
                                                       </items>
                                                     </object>
@@ -425,8 +455,12 @@ std::string XmlStrings::getPreferencesDialog()
                                         <property name="description" translatable="yes">Customize application settings.</property>
 
                                         <child>
-                                            <object class="AdwActionRow">
+                                            <object class="AdwActionRow" id="adw_rowIsFirstTimeOpen">
                                                 <property name="title" translatable="yes">Is First Time Open</property>
+
+                                                <binding name="activatable-widget">
+                                                    <lookup name="child">adw_rowIsFirstTimeOpen</lookup>
+                                                </binding>
 
                                                 <child>
                                                     <object class="GtkSwitch" id="gtk_switchIsFirstTimeOpen">
