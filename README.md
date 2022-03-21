@@ -4,7 +4,8 @@
 # Features
 - Modern gtk 4 and libadwaita design
 - Light/Dark theme support
-- Custom update framework that support checking for new updates and downloading them all from within the application
+- A custom update framework that supports checking for new updates and downloading them all from within the application
+- Support for saving application settings via a json configuration
 
 # Screenshots
 ![WelcomePage](https://user-images.githubusercontent.com/17648453/159201352-d5cd3dc1-d394-4667-8cc1-dd43ccee4bf0.png)
