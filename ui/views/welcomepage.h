@@ -14,6 +14,7 @@ namespace NickvisionApplication::UI::Views
 
     private:
         //==Signals==//
+        void preferences();
         void openFolder();
     };
 }

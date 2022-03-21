@@ -75,6 +75,12 @@ std::string XmlStrings::getWelcomePage()
                                 <property name="title">Welcome</property>
                             </object>
                         </property>
+
+                        <child type="end">
+                            <object class="GtkButton" id="gtk_btnPreferences">
+                                <property name="icon-name">org.gnome.Settings-symbolic</property>
+                            </object>
+                        </child>
                     </object>
                 </child>
 

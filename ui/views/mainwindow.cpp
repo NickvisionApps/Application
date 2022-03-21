@@ -53,6 +53,7 @@ MainWindow::MainWindow() : Widget(XmlStrings::getMainWindow()), m_updater("https
     Messenger::getInstance().registerMessage("MainWindow.SendToast", [&](const std::string& parameter) { sendToast(parameter); });
     Messenger::getInstance().registerMessage("MainWindow.ChangePage", [&](const std::string& parameter) { changePage(parameter); });
     Messenger::getInstance().registerMessage("MainWindow.CheckForUpdates", [&](const std::string& parameter) { checkForUpdates(); });
+    Messenger::getInstance().registerMessage("MainWindow.Preferences", [&](const std::string& parameter) { preferences(); });
     //==Navigation==//
     gtk_list_box_select_row(GTK_LIST_BOX(gtk_builder_get_object(m_builder, "gtk_listNavigation")), gtk_list_box_get_row_at_index(GTK_LIST_BOX(gtk_builder_get_object(m_builder, "gtk_listNavigation")), 0));
 }
