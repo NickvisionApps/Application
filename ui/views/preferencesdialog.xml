@@ -57,13 +57,13 @@
 
                                         <property name="model">
                                             <object class="GtkStringList">
-                                              <items>
-                                                <item translatable="yes">System</item>
+                                                <items>
+                                                    <item translatable="yes">System</item>
 
-                                                <item translatable="yes">Light</item>
+                                                    <item translatable="yes">Light</item>
 
-                                                <item translatable="yes">Dark</item>
-                                              </items>
+                                                    <item translatable="yes">Dark</item>
+                                                </items>
                                             </object>
                                         </property>
                                     </object>

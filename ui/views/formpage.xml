@@ -18,6 +18,8 @@
                 <child type="start">
                     <object class="GtkButton" id="gtk_btnOpenFolder">
                         <property name="icon-name">folder-symbolic</property>
+
+                        <property name="tooltip-text" translatable="yes">Open Folder</property>
                     </object>
                 </child>
             </object>

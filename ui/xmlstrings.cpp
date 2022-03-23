@@ -79,6 +79,8 @@ std::string XmlStrings::getWelcomePage()
                         <child type="end">
                             <object class="GtkButton" id="gtk_btnPreferences">
                                 <property name="icon-name">org.gnome.Settings-symbolic</property>
+
+                                <property name="tooltip-text" translatable="yes">Settings</property>
                             </object>
                         </child>
                     </object>
@@ -143,6 +145,8 @@ std::string XmlStrings::getFormPage()
                         <child type="start">
                             <object class="GtkButton" id="gtk_btnOpenFolder">
                                 <property name="icon-name">folder-symbolic</property>
+
+                                <property name="tooltip-text" translatable="yes">Open Folder</property>
                             </object>
                         </child>
                     </object>
@@ -440,13 +444,13 @@ std::string XmlStrings::getPreferencesDialog()
 
                                                 <property name="model">
                                                     <object class="GtkStringList">
-                                                      <items>
-                                                        <item translatable="yes">System</item>
+                                                        <items>
+                                                            <item translatable="yes">System</item>
 
-                                                        <item translatable="yes">Light</item>
+                                                            <item translatable="yes">Light</item>
 
-                                                        <item translatable="yes">Dark</item>
-                                                      </items>
+                                                            <item translatable="yes">Dark</item>
+                                                        </items>
                                                     </object>
                                                 </property>
                                             </object>

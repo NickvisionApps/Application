@@ -18,6 +18,8 @@
                 <child type="end">
                     <object class="GtkButton" id="gtk_btnPreferences">
                         <property name="icon-name">org.gnome.Settings-symbolic</property>
+
+                        <property name="tooltip-text" translatable="yes">Settings</property>
                     </object>
                 </child>
             </object>
