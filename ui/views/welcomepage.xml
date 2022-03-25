@@ -3,8 +3,6 @@
     <object class="GtkBox" id="gtk_boxWelcomePage">
         <property name="orientation">vertical</property>
 
-        <property name="spacing">6</property>
-
         <child>
             <object class="AdwHeaderBar">
                 <property name="show-start-title-buttons">false</property>

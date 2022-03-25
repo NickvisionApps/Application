@@ -64,8 +64,6 @@ std::string XmlStrings::getWelcomePage()
             <object class="GtkBox" id="gtk_boxWelcomePage">
                 <property name="orientation">vertical</property>
 
-                <property name="spacing">6</property>
-
                 <child>
                     <object class="AdwHeaderBar">
                         <property name="show-start-title-buttons">false</property>
@@ -130,8 +128,6 @@ std::string XmlStrings::getFormPage()
             <object class="GtkBox" id="gtk_boxFormPage">
                 <property name="orientation">vertical</property>
 
-                <property name="spacing">6</property>
-
                 <child>
                     <object class="AdwHeaderBar">
                         <property name="show-start-title-buttons">false</property>
@@ -153,52 +149,58 @@ std::string XmlStrings::getFormPage()
                 </child>
 
                 <child>
-                    <object class="GtkLabel" id="gtk_lblFirstName">
-                        <property name="halign">start</property>
+                    <object class="GtkBox">
+                        <property name="hexpand">true</property>
 
-                        <property name="margin-start">10</property>
+                        <property name="vexpand">true</property>
 
-                        <property name="label" translatable="yes">First Name</property>
-                    </object>
-                </child>
+                        <property name="orientation">vertical</property>
 
-                <child>
-                    <object class="GtkEntry" id="gtk_txtFirstName">
-                        <property name="width-request">320</property>
+                        <property name="spacing">6</property>
 
-                        <property name="height-request">20</property>
+                        <property name="margin-start">6</property>
 
-                        <property name="margin-start">10</property>
+                        <property name="margin-top">6</property>
 
-                        <property name="margin-end">10</property>
+                        <property name="margin-end">6</property>
 
-                        <property name="placeholder-text" translatable="yes">Enter first name here</property>
-                    </object>
-                </child>
+                        <property name="margin-bottom">6</property>
 
-                <child>
-                    <object class="GtkLabel" id="gtk_lblLastName">
-                        <property name="halign">start</property>
+                        <child>
+                            <object class="GtkLabel" id="gtk_lblFirstName">
+                                <property name="halign">start</property>
 
-                        <property name="margin-start">10</property>
+                                <property name="label" translatable="yes">First Name</property>
+                            </object>
+                        </child>
 
-                        <property name="label" translatable="yes">Last Name</property>
-                    </object>
-                </child>
+                        <child>
+                            <object class="GtkEntry" id="gtk_txtFirstName">
+                                <property name="width-request">320</property>
 
-                <child>
-                    <object class="GtkEntry" id="gtk_txtLastName">
-                        <property name="width-request">320</property>
+                                <property name="height-request">20</property>
 
-                        <property name="height-request">20</property>
+                                <property name="placeholder-text" translatable="yes">Enter first name here</property>
+                            </object>
+                        </child>
 
-                        <property name="margin-start">10</property>
+                        <child>
+                            <object class="GtkLabel" id="gtk_lblLastName">
+                                <property name="halign">start</property>
 
-                        <property name="margin-end">10</property>
+                                <property name="label" translatable="yes">Last Name</property>
+                            </object>
+                        </child>
 
-                        <property name="margin-bottom">10</property>
+                        <child>
+                            <object class="GtkEntry" id="gtk_txtLastName">
+                                <property name="width-request">320</property>
 
-                        <property name="placeholder-text" translatable="yes">Enter last name here</property>
+                                <property name="height-request">20</property>
+
+                                <property name="placeholder-text" translatable="yes">Enter last name here</property>
+                            </object>
+                        </child>
                     </object>
                 </child>
             </object>
