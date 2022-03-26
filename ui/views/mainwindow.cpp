@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include <utility>
-#include <tuple>
 #include "../../models/configuration.h"
 #include "../xmlstrings.h"
 #include "../messenger.h"
