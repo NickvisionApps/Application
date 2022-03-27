@@ -3,7 +3,7 @@
 
 #include <string>
 #include <functional>
-#include <map>
+#include <unordered_map>
 
 namespace NickvisionApplication::UI
 {
@@ -19,7 +19,7 @@ namespace NickvisionApplication::UI
 
     private:
         Messenger();
-        std::map<std::string, std::function<void(const std::string& parameter)>> m_callbacks;
+        std::unordered_map<std::string, std::function<void(const std::string& parameter)>> m_callbacks;
     };
 }
 
