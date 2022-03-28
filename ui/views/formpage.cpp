@@ -1,11 +1,10 @@
 #include "formpage.h"
-#include "../xmlstrings.h"
 #include "../messenger.h"
 
 using namespace NickvisionApplication::UI;
 using namespace NickvisionApplication::UI::Views;
 
-FormPage::FormPage() : Widget(XmlStrings::getFormPage())
+FormPage::FormPage() : Widget("/ui/views/formpage.xml")
 {
     //==Signals==//
     g_signal_connect(gtk_builder_get_object(m_builder, "gtk_btnOpenFolder"), "clicked", G_CALLBACK((Callback_GtkButton)[](GtkButton* button, gpointer* data) { reinterpret_cast<FormPage*>(data)->openFolder(); }), this);

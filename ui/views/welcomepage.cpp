@@ -1,11 +1,10 @@
 #include "welcomepage.h"
-#include "../xmlstrings.h"
 #include "../messenger.h"
 
 using namespace NickvisionApplication::UI;
 using namespace NickvisionApplication::UI::Views;
 
-WelcomePage::WelcomePage() : Widget(XmlStrings::getWelcomePage())
+WelcomePage::WelcomePage() : Widget("/ui/views/welcomepage.xml")
 {
     //==Signals==//
     g_signal_connect(gtk_builder_get_object(m_builder, "gtk_btnPreferences"), "clicked", G_CALLBACK((Callback_GtkButton)[](GtkButton* button, gpointer* data) { reinterpret_cast<WelcomePage*>(data)->preferences(); }), this);

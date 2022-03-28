@@ -16,7 +16,7 @@ namespace NickvisionApplication::UI
     class Widget
     {
     public:
-        Widget(const std::string& xmlString);
+        Widget(const std::string& resourcePath);
         GtkBuilder* getBuilder();
         virtual GtkWidget* gobj() = 0;
         virtual void show();

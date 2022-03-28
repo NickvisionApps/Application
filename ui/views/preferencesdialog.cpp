@@ -1,11 +1,10 @@
 #include "preferencesdialog.h"
-#include "../xmlstrings.h"
 
 using namespace NickvisionApplication::Models;
 using namespace NickvisionApplication::UI;
 using namespace NickvisionApplication::UI::Views;
 
-PreferencesDialog::PreferencesDialog(GtkWidget* parent) : Widget(XmlStrings::getPreferencesDialog())
+PreferencesDialog::PreferencesDialog(GtkWidget* parent) : Widget("/ui/views/preferencesdialog.xml")
 {
     //==Dialog==//
     gtk_window_set_transient_for(GTK_WINDOW(PreferencesDialog::gobj()), GTK_WINDOW(parent));

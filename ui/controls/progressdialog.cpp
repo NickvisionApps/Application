@@ -1,10 +1,9 @@
 #include "progressdialog.h"
-#include "../xmlstrings.h"
 
 using namespace NickvisionApplication::UI;
 using namespace NickvisionApplication::UI::Controls;
 
-ProgressDialog::ProgressDialog(GtkWidget* parent, const std::string& description, const std::function<void()>& work) : Widget(XmlStrings::getProgressDialog()), m_work(work), m_isFinished(false)
+ProgressDialog::ProgressDialog(GtkWidget* parent, const std::string& description, const std::function<void()>& work) : Widget("/ui/controls/progressdialog.xml"), m_work(work), m_isFinished(false)
 {
     //==Dialog==//
     gtk_window_set_transient_for(GTK_WINDOW(ProgressDialog::gobj()), GTK_WINDOW(parent));

@@ -1,7 +1,6 @@
 #include "mainwindow.h"
 #include <utility>
 #include "../../models/configuration.h"
-#include "../xmlstrings.h"
 #include "../messenger.h"
 #include "../controls/progressdialog.h"
 #include "preferencesdialog.h"
@@ -12,7 +11,7 @@ using namespace NickvisionApplication::UI::Controls;
 using namespace NickvisionApplication::UI::Views;
 using namespace NickvisionApplication::Update;
 
-MainWindow::MainWindow() : Widget(XmlStrings::getMainWindow()), m_updater("https://raw.githubusercontent.com/nlogozzo/NickvisionApplication/main/UpdateConfig.json", { "2022.3.0" }), m_opened(false)
+MainWindow::MainWindow() : Widget("/ui/views/mainwindow.xml"), m_updater("https://raw.githubusercontent.com/nlogozzo/NickvisionApplication/main/UpdateConfig.json", { "2022.3.0" }), m_opened(false)
 {
     //==Help Actions==//
     //Check for Updates
@@ -40,7 +39,7 @@ MainWindow::MainWindow() : Widget(XmlStrings::getMainWindow()), m_updater("https
     g_signal_connect(m_gio_actAbout, "activate", G_CALLBACK((Callback_GioAction)[](GSimpleAction* action, GVariant* parameter, gpointer* data) { reinterpret_cast<MainWindow*>(data)->about(); }), this);
     g_action_map_add_action(G_ACTION_MAP(MainWindow::gobj()), G_ACTION(m_gio_actAbout));
     //==Menu Button==//
-    GtkBuilder* builderMenu = gtk_builder_new_from_string(XmlStrings::getMenuHelp().c_str(), -1);
+    GtkBuilder* builderMenu = gtk_builder_new_from_resource("/ui/views/menuhelp.xml");
     gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(gtk_builder_get_object(m_builder, "gtk_btnHeaderHelp")), G_MENU_MODEL(gtk_builder_get_object(builderMenu, "gio_menuHelp")));
     //==Pages==//
     adw_view_stack_add_named(ADW_VIEW_STACK(gtk_builder_get_object(m_builder, "adw_viewStack")), m_welcomePage.gobj(), "Welcome");
