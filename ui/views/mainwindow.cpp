@@ -11,7 +11,7 @@ using namespace NickvisionApplication::UI::Controls;
 using namespace NickvisionApplication::UI::Views;
 using namespace NickvisionApplication::Update;
 
-MainWindow::MainWindow() : Widget("/ui/views/mainwindow.xml"), m_updater("https://raw.githubusercontent.com/nlogozzo/NickvisionApplication/main/UpdateConfig.json", { "2022.3.0" }), m_opened(false)
+MainWindow::MainWindow() : Widget("/ui/views/mainwindow.xml"), m_updater("https://raw.githubusercontent.com/nlogozzo/NickvisionApplication/main/UpdateConfig.json", { "2022.4.0" }), m_opened(false)
 {
     //==Help Actions==//
     //Check for Updates
@@ -96,7 +96,7 @@ void MainWindow::checkForUpdates()
         {
             GtkWidget* updateDialog = gtk_message_dialog_new(GTK_WINDOW(pointers->second->gobj()), GtkDialogFlags(GTK_DIALOG_DESTROY_WITH_PARENT | GTK_DIALOG_MODAL),
                                                                 GTK_MESSAGE_INFO, GTK_BUTTONS_YES_NO, "Update Available");
-            gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(updateDialog), std::string("\n===V" + pointers->second->m_updater.getLatestVersion()->toString() + " Changelog===\n" + pointers->second->m_updater.getChangelog() + "\n\nNickvisionApplication can automatically download the latest executable to your Downloads directory. Would you like to continue?").c_str());
+            gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(updateDialog), std::string("\n===V" + pointers->second->m_updater.getLatestVersion()->toString() + " Changelog===\n" + pointers->second->m_updater.getChangelog() + "\n\nNickvisionApplication can automatically download the update tar.gz file to your Downloads directory. Would you like to continue?").c_str());
             g_signal_connect(updateDialog, "response", G_CALLBACK((Callback_GtkDialog_Response)([](GtkDialog* dialog, gint response_id, gpointer* data)
             {
                 MainWindow* mainWindow = reinterpret_cast<MainWindow*>(data);
@@ -113,7 +113,7 @@ void MainWindow::checkForUpdates()
                         {
                             GtkWidget* successDialog = gtk_message_dialog_new(GTK_WINDOW(pointers->second->gobj()), GtkDialogFlags(GTK_DIALOG_DESTROY_WITH_PARENT | GTK_DIALOG_MODAL),
                                                                            GTK_MESSAGE_INFO, GTK_BUTTONS_OK, "Update Downloaded Successfully");
-                            gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(successDialog), "We recommend moving the new executable version out of your Downloads directory and running it from elsewhere to allow future updates to download smoothly.");
+                            gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(successDialog), "Please visit your Downloads folder to unpack and run the new update.");
                             g_signal_connect(successDialog, "response", G_CALLBACK(gtk_window_destroy), nullptr);
                             gtk_widget_show(successDialog);
                         }
@@ -121,6 +121,7 @@ void MainWindow::checkForUpdates()
                         {
                             pointers->second->sendToast("Error: Unable to download the update.");
                         }
+                        delete pointers;
                     })), pointers);
                     downloadingDialog->show();
                 }

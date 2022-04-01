@@ -3,8 +3,6 @@
 #include <fstream>
 #include <unistd.h>
 #include <pwd.h>
-#include <sys/types.h>
-#include <sys/stat.h>
 #include <curlpp/cURLpp.hpp>
 #include <curlpp/Easy.hpp>
 #include <curlpp/Options.hpp>
@@ -72,14 +70,15 @@ void Updater::update()
     {
         std::filesystem::create_directories(downloadsDir);
     }
-    std::string exePath = downloadsDir + "/NickvisionApplication";
-    std::ofstream exeFile(exePath, std::ios::out | std::ios::trunc | std::ios::binary);
+    std::string tarGzPath = downloadsDir + "/NickvisionApplication.tar.gz";
+    std::ofstream exeFile(tarGzPath, std::ios::out | std::ios::trunc | std::ios::binary);
     if(exeFile.is_open())
     {
+        cURLpp::Cleanup cleanup;
         cURLpp::Easy handle;
         try
         {
-            handle.setOpt(cURLpp::Options::Url(m_updateConfig->getLinkToExe()));
+            handle.setOpt(cURLpp::Options::Url(m_updateConfig->getLinkToTarGz()));
             handle.setOpt(cURLpp::Options::FollowLocation(true));
             handle.setOpt(cURLpp::Options::WriteStream(&exeFile));
             handle.perform();
@@ -89,13 +88,11 @@ void Updater::update()
             m_updateSuccessful = false;
             return;
         }
-        exeFile.close();
     }
     else
     {
         m_updateSuccessful = false;
         return;
     }
-    chmod(exePath.c_str(), S_IRWXU);
     m_updateSuccessful = true;
 }

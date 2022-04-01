@@ -9,18 +9,18 @@
 
 using namespace NickvisionApplication::Update;
 
-UpdateConfig::UpdateConfig() : m_latestVersion("0.0.0"), m_changelog(""), m_linkToExe("")
+UpdateConfig::UpdateConfig() : m_latestVersion("0.0.0"), m_changelog(""), m_linkToTarGz("")
 {
 
 }
 
 std::optional<UpdateConfig> UpdateConfig::loadFromUrl(const std::string& url)
 {
-    cURLpp::Cleanup curlCleanup;
     std::string configFilePath = std::string(getpwuid(getuid())->pw_dir) + "/.config/Nickvision/NickvisionApplication/UpdateConfig.json";
     std::ofstream updateConfigFileOut(configFilePath);
     if (updateConfigFileOut.is_open())
     {
+        cURLpp::Cleanup cleanup;
         cURLpp::Easy handle;
         try
         {
@@ -49,7 +49,7 @@ std::optional<UpdateConfig> UpdateConfig::loadFromUrl(const std::string& url)
             updateConfigFileIn >> json;
             updateConfig.m_latestVersion = { json.get("LatestVersion", "0.0.0").asString() };
             updateConfig.m_changelog = json.get("Changelog", "").asString();
-            updateConfig.m_linkToExe = json.get("LinkToExe", "").asString();
+            updateConfig.m_linkToTarGz = json.get("LinkToTarGz", "").asString();
         }
         catch (...)
         {
@@ -83,12 +83,12 @@ void UpdateConfig::setChangelog(const std::string& changelog)
     m_changelog = changelog;
 }
 
-const std::string& UpdateConfig::getLinkToExe() const
+const std::string& UpdateConfig::getLinkToTarGz() const
 {
-    return m_linkToExe;
+    return m_linkToTarGz;
 }
 
-void UpdateConfig::setLinkToExe(const std::string& linkToExe)
+void UpdateConfig::setLinkToTarGz(const std::string& linkToExe)
 {
-    m_linkToExe = linkToExe;
+    m_linkToTarGz = linkToExe;
 }
