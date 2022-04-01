@@ -3,8 +3,11 @@
 
 # Features
 - Modern gtk 4 and libadwaita design
-    - XML files used for UI definitions, linked as a binary gresource
+    - XML files used for UI definitions (linked as a binary gresource)
     - Light/Dark theme support
+- Modern C++ codebase
+    - CMake build system
+    - C++ 20, thread safety, object oriented, lambda usage
 - A custom update framework that supports checking for new updates and downloading them all from within the application
 - Support for saving application settings via a json configuration
 
