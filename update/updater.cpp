@@ -18,11 +18,13 @@ Updater::Updater(const std::string& linkToConfig, const Version& currentVersion)
 
 bool Updater::getUpdateAvailable() const
 {
-    return m_updateAvailable && m_updateConfig.has_value();
+    std::lock_guard<std::mutex> lock(m_mutex);
+    return m_updateAvailable;
 }
 
 std::optional<Version> Updater::getLatestVersion() const
 {
+    std::lock_guard<std::mutex> lock(m_mutex);
     if (m_updateConfig.has_value())
     {
         return m_updateConfig->getLatestVersion();
@@ -32,16 +34,19 @@ std::optional<Version> Updater::getLatestVersion() const
 
 std::string Updater::getChangelog() const
 {
+    std::lock_guard<std::mutex> lock(m_mutex);
     return m_updateConfig.has_value() ? m_updateConfig->getChangelog() : "";
 }
 
 bool Updater::getUpdateSuccessful() const
 {
+    std::lock_guard<std::mutex> lock(m_mutex);
     return m_updateSuccessful;
 }
 
 bool Updater::checkForUpdates()
 {
+    std::lock_guard<std::mutex> lock(m_mutex);
     m_updateConfig = UpdateConfig::loadFromUrl(m_linkToConfig);
     if (m_updateConfig.has_value() && m_updateConfig->getLatestVersion() > m_currentVersion)
     {
@@ -51,12 +56,13 @@ bool Updater::checkForUpdates()
     {
         m_updateAvailable = false;
     }
-    return getUpdateAvailable();
+    return m_updateAvailable;
 }
 
 void Updater::update()
 {
-    if(!getUpdateAvailable())
+    std::lock_guard<std::mutex> lock(m_mutex);
+    if(!m_updateAvailable)
     {
         m_updateSuccessful = false;
         return;

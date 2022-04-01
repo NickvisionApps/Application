@@ -12,7 +12,7 @@ set(CONTROLS ui/controls/progressdialog.h ui/controls/progressdialog.cpp)
 set(VIEWS ui/views/welcomepage.h ui/views/welcomepage.cpp ui/views/formpage.h ui/views/formpage.cpp ui/views/mainwindow.h ui/views/mainwindow.cpp ui/views/preferencesdialog.h ui/views/preferencesdialog.cpp)
 set(XML ui/controls/progressdialog.xml ui/views/welcomepage.xml ui/views/formpage.xml ui/views/menuhelp.xml ui/views/mainwindow.xml ui/views/preferencesdialog.xml)
 
-#Creates Exe
+#Create Exe
 add_executable(NickvisionApplication main.cpp ${UPDATE} ${MODELS} ${UI} ${CONTROLS} ${VIEWS})
 
 #Find Libraries

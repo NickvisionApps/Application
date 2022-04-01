@@ -26,7 +26,7 @@ int Application::run(int argc, char* argv[])
 void Application::onActivate(GtkApplication* app)
 {
     //==Configuration==//
-    Configuration configuration;
+    Configuration& configuration = Configuration::getInstance();
     if(configuration.getTheme() == Theme::System)
     {
         adw_style_manager_set_color_scheme(adw_style_manager_get_default(), ADW_COLOR_SCHEME_PREFER_LIGHT);
@@ -39,7 +39,6 @@ void Application::onActivate(GtkApplication* app)
     {
         adw_style_manager_set_color_scheme(adw_style_manager_get_default(), ADW_COLOR_SCHEME_FORCE_DARK);
     }
-    configuration.save();
     //==Main Window==//
     m_mainWindow = std::make_shared<MainWindow>();
     gtk_application_add_window(app, GTK_WINDOW(m_mainWindow->gobj()));

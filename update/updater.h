@@ -1,6 +1,7 @@
 #ifndef UPDATER_H
 #define UPDATER_H
 
+#include <mutex>
 #include <string>
 #include <optional>
 #include "version.h"
@@ -20,6 +21,7 @@ namespace NickvisionApplication::Update
         void update();
 
     private:
+        mutable std::mutex m_mutex;
         std::string m_linkToConfig;
         Version m_currentVersion;
         std::optional<UpdateConfig> m_updateConfig;

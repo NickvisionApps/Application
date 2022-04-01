@@ -57,7 +57,7 @@ MainWindow::MainWindow() : Widget("/ui/views/mainwindow.xml"), m_updater("https:
 
 MainWindow::~MainWindow()
 {
-    Configuration configuration;
+    Configuration& configuration = Configuration::getInstance();
     configuration.save();
     gtk_window_destroy(GTK_WINDOW(MainWindow::gobj()));
 }
@@ -77,7 +77,7 @@ void MainWindow::onStartup()
 {
     if(!m_opened)
     {
-        Configuration configuration;
+        Configuration& configuration = configuration.getInstance();
         configuration.setIsFirstTimeOpen(false);
         configuration.save();
         m_opened = true;
@@ -154,7 +154,7 @@ void MainWindow::preferences()
     {
         std::pair<PreferencesDialog*, MainWindow*>* pointers = reinterpret_cast<std::pair<PreferencesDialog*, MainWindow*>*>(data);
         delete pointers->first;
-        Configuration configuration;
+        Configuration& configuration = Configuration::getInstance();
         if(configuration.getTheme() == Theme::System)
         {
            adw_style_manager_set_color_scheme(adw_style_manager_get_default(), ADW_COLOR_SCHEME_PREFER_LIGHT);
@@ -184,7 +184,7 @@ void MainWindow::changelog()
 void MainWindow::about()
 {
     const char* authors[] = { "Nicholas Logozzo", nullptr };
-    gtk_show_about_dialog(GTK_WINDOW(gobj()), "program-name", "NickvisionApplication", "version", "2022.3.0", "comments", "A template for creating Nickvision applications.",
+    gtk_show_about_dialog(GTK_WINDOW(gobj()), "program-name", "NickvisionApplication", "version", "2022.4.0", "comments", "A template for creating Nickvision applications.",
                           "copyright", "(C) Nickvision 2021-2022", "license-type", GTK_LICENSE_GPL_3_0, "website", "https://github.com/nlogozzo", "website-label", "GitHub",
                           "authors", authors, nullptr);
 }

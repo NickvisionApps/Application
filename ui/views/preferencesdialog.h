@@ -15,7 +15,7 @@ namespace NickvisionApplication::UI::Views
         GtkWidget* gobj() override;
 
     private:
-        NickvisionApplication::Models::Configuration m_configuration;
+        NickvisionApplication::Models::Configuration& m_configuration;
         //==Signals==//
         void save();
         void onRowIsFirstTimeOpenActivate();

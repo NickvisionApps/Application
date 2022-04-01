@@ -20,41 +20,52 @@ Configuration::Configuration() : m_configDir(std::string(getpwuid(getuid())->pw_
         try
         {
             configFile >> json;
-            setIsFirstTimeOpen(json.get("IsFirstTimeOpen", true).asBool());
-            setTheme(static_cast<Theme>(json.get("Theme", 0).asInt()));
+            m_isFirstTimeOpen = json.get("IsFirstTimeOpen", true).asBool();
+            m_theme = static_cast<Theme>(json.get("Theme", 0).asInt());
         }
         catch (...) { }
     }
 }
 
+Configuration& Configuration::getInstance()
+{
+    static Configuration instance;
+    return instance;
+}
+
 bool Configuration::getIsFirstTimeOpen() const
 {
+    std::lock_guard<std::mutex> lock(m_mutex);
     return m_isFirstTimeOpen;
 }
 
 void Configuration::setIsFirstTimeOpen(bool isFirstTimeOpen)
 {
+    std::lock_guard<std::mutex> lock(m_mutex);
     m_isFirstTimeOpen = isFirstTimeOpen;
 }
 
 Theme Configuration::getTheme() const
 {
+    std::lock_guard<std::mutex> lock(m_mutex);
     return m_theme;
 }
 
 void Configuration::setTheme(Theme theme)
 {
+    std::lock_guard<std::mutex> lock(m_mutex);
     m_theme = theme;
 }
 
 void Configuration::save() const
 {
+    std::lock_guard<std::mutex> lock(m_mutex);
     std::ofstream configFile(m_configDir + "config.json");
     if (configFile.is_open())
     {
         Json::Value json;
-        json["IsFirstTimeOpen"] = getIsFirstTimeOpen();
-        json["Theme"] = static_cast<int>(getTheme());
+        json["IsFirstTimeOpen"] = m_isFirstTimeOpen;
+        json["Theme"] = static_cast<int>(m_theme);
         configFile << json;
     }
 }

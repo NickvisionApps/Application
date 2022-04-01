@@ -32,7 +32,7 @@ void Messenger::deregisterMessage(const std::string& messageName)
     m_callbacks.erase(messageName);
 }
 
-bool Messenger::sendMessage(const std::string& messageName, const std::string& parameter)
+bool Messenger::sendMessage(const std::string& messageName, const std::string& parameter) const
 {
     if(!m_callbacks.contains(messageName))
     {
