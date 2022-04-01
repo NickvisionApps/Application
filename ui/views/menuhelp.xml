@@ -3,11 +3,9 @@
     <menu id="gio_menuHelp">
         <section>
             <item>
-                <attribute name="label" translatable="yes">Check for _Updates</attribute>
+                <attribute name="label" translatable="yes">_Update</attribute>
 
-                <attribute name="action">win.checkForUpdates</attribute>
-
-                <attribute name="accelerator">&lt;Control&gt;U</attribute>
+                <attribute name="action">win.update</attribute>
             </item>
         </section>
 

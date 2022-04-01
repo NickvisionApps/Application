@@ -3,6 +3,8 @@
 #include <fstream>
 #include <unistd.h>
 #include <pwd.h>
+#include <cstdio>
+#include <array>
 #include <curlpp/cURLpp.hpp>
 #include <curlpp/Easy.hpp>
 #include <curlpp/Options.hpp>
@@ -71,8 +73,8 @@ void Updater::update()
         std::filesystem::create_directories(downloadsDir);
     }
     std::string tarGzPath = downloadsDir + "/NickvisionApplication.tar.gz";
-    std::ofstream exeFile(tarGzPath, std::ios::out | std::ios::trunc | std::ios::binary);
-    if(exeFile.is_open())
+    std::ofstream tarGzFileOut(tarGzPath, std::ios::out | std::ios::trunc | std::ios::binary);
+    if(tarGzFileOut.is_open())
     {
         cURLpp::Cleanup cleanup;
         cURLpp::Easy handle;
@@ -80,10 +82,15 @@ void Updater::update()
         {
             handle.setOpt(cURLpp::Options::Url(m_updateConfig->getLinkToTarGz()));
             handle.setOpt(cURLpp::Options::FollowLocation(true));
-            handle.setOpt(cURLpp::Options::WriteStream(&exeFile));
+            handle.setOpt(cURLpp::Options::WriteStream(&tarGzFileOut));
             handle.perform();
         }
         catch(...)
+        {
+            m_updateSuccessful = false;
+            return;
+        }
+        if(!validateUpdate(tarGzPath))
         {
             m_updateSuccessful = false;
             return;
@@ -95,4 +102,32 @@ void Updater::update()
         return;
     }
     m_updateSuccessful = true;
+}
+
+bool Updater::validateUpdate(const std::string& pathToUpdate)
+{
+    std::string copyUpdatePath = std::string(getpwuid(getuid())->pw_dir) + "/.config/Nickvision/NickvisionApplication/update.tar.gz";
+    std::filesystem::copy(pathToUpdate, copyUpdatePath, std::filesystem::copy_options::overwrite_existing);
+    std::string cmdUnzip = "tar --overwrite -zxf " + copyUpdatePath;
+    std::string cmdOutput = "";
+    std::array<char, 128> buffer;
+    FILE* pipe = popen(cmdUnzip.c_str(), "r");
+    if(!pipe)
+    {
+        return false;
+    }
+    while (!feof(pipe))
+    {
+        if (fgets(buffer.data(), 128, pipe) != nullptr)
+        {
+            cmdOutput += buffer.data();
+        }
+    }
+    int resultCode = pclose(pipe);
+    if(resultCode != EXIT_SUCCESS)
+    {
+        std::filesystem::remove(pathToUpdate);
+        return false;
+    }
+    return true;
 }

@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include <utility>
+#include <thread>
 #include "../../models/configuration.h"
 #include "../messenger.h"
 #include "../controls/progressdialog.h"
@@ -15,9 +16,9 @@ MainWindow::MainWindow() : Widget("/ui/views/mainwindow.xml"), m_updater("https:
 {
     //==Help Actions==//
     //Check for Updates
-    m_gio_actCheckForUpdates = g_simple_action_new("checkForUpdates", nullptr);
-    g_signal_connect(m_gio_actCheckForUpdates, "activate", G_CALLBACK((Callback_GioAction)[](GSimpleAction* action, GVariant* parameter, gpointer* data) { reinterpret_cast<MainWindow*>(data)->checkForUpdates(); }), this);
-    g_action_map_add_action(G_ACTION_MAP(MainWindow::gobj()), G_ACTION(m_gio_actCheckForUpdates));
+    m_gio_actUpdate = g_simple_action_new("update", nullptr);
+    g_signal_connect(m_gio_actUpdate, "activate", G_CALLBACK((Callback_GioAction)[](GSimpleAction* action, GVariant* parameter, gpointer* data) { reinterpret_cast<MainWindow*>(data)->update(); }), this);
+    g_action_map_add_action(G_ACTION_MAP(MainWindow::gobj()), G_ACTION(m_gio_actUpdate));
     //GitHub Repo
     m_gio_actGitHubRepo = g_simple_action_new("gitHubRepo", nullptr);
     g_signal_connect(m_gio_actGitHubRepo, "activate", G_CALLBACK((Callback_GioAction)[](GSimpleAction* action, GVariant* parameter, gpointer* data) { reinterpret_cast<MainWindow*>(data)->gitHubRepo(); }), this);
@@ -77,6 +78,15 @@ void MainWindow::onStartup()
 {
     if(!m_opened)
     {
+        std::thread threadBackgroundUpdate([&]()
+        {
+            m_updater.checkForUpdates();
+            if(m_updater.getUpdateAvailable())
+            {
+                sendToast("A new update is avaliable.");
+            }
+        });
+        threadBackgroundUpdate.detach();
         Configuration& configuration = configuration.getInstance();
         configuration.setIsFirstTimeOpen(false);
         configuration.save();
@@ -84,57 +94,48 @@ void MainWindow::onStartup()
     }
 }
 
-void MainWindow::checkForUpdates()
+void MainWindow::update()
 {
-    ProgressDialog* checkingDialog = new ProgressDialog(gobj(), "Checking for updates...", [&]() { m_updater.checkForUpdates(); });
-    std::pair<ProgressDialog*, MainWindow*>* pointers = new std::pair<ProgressDialog*, MainWindow*>(checkingDialog, this);
-    g_signal_connect(checkingDialog->gobj(), "hide", G_CALLBACK((Callback_GtkWidget)([](GtkWidget* widget, gpointer* data)
+    if(m_updater.getUpdateAvailable())
     {
-        std::pair<ProgressDialog*, MainWindow*>* pointers = reinterpret_cast<std::pair<ProgressDialog*, MainWindow*>*>(data);
-        delete pointers->first;
-        if(pointers->second->m_updater.getUpdateAvailable())
+        GtkWidget* updateDialog = gtk_message_dialog_new(GTK_WINDOW(gobj()), GtkDialogFlags(GTK_DIALOG_DESTROY_WITH_PARENT | GTK_DIALOG_MODAL),
+                                                            GTK_MESSAGE_INFO, GTK_BUTTONS_YES_NO, "Update Available");
+        gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(updateDialog), std::string("\n===V" + m_updater.getLatestVersion()->toString() + " Changelog===\n" + m_updater.getChangelog() + "\n\nNickvisionApplication can automatically download the update tar.gz file to your Downloads directory. Would you like to continue?").c_str());
+        g_signal_connect(updateDialog, "response", G_CALLBACK((Callback_GtkDialog_Response)([](GtkDialog* dialog, gint response_id, gpointer* data)
         {
-            GtkWidget* updateDialog = gtk_message_dialog_new(GTK_WINDOW(pointers->second->gobj()), GtkDialogFlags(GTK_DIALOG_DESTROY_WITH_PARENT | GTK_DIALOG_MODAL),
-                                                                GTK_MESSAGE_INFO, GTK_BUTTONS_YES_NO, "Update Available");
-            gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(updateDialog), std::string("\n===V" + pointers->second->m_updater.getLatestVersion()->toString() + " Changelog===\n" + pointers->second->m_updater.getChangelog() + "\n\nNickvisionApplication can automatically download the update tar.gz file to your Downloads directory. Would you like to continue?").c_str());
-            g_signal_connect(updateDialog, "response", G_CALLBACK((Callback_GtkDialog_Response)([](GtkDialog* dialog, gint response_id, gpointer* data)
+            MainWindow* mainWindow = reinterpret_cast<MainWindow*>(data);
+            gtk_window_destroy(GTK_WINDOW(dialog));
+            if(response_id == GTK_RESPONSE_YES)
             {
-                MainWindow* mainWindow = reinterpret_cast<MainWindow*>(data);
-                gtk_window_destroy(GTK_WINDOW(dialog));
-                if(response_id == GTK_RESPONSE_YES)
+                ProgressDialog* downloadingDialog = new ProgressDialog(mainWindow->gobj(), "Downloading the update...", [&]() { mainWindow->m_updater.update(); });
+                std::pair<ProgressDialog*, MainWindow*>* pointers = new std::pair<ProgressDialog*, MainWindow*>(downloadingDialog, mainWindow);
+                g_signal_connect(downloadingDialog->gobj(), "hide", G_CALLBACK((Callback_GtkWidget)([](GtkWidget* widget, gpointer* data)
                 {
-                    ProgressDialog* downloadingDialog = new ProgressDialog(mainWindow->gobj(), "Downloading the update...", [&]() { mainWindow->m_updater.update(); });
-                    std::pair<ProgressDialog*, MainWindow*>* pointers = new std::pair<ProgressDialog*, MainWindow*>(downloadingDialog, mainWindow);
-                    g_signal_connect(downloadingDialog->gobj(), "destroy", G_CALLBACK((Callback_GtkWidget)([](GtkWidget* widget, gpointer* data)
+                    std::pair<ProgressDialog*, MainWindow*>* pointers = reinterpret_cast<std::pair<ProgressDialog*, MainWindow*>*>(data);
+                    delete pointers->first;
+                    if(pointers->second->m_updater.getUpdateSuccessful())
                     {
-                        std::pair<ProgressDialog*, MainWindow*>* pointers = reinterpret_cast<std::pair<ProgressDialog*, MainWindow*>*>(data);
-                        delete pointers->first;
-                        if(pointers->second->m_updater.getUpdateSuccessful())
-                        {
-                            GtkWidget* successDialog = gtk_message_dialog_new(GTK_WINDOW(pointers->second->gobj()), GtkDialogFlags(GTK_DIALOG_DESTROY_WITH_PARENT | GTK_DIALOG_MODAL),
-                                                                           GTK_MESSAGE_INFO, GTK_BUTTONS_OK, "Update Downloaded Successfully");
-                            gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(successDialog), "Please visit your Downloads folder to unpack and run the new update.");
-                            g_signal_connect(successDialog, "response", G_CALLBACK(gtk_window_destroy), nullptr);
-                            gtk_widget_show(successDialog);
-                        }
-                        else
-                        {
-                            pointers->second->sendToast("Error: Unable to download the update.");
-                        }
-                        delete pointers;
-                    })), pointers);
-                    downloadingDialog->show();
-                }
-            })), pointers->second);
-            gtk_widget_show(updateDialog);
-        }
-        else
-        {
-           pointers->second->sendToast("There is no update at this time. Please check again later.");
-        }
-        delete pointers;
-    })), pointers);
-    checkingDialog->show();
+                        GtkWidget* successDialog = gtk_message_dialog_new(GTK_WINDOW(pointers->second->gobj()), GtkDialogFlags(GTK_DIALOG_DESTROY_WITH_PARENT | GTK_DIALOG_MODAL),
+                                                                     GTK_MESSAGE_INFO, GTK_BUTTONS_OK, "Update Downloaded Successfully");
+                        gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(successDialog), "Please visit your Downloads folder to unpack and run the new update.");
+                        g_signal_connect(successDialog, "response", G_CALLBACK(gtk_window_destroy), nullptr);
+                        gtk_widget_show(successDialog);
+                    }
+                    else
+                    {
+                        pointers->second->sendToast("Error: Unable to download the update.");
+                    }
+                    delete pointers;
+                })), pointers);
+                downloadingDialog->show();
+            }
+        })), this);
+        gtk_widget_show(updateDialog);
+    }
+    else
+    {
+        sendToast("There is no update at this time. Please try again later.");
+    }
 }
 
 void MainWindow::gitHubRepo()

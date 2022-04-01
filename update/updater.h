@@ -21,6 +21,7 @@ namespace NickvisionApplication::Update
         void update();
 
     private:
+        bool validateUpdate(const std::string& pathToUpdate);
         mutable std::mutex m_mutex;
         std::string m_linkToConfig;
         Version m_currentVersion;

@@ -22,7 +22,7 @@ namespace NickvisionApplication::UI::Views
         NickvisionApplication::Update::Updater m_updater;
         bool m_opened;
         //==Help Actions==//
-        GSimpleAction* m_gio_actCheckForUpdates = nullptr;
+        GSimpleAction* m_gio_actUpdate = nullptr;
         GSimpleAction* m_gio_actGitHubRepo = nullptr;
         GSimpleAction* m_gio_actReportABug = nullptr;
         GSimpleAction* m_gio_actPreferences = nullptr;
@@ -33,7 +33,7 @@ namespace NickvisionApplication::UI::Views
         FormPage m_formPage;
         //==Signals==//
         void onStartup();
-        void checkForUpdates();
+        void update();
         void gitHubRepo();
         void reportABug();
         void preferences();
