@@ -1,7 +1,6 @@
 #ifndef MESSENGER_H
 #define MESSENGER_H
 
-#include <mutex>
 #include <string>
 #include <functional>
 #include <unordered_map>
