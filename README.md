@@ -12,7 +12,7 @@
 - Support for saving application settings via a json configuration
 
 # Screenshots
-![WelcomePage](https://user-images.githubusercontent.com/17648453/159201352-d5cd3dc1-d394-4667-8cc1-dd43ccee4bf0.png)
+![WelcomePage](https://user-images.githubusercontent.com/17648453/161465948-25a84af4-9b1d-4de3-b2ba-cf44b1611bf7.png)
 ![FormPage](https://user-images.githubusercontent.com/17648453/159201361-a79769f6-a42e-4530-a576-26c4438c62e4.png)
 ![OpenFolder](https://user-images.githubusercontent.com/17648453/159201369-ec495d7d-1be1-42e9-bdc5-70a56aae6e59.png)
 ![PreferencesDialog](https://user-images.githubusercontent.com/17648453/159201371-1e519aab-5809-4054-809d-9651ec0f7182.png)
