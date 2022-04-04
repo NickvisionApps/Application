@@ -29,6 +29,8 @@
 
                 <property name="valign">center</property>
 
+                <property name="icon-name">applications-engineering-symbolic</property>
+
                 <property name="title" translatable="yes">Welcome to Application!</property>
 
                 <property name="description" translatable="yes">A template for creating Nickvision applications.&#xA;&#xA;Version 2022.4.0</property>
