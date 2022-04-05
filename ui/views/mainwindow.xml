@@ -51,7 +51,7 @@
 
                                         <child>
                                             <object class="GtkImage">
-                                                <property name="icon-name">go-home-symbolic</property>
+                                                <property name="icon-name">user-home-symbolic</property>
                                             </object>
                                         </child>
 
