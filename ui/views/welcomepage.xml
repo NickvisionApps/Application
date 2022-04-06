@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
     <object class="GtkBox" id="gtk_boxWelcomePage">
-        <style>
-            <class name="view"></class>
-        </style>
-
         <property name="orientation">vertical</property>
 
         <child>

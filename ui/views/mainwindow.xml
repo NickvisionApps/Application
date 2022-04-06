@@ -108,7 +108,11 @@
                         <property name="vexpand">true</property>
 
                         <child>
-                            <object class="AdwViewStack" id="adw_viewStack"></object>
+                            <object class="AdwViewStack" id="adw_viewStack">
+                                <style>
+                                    <class name="view"></class>
+                                </style>
+                            </object>
                         </child>
                     </object>
                 </child>
