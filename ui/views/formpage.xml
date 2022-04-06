@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
     <object class="GtkBox" id="gtk_boxFormPage">
+        <style>
+            <class name="view"></class>
+        </style>
+
         <property name="orientation">vertical</property>
 
         <child>
@@ -33,13 +37,13 @@
 
                 <property name="spacing">6</property>
 
-                <property name="margin-start">6</property>
+                <property name="margin-start">10</property>
 
-                <property name="margin-top">6</property>
+                <property name="margin-top">10</property>
 
-                <property name="margin-end">6</property>
+                <property name="margin-end">10</property>
 
-                <property name="margin-bottom">6</property>
+                <property name="margin-bottom">10</property>
 
                 <child>
                     <object class="GtkLabel" id="gtk_lblFirstName">
