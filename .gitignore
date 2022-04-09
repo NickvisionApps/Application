@@ -35,3 +35,6 @@
 *.user
 *.user.*
 
+# VSCode
+build/
+.vscode/
