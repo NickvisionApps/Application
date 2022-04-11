@@ -15,18 +15,18 @@ namespace NickvisionApplication::Models
         Configuration(Configuration&&) = delete;
         void operator=(const Configuration&) = delete;
         void operator=(Configuration&&) = delete;
-        bool getIsFirstTimeOpen() const;
-        void setIsFirstTimeOpen(bool isFirstTimeOpen);
         Theme getTheme() const;
         void setTheme(Theme theme);
+        bool getIsFirstTimeOpen() const;
+        void setIsFirstTimeOpen(bool isFirstTimeOpen);
         void save() const;
 
     private:
         Configuration();
         mutable std::mutex m_mutex;
         std::string m_configDir;
-        bool m_isFirstTimeOpen;
         Theme m_theme;
+        bool m_isFirstTimeOpen;
     };
 }
 

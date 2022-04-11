@@ -17,6 +17,7 @@ namespace NickvisionApplication::UI
     {
     public:
         Widget(const std::string& resourcePath);
+        virtual ~Widget() = default;
         GtkBuilder* getBuilder();
         virtual GtkWidget* gobj() = 0;
         virtual void show();

@@ -16,7 +16,7 @@
                         <property name="orientation">vertical</property>
 
                         <child>
-                            <object class="AdwHeaderBar">
+                            <object class="AdwHeaderBar" id="adw_headerBar">
                                 <binding name="show-end-title-buttons">
                                     <lookup name="folded">adw_leaflet</lookup>
                                 </binding>

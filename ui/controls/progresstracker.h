@@ -1,5 +1,5 @@
-#ifndef PROGRESSDIALOG_H
-#define PROGRESSDIALOG_H
+#ifndef PROGRESSTRACKER_H
+#define PROGRESSTRACKER_H
 
 #include <string>
 #include <thread>
@@ -10,10 +10,10 @@
 
 namespace NickvisionApplication::UI::Controls
 {
-    class ProgressDialog : public NickvisionApplication::UI::Widget
+    class ProgressTracker : public NickvisionApplication::UI::Widget
     {
     public:
-        ProgressDialog(GtkWidget* parent, const std::string& description, const std::function<void()>& work, const std::function<void()>& then);
+        ProgressTracker(const std::string& description, const std::function<void()>& work, const std::function<void()>& then);
         GtkWidget* gobj() override;
         void show() override;
 
@@ -28,4 +28,4 @@ namespace NickvisionApplication::UI::Controls
     };
 }
 
-#endif // PROGRESSDIALOG_H
+#endif // PROGRESSTRACKER_H

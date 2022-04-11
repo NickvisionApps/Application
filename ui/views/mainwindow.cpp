@@ -4,6 +4,7 @@
 #include "../../models/configuration.h"
 #include "../messenger.h"
 #include "../controls/progressdialog.h"
+#include "../controls/progresstracker.h"
 #include "preferencesdialog.h"
 
 using namespace NickvisionApplication::Models;
@@ -68,28 +69,24 @@ GtkWidget* MainWindow::gobj()
     return GTK_WIDGET(gtk_builder_get_object(m_builder, "adw_winMain"));
 }
 
-void MainWindow::showMaximized()
-{
-    gtk_widget_show(gobj());
-    gtk_window_maximize(GTK_WINDOW(gobj()));
-}
-
 void MainWindow::onStartup()
 {
     if(!m_opened)
     {
-        std::thread threadBackgroundUpdate([&]()
+        //==Load Configuration==//
+        Configuration& configuration = configuration.getInstance();
+        configuration.setIsFirstTimeOpen(false);
+        configuration.save();
+        //==Check for Updates==//
+        ProgressTracker* progTrackerUpdate = new ProgressTracker("Checking for updates...", [&]() { m_updater.checkForUpdates(); }, [&]()
         {
-            m_updater.checkForUpdates();
             if(m_updater.getUpdateAvailable())
             {
                 sendToast("A new update is avaliable.");
             }
         });
-        threadBackgroundUpdate.detach();
-        Configuration& configuration = configuration.getInstance();
-        configuration.setIsFirstTimeOpen(false);
-        configuration.save();
+        adw_header_bar_pack_start(ADW_HEADER_BAR(gtk_builder_get_object(m_builder, "adw_headerBar")), progTrackerUpdate->gobj());
+        progTrackerUpdate->show();
         m_opened = true;
     }
 }
@@ -107,15 +104,11 @@ void MainWindow::update()
             gtk_window_destroy(GTK_WINDOW(dialog));
             if(response_id == GTK_RESPONSE_YES)
             {
-                ProgressDialog* downloadingDialog = new ProgressDialog(mainWindow->gobj(), "Downloading the update...", [&]() { mainWindow->m_updater.update(); });
-                std::pair<ProgressDialog*, MainWindow*>* pointers = new std::pair<ProgressDialog*, MainWindow*>(downloadingDialog, mainWindow);
-                g_signal_connect(downloadingDialog->gobj(), "hide", G_CALLBACK((Callback_GtkWidget)([](GtkWidget* widget, gpointer* data)
+                ProgressDialog* downloadingDialog = new ProgressDialog(mainWindow->gobj(), "Downloading the update...", [&]() { mainWindow->m_updater.update(); }, [&]()
                 {
-                    std::pair<ProgressDialog*, MainWindow*>* pointers = reinterpret_cast<std::pair<ProgressDialog*, MainWindow*>*>(data);
-                    delete pointers->first;
-                    if(pointers->second->m_updater.getUpdateSuccessful())
+                    if(mainWindow->m_updater.getUpdateSuccessful())
                     {
-                        GtkWidget* successDialog = gtk_message_dialog_new(GTK_WINDOW(pointers->second->gobj()), GtkDialogFlags(GTK_DIALOG_DESTROY_WITH_PARENT | GTK_DIALOG_MODAL),
+                        GtkWidget* successDialog = gtk_message_dialog_new(GTK_WINDOW(mainWindow->gobj()), GtkDialogFlags(GTK_DIALOG_DESTROY_WITH_PARENT | GTK_DIALOG_MODAL),
                                                                      GTK_MESSAGE_INFO, GTK_BUTTONS_OK, "Update Downloaded Successfully");
                         gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(successDialog), "Please visit your Downloads folder to unpack and run the new update.");
                         g_signal_connect(successDialog, "response", G_CALLBACK(gtk_window_destroy), nullptr);
@@ -123,10 +116,9 @@ void MainWindow::update()
                     }
                     else
                     {
-                        pointers->second->sendToast("Error: Unable to download the update.");
+                        mainWindow->sendToast("Error: Unable to download the update.");
                     }
-                    delete pointers;
-                })), pointers);
+                });
                 downloadingDialog->show();
             }
         })), this);

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-    <object class="AdwWindow" id="gtk_progDialog">
+    <object class="AdwWindow" id="adw_progDialog">
         <property name="default-width">400</property>
 
         <property name="default-height">60</property>

@@ -1,19 +1,18 @@
-#include "progressdialog.h"
+#include "progresstracker.h"
 
 using namespace NickvisionApplication::UI;
 using namespace NickvisionApplication::UI::Controls;
 
-ProgressDialog::ProgressDialog(GtkWidget* parent, const std::string& description, const std::function<void()>& work, const std::function<void()>& then) : Widget("/ui/controls/progressdialog.xml"), m_work(work), m_then(then), m_isFinished(false)
+ProgressTracker::ProgressTracker(const std::string& description, const std::function<void()>& work, const std::function<void()>& then) : Widget("/ui/controls/progresstracker.xml"), m_work(work), m_then(then), m_isFinished(false)
 {
-    //==Dialog==//
-    gtk_window_set_transient_for(GTK_WINDOW(ProgressDialog::gobj()), GTK_WINDOW(parent));
+    //==Signals==//
     g_timeout_add(50, [](void* data) -> int 
     { 
-        ProgressDialog* dialog = reinterpret_cast<ProgressDialog*>(data);
-        bool result = dialog->timeout();
+        ProgressTracker* tracker = reinterpret_cast<ProgressTracker*>(data);
+        bool result = tracker->timeout();
         if(!result)
         {
-            delete dialog;
+            delete tracker;
         }
         return result;
     }, this);
@@ -28,12 +27,12 @@ ProgressDialog::ProgressDialog(GtkWidget* parent, const std::string& description
     });
 }
 
-GtkWidget* ProgressDialog::gobj()
+GtkWidget* ProgressTracker::gobj()
 {
-    return GTK_WIDGET(gtk_builder_get_object(m_builder, "adw_progDialog"));
+    return GTK_WIDGET(gtk_builder_get_object(m_builder, "gtk_btnProgTracker"));
 }
 
-void ProgressDialog::show()
+void ProgressTracker::show()
 {
     std::lock_guard<std::mutex> lock(m_mutex);
     if(!m_isFinished)
@@ -42,14 +41,14 @@ void ProgressDialog::show()
     }
 }
 
-bool ProgressDialog::timeout()
+bool ProgressTracker::timeout()
 {
     std::lock_guard<std::mutex> lock(m_mutex);
     gtk_progress_bar_pulse(GTK_PROGRESS_BAR(gtk_builder_get_object(m_builder, "gtk_progBar")));
     if(m_isFinished)
     {
         m_then();
-        gtk_window_destroy(GTK_WINDOW(gobj()));
+        gtk_widget_hide(gobj());
         return false;
     }
     return true;
