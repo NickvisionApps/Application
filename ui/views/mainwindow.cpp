@@ -69,6 +69,12 @@ GtkWidget* MainWindow::gobj()
     return GTK_WIDGET(gtk_builder_get_object(m_builder, "adw_winMain"));
 }
 
+void MainWindow::showMaximized()
+{
+    gtk_widget_show(gobj());
+    gtk_window_maximize(GTK_WINDOW(gobj()));
+}
+
 void MainWindow::onStartup()
 {
     if(!m_opened)

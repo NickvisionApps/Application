@@ -42,5 +42,5 @@ void Application::onActivate(GtkApplication* app)
     //==Main Window==//
     m_mainWindow = std::make_shared<MainWindow>();
     gtk_application_add_window(app, GTK_WINDOW(m_mainWindow->gobj()));
-    m_mainWindow->show();
+    m_mainWindow->showMaximized();
 }

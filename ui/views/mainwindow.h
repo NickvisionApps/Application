@@ -16,6 +16,7 @@ namespace NickvisionApplication::UI::Views
         MainWindow();
         ~MainWindow();
         GtkWidget* gobj() override;
+        void showMaximized();
 
     private:
         NickvisionApplication::Update::Updater m_updater;
