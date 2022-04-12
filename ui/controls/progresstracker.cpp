@@ -38,6 +38,7 @@ void ProgressTracker::show()
     if(!m_isFinished)
     {
         gtk_widget_show(gobj());
+        gtk_popover_popup(GTK_POPOVER(gtk_builder_get_object(m_builder, "gtk_popover")));
     }
 }
 
@@ -48,6 +49,7 @@ bool ProgressTracker::timeout()
     if(m_isFinished)
     {
         m_then();
+        gtk_popover_popdown(GTK_POPOVER(gtk_builder_get_object(m_builder, "gtk_popover")));
         gtk_widget_hide(gobj());
         return false;
     }

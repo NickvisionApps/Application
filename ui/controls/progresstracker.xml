@@ -6,7 +6,7 @@
         <property name="tooltip-text" translatable="yes">Please Wait</property>
     
         <property name="popover">
-            <object class="GtkPopover">
+            <object class="GtkPopover" id="gtk_popover">
                 <child>
                     <object class="GtkBox">
                         <property name="orientation">vertical</property>
