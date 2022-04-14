@@ -17,6 +17,10 @@
 
                         <child>
                             <object class="AdwHeaderBar" id="adw_headerBar">
+                                <style>
+                                    <class name="flat"></class>
+                                </style>
+
                                 <binding name="show-end-title-buttons">
                                     <lookup name="folded">adw_leaflet</lookup>
                                 </binding>

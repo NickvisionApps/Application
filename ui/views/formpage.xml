@@ -5,6 +5,10 @@
 
         <child>
             <object class="AdwHeaderBar">
+                <style>
+                    <class name="flat"></class>
+                </style>
+
                 <property name="show-start-title-buttons">false</property>
 
                 <property name="title-widget">
@@ -20,6 +24,12 @@
                         <property name="tooltip-text" translatable="yes">Open Folder</property>
                     </object>
                 </child>
+            </object>
+        </child>
+
+        <child>
+            <object class="GtkSeparator">
+                <property name="orientation">horizontal</property>
             </object>
         </child>
 
