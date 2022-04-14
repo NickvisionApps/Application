@@ -12,11 +12,11 @@
 - Support for saving application settings via a json configuration
 
 # Screenshots
-![WelcomePage](https://user-images.githubusercontent.com/17648453/161465948-25a84af4-9b1d-4de3-b2ba-cf44b1611bf7.png)
-![FormPage](https://user-images.githubusercontent.com/17648453/159201361-a79769f6-a42e-4530-a576-26c4438c62e4.png)
-![OpenFolder](https://user-images.githubusercontent.com/17648453/159201369-ec495d7d-1be1-42e9-bdc5-70a56aae6e59.png)
-![PreferencesDialog](https://user-images.githubusercontent.com/17648453/159201371-1e519aab-5809-4054-809d-9651ec0f7182.png)
-![LightTheme](https://user-images.githubusercontent.com/17648453/159201377-8232c231-db9a-4638-af68-c574fbadab91.png)
+![WelcomePage](https://user-images.githubusercontent.com/17648453/163454185-5f5ffa86-4902-4754-8d70-abc343fa8480.png)
+![FormPage](https://user-images.githubusercontent.com/17648453/163454188-ed9c167a-0cfb-4e41-b1fa-afc486249a5d.png)
+![OpenFolder](https://user-images.githubusercontent.com/17648453/163454195-aeac35cd-317e-40e3-9e3f-76b9329506e8.png)
+![PreferencesDialog](https://user-images.githubusercontent.com/17648453/163454218-8907e5e7-3a2f-4b83-898a-7fc266472897.png)
+![LightMode](https://user-images.githubusercontent.com/17648453/163454222-c2cd66cd-5ba5-4da6-aff9-81dfa24896d2.png)
 
 # Dependencies
 - [c++20](https://en.cppreference.com/w/cpp/20)
