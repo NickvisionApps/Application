@@ -44,17 +44,10 @@ std::optional<UpdateConfig> UpdateConfig::loadFromUrl(const std::string& url)
     {
         UpdateConfig updateConfig;
         Json::Value json;
-        try
-        {
-            updateConfigFileIn >> json;
-            updateConfig.m_latestVersion = { json.get("LatestVersion", "0.0.0").asString() };
-            updateConfig.m_changelog = json.get("Changelog", "").asString();
-            updateConfig.m_linkToTarGz = json.get("LinkToTarGz", "").asString();
-        }
-        catch (...)
-        {
-            return std::nullopt;
-        }
+        updateConfigFileIn >> json;
+        updateConfig.m_latestVersion = { json.get("LatestVersion", "0.0.0").asString() };
+        updateConfig.m_changelog = json.get("Changelog", "").asString();
+        updateConfig.m_linkToTarGz = json.get("LinkToTarGz", "").asString();
         return updateConfig;
     }
     else

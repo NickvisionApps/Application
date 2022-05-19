@@ -5,7 +5,7 @@ namespace NickvisionApplication::Models
 {
     enum class Theme
     {
-        System = 0,
+        System,
         Light,
         Dark
     };

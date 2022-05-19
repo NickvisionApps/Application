@@ -17,13 +17,9 @@ Configuration::Configuration() : m_configDir(std::string(getpwuid(getuid())->pw_
     if (configFile.is_open())
     {
         Json::Value json;
-        try
-        {
-            configFile >> json;
-            m_theme = static_cast<Theme>(json.get("Theme", 0).asInt());
-            m_isFirstTimeOpen = json.get("IsFirstTimeOpen", true).asBool();
-        }
-        catch (...) { }
+        configFile >> json;
+        m_theme = static_cast<Theme>(json.get("Theme", 0).asInt());
+        m_isFirstTimeOpen = json.get("IsFirstTimeOpen", true).asBool();
     }
 }
 

@@ -10,9 +10,9 @@ namespace NickvisionApplication::Update
     public:
         Version(const std::string& version);
         std::string toString() const;
-        bool operator<(const Version& toCompare) const;
         bool operator==(const Version& toCompare) const;
         bool operator!=(const Version& toCompare) const;
+        bool operator<(const Version& toCompare) const;
         bool operator>(const Version& toCompare) const;
 
     private:
