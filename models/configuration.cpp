@@ -23,12 +23,6 @@ Configuration::Configuration() : m_configDir(std::string(getpwuid(getuid())->pw_
     }
 }
 
-Configuration& Configuration::getInstance()
-{
-    static Configuration instance;
-    return instance;
-}
-
 Theme Configuration::getTheme() const
 {
     std::lock_guard<std::mutex> lock(m_mutex);

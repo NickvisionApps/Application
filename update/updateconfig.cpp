@@ -2,11 +2,10 @@
 #include <fstream>
 #include <unistd.h>
 #include <pwd.h>
-#include <curlpp/cURLpp.hpp>
-#include <curlpp/Easy.hpp>
-#include <curlpp/Options.hpp>
 #include <json/json.h>
+#include "../helpers/curlhelpers.h"
 
+using namespace NickvisionApplication::Helpers;
 using namespace NickvisionApplication::Update;
 
 UpdateConfig::UpdateConfig() : m_latestVersion("0.0.0"), m_changelog(""), m_linkToTarGz("")
@@ -17,25 +16,7 @@ UpdateConfig::UpdateConfig() : m_latestVersion("0.0.0"), m_changelog(""), m_link
 std::optional<UpdateConfig> UpdateConfig::loadFromUrl(const std::string& url)
 {
     std::string configFilePath = std::string(getpwuid(getuid())->pw_dir) + "/.config/Nickvision/NickvisionApplication/updateConfig.json";
-    std::ofstream updateConfigFileOut(configFilePath);
-    if (updateConfigFileOut.is_open())
-    {
-        cURLpp::Cleanup cleanup;
-        cURLpp::Easy handle;
-        try
-        {
-            handle.setOpt(cURLpp::Options::Url(url));
-            handle.setOpt(cURLpp::Options::FollowLocation(true));
-            handle.setOpt(cURLpp::Options::WriteStream(&updateConfigFileOut));
-            handle.perform();
-        }
-        catch(...)
-        {
-            return std::nullopt;
-        }
-        updateConfigFileOut.close();
-    }
-    else
+    if(!CurlHelpers::downloadFile(url, configFilePath))
     {
         return std::nullopt;
     }

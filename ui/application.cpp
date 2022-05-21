@@ -26,7 +26,7 @@ int Application::run(int argc, char* argv[])
 void Application::onActivate(GtkApplication* app)
 {
     //==Configuration==//
-    Configuration& configuration = Configuration::getInstance();
+    Configuration configuration;
     if(configuration.getTheme() == Theme::System)
     {
         adw_style_manager_set_color_scheme(adw_style_manager_get_default(), ADW_COLOR_SCHEME_PREFER_LIGHT);

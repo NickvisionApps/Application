@@ -1,5 +1,4 @@
-#ifndef CONFIGURATION_H
-#define CONFIGURATION_H
+#pragma once
 
 #include <mutex>
 #include <string>
@@ -10,11 +9,7 @@ namespace NickvisionApplication::Models
     class Configuration
     {
     public:
-        static Configuration& getInstance();
-        Configuration(const Configuration&) = delete;
-        Configuration(Configuration&&) = delete;
-        void operator=(const Configuration&) = delete;
-        void operator=(Configuration&&) = delete;
+        Configuration();
         Theme getTheme() const;
         void setTheme(Theme theme);
         bool getIsFirstTimeOpen() const;
@@ -22,12 +17,9 @@ namespace NickvisionApplication::Models
         void save() const;
 
     private:
-        Configuration();
         mutable std::mutex m_mutex;
         std::string m_configDir;
         Theme m_theme;
         bool m_isFirstTimeOpen;
     };
 }
-
-#endif // CONFIGURATION_H

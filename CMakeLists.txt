@@ -8,15 +8,16 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_FLAGS "-g -Wall -Wextra")
 
 #Source Files
+set(HELPERS helpers/curlhelpers.h helpers/curlhelpers.cpp)
 set(UPDATE update/version.h update/version.cpp update/updateconfig.h update/updateconfig.cpp update/updater.h update/updater.cpp)
 set(MODELS models/theme.h models/configuration.h models/configuration.cpp)
 set(UI ui/application.h ui/application.cpp ui/messenger.h ui/messenger.cpp ui/widget.h ui/widget.cpp)
+set(XML ui/controls/progressdialog.xml ui/controls/progresstracker.xml ui/views/welcomepage.xml ui/views/formpage.xml ui/views/menuhelp.xml ui/views/mainwindow.xml ui/views/preferencesdialog.xml)
 set(CONTROLS ui/controls/progressdialog.h ui/controls/progressdialog.cpp ui/controls/progresstracker.h ui/controls/progresstracker.cpp)
 set(VIEWS ui/views/welcomepage.h ui/views/welcomepage.cpp ui/views/formpage.h ui/views/formpage.cpp ui/views/mainwindow.h ui/views/mainwindow.cpp ui/views/preferencesdialog.h ui/views/preferencesdialog.cpp)
-set(XML ui/controls/progressdialog.xml ui/controls/progresstracker.xml ui/views/welcomepage.xml ui/views/formpage.xml ui/views/menuhelp.xml ui/views/mainwindow.xml ui/views/preferencesdialog.xml)
 
 #Create Exe
-add_executable(NickvisionApplication main.cpp ${UPDATE} ${MODELS} ${UI} ${CONTROLS} ${VIEWS})
+add_executable(NickvisionApplication main.cpp ${HELPERS} ${UPDATE} ${MODELS} ${UI} ${XML} ${CONTROLS} ${VIEWS})
 
 #Find Libraries
 find_package(PkgConfig)

@@ -5,10 +5,9 @@
 #include <pwd.h>
 #include <cstdio>
 #include <array>
-#include <curlpp/cURLpp.hpp>
-#include <curlpp/Easy.hpp>
-#include <curlpp/Options.hpp>
+#include "../helpers/curlhelpers.h"
 
+using namespace NickvisionApplication::Helpers;
 using namespace NickvisionApplication::Update;
 
 Updater::Updater(const std::string& linkToConfig, const Version& currentVersion) : m_linkToConfig(linkToConfig), m_currentVersion(currentVersion), m_updateConfig(std::nullopt), m_updateAvailable(false), m_updateSuccessful(false)
@@ -66,33 +65,14 @@ bool Updater::update()
         std::filesystem::create_directories(downloadsDir);
     }
     std::string tarGzPath = downloadsDir + "/NickvisionApplication.tar.gz";
-    std::ofstream tarGzFileOut(tarGzPath, std::ios::out | std::ios::trunc | std::ios::binary);
-    if(tarGzFileOut.is_open())
-    {
-        cURLpp::Cleanup cleanup;
-        cURLpp::Easy handle;
-        try
-        {
-            handle.setOpt(cURLpp::Options::Url(m_updateConfig->getLinkToTarGz()));
-            handle.setOpt(cURLpp::Options::FollowLocation(true));
-            handle.setOpt(cURLpp::Options::WriteStream(&tarGzFileOut));
-            handle.perform();
-        }
-        catch(...)
-        {
-            m_updateSuccessful = false;
-            return m_updateSuccessful;
-        }
-        if(!validateUpdate(tarGzPath))
-        {
-            m_updateSuccessful = false;
-            return m_updateSuccessful;
-        }
-    }
-    else
+    if(!CurlHelpers::downloadFile(m_updateConfig->getLinkToTarGz(), tarGzPath))
     {
         m_updateSuccessful = false;
         return m_updateSuccessful;
+    }
+    if(!validateUpdate(tarGzPath))
+    {
+        m_updateSuccessful = false;
     }
     m_updateSuccessful = true;
     return m_updateSuccessful;

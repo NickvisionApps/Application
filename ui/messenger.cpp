@@ -8,12 +8,6 @@ Messenger::Messenger()
 
 }
 
-Messenger& Messenger::getInstance()
-{
-    static Messenger instance;
-    return instance;
-}
-
 void Messenger::registerMessage(const std::string& messageName, const std::function<void(const std::string& parameter)>& callback)
 {
     if(m_callbacks.contains(messageName))

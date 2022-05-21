@@ -59,7 +59,7 @@ MainWindow::MainWindow() : Widget("/ui/views/mainwindow.xml"), m_updater("https:
 
 MainWindow::~MainWindow()
 {
-    Configuration& configuration = Configuration::getInstance();
+    Configuration configuration;
     configuration.save();
     gtk_window_destroy(GTK_WINDOW(MainWindow::gobj()));
 }
@@ -80,7 +80,7 @@ void MainWindow::onStartup()
     if(!m_opened)
     {
         //==Load Configuration==//
-        Configuration& configuration = configuration.getInstance();
+        Configuration configuration;
         configuration.setIsFirstTimeOpen(false);
         configuration.save();
         //==Check for Updates==//
@@ -154,7 +154,7 @@ void MainWindow::preferences()
     {
         std::pair<PreferencesDialog*, MainWindow*>* pointers = reinterpret_cast<std::pair<PreferencesDialog*, MainWindow*>*>(data);
         delete pointers->first;
-        Configuration& configuration = Configuration::getInstance();
+        Configuration configuration;
         if(configuration.getTheme() == Theme::System)
         {
            adw_style_manager_set_color_scheme(adw_style_manager_get_default(), ADW_COLOR_SCHEME_PREFER_LIGHT);

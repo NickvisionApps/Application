@@ -1,5 +1,4 @@
-#ifndef THEME_H
-#define THEME_H
+#pragma once
 
 namespace NickvisionApplication::Models
 {
@@ -10,5 +9,3 @@ namespace NickvisionApplication::Models
         Dark
     };
 }
-
-#endif // THEME_H
