@@ -1,11 +1,11 @@
 #include "version.h"
+#include <sstream>
 
 using namespace NickvisionApplication::Update;
 
 Version::Version(const std::string& version)
 {
-    int result = sscanf(version.c_str(), "%d.%d.%d", &m_major, &m_minor, &m_build);
-    if (result < 3)
+    if (sscanf(version.c_str(), "%d.%d.%d", &m_major, &m_minor, &m_build) < 3)
     {
         m_major = -1;
         m_minor = -1;
@@ -15,7 +15,9 @@ Version::Version(const std::string& version)
 
 std::string Version::toString() const
 {
-    return std::to_string(m_major) + "." + std::to_string(m_minor) + "." + std::to_string(m_build);
+    std::stringstream builder;
+    builder << m_major << "." << m_minor << "." << m_build;
+    return builder.str();
 }
 
 bool Version::operator==(const Version& toCompare) const
@@ -34,13 +36,13 @@ bool Version::operator<(const Version& toCompare) const
     {
         return true;
     }
-    else
+    else if(m_major == toCompare.m_major)
     {
         if (m_minor < toCompare.m_minor)
         {
             return true;
         }
-        else
+        else if (m_minor == toCompare.m_minor)
         {
             if (m_build < toCompare.m_build)
             {
@@ -53,5 +55,23 @@ bool Version::operator<(const Version& toCompare) const
 
 bool Version::operator>(const Version& toCompare) const
 {
-    return !(*this < toCompare) && (*this != toCompare);
+    if (m_major > toCompare.m_major)
+    {
+        return true;
+    }
+    else if(m_major == toCompare.m_major)
+    {
+        if (m_minor > toCompare.m_minor)
+        {
+            return true;
+        }
+        else if (m_minor == toCompare.m_minor)
+        {
+            if (m_build > toCompare.m_build)
+            {
+                return true;
+            }
+        }
+    }
+    return false;
 }

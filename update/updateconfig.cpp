@@ -16,7 +16,7 @@ UpdateConfig::UpdateConfig() : m_latestVersion("0.0.0"), m_changelog(""), m_link
 
 std::optional<UpdateConfig> UpdateConfig::loadFromUrl(const std::string& url)
 {
-    std::string configFilePath = std::string(getpwuid(getuid())->pw_dir) + "/.config/Nickvision/NickvisionApplication/UpdateConfig.json";
+    std::string configFilePath = std::string(getpwuid(getuid())->pw_dir) + "/.config/Nickvision/NickvisionApplication/updateConfig.json";
     std::ofstream updateConfigFileOut(configFilePath);
     if (updateConfigFileOut.is_open())
     {
@@ -61,27 +61,12 @@ const Version& UpdateConfig::getLatestVersion() const
     return m_latestVersion;
 }
 
-void UpdateConfig::setLatestVersion(const Version& latestVersion)
-{
-    m_latestVersion = latestVersion;
-}
-
 const std::string& UpdateConfig::getChangelog() const
 {
     return m_changelog;
 }
 
-void UpdateConfig::setChangelog(const std::string& changelog)
-{
-    m_changelog = changelog;
-}
-
 const std::string& UpdateConfig::getLinkToTarGz() const
 {
     return m_linkToTarGz;
-}
-
-void UpdateConfig::setLinkToTarGz(const std::string& linkToExe)
-{
-    m_linkToTarGz = linkToExe;
 }

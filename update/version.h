@@ -1,5 +1,4 @@
-#ifndef VERSION_H
-#define VERSION_H
+#pragma once
 
 #include <string>
 
@@ -21,4 +20,3 @@ namespace NickvisionApplication::Update
         int m_build;
     };
 }
-#endif // VERSION_H

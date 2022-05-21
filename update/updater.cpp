@@ -22,14 +22,14 @@ bool Updater::getUpdateAvailable() const
     return m_updateAvailable;
 }
 
-std::optional<Version> Updater::getLatestVersion() const
+Version Updater::getLatestVersion() const
 {
     std::lock_guard<std::mutex> lock(m_mutex);
-    if (m_updateConfig.has_value())
+    if(m_updateConfig.has_value())
     {
         return m_updateConfig->getLatestVersion();
     }
-    return std::nullopt;
+    return { "-1.-1.-1" };
 }
 
 std::string Updater::getChangelog() const
@@ -48,24 +48,17 @@ bool Updater::checkForUpdates()
 {
     std::lock_guard<std::mutex> lock(m_mutex);
     m_updateConfig = UpdateConfig::loadFromUrl(m_linkToConfig);
-    if (m_updateConfig.has_value() && m_updateConfig->getLatestVersion() > m_currentVersion)
-    {
-        m_updateAvailable = true;
-    }
-    else
-    {
-        m_updateAvailable = false;
-    }
+    m_updateAvailable = m_updateConfig.has_value() && m_updateConfig->getLatestVersion() > m_currentVersion;
     return m_updateAvailable;
 }
 
-void Updater::update()
+bool Updater::update()
 {
     std::lock_guard<std::mutex> lock(m_mutex);
     if(!m_updateAvailable)
     {
         m_updateSuccessful = false;
-        return;
+        return m_updateSuccessful;
     }
     std::string downloadsDir = std::string(getpwuid(getuid())->pw_dir) + "/Downloads";
     if(std::filesystem::exists(downloadsDir))
@@ -88,20 +81,21 @@ void Updater::update()
         catch(...)
         {
             m_updateSuccessful = false;
-            return;
+            return m_updateSuccessful;
         }
         if(!validateUpdate(tarGzPath))
         {
             m_updateSuccessful = false;
-            return;
+            return m_updateSuccessful;
         }
     }
     else
     {
         m_updateSuccessful = false;
-        return;
+        return m_updateSuccessful;
     }
     m_updateSuccessful = true;
+    return m_updateSuccessful;
 }
 
 bool Updater::validateUpdate(const std::string& pathToUpdate)

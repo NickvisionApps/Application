@@ -1,5 +1,4 @@
-#ifndef UPDATER_H
-#define UPDATER_H
+#pragma once
 
 #include <mutex>
 #include <string>
@@ -14,21 +13,19 @@ namespace NickvisionApplication::Update
     public:
         Updater(const std::string& linkToConfig, const Version& currentVersion);
         bool getUpdateAvailable() const;
-        std::optional<Version> getLatestVersion() const;
+        Version getLatestVersion() const;
         std::string getChangelog() const;
         bool getUpdateSuccessful() const;
         bool checkForUpdates();
-        void update();
+        bool update();
 
     private:
-        bool validateUpdate(const std::string& pathToUpdate);
         mutable std::mutex m_mutex;
         std::string m_linkToConfig;
         Version m_currentVersion;
         std::optional<UpdateConfig> m_updateConfig;
         bool m_updateAvailable;
         bool m_updateSuccessful;
+        bool validateUpdate(const std::string& pathToUpdate);
     };
 }
-
-#endif // UPDATER_H

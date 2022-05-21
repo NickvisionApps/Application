@@ -1,5 +1,4 @@
-#ifndef UPDATECONFIG_H
-#define UPDATECONFIG_H
+#pragma once
 
 #include <string>
 #include <optional>
@@ -12,11 +11,8 @@ namespace NickvisionApplication::Update
     public:
         static std::optional<UpdateConfig> loadFromUrl(const std::string& url);
         const Version& getLatestVersion() const;
-        void setLatestVersion(const Version& latestVersion);
         const std::string& getChangelog() const;
-        void setChangelog(const std::string& changelog);
         const std::string& getLinkToTarGz() const;
-        void setLinkToTarGz(const std::string& linkToExe);
 
     private:
         UpdateConfig();
@@ -25,4 +21,3 @@ namespace NickvisionApplication::Update
         std::string m_linkToTarGz;
     };
 }
-#endif // UPDATECONFIG_H
