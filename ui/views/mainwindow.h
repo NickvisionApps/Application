@@ -1,12 +1,11 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#pragma once
 
 #include <string>
 #include <adwaita.h>
 #include "../widget.h"
+#include "../../models/configuration.h"
 #include "../../update/updater.h"
-#include "welcomepage.h"
-#include "formpage.h"
+#include "../messenger.h"
 
 namespace NickvisionApplication::UI::Views
 {
@@ -19,7 +18,9 @@ namespace NickvisionApplication::UI::Views
         void showMaximized();
 
     private:
+        NickvisionApplication::Models::Configuration m_configuration;
         NickvisionApplication::Update::Updater m_updater;
+        NickvisionApplication::UI::Messenger m_messenger;
         bool m_opened;
         //==Help Actions==//
         GSimpleAction* m_gio_actUpdate = nullptr;
@@ -28,9 +29,6 @@ namespace NickvisionApplication::UI::Views
         GSimpleAction* m_gio_actPreferences = nullptr;
         GSimpleAction* m_gio_actChangelog = nullptr;
         GSimpleAction* m_gio_actAbout = nullptr;
-        //==Pages==//
-        WelcomePage m_welcomePage;
-        FormPage m_formPage;
         //==Signals==//
         void onStartup();
         void update();
@@ -39,11 +37,7 @@ namespace NickvisionApplication::UI::Views
         void preferences();
         void changelog();
         void about();
-        void onNavigationChanged();
         //==Other Functions==//
         void sendToast(const std::string& message);
-        void changePage(const std::string& pageName);
     };
 }
-
-#endif // MAINWINDOW_H

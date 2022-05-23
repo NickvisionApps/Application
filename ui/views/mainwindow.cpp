@@ -1,8 +1,4 @@
 #include "mainwindow.h"
-#include <utility>
-#include <thread>
-#include "../../models/configuration.h"
-#include "../messenger.h"
 #include "../controls/progressdialog.h"
 #include "../controls/progresstracker.h"
 #include "preferencesdialog.h"
@@ -13,7 +9,7 @@ using namespace NickvisionApplication::UI::Controls;
 using namespace NickvisionApplication::UI::Views;
 using namespace NickvisionApplication::Update;
 
-MainWindow::MainWindow() : Widget("/ui/views/mainwindow.xml"), m_updater("https://raw.githubusercontent.com/nlogozzo/NickvisionApplication/main/UpdateConfig.json", { "2022.4.0" }), m_opened(false)
+MainWindow::MainWindow() : Widget("/ui/views/mainwindow.xml"), m_updater("https://raw.githubusercontent.com/nlogozzo/NickvisionApplication/main/UpdateConfig.json", { "2022.5.0" }), m_opened(false)
 {
     //==Help Actions==//
     //Check for Updates
@@ -43,24 +39,15 @@ MainWindow::MainWindow() : Widget("/ui/views/mainwindow.xml"), m_updater("https:
     //==Menu Button==//
     GtkBuilder* builderMenu = gtk_builder_new_from_resource("/ui/views/menuhelp.xml");
     gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(gtk_builder_get_object(m_builder, "gtk_btnHeaderHelp")), G_MENU_MODEL(gtk_builder_get_object(builderMenu, "gio_menuHelp")));
-    //==Pages==//
-    adw_view_stack_add_named(ADW_VIEW_STACK(gtk_builder_get_object(m_builder, "adw_viewStack")), m_welcomePage.gobj(), "Welcome");
-    adw_view_stack_add_named(ADW_VIEW_STACK(gtk_builder_get_object(m_builder, "adw_viewStack")), m_formPage.gobj(), "Form");
     //==Signals==//
     g_signal_connect(MainWindow::gobj(), "show", G_CALLBACK((Callback_GtkWidget)[](GtkWidget* widget, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onStartup(); }), this);
-    g_signal_connect(gtk_builder_get_object(m_builder, "gtk_listNavigation"), "row-selected", G_CALLBACK((Callback_GtkListBox_Selection)[](GtkListBox* listBox, GtkListBoxRow* row, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onNavigationChanged(); }), this);
     //==Messages==//
-    Messenger::getInstance().registerMessage("MainWindow.SendToast", [&](const std::string& parameter) { sendToast(parameter); });
-    Messenger::getInstance().registerMessage("MainWindow.ChangePage", [&](const std::string& parameter) { changePage(parameter); });
-    Messenger::getInstance().registerMessage("MainWindow.Preferences", [&](const std::string& parameter) { preferences(); });
-    //==Navigation==//
-    gtk_list_box_select_row(GTK_LIST_BOX(gtk_builder_get_object(m_builder, "gtk_listNavigation")), gtk_list_box_get_row_at_index(GTK_LIST_BOX(gtk_builder_get_object(m_builder, "gtk_listNavigation")), 0));
+    m_messenger.registerMessage("MainWindow.SendToast", [&](const std::string& parameter) { sendToast(parameter); });
 }
 
 MainWindow::~MainWindow()
 {
-    Configuration configuration;
-    configuration.save();
+    m_configuration.save();
     gtk_window_destroy(GTK_WINDOW(MainWindow::gobj()));
 }
 
@@ -80,9 +67,8 @@ void MainWindow::onStartup()
     if(!m_opened)
     {
         //==Load Configuration==//
-        Configuration configuration;
-        configuration.setIsFirstTimeOpen(false);
-        configuration.save();
+        m_configuration.setIsFirstTimeOpen(false);
+        m_configuration.save();
         //==Check for Updates==//
         ProgressTracker* progTrackerUpdate = new ProgressTracker("Checking for updates...", [&]() { m_updater.checkForUpdates(); }, [&]()
         {
@@ -91,7 +77,7 @@ void MainWindow::onStartup()
                 sendToast("A new update is avaliable.");
             }
         });
-        adw_header_bar_pack_start(ADW_HEADER_BAR(gtk_builder_get_object(m_builder, "adw_headerBar")), progTrackerUpdate->gobj());
+        adw_header_bar_pack_end(ADW_HEADER_BAR(gtk_builder_get_object(m_builder, "adw_headerBar")), progTrackerUpdate->gobj());
         progTrackerUpdate->show();
         m_opened = true;
     }
@@ -148,22 +134,21 @@ void MainWindow::reportABug()
 
 void MainWindow::preferences()
 {
-    PreferencesDialog* preferencesDialog = new PreferencesDialog(gobj());
+    PreferencesDialog* preferencesDialog = new PreferencesDialog(gobj(), m_configuration);
     std::pair<PreferencesDialog*, MainWindow*>* pointers = new std::pair<PreferencesDialog*, MainWindow*>(preferencesDialog, this);
     g_signal_connect(preferencesDialog->gobj(), "hide", G_CALLBACK((Callback_GtkWidget)([](GtkWidget* widget, gpointer* data)
     {
         std::pair<PreferencesDialog*, MainWindow*>* pointers = reinterpret_cast<std::pair<PreferencesDialog*, MainWindow*>*>(data);
         delete pointers->first;
-        Configuration configuration;
-        if(configuration.getTheme() == Theme::System)
+        if(pointers->second->m_configuration.getTheme() == Theme::System)
         {
            adw_style_manager_set_color_scheme(adw_style_manager_get_default(), ADW_COLOR_SCHEME_PREFER_LIGHT);
         }
-        else if(configuration.getTheme() == Theme::Light)
+        else if(pointers->second->m_configuration.getTheme() == Theme::Light)
         {
            adw_style_manager_set_color_scheme(adw_style_manager_get_default(), ADW_COLOR_SCHEME_FORCE_LIGHT);
         }
-        else if(configuration.getTheme() == Theme::Dark)
+        else if(pointers->second->m_configuration.getTheme() == Theme::Dark)
         {
            adw_style_manager_set_color_scheme(adw_style_manager_get_default(), ADW_COLOR_SCHEME_FORCE_DARK);
         }
@@ -184,43 +169,13 @@ void MainWindow::changelog()
 void MainWindow::about()
 {
     const char* authors[] = { "Nicholas Logozzo", nullptr };
-    gtk_show_about_dialog(GTK_WINDOW(gobj()), "program-name", "NickvisionApplication", "version", "2022.4.0", "comments", "A template for creating Nickvision applications.",
+    gtk_show_about_dialog(GTK_WINDOW(gobj()), "program-name", "NickvisionApplication", "version", "2022.5.0", "comments", "A template for creating Nickvision applications.",
                           "copyright", "(C) Nickvision 2021-2022", "license-type", GTK_LICENSE_GPL_3_0, "website", "https://github.com/nlogozzo", "website-label", "GitHub",
                           "authors", authors, nullptr);
-}
-
-void MainWindow::onNavigationChanged()
-{
-    GtkListBoxRow* selectedRow = gtk_list_box_get_selected_row(GTK_LIST_BOX(gtk_builder_get_object(m_builder, "gtk_listNavigation")));
-    int selectedIndex = gtk_list_box_row_get_index(selectedRow);
-    if(selectedIndex == 0)
-    {
-        adw_view_stack_set_visible_child_name(ADW_VIEW_STACK(gtk_builder_get_object(m_builder, "adw_viewStack")), "Welcome");
-    }
-    else if(selectedIndex == 1)
-    {
-        adw_view_stack_set_visible_child_name(ADW_VIEW_STACK(gtk_builder_get_object(m_builder, "adw_viewStack")), "Form");
-    }
 }
 
 void MainWindow::sendToast(const std::string& message)
 {
     AdwToast* toast = adw_toast_new(message.c_str());
     adw_toast_overlay_add_toast(ADW_TOAST_OVERLAY(gtk_builder_get_object(m_builder, "adw_toastOverlay")), toast);
-}
-
-void MainWindow::changePage(const std::string& pageName)
-{
-    if(pageName == "Welcome")
-    {
-        gtk_list_box_select_row(GTK_LIST_BOX(gtk_builder_get_object(m_builder, "gtk_listNavigation")), gtk_list_box_get_row_at_index(GTK_LIST_BOX(gtk_builder_get_object(m_builder, "gtk_listNavigation")), 0));
-    }
-    else if(pageName == "Form")
-    {
-        gtk_list_box_select_row(GTK_LIST_BOX(gtk_builder_get_object(m_builder, "gtk_listNavigation")), gtk_list_box_get_row_at_index(GTK_LIST_BOX(gtk_builder_get_object(m_builder, "gtk_listNavigation")), 1));
-    }
-    else
-    {
-        gtk_list_box_select_row(GTK_LIST_BOX(gtk_builder_get_object(m_builder, "gtk_listNavigation")), gtk_list_box_get_row_at_index(GTK_LIST_BOX(gtk_builder_get_object(m_builder, "gtk_listNavigation")), 0));
-    }
 }

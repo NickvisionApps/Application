@@ -1,5 +1,4 @@
-#ifndef APPLICATION_H
-#define APPLICATION_H
+#pragma once
 
 #include <string>
 #include <memory>
@@ -14,7 +13,6 @@ namespace NickvisionApplication::UI
     {
     public:
         Application(const std::string& id, GApplicationFlags flags = G_APPLICATION_FLAGS_NONE);
-        AdwApplication* gobj() const;
         int run(int argc, char* argv[]);
 
     private:
@@ -25,5 +23,3 @@ namespace NickvisionApplication::UI
         void onActivate(GtkApplication* app);
     };
 }
-
-#endif // APPLICATION_H

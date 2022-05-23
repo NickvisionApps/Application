@@ -2,120 +2,32 @@
 <interface>
     <object class="AdwApplicationWindow" id="adw_winMain">
         <property name="default-width">800</property>
-
         <property name="default-height">600</property>
-
         <child>
-            <object class="AdwLeaflet" id="adw_leaflet">
-                <property name="vexpand">true</property>
-
+            <object class="GtkBox">
+                <property name="orientation">vertical</property>
                 <child>
-                    <object class="GtkBox">
-                        <property name="width-request">240</property>
-
-                        <property name="orientation">vertical</property>
-
-                        <child>
-                            <object class="AdwHeaderBar" id="adw_headerBar">
-                                <style>
-                                    <class name="flat"></class>
-                                </style>
-
-                                <binding name="show-end-title-buttons">
-                                    <lookup name="folded">adw_leaflet</lookup>
-                                </binding>
-
-                                <property name="title-widget">
-                                    <object class="AdwWindowTitle">
-                                        <property name="title" translatable="yes">Application</property>
-                                    </object>
-                                </property>
-
-                                <child type="end">
-                                    <object class="GtkMenuButton" id="gtk_btnHeaderHelp">
-                                        <property name="direction">none</property>
-                                    </object>
-                                </child>
+                    <object class="AdwHeaderBar" id="adw_headerBar">
+                        <property name="show-start-title-buttons">false</property>
+                        <property name="title-widget">
+                            <object class="AdwWindowTitle">
+                                <property name="title" translatable="yes">Application</property>
                             </object>
-                        </child>
-
-                        <child>
-                            <object class="GtkListBox" id="gtk_listNavigation">
-                                <style>
-                                    <class name="navigation-sidebar"></class>
-                                </style>
-
-                                <property name="vexpand">true</property>
-
-                                <child>
-                                    <object class="GtkBox">
-                                        <property name="orientation">horizontal</property>
-
-                                        <property name="spacing">10</property>
-
-                                        <child>
-                                            <object class="GtkImage">
-                                                <property name="icon-name">user-home-symbolic</property>
-                                            </object>
-                                        </child>
-
-                                        <child>
-                                            <object class="GtkLabel">
-                                                <property name="halign">start</property>
-
-                                                <property name="label" translatable="yes">Welcome</property>
-                                            </object>
-                                        </child>
-                                    </object>
-                                </child>
-
-                                <child>
-                                    <object class="GtkBox">
-                                        <property name="orientation">horizontal</property>
-
-                                        <property name="spacing">10</property>
-
-                                        <child>
-                                            <object class="GtkImage">
-                                                <property name="icon-name">view-paged-symbolic</property>
-                                            </object>
-                                        </child>
-
-                                        <child>
-                                            <object class="GtkLabel">
-                                                <property name="halign">start</property>
-
-                                                <property name="label" translatable="yes">Form</property>
-                                            </object>
-                                        </child>
-                                    </object>
-                                </child>
-                            </object>
-                        </child>
-                    </object>
-                </child>
-
-                <child>
-                    <object class="AdwLeafletPage">
-                        <property name="navigatable">false</property>
-
-                        <property name="child">
-                            <object class="GtkSeparator"/>
                         </property>
+                        <child type="end">
+                            <object class="GtkMenuButton" id="gtk_btnHeaderHelp">
+                                <property name="direction">none</property>
+                            </object>
+                        </child>
                     </object>
                 </child>
-
                 <child>
                     <object class="AdwToastOverlay" id="adw_toastOverlay">
                         <property name="hexpand">true</property>
-
                         <property name="vexpand">true</property>
-
                         <child>
-                            <object class="AdwViewStack" id="adw_viewStack">
-                                <style>
-                                    <class name="view"></class>
-                                </style>
+                            <object class="GtkBox">
+
                             </object>
                         </child>
                     </object>

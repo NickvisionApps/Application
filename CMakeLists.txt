@@ -12,9 +12,9 @@ set(HELPERS helpers/curlhelpers.h helpers/curlhelpers.cpp)
 set(UPDATE update/version.h update/version.cpp update/updateconfig.h update/updateconfig.cpp update/updater.h update/updater.cpp)
 set(MODELS models/theme.h models/configuration.h models/configuration.cpp)
 set(UI ui/application.h ui/application.cpp ui/messenger.h ui/messenger.cpp ui/widget.h ui/widget.cpp)
-set(XML ui/controls/progressdialog.xml ui/controls/progresstracker.xml ui/views/welcomepage.xml ui/views/formpage.xml ui/views/menuhelp.xml ui/views/mainwindow.xml ui/views/preferencesdialog.xml)
+set(XML ui/controls/progressdialog.xml ui/controls/progresstracker.xml ui/views/menuhelp.xml ui/views/mainwindow.xml ui/views/preferencesdialog.xml)
 set(CONTROLS ui/controls/progressdialog.h ui/controls/progressdialog.cpp ui/controls/progresstracker.h ui/controls/progresstracker.cpp)
-set(VIEWS ui/views/welcomepage.h ui/views/welcomepage.cpp ui/views/formpage.h ui/views/formpage.cpp ui/views/mainwindow.h ui/views/mainwindow.cpp ui/views/preferencesdialog.h ui/views/preferencesdialog.cpp)
+set(VIEWS ui/views/mainwindow.h ui/views/mainwindow.cpp ui/views/preferencesdialog.h ui/views/preferencesdialog.cpp)
 
 #Create Exe
 add_executable(NickvisionApplication main.cpp ${HELPERS} ${UPDATE} ${MODELS} ${UI} ${XML} ${CONTROLS} ${VIEWS})
@@ -35,5 +35,5 @@ target_link_libraries(NickvisionApplication PRIVATE ${CURLPP_LDFLAGS})
 #Generate GResources
 list(APPEND CMAKE_MODULE_PATH /home/nlogozzo/Documents/Programming/GCR_CMake/macros)
 include(GlibCompileResourcesSupport)
-compile_gresources(RESOURCE_FILE XML_OUT TYPE BUNDLE RESOURCES ${XML} COMPRESS_ALL STRIPBLANKS_ALL)
+compile_gresources(RESOURCE_FILE XML_OUT TYPE BUNDLE RESOURCES ${XML} COMPRESS_ALL)
 add_custom_target(resource ALL DEPENDS ${RESOURCE_FILE})

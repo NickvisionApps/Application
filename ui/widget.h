@@ -1,5 +1,4 @@
-#ifndef WIDGET_H
-#define WIDGET_H
+#pragma once
 
 #include <string>
 #include <adwaita.h>
@@ -26,5 +25,3 @@ namespace NickvisionApplication::UI
         GtkBuilder* m_builder = nullptr;
     };
 }
-
-#endif // WIDGET_H

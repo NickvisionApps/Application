@@ -1,5 +1,4 @@
-#ifndef PROGRESSTRACKER_H
-#define PROGRESSTRACKER_H
+#pragma once
 
 #include <string>
 #include <thread>
@@ -18,7 +17,7 @@ namespace NickvisionApplication::UI::Controls
         void show() override;
 
     private:
-        std::mutex m_mutex;
+        mutable std::mutex m_mutex;
         std::function<void()> m_work;
         std::function<void()> m_then;
         bool m_isFinished;
@@ -27,5 +26,3 @@ namespace NickvisionApplication::UI::Controls
         bool timeout();
     };
 }
-
-#endif // PROGRESSTRACKER_H

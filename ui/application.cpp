@@ -13,11 +13,6 @@ Application::Application(const std::string& id, GApplicationFlags flags) : m_adw
     g_signal_connect(m_adwApp, "activate", G_CALLBACK((Callback_GtkApplication)[](GtkApplication* app, gpointer* data) { reinterpret_cast<Application*>(data)->onActivate(app); }), this);
 }
 
-AdwApplication* Application::gobj() const
-{
-    return m_adwApp;
-}
-
 int Application::run(int argc, char* argv[])
 {
     return g_application_run(G_APPLICATION(m_adwApp), argc, argv);
