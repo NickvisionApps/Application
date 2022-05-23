@@ -3,6 +3,7 @@
 #include <string>
 #include <memory>
 #include <adwaita.h>
+#include "../models/configuration.h"
 #include "views/mainwindow.h"
 
 namespace NickvisionApplication::UI
@@ -16,6 +17,7 @@ namespace NickvisionApplication::UI
     private:
         //==UI==//
         AdwApplication* m_adwApp = nullptr;
+        NickvisionApplication::Models::Configuration m_configuration;
         std::shared_ptr<NickvisionApplication::UI::Views::MainWindow> m_mainWindow = nullptr;
         //==Signals==//
         void onActivate(GtkApplication* app);

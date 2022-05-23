@@ -9,7 +9,7 @@ using namespace NickvisionApplication::UI::Controls;
 using namespace NickvisionApplication::UI::Views;
 using namespace NickvisionApplication::Update;
 
-MainWindow::MainWindow() : Widget("/ui/views/mainwindow.xml"), m_updater("https://raw.githubusercontent.com/nlogozzo/NickvisionApplication/main/UpdateConfig.json", { "2022.5.0" }), m_opened(false)
+MainWindow::MainWindow(Configuration& configuration) : Widget("/ui/views/mainwindow.xml"), m_configuration(configuration), m_updater("https://raw.githubusercontent.com/nlogozzo/NickvisionApplication/main/UpdateConfig.json", { "2022.5.0" }), m_opened(false)
 {
     //==Help Actions==//
     //Check for Updates

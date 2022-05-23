@@ -12,13 +12,13 @@ namespace NickvisionApplication::UI::Views
     class MainWindow : public NickvisionApplication::UI::Widget
     {
     public:
-        MainWindow();
+        MainWindow(NickvisionApplication::Models::Configuration& configuration);
         ~MainWindow();
         GtkWidget* gobj() override;
         void showMaximized();
 
     private:
-        NickvisionApplication::Models::Configuration m_configuration;
+        NickvisionApplication::Models::Configuration& m_configuration;
         NickvisionApplication::Update::Updater m_updater;
         NickvisionApplication::UI::Messenger m_messenger;
         bool m_opened;
