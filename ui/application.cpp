@@ -10,7 +10,7 @@ Application::Application(const std::string& id, GApplicationFlags flags) : m_adw
     //==Resources==//
     g_resources_register(g_resource_load("resources.gresource", nullptr));
     //==Signals==//
-    g_signal_connect(m_adwApp, "activate", G_CALLBACK((Callback_GtkApplication)[](GtkApplication* app, gpointer* data) { reinterpret_cast<Application*>(data)->onActivate(app); }), this);
+    g_signal_connect(m_adwApp, "activate", G_CALLBACK((void (*)(GtkApplication*, gpointer*))[](GtkApplication* app, gpointer* data) { reinterpret_cast<Application*>(data)->onActivate(app); }), this);
 }
 
 int Application::run(int argc, char* argv[])
