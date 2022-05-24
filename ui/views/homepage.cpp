@@ -2,7 +2,7 @@
 
 using namespace NickvisionApplication::UI::Views;
 
-HomePage::HomePage() : Widget("/ui/views/homepage.xml")
+HomePage::HomePage() : Widget{"/ui/views/homepage.xml"}
 {
 
 }

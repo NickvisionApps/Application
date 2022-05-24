@@ -10,20 +10,20 @@
 using namespace NickvisionApplication::Helpers;
 using namespace NickvisionApplication::Update;
 
-Updater::Updater(const std::string& linkToConfig, const Version& currentVersion) : m_linkToConfig(linkToConfig), m_currentVersion(currentVersion), m_updateConfig(std::nullopt), m_updateAvailable(false), m_updateSuccessful(false)
+Updater::Updater(const std::string& linkToConfig, const Version& currentVersion) : m_linkToConfig{linkToConfig}, m_currentVersion{currentVersion}, m_updateConfig{std::nullopt}, m_updateAvailable{false}, m_updateSuccessful{false}
 {
 
 }
 
 bool Updater::getUpdateAvailable() const
 {
-    std::lock_guard<std::mutex> lock(m_mutex);
+    std::lock_guard<std::mutex> lock{m_mutex};
     return m_updateAvailable;
 }
 
 Version Updater::getLatestVersion() const
 {
-    std::lock_guard<std::mutex> lock(m_mutex);
+    std::lock_guard<std::mutex> lock{m_mutex};
     if(m_updateConfig.has_value())
     {
         return m_updateConfig->getLatestVersion();
@@ -33,19 +33,19 @@ Version Updater::getLatestVersion() const
 
 std::string Updater::getChangelog() const
 {
-    std::lock_guard<std::mutex> lock(m_mutex);
+    std::lock_guard<std::mutex> lock{m_mutex};
     return m_updateConfig.has_value() ? m_updateConfig->getChangelog() : "";
 }
 
 bool Updater::getUpdateSuccessful() const
 {
-    std::lock_guard<std::mutex> lock(m_mutex);
+    std::lock_guard<std::mutex> lock{m_mutex};
     return m_updateSuccessful;
 }
 
 bool Updater::checkForUpdates()
 {
-    std::lock_guard<std::mutex> lock(m_mutex);
+    std::lock_guard<std::mutex> lock{m_mutex};
     m_updateConfig = UpdateConfig::loadFromUrl(m_linkToConfig);
     m_updateAvailable = m_updateConfig.has_value() && m_updateConfig->getLatestVersion() > m_currentVersion;
     return m_updateAvailable;
@@ -53,18 +53,18 @@ bool Updater::checkForUpdates()
 
 bool Updater::update()
 {
-    std::lock_guard<std::mutex> lock(m_mutex);
+    std::lock_guard<std::mutex> lock{m_mutex};
     if(!m_updateAvailable)
     {
         m_updateSuccessful = false;
         return m_updateSuccessful;
     }
-    std::string downloadsDir = std::string(getpwuid(getuid())->pw_dir) + "/Downloads";
+    std::string downloadsDir{std::string(getpwuid(getuid())->pw_dir) + "/Downloads"};
     if(std::filesystem::exists(downloadsDir))
     {
         std::filesystem::create_directories(downloadsDir);
     }
-    std::string tarGzPath = downloadsDir + "/NickvisionApplication.tar.gz";
+    std::string tarGzPath{downloadsDir + "/NickvisionApplication.tar.gz"};
     if(!CurlHelpers::downloadFile(m_updateConfig->getLinkToTarGz(), tarGzPath))
     {
         m_updateSuccessful = false;
@@ -80,12 +80,12 @@ bool Updater::update()
 
 bool Updater::validateUpdate(const std::string& pathToUpdate)
 {
-    std::string copyUpdatePath = std::string(getpwuid(getuid())->pw_dir) + "/.config/Nickvision/NickvisionApplication/update.tar.gz";
+    std::string copyUpdatePath{std::string(getpwuid(getuid())->pw_dir) + "/.config/Nickvision/NickvisionApplication/update.tar.gz"};
     std::filesystem::copy(pathToUpdate, copyUpdatePath, std::filesystem::copy_options::overwrite_existing);
-    std::string cmdUnzip = "tar --overwrite -zxf " + copyUpdatePath;
-    std::string cmdOutput = "";
+    std::string cmdUnzip{"tar --overwrite -zxf " + copyUpdatePath};
+    std::string cmdOutput{""};
     std::array<char, 128> buffer;
-    FILE* pipe = popen(cmdUnzip.c_str(), "r");
+    FILE* pipe{popen(cmdUnzip.c_str(), "r")};
     if(!pipe)
     {
         return false;

@@ -7,13 +7,13 @@
 
 using namespace NickvisionApplication::Models;
 
-Configuration::Configuration() : m_configDir(std::string(getpwuid(getuid())->pw_dir) + "/.config/Nickvision/NickvisionApplication/"), m_theme(Theme::System), m_isFirstTimeOpen(true)
+Configuration::Configuration() : m_configDir{std::string(getpwuid(getuid())->pw_dir) + "/.config/Nickvision/NickvisionApplication/"}, m_theme{Theme::System}, m_isFirstTimeOpen{true}
 {
     if (!std::filesystem::exists(m_configDir))
     {
         std::filesystem::create_directories(m_configDir);
     }
-    std::ifstream configFile(m_configDir + "config.json");
+    std::ifstream configFile{m_configDir + "config.json"};
     if (configFile.is_open())
     {
         Json::Value json;
@@ -25,32 +25,32 @@ Configuration::Configuration() : m_configDir(std::string(getpwuid(getuid())->pw_
 
 Theme Configuration::getTheme() const
 {
-    std::lock_guard<std::mutex> lock(m_mutex);
+    std::lock_guard<std::mutex> lock{m_mutex};
     return m_theme;
 }
 
 void Configuration::setTheme(Theme theme)
 {
-    std::lock_guard<std::mutex> lock(m_mutex);
+    std::lock_guard<std::mutex> lock{m_mutex};
     m_theme = theme;
 }
 
 bool Configuration::getIsFirstTimeOpen() const
 {
-    std::lock_guard<std::mutex> lock(m_mutex);
+    std::lock_guard<std::mutex> lock{m_mutex};
     return m_isFirstTimeOpen;
 }
 
 void Configuration::setIsFirstTimeOpen(bool isFirstTimeOpen)
 {
-    std::lock_guard<std::mutex> lock(m_mutex);
+    std::lock_guard<std::mutex> lock{m_mutex};
     m_isFirstTimeOpen = isFirstTimeOpen;
 }
 
 void Configuration::save() const
 {
-    std::lock_guard<std::mutex> lock(m_mutex);
-    std::ofstream configFile(m_configDir + "config.json");
+    std::lock_guard<std::mutex> lock{m_mutex};
+    std::ofstream configFile{m_configDir + "config.json"};
     if (configFile.is_open())
     {
         Json::Value json;

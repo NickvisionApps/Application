@@ -2,7 +2,7 @@
 
 using namespace NickvisionApplication::UI::Views;
 
-FormPage::FormPage() : Widget("/ui/views/formpage.xml")
+FormPage::FormPage() : Widget{"/ui/views/formpage.xml"}
 {
 
 }

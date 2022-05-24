@@ -2,7 +2,7 @@
 
 using namespace NickvisionApplication::UI;
 
-Widget::Widget(const std::string& resourcePath) : m_builder(gtk_builder_new_from_resource(resourcePath.c_str()))
+Widget::Widget(const std::string& resourcePath) : m_builder{gtk_builder_new_from_resource(resourcePath.c_str())}
 {
 
 }

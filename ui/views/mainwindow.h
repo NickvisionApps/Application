@@ -24,12 +24,12 @@ namespace NickvisionApplication::UI::Views
         NickvisionApplication::UI::Messenger m_messenger;
         bool m_opened;
         //==Help Actions==//
-        GSimpleAction* m_gio_actUpdate = nullptr;
-        GSimpleAction* m_gio_actGitHubRepo = nullptr;
-        GSimpleAction* m_gio_actReportABug = nullptr;
-        GSimpleAction* m_gio_actPreferences = nullptr;
-        GSimpleAction* m_gio_actChangelog = nullptr;
-        GSimpleAction* m_gio_actAbout = nullptr;
+        GSimpleAction* m_gio_actUpdate;
+        GSimpleAction* m_gio_actGitHubRepo;
+        GSimpleAction* m_gio_actReportABug;
+        GSimpleAction* m_gio_actPreferences;
+        GSimpleAction* m_gio_actChangelog;
+        GSimpleAction* m_gio_actAbout;
         //==Pages==//
         HomePage m_homePage;
         FormPage m_formPage;

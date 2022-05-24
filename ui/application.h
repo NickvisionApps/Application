@@ -16,9 +16,9 @@ namespace NickvisionApplication::UI
 
     private:
         //==UI==//
-        AdwApplication* m_adwApp = nullptr;
+        AdwApplication* m_adwApp;
         NickvisionApplication::Models::Configuration m_configuration;
-        std::shared_ptr<NickvisionApplication::UI::Views::MainWindow> m_mainWindow = nullptr;
+        std::shared_ptr<NickvisionApplication::UI::Views::MainWindow> m_mainWindow;
         //==Signals==//
         void onActivate(GtkApplication* app);
     };

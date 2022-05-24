@@ -15,6 +15,6 @@ namespace NickvisionApplication::UI
         virtual void show();
 
     protected:
-        GtkBuilder* m_builder = nullptr;
+        GtkBuilder* m_builder;
     };
 }

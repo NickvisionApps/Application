@@ -8,19 +8,19 @@
 using namespace NickvisionApplication::Helpers;
 using namespace NickvisionApplication::Update;
 
-UpdateConfig::UpdateConfig() : m_latestVersion("0.0.0"), m_changelog(""), m_linkToTarGz("")
+UpdateConfig::UpdateConfig() : m_latestVersion{"0.0.0"}, m_changelog{""}, m_linkToTarGz{""}
 {
 
 }
 
 std::optional<UpdateConfig> UpdateConfig::loadFromUrl(const std::string& url)
 {
-    std::string configFilePath = std::string(getpwuid(getuid())->pw_dir) + "/.config/Nickvision/NickvisionApplication/updateConfig.json";
+    std::string configFilePath{std::string(getpwuid(getuid())->pw_dir) + "/.config/Nickvision/NickvisionApplication/updateConfig.json"};
     if(!CurlHelpers::downloadFile(url, configFilePath))
     {
         return std::nullopt;
     }
-    std::ifstream updateConfigFileIn(configFilePath);
+    std::ifstream updateConfigFileIn{configFilePath};
     if (updateConfigFileIn.is_open())
     {
         UpdateConfig updateConfig;

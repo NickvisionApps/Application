@@ -4,7 +4,7 @@ using namespace NickvisionApplication::Models;
 using namespace NickvisionApplication::UI;
 using namespace NickvisionApplication::UI::Views;
 
-Application::Application(const std::string& id, GApplicationFlags flags) : m_adwApp(adw_application_new(id.c_str(), flags))
+Application::Application(const std::string& id, GApplicationFlags flags) : m_adwApp{adw_application_new(id.c_str(), flags)}
 {
     //==Resources==//
     g_resources_register(g_resource_load("resources.gresource", nullptr));

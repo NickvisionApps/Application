@@ -10,7 +10,7 @@ set(CMAKE_CXX_FLAGS "-g -Wall -Wextra")
 #Source Files
 set(HELPERS helpers/curlhelpers.h helpers/curlhelpers.cpp)
 set(UPDATE update/version.h update/version.cpp update/updateconfig.h update/updateconfig.cpp update/updater.h update/updater.cpp)
-set(MODELS models/theme.h models/configuration.h models/configuration.cpp)
+set(MODELS models/configuration.h models/configuration.cpp)
 set(UI ui/application.h ui/application.cpp ui/messenger.h ui/messenger.cpp ui/widget.h ui/widget.cpp)
 set(XML ui/controls/progressdialog.xml ui/controls/progresstracker.xml ui/views/menuhelp.xml ui/views/mainwindow.xml ui/views/preferencesdialog.xml ui/views/homepage.xml ui/views/formpage.xml)
 set(CONTROLS ui/controls/progressdialog.h ui/controls/progressdialog.cpp ui/controls/progresstracker.h ui/controls/progresstracker.cpp)

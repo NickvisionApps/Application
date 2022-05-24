@@ -27,7 +27,7 @@
                 <attribute name="action">win.changelog</attribute>
             </item>
             <item>
-                <attribute name="label" translatable="yes">_About</attribute>
+                <attribute name="label" translatable="yes">_About Application</attribute>
                 <attribute name="action">win.about</attribute>
             </item>
         </section>

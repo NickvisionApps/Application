@@ -2,10 +2,16 @@
 
 #include <mutex>
 #include <string>
-#include "theme.h"
 
 namespace NickvisionApplication::Models
 {
+    enum class Theme
+    {
+        System,
+        Light,
+        Dark
+    };
+
     class Configuration
     {
     public:
