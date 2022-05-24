@@ -18,6 +18,11 @@
                                 <property name="title" translatable="yes">Preferences</property>
                             </object>
                         </property>
+                        <child type="start">
+                            <object class="GtkButton" id="gtk_btnCancel">
+                                <property name="label" translatable="yes">Cancel</property>
+                            </object>
+                        </child>
                         <child type="end">
                             <object class="GtkButton" id="gtk_btnSave">
                                 <style>

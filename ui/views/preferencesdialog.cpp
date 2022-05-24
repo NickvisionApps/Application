@@ -9,6 +9,7 @@ PreferencesDialog::PreferencesDialog(GtkWidget* parent, Configuration& configura
     //==Dialog==//
     gtk_window_set_transient_for(GTK_WINDOW(PreferencesDialog::gobj()), GTK_WINDOW(parent));
     //==Signals==//
+    g_signal_connect(gtk_builder_get_object(m_builder, "gtk_btnCancel"), "clicked", G_CALLBACK((void (*)(GtkButton*, gpointer*))[](GtkButton* button, gpointer* data) { reinterpret_cast<PreferencesDialog*>(data)->cancel(); }), this);
     g_signal_connect(gtk_builder_get_object(m_builder, "gtk_btnSave"), "clicked", G_CALLBACK((void (*)(GtkButton*, gpointer*))[](GtkButton* button, gpointer* data) { reinterpret_cast<PreferencesDialog*>(data)->save(); }), this);
     g_signal_connect(gtk_builder_get_object(m_builder, "adw_rowIsFirstTimeOpen"), "activated", G_CALLBACK((void (*)(AdwActionRow*, gpointer*))[](AdwActionRow* row, gpointer* data) { reinterpret_cast<PreferencesDialog*>(data)->onRowIsFirstTimeOpenActivate(); }), this);
     //==Load Config==//
@@ -29,9 +30,6 @@ PreferencesDialog::PreferencesDialog(GtkWidget* parent, Configuration& configura
 
 PreferencesDialog::~PreferencesDialog()
 {
-    m_configuration.setTheme(static_cast<Theme>(adw_combo_row_get_selected(ADW_COMBO_ROW(gtk_builder_get_object(m_builder, "adw_rowTheme")))));
-    m_configuration.setIsFirstTimeOpen(gtk_switch_get_active(GTK_SWITCH(gtk_builder_get_object(m_builder, "gtk_switchIsFirstTimeOpen"))));
-    m_configuration.save();
     gtk_window_destroy(GTK_WINDOW(PreferencesDialog::gobj()));
 }
 
@@ -40,8 +38,16 @@ GtkWidget* PreferencesDialog::gobj()
     return GTK_WIDGET(gtk_builder_get_object(m_builder, "gtk_preferencesDialog"));
 }
 
+void PreferencesDialog::cancel()
+{
+    gtk_widget_hide(gobj());
+}
+
 void PreferencesDialog::save()
 {
+    m_configuration.setTheme(static_cast<Theme>(adw_combo_row_get_selected(ADW_COMBO_ROW(gtk_builder_get_object(m_builder, "adw_rowTheme")))));
+    m_configuration.setIsFirstTimeOpen(gtk_switch_get_active(GTK_SWITCH(gtk_builder_get_object(m_builder, "gtk_switchIsFirstTimeOpen"))));
+    m_configuration.save();
     gtk_widget_hide(gobj());
 }
 
