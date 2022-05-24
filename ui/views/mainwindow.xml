@@ -8,10 +8,10 @@
                 <property name="orientation">vertical</property>
                 <child>
                     <object class="AdwHeaderBar" id="adw_headerBar">
-                        <property name="show-start-title-buttons">false</property>
+                        <property name="centering-policy">strict</property>
                         <property name="title-widget">
-                            <object class="AdwWindowTitle">
-                                <property name="title" translatable="yes">Application</property>
+                            <object class="AdwViewSwitcherTitle" id="adw_viewSwitcherTitle">
+                                <property name="stack">adw_viewStack</property>
                             </object>
                         </property>
                         <child type="end">
@@ -26,10 +26,46 @@
                         <property name="hexpand">true</property>
                         <property name="vexpand">true</property>
                         <child>
-                            <object class="GtkBox">
+                            <object class="AdwViewStack" id="adw_viewStack">
+                                <child>
+                                    <object class="AdwViewStackPage">
+                                        <property name="name">home</property>
+                                        <property name="title" translatable="yes">Home</property>
+                                        <property name="icon-name">go-home-symbolic</property>
+                                        <property name="child">
+                                            <object class="AdwStatusPage">
+                                                <property name="icon-name">applications-engineering-symbolic</property>
+                                                <property name="title" translatable="yes">Welcome to Application!</property>
+                                                <property name="description" translatable="yes">A template for creating Nickvision applications.&#xA;&#xA;Version 2022.5.0</property>
+                                            </object>
+                                        </property>
+                                    </object>
+                                </child>
 
+                                <child>
+                                    <object class="AdwViewStackPage">
+                                        <property name="name">form</property>
+                                        <property name="title" translatable="yes">Form</property>
+                                        <property name="icon-name">document-edit-symbolic</property>
+                                        <property name="child">
+                                            <object class="AdwStatusPage">
+                                                <property name="icon-name">dialog-warning-symbolic</property>
+                                                <property name="title" translatable="yes">Under Construction</property>
+                                                <property name="description" translatable="yes">This page is not yet implemented.</property>
+                                            </object>
+                                        </property>
+                                    </object>
+                                </child>
                             </object>
                         </child>
+                    </object>
+                </child>
+                <child>
+                    <object class="AdwViewSwitcherBar">
+                        <property name="stack">adw_viewStack</property>
+                        <binding name="reveal">
+                            <lookup name="title-visible">adw_viewSwitcherTitle</lookup>
+                        </binding>
                     </object>
                 </child>
             </object>
