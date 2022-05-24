@@ -26,37 +26,7 @@
                         <property name="hexpand">true</property>
                         <property name="vexpand">true</property>
                         <child>
-                            <object class="AdwViewStack" id="adw_viewStack">
-                                <child>
-                                    <object class="AdwViewStackPage">
-                                        <property name="name">home</property>
-                                        <property name="title" translatable="yes">Home</property>
-                                        <property name="icon-name">go-home-symbolic</property>
-                                        <property name="child">
-                                            <object class="AdwStatusPage">
-                                                <property name="icon-name">applications-engineering-symbolic</property>
-                                                <property name="title" translatable="yes">Welcome to Application!</property>
-                                                <property name="description" translatable="yes">A template for creating Nickvision applications.&#xA;&#xA;Version 2022.5.0</property>
-                                            </object>
-                                        </property>
-                                    </object>
-                                </child>
-
-                                <child>
-                                    <object class="AdwViewStackPage">
-                                        <property name="name">form</property>
-                                        <property name="title" translatable="yes">Form</property>
-                                        <property name="icon-name">document-edit-symbolic</property>
-                                        <property name="child">
-                                            <object class="AdwStatusPage">
-                                                <property name="icon-name">dialog-warning-symbolic</property>
-                                                <property name="title" translatable="yes">Under Construction</property>
-                                                <property name="description" translatable="yes">This page is not yet implemented.</property>
-                                            </object>
-                                        </property>
-                                    </object>
-                                </child>
-                            </object>
+                            <object class="AdwViewStack" id="adw_viewStack"></object>
                         </child>
                     </object>
                 </child>

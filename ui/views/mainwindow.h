@@ -1,11 +1,12 @@
 #pragma once
 
-#include <string>
 #include <adwaita.h>
 #include "../widget.h"
 #include "../../models/configuration.h"
 #include "../../update/updater.h"
 #include "../messenger.h"
+#include "homepage.h"
+#include "formpage.h"
 
 namespace NickvisionApplication::UI::Views
 {
@@ -29,6 +30,9 @@ namespace NickvisionApplication::UI::Views
         GSimpleAction* m_gio_actPreferences = nullptr;
         GSimpleAction* m_gio_actChangelog = nullptr;
         GSimpleAction* m_gio_actAbout = nullptr;
+        //==Pages==//
+        HomePage m_homePage;
+        FormPage m_formPage;
         //==Signals==//
         void onStartup();
         void update();

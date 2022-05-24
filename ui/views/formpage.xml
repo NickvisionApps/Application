@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+    <object class="AdwStatusPage" id="adw_formPage">
+        <property name="icon-name">dialog-warning-symbolic</property>
+        <property name="title" translatable="yes">Under Construction</property>
+        <property name="description" translatable="yes">This page is not yet implemented.</property>
+    </object>
+</interface>

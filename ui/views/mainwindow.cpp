@@ -39,6 +39,11 @@ MainWindow::MainWindow(Configuration& configuration) : Widget("/ui/views/mainwin
     //==Menu Button==//
     GtkBuilder* builderMenu = gtk_builder_new_from_resource("/ui/views/menuhelp.xml");
     gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(gtk_builder_get_object(m_builder, "gtk_btnHeaderHelp")), G_MENU_MODEL(gtk_builder_get_object(builderMenu, "gio_menuHelp")));
+    //==Pages==//
+    adw_view_stack_add_titled(ADW_VIEW_STACK(gtk_builder_get_object(m_builder, "adw_viewStack")), m_homePage.gobj(), "home", "Home");
+    adw_view_stack_page_set_icon_name(adw_view_stack_get_page(ADW_VIEW_STACK(gtk_builder_get_object(m_builder, "adw_viewStack")), m_homePage.gobj()), "go-home-symbolic");
+    adw_view_stack_add_titled(ADW_VIEW_STACK(gtk_builder_get_object(m_builder, "adw_viewStack")), m_formPage.gobj(), "form", "Form");
+    adw_view_stack_page_set_icon_name(adw_view_stack_get_page(ADW_VIEW_STACK(gtk_builder_get_object(m_builder, "adw_viewStack")), m_formPage.gobj()), "document-edit-symbolic");
     //==Signals==//
     g_signal_connect(MainWindow::gobj(), "show", G_CALLBACK((void (*)(GtkWidget*, gpointer*))[](GtkWidget* widget, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onStartup(); }), this);
     //==Messages==//
