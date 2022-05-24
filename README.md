@@ -12,15 +12,15 @@
 - Support for saving application settings via a json configuration
 
 # Screenshots
-![WelcomePage](https://user-images.githubusercontent.com/17648453/163454185-5f5ffa86-4902-4754-8d70-abc343fa8480.png)
-![FormPage](https://user-images.githubusercontent.com/17648453/163454188-ed9c167a-0cfb-4e41-b1fa-afc486249a5d.png)
-![OpenFolder](https://user-images.githubusercontent.com/17648453/163454195-aeac35cd-317e-40e3-9e3f-76b9329506e8.png)
-![PreferencesDialog](https://user-images.githubusercontent.com/17648453/163454218-8907e5e7-3a2f-4b83-898a-7fc266472897.png)
-![LightMode](https://user-images.githubusercontent.com/17648453/163454222-c2cd66cd-5ba5-4da6-aff9-81dfa24896d2.png)
+![MainWindow](https://user-images.githubusercontent.com/17648453/169936881-de1e461a-46d1-47be-989e-287af8cda7cb.png)
+![FormPage](https://user-images.githubusercontent.com/17648453/169936893-24430fc0-5a7e-4857-b8bb-3f3160f245a1.png)
+![PreferencesDialog](https://user-images.githubusercontent.com/17648453/169936905-6dc2e4b8-84c5-4506-8ad7-7605a1daab98.png)
+![LightMode](https://user-images.githubusercontent.com/17648453/169936927-6aeda693-d1d8-4c43-a1e3-6b4527eb017b.png)
+![AboutDialog](https://user-images.githubusercontent.com/17648453/169936936-de9f17e9-ee75-40aa-97f3-5ac5b119a6da.png)
 
 # Dependencies
 - [c++20](https://en.cppreference.com/w/cpp/20)
-- [gtk 4](https://gtk.org/)
+- [gtk4](https://gtk.org/)
 - [libadwaita](https://gnome.pages.gitlab.gnome.org/libadwaita/)
 - [GCR_CMake](https://github.com/Makman2/GCR_CMake)
 - [curlpp](http://www.curlpp.org/)
