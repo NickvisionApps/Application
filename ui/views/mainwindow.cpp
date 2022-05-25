@@ -9,8 +9,12 @@ using namespace NickvisionApplication::UI::Controls;
 using namespace NickvisionApplication::UI::Views;
 using namespace NickvisionApplication::Update;
 
-MainWindow::MainWindow(Configuration& configuration) : Widget{"/ui/views/mainwindow.xml"}, m_configuration{configuration}, m_updater{"https://raw.githubusercontent.com/nlogozzo/NickvisionApplication/main/UpdateConfig.json", { "2022.5.0" }}, m_opened{false}
+MainWindow::MainWindow(Configuration& configuration) : Widget{"/ui/views/mainwindow.xml"}, m_configuration{configuration}, m_updater{"https://raw.githubusercontent.com/nlogozzo/NickvisionApplication/main/UpdateConfig.json", { "2022.5.0" }}, m_opened{false}, m_formPage{m_messenger}
 {
+    //==Signals==//
+    g_signal_connect(MainWindow::gobj(), "show", G_CALLBACK((void (*)(GtkWidget*, gpointer*))[](GtkWidget* widget, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onStartup(); }), this);
+    //==Open Folder==//
+    g_signal_connect(gtk_builder_get_object(m_builder, "gtk_btnOpenFolder"), "clicked", G_CALLBACK((void (*)(GtkButton*, gpointer*))[](GtkButton* button, gpointer* data) { reinterpret_cast<MainWindow*>(data)->m_formPage.openFolder(); }), this);
     //==Help Actions==//
     //Check for Updates
     m_gio_actUpdate = g_simple_action_new("update", nullptr);
@@ -44,8 +48,6 @@ MainWindow::MainWindow(Configuration& configuration) : Widget{"/ui/views/mainwin
     adw_view_stack_page_set_icon_name(adw_view_stack_get_page(ADW_VIEW_STACK(gtk_builder_get_object(m_builder, "adw_viewStack")), m_homePage.gobj()), "go-home-symbolic");
     adw_view_stack_add_titled(ADW_VIEW_STACK(gtk_builder_get_object(m_builder, "adw_viewStack")), m_formPage.gobj(), "form", "Form");
     adw_view_stack_page_set_icon_name(adw_view_stack_get_page(ADW_VIEW_STACK(gtk_builder_get_object(m_builder, "adw_viewStack")), m_formPage.gobj()), "document-edit-symbolic");
-    //==Signals==//
-    g_signal_connect(MainWindow::gobj(), "show", G_CALLBACK((void (*)(GtkWidget*, gpointer*))[](GtkWidget* widget, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onStartup(); }), this);
     //==Messages==//
     m_messenger.registerMessage("MainWindow.SendToast", [&](const std::string& parameter) { sendToast(parameter); });
 }

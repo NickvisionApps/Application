@@ -41,7 +41,7 @@ namespace NickvisionApplication::UI::Views
         void preferences();
         void changelog();
         void about();
-        //==Other Functions==//
+        //==Messages==//
         void sendToast(const std::string& message);
     };
 }

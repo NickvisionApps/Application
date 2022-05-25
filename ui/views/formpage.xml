@@ -1,8 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-    <object class="AdwStatusPage" id="adw_formPage">
-        <property name="icon-name">dialog-warning-symbolic</property>
-        <property name="title" translatable="yes">Under Construction</property>
-        <property name="description" translatable="yes">This page is not yet implemented.</property>
+    <object class="GtkBox" id="gtk_boxFormPage">
+        <property name="orientation">vertical</property>
+        <property name="spacing">10</property>
+        <child>
+            <object class="GtkBox">
+                <style>
+                    <class name="card"></class>
+                </style>
+                <property name="orientation">vertical</property>
+                <property name="margin-start">10</property>
+                <property name="margin-top">10</property>
+                <property name="margin-end">10</property>
+                <property name="spacing">6</property>
+                <child>
+                    <object class="GtkLabel">
+                        <property name="margin-start">10</property>
+                        <property name="margin-top">10</property>
+                        <property name="margin-end">10</property>
+                        <property name="halign">start</property>
+                        <property name="label">Folder</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkEntry" id="gtk_txtFolder">
+                        <property name="margin-start">10</property>
+                        <property name="margin-end">10</property>
+                        <property name="margin-bottom">10</property>
+                        <property name="placeholder-text">Select folder</property>
+                    </object>
+                </child>
+            </object>
+        </child>
     </object>
 </interface>

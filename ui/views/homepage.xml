@@ -3,6 +3,6 @@
     <object class="AdwStatusPage" id="adw_homePage">
         <property name="icon-name">applications-engineering-symbolic</property>
         <property name="title" translatable="yes">Welcome to Application!</property>
-        <property name="description" translatable="yes">A template for creating Nickvision applications.&#xA;&#xA;Version 2022.5.0</property>
+        <property name="description" translatable="yes">A template for creating Nickvision applications.</property>
     </object>
 </interface>
