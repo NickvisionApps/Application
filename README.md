@@ -12,10 +12,10 @@
 - Support for saving application settings via a json configuration
 
 # Screenshots
-![HomePage](https://user-images.githubusercontent.com/17648453/170175673-698dac78-fb2b-463a-98b2-fda0d139aab0.png)
-![FormPage](https://user-images.githubusercontent.com/17648453/170175690-afb43229-6a41-4748-ad5e-23e7dd584288.png)
+![MainWindow](https://user-images.githubusercontent.com/17648453/170398862-fc04696d-a7a9-42f9-a29c-b7d74558a84b.png)
+![Working](https://user-images.githubusercontent.com/17648453/170398868-34a99ab0-0834-46dd-89a0-3f7cf0dabd84.png)
 ![PreferencesDialog](https://user-images.githubusercontent.com/17648453/170175708-3102ea68-1d6a-4fb7-af89-041cac7def8d.png)
-![LightMode](https://user-images.githubusercontent.com/17648453/170175726-4d033c26-a866-4497-9037-e3b7c42209a9.png)
+![LightMode](https://user-images.githubusercontent.com/17648453/170398887-5a83a2f4-3973-4bff-b5f4-d778c015e970.png)
 ![AboutDialog](https://user-images.githubusercontent.com/17648453/169936936-de9f17e9-ee75-40aa-97f3-5ac5b119a6da.png)
 
 # Dependencies
