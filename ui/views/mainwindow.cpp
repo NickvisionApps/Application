@@ -14,7 +14,7 @@ MainWindow::MainWindow(Configuration& configuration) : Widget{"/ui/views/mainwin
     //==Signals==//
     g_signal_connect(m_gobj, "show", G_CALLBACK((void (*)(GtkWidget*, gpointer*))[](GtkWidget* widget, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onStartup(); }), this);
     //==Open Folder==//
-    g_signal_connect(gtk_builder_get_object(m_builder, "adw_btnOpenFolder"), "clicked", G_CALLBACK((void (*)(GtkButton*, gpointer*))[](GtkButton* button, gpointer* data) { reinterpret_cast<MainWindow*>(data)->openFolder(); }), this);
+    g_signal_connect(gtk_builder_get_object(m_builder, "gtk_btnOpenFolder"), "clicked", G_CALLBACK((void (*)(GtkButton*, gpointer*))[](GtkButton* button, gpointer* data) { reinterpret_cast<MainWindow*>(data)->openFolder(); }), this);
     //==Close Folder==//
     g_signal_connect(gtk_builder_get_object(m_builder, "gtk_btnCloseFolder"), "clicked", G_CALLBACK((void (*)(GtkButton*, gpointer*))[](GtkButton* button, gpointer* data) { reinterpret_cast<MainWindow*>(data)->closeFolder(); }), this);
     //==Help Actions==//

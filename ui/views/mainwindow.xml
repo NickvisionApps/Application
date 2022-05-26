@@ -14,14 +14,16 @@
                             </object>
                         </property>
                         <child type="start">
-                            <object class="AdwSplitButton" id="adw_btnOpenFolder">
+                            <object class="GtkButton" id="gtk_btnOpenFolder">
+                                <style>
+                                    <class name="suggested-action"></class>
+                                </style>
                                 <property name="label" translatable="yes">Open</property>
-                                <property name="tooltip-text" translatable="yes">Open Folder</property>
                             </object>
                         </child>
                         <child type="start">
                             <object class="GtkButton" id="gtk_btnCloseFolder">
-                                <property name="icon-name">window-close-symbolic</property>
+                                <property name="icon-name">folder-visiting-symbolic</property>
                                 <property name="tooltip-text" translatable="yes">Close Folder</property>
                                 <property name="sensitive">false</property>
                             </object>
@@ -40,10 +42,10 @@
                         <property name="vexpand">true</property>
                         <child>
                             <object class="GtkBox">
-                                <property name="margin-start">6</property>
-                                <property name="margin-top">6</property>
-                                <property name="margin-end">6</property>
-                                <property name="margin-bottom">6</property>
+                                <property name="margin-start">10</property>
+                                <property name="margin-top">10</property>
+                                <property name="margin-end">10</property>
+                                <property name="margin-bottom">10</property>
                                 <property name="orientation">vertical</property>
                                 <property name="spacing">6</property>
                                 <child>
