@@ -9,64 +9,55 @@ using namespace NickvisionApplication::UI::Controls;
 using namespace NickvisionApplication::UI::Views;
 using namespace NickvisionApplication::Update;
 
-MainWindow::MainWindow(Configuration& configuration) : Widget{"/ui/views/mainwindow.xml"}, m_configuration{configuration}, m_updater{"https://raw.githubusercontent.com/nlogozzo/NickvisionApplication/main/UpdateConfig.json", { "2022.5.0" }}, m_opened{false}, m_formPage{m_messenger}
+MainWindow::MainWindow(Configuration& configuration) : Widget{"/ui/views/mainwindow.xml", "adw_winMain"}, m_configuration{configuration}, m_updater{"https://raw.githubusercontent.com/nlogozzo/NickvisionApplication/main/UpdateConfig.json", { "2022.5.0" }}, m_opened{false}
 {
     //==Signals==//
-    g_signal_connect(MainWindow::gobj(), "show", G_CALLBACK((void (*)(GtkWidget*, gpointer*))[](GtkWidget* widget, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onStartup(); }), this);
+    g_signal_connect(m_gobj, "show", G_CALLBACK((void (*)(GtkWidget*, gpointer*))[](GtkWidget* widget, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onStartup(); }), this);
     //==Open Folder==//
-    g_signal_connect(gtk_builder_get_object(m_builder, "gtk_btnOpenFolder"), "clicked", G_CALLBACK((void (*)(GtkButton*, gpointer*))[](GtkButton* button, gpointer* data) { reinterpret_cast<MainWindow*>(data)->m_formPage.openFolder(); }), this);
+    g_signal_connect(gtk_builder_get_object(m_builder, "adw_btnOpenFolder"), "clicked", G_CALLBACK((void (*)(GtkButton*, gpointer*))[](GtkButton* button, gpointer* data) { reinterpret_cast<MainWindow*>(data)->openFolder(); }), this);
+    //==Close Folder==//
+    g_signal_connect(gtk_builder_get_object(m_builder, "gtk_btnCloseFolder"), "clicked", G_CALLBACK((void (*)(GtkButton*, gpointer*))[](GtkButton* button, gpointer* data) { reinterpret_cast<MainWindow*>(data)->closeFolder(); }), this);
     //==Help Actions==//
     //Check for Updates
     m_gio_actUpdate = g_simple_action_new("update", nullptr);
     g_signal_connect(m_gio_actUpdate, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction* action, GVariant* parameter, gpointer* data) { reinterpret_cast<MainWindow*>(data)->update(); }), this);
-    g_action_map_add_action(G_ACTION_MAP(MainWindow::gobj()), G_ACTION(m_gio_actUpdate));
+    g_action_map_add_action(G_ACTION_MAP(m_gobj), G_ACTION(m_gio_actUpdate));
     //GitHub Repo
     m_gio_actGitHubRepo = g_simple_action_new("gitHubRepo", nullptr);
     g_signal_connect(m_gio_actGitHubRepo, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction* action, GVariant* parameter, gpointer* data) { reinterpret_cast<MainWindow*>(data)->gitHubRepo(); }), this);
-    g_action_map_add_action(G_ACTION_MAP(MainWindow::gobj()), G_ACTION(m_gio_actGitHubRepo));
+    g_action_map_add_action(G_ACTION_MAP(m_gobj), G_ACTION(m_gio_actGitHubRepo));
     //Report a Bug
     m_gio_actReportABug = g_simple_action_new("reportABug", nullptr);
     g_signal_connect(m_gio_actReportABug, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction* action, GVariant* parameter, gpointer* data) { reinterpret_cast<MainWindow*>(data)->reportABug(); }), this);
-    g_action_map_add_action(G_ACTION_MAP(MainWindow::gobj()), G_ACTION(m_gio_actReportABug));
+    g_action_map_add_action(G_ACTION_MAP(m_gobj), G_ACTION(m_gio_actReportABug));
     //Settings
     m_gio_actPreferences = g_simple_action_new("preferences", nullptr);
     g_signal_connect(m_gio_actPreferences, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction* action, GVariant* parameter, gpointer* data) { reinterpret_cast<MainWindow*>(data)->preferences(); }), this);
-    g_action_map_add_action(G_ACTION_MAP(MainWindow::gobj()), G_ACTION(m_gio_actPreferences));
+    g_action_map_add_action(G_ACTION_MAP(m_gobj), G_ACTION(m_gio_actPreferences));
     //Changelog
     m_gio_actChangelog = g_simple_action_new("changelog", nullptr);
     g_signal_connect(m_gio_actChangelog, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction* action, GVariant* parameter, gpointer* data) { reinterpret_cast<MainWindow*>(data)->changelog(); }), this);
-    g_action_map_add_action(G_ACTION_MAP(MainWindow::gobj()), G_ACTION(m_gio_actChangelog));
+    g_action_map_add_action(G_ACTION_MAP(m_gobj), G_ACTION(m_gio_actChangelog));
     //About
     m_gio_actAbout = g_simple_action_new("about", nullptr);
     g_signal_connect(m_gio_actAbout, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction* action, GVariant* parameter, gpointer* data) { reinterpret_cast<MainWindow*>(data)->about(); }), this);
-    g_action_map_add_action(G_ACTION_MAP(MainWindow::gobj()), G_ACTION(m_gio_actAbout));
-    //==Menu Button==//
+    g_action_map_add_action(G_ACTION_MAP(m_gobj), G_ACTION(m_gio_actAbout));
+    //==Help Menu Button==//
     GtkBuilder* builderMenu{gtk_builder_new_from_resource("/ui/views/menuhelp.xml")};
-    gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(gtk_builder_get_object(m_builder, "gtk_btnHeaderHelp")), G_MENU_MODEL(gtk_builder_get_object(builderMenu, "gio_menuHelp")));
-    //==Pages==//
-    adw_view_stack_add_titled(ADW_VIEW_STACK(gtk_builder_get_object(m_builder, "adw_viewStack")), m_homePage.gobj(), "home", "Home");
-    adw_view_stack_page_set_icon_name(adw_view_stack_get_page(ADW_VIEW_STACK(gtk_builder_get_object(m_builder, "adw_viewStack")), m_homePage.gobj()), "go-home-symbolic");
-    adw_view_stack_add_titled(ADW_VIEW_STACK(gtk_builder_get_object(m_builder, "adw_viewStack")), m_formPage.gobj(), "form", "Form");
-    adw_view_stack_page_set_icon_name(adw_view_stack_get_page(ADW_VIEW_STACK(gtk_builder_get_object(m_builder, "adw_viewStack")), m_formPage.gobj()), "document-edit-symbolic");
-    //==Messages==//
-    m_messenger.registerMessage("MainWindow.SendToast", [&](const std::string& parameter) { sendToast(parameter); });
+    gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(gtk_builder_get_object(m_builder, "gtk_btnMenuHelp")), G_MENU_MODEL(gtk_builder_get_object(builderMenu, "gio_menuHelp")));
+    g_object_unref(builderMenu);
 }
 
 MainWindow::~MainWindow()
 {
     m_configuration.save();
-    gtk_window_destroy(GTK_WINDOW(MainWindow::gobj()));
-}
-
-GtkWidget* MainWindow::gobj()
-{
-    return GTK_WIDGET(gtk_builder_get_object(m_builder, "adw_winMain"));
+    gtk_window_destroy(GTK_WINDOW(m_gobj));
 }
 
 void MainWindow::showMaximized()
 {
-    gtk_widget_show(gobj());
-    gtk_window_maximize(GTK_WINDOW(gobj()));
+    gtk_widget_show(m_gobj);
+    gtk_window_maximize(GTK_WINDOW(m_gobj));
 }
 
 void MainWindow::onStartup()
@@ -90,35 +81,60 @@ void MainWindow::onStartup()
     }
 }
 
+void MainWindow::openFolder()
+{
+    GtkWidget* openFolderDialog {gtk_file_chooser_dialog_new("Open Folder", GTK_WINDOW(gtk_widget_get_root(gobj())), 
+        GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER, "_Cancel", GTK_RESPONSE_CANCEL, "_Select", GTK_RESPONSE_ACCEPT, nullptr)};
+    gtk_window_set_modal(GTK_WINDOW(openFolderDialog), true);
+    g_signal_connect(openFolderDialog, "response", G_CALLBACK((void (*)(GtkDialog*, gint, gpointer*))([](GtkDialog* dialog, gint response_id, gpointer* data)
+    {
+        if(response_id == GTK_RESPONSE_ACCEPT)
+        {
+            MainWindow* mainWindow{reinterpret_cast<MainWindow*>(data)};
+            GtkFileChooser* chooser{GTK_FILE_CHOOSER(dialog)};
+            GFile* file{gtk_file_chooser_get_file(chooser)};
+            std::string path{g_file_get_path(file)};
+            g_object_unref(file);
+            adw_window_title_set_subtitle(ADW_WINDOW_TITLE(gtk_builder_get_object(GTK_BUILDER(mainWindow->m_builder), "adw_title")), path.c_str());
+            gtk_widget_set_sensitive(GTK_WIDGET(gtk_builder_get_object(mainWindow->m_builder, "gtk_btnCloseFolder")), true);
+        }
+        gtk_window_destroy(GTK_WINDOW(dialog));
+    })), this);
+    gtk_widget_show(openFolderDialog);
+}
+
+void MainWindow::closeFolder()
+{
+    adw_window_title_set_subtitle(ADW_WINDOW_TITLE(gtk_builder_get_object(GTK_BUILDER(m_builder), "adw_title")), nullptr);
+    gtk_widget_set_sensitive(GTK_WIDGET(gtk_builder_get_object(m_builder, "gtk_btnCloseFolder")), false);
+}
+
 void MainWindow::update()
 {
     if(m_updater.getUpdateAvailable())
     {
-        GtkWidget* updateDialog{gtk_message_dialog_new(GTK_WINDOW(gobj()), GtkDialogFlags(GTK_DIALOG_DESTROY_WITH_PARENT | GTK_DIALOG_MODAL),
+        GtkWidget* updateDialog{gtk_message_dialog_new(GTK_WINDOW(m_gobj), GtkDialogFlags(GTK_DIALOG_DESTROY_WITH_PARENT | GTK_DIALOG_MODAL),
             GTK_MESSAGE_INFO, GTK_BUTTONS_YES_NO, "Update Available")};
-        gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(updateDialog), std::string("\n===V" + m_updater.getLatestVersion().toString() + " Changelog===\n" + m_updater.getChangelog() + "\n\nNickvisionApplication can automatically download the update tar.gz file to your Downloads directory. Would you like to continue?").c_str());
+        gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(updateDialog), std::string("\n===V" + m_updater.getLatestVersion().toString() + " Changelog===\n" + m_updater.getChangelog() + "\n\nApplication can automatically download the update tar.gz file to your Downloads directory. Would you like to continue?").c_str());
         g_signal_connect(updateDialog, "response", G_CALLBACK((void (*)(GtkDialog*, gint, gpointer*))([](GtkDialog* dialog, gint response_id, gpointer* data)
         {
-            MainWindow* mainWindow{reinterpret_cast<MainWindow*>(data)};
             gtk_window_destroy(GTK_WINDOW(dialog));
             if(response_id == GTK_RESPONSE_YES)
             {
-                ProgressDialog* downloadingDialog{new ProgressDialog(mainWindow->gobj(), "Downloading the update...", [&]() { mainWindow->m_updater.update(); }, [&]()
+                MainWindow* mainWindow{reinterpret_cast<MainWindow*>(data)};
+                ProgressTracker* proTrackerDownloading{new ProgressTracker("Downloading the update...", [&]() { mainWindow->m_updater.update(); }, [&]()
                 {
                     if(mainWindow->m_updater.getUpdateSuccessful())
                     {
-                        GtkWidget* successDialog{gtk_message_dialog_new(GTK_WINDOW(mainWindow->gobj()), GtkDialogFlags(GTK_DIALOG_DESTROY_WITH_PARENT | GTK_DIALOG_MODAL),
-                            GTK_MESSAGE_INFO, GTK_BUTTONS_OK, "Update Downloaded Successfully")};
-                        gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(successDialog), "Please visit your Downloads folder to unpack and run the new update.");
-                        g_signal_connect(successDialog, "response", G_CALLBACK(gtk_window_destroy), nullptr);
-                        gtk_widget_show(successDialog);
+                        mainWindow->sendToast("Update downloaded successfully. Please visit your Downloads folder to upack and run the new update.");
                     }
                     else
                     {
                         mainWindow->sendToast("Error: Unable to download the update.");
                     }
                 })};
-                downloadingDialog->show();
+                adw_header_bar_pack_end(ADW_HEADER_BAR(gtk_builder_get_object(mainWindow->m_builder, "adw_headerBar")), proTrackerDownloading->gobj());
+                proTrackerDownloading->show();
             }
         })), this);
         gtk_widget_show(updateDialog);
@@ -141,7 +157,7 @@ void MainWindow::reportABug()
 
 void MainWindow::preferences()
 {
-    PreferencesDialog* preferencesDialog{new PreferencesDialog(gobj(), m_configuration)};
+    PreferencesDialog* preferencesDialog{new PreferencesDialog(m_gobj, m_configuration)};
     std::pair<PreferencesDialog*, MainWindow*>* pointers{new std::pair<PreferencesDialog*, MainWindow*>(preferencesDialog, this)};
     g_signal_connect(preferencesDialog->gobj(), "hide", G_CALLBACK((void (*)(GtkWidget*, gpointer*))([](GtkWidget* widget, gpointer* data)
     {
@@ -166,7 +182,7 @@ void MainWindow::preferences()
 
 void MainWindow::changelog()
 {
-    GtkWidget* changelogDialog{gtk_message_dialog_new(GTK_WINDOW(gobj()), GtkDialogFlags(GTK_DIALOG_DESTROY_WITH_PARENT | GTK_DIALOG_MODAL),
+    GtkWidget* changelogDialog{gtk_message_dialog_new(GTK_WINDOW(m_gobj), GtkDialogFlags(GTK_DIALOG_DESTROY_WITH_PARENT | GTK_DIALOG_MODAL),
         GTK_MESSAGE_INFO, GTK_BUTTONS_OK, "What's New?")};
     gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(changelogDialog), "- Initial Release");
     g_signal_connect(changelogDialog, "response", G_CALLBACK(gtk_window_destroy), nullptr);
@@ -176,7 +192,7 @@ void MainWindow::changelog()
 void MainWindow::about()
 {
     const char* authors[]{ "Nicholas Logozzo", nullptr };
-    gtk_show_about_dialog(GTK_WINDOW(gobj()), "program-name", "NickvisionApplication", "version", "2022.5.0", "comments", "A template for creating Nickvision applications.",
+    gtk_show_about_dialog(GTK_WINDOW(m_gobj), "program-name", "NickvisionApplication", "version", "2022.5.0", "comments", "A template for creating Nickvision applications.",
                           "copyright", "(C) Nickvision 2021-2022", "license-type", GTK_LICENSE_GPL_3_0, "website", "https://github.com/nlogozzo", "website-label", "GitHub",
                           "authors", authors, nullptr);
 }

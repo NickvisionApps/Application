@@ -46,9 +46,7 @@
                                             <object class="GtkStringList">
                                                 <items>
                                                     <item translatable="yes">System</item>
-
                                                     <item translatable="yes">Light</item>
-
                                                     <item translatable="yes">Dark</item>
                                                 </items>
                                             </object>
@@ -70,7 +68,6 @@
                                         <child>
                                             <object class="GtkSwitch" id="gtk_switchIsFirstTimeOpen">
                                                 <property name="valign">center</property>
-
                                                 <property name="active">true</property>
                                             </object>
                                         </child>

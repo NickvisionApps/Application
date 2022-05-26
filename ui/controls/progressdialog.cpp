@@ -3,10 +3,10 @@
 using namespace NickvisionApplication::UI;
 using namespace NickvisionApplication::UI::Controls;
 
-ProgressDialog::ProgressDialog(GtkWidget* parent, const std::string& description, const std::function<void()>& work, const std::function<void()>& then) : Widget{"/ui/controls/progressdialog.xml"}, m_work{work}, m_then{then}, m_isFinished{false}
+ProgressDialog::ProgressDialog(GtkWidget* parent, const std::string& description, const std::function<void()>& work, const std::function<void()>& then) : Widget{"/ui/controls/progressdialog.xml", "adw_progDialog"}, m_work{work}, m_then{then}, m_isFinished{false}
 {
     //==Dialog==//
-    gtk_window_set_transient_for(GTK_WINDOW(ProgressDialog::gobj()), GTK_WINDOW(parent));
+    gtk_window_set_transient_for(GTK_WINDOW(m_gobj), GTK_WINDOW(parent));
     g_timeout_add(50, [](void* data) -> int 
     { 
         ProgressDialog* dialog = reinterpret_cast<ProgressDialog*>(data);
@@ -28,17 +28,12 @@ ProgressDialog::ProgressDialog(GtkWidget* parent, const std::string& description
     }};
 }
 
-GtkWidget* ProgressDialog::gobj()
-{
-    return GTK_WIDGET(gtk_builder_get_object(m_builder, "adw_progDialog"));
-}
-
 void ProgressDialog::show()
 {
     std::lock_guard<std::mutex> lock{m_mutex};
     if(!m_isFinished)
     {
-        gtk_widget_show(gobj());
+        gtk_widget_show(m_gobj);
     }
 }
 
@@ -49,7 +44,7 @@ bool ProgressDialog::timeout()
     if(m_isFinished)
     {
         m_then();
-        gtk_window_destroy(GTK_WINDOW(gobj()));
+        gtk_window_destroy(GTK_WINDOW(m_gobj));
         return false;
     }
     return true;

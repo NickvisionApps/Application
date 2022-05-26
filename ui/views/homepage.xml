@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<interface>
-    <object class="AdwStatusPage" id="adw_homePage">
-        <property name="icon-name">applications-engineering-symbolic</property>
-        <property name="title" translatable="yes">Welcome to Application!</property>
-        <property name="description" translatable="yes">A template for creating Nickvision applications.</property>
-    </object>
-</interface>

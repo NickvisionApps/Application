@@ -13,7 +13,6 @@ namespace NickvisionApplication::UI::Controls
     {
     public:
         ProgressTracker(const std::string& description, const std::function<void()>& work, const std::function<void()>& then);
-        GtkWidget* gobj() override;
         void show() override;
 
     private:

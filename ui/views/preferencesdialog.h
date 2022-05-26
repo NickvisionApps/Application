@@ -11,7 +11,6 @@ namespace NickvisionApplication::UI::Views
     public:
         PreferencesDialog(GtkWidget* parent, NickvisionApplication::Models::Configuration& configuration);
         ~PreferencesDialog();
-        GtkWidget* gobj() override;
 
     private:
         NickvisionApplication::Models::Configuration& m_configuration;

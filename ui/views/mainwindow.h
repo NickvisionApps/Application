@@ -4,9 +4,6 @@
 #include "../widget.h"
 #include "../../models/configuration.h"
 #include "../../update/updater.h"
-#include "../messenger.h"
-#include "homepage.h"
-#include "formpage.h"
 
 namespace NickvisionApplication::UI::Views
 {
@@ -15,13 +12,11 @@ namespace NickvisionApplication::UI::Views
     public:
         MainWindow(NickvisionApplication::Models::Configuration& configuration);
         ~MainWindow();
-        GtkWidget* gobj() override;
         void showMaximized();
 
     private:
         NickvisionApplication::Models::Configuration& m_configuration;
         NickvisionApplication::Update::Updater m_updater;
-        NickvisionApplication::UI::Messenger m_messenger;
         bool m_opened;
         //==Help Actions==//
         GSimpleAction* m_gio_actUpdate;
@@ -30,18 +25,17 @@ namespace NickvisionApplication::UI::Views
         GSimpleAction* m_gio_actPreferences;
         GSimpleAction* m_gio_actChangelog;
         GSimpleAction* m_gio_actAbout;
-        //==Pages==//
-        HomePage m_homePage;
-        FormPage m_formPage;
         //==Signals==//
         void onStartup();
+        void openFolder();
+        void closeFolder();
         void update();
         void gitHubRepo();
         void reportABug();
         void preferences();
         void changelog();
         void about();
-        //==Messages==//
+        //==Other Functions==//
         void sendToast(const std::string& message);
     };
 }

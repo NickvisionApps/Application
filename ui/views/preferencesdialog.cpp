@@ -4,10 +4,10 @@ using namespace NickvisionApplication::Models;
 using namespace NickvisionApplication::UI;
 using namespace NickvisionApplication::UI::Views;
 
-PreferencesDialog::PreferencesDialog(GtkWidget* parent, Configuration& configuration) : Widget{"/ui/views/preferencesdialog.xml"}, m_configuration{configuration}
+PreferencesDialog::PreferencesDialog(GtkWidget* parent, Configuration& configuration) : Widget{"/ui/views/preferencesdialog.xml", "gtk_preferencesDialog"}, m_configuration{configuration}
 {
     //==Dialog==//
-    gtk_window_set_transient_for(GTK_WINDOW(PreferencesDialog::gobj()), GTK_WINDOW(parent));
+    gtk_window_set_transient_for(GTK_WINDOW(m_gobj), GTK_WINDOW(parent));
     //==Signals==//
     g_signal_connect(gtk_builder_get_object(m_builder, "gtk_btnCancel"), "clicked", G_CALLBACK((void (*)(GtkButton*, gpointer*))[](GtkButton* button, gpointer* data) { reinterpret_cast<PreferencesDialog*>(data)->cancel(); }), this);
     g_signal_connect(gtk_builder_get_object(m_builder, "gtk_btnSave"), "clicked", G_CALLBACK((void (*)(GtkButton*, gpointer*))[](GtkButton* button, gpointer* data) { reinterpret_cast<PreferencesDialog*>(data)->save(); }), this);
@@ -30,17 +30,12 @@ PreferencesDialog::PreferencesDialog(GtkWidget* parent, Configuration& configura
 
 PreferencesDialog::~PreferencesDialog()
 {
-    gtk_window_destroy(GTK_WINDOW(PreferencesDialog::gobj()));
-}
-
-GtkWidget* PreferencesDialog::gobj()
-{
-    return GTK_WIDGET(gtk_builder_get_object(m_builder, "gtk_preferencesDialog"));
+    gtk_window_destroy(GTK_WINDOW(m_gobj));
 }
 
 void PreferencesDialog::cancel()
 {
-    gtk_widget_hide(gobj());
+    gtk_widget_hide(m_gobj);
 }
 
 void PreferencesDialog::save()
@@ -48,7 +43,7 @@ void PreferencesDialog::save()
     m_configuration.setTheme(static_cast<Theme>(adw_combo_row_get_selected(ADW_COMBO_ROW(gtk_builder_get_object(m_builder, "adw_rowTheme")))));
     m_configuration.setIsFirstTimeOpen(gtk_switch_get_active(GTK_SWITCH(gtk_builder_get_object(m_builder, "gtk_switchIsFirstTimeOpen"))));
     m_configuration.save();
-    gtk_widget_hide(gobj());
+    gtk_widget_hide(m_gobj);
 }
 
 void PreferencesDialog::onRowIsFirstTimeOpenActivate()
