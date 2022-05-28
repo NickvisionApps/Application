@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include <adwaita.h>
 #include "../widget.h"
 #include "../../models/configuration.h"
