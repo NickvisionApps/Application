@@ -122,7 +122,7 @@ void MainWindow::update()
             if(response_id == GTK_RESPONSE_YES)
             {
                 MainWindow* mainWindow{reinterpret_cast<MainWindow*>(data)};
-                ProgressTracker* proTrackerDownloading{new ProgressTracker("Downloading the update...", [&]() { mainWindow->m_updater.update(); }, [&]()
+                ProgressTracker* progTrackerDownloading{new ProgressTracker("Downloading the update...", [mainWindow]() { mainWindow->m_updater.update(); }, [mainWindow]()
                 {
                     if(mainWindow->m_updater.getUpdateSuccessful())
                     {
@@ -133,8 +133,8 @@ void MainWindow::update()
                         mainWindow->sendToast("Error: Unable to download the update.");
                     }
                 })};
-                adw_header_bar_pack_end(ADW_HEADER_BAR(gtk_builder_get_object(mainWindow->m_builder, "adw_headerBar")), proTrackerDownloading->gobj());
-                proTrackerDownloading->show();
+                adw_header_bar_pack_end(ADW_HEADER_BAR(gtk_builder_get_object(mainWindow->m_builder, "adw_headerBar")), progTrackerDownloading->gobj());
+                progTrackerDownloading->show();
             }
         })), this);
         gtk_widget_show(updateDialog);
