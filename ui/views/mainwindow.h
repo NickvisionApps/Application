@@ -21,8 +21,6 @@ namespace NickvisionApplication::UI::Views
         bool m_opened;
         //==Help Actions==//
         GSimpleAction* m_gio_actUpdate;
-        GSimpleAction* m_gio_actGitHubRepo;
-        GSimpleAction* m_gio_actReportABug;
         GSimpleAction* m_gio_actPreferences;
         GSimpleAction* m_gio_actKeyboardShortcuts;
         GSimpleAction* m_gio_actChangelog;
@@ -32,8 +30,6 @@ namespace NickvisionApplication::UI::Views
         void openFolder();
         void closeFolder();
         void update();
-        void gitHubRepo();
-        void reportABug();
         void preferences();
         void keyboardShortcuts();
         void changelog();

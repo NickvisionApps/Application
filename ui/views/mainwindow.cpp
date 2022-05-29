@@ -23,14 +23,6 @@ MainWindow::MainWindow(Configuration& configuration) : Widget{"/ui/views/mainwin
     m_gio_actUpdate = g_simple_action_new("update", nullptr);
     g_signal_connect(m_gio_actUpdate, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction* action, GVariant* parameter, gpointer* data) { reinterpret_cast<MainWindow*>(data)->update(); }), this);
     g_action_map_add_action(G_ACTION_MAP(m_gobj), G_ACTION(m_gio_actUpdate));
-    //GitHub Repo
-    m_gio_actGitHubRepo = g_simple_action_new("gitHubRepo", nullptr);
-    g_signal_connect(m_gio_actGitHubRepo, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction* action, GVariant* parameter, gpointer* data) { reinterpret_cast<MainWindow*>(data)->gitHubRepo(); }), this);
-    g_action_map_add_action(G_ACTION_MAP(m_gobj), G_ACTION(m_gio_actGitHubRepo));
-    //Report a Bug
-    m_gio_actReportABug = g_simple_action_new("reportABug", nullptr);
-    g_signal_connect(m_gio_actReportABug, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction* action, GVariant* parameter, gpointer* data) { reinterpret_cast<MainWindow*>(data)->reportABug(); }), this);
-    g_action_map_add_action(G_ACTION_MAP(m_gobj), G_ACTION(m_gio_actReportABug));
     //Preferences
     m_gio_actPreferences = g_simple_action_new("preferences", nullptr);
     g_signal_connect(m_gio_actPreferences, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction* action, GVariant* parameter, gpointer* data) { reinterpret_cast<MainWindow*>(data)->preferences(); }), this);
@@ -150,16 +142,6 @@ void MainWindow::update()
     }
 }
 
-void MainWindow::gitHubRepo()
-{
-    g_app_info_launch_default_for_uri("https://github.com/nlogozzo/NickvisionApplication", nullptr, nullptr);
-}
-
-void MainWindow::reportABug()
-{
-    g_app_info_launch_default_for_uri("https://github.com/nlogozzo/NickvisionApplication/issues/new", nullptr, nullptr);
-}
-
 void MainWindow::preferences()
 {
     PreferencesDialog* preferencesDialog{new PreferencesDialog(m_gobj, m_configuration)};
@@ -209,7 +191,7 @@ void MainWindow::about()
 {
     const char* authors[]{ "Nicholas Logozzo", nullptr };
     gtk_show_about_dialog(GTK_WINDOW(m_gobj), "program-name", "NickvisionApplication", "version", "2022.5.0", "comments", "A template for creating Nickvision applications.",
-                          "copyright", "(C) Nickvision 2021-2022", "license-type", GTK_LICENSE_GPL_3_0, "website", "https://github.com/nlogozzo", "website-label", "GitHub",
+                          "copyright", "(C) Nickvision 2021-2022", "license-type", GTK_LICENSE_GPL_3_0, "website", "https://github.com/nlogozzo/NickvisionApplication", "website-label", "GitHub",
                           "authors", authors, nullptr);
 }
 

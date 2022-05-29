@@ -51,7 +51,6 @@
                         <child type="end">
                             <object class="GtkMenuButton" id="gtk_btnMenuHelp">
                                 <property name="direction">none</property>
-                                <property name="tooltip-text" translatable="yes">Help</property>
                             </object>
                         </child>
                     </object>
