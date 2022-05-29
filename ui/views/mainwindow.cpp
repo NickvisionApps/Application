@@ -2,6 +2,7 @@
 #include "../controls/progressdialog.h"
 #include "../controls/progresstracker.h"
 #include "preferencesdialog.h"
+#include "shortcutsdialog.h"
 
 using namespace NickvisionApplication::Models;
 using namespace NickvisionApplication::UI;
@@ -30,10 +31,14 @@ MainWindow::MainWindow(Configuration& configuration) : Widget{"/ui/views/mainwin
     m_gio_actReportABug = g_simple_action_new("reportABug", nullptr);
     g_signal_connect(m_gio_actReportABug, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction* action, GVariant* parameter, gpointer* data) { reinterpret_cast<MainWindow*>(data)->reportABug(); }), this);
     g_action_map_add_action(G_ACTION_MAP(m_gobj), G_ACTION(m_gio_actReportABug));
-    //Settings
+    //Preferences
     m_gio_actPreferences = g_simple_action_new("preferences", nullptr);
     g_signal_connect(m_gio_actPreferences, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction* action, GVariant* parameter, gpointer* data) { reinterpret_cast<MainWindow*>(data)->preferences(); }), this);
     g_action_map_add_action(G_ACTION_MAP(m_gobj), G_ACTION(m_gio_actPreferences));
+    //Keyboard Shortcuts
+    m_gio_actKeyboardShortcuts = g_simple_action_new("keyboardShortcuts", nullptr);
+    g_signal_connect(m_gio_actKeyboardShortcuts, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction* action, GVariant* parameter, gpointer* data) { reinterpret_cast<MainWindow*>(data)->keyboardShortcuts(); }), this);
+    g_action_map_add_action(G_ACTION_MAP(m_gobj), G_ACTION(m_gio_actKeyboardShortcuts));
     //Changelog
     m_gio_actChangelog = g_simple_action_new("changelog", nullptr);
     g_signal_connect(m_gio_actChangelog, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction* action, GVariant* parameter, gpointer* data) { reinterpret_cast<MainWindow*>(data)->changelog(); }), this);
@@ -178,6 +183,17 @@ void MainWindow::preferences()
         delete pointers;
     })), pointers);
     preferencesDialog->show();
+}
+
+void MainWindow::keyboardShortcuts()
+{
+    ShortcutsDialog* shortcutsDialog{new ShortcutsDialog(m_gobj)};
+    g_signal_connect(shortcutsDialog->gobj(), "hide", G_CALLBACK((void (*)(GtkWidget*, gpointer*))([](GtkWidget* widget, gpointer* data)
+    {
+        ShortcutsDialog* dialog{reinterpret_cast<ShortcutsDialog*>(data)};
+        delete dialog;
+    })), shortcutsDialog);
+    shortcutsDialog->show();
 }
 
 void MainWindow::changelog()

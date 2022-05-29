@@ -24,6 +24,7 @@ namespace NickvisionApplication::UI::Views
         GSimpleAction* m_gio_actGitHubRepo;
         GSimpleAction* m_gio_actReportABug;
         GSimpleAction* m_gio_actPreferences;
+        GSimpleAction* m_gio_actKeyboardShortcuts;
         GSimpleAction* m_gio_actChangelog;
         GSimpleAction* m_gio_actAbout;
         //==Signals==//
@@ -34,6 +35,7 @@ namespace NickvisionApplication::UI::Views
         void gitHubRepo();
         void reportABug();
         void preferences();
+        void keyboardShortcuts();
         void changelog();
         void about();
         //==Other Functions==//
