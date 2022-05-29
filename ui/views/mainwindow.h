@@ -19,6 +19,9 @@ namespace NickvisionApplication::UI::Views
         NickvisionApplication::Models::Configuration& m_configuration;
         NickvisionApplication::Update::Updater m_updater;
         bool m_opened;
+        //==App Actions==//
+        GSimpleAction* m_gio_actOpenFolder;
+        GSimpleAction* m_gio_actCloseFolder;
         //==Help Actions==//
         GSimpleAction* m_gio_actUpdate;
         GSimpleAction* m_gio_actPreferences;

@@ -10,7 +10,7 @@
             <object class="GtkShortcutsSection">
                 <child>
                     <object class="GtkShortcutsGroup">
-                        <property name="title">Application</property>
+                        <property name="title">Folder</property>
                         <child>
                             <object class="GtkShortcutsShortcut">
                                 <property name="title">Open Folder</property>
@@ -21,6 +21,17 @@
                             <object class="GtkShortcutsShortcut">
                                 <property name="title">Close Folder</property>
                                 <property name="accelerator">&lt;Control&gt;w</property>
+                            </object>
+                        </child>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkShortcutsGroup">
+                        <property name="title">Application</property>
+                        <child>
+                            <object class="GtkShortcutsShortcut">
+                                <property name="title">About</property>
+                                <property name="accelerator">F1</property>
                             </object>
                         </child>
                     </object>

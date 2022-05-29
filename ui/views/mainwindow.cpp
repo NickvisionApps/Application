@@ -14,10 +14,15 @@ MainWindow::MainWindow(Configuration& configuration) : Widget{"/ui/views/mainwin
 {
     //==Signals==//
     g_signal_connect(m_gobj, "show", G_CALLBACK((void (*)(GtkWidget*, gpointer*))[](GtkWidget* widget, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onStartup(); }), this);
-    //==Open Folder==//
-    g_signal_connect(gtk_builder_get_object(m_builder, "gtk_btnOpenFolder"), "clicked", G_CALLBACK((void (*)(GtkButton*, gpointer*))[](GtkButton* button, gpointer* data) { reinterpret_cast<MainWindow*>(data)->openFolder(); }), this);
-    //==Close Folder==//
-    g_signal_connect(gtk_builder_get_object(m_builder, "gtk_btnCloseFolder"), "clicked", G_CALLBACK((void (*)(GtkButton*, gpointer*))[](GtkButton* button, gpointer* data) { reinterpret_cast<MainWindow*>(data)->closeFolder(); }), this);
+    //==App Actions==//
+    //Open Folder
+    m_gio_actOpenFolder = g_simple_action_new("openFolder", nullptr);
+    g_signal_connect(m_gio_actOpenFolder, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction* action, GVariant* parameter, gpointer* data) { reinterpret_cast<MainWindow*>(data)->openFolder(); }), this);
+    g_action_map_add_action(G_ACTION_MAP(m_gobj), G_ACTION(m_gio_actOpenFolder));
+    //Close Folder
+    m_gio_actCloseFolder = g_simple_action_new("closeFolder", nullptr);
+    g_signal_connect(m_gio_actCloseFolder, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction* action, GVariant* parameter, gpointer* data) { reinterpret_cast<MainWindow*>(data)->closeFolder(); }), this);
+    g_action_map_add_action(G_ACTION_MAP(m_gobj), G_ACTION(m_gio_actCloseFolder));
     //==Help Actions==//
     //Check for Updates
     m_gio_actUpdate = g_simple_action_new("update", nullptr);
@@ -61,6 +66,13 @@ void MainWindow::onStartup()
 {
     if(!m_opened)
     {
+        //==Set Action Shortcuts==//
+        //Open Folder
+        gtk_application_set_accels_for_action(gtk_window_get_application(GTK_WINDOW(m_gobj)), "win.openFolder", new const char*[2]{ "<Ctrl>o", nullptr });
+        //Close Folder
+        gtk_application_set_accels_for_action(gtk_window_get_application(GTK_WINDOW(m_gobj)), "win.closeFolder", new const char*[2]{ "<Ctrl>w", nullptr });
+        //About
+        gtk_application_set_accels_for_action(gtk_window_get_application(GTK_WINDOW(m_gobj)), "win.about", new const char*[2]{ "F1", nullptr });
         //==Load Configuration==//
         m_configuration.setIsFirstTimeOpen(false);
         m_configuration.save();

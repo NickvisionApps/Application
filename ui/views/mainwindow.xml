@@ -15,37 +15,20 @@
                         </property>
                         <child type="start">
                             <object class="GtkButton" id="gtk_btnOpenFolder">
-                                <property name="icon-name">folder-open-symbolic</property>
+                                <style>
+                                    <class name="flat"></class>
+                                </style>
+                                <property name="action-name">win.openFolder</property>
+                                <property name="label">Open</property>
                                 <property name="tooltip-text" translatable="yes">Open Folder (Ctrl+O)</property>
-                                <child>
-                                    <object class="GtkShortcutController">
-                                        <property name='scope'>managed</property>
-                                        <child>
-                                            <object class="GtkShortcut">
-                                                <property name='trigger'>&lt;Control&gt;o</property>
-                                                <property name='action'>activate</property>
-                                            </object>
-                                        </child>
-                                    </object>
-                                </child>
                             </object>
                         </child>
                         <child type="start">
                             <object class="GtkButton" id="gtk_btnCloseFolder">
+                                <property name="action-name">win.closeFolder</property>
                                 <property name="icon-name">folder-visiting-symbolic</property>
                                 <property name="tooltip-text" translatable="yes">Close Folder (Ctrl+W)</property>
                                 <property name="visible">false</property>
-                                <child>
-                                    <object class="GtkShortcutController">
-                                        <property name='scope'>managed</property>
-                                        <child>
-                                            <object class="GtkShortcut">
-                                                <property name='trigger'>&lt;Control&gt;w</property>
-                                                <property name='action'>activate</property>
-                                            </object>
-                                        </child>
-                                    </object>
-                                </child>
                             </object>
                         </child>
                         <child type="end">
