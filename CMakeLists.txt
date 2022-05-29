@@ -35,7 +35,7 @@ target_link_libraries(NickvisionApplication PRIVATE PkgConfig::JSONCPP)
 target_link_libraries(NickvisionApplication PRIVATE ${CURLPP_LDFLAGS})
 
 #Generate GResources
-list(APPEND CMAKE_MODULE_PATH ../GCR_CMake/macros)
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/GCR_CMake/macros)
 include(GlibCompileResourcesSupport)
 compile_gresources(RESOURCE_FILE XML_OUT TYPE BUNDLE RESOURCES ${XML} COMPRESS_ALL)
 add_custom_target(resource ALL DEPENDS ${RESOURCE_FILE})
