@@ -96,7 +96,7 @@ void MainWindow::openFolder()
             std::string path{g_file_get_path(file)};
             g_object_unref(file);
             adw_window_title_set_subtitle(ADW_WINDOW_TITLE(gtk_builder_get_object(GTK_BUILDER(mainWindow->m_builder), "adw_title")), path.c_str());
-            gtk_widget_set_sensitive(GTK_WIDGET(gtk_builder_get_object(mainWindow->m_builder, "gtk_btnCloseFolder")), true);
+            gtk_widget_set_visible(GTK_WIDGET(gtk_builder_get_object(mainWindow->m_builder, "gtk_btnCloseFolder")), true);
         }
         gtk_window_destroy(GTK_WINDOW(dialog));
     })), this);
@@ -106,7 +106,7 @@ void MainWindow::openFolder()
 void MainWindow::closeFolder()
 {
     adw_window_title_set_subtitle(ADW_WINDOW_TITLE(gtk_builder_get_object(GTK_BUILDER(m_builder), "adw_title")), nullptr);
-    gtk_widget_set_sensitive(GTK_WIDGET(gtk_builder_get_object(m_builder, "gtk_btnCloseFolder")), false);
+    gtk_widget_set_visible(GTK_WIDGET(gtk_builder_get_object(m_builder, "gtk_btnCloseFolder")), false);
 }
 
 void MainWindow::update()
@@ -126,7 +126,7 @@ void MainWindow::update()
                 {
                     if(mainWindow->m_updater.getUpdateSuccessful())
                     {
-                        mainWindow->sendToast("Update downloaded successfully. Please visit your Downloads folder to upack and run the new update.");
+                        mainWindow->sendToast("Update downloaded successfully. Please visit your Downloads folder to unpack and run the new update.");
                     }
                     else
                     {

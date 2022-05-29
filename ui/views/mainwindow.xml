@@ -15,17 +15,15 @@
                         </property>
                         <child type="start">
                             <object class="GtkButton" id="gtk_btnOpenFolder">
-                                <style>
-                                    <class name="suggested-action"></class>
-                                </style>
-                                <property name="label" translatable="yes">Open</property>
+                                <property name="icon-name">folder-open-symbolic</property>
+                                <property name="tooltip-text" translatable="yes">Open Folder</property>
                             </object>
                         </child>
                         <child type="start">
                             <object class="GtkButton" id="gtk_btnCloseFolder">
                                 <property name="icon-name">folder-visiting-symbolic</property>
                                 <property name="tooltip-text" translatable="yes">Close Folder</property>
-                                <property name="sensitive">false</property>
+                                <property name="visible">false</property>
                             </object>
                         </child>
                         <child type="end">
