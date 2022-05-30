@@ -12,11 +12,11 @@
 - Support for saving application settings via a json configuration
 
 # Screenshots
-![MainWindow](https://user-images.githubusercontent.com/17648453/170398862-fc04696d-a7a9-42f9-a29c-b7d74558a84b.png)
-![Working](https://user-images.githubusercontent.com/17648453/170398868-34a99ab0-0834-46dd-89a0-3f7cf0dabd84.png)
-![PreferencesDialog](https://user-images.githubusercontent.com/17648453/170175708-3102ea68-1d6a-4fb7-af89-041cac7def8d.png)
-![LightMode](https://user-images.githubusercontent.com/17648453/170398887-5a83a2f4-3973-4bff-b5f4-d778c015e970.png)
-![AboutDialog](https://user-images.githubusercontent.com/17648453/169936936-de9f17e9-ee75-40aa-97f3-5ac5b119a6da.png)
+![MainWindow](https://user-images.githubusercontent.com/17648453/170999392-c5169c58-04d3-4b5b-aaa4-dabee0c183c8.png)
+![Working](https://user-images.githubusercontent.com/17648453/170999406-d2c33e22-0763-48a9-9709-7f7943224f03.png)
+![LightTheme](https://user-images.githubusercontent.com/17648453/170999416-f155e478-8844-400f-9a55-291b9315b892.png)
+![SettingsDialog](https://user-images.githubusercontent.com/17648453/170999436-bc228ec0-4e64-4655-873c-a9a49de7d1e1.png)
+![KeyboardShortcuts](https://user-images.githubusercontent.com/17648453/170999442-5173c188-4207-4f89-a4ff-f621d1257463.png)
 
 # Dependencies
 - [c++20](https://en.cppreference.com/w/cpp/20) [Only for building the app]
