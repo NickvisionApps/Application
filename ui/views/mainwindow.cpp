@@ -92,10 +92,9 @@ void MainWindow::onStartup()
 
 void MainWindow::openFolder()
 {
-    GtkWidget* openFolderDialog {gtk_file_chooser_dialog_new("Open Folder", GTK_WINDOW(m_gobj), 
-        GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER, "_Cancel", GTK_RESPONSE_CANCEL, "_Select", GTK_RESPONSE_ACCEPT, nullptr)};
-    gtk_window_set_modal(GTK_WINDOW(openFolderDialog), true);
-    g_signal_connect(openFolderDialog, "response", G_CALLBACK((void (*)(GtkDialog*, gint, gpointer*))([](GtkDialog* dialog, gint response_id, gpointer* data)
+    GtkFileChooserNative* openFolderDialog {gtk_file_chooser_native_new("Open Folder", GTK_WINDOW(m_gobj), GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER, "_Open", "_Cancel")};
+    gtk_native_dialog_set_modal(GTK_NATIVE_DIALOG(openFolderDialog), true);
+    g_signal_connect(openFolderDialog, "response", G_CALLBACK((void (*)(GtkNativeDialog*, gint, gpointer*))([](GtkNativeDialog* dialog, gint response_id, gpointer* data)
     {
         if(response_id == GTK_RESPONSE_ACCEPT)
         {
@@ -109,7 +108,7 @@ void MainWindow::openFolder()
         }
         gtk_window_destroy(GTK_WINDOW(dialog));
     })), this);
-    gtk_widget_show(openFolderDialog);
+    gtk_native_dialog_show(GTK_NATIVE_DIALOG(openFolderDialog));
 }
 
 void MainWindow::closeFolder()
