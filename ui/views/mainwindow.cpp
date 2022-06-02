@@ -8,9 +8,8 @@ using namespace NickvisionApplication::Models;
 using namespace NickvisionApplication::UI;
 using namespace NickvisionApplication::UI::Controls;
 using namespace NickvisionApplication::UI::Views;
-using namespace NickvisionApplication::Update;
 
-MainWindow::MainWindow(Configuration& configuration) : Widget{"/org/nickvision/application/ui/views/mainwindow.xml", "adw_winMain"}, m_configuration{configuration}, m_updater{"https://raw.githubusercontent.com/nlogozzo/NickvisionApplication/main/UpdateConfig.json", {"2022.5.0"}}, m_opened{false}
+MainWindow::MainWindow(Configuration& configuration) : Widget{"/org/nickvision/application/ui/views/mainwindow.xml", "adw_winMain"}, m_configuration{configuration}, m_opened{false}
 {
     //==Signals==//
     g_signal_connect(m_gobj, "show", G_CALLBACK((void (*)(GtkWidget*, gpointer*))[](GtkWidget* widget, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onStartup(); }), this);
@@ -24,10 +23,6 @@ MainWindow::MainWindow(Configuration& configuration) : Widget{"/org/nickvision/a
     g_signal_connect(m_gio_actCloseFolder, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction* action, GVariant* parameter, gpointer* data) { reinterpret_cast<MainWindow*>(data)->closeFolder(); }), this);
     g_action_map_add_action(G_ACTION_MAP(m_gobj), G_ACTION(m_gio_actCloseFolder));
     //==Help Actions==//
-    //Check for Updates
-    m_gio_actUpdate = g_simple_action_new("update", nullptr);
-    g_signal_connect(m_gio_actUpdate, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction* action, GVariant* parameter, gpointer* data) { reinterpret_cast<MainWindow*>(data)->update(); }), this);
-    g_action_map_add_action(G_ACTION_MAP(m_gobj), G_ACTION(m_gio_actUpdate));
     //Preferences
     m_gio_actPreferences = g_simple_action_new("preferences", nullptr);
     g_signal_connect(m_gio_actPreferences, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction* action, GVariant* parameter, gpointer* data) { reinterpret_cast<MainWindow*>(data)->preferences(); }), this);
@@ -76,16 +71,6 @@ void MainWindow::onStartup()
         //==Load Configuration==//
         m_configuration.setIsFirstTimeOpen(false);
         m_configuration.save();
-        //==Check for Updates==//
-        ProgressTracker* progTrackerUpdate{new ProgressTracker("Checking for updates...", [&]() { m_updater.checkForUpdates(); }, [&]()
-        {
-            if(m_updater.getUpdateAvailable())
-            {
-                sendToast("A new update is avaliable.");
-            }
-        })};
-        adw_header_bar_pack_end(ADW_HEADER_BAR(gtk_builder_get_object(m_builder, "adw_headerBar")), progTrackerUpdate->gobj());
-        progTrackerUpdate->show();
         m_opened = true;
     }
 }
@@ -115,42 +100,6 @@ void MainWindow::closeFolder()
 {
     adw_window_title_set_subtitle(ADW_WINDOW_TITLE(gtk_builder_get_object(GTK_BUILDER(m_builder), "adw_title")), nullptr);
     gtk_widget_set_visible(GTK_WIDGET(gtk_builder_get_object(m_builder, "gtk_btnCloseFolder")), false);
-}
-
-void MainWindow::update()
-{
-    if(m_updater.getUpdateAvailable())
-    {
-        GtkWidget* updateDialog{gtk_message_dialog_new(GTK_WINDOW(m_gobj), GtkDialogFlags(GTK_DIALOG_MODAL),
-            GTK_MESSAGE_INFO, GTK_BUTTONS_YES_NO, "Update Available")};
-        gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(updateDialog), std::string("\n===V" + m_updater.getLatestVersion().toString() + " Changelog===\n" + m_updater.getChangelog() + "\n\nApplication can automatically download the update tar.gz file to your Downloads directory. Would you like to continue?").c_str());
-        g_signal_connect(updateDialog, "response", G_CALLBACK((void (*)(GtkDialog*, gint, gpointer*))([](GtkDialog* dialog, gint response_id, gpointer* data)
-        {
-            gtk_window_destroy(GTK_WINDOW(dialog));
-            if(response_id == GTK_RESPONSE_YES)
-            {
-                MainWindow* mainWindow{reinterpret_cast<MainWindow*>(data)};
-                ProgressTracker* progTrackerDownloading{new ProgressTracker("Downloading the update...", [mainWindow]() { mainWindow->m_updater.update(); }, [mainWindow]()
-                {
-                    if(mainWindow->m_updater.getUpdateSuccessful())
-                    {
-                        mainWindow->sendToast("Update downloaded successfully. Please visit your Downloads folder to unpack and run the new update.");
-                    }
-                    else
-                    {
-                        mainWindow->sendToast("Error: Unable to download the update.");
-                    }
-                })};
-                adw_header_bar_pack_end(ADW_HEADER_BAR(gtk_builder_get_object(mainWindow->m_builder, "adw_headerBar")), progTrackerDownloading->gobj());
-                progTrackerDownloading->show();
-            }
-        })), this);
-        gtk_widget_show(updateDialog);
-    }
-    else
-    {
-        sendToast("There is no update at this time. Please try again later.");
-    }
 }
 
 void MainWindow::preferences()

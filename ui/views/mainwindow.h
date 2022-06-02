@@ -4,7 +4,6 @@
 #include <adwaita.h>
 #include "../widget.h"
 #include "../../models/configuration.h"
-#include "../../update/updater.h"
 
 namespace NickvisionApplication::UI::Views
 {
@@ -17,13 +16,11 @@ namespace NickvisionApplication::UI::Views
 
     private:
         NickvisionApplication::Models::Configuration& m_configuration;
-        NickvisionApplication::Update::Updater m_updater;
         bool m_opened;
         //==App Actions==//
         GSimpleAction* m_gio_actOpenFolder;
         GSimpleAction* m_gio_actCloseFolder;
         //==Help Actions==//
-        GSimpleAction* m_gio_actUpdate;
         GSimpleAction* m_gio_actPreferences;
         GSimpleAction* m_gio_actKeyboardShortcuts;
         GSimpleAction* m_gio_actChangelog;
@@ -32,7 +29,6 @@ namespace NickvisionApplication::UI::Views
         void onStartup();
         void openFolder();
         void closeFolder();
-        void update();
         void preferences();
         void keyboardShortcuts();
         void changelog();
