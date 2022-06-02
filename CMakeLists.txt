@@ -19,7 +19,7 @@ set(CONTROLS ui/controls/progressdialog.h ui/controls/progressdialog.cpp ui/cont
 set(VIEWS ui/views/mainwindow.h ui/views/mainwindow.cpp ui/views/preferencesdialog.h ui/views/preferencesdialog.cpp ui/views/shortcutsdialog.h ui/views/shortcutsdialog.cpp)
 
 #Create Exe
-add_executable(NickvisionApplication main.cpp ${HELPERS} ${UPDATE} ${MODELS} ${UI} ${XML} ${CONTROLS} ${VIEWS})
+add_executable(org.nickvision.application main.cpp ${HELPERS} ${UPDATE} ${MODELS} ${UI} ${XML} ${CONTROLS} ${VIEWS})
 
 #Find Libraries
 find_package(PkgConfig)
@@ -30,11 +30,11 @@ pkg_check_modules(JSONCPP REQUIRED IMPORTED_TARGET jsoncpp)
 pkg_check_modules(CURLPP REQUIRED curlpp)
 
 #Link Libraries
-target_link_libraries(NickvisionApplication PRIVATE Threads::Threads)
-target_link_libraries(NickvisionApplication PRIVATE PkgConfig::GTK)
-target_link_libraries(NickvisionApplication PRIVATE PkgConfig::ADWAITA)
-target_link_libraries(NickvisionApplication PRIVATE PkgConfig::JSONCPP)
-target_link_libraries(NickvisionApplication PRIVATE ${CURLPP_LDFLAGS})
+target_link_libraries(org.nickvision.application PRIVATE Threads::Threads)
+target_link_libraries(org.nickvision.application PRIVATE PkgConfig::GTK)
+target_link_libraries(org.nickvision.application PRIVATE PkgConfig::ADWAITA)
+target_link_libraries(org.nickvision.application PRIVATE PkgConfig::JSONCPP)
+target_link_libraries(org.nickvision.application PRIVATE ${CURLPP_LDFLAGS})
 
 #Generate GResources
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/GCR_CMake/macros)
@@ -43,7 +43,7 @@ compile_gresources(RESOURCE_FILE XML_OUT TYPE BUNDLE RESOURCES ${XML} COMPRESS_A
 add_custom_target(resource ALL DEPENDS ${RESOURCE_FILE})
 
 #Installl
-install(FILES ${CMAKE_BINARY_DIR}/resources.gresource DESTINATION share/NickvisionApplication/)
-install(FILES ${CMAKE_BINARY_DIR}/resources.gresource.xml DESTINATION share/NickvisionApplication/)
+install(FILES ${CMAKE_BINARY_DIR}/resources.gresource RENAME org.nickvision.application.gresource DESTINATION share/org.nickvision.application/)
+install(FILES ${CMAKE_BINARY_DIR}/resources.gresource.xml RENAME org.nickvision.application.gresource.xml DESTINATION share/org.nickvision.application/)
 install(FILES ${CMAKE_SOURCE_DIR}/org.nickvision.application.desktop DESTINATION share/applications/)
-install(FILES ${CMAKE_BINARY_DIR}/NickvisionApplication PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ DESTINATION bin)
+install(FILES ${CMAKE_BINARY_DIR}/org.nickvision.application PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ DESTINATION bin)

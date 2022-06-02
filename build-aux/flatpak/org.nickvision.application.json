@@ -3,7 +3,7 @@
     "runtime" : "org.gnome.Platform",
     "runtime-version" : "42",
     "sdk" : "org.gnome.Sdk",
-    "command" : "NickvisionApplication",
+    "command" : "org.nickvision.application",
     "tags" : [
         "devel"
     ],
@@ -52,7 +52,7 @@
             ]
         },
         {
-            "name": "NickvisionApplication",
+            "name": "org.nickvision.application",
             "buildsystem": "cmake-ninja",
             "config-opts": [
                 "-DCMAKE_BUILD_TYPE=Release"
