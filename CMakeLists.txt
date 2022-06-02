@@ -45,4 +45,3 @@ install(FILES ${CMAKE_BINARY_DIR}/resources.gresource DESTINATION share/org.nick
 install(FILES ${CMAKE_BINARY_DIR}/resources.gresource.xml DESTINATION share/org.nickvision.application)
 install(FILES ${CMAKE_SOURCE_DIR}/org.nickvision.application.desktop DESTINATION share/applications/)
 install(FILES ${CMAKE_BINARY_DIR}/org.nickvision.application PERMISSIONS WORLD_EXECUTE WORLD_WRITE WORLD_READ DESTINATION bin)
-install(CODE "execute_process ( COMMAND /usr/bin/gtk-update-icon-cache -t ${CMAKE_INSTALL_PREFIX}/share/icons/hicolor )" )
