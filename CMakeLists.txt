@@ -39,7 +39,7 @@ target_link_libraries(org.nickvision.application PRIVATE ${CURLPP_LDFLAGS})
 #Generate GResources
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/GCR_CMake/macros)
 include(GlibCompileResourcesSupport)
-compile_gresources(RESOURCE_FILE XML_OUT TYPE BUNDLE PREFIX /org/nickvision/application/ RESOURCES ${XML} COMPRESS_ALL)
+compile_gresources(RESOURCE_FILE XML_OUT TYPE BUNDLE PREFIX /org/nickvision/application RESOURCES ${XML} COMPRESS_ALL)
 add_custom_target(resource ALL DEPENDS ${RESOURCE_FILE})
 
 #Installl
