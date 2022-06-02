@@ -23,12 +23,14 @@ add_executable(NickvisionApplication main.cpp ${HELPERS} ${UPDATE} ${MODELS} ${U
 
 #Find Libraries
 find_package(PkgConfig)
+find_package(Threads REQUIRED)
 pkg_check_modules(GTK REQUIRED IMPORTED_TARGET gtk4)
 pkg_check_modules(ADWAITA REQUIRED IMPORTED_TARGET libadwaita-1)
 pkg_check_modules(JSONCPP REQUIRED IMPORTED_TARGET jsoncpp)
 pkg_check_modules(CURLPP REQUIRED curlpp)
 
 #Link Libraries
+target_link_libraries(NickvisionApplication PRIVATE Threads::Threads)
 target_link_libraries(NickvisionApplication PRIVATE PkgConfig::GTK)
 target_link_libraries(NickvisionApplication PRIVATE PkgConfig::ADWAITA)
 target_link_libraries(NickvisionApplication PRIVATE PkgConfig::JSONCPP)
