@@ -4,7 +4,7 @@ using namespace NickvisionApplication::Models;
 using namespace NickvisionApplication::UI;
 using namespace NickvisionApplication::UI::Views;
 
-PreferencesDialog::PreferencesDialog(GtkWidget* parent, Configuration& configuration) : Widget{"/ui/views/preferencesdialog.xml", "adw_preferencesDialog"}, m_configuration{configuration}
+PreferencesDialog::PreferencesDialog(GtkWidget* parent, Configuration& configuration) : Widget{"/org/nickvision/application/ui/views/preferencesdialog.xml", "adw_preferencesDialog"}, m_configuration{configuration}
 {
     //==Dialog==//
     gtk_window_set_transient_for(GTK_WINDOW(m_gobj), GTK_WINDOW(parent));

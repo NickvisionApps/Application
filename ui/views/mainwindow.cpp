@@ -10,7 +10,7 @@ using namespace NickvisionApplication::UI::Controls;
 using namespace NickvisionApplication::UI::Views;
 using namespace NickvisionApplication::Update;
 
-MainWindow::MainWindow(Configuration& configuration) : Widget{"/ui/views/mainwindow.xml", "adw_winMain"}, m_configuration{configuration}, m_updater{"https://raw.githubusercontent.com/nlogozzo/NickvisionApplication/main/UpdateConfig.json", {"2022.5.0"}}, m_opened{false}
+MainWindow::MainWindow(Configuration& configuration) : Widget{"/org/nickvision/application/ui/views/mainwindow.xml", "adw_winMain"}, m_configuration{configuration}, m_updater{"https://raw.githubusercontent.com/nlogozzo/NickvisionApplication/main/UpdateConfig.json", {"2022.5.0"}}, m_opened{false}
 {
     //==Signals==//
     g_signal_connect(m_gobj, "show", G_CALLBACK((void (*)(GtkWidget*, gpointer*))[](GtkWidget* widget, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onStartup(); }), this);
@@ -45,7 +45,7 @@ MainWindow::MainWindow(Configuration& configuration) : Widget{"/ui/views/mainwin
     g_signal_connect(m_gio_actAbout, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction* action, GVariant* parameter, gpointer* data) { reinterpret_cast<MainWindow*>(data)->about(); }), this);
     g_action_map_add_action(G_ACTION_MAP(m_gobj), G_ACTION(m_gio_actAbout));
     //==Help Menu Button==//
-    GtkBuilder* builderMenu{gtk_builder_new_from_resource("/ui/views/menuhelp.xml")};
+    GtkBuilder* builderMenu{gtk_builder_new_from_resource("/org/nickvision/application/ui/views/menuhelp.xml")};
     gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(gtk_builder_get_object(m_builder, "gtk_btnMenuHelp")), G_MENU_MODEL(gtk_builder_get_object(builderMenu, "gio_menuHelp")));
     g_object_unref(builderMenu);
 }
