@@ -41,8 +41,3 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/GCR_CMake/macros)
 include(GlibCompileResourcesSupport)
 compile_gresources(RESOURCE_FILE XML_OUT TYPE BUNDLE RESOURCES ${XML} COMPRESS_ALL)
 add_custom_target(resource ALL DEPENDS ${RESOURCE_FILE})
-
-#Install
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/NickvisionApplication DESTINATION /usr/bin)
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/resources.gresource DESTINATION /usr/share/NickvisionApplication)
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/resources.gresource.xml DESTINATION /usr/share/NickvisionApplication)
