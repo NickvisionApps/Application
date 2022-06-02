@@ -43,7 +43,7 @@ compile_gresources(RESOURCE_FILE XML_OUT TYPE BUNDLE PREFIX /org/nickvision/appl
 add_custom_target(resource ALL DEPENDS ${RESOURCE_FILE})
 
 #Installl
-install(FILES ${CMAKE_BINARY_DIR}/resources.gresource RENAME org.nickvision.application.gresource DESTINATION share/org.nickvision.application/)
-install(FILES ${CMAKE_BINARY_DIR}/resources.gresource.xml RENAME org.nickvision.application.gresource.xml DESTINATION share/org.nickvision.application/)
+install(FILES ${CMAKE_BINARY_DIR}/resources.gresource RENAME org.nickvision.application.gresource DESTINATION bin)
+install(FILES ${CMAKE_BINARY_DIR}/resources.gresource.xml RENAME org.nickvision.application.gresource.xml DESTINATION bin)
 install(FILES ${CMAKE_SOURCE_DIR}/org.nickvision.application.desktop DESTINATION share/applications/)
 install(FILES ${CMAKE_BINARY_DIR}/org.nickvision.application PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ DESTINATION bin)
