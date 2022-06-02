@@ -1,8 +1,8 @@
 [Desktop Entry]
-Version=2022.5.0
+Version=1.0
 Name=Application
 Comment=A template for creating Nickvision application
 Exec=NickvisionApplication
-Icon=org.nickvision.application.svg
+Icon=org.nickvision.application
 Terminal=false
 Type=Application
