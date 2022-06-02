@@ -25,7 +25,14 @@ std::optional<UpdateConfig> UpdateConfig::loadFromUrl(const std::string& url)
     {
         UpdateConfig updateConfig;
         Json::Value json;
-        updateConfigFileIn >> json;
+        try
+        {
+            updateConfigFileIn >> json;
+        }
+        catch(...)
+        {
+            return updateConfig;
+        }
         updateConfig.m_latestVersion = { json.get("LatestVersion", "0.0.0").asString() };
         updateConfig.m_changelog = json.get("Changelog", "").asString();
         updateConfig.m_linkToTarGz = json.get("LinkToTarGz", "").asString();
