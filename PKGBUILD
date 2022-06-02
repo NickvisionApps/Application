@@ -1,7 +1,7 @@
 # Maintainer: Nick Logozzo <nlogozzo225@gmail.com>
 _name=nickvision-application
 pkgname=$_name-git
-pkgver=2022.5.0.r0.0f5b8f0
+pkgver=2022.5.0.r0.0261fcc
 pkgrel=1
 pkgdesc="A template for creating Nickvision applications"
 arch=(x86_64)
