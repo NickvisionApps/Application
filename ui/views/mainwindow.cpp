@@ -149,10 +149,9 @@ void MainWindow::changelog()
 
 void MainWindow::about()
 {
-    const char* authors[]{ "Nicholas Logozzo", nullptr };
     gtk_show_about_dialog(GTK_WINDOW(m_gobj), "program-name", "NickvisionApplication", "version", "2022.5.0", "comments", "A template for creating Nickvision applications.",
                           "copyright", "(C) Nickvision 2021-2022", "license-type", GTK_LICENSE_GPL_3_0, "website", "https://github.com/nlogozzo/NickvisionApplication", "website-label", "GitHub",
-                          "authors", authors, nullptr);
+                          "authors", new const char*[2]{ "Nicholas Logozzo", nullptr }, nullptr);
 }
 
 void MainWindow::sendToast(const std::string& message)
