@@ -19,7 +19,7 @@
                                 <property name="tooltip-text" translatable="yes">Open Folder (Ctrl+O)</property>
                                 <property name="child">
                                     <object class="AdwButtonContent">
-                                        <property name="icon-name" translatable="yes">folder-open-symbolic</property>
+                                        <property name="icon-name">folder-open-symbolic</property>
                                         <property name="label" translatable="yes">Open</property>
                                     </object>
                                 </property>
