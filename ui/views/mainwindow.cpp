@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "../controls/progressdialog.h"
-#include "../controls/progresstracker.h"
 #include "preferencesdialog.h"
 #include "shortcutsdialog.h"
 
