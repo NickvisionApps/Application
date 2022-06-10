@@ -1,5 +1,6 @@
 # Nickvision Application
- A template for creating Nickvision applications
+
+ **A template for creating Nickvision applications**
 
 # Features
 - Modern gtk 4 and libadwaita design
