@@ -12,9 +12,9 @@ Application::Application(const std::string& id, GApplicationFlags flags) : m_adw
     {
         g_resources_register(g_resource_load("/usr/share/org.nickvision.application/resources.gresource", nullptr));
     }
-    else if(std::filesystem::exists("/share/org.nickvision.application/resources.gresource"))
+    else if(std::filesystem::exists("/app/share/org.nickvision.application/resources.gresource"))
     {
-        g_resources_register(g_resource_load("/share/org.nickvision.application/resources.gresource", nullptr));
+        g_resources_register(g_resource_load("/app/share/org.nickvision.application/resources.gresource", nullptr));
     }
     else
     {
