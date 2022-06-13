@@ -1,4 +1,5 @@
 #include "application.h"
+#include <filesystem>
 
 using namespace NickvisionApplication::Models;
 using namespace NickvisionApplication::UI;
@@ -7,7 +8,18 @@ using namespace NickvisionApplication::UI::Views;
 Application::Application(const std::string& id, GApplicationFlags flags) : m_adwApp{adw_application_new(id.c_str(), flags)}
 {
     //==Resources==//
-    g_resources_register(g_resource_load("/usr/share/org.nickvision.application/resources.gresource", nullptr));
+    if(std::filesystem::exists("/usr/share/org.nickvision.application/resources.gresource"))
+    {
+        g_resources_register(g_resource_load("/usr/share/org.nickvision.application/resources.gresource", nullptr));
+    }
+    else if(std::filesystem::exists("/share/org.nickvision.application/resources.gresource"))
+    {
+        g_resources_register(g_resource_load("/share/org.nickvision.application/resources.gresource", nullptr));
+    }
+    else
+    {
+        g_resources_register(g_resource_load("resources.gresource", nullptr));
+    }
     //==Signals==//
     g_signal_connect(m_adwApp, "activate", G_CALLBACK((void (*)(GtkApplication*, gpointer*))[](GtkApplication* app, gpointer* data) { reinterpret_cast<Application*>(data)->onActivate(app); }), this);
 }
