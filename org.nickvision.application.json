@@ -50,7 +50,7 @@
         },
         {
             "name": "org.nickvision.application",
-            "buildsystem": "cmake-ninja",
+            "buildsystem": "cmake",
             "config-opts": [
                 "-DCMAKE_BUILD_TYPE=Release"
             ],
