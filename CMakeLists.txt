@@ -5,7 +5,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_FLAGS "-Wall -Wextra")
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O1")
-set(CMAKE_INSTALL_PREFIX "/usr")
 project(NickvisionApplication LANGUAGES CXX)
 
 #Source Files
