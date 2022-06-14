@@ -42,5 +42,6 @@ add_custom_target(resource ALL DEPENDS ${RESOURCE_FILE})
 #Installl
 install(FILES ${CMAKE_BINARY_DIR}/resources.gresource DESTINATION share/org.nickvision.application)
 install(FILES ${CMAKE_BINARY_DIR}/resources.gresource.xml DESTINATION share/org.nickvision.application)
-install(FILES ${CMAKE_SOURCE_DIR}/org.nickvision.application.desktop DESTINATION share/applications/)
+install(FILES ${CMAKE_SOURCE_DIR}/org.nickvision.application.desktop DESTINATION share/applications)
+install(FILES ${CMAKE_SOURCE_DIR}/org.nickvision.application.metainfo.xml DESTINATION share/metainfo)
 install(FILES ${CMAKE_BINARY_DIR}/org.nickvision.application PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE WORLD_READ WORLD_WRITE WORLD_EXECUTE DESTINATION bin)
