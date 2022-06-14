@@ -4,13 +4,9 @@
     "runtime-version" : "42",
     "sdk" : "org.gnome.Sdk",
     "command" : "org.nickvision.application",
-    "tags" : [
-        "devel"
-    ],
     "finish-args":[
         "--socket=x11",
-        "--socket=wayland",
-        "--filesystem=host",
+        "--share=ipc",
         "--filesystem=home",
         "--env=DCONF_USER_CONFIG_DIR=.config/dconf"
     ],
@@ -27,17 +23,6 @@
             ]
         },
         {
-            "name": "libcurl",
-            "buildsystem": "cmake",
-            "sources": [
-                {
-                    "type": "archive",
-                    "url": "https://curl.se/download/curl-7.83.1.tar.gz",
-                    "sha256": "93fb2cd4b880656b4e8589c912a9fd092750166d555166370247f09d18f5d0c0"
-                }
-            ]
-        },
-        {
             "name": "curlpp",
             "buildsystem": "cmake",
             "sources": [
@@ -50,9 +35,9 @@
         },
         {
             "name": "org.nickvision.application",
-            "buildsystem": "cmake",
+            "buildsystem": "cmake-ninja",
             "config-opts": [
-                "-DCMAKE_BUILD_TYPE=Release"
+                "-DCMAKE_BUILD_TYPE=RelWithDebInfo"
             ],
             "sources": [
                 {
