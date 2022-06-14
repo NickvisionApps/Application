@@ -1,13 +1,12 @@
 #include "configuration.h"
 #include <filesystem>
 #include <fstream>
-#include <unistd.h>
-#include <pwd.h>
+#include <adwaita.h>
 #include <json/json.h>
 
 using namespace NickvisionApplication::Models;
 
-Configuration::Configuration() : m_configDir{std::string(getpwuid(getuid())->pw_dir) + "/.config/Nickvision/NickvisionApplication/"}, m_theme{Theme::System}, m_isFirstTimeOpen{true}
+Configuration::Configuration() : m_configDir{std::string(g_get_user_config_dir()) + "/Nickvision/NickvisionApplication/"}, m_theme{Theme::System}, m_isFirstTimeOpen{true}
 {
     if (!std::filesystem::exists(m_configDir))
     {
