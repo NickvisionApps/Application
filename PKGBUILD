@@ -23,7 +23,7 @@ prepare() {
 build() {
 	cmake -B build -S NickvisionApplication \
         -DCMAKE_INSTALL_PREFIX="/usr" \
-        -DCMAKE_BUILD_TYPE="Release"
+        -DCMAKE_BUILD_TYPE="RelWithDebInfo"
     cmake --build build
 }
 
