@@ -6,7 +6,7 @@
 
 namespace NickvisionApplication::Models
 {
-    Configuration::Configuration() : m_configDir{ QStandardPaths::writableLocation(QStandardPaths::AppDataLocation).toStdString() + "/Nickvision/NickvisionApplication/" }, m_theme{Theme::Dark}
+    Configuration::Configuration() : m_configDir{ QStandardPaths::writableLocation(QStandardPaths::AppDataLocation).toStdString() + "/Nickvision/NickvisionApplication/" }, m_theme{ Theme::Light }
     {
         if (!std::filesystem::exists(m_configDir))
         {
@@ -17,7 +17,7 @@ namespace NickvisionApplication::Models
         {
             Json::Value json;
             configFile >> json;
-            m_theme = static_cast<Theme>(json.get("Theme", 1).asInt());
+            m_theme = static_cast<Theme>(json.get("Theme", 0).asInt());
         }
     }
 
