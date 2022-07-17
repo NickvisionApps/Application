@@ -13,6 +13,8 @@ int main(int argc, char *argv[])
     appInfo.setDescription("A template for creating Nickvision applications.");
     appInfo.setVersion("2022.7.0-dev");
     appInfo.setChangelog("- Application rewrite with C++ and QT");
+    appInfo.setGitHubRepo("https://github.com/nlogozzo/NickvisionApplication");
+    appInfo.setIssueTracker("https://github.com/nlogozzo/NickvisionApplication/issues/new");
     //==Vars==//
     QApplication application{ argc, argv };
     MainWindow mainWindow;

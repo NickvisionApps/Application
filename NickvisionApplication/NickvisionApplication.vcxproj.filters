@@ -70,7 +70,7 @@
     <ClCompile Include="UI\Controls\ProgressDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UI\Views\AboutDialog.cpp">
+    <ClCompile Include="UI\Controls\AboutDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -121,7 +121,7 @@
     <QtMoc Include="UI\Controls\ProgressDialog.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="UI\Views\AboutDialog.h">
+    <QtMoc Include="UI\Controls\AboutDialog.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -132,7 +132,7 @@
     <QtUic Include="UI\Controls\ProgressDialog.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtUic Include="UI\Views\AboutDialog.ui">
+    <QtUic Include="UI\Controls\AboutDialog.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

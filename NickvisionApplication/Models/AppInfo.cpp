@@ -2,7 +2,7 @@
 
 namespace NickvisionApplication::Models
 {
-	AppInfo::AppInfo() : m_name{ "" }, m_description{ "" }, m_version{ "" }, m_changelog{ "" }
+	AppInfo::AppInfo() : m_name{ "" }, m_description{ "" }, m_version{ "" }, m_changelog{ "" }, m_gitHubRepo{ "" }, m_issueTracker{ "" }
 	{
 
 	}
@@ -51,5 +51,25 @@ namespace NickvisionApplication::Models
 	void AppInfo::setChangelog(const std::string& changelog)
 	{
 		m_changelog = changelog;
+	}
+
+	const std::string& AppInfo::getGitHubRepo() const
+	{
+		return m_gitHubRepo;
+	}
+
+	void AppInfo::setGitHubRepo(const std::string& gitHubRepo)
+	{
+		m_gitHubRepo = gitHubRepo;
+	}
+
+	const std::string& AppInfo::getIssueTracker() const
+	{
+		return m_issueTracker;
+	}
+
+	void AppInfo::setIssueTracker(const std::string& issueTracker)
+	{
+		m_issueTracker = issueTracker;
 	}
 }

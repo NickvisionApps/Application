@@ -57,6 +57,26 @@ namespace NickvisionApplication::Models
 		/// </summary>
 		/// <param name="changelog">The changelog of the application</param>
 		void setChangelog(const std::string& changelog);
+		/// <summary>
+		/// Gets the GitHub repo of the application
+		/// </summary>
+		/// <returns>The GitHub repo of the application</returns>
+		const std::string& getGitHubRepo() const;
+		/// <summary>
+		/// Sets the GitHub repo of the application
+		/// </summary>
+		/// <param name="gitHubRepo">The GtHub repo of the application</param>
+		void setGitHubRepo(const std::string& gitHubRepo);
+		/// <summary>
+		/// Gets the issue tracker of the application
+		/// </summary>
+		/// <returns>The issue tracker of the application</returns>
+		const std::string& getIssueTracker() const;
+		/// <summary>
+		/// Sets the issue tracker of the application
+		/// </summary>
+		/// <param name="issueTracker">The issue tracker of the application</param>
+		void setIssueTracker(const std::string& issueTracker);
 
 	private:
 		/// <summary>
@@ -67,6 +87,8 @@ namespace NickvisionApplication::Models
 		std::string m_description;
 		std::string m_version;
 		std::string m_changelog;
+		std::string m_gitHubRepo;
+		std::string m_issueTracker;
 	};
 }
 

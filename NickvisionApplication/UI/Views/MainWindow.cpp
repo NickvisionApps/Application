@@ -1,8 +1,8 @@
 #include "MainWindow.h"
 #include <QIcon>
 #include <QMessageBox>
-#include "AboutDialog.h"
 #include "SettingsDialog.h"
+#include "../Controls/AboutDialog.h"
 #include "../Controls/ProgressDialog.h"
 #include "../../Helpers/ThemeHelpers.h"
 #include "../../Models/AppInfo.h"

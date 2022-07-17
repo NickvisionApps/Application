@@ -2,8 +2,9 @@
 
 #include <QDialog>
 #include "ui_AboutDialog.h"
+#include "../../Models/AppInfo.h"
 
-namespace NickvisionApplication::UI::Views
+namespace NickvisionApplication::UI::Controls
 {
 	class AboutDialog : public QDialog
 	{
@@ -27,6 +28,9 @@ namespace NickvisionApplication::UI::Views
 		void on_btnClose_clicked();
 
 	private:
+		//==Vars==//
+		NickvisionApplication::Models::AppInfo& m_appInfo;
+		//==UI==//
 		Ui::AboutDialog m_ui;
 	};
 }
