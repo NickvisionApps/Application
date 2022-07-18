@@ -24,36 +24,6 @@ namespace NickvisionApplication::UI::Views
         /// <param name="parent">The parent of the widget, if any</param>
         MainWindow(QWidget* parent = nullptr);
 
-    private slots:
-        /// <summary>
-        /// Creates a new file to edit
-        /// </summary>
-        void on_menuNewFile_triggered();
-        /// <summary>
-        /// Opens a file to edit
-        /// </summary>
-        void on_menuOpenFile_triggered();
-        /// <summary>
-        /// Closes the current file being edited
-        /// </summary>
-        void on_menuCloseFile_triggered();
-        /// <summary>
-        /// Closes the window
-        /// </summary>
-        void on_menuExit_triggered();
-        /// <summary>
-        /// Opens the SettingsDialog
-        /// </summary>
-        void on_menuSettings_triggered();
-        /// <summary>
-        /// Checks for an application update
-        /// </summary>
-        void on_menuCheckForUpdates_triggered();
-        /// <summary>
-        /// Displays information about the runnning application
-        /// </summary>
-        void on_menuAbout_triggered();
-
     private:
         //==Vars==//
         NickvisionApplication::Models::Theme m_currentTheme;
@@ -62,6 +32,14 @@ namespace NickvisionApplication::UI::Views
         Ui::MainWindow m_ui;
         HomePage m_homePage;
         //==Functions==//
+        /// <summary>
+        /// Opens the SettingsDialog
+        /// </summary>
+        void settings();
+        /// <summary>
+        /// Checks for an application update
+        /// </summary>
+        void checkForUpdates();
         /// <summary>
         /// Changes the page on the window
         /// </summary>

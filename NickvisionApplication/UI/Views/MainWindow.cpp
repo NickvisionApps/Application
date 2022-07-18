@@ -3,7 +3,6 @@
 #include <QMessageBox>
 #include "SettingsDialog.h"
 #include "../Messenger.h"
-#include "../Controls/AboutDialog.h"
 #include "../Controls/ProgressDialog.h"
 #include "../../Helpers/ThemeHelpers.h"
 #include "../../Models/AppInfo.h"
@@ -36,6 +35,14 @@ namespace NickvisionApplication::UI::Views
 		}
 		ThemeHelpers::applyWin32Theming(this);
 		//==Messages==//
+		Messenger::getInstance().registerMessage("MainWindow.settings", [&](void* parameter)
+		{
+			settings();
+		});
+		Messenger::getInstance().registerMessage("MainWindow.checkForUpdates", [&](void* parameter)
+		{
+			checkForUpdates();
+		});
 		Messenger::getInstance().registerMessage("MainWindow.changePage", [&](void* parameter)
 		{
 			Pages* page{ static_cast<Pages*>(parameter) };
@@ -46,27 +53,7 @@ namespace NickvisionApplication::UI::Views
 		});
 	}
 
-	void MainWindow::on_menuNewFile_triggered()
-	{
-
-	}
-
-	void MainWindow::on_menuOpenFile_triggered()
-	{
-
-	}
-
-	void MainWindow::on_menuCloseFile_triggered()
-	{
-
-	}
-
-	void MainWindow::on_menuExit_triggered()
-	{
-		close();
-	}
-
-	void MainWindow::on_menuSettings_triggered()
+	void MainWindow::settings()
 	{
 		SettingsDialog settingsDialog{ this };
 		settingsDialog.exec();
@@ -87,13 +74,13 @@ namespace NickvisionApplication::UI::Views
 		}
 	}
 
-	void MainWindow::on_menuCheckForUpdates_triggered()
+	void MainWindow::checkForUpdates()
 	{
 		ProgressDialog checkingDialog{ this, "Checking for updates...", [&]() {  m_updater.checkForUpdates(); } };
 		checkingDialog.exec();
 		if (m_updater.getUpdateAvailable())
 		{
-			QMessageBox msgUpdate{ QMessageBox::Icon::Information, "Update Available", QString::fromStdString("===V" + m_updater.getLatestVersion().toString() + " Changelog===\n" + m_updater.getChangelog() + "\n\nNickvisionApplication will automatically download and install the update. Please save all work before continuing. Are you ready to update?"), QMessageBox::StandardButton::Yes | QMessageBox::StandardButton::No, this};
+			QMessageBox msgUpdate{ QMessageBox::Icon::Information, "Update Available", QString::fromStdString("===V" + m_updater.getLatestVersion().toString() + " Changelog===\n" + m_updater.getChangelog() + "\n\nNickvisionApplication will automatically download and install the update. Please save all work before continuing. Are you ready to update?"), QMessageBox::StandardButton::Yes | QMessageBox::StandardButton::No, this };
 			ThemeHelpers::applyWin32Theming(&msgUpdate);
 			int result = msgUpdate.exec();
 			if (result == QMessageBox::StandardButton::Yes)
@@ -114,12 +101,6 @@ namespace NickvisionApplication::UI::Views
 			ThemeHelpers::applyWin32Theming(&msgNoUpdate);
 			msgNoUpdate.exec();
 		}
-	}
-
-	void MainWindow::on_menuAbout_triggered()
-	{
-		AboutDialog aboutDialog(this);
-		aboutDialog.exec();
 	}
 
 	void MainWindow::changePage(Pages page)
