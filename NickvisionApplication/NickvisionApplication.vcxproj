@@ -134,6 +134,7 @@
     <QtMoc Include="UI\Views\SettingsDialog.h" />
     <QtMoc Include="UI\Controls\AboutDialog.h" />
     <QtMoc Include="UI\Views\HomePage.h" />
+    <ClInclude Include="UI\Views\Pages.h" />
     <ClInclude Include="Update\UpdateConfig.h" />
     <ClInclude Include="Update\Updater.h" />
     <ClInclude Include="Update\Version.h" />

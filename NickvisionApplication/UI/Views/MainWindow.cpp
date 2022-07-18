@@ -2,6 +2,7 @@
 #include <QIcon>
 #include <QMessageBox>
 #include "SettingsDialog.h"
+#include "../Messenger.h"
 #include "../Controls/AboutDialog.h"
 #include "../Controls/ProgressDialog.h"
 #include "../../Helpers/ThemeHelpers.h"
@@ -9,6 +10,7 @@
 
 using namespace NickvisionApplication::Helpers;
 using namespace NickvisionApplication::Models;
+using namespace NickvisionApplication::UI;
 using namespace NickvisionApplication::UI::Controls;
 
 namespace NickvisionApplication::UI::Views
@@ -33,6 +35,15 @@ namespace NickvisionApplication::UI::Views
 			m_currentTheme = Theme::Dark;
 		}
 		ThemeHelpers::applyWin32Theming(this);
+		//==Messages==//
+		Messenger::getInstance().registerMessage("MainWindow.changePage", [&](void* parameter)
+		{
+			Pages* page{ static_cast<Pages*>(parameter) };
+			if (page)
+			{
+				changePage(*page);
+			}
+		});
 	}
 
 	void MainWindow::on_menuNewFile_triggered()
@@ -59,7 +70,21 @@ namespace NickvisionApplication::UI::Views
 	{
 		SettingsDialog settingsDialog{ this };
 		settingsDialog.exec();
-		refreshTheme();
+		//==Refresh Theme==//
+		if (Configuration::getInstance().getTheme() != m_currentTheme)
+		{
+			if (Configuration::getInstance().getTheme() == Theme::Light)
+			{
+				QApplication::setPalette(ThemeHelpers::getLightPalette());
+				m_currentTheme = Theme::Light;
+			}
+			else
+			{
+				QApplication::setPalette(ThemeHelpers::getDarkPalette());
+				m_currentTheme = Theme::Dark;
+			}
+			ThemeHelpers::applyWin32Theming(this);
+		}
 	}
 
 	void MainWindow::on_menuCheckForUpdates_triggered()
@@ -97,21 +122,8 @@ namespace NickvisionApplication::UI::Views
 		aboutDialog.exec();
 	}
 
-	void MainWindow::refreshTheme()
+	void MainWindow::changePage(Pages page)
 	{
-		if (Configuration::getInstance().getTheme() != m_currentTheme)
-		{
-			if (Configuration::getInstance().getTheme() == Theme::Light)
-			{
-				QApplication::setPalette(ThemeHelpers::getLightPalette());
-				m_currentTheme = Theme::Light;
-			}
-			else
-			{
-				QApplication::setPalette(ThemeHelpers::getDarkPalette());
-				m_currentTheme = Theme::Dark;
-			}
-			ThemeHelpers::applyWin32Theming(this);
-		}
+		m_ui.viewStack->setCurrentIndex(static_cast<int>(page));
 	}
 }

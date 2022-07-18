@@ -105,6 +105,9 @@
     <ClInclude Include="Models\Theme.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="UI\Views\Pages.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icon.ai" />

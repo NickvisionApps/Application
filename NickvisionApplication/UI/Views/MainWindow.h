@@ -6,6 +6,7 @@
 #include "../../Models/Theme.h"
 #include "../../Update/Updater.h"
 #include "HomePage.h"
+#include "Pages.h"
 
 namespace NickvisionApplication::UI::Views
 {
@@ -62,8 +63,9 @@ namespace NickvisionApplication::UI::Views
         HomePage m_homePage;
         //==Functions==//
         /// <summary>
-        /// Updates the window's theme based on the configuration
+        /// Changes the page on the window
         /// </summary>
-        void refreshTheme();
+        /// <param name="page">The page to change to</param>
+        void changePage(Pages page);
     };
 }
