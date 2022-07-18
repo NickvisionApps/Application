@@ -5,14 +5,22 @@
 #include "ui_MainWindow.h"
 #include "../../Models/Theme.h"
 #include "../../Update/Updater.h"
+#include "HomePage.h"
 
 namespace NickvisionApplication::UI::Views
 {
+    /// <summary>
+    /// The MainWindow
+    /// </summary>
     class MainWindow : public QMainWindow
     {
         Q_OBJECT
 
     public:
+        /// <summary>
+        /// Constructs a MainWindow
+        /// </summary>
+        /// <param name="parent">The parent of the widget, if any</param>
         MainWindow(QWidget* parent = nullptr);
 
     private slots:
@@ -51,6 +59,7 @@ namespace NickvisionApplication::UI::Views
         NickvisionApplication::Update::Updater m_updater;
         //==UI==//
         Ui::MainWindow m_ui;
+        HomePage m_homePage;
         //==Functions==//
         /// <summary>
         /// Updates the window's theme based on the configuration

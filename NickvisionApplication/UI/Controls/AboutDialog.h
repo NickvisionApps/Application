@@ -6,11 +6,18 @@
 
 namespace NickvisionApplication::UI::Controls
 {
+	/// <summary>
+	/// A dialog for displaying application information
+	/// </summary>
 	class AboutDialog : public QDialog
 	{
 		Q_OBJECT
 
 	public:
+		/// <summary>
+		/// Constructs an AboutDialog
+		/// </summary>
+		/// <param name="parent">The parent of the dialog</param>
 		AboutDialog(QWidget* parent);
 
 	private slots:

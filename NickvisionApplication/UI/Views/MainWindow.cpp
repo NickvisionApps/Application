@@ -19,6 +19,8 @@ namespace NickvisionApplication::UI::Views
 		//==Window Settings==//
 		setWindowTitle(QString::fromStdString(AppInfo::getInstance().getName()));
 		setWindowIcon(QIcon(":/Resources/icon.ico"));
+		//==Pages==//
+		m_ui.viewStack->addWidget(&m_homePage);
 		//==Theme==//
 		if (Configuration::getInstance().getTheme() == Theme::Light)
 		{

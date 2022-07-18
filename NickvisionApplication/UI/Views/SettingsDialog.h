@@ -6,6 +6,9 @@
 
 namespace NickvisionApplication::UI::Views
 {
+	/// <summary>
+	/// A dialog for managing application settings
+	/// </summary>
 	class SettingsDialog : public QDialog
 	{
 		Q_OBJECT

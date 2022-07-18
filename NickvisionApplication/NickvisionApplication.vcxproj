@@ -107,6 +107,7 @@
     <ClCompile Include="UI\Controls\ProgressDialog.cpp" />
     <ClCompile Include="UI\Messenger.cpp" />
     <ClCompile Include="UI\Controls\AboutDialog.cpp" />
+    <ClCompile Include="UI\Views\HomePage.cpp" />
     <ClCompile Include="UI\Views\SettingsDialog.cpp" />
     <ClCompile Include="Update\UpdateConfig.cpp" />
     <ClCompile Include="Update\Updater.cpp" />
@@ -114,6 +115,7 @@
     <QtRcc Include="resources.qrc" />
     <QtUic Include="UI\Controls\ProgressDialog.ui" />
     <QtUic Include="UI\Controls\AboutDialog.ui" />
+    <QtUic Include="UI\Views\HomePage.ui" />
     <QtUic Include="UI\Views\MainWindow.ui" />
     <QtMoc Include="UI\Views\MainWindow.h" />
     <ClCompile Include="Helpers\CurlHelpers.cpp" />
@@ -131,6 +133,7 @@
     <ClInclude Include="UI\Messenger.h" />
     <QtMoc Include="UI\Views\SettingsDialog.h" />
     <QtMoc Include="UI\Controls\AboutDialog.h" />
+    <QtMoc Include="UI\Views\HomePage.h" />
     <ClInclude Include="Update\UpdateConfig.h" />
     <ClInclude Include="Update\Updater.h" />
     <ClInclude Include="Update\Version.h" />
