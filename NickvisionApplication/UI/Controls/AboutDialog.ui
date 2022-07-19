@@ -144,6 +144,7 @@
          <property name="text">
           <string>Copyright (C) 2021-2022
 All rights reserved.
+Nicholas Logozzo
 Nickvision</string>
          </property>
          <property name="wordWrap">
@@ -173,7 +174,8 @@ Nickvision</string>
        <item>
         <widget class="QLabel" name="lblArc">
          <property name="text">
-          <string>Built with C++ and QT6.</string>
+          <string>Built with C++ and Qt 6
+Icons provided by Icons8</string>
          </property>
          <property name="margin">
           <number>0</number>
