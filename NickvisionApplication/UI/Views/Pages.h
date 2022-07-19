@@ -7,6 +7,7 @@ namespace NickvisionApplication::UI::Views
 	/// </summary>
 	enum class Pages
 	{
-		Home = 0
+		Home = 0,
+		Editor
 	};
 }

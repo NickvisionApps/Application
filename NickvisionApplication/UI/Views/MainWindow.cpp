@@ -3,6 +3,7 @@
 #include <QMessageBox>
 #include "SettingsDialog.h"
 #include "../Messenger.h"
+#include "../Controls/AboutDialog.h"
 #include "../Controls/ProgressDialog.h"
 #include "../../Helpers/ThemeHelpers.h"
 #include "../../Models/AppInfo.h"
@@ -19,9 +20,10 @@ namespace NickvisionApplication::UI::Views
 		m_ui.setupUi(this);
 		//==Window Settings==//
 		setWindowTitle(QString::fromStdString(AppInfo::getInstance().getName()));
-		setWindowIcon(QIcon(":/Resources/icon.ico"));
 		//==Pages==//
 		m_ui.viewStack->addWidget(&m_homePage);
+		m_ui.viewStack->addWidget(new QFrame());
+		changePage(Pages::Home);
 		//==Theme==//
 		if (Configuration::getInstance().getTheme() == Theme::Light)
 		{
@@ -35,14 +37,6 @@ namespace NickvisionApplication::UI::Views
 		}
 		ThemeHelpers::applyWin32Theming(this);
 		//==Messages==//
-		Messenger::getInstance().registerMessage("MainWindow.settings", [&](void* parameter)
-		{
-			settings();
-		});
-		Messenger::getInstance().registerMessage("MainWindow.checkForUpdates", [&](void* parameter)
-		{
-			checkForUpdates();
-		});
 		Messenger::getInstance().registerMessage("MainWindow.changePage", [&](void* parameter)
 		{
 			Pages* page{ static_cast<Pages*>(parameter) };
@@ -53,28 +47,17 @@ namespace NickvisionApplication::UI::Views
 		});
 	}
 
-	void MainWindow::settings()
+	void MainWindow::on_navHome_clicked()
 	{
-		SettingsDialog settingsDialog{ this };
-		settingsDialog.exec();
-		//==Refresh Theme==//
-		if (Configuration::getInstance().getTheme() != m_currentTheme)
-		{
-			if (Configuration::getInstance().getTheme() == Theme::Light)
-			{
-				QApplication::setPalette(ThemeHelpers::getLightPalette());
-				m_currentTheme = Theme::Light;
-			}
-			else
-			{
-				QApplication::setPalette(ThemeHelpers::getDarkPalette());
-				m_currentTheme = Theme::Dark;
-			}
-			ThemeHelpers::applyWin32Theming(this);
-		}
+		changePage(Pages::Home);
 	}
 
-	void MainWindow::checkForUpdates()
+	void MainWindow::on_navEditor_clicked()
+	{
+		changePage(Pages::Editor);
+	}
+
+	void MainWindow::on_navCheckForUpdates_clicked()
 	{
 		ProgressDialog checkingDialog{ this, "Checking for updates...", [&]() {  m_updater.checkForUpdates(); } };
 		checkingDialog.exec();
@@ -103,8 +86,45 @@ namespace NickvisionApplication::UI::Views
 		}
 	}
 
+	void MainWindow::on_navSettings_clicked()
+	{
+		SettingsDialog settingsDialog{ this };
+		settingsDialog.exec();
+		//==Refresh Theme==//
+		if (Configuration::getInstance().getTheme() != m_currentTheme)
+		{
+			if (Configuration::getInstance().getTheme() == Theme::Light)
+			{
+				QApplication::setPalette(ThemeHelpers::getLightPalette());
+				m_currentTheme = Theme::Light;
+			}
+			else
+			{
+				QApplication::setPalette(ThemeHelpers::getDarkPalette());
+				m_currentTheme = Theme::Dark;
+			}
+			ThemeHelpers::applyWin32Theming(this);
+		}
+	}
+
+	void MainWindow::on_navAbout_clicked()
+	{
+		AboutDialog aboutDialog{ this };
+		aboutDialog.exec();
+	}
+
 	void MainWindow::changePage(Pages page)
 	{
 		m_ui.viewStack->setCurrentIndex(static_cast<int>(page));
+		if (page == Pages::Home)
+		{
+			m_ui.navHome->setChecked(true);
+			m_ui.navEditor->setChecked(false);
+		}
+		else if (page == Pages::Editor)
+		{
+			m_ui.navHome->setChecked(false);
+			m_ui.navEditor->setChecked(true);
+		}
 	}
 }

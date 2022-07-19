@@ -24,6 +24,28 @@ namespace NickvisionApplication::UI::Views
         /// <param name="parent">The parent of the widget, if any</param>
         MainWindow(QWidget* parent = nullptr);
 
+    private slots:
+        /// <summary>
+        /// Navigate to home page
+        /// </summary>
+        void on_navHome_clicked();
+        /// <summary>
+        /// Navigate to editor page
+        /// </summary>
+        void on_navEditor_clicked();
+        /// <summary>
+        /// Checks for an application update
+        /// </summary>
+        void on_navCheckForUpdates_clicked();
+        /// <summary>
+        /// Opens the SettingsDialog
+        /// </summary>
+        void on_navSettings_clicked();
+        /// <summary>
+        /// Opens an AboutDialog
+        /// </summary>
+        void on_navAbout_clicked();
+
     private:
         //==Vars==//
         NickvisionApplication::Models::Theme m_currentTheme;
@@ -32,14 +54,6 @@ namespace NickvisionApplication::UI::Views
         Ui::MainWindow m_ui;
         HomePage m_homePage;
         //==Functions==//
-        /// <summary>
-        /// Opens the SettingsDialog
-        /// </summary>
-        void settings();
-        /// <summary>
-        /// Checks for an application update
-        /// </summary>
-        void checkForUpdates();
         /// <summary>
         /// Changes the page on the window
         /// </summary>

@@ -1,12 +1,8 @@
 #include "HomePage.h"
 #include <ctime>
-#include "../Messenger.h"
-#include "../Controls/AboutDialog.h"
 #include "../../Models/AppInfo.h"
 
 using namespace NickvisionApplication::Models;
-using namespace NickvisionApplication::UI;
-using namespace NickvisionApplication::UI::Controls;
 
 namespace NickvisionApplication::UI::Views
 {
@@ -31,20 +27,4 @@ namespace NickvisionApplication::UI::Views
             m_ui.lblWelcome->setText("Good evening!");
         }
 	}
-
-    void HomePage::on_btnSettings_clicked()
-    {
-        Messenger::getInstance().sendMessage("MainWindow.settings", nullptr);
-    }
-
-    void HomePage::on_btnCheckForUpdates_clicked()
-    {
-        Messenger::getInstance().sendMessage("MainWindow.checkForUpdates", nullptr);
-    }
-
-    void HomePage::on_btnAbout_clicked()
-    {
-        AboutDialog aboutDialog(this);
-        aboutDialog.exec();
-    }
 }
