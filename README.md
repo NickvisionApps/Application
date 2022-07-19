@@ -1,4 +1,5 @@
 # Nickvision Application
+![icon](NickvisionApplication/Resources/icon.png)
 
  **A template for creating Nickvision applications**
 
