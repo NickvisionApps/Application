@@ -17,37 +17,83 @@
    <item>
     <layout class="QHBoxLayout" name="layoutMain">
      <item>
-      <widget class="QTreeWidget" name="treeNav">
+      <widget class="QFrame" name="navBar">
        <property name="minimumSize">
         <size>
          <width>160</width>
          <height>0</height>
         </size>
        </property>
-       <property name="maximumSize">
-        <size>
-         <width>160</width>
-         <height>16777215</height>
-        </size>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
        </property>
-       <property name="indentation">
-        <number>20</number>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
        </property>
-       <column>
-        <property name="text">
-         <string>Settings</string>
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <property name="leftMargin">
+         <number>4</number>
         </property>
-       </column>
-       <item>
-        <property name="text">
-         <string>User Interface</string>
+        <property name="topMargin">
+         <number>4</number>
         </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Application</string>
+        <property name="rightMargin">
+         <number>4</number>
         </property>
-       </item>
+        <property name="bottomMargin">
+         <number>4</number>
+        </property>
+        <item>
+         <widget class="QCommandLinkButton" name="navUserInterface">
+          <property name="text">
+           <string>User Interface</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../../resources.qrc">
+            <normaloff>:/Resources/Interface.png</normaloff>:/Resources/Interface.png</iconset>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+          <property name="autoDefault">
+           <bool>false</bool>
+          </property>
+          <property name="default">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCommandLinkButton" name="navApplication">
+          <property name="text">
+           <string>Application</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../../resources.qrc">
+            <normaloff>:/Resources/Edit.png</normaloff>:/Resources/Edit.png</iconset>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+          <property name="autoDefault">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
       </widget>
      </item>
      <item>

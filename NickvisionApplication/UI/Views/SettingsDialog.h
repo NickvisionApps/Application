@@ -22,9 +22,13 @@ namespace NickvisionApplication::UI::Views
 
 	private slots:
 		/// <summary>
-		/// Change the viewStack page based on treeNav's selected item
+		/// Navigate to user interface view
 		/// </summary>
-		void on_treeNav_itemSelectionChanged();
+		void on_navUserInterface_clicked();
+		/// <summary>
+		/// Navigate to application view
+		/// </summary>
+		void on_navApplication_clicked();
 		/// <summary>
 		/// Saves the configuration and closes the dialog
 		/// </summary>
@@ -35,8 +39,23 @@ namespace NickvisionApplication::UI::Views
 		void on_btnCancel_clicked();
 
 	private:
+		/// <summary>
+		/// SettingsDialog views
+		/// </summary>
+		enum class Views
+		{
+			UserInterface = 0,
+			Application
+		};
+		//==Vars==//
 		NickvisionApplication::Models::Configuration& m_configuration;
 		//==UI==//
 		Ui::SettingsDialog m_ui;
+		//==Functions==//
+		/// <summary>
+		/// Changes the view on the dialog
+		/// </summary>
+		/// <param name="view">The view to change to</param>
+		void changeView(Views view);
 	};
 }

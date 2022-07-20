@@ -9,5 +9,6 @@
         <file>Resources/Update.png</file>
         <file>Resources/NewFile.png</file>
         <file>Resources/OpenFile.png</file>
+        <file>Resources/Interface.png</file>
     </qresource>
 </RCC>
