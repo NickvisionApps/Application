@@ -47,7 +47,7 @@
         <number>4</number>
        </property>
        <item>
-        <widget class="QPushButton" name="navHome">
+        <widget class="QCommandLinkButton" name="navHome">
          <property name="minimumSize">
           <size>
            <width>0</width>
@@ -62,6 +62,7 @@
          </property>
          <property name="font">
           <font>
+           <family>Segoe UI</family>
            <pointsize>10</pointsize>
           </font>
          </property>
@@ -81,13 +82,10 @@
          <property name="checkable">
           <bool>true</bool>
          </property>
-         <property name="flat">
-          <bool>true</bool>
-         </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="navEditor">
+        <widget class="QCommandLinkButton" name="navEditor">
          <property name="minimumSize">
           <size>
            <width>0</width>
@@ -102,6 +100,7 @@
          </property>
          <property name="font">
           <font>
+           <family>Segoe UI</family>
            <pointsize>10</pointsize>
           </font>
          </property>
@@ -121,9 +120,6 @@
          <property name="checkable">
           <bool>true</bool>
          </property>
-         <property name="flat">
-          <bool>true</bool>
-         </property>
         </widget>
        </item>
        <item>
@@ -140,7 +136,7 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="navCheckForUpdates">
+        <widget class="QCommandLinkButton" name="navCheckForUpdates">
          <property name="minimumSize">
           <size>
            <width>0</width>
@@ -155,6 +151,7 @@
          </property>
          <property name="font">
           <font>
+           <family>Segoe UI</family>
            <pointsize>10</pointsize>
           </font>
          </property>
@@ -171,16 +168,13 @@
            <height>22</height>
           </size>
          </property>
-         <property name="checkable">
-          <bool>false</bool>
-         </property>
-         <property name="flat">
-          <bool>true</bool>
+         <property name="shortcut">
+          <string>Ctrl+Shift+U</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="navSettings">
+        <widget class="QCommandLinkButton" name="navSettings">
          <property name="minimumSize">
           <size>
            <width>0</width>
@@ -195,6 +189,7 @@
          </property>
          <property name="font">
           <font>
+           <family>Segoe UI</family>
            <pointsize>10</pointsize>
           </font>
          </property>
@@ -211,16 +206,13 @@
            <height>22</height>
           </size>
          </property>
-         <property name="checkable">
-          <bool>false</bool>
-         </property>
-         <property name="flat">
-          <bool>true</bool>
+         <property name="shortcut">
+          <string>Ctrl+.</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="navAbout">
+        <widget class="QCommandLinkButton" name="navAbout">
          <property name="minimumSize">
           <size>
            <width>0</width>
@@ -235,6 +227,7 @@
          </property>
          <property name="font">
           <font>
+           <family>Segoe UI</family>
            <pointsize>10</pointsize>
           </font>
          </property>
@@ -251,11 +244,8 @@
            <height>22</height>
           </size>
          </property>
-         <property name="checkable">
-          <bool>false</bool>
-         </property>
-         <property name="flat">
-          <bool>true</bool>
+         <property name="shortcut">
+          <string>F1</string>
          </property>
         </widget>
        </item>
