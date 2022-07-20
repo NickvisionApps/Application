@@ -7,9 +7,9 @@
 TODO
 
 # Screenshots
-![MainWindow](https://user-images.githubusercontent.com/17648453/179667013-12d3bae0-b9f0-4e1a-a6ab-75d5e47accb8.png)
-![DarkTheme](https://user-images.githubusercontent.com/17648453/179667022-35042fe2-f3c9-45e1-aa49-db7c2bbbc38d.png)
-![SettingsDialog](https://user-images.githubusercontent.com/17648453/179667033-12d2a019-1ec4-4aeb-b25d-35a7723d8c7d.png)
+![MainWindow](https://user-images.githubusercontent.com/17648453/180042053-1cc9452e-019f-4aca-bd75-91e9aaebc92a.png)
+![DarkTheme](https://user-images.githubusercontent.com/17648453/180042083-632a8bac-030a-46c8-8eb3-03822c970f45.png)
+![SettingsDialog](https://user-images.githubusercontent.com/17648453/180042094-a3f698ac-6811-43ba-b702-d690cef180c2.png)
 ![AboutDialog](https://user-images.githubusercontent.com/17648453/179667041-f5cdb24c-b45e-4a5a-b19b-26c314d8cc36.png)
 
 # Dependencies
