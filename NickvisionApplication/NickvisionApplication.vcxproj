@@ -32,12 +32,12 @@
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
     <QtInstall>6.2.4_msvc2019_64</QtInstall>
-    <QtModules>core;gui;widgets</QtModules>
+    <QtModules>core;gui;widgets;</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
     <QtInstall>6.2.4_msvc2019_64</QtInstall>
-    <QtModules>core;gui;widgets</QtModules>
+    <QtModules>core;gui;widgets;</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
   </PropertyGroup>
   <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
@@ -143,8 +143,16 @@
     <None Include="Resources\icon.ai" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Resources\About.png" />
+    <Image Include="Resources\Edit.png" />
+    <Image Include="Resources\Home.png" />
     <Image Include="Resources\icon.ico" />
     <Image Include="Resources\icon.png" />
+    <Image Include="Resources\Interface.png" />
+    <Image Include="Resources\NewFile.png" />
+    <Image Include="Resources\OpenFile.png" />
+    <Image Include="Resources\Settings.png" />
+    <Image Include="Resources\Update.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

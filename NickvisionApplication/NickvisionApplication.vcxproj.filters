@@ -119,6 +119,30 @@
     <Image Include="Resources\icon.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Resources\About.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Edit.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Home.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Interface.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\NewFile.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\OpenFile.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Settings.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Update.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="UI\Views\SettingsDialog.h">

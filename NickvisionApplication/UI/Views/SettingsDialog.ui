@@ -17,14 +17,17 @@
    <item>
     <layout class="QHBoxLayout" name="layoutMain">
      <item>
-      <widget class="QFrame" name="navBar">
-       <property name="minimumSize">
+      <widget class="QGroupBox" name="navBar">
+       <property name="maximumSize">
         <size>
-         <width>160</width>
-         <height>0</height>
+         <width>150</width>
+         <height>16777215</height>
         </size>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout_4">
+       <property name="title">
+        <string/>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_5">
         <property name="leftMargin">
          <number>4</number>
         </property>
@@ -92,9 +95,6 @@
      </item>
      <item>
       <widget class="QStackedWidget" name="viewStack">
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
-       </property>
        <property name="currentIndex">
         <number>0</number>
        </property>
