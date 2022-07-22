@@ -26,7 +26,7 @@
       <widget class="QGroupBox" name="navBar">
        <property name="maximumSize">
         <size>
-         <width>150</width>
+         <width>140</width>
          <height>16777215</height>
         </size>
        </property>
