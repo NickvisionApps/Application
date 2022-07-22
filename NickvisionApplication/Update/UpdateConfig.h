@@ -15,8 +15,8 @@ namespace NickvisionApplication::Update
 		/// <summary>
 		/// Downloads an update configuration from the internet
 		/// </summary>
-		/// <param name="url">The url of the update config file</param>
-		/// <returns>An UpdateConfig object based off the downloaded file, else std::nullopt</returns>
+		/// <param name="url">The URL of the update config file</param>
+		/// <returns>An UpdateConfig object based off the downloaded file. If error downloading, returns std::nullopt</returns>
 		static std::optional<UpdateConfig> loadFromUrl(const std::string& url);
 		/// <summary>
 		/// Gets the version stored in the UpdateConfig

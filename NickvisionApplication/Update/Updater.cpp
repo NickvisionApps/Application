@@ -1,8 +1,6 @@
 #include "Updater.h"
 #include <filesystem>
 #include <fstream>
-#include <cstdio>
-#include <array>
 #include <QStandardPaths>
 #include <QProcess>
 #include "../Helpers/CurlHelpers.h"
@@ -23,11 +21,7 @@ namespace NickvisionApplication::Update
 
     Version Updater::getLatestVersion() const
     {
-        if (m_updateConfig.has_value())
-        {
-            return m_updateConfig->getLatestVersion();
-        }
-        return { "-1.-1.-1" };
+        return m_updateConfig.has_value() ? m_updateConfig->getLatestVersion() : Version("-1.-1.-1" );
     }
 
     std::string Updater::getChangelog() const

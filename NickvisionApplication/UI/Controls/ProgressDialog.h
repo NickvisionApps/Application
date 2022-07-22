@@ -1,7 +1,6 @@
 #pragma once
 
 #include <functional>
-#include <thread>
 #include <QDialog>
 #include <QString>
 #include "ui_ProgressDialog.h"

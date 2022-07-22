@@ -17,7 +17,11 @@ namespace NickvisionApplication::Models
         {
             Json::Value json;
             configFile >> json;
-            m_theme = static_cast<Theme>(json.get("Theme", 0).asInt());
+            try
+            {
+                m_theme = static_cast<Theme>(json.get("Theme", 0).asInt());
+            }
+            catch (...) { }
         }
     }
 

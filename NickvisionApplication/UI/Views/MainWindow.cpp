@@ -1,5 +1,4 @@
 #include "MainWindow.h"
-#include <QIcon>
 #include <QMessageBox>
 #include "SettingsDialog.h"
 #include "../Messenger.h"
@@ -25,17 +24,7 @@ namespace NickvisionApplication::UI::Views
 		m_ui.viewStack->addWidget(new QFrame());
 		changePage(Pages::Home);
 		//==Theme==//
-		if (Configuration::getInstance().getTheme() == Theme::Light)
-		{
-			QApplication::setPalette(ThemeHelpers::getLightPalette());
-			m_currentTheme = Theme::Light;
-		}
-		else
-		{
-			QApplication::setPalette(ThemeHelpers::getDarkPalette());
-			m_currentTheme = Theme::Dark;
-		}
-		ThemeHelpers::applyWin32Theming(this);
+		refreshTheme();
 		//==Messages==//
 		Messenger::getInstance().registerMessage("MainWindow.changePage", [&](void* parameter)
 		{
@@ -90,20 +79,9 @@ namespace NickvisionApplication::UI::Views
 	{
 		SettingsDialog settingsDialog{ this };
 		settingsDialog.exec();
-		//==Refresh Theme==//
 		if (Configuration::getInstance().getTheme() != m_currentTheme)
 		{
-			if (Configuration::getInstance().getTheme() == Theme::Light)
-			{
-				QApplication::setPalette(ThemeHelpers::getLightPalette());
-				m_currentTheme = Theme::Light;
-			}
-			else
-			{
-				QApplication::setPalette(ThemeHelpers::getDarkPalette());
-				m_currentTheme = Theme::Dark;
-			}
-			ThemeHelpers::applyWin32Theming(this);
+			refreshTheme();
 		}
 	}
 
@@ -111,6 +89,22 @@ namespace NickvisionApplication::UI::Views
 	{
 		AboutDialog aboutDialog{ this };
 		aboutDialog.exec();
+	}
+
+	void MainWindow::refreshTheme()
+	{
+		if (Configuration::getInstance().getTheme() == Theme::Light)
+		{
+			QApplication::setPalette(ThemeHelpers::getLightPalette());
+			m_currentTheme = Theme::Light;
+		}
+		else
+		{
+			QApplication::setPalette(ThemeHelpers::getDarkPalette());
+			m_currentTheme = Theme::Dark;
+		}
+		setStyleSheet("QCommandLinkButton { font-weight: normal; }");
+		ThemeHelpers::applyWin32Theming(this);
 	}
 
 	void MainWindow::changePage(Pages page)

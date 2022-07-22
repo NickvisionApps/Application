@@ -1,12 +1,11 @@
 #pragma once
 
 #include <QMainWindow>
-#include <QLabel>
 #include "ui_MainWindow.h"
-#include "../../Models/Theme.h"
-#include "../../Update/Updater.h"
 #include "HomePage.h"
 #include "Pages.h"
+#include "../../Models/Theme.h"
+#include "../../Update/Updater.h"
 
 namespace NickvisionApplication::UI::Views
 {
@@ -54,6 +53,10 @@ namespace NickvisionApplication::UI::Views
         Ui::MainWindow m_ui;
         HomePage m_homePage;
         //==Functions==//
+        /// <summary>
+        /// Refreshes the theme of the window
+        /// </summary>
+        void refreshTheme();
         /// <summary>
         /// Changes the page on the window
         /// </summary>

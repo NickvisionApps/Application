@@ -2,21 +2,7 @@
 <ui version="4.0">
  <class>AboutDialog</class>
  <widget class="QDialog" name="AboutDialog">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>600</width>
-    <height>400</height>
-   </rect>
-  </property>
   <property name="minimumSize">
-   <size>
-    <width>600</width>
-    <height>400</height>
-   </size>
-  </property>
-  <property name="maximumSize">
    <size>
     <width>600</width>
     <height>400</height>
@@ -54,17 +40,10 @@
             <bold>true</bold>
            </font>
           </property>
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="lblDescription">
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
-         </widget>
+         <widget class="QLabel" name="lblDescription"/>
         </item>
         <item>
          <spacer name="verticalSpacer_2">
@@ -73,18 +52,14 @@
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>20</width>
-            <height>40</height>
+            <width>0</width>
+            <height>0</height>
            </size>
           </property>
          </spacer>
         </item>
         <item>
-         <widget class="QLabel" name="lblVersion">
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
-         </widget>
+         <widget class="QLabel" name="lblVersion"/>
         </item>
        </layout>
       </item>
@@ -101,9 +76,6 @@
           <width>80</width>
           <height>80</height>
          </size>
-        </property>
-        <property name="text">
-         <string/>
         </property>
         <property name="pixmap">
          <pixmap resource="../../resources.qrc">:/Resources/icon.png</pixmap>
@@ -147,9 +119,6 @@ All rights reserved.
 Nicholas Logozzo
 Nickvision</string>
          </property>
-         <property name="wordWrap">
-          <bool>false</bool>
-         </property>
          <property name="indent">
           <number>9</number>
          </property>
@@ -192,8 +161,8 @@ Icons provided by Icons8</string>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
-           <width>20</width>
-           <height>40</height>
+           <width>0</width>
+           <height>0</height>
           </size>
          </property>
         </spacer>
@@ -229,11 +198,7 @@ Icons provided by Icons8</string>
         </spacer>
        </item>
        <item>
-        <widget class="QLabel" name="lblChangelog">
-         <property name="text">
-          <string>TextLabel</string>
-         </property>
-        </widget>
+        <widget class="QLabel" name="lblChangelog"/>
        </item>
        <item>
         <spacer name="verticalSpacer_5">
@@ -242,8 +207,8 @@ Icons provided by Icons8</string>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
-           <width>20</width>
-           <height>40</height>
+           <width>0</width>
+           <height>0</height>
           </size>
          </property>
         </spacer>
@@ -275,8 +240,8 @@ Icons provided by Icons8</string>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
-         <width>40</width>
-         <height>20</height>
+         <width>0</width>
+         <height>0</height>
         </size>
        </property>
       </spacer>

@@ -12,6 +12,8 @@ namespace NickvisionApplication::UI
 	class Messenger
 	{
 	public:
+		Messenger(const Messenger&) = delete;
+		void operator=(const Messenger&) = delete;
 		/// <summary>
 		/// Gets the Messenger singleton object
 		/// </summary>

@@ -1,4 +1,5 @@
 #include "ProgressDialog.h"
+#include <thread>
 #include "../../Helpers/ThemeHelpers.h"
 
 using namespace NickvisionApplication::Helpers;

@@ -34,7 +34,7 @@ namespace NickvisionApplication::UI::Views
 		/// </summary>
 		void on_btnSave_clicked();
 		/// <summary>
-		/// Disgards the changes to the configuration and closes the dialog
+		/// Discards the changes to the configuration and closes the dialog
 		/// </summary>
 		void on_btnCancel_clicked();
 

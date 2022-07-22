@@ -15,13 +15,12 @@ int main(int argc, char *argv[])
     appInfo.setChangelog("- Application rewrite with C++ and QT");
     appInfo.setGitHubRepo("https://github.com/nlogozzo/NickvisionApplication");
     appInfo.setIssueTracker("https://github.com/nlogozzo/NickvisionApplication/issues/new");
-    //==Vars==//
-    QApplication application{ argc, argv };
-    MainWindow mainWindow;
     //==App Settings==//
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling, true);
     QApplication::setStyle("fusion");
     //==Run App==//
+    QApplication application{ argc, argv };
+    MainWindow mainWindow;
     mainWindow.showMaximized();
     return application.exec();
 }
