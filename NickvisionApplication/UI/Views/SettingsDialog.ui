@@ -110,10 +110,25 @@
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_2">
             <item>
-             <widget class="QCheckBox" name="chkPreferLightTheme">
-              <property name="text">
-               <string>Prefer Light Theme</string>
+             <widget class="QComboBox" name="cmbTheme">
+              <property name="placeholderText">
+               <string>Select application theme</string>
               </property>
+              <item>
+               <property name="text">
+                <string>Light</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Dark</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>System</string>
+               </property>
+              </item>
              </widget>
             </item>
            </layout>

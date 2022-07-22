@@ -21,8 +21,9 @@ namespace NickvisionApplication::Models
 		/// <summary>
 		/// Gets the theme of the application
 		/// </summary>
+		/// <param name="calculateSystemTheme">Determines if Theme::System should be calculated into Theme::Light or Theme::Dark depending on system configuration. Set true to determine or false to leave as Theme::System</param>
 		/// <returns>The theme of the application</returns>
-		Theme getTheme() const;
+		Theme getTheme(bool calculateSystemTheme = true) const;
 		/// <summary>
 		/// Sets the theme of the application
 		/// </summary>

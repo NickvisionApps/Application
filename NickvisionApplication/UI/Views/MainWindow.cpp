@@ -1,5 +1,6 @@
 #include "MainWindow.h"
 #include <QMessageBox>
+#include <QSettings>
 #include "SettingsDialog.h"
 #include "../Messenger.h"
 #include "../Controls/AboutDialog.h"
@@ -69,7 +70,7 @@ namespace NickvisionApplication::UI::Views
 		}
 		else
 		{
-			QMessageBox msgNoUpdate{ QMessageBox::Icon::Critical, "Update", "There is no update is available at this time. Please try again later.", QMessageBox::StandardButton::Ok, this };
+			QMessageBox msgNoUpdate{ QMessageBox::Icon::Critical, "Update", "There is no update available at this time. Please try again later.", QMessageBox::StandardButton::Ok, this };
 			ThemeHelpers::applyWin32Theming(&msgNoUpdate);
 			msgNoUpdate.exec();
 		}
@@ -93,15 +94,14 @@ namespace NickvisionApplication::UI::Views
 
 	void MainWindow::refreshTheme()
 	{
-		if (Configuration::getInstance().getTheme() == Theme::Light)
+		m_currentTheme = Configuration::getInstance().getTheme();
+		if (m_currentTheme == Theme::Light)
 		{
 			QApplication::setPalette(ThemeHelpers::getLightPalette());
-			m_currentTheme = Theme::Light;
 		}
-		else
+		else if (m_currentTheme == Theme::Dark)
 		{
 			QApplication::setPalette(ThemeHelpers::getDarkPalette());
-			m_currentTheme = Theme::Dark;
 		}
 		setStyleSheet("QCommandLinkButton { font-weight: normal; }");
 		ThemeHelpers::applyWin32Theming(this);

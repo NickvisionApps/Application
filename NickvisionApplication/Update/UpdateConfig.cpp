@@ -15,7 +15,7 @@ namespace NickvisionApplication::Update
 
     std::optional<UpdateConfig> UpdateConfig::loadFromUrl(const std::string& url)
     {
-        std::string configFilePath{ QStandardPaths::writableLocation(QStandardPaths::AppDataLocation).toStdString() + "/Nickvision/NickvisionApplication/updateConfig.json" };
+        std::string configFilePath{ QStandardPaths::writableLocation(QStandardPaths::AppDataLocation).toStdString() + "/updateConfig.json" };
         if (!CurlHelpers::downloadFile(url, configFilePath))
         {
             return std::nullopt;

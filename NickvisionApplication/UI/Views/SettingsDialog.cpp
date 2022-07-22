@@ -14,7 +14,7 @@ namespace NickvisionApplication::UI::Views
 		//==Theme==//
 		ThemeHelpers::applyWin32Theming(this);
 		//==Load Config==//
-		m_ui.chkPreferLightTheme->setChecked(m_configuration.getTheme() == Theme::Light);
+		m_ui.cmbTheme->setCurrentIndex(static_cast<int>(m_configuration.getTheme(false)));
 	}
 
 	void SettingsDialog::on_navUserInterface_clicked()
@@ -29,7 +29,7 @@ namespace NickvisionApplication::UI::Views
 
 	void SettingsDialog::on_btnSave_clicked()
 	{
-		m_configuration.setTheme(m_ui.chkPreferLightTheme->isChecked() ? Theme::Light : Theme::Dark);
+		m_configuration.setTheme(static_cast<Theme>(m_ui.cmbTheme->currentIndex()));
 		m_configuration.save();
 		close();
 	}

@@ -1,6 +1,5 @@
 #include "ThemeHelpers.h"
 #include <dwmapi.h>
-#include <uxtheme.h>
 #include "../Models/Configuration.h"
 
 using namespace NickvisionApplication::Models;
@@ -59,17 +58,7 @@ namespace NickvisionApplication::Helpers
 
 	void ThemeHelpers::applyWin32Theming(QWidget* widget)
 	{
-        BOOL enabled;
-        if (Configuration::getInstance().getTheme() == Theme::Light)
-        {
-            enabled = FALSE;
-            SetWindowTheme((HWND)widget->winId(), L"Explorer", NULL);
-        }
-        else
-        {
-            enabled = TRUE;
-            SetWindowTheme((HWND)widget->winId(), L"DarkMode_Explorer", NULL);
-        }
+        BOOL enabled{ Configuration::getInstance().getTheme() == Theme::Light ? FALSE : TRUE };
 		DwmSetWindowAttribute((HWND)widget->winId(), 20, &enabled, sizeof(enabled));
 	}
 }

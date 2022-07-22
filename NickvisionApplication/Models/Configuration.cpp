@@ -1,12 +1,13 @@
 #include "Configuration.h"
 #include <filesystem>
 #include <fstream>
+#include <QSettings>
 #include <QStandardPaths>
 #include <json/json.h>
 
 namespace NickvisionApplication::Models
 {
-    Configuration::Configuration() : m_configDir{ QStandardPaths::writableLocation(QStandardPaths::AppDataLocation).toStdString() + "/Nickvision/NickvisionApplication/" }, m_theme{ Theme::Light }
+    Configuration::Configuration() : m_configDir{ QStandardPaths::writableLocation(QStandardPaths::AppDataLocation).toStdString() }, m_theme{ Theme::System }
     {
         if (!std::filesystem::exists(m_configDir))
         {
@@ -19,7 +20,7 @@ namespace NickvisionApplication::Models
             configFile >> json;
             try
             {
-                m_theme = static_cast<Theme>(json.get("Theme", 0).asInt());
+                m_theme = static_cast<Theme>(json.get("Theme", 2).asInt());
             }
             catch (...) { }
         }
@@ -31,9 +32,14 @@ namespace NickvisionApplication::Models
         return instance;
     }
 
-    Theme Configuration::getTheme() const
+    Theme Configuration::getTheme(bool calculateSystemTheme) const
     {
-        return m_theme;
+        if (!calculateSystemTheme || m_theme != Theme::System)
+        {
+            return m_theme;
+        }
+        QSettings regKeyTheme{ "HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize", QSettings::NativeFormat };
+        return regKeyTheme.value("AppsUseLightTheme").toBool() ? Theme::Light : Theme::Dark;
     }
 
     void Configuration::setTheme(Theme theme)
@@ -43,7 +49,7 @@ namespace NickvisionApplication::Models
 
     void Configuration::save() const
     {
-        std::ofstream configFile{ m_configDir + "config.json" };
+        std::ofstream configFile{ m_configDir + "/config.json" };
         if (configFile.is_open())
         {
             Json::Value json;
