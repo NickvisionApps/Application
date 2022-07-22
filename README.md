@@ -14,7 +14,7 @@ TODO
 
 # Dependencies
 - [C++20](https://en.cppreference.com/w/cpp/20)
-- [QT6](https://www.qt.io/product/qt6)
+- [Qt 6](https://www.qt.io/product/qt6)
 - [curlpp](http://www.curlpp.org/)
 - [jsoncpp](https://github.com/open-source-parsers/jsoncpp)
 
