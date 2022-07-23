@@ -4,7 +4,13 @@
  **A template for creating Nickvision applications**
 
 # Features
-TODO
+- Modern Qt Widgets Architecture
+  - Qt 6
+  - Lightweight and performant
+  - Page navigation based
+  - Light, dark, and system theme support
+- A custom update framework that allows for checking for new updates and downloading and installing updates all from within the application
+- JSON backed application configuration
 
 # Screenshots
 ![MainWindow](https://user-images.githubusercontent.com/17648453/180349733-e9680a5c-ce47-413c-bb92-e2eea3938a63.png)
