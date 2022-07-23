@@ -9,14 +9,15 @@ namespace NickvisionApplication::UI::Controls
 {
 	AboutDialog::AboutDialog(QWidget* parent) : QDialog{ parent }, m_appInfo{ AppInfo::getInstance() }
 	{
+		//==UI==//
 		m_ui.setupUi(this);
-		//==Theme==//
-		ThemeHelpers::applyWin32Theming(this);
-		//==App Info==//
+		//App Info
 		m_ui.lblAppName->setText(QString::fromStdString(m_appInfo.getName()));
 		m_ui.lblDescription->setText(QString::fromStdString(m_appInfo.getDescription()));
 		m_ui.lblVersion->setText(QString::fromStdString("Version " + m_appInfo.getVersion()));
 		m_ui.lblChangelog->setText(QString::fromStdString(m_appInfo.getChangelog()));
+		//==Theme==//
+		ThemeHelpers::applyWin32TitleBarTheme(this);
 	}
 
 	void AboutDialog::on_btnGitHubRepo_clicked()

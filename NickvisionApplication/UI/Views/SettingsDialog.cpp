@@ -8,11 +8,12 @@ namespace NickvisionApplication::UI::Views
 {
 	SettingsDialog::SettingsDialog(QWidget* parent) : QDialog{ parent }, m_configuration{ Configuration::getInstance() }
 	{
+		//==UI==//
 		m_ui.setupUi(this);
 		//==Views==//
 		changeView(Views::UserInterface);
 		//==Theme==//
-		ThemeHelpers::applyWin32Theming(this);
+		ThemeHelpers::applyWin32TitleBarTheme(this);
 		//==Load Config==//
 		m_ui.cmbTheme->setCurrentIndex(static_cast<int>(m_configuration.getTheme(false)));
 	}

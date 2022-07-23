@@ -1,7 +1,7 @@
 #pragma once
 
-#include <QWidget>
 #include <QPalette>
+#include <QWidget>
 
 /// <summary>
 /// Functions for working with an application's theme
@@ -19,9 +19,9 @@ namespace NickvisionApplication::Helpers::ThemeHelpers
 	/// <returns>Dark themed QPalette</returns>
 	QPalette getDarkPalette();
 	/// <summary>
-	/// Applys Win32 theming to QWidget
+	/// Applys Win32 theming to QWidget's Title Bar
 	/// </summary>
-	/// <param name="widget">The QWidget object to apply Win32 theming</param>
-	void applyWin32Theming(QWidget* widget);
+	/// <param name="widget">The QWidget object</param>
+	void applyWin32TitleBarTheme(QWidget* widget);
 }
 

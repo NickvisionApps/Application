@@ -17,6 +17,7 @@ namespace NickvisionApplication::UI::Views
 {
 	MainWindow::MainWindow(QWidget* parent) : QMainWindow{ parent }, m_updater{ "https://raw.githubusercontent.com/nlogozzo/NickvisionApplication/main/UpdateConfig.json", { "2022.7.0" } }
 	{
+		//==UI==//
 		m_ui.setupUi(this);
 		//==Window Settings==//
 		setWindowTitle(QString::fromStdString(AppInfo::getInstance().getName()));
@@ -54,7 +55,7 @@ namespace NickvisionApplication::UI::Views
 		if (m_updater.getUpdateAvailable())
 		{
 			QMessageBox msgUpdate{ QMessageBox::Icon::Information, "Update Available", QString::fromStdString("===V" + m_updater.getLatestVersion().toString() + " Changelog===\n" + m_updater.getChangelog() + "\n\nNickvisionApplication will automatically download and install the update. Please save all work before continuing. Are you ready to update?"), QMessageBox::StandardButton::Yes | QMessageBox::StandardButton::No, this };
-			ThemeHelpers::applyWin32Theming(&msgUpdate);
+			ThemeHelpers::applyWin32TitleBarTheme(&msgUpdate);
 			int result = msgUpdate.exec();
 			if (result == QMessageBox::StandardButton::Yes)
 			{
@@ -63,7 +64,7 @@ namespace NickvisionApplication::UI::Views
 				if (!m_updater.getUpdateSuccessful())
 				{
 					QMessageBox msgError{ QMessageBox::Icon::Critical, "Error", "There was an error downloading and installing the update. Please try again.\nIf the error continues, file a bug report.", QMessageBox::StandardButton::Ok, this };
-					ThemeHelpers::applyWin32Theming(&msgError);
+					ThemeHelpers::applyWin32TitleBarTheme(&msgError);
 					msgError.exec();
 				}
 			}
@@ -71,7 +72,7 @@ namespace NickvisionApplication::UI::Views
 		else
 		{
 			QMessageBox msgNoUpdate{ QMessageBox::Icon::Critical, "Update", "There is no update available at this time. Please try again later.", QMessageBox::StandardButton::Ok, this };
-			ThemeHelpers::applyWin32Theming(&msgNoUpdate);
+			ThemeHelpers::applyWin32TitleBarTheme(&msgNoUpdate);
 			msgNoUpdate.exec();
 		}
 	}
@@ -104,7 +105,7 @@ namespace NickvisionApplication::UI::Views
 			QApplication::setPalette(ThemeHelpers::getDarkPalette());
 		}
 		setStyleSheet("QCommandLinkButton { font-weight: normal; }");
-		ThemeHelpers::applyWin32Theming(this);
+		ThemeHelpers::applyWin32TitleBarTheme(this);
 	}
 
 	void MainWindow::changePage(Pages page)

@@ -56,7 +56,7 @@ namespace NickvisionApplication::Helpers
         return darkPalette;
 	}
 
-	void ThemeHelpers::applyWin32Theming(QWidget* widget)
+	void ThemeHelpers::applyWin32TitleBarTheme(QWidget* widget)
 	{
         BOOL enabled{ Configuration::getInstance().getTheme() == Theme::Light ? FALSE : TRUE };
 		DwmSetWindowAttribute((HWND)widget->winId(), 20, &enabled, sizeof(enabled));
