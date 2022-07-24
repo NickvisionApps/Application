@@ -13,7 +13,7 @@ namespace NickvisionApplication::Models
         {
             std::filesystem::create_directories(m_configDir);
         }
-        std::ifstream configFile{ m_configDir + "config.json" };
+        std::ifstream configFile{ m_configDir + "/config.json" };
         if (configFile.is_open())
         {
             Json::Value json;
