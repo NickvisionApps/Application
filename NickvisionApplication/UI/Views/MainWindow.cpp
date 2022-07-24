@@ -99,10 +99,12 @@ namespace NickvisionApplication::UI::Views
 		if (m_currentTheme == Theme::Light)
 		{
 			QApplication::setPalette(ThemeHelpers::getLightPalette());
+			m_ui.separator->setStyleSheet("background-color: #c4c2c2;");
 		}
 		else if (m_currentTheme == Theme::Dark)
 		{
 			QApplication::setPalette(ThemeHelpers::getDarkPalette());
+			m_ui.separator->setStyleSheet("background-color: #2b2b2b;");
 		}
 		setStyleSheet("QCommandLinkButton { font-weight: normal; }");
 		ThemeHelpers::applyWin32TitleBarTheme(this);
