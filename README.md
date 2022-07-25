@@ -13,10 +13,10 @@
 - JSON backed application configuration
 
 # Screenshots
-![MainWindow](https://user-images.githubusercontent.com/17648453/180663904-80b5dec4-6d59-407a-a2a7-e6a5220a2a6c.png)
-![DarkMode](https://user-images.githubusercontent.com/17648453/180663909-92e07e9a-58d8-4e81-91dc-060977033ff0.png)
-![SettingsDialog](https://user-images.githubusercontent.com/17648453/180663912-b2f131d5-0380-49f8-bf70-aff0f5e9bb52.png)
-![AboutDialog](https://user-images.githubusercontent.com/17648453/180663919-563f1028-cc83-47d7-beae-9d7753752127.png)
+![MainWindow](https://user-images.githubusercontent.com/17648453/180688127-3cd6f392-0dfb-4210-a3d3-c75c56833660.png)
+![DarkMode](https://user-images.githubusercontent.com/17648453/180688147-7c2f6b04-af80-44a3-820b-f391033a1826.png)
+![SettingsDialog](https://user-images.githubusercontent.com/17648453/180688161-d9acabf2-b586-42c6-a12e-19d3ab2617c7.png)
+![AboutDialog](https://user-images.githubusercontent.com/17648453/180688176-936eb0a8-8b00-4655-bfe3-c529f3852eaf.png)
 
 # Dependencies
 - [C++20](https://en.cppreference.com/w/cpp/20)
