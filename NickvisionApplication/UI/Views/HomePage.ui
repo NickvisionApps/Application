@@ -30,7 +30,6 @@
        <property name="font">
         <font>
          <pointsize>14</pointsize>
-         <bold>false</bold>
         </font>
        </property>
        <property name="frameShape">
