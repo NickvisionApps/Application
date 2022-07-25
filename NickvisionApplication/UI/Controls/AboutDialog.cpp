@@ -17,7 +17,7 @@ namespace NickvisionApplication::UI::Controls
 		m_ui.lblVersion->setText(QString::fromStdString("Version " + m_appInfo.getVersion()));
 		m_ui.lblChangelog->setText(QString::fromStdString(m_appInfo.getChangelog()));
 		//==Theme==//
-		ThemeHelpers::applyWin32TitleBarTheme(this);
+		ThemeHelpers::applyWin32Theme(this);
 	}
 
 	void AboutDialog::on_btnGitHubRepo_clicked()

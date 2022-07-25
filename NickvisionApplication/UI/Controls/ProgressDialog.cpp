@@ -12,7 +12,7 @@ namespace NickvisionApplication::UI::Controls
 		m_ui.setupUi(this);
 		m_ui.lblDescription->setText(description);
 		//==Theme==//
-		ThemeHelpers::applyWin32TitleBarTheme(this);
+		ThemeHelpers::applyWin32Theme(this);
 	}
 
 	int ProgressDialog::exec()

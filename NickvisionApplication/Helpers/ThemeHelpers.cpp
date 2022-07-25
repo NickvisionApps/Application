@@ -56,11 +56,15 @@ namespace NickvisionApplication::Helpers
         return darkPalette;
 	}
 
-	void ThemeHelpers::applyWin32TitleBarTheme(QWidget* widget)
+	void ThemeHelpers::applyWin32Theme(QWidget* widget)
 	{
         BOOL isDarkMode{ Configuration::getInstance().getTheme() == Theme::Light ? FALSE : TRUE };
-        COLORREF captionColor{ isDarkMode ? RGB(25, 25, 25) : RGB(255, 255, 255) };
+        COLORREF themeColor{ isDarkMode ? RGB(25, 25, 25) : RGB(255, 255, 255) };
+        //DWMWA_USE_IMMERSIVE_DARK_MODE 
 		DwmSetWindowAttribute((HWND)widget->winId(), 20, &isDarkMode, sizeof(isDarkMode));
-        DwmSetWindowAttribute((HWND)widget->winId(), 35, &captionColor, sizeof(captionColor));
+        //DWMWA_BORDER_COLOR
+        DwmSetWindowAttribute((HWND)widget->winId(), 34, &themeColor, sizeof(themeColor));
+        //DWMWA_CAPTION_COLOR
+        DwmSetWindowAttribute((HWND)widget->winId(), 35, &themeColor, sizeof(themeColor));
 	}
 }

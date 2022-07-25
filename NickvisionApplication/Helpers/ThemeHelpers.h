@@ -22,6 +22,6 @@ namespace NickvisionApplication::Helpers::ThemeHelpers
 	/// Applys Win32 theming to QWidget's Title Bar
 	/// </summary>
 	/// <param name="widget">The QWidget object</param>
-	void applyWin32TitleBarTheme(QWidget* widget);
+	void applyWin32Theme(QWidget* widget);
 }
 
