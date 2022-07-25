@@ -58,7 +58,9 @@ namespace NickvisionApplication::Helpers
 
 	void ThemeHelpers::applyWin32TitleBarTheme(QWidget* widget)
 	{
-        BOOL enabled{ Configuration::getInstance().getTheme() == Theme::Light ? FALSE : TRUE };
-		DwmSetWindowAttribute((HWND)widget->winId(), 20, &enabled, sizeof(enabled));
+        BOOL isDarkMode{ Configuration::getInstance().getTheme() == Theme::Light ? FALSE : TRUE };
+        COLORREF captionColor{ isDarkMode ? RGB(25, 25, 25) : RGB(255, 255, 255) };
+		DwmSetWindowAttribute((HWND)widget->winId(), 20, &isDarkMode, sizeof(isDarkMode));
+        DwmSetWindowAttribute((HWND)widget->winId(), 35, &captionColor, sizeof(captionColor));
 	}
 }
