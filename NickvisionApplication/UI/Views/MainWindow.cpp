@@ -106,6 +106,7 @@ namespace NickvisionApplication::UI::Views
 		QApplication::setPalette(ThemeHelpers::getThemedPalette());
 		m_ui.separator->setStyleSheet(ThemeHelpers::getThemedSeparatorStyle());
 		setStyleSheet("QCommandLinkButton { font-weight: normal; }");
+		m_homePage.refreshTheme();
 		ThemeHelpers::applyWin32Theme(this);
 		m_currentTheme = Configuration::getInstance().getTheme();
 	}

@@ -1,5 +1,8 @@
 #include "HomePage.h"
 #include <ctime>
+#include "../../Helpers/ThemeHelpers.h"
+
+using namespace NickvisionApplication::Helpers;
 
 namespace NickvisionApplication::UI::Views
 {
@@ -22,5 +25,12 @@ namespace NickvisionApplication::UI::Views
         {
             m_ui.lblWelcome->setText("Good evening!");
         }
+        //==Theme==//
+        refreshTheme();
 	}
+
+    void HomePage::refreshTheme()
+    {
+        m_ui.separator->setStyleSheet(ThemeHelpers::getThemedSeparatorStyle());
+    }
 }
