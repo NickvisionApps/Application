@@ -224,7 +224,11 @@ Icons provided by Icons8</string>
         </spacer>
        </item>
        <item>
-        <widget class="QLabel" name="lblChangelog"/>
+        <widget class="QLabel" name="lblChangelog">
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
        <item>
         <spacer name="verticalSpacer_5">
