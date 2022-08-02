@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
     appInfo.setName("NickvisionApplication");
     appInfo.setDescription("A template for creating Nickvision applications.");
     appInfo.setVersion("2022.8.0");
-    appInfo.setChangelog("- Application rewrite with C++ and QT");
+    appInfo.setChangelog("- Initial Release");
     appInfo.setGitHubRepo("https://github.com/nlogozzo/NickvisionApplication");
     appInfo.setIssueTracker("https://github.com/nlogozzo/NickvisionApplication/issues/new");
     //==App Settings==//
