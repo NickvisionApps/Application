@@ -13,8 +13,8 @@
 - JSON backed application configuration
 
 # Screenshots
-![MainWindow](https://user-images.githubusercontent.com/17648453/180688127-3cd6f392-0dfb-4210-a3d3-c75c56833660.png)
-![DarkMode](https://user-images.githubusercontent.com/17648453/180688147-7c2f6b04-af80-44a3-820b-f391033a1826.png)
+![MainWindow](https://user-images.githubusercontent.com/17648453/182513892-76391b3b-370e-4508-a30a-04d969f965c3.png)
+![DarkMode](https://user-images.githubusercontent.com/17648453/182513901-79488e6d-b06f-4579-b384-a594267449e8.png)
 ![SettingsDialog](https://user-images.githubusercontent.com/17648453/180688161-d9acabf2-b586-42c6-a12e-19d3ab2617c7.png)
 ![AboutDialog](https://user-images.githubusercontent.com/17648453/180688176-936eb0a8-8b00-4655-bfe3-c529f3852eaf.png)
 
