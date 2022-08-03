@@ -7,6 +7,7 @@
 #include "../Controls/ProgressDialog.h"
 #include "../../Helpers/ThemeHelpers.h"
 #include "../../Models/AppInfo.h"
+#include "../../Models/Configuration.h"
 
 using namespace NickvisionApplication::Helpers;
 using namespace NickvisionApplication::Models;
@@ -44,6 +45,17 @@ namespace NickvisionApplication::UI::Views
 				setWindowTitle(QString::fromStdString(AppInfo::getInstance().getName() + " - " + *title));
 			}
 		});
+		//==Load Config==//
+		if (!Configuration::getInstance().getAlwaysStartOnHomePage())
+		{
+			changePage(Pages::Editor);
+		}
+	}
+
+	void MainWindow::showEvent(QShowEvent* event)
+	{
+		QWidget::showEvent(event);
+		//Show any dialogs
 	}
 
 	void MainWindow::on_navHome_clicked()

@@ -1,8 +1,10 @@
 #include "HomePage.h"
 #include <ctime>
 #include "../../Helpers/ThemeHelpers.h"
+#include "../../Models/Configuration.h"
 
 using namespace NickvisionApplication::Helpers;
+using namespace NickvisionApplication::Models;
 
 namespace NickvisionApplication::UI::Views
 {
@@ -27,10 +29,19 @@ namespace NickvisionApplication::UI::Views
         }
         //==Theme==//
         refreshTheme();
+        //==Load Config==//
+        m_ui.chkAlwaysStartOnHomePage->setChecked(Configuration::getInstance().getAlwaysStartOnHomePage());
 	}
 
     void HomePage::refreshTheme()
     {
         m_ui.separator->setStyleSheet(ThemeHelpers::getThemedSeparatorStyle());
+    }
+
+    void HomePage::on_chkAlwaysStartOnHomePage_clicked()
+    {
+        Configuration& configuration{ Configuration::getInstance() };
+        configuration.setAlwaysStartOnHomePage(m_ui.chkAlwaysStartOnHomePage->isChecked());
+        configuration.save();
     }
 }

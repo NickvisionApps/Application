@@ -23,6 +23,12 @@ namespace NickvisionApplication::UI::Views
 		/// </summary>
 		void refreshTheme();
 
+	private slots:
+		/// <summary>
+		/// Updated the alwaysStartOnHomePage configuration preference
+		/// </summary>
+		void on_chkAlwaysStartOnHomePage_clicked();
+
 	private:
 		//==UI==//
 		Ui::HomePage m_ui;

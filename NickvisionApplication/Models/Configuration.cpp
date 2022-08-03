@@ -7,7 +7,7 @@
 
 namespace NickvisionApplication::Models
 {
-    Configuration::Configuration() : m_configDir{ QStandardPaths::writableLocation(QStandardPaths::AppDataLocation).toStdString() }, m_theme{ Theme::System }
+    Configuration::Configuration() : m_configDir{ QStandardPaths::writableLocation(QStandardPaths::AppDataLocation).toStdString() }, m_theme{ Theme::System }, m_alwaysStartOnHomePage{ true }
     {
         if (!std::filesystem::exists(m_configDir))
         {
@@ -21,6 +21,7 @@ namespace NickvisionApplication::Models
             try
             {
                 m_theme = static_cast<Theme>(json.get("Theme", 2).asInt());
+                m_alwaysStartOnHomePage = json.get("AlwaysStartOnHomePage", true).asBool();
             }
             catch (...) { }
         }
@@ -47,6 +48,16 @@ namespace NickvisionApplication::Models
         m_theme = theme;
     }
 
+    bool Configuration::getAlwaysStartOnHomePage() const
+    {
+        return m_alwaysStartOnHomePage;
+    }
+
+    void Configuration::setAlwaysStartOnHomePage(bool alwaysStartOnHomePage)
+    {
+        m_alwaysStartOnHomePage = alwaysStartOnHomePage;
+    }
+
     void Configuration::save() const
     {
         std::ofstream configFile{ m_configDir + "/config.json" };
@@ -54,6 +65,7 @@ namespace NickvisionApplication::Models
         {
             Json::Value json;
             json["Theme"] = static_cast<int>(m_theme);
+            json["AlwaysStartOnHomePage"] = m_alwaysStartOnHomePage;
             configFile << json;
         }
     }
