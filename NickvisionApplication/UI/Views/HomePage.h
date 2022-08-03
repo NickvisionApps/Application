@@ -25,7 +25,7 @@ namespace NickvisionApplication::UI::Views
 
 	private slots:
 		/// <summary>
-		/// Updated the alwaysStartOnHomePage configuration preference
+		/// Updates the alwaysStartOnHomePage configuration preference
 		/// </summary>
 		void on_chkAlwaysStartOnHomePage_clicked();
 
