@@ -16,7 +16,7 @@ using namespace NickvisionApplication::UI::Controls;
 
 namespace NickvisionApplication::UI::Views
 {
-	MainWindow::MainWindow(QWidget* parent) : QMainWindow{ parent }, m_updater{ "https://raw.githubusercontent.com/nlogozzo/NickvisionApplication/main/UpdateConfig.json", { "2022.8.0" } }
+	MainWindow::MainWindow(QWidget* parent) : QMainWindow{ parent }, m_opened{ false }, m_updater{ "https://raw.githubusercontent.com/nlogozzo/NickvisionApplication/main/UpdateConfig.json", { "2022.8.0" } }
 	{
 		//==UI==//
 		m_ui.setupUi(this);
@@ -55,7 +55,10 @@ namespace NickvisionApplication::UI::Views
 	void MainWindow::showEvent(QShowEvent* event)
 	{
 		QWidget::showEvent(event);
-		//Show any dialogs
+		if (!m_opened)
+		{
+			m_opened = true;
+		}
 	}
 
 	void MainWindow::on_navHome_clicked()

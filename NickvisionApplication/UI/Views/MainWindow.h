@@ -54,6 +54,7 @@ namespace NickvisionApplication::UI::Views
 
     private:
         //==Vars==//
+        bool m_opened;
         NickvisionApplication::Models::Theme m_currentTheme;
         NickvisionApplication::Update::Updater m_updater;
         //==UI==//
