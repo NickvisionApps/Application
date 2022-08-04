@@ -35,7 +35,7 @@ namespace NickvisionApplication::UI::Views
 
     void HomePage::refreshTheme()
     {
-        m_ui.separator->setStyleSheet(ThemeHelpers::getThemedSeparatorStyle());
+        m_ui.separator1->setStyleSheet(ThemeHelpers::getThemedSeparatorStyle());
     }
 
     void HomePage::on_chkAlwaysStartOnHomePage_clicked()

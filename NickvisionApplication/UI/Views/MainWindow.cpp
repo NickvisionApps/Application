@@ -52,15 +52,6 @@ namespace NickvisionApplication::UI::Views
 		}
 	}
 
-	void MainWindow::showEvent(QShowEvent* event)
-	{
-		QWidget::showEvent(event);
-		if (!m_opened)
-		{
-			m_opened = true;
-		}
-	}
-
 	void MainWindow::on_navHome_clicked()
 	{
 		changePage(Pages::Home);
@@ -119,7 +110,7 @@ namespace NickvisionApplication::UI::Views
 	void MainWindow::refreshTheme()
 	{
 		QApplication::setPalette(ThemeHelpers::getThemedPalette());
-		m_ui.separator->setStyleSheet(ThemeHelpers::getThemedSeparatorStyle());
+		m_ui.separator1->setStyleSheet(ThemeHelpers::getThemedSeparatorStyle());
 		setStyleSheet("QCommandLinkButton { font-weight: normal; }");
 		m_homePage.refreshTheme();
 		ThemeHelpers::applyWin32Theme(this);
