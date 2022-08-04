@@ -130,6 +130,7 @@
     <ClInclude Include="Models\Configuration.h" />
     <ClInclude Include="Models\Theme.h" />
     <QtMoc Include="UI\Controls\ProgressDialog.h" />
+    <ClInclude Include="resources.h" />
     <ClInclude Include="UI\Messenger.h" />
     <QtMoc Include="UI\Views\SettingsDialog.h" />
     <QtMoc Include="UI\Controls\AboutDialog.h" />
@@ -153,6 +154,9 @@
     <Image Include="Resources\OpenFile.png" />
     <Image Include="Resources\Settings.png" />
     <Image Include="Resources\Update.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="resources.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
