@@ -16,7 +16,7 @@ using namespace NickvisionApplication::UI::Controls;
 
 namespace NickvisionApplication::UI::Views
 {
-	MainWindow::MainWindow(QWidget* parent) : QMainWindow{ parent }, m_opened{ false }, m_updater{ "https://raw.githubusercontent.com/nlogozzo/NickvisionApplication/main/UpdateConfig.json", { "2022.8.0" } }
+	MainWindow::MainWindow(QWidget* parent) : QMainWindow{ parent }, m_opened{ false }, m_updater{ "https://raw.githubusercontent.com/nlogozzo/NickvisionApplication/main/UpdateConfig.json", { AppInfo::getInstance().getVersion() }}
 	{
 		//==UI==//
 		m_ui.setupUi(this);
