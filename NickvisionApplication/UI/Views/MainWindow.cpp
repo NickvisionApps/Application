@@ -68,6 +68,7 @@ namespace NickvisionApplication::UI::Views
 		checkingDialog.exec();
 		if (m_updater.getUpdateAvailable())
 		{
+#ifdef _WIN32
 			QMessageBox msgUpdate{ QMessageBox::Icon::Information, "Update Available", QString::fromStdString("===V" + m_updater.getLatestVersion().toString() + " Changelog===\n" + m_updater.getChangelog() + "\n\n" + AppInfo::getInstance().getName() + " will automatically download and install the update. Please save all work before continuing. Are you ready to update?"), QMessageBox::StandardButton::Yes | QMessageBox::StandardButton::No, this };
 			ThemeHelpers::applyWin32Theme(&msgUpdate);
 			int result{ msgUpdate.exec() };
@@ -82,6 +83,10 @@ namespace NickvisionApplication::UI::Views
 					msgError.exec();
 				}
 			}
+#else
+			QMessageBox msgUpdate{ QMessageBox::Icon::Information, "Update Available", QString::fromStdString("===V" + m_updater.getLatestVersion().toString() + " Changelog===\n" + m_updater.getChangelog() + "\n\nPlease visit the GitHub repo to download the latest update."), QMessageBox::StandardButton::Ok, this };
+			int result{ msgUpdate.exec() };
+#endif
 		}
 		else
 		{

@@ -1,5 +1,7 @@
 #include "ThemeHelpers.h"
+#ifdef _WIN32
 #include <dwmapi.h>
+#endif
 #include "../Models/Configuration.h"
 
 using namespace NickvisionApplication::Models;
@@ -70,6 +72,7 @@ namespace NickvisionApplication::Helpers
 
 	void ThemeHelpers::applyWin32Theme(QWidget* widget)
 	{
+#ifdef _WIN32
         BOOL isDarkMode{ Configuration::getInstance().getTheme() == Theme::Light ? FALSE : TRUE };
         COLORREF themeColor{ isDarkMode ? RGB(25, 25, 25) : RGB(255, 255, 255) };
         //DWMWA_USE_IMMERSIVE_DARK_MODE 
@@ -78,5 +81,6 @@ namespace NickvisionApplication::Helpers
         DwmSetWindowAttribute((HWND)widget->winId(), 34, &themeColor, sizeof(themeColor));
         //DWMWA_CAPTION_COLOR
         DwmSetWindowAttribute((HWND)widget->winId(), 35, &themeColor, sizeof(themeColor));
+#endif
 	}
 }
