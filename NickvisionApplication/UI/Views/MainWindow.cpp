@@ -73,7 +73,7 @@ namespace NickvisionApplication::UI::Views
 			int result{ msgUpdate.exec() };
 			if (result == QMessageBox::StandardButton::Yes)
 			{
-				ProgressDialog updateDialog{ this, "Downloading and installing the update...", [&]() { m_updater.windowsUpdate(this); } };
+				ProgressDialog updateDialog{ this, "Downloading and installing the update...", [&]() { m_updater.windowsUpdate(); } };
 				updateDialog.exec();
 				if (!m_updater.getUpdateSuccessful())
 				{
