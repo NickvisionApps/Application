@@ -374,3 +374,6 @@ ASALocalRun/
 # VSCode
 build/
 .vscode/
+
+#Onedriver
+.goutputstream-*
