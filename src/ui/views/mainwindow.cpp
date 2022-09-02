@@ -10,7 +10,7 @@ using namespace NickvisionApplication::UI::Views;
  * @param parameter GVariant*
  * @param data gpointer* that should point to MainWindow
  */
-void callback_openFolder_activate(GSimpleAction* action, GVariant* parameter, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onOpenFolder(); }
+void callback_openFolder_activate(GSimpleAction*, GVariant*, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onOpenFolder(); }
 /**
  * Calls MainWindow::onCloseFolder
  *
@@ -18,7 +18,7 @@ void callback_openFolder_activate(GSimpleAction* action, GVariant* parameter, gp
  * @param parameter GVariant*
  * @param data gpointer* that should point to MainWindow
  */
-void callback_closeFolder_activate(GSimpleAction* action, GVariant* parameter, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onCloseFolder(); }
+void callback_closeFolder_activate(GSimpleAction*, GVariant*, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onCloseFolder(); }
 
 MainWindow::MainWindow(GtkApplication* application, const MainWindowController& controller) : m_controller{ controller }, m_gobj{ adw_application_window_new(application) }
 {

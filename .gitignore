@@ -375,5 +375,5 @@ ASALocalRun/
 build/
 .vscode/
 
-#Onedriver
+# GNOME Builder
 .goutputstream-*
