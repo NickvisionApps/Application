@@ -28,14 +28,6 @@ namespace NickvisionApplication::UI::Views
     	 * Shows the MainWindow
     	 */
     	void show();
-    	/**
-    	 * Prompts the user to open a folder from disk and load it in the app
-    	 */
-    	void onOpenFolder();
-    	/**
-    	 * Closes the opened folder
-    	 */
-	void onCloseFolder();
     	
     	
     private:
@@ -49,5 +41,17 @@ namespace NickvisionApplication::UI::Views
 	GtkWidget* m_toastOverlay{ nullptr };
 	GSimpleAction* m_actOpenFolder{ nullptr };
 	GSimpleAction* m_actCloseFolder{ nullptr };
+	/**
+    	 * Updates the UI with the current folder
+    	 */
+    	void onFolderChanged();
+    	/**
+    	 * Prompts the user to open a folder from disk and load it in the app
+    	 */
+    	void onOpenFolder();
+    	/**
+    	 * Closes the opened folder
+    	 */
+	void onCloseFolder();
     };
 }

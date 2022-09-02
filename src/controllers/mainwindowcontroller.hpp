@@ -1,5 +1,6 @@
 #pragma once
 
+#include <functional>
 #include <string>
 #include "../models/appinfo.hpp"
 
@@ -30,6 +31,18 @@ namespace NickvisionApplication::Controllers
     	 */
     	const std::string& getFolderPath() const;
     	/**
+    	 * Gets whether or not the folder is valid
+    	 *
+    	 * @returns True if folder is valid, else false
+    	 */
+    	bool getIsFolderValid() const;
+    	/**
+    	 * Registers a callback for when the folder is changed
+    	 *
+    	 * @param callback A void() function
+    	 */
+    	void registerFolderChangedCallback(const std::function<void()>& callback);
+    	/**
     	 * Opens a folder with the given path
     	 * 
     	 * @param folderPath The path to the folder to open
@@ -44,5 +57,6 @@ namespace NickvisionApplication::Controllers
     private:
     	NickvisionApplication::Models::AppInfo& m_appInfo;
     	std::string m_folderPath;
+    	std::function<void()> m_folderChangedCallback;
     };
 }

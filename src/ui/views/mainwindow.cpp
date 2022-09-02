@@ -3,23 +3,6 @@
 using namespace NickvisionApplication::Controllers;
 using namespace NickvisionApplication::UI::Views;
 
-/**
- * Calls MainWindow::onOpenFolder
- *
- * @param action GSimpleAction*
- * @param parameter GVariant*
- * @param data gpointer* that should point to MainWindow
- */
-void callback_openFolder_activate(GSimpleAction*, GVariant*, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onOpenFolder(); }
-/**
- * Calls MainWindow::onCloseFolder
- *
- * @param action GSimpleAction*
- * @param parameter GVariant*
- * @param data gpointer* that should point to MainWindow
- */
-void callback_closeFolder_activate(GSimpleAction*, GVariant*, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onCloseFolder(); }
-
 MainWindow::MainWindow(GtkApplication* application, const MainWindowController& controller) : m_controller{ controller }, m_gobj{ adw_application_window_new(application) }
 {
     //Window Settings
@@ -55,14 +38,16 @@ MainWindow::MainWindow(GtkApplication* application, const MainWindowController& 
     adw_application_window_set_content(ADW_APPLICATION_WINDOW(m_gobj), m_mainBox);
     //Open Folder Action
     m_actOpenFolder = g_simple_action_new("openFolder", nullptr);
-    g_signal_connect(m_actOpenFolder, "activate", G_CALLBACK(callback_openFolder_activate), this);
+    g_signal_connect(m_actOpenFolder, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction*, GVariant*, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onOpenFolder(); }), this);
     g_action_map_add_action(G_ACTION_MAP(m_gobj), G_ACTION(m_actOpenFolder));
     gtk_application_set_accels_for_action(application, "win.openFolder", new const char*[2]{ "<Ctrl>o", nullptr });
     //Close Folder Action
     m_actCloseFolder = g_simple_action_new("closeFolder", nullptr);
-    g_signal_connect(m_actCloseFolder, "activate", G_CALLBACK(callback_closeFolder_activate), this);
+    g_signal_connect(m_actCloseFolder, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction*, GVariant*, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onCloseFolder(); }), this);
     g_action_map_add_action(G_ACTION_MAP(m_gobj), G_ACTION(m_actCloseFolder));
     gtk_application_set_accels_for_action(application, "win.closeFolder", new const char*[2]{ "<Ctrl>w", nullptr });
+    //Folder Changed Event
+    m_controller.registerFolderChangedCallback([&]() { onFolderChanged(); });
 }
 
 GtkWidget* MainWindow::gobj() const
@@ -75,6 +60,12 @@ void MainWindow::show()
     gtk_widget_show(m_gobj);
 }
 
+void MainWindow::onFolderChanged()
+{
+    adw_window_title_set_subtitle(ADW_WINDOW_TITLE(m_adwTitle), m_controller.getFolderPath().c_str());
+    gtk_widget_set_visible(m_btnCloseFolder, m_controller.getIsFolderValid());
+}
+
 void MainWindow::onOpenFolder()
 {
     GtkFileChooserNative* openFolderDialog{ gtk_file_chooser_native_new("Open Folder", GTK_WINDOW(m_gobj), GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER, "_Open", "_Cancel") };
@@ -85,10 +76,8 @@ void MainWindow::onOpenFolder()
         {
             MainWindow* mainWindow{ reinterpret_cast<MainWindow*>(data) };
             GFile* file{ gtk_file_chooser_get_file(GTK_FILE_CHOOSER(dialog)) };
-            bool success = mainWindow->m_controller.openFolder(g_file_get_path(file));
+            mainWindow->m_controller.openFolder(g_file_get_path(file));
             g_object_unref(file);
-            adw_window_title_set_subtitle(ADW_WINDOW_TITLE(mainWindow->m_adwTitle), mainWindow->m_controller.getFolderPath().c_str());
-            gtk_widget_set_visible(mainWindow->m_btnCloseFolder, success);
         }
         g_object_unref(dialog);
     })), this);
@@ -98,6 +87,4 @@ void MainWindow::onOpenFolder()
 void MainWindow::onCloseFolder()
 {
     m_controller.closeFolder();
-    adw_window_title_set_subtitle(ADW_WINDOW_TITLE(m_adwTitle), m_controller.getFolderPath().c_str());
-    gtk_widget_set_visible(m_btnCloseFolder, false);
 }

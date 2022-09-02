@@ -30,16 +30,16 @@ namespace NickvisionApplication::UI
     	 * @returns Exit code from g_application_run
     	 */
     	int run(int argc, char* argv[]);
+
+    private:
+    	AdwApplication* m_adwApp{ nullptr };
+    	NickvisionApplication::Models::AppInfo m_appInfo;
+    	std::shared_ptr<Views::MainWindow> m_mainWindow;
     	/**
     	 * Loads the application and shows the MainWindow
     	 *
     	 * @param app GtkApplication*
     	 */
     	void onActivate(GtkApplication* app);
-    	
-    private:
-    	AdwApplication* m_adwApp{ nullptr };
-    	NickvisionApplication::Models::AppInfo m_appInfo;
-    	std::shared_ptr<Views::MainWindow> m_mainWindow;
     };
 }

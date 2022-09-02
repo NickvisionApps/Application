@@ -19,18 +19,31 @@ const std::string& MainWindowController::getFolderPath() const
     return m_folderPath;
 }
 
+bool MainWindowController::getIsFolderValid() const
+{
+    return std::filesystem::exists(m_folderPath);
+}
+
+void MainWindowController::registerFolderChangedCallback(const std::function<void()>& callback)
+{
+    m_folderChangedCallback = callback;
+}
+
+
 bool MainWindowController::openFolder(const std::string& folderPath)
 {
-    if(std::filesystem::exists(folderPath))
+    m_folderPath = folderPath;
+    bool isValid = getIsFolderValid();
+    if(!isValid)
     {
-        m_folderPath = folderPath;
-        return true;
+        m_folderPath = "No Folder Opened";
     }
-    m_folderPath = "No Folder Opened";
-    return false;
+    m_folderChangedCallback();
+    return isValid;
 }  
 
 void MainWindowController::closeFolder()
 {
     m_folderPath = "No Folder Opened";
+    m_folderChangedCallback();
 }

@@ -5,14 +5,6 @@ using namespace NickvisionApplication::Controllers;
 using namespace NickvisionApplication::UI;
 using namespace NickvisionApplication::UI::Views;
 
-/**
- * Calls Application::onActivate
- *
- * @param app GtkApplication*
- * @param data gpointer* that should point to Application
- */
-void callback_activate(GtkApplication* app, gpointer* data) { reinterpret_cast<Application*>(data)->onActivate(app); }
-
 Application::Application(const std::string& id, GApplicationFlags flags) : m_adwApp{ adw_application_new(id.c_str(), flags) }
 {
     //AppInfo
@@ -24,7 +16,7 @@ Application::Application(const std::string& id, GApplicationFlags flags) : m_adw
     m_appInfo.setGitHubRepo("https://github.com/nlogozzo/NickvisionApplication");
     m_appInfo.setIssueTracker("https://github.com/nlogozzo/NickvisionApplication/issues/new");
     //Signals
-    g_signal_connect(m_adwApp, "activate", G_CALLBACK(callback_activate), this);
+    g_signal_connect(m_adwApp, "activate", G_CALLBACK((void (*)(GtkApplication*, gpointer*))[](GtkApplication* app, gpointer* data) { reinterpret_cast<Application*>(data)->onActivate(app); }), this);
 }
 
 int Application::run(int argc, char* argv[])
