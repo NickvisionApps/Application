@@ -8,4 +8,6 @@ sources = files('main.cpp',
 		'ui/application.hpp', 
 		'ui/application.cpp', 
 		'ui/views/mainwindow.hpp', 
-		'ui/views/mainwindow.cpp')
+		'ui/views/mainwindow.cpp',
+		'ui/views/preferencesdialog.hpp',
+		'ui/views/preferencesdialog.cpp')

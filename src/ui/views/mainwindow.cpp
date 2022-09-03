@@ -1,4 +1,6 @@
 #include "mainwindow.hpp"
+#include <utility>
+#include "preferencesdialog.hpp"
 
 using namespace NickvisionApplication::Controllers;
 using namespace NickvisionApplication::UI::Views;
@@ -116,7 +118,15 @@ void MainWindow::onOpenFolder()
 
 void MainWindow::onPreferences()
 {
-
+    PreferencesDialog* preferencesDialog{ new PreferencesDialog(GTK_WINDOW(m_gobj)) };
+    std::pair<PreferencesDialog*, MainWindow*>* pointers{ new std::pair<PreferencesDialog*, MainWindow*>(preferencesDialog, this) };
+    g_signal_connect(preferencesDialog->gobj(), "hide", G_CALLBACK((void (*)(GtkWidget*, gpointer*))([](GtkWidget* widget, gpointer* data)
+    {
+        std::pair<PreferencesDialog*, MainWindow*>* pointers{reinterpret_cast<std::pair<PreferencesDialog*, MainWindow*>*>(data)};
+        delete pointers->first;
+        delete pointers;
+    })), pointers);
+    preferencesDialog->show();
 }
 
 void MainWindow::onKeyboardShortcuts()
