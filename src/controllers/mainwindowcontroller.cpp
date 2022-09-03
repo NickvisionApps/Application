@@ -9,9 +9,9 @@ MainWindowController::MainWindowController(AppInfo& appInfo) : m_appInfo{ appInf
 
 }
 
-const std::string& MainWindowController::getApplicationShortName() const
+const AppInfo& MainWindowController::getAppInfo() const
 {
-    return m_appInfo.getShortName();
+    return m_appInfo;
 }
 
 const std::string& MainWindowController::getFolderPath() const

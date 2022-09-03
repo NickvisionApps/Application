@@ -19,11 +19,11 @@ namespace NickvisionApplication::Controllers
     	 */
     	MainWindowController(NickvisionApplication::Models::AppInfo& appInfo);
     	/**
-    	 * Gets the short name for the application
+    	 * Gets the AppInfo object representing the application's information
     	 *
-    	 * @returns The short name for the application
+    	 * @returns The AppInfo object for the application
     	 */
-    	const std::string& getApplicationShortName() const;
+    	const NickvisionApplication::Models::AppInfo& getAppInfo() const;
     	/**
     	 * Gets the opened folder path
     	 *

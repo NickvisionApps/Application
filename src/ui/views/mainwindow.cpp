@@ -9,7 +9,7 @@ MainWindow::MainWindow(GtkApplication* application, const MainWindowController& 
     gtk_window_set_default_size(GTK_WINDOW(m_gobj), 800, 600);
     //Header Bar
     m_headerBar = adw_header_bar_new();
-    m_adwTitle = adw_window_title_new(m_controller.getApplicationShortName().c_str(), m_controller.getFolderPath().c_str());
+    m_adwTitle = adw_window_title_new(m_controller.getAppInfo().getShortName().c_str(), m_controller.getFolderPath().c_str());
     adw_header_bar_set_title_widget(ADW_HEADER_BAR(m_headerBar), m_adwTitle);
     //Open Folder Button
     m_btnOpenFolder = gtk_button_new();
