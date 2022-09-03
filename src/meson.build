@@ -1,6 +1,8 @@
 sources = files('main.cpp', 
 		'models/appinfo.hpp',
 		'models/appinfo.cpp',
+		'models/configuration.hpp',
+		'models/configuration.cpp',
 		'controllers/mainwindowcontroller.hpp',
 		'controllers/mainwindowcontroller.cpp',
 		'ui/application.hpp', 
