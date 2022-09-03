@@ -29,7 +29,6 @@ namespace NickvisionApplication::UI::Views
     	 */
     	void show();
     	
-    	
     private:
     	NickvisionApplication::Controllers::MainWindowController m_controller;
 	GtkWidget* m_gobj{ nullptr };
@@ -38,9 +37,14 @@ namespace NickvisionApplication::UI::Views
 	GtkWidget* m_adwTitle{ nullptr };
 	GtkWidget* m_btnOpenFolder{ nullptr };
 	GtkWidget* m_btnCloseFolder{ nullptr };
+	GtkWidget* m_btnMenuHelp{ nullptr };
 	GtkWidget* m_toastOverlay{ nullptr };
 	GSimpleAction* m_actOpenFolder{ nullptr };
 	GSimpleAction* m_actCloseFolder{ nullptr };
+	GSimpleAction* m_actPreferences{ nullptr };
+	GSimpleAction* m_actKeyboardShortcuts{ nullptr };
+	GSimpleAction* m_actChangelog{ nullptr };
+	GSimpleAction* m_actAbout{ nullptr };
 	/**
     	 * Updates the UI with the current folder
     	 */
@@ -50,8 +54,20 @@ namespace NickvisionApplication::UI::Views
     	 */
     	void onOpenFolder();
     	/**
-    	 * Closes the opened folder
+    	 * Displays the preferences dialog
     	 */
-	void onCloseFolder();
+    	void onPreferences();
+    	/**
+    	 * Displays the keyboard shortcuts dialog
+    	 */
+    	void onKeyboardShortcuts();
+    	/**
+    	 * Displays the changelog dialog
+    	 */
+    	void onChangelog();
+    	/**
+    	 * Displays the about dialog
+    	 */
+    	void onAbout();
     };
 }

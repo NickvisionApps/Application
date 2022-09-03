@@ -6,7 +6,7 @@ using namespace NickvisionApplication::UI::Views;
 MainWindow::MainWindow(GtkApplication* application, const MainWindowController& controller) : m_controller{ controller }, m_gobj{ adw_application_window_new(application) }
 {
     //Window Settings
-    gtk_window_set_default_size(GTK_WINDOW(m_gobj), 800, 600);
+    gtk_window_set_default_size(GTK_WINDOW(m_gobj), 1000, 800);
     //Header Bar
     m_headerBar = adw_header_bar_new();
     m_adwTitle = adw_window_title_new(m_controller.getAppInfo().getShortName().c_str(), m_controller.getFolderPath().c_str());
@@ -27,6 +27,17 @@ MainWindow::MainWindow(GtkApplication* application, const MainWindowController& 
     gtk_widget_set_visible(m_btnCloseFolder, false);
     gtk_actionable_set_action_name(GTK_ACTIONABLE(m_btnCloseFolder), "win.closeFolder");
     adw_header_bar_pack_start(ADW_HEADER_BAR(m_headerBar), m_btnCloseFolder);
+    //Menu Help Button
+    m_btnMenuHelp = gtk_menu_button_new();
+    GMenu* menuHelp{ g_menu_new() };
+    g_menu_append(menuHelp, "Preferences", "win.preferences");
+    g_menu_append(menuHelp, "Keyboard Shortcuts", "win.keyboardShortcuts");
+    g_menu_append(menuHelp, "Changelog", "win.changelog");
+    g_menu_append(menuHelp, "About", "win.about");
+    gtk_menu_button_set_direction(GTK_MENU_BUTTON(m_btnMenuHelp), GTK_ARROW_NONE);
+    gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(m_btnMenuHelp), G_MENU_MODEL(menuHelp));
+    gtk_widget_set_tooltip_text(m_btnMenuHelp, "Main Menu");
+    adw_header_bar_pack_end(ADW_HEADER_BAR(m_headerBar), m_btnMenuHelp);
     //Toast Overlay
     m_toastOverlay = adw_toast_overlay_new();
     gtk_widget_set_hexpand(m_toastOverlay, true);
@@ -36,6 +47,8 @@ MainWindow::MainWindow(GtkApplication* application, const MainWindowController& 
     gtk_box_append(GTK_BOX(m_mainBox), m_headerBar);
     gtk_box_append(GTK_BOX(m_mainBox), m_toastOverlay);
     adw_application_window_set_content(ADW_APPLICATION_WINDOW(m_gobj), m_mainBox);
+    //Folder Changed Event
+    m_controller.registerFolderChangedCallback([&]() { onFolderChanged(); });
     //Open Folder Action
     m_actOpenFolder = g_simple_action_new("openFolder", nullptr);
     g_signal_connect(m_actOpenFolder, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction*, GVariant*, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onOpenFolder(); }), this);
@@ -43,11 +56,28 @@ MainWindow::MainWindow(GtkApplication* application, const MainWindowController& 
     gtk_application_set_accels_for_action(application, "win.openFolder", new const char*[2]{ "<Ctrl>o", nullptr });
     //Close Folder Action
     m_actCloseFolder = g_simple_action_new("closeFolder", nullptr);
-    g_signal_connect(m_actCloseFolder, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction*, GVariant*, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onCloseFolder(); }), this);
+    g_signal_connect(m_actCloseFolder, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction*, GVariant*, gpointer* data) { reinterpret_cast<MainWindow*>(data)->m_controller.closeFolder(); }), this);
     g_action_map_add_action(G_ACTION_MAP(m_gobj), G_ACTION(m_actCloseFolder));
     gtk_application_set_accels_for_action(application, "win.closeFolder", new const char*[2]{ "<Ctrl>w", nullptr });
-    //Folder Changed Event
-    m_controller.registerFolderChangedCallback([&]() { onFolderChanged(); });
+    //Preferences Action
+    m_actPreferences = g_simple_action_new("preferences", nullptr);
+    g_signal_connect(m_actPreferences, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction*, GVariant*, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onPreferences(); }), this);
+    g_action_map_add_action(G_ACTION_MAP(m_gobj), G_ACTION(m_actPreferences));
+    gtk_application_set_accels_for_action(application, "win.preferences", new const char*[2]{ "<Ctrl>period", nullptr });
+    //Keyboard Shortcuts Action
+    m_actKeyboardShortcuts = g_simple_action_new("keyboardShortcuts", nullptr);
+    g_signal_connect(m_actKeyboardShortcuts, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction*, GVariant*, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onKeyboardShortcuts(); }), this);
+    g_action_map_add_action(G_ACTION_MAP(m_gobj), G_ACTION(m_actKeyboardShortcuts));
+    gtk_application_set_accels_for_action(application, "win.keyboardShortcuts", new const char*[2]{ "<Ctrl>question", nullptr });
+    //Changelog Action
+    m_actChangelog = g_simple_action_new("changelog", nullptr);
+    g_signal_connect(m_actChangelog, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction*, GVariant*, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onChangelog(); }), this);
+    g_action_map_add_action(G_ACTION_MAP(m_gobj), G_ACTION(m_actChangelog));
+    //About Action
+    m_actAbout = g_simple_action_new("about", nullptr);
+    g_signal_connect(m_actAbout, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction*, GVariant*, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onAbout(); }), this);
+    g_action_map_add_action(G_ACTION_MAP(m_gobj), G_ACTION(m_actAbout));
+    gtk_application_set_accels_for_action(application, "win.about", new const char*[2]{ "F1", nullptr });
 }
 
 GtkWidget* MainWindow::gobj() const
@@ -84,7 +114,22 @@ void MainWindow::onOpenFolder()
     gtk_native_dialog_show(GTK_NATIVE_DIALOG(openFolderDialog));
 }
 
-void MainWindow::onCloseFolder()
+void MainWindow::onPreferences()
 {
-    m_controller.closeFolder();
+
+}
+
+void MainWindow::onKeyboardShortcuts()
+{
+
+}
+
+void MainWindow::onChangelog()
+{
+
+}
+
+void MainWindow::onAbout()
+{
+
 }
