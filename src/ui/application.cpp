@@ -11,7 +11,7 @@ Application::Application(const std::string& id, GApplicationFlags flags) : m_adw
     m_appInfo.setName("NickvisionApplication");
     m_appInfo.setShortName("Application");
     m_appInfo.setDescription("A template for creating Nickvision applications.");
-    m_appInfo.setVersion("2022.8.0");
+    m_appInfo.setVersion("2022.9.0");
     m_appInfo.setChangelog("- Initial Release");
     m_appInfo.setGitHubRepo("https://github.com/nlogozzo/NickvisionApplication");
     m_appInfo.setIssueTracker("https://github.com/nlogozzo/NickvisionApplication/issues/new");

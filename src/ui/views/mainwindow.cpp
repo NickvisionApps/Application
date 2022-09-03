@@ -126,10 +126,16 @@ void MainWindow::onKeyboardShortcuts()
 
 void MainWindow::onChangelog()
 {
-
+    GtkWidget* changelogDialog{ gtk_message_dialog_new(GTK_WINDOW(m_gobj), GtkDialogFlags(GTK_DIALOG_MODAL), GTK_MESSAGE_INFO, GTK_BUTTONS_OK, "What's New?") };
+    gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(changelogDialog), m_controller.getAppInfo().getChangelog().c_str());
+    g_signal_connect(changelogDialog, "response", G_CALLBACK(gtk_window_destroy), nullptr);
+    gtk_widget_show(changelogDialog);
 }
 
 void MainWindow::onAbout()
 {
-
+    gtk_show_about_dialog(GTK_WINDOW(m_gobj), "program-name", m_controller.getAppInfo().getName().c_str(), "version", m_controller.getAppInfo().getVersion().c_str(),
+                          "comments", m_controller.getAppInfo().getDescription().c_str(),
+                          "copyright", "(C) Nickvision 2021-2022", "license-type", GTK_LICENSE_GPL_3_0, "website", m_controller.getAppInfo().getGitHubRepo().c_str(),
+                          "website-label", "GitHub", "authors", new const char*[2]{ "Nicholas Logozzo", nullptr }, nullptr);
 }
