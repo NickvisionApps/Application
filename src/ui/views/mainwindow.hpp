@@ -46,6 +46,10 @@ namespace NickvisionApplication::UI::Views
 	GSimpleAction* m_actChangelog{ nullptr };
 	GSimpleAction* m_actAbout{ nullptr };
 	/**
+	 * Runs startup functions
+	 */
+	void onStartup();
+	/**
     	 * Updates the UI with the current folder
     	 */
     	void onFolderChanged();

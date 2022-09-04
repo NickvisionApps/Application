@@ -1,5 +1,7 @@
 #include "mainwindowcontroller.hpp"
+#include <chrono>
 #include <filesystem>
+#include <thread>
 
 using namespace NickvisionApplication::Controllers;
 using namespace NickvisionApplication::Models;
@@ -17,6 +19,11 @@ const AppInfo& MainWindowController::getAppInfo() const
 PreferencesDialogController MainWindowController::createPreferencesDialogController() const
 {
     return { m_configuration };
+}
+
+void MainWindowController::startup()
+{
+    std::this_thread::sleep_for(std::chrono::seconds(2));
 }
 
 const std::string& MainWindowController::getFolderPath() const

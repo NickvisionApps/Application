@@ -34,6 +34,10 @@ namespace NickvisionApplication::Controllers
     	 */
     	PreferencesDialogController createPreferencesDialogController() const;
     	/**
+    	 * Runs startup functions
+    	 */
+    	void startup();
+    	/**
     	 * Gets the opened folder path
     	 *
     	 * @returns The opened folder path or "No Folder Path" if no folder is opened

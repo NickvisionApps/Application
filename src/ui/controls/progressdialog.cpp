@@ -18,7 +18,7 @@ ProgressDialog::ProgressDialog(GtkWindow* parent, const std::string& description
     //Progress Bar
     m_progBar = gtk_progress_bar_new();
     //Main Box
-    m_mainBox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
+    m_mainBox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 20);
     gtk_widget_set_margin_start(m_mainBox, 10);
     gtk_widget_set_margin_top(m_mainBox, 10);
     gtk_widget_set_margin_end(m_mainBox, 10);

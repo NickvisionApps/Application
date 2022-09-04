@@ -1,14 +1,17 @@
 #include "mainwindow.hpp"
 #include <utility>
 #include "preferencesdialog.hpp"
+#include "../controls/progressdialog.hpp"
 
 using namespace NickvisionApplication::Controllers;
+using namespace NickvisionApplication::UI::Controls;
 using namespace NickvisionApplication::UI::Views;
 
 MainWindow::MainWindow(GtkApplication* application, const MainWindowController& controller) : m_controller{ controller }, m_gobj{ adw_application_window_new(application) }
 {
     //Window Settings
     gtk_window_set_default_size(GTK_WINDOW(m_gobj), 1000, 800);
+    g_signal_connect(m_gobj, "show", G_CALLBACK((void (*)(GtkWidget*, gpointer*))[](GtkWidget*, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onStartup(); }), this);
     //Header Bar
     m_headerBar = adw_header_bar_new();
     m_adwTitle = adw_window_title_new(m_controller.getAppInfo().getShortName().c_str(), m_controller.getFolderPath().c_str());
@@ -92,6 +95,15 @@ void MainWindow::show()
     gtk_widget_show(m_gobj);
 }
 
+void MainWindow::onStartup()
+{
+    ProgressDialog* progressDialog{ new ProgressDialog(GTK_WINDOW(m_gobj), "Starting application...", [&]()
+    {
+        m_controller.startup();
+    }, []() {}) };
+    progressDialog->show();
+}
+
 void MainWindow::onFolderChanged()
 {
     adw_window_title_set_subtitle(ADW_WINDOW_TITLE(m_adwTitle), m_controller.getFolderPath().c_str());
@@ -120,7 +132,7 @@ void MainWindow::onPreferences()
 {
     PreferencesDialog* preferencesDialog{ new PreferencesDialog(GTK_WINDOW(m_gobj), m_controller.createPreferencesDialogController()) };
     std::pair<PreferencesDialog*, MainWindow*>* pointers{ new std::pair<PreferencesDialog*, MainWindow*>(preferencesDialog, this) };
-    g_signal_connect(preferencesDialog->gobj(), "hide", G_CALLBACK((void (*)(GtkWidget*, gpointer*))([](GtkWidget* widget, gpointer* data)
+    g_signal_connect(preferencesDialog->gobj(), "hide", G_CALLBACK((void (*)(GtkWidget*, gpointer*))([](GtkWidget*, gpointer* data)
     {
         std::pair<PreferencesDialog*, MainWindow*>* pointers{reinterpret_cast<std::pair<PreferencesDialog*, MainWindow*>*>(data)};
         delete pointers->first;
