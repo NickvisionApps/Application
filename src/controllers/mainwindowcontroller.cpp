@@ -6,7 +6,7 @@
 using namespace NickvisionApplication::Controllers;
 using namespace NickvisionApplication::Models;
 
-MainWindowController::MainWindowController(AppInfo& appInfo, Configuration& configuration) : m_appInfo{ appInfo }, m_configuration{ configuration }, m_folderPath{ "No Folder Opened" }
+MainWindowController::MainWindowController(AppInfo& appInfo, Configuration& configuration) : m_appInfo{ appInfo }, m_configuration{ configuration }, m_isOpened{ false }, m_folderPath{ "No Folder Opened" }
 {
 
 }
@@ -16,6 +16,11 @@ const AppInfo& MainWindowController::getAppInfo() const
     return m_appInfo;
 }
 
+bool MainWindowController::getIsOpened() const
+{
+    return m_isOpened;
+}
+
 PreferencesDialogController MainWindowController::createPreferencesDialogController() const
 {
     return { m_configuration };
@@ -23,7 +28,16 @@ PreferencesDialogController MainWindowController::createPreferencesDialogControl
 
 void MainWindowController::startup()
 {
-    std::this_thread::sleep_for(std::chrono::seconds(2));
+    if(!m_isOpened)
+    {
+        if(m_configuration.getIsFirstTimeOpen())
+        {
+            m_configuration.setIsFirstTimeOpen(false);
+            m_configuration.save();
+        }
+        std::this_thread::sleep_for(std::chrono::seconds(2));
+        m_isOpened = true;
+    }
 }
 
 const std::string& MainWindowController::getFolderPath() const
