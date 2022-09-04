@@ -2,7 +2,8 @@ project('NickvisionApplication', ['cpp', 'c'], version: '2022.9.0', meson_versio
 
 adwaita = dependency('libadwaita-1', version: '>= 1.1.4')
 jsoncpp = dependency('jsoncpp', version: '>= 1.9.5')
+curlpp = dependency('curlpp')
 
 subdir('src')
 
-executable('NickvisionApplication', sources, dependencies: [adwaita, jsoncpp], install: true)
+executable('NickvisionApplication', sources, dependencies: [adwaita, jsoncpp, curlpp], install: true)
