@@ -4,7 +4,7 @@
 using namespace NickvisionApplication::Controllers;
 using namespace NickvisionApplication::Models;
 
-MainWindowController::MainWindowController(AppInfo& appInfo) : m_appInfo{ appInfo }, m_folderPath{ "No Folder Opened" }
+MainWindowController::MainWindowController(AppInfo& appInfo, Configuration& configuration) : m_appInfo{ appInfo }, m_configuration{ configuration }, m_folderPath{ "No Folder Opened" }
 {
 
 }
@@ -12,6 +12,11 @@ MainWindowController::MainWindowController(AppInfo& appInfo) : m_appInfo{ appInf
 const AppInfo& MainWindowController::getAppInfo() const
 {
     return m_appInfo;
+}
+
+PreferencesDialogController MainWindowController::createPreferencesDialogController() const
+{
+    return { m_configuration };
 }
 
 const std::string& MainWindowController::getFolderPath() const

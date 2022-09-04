@@ -5,6 +5,7 @@
 #include <adwaita.h>
 #include "views/mainwindow.hpp"
 #include "../models/appinfo.hpp"
+#include "../models/configuration.hpp"
 
 namespace NickvisionApplication::UI
 {
@@ -34,6 +35,7 @@ namespace NickvisionApplication::UI
     private:
     	AdwApplication* m_adwApp{ nullptr };
     	NickvisionApplication::Models::AppInfo m_appInfo;
+    	NickvisionApplication::Models::Configuration m_configuration;
     	std::shared_ptr<Views::MainWindow> m_mainWindow;
     	/**
     	 * Loads the application and shows the MainWindow

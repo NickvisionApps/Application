@@ -2,7 +2,9 @@
 
 #include <functional>
 #include <string>
+#include "preferencesdialogcontroller.hpp"
 #include "../models/appinfo.hpp"
+#include "../models/configuration.hpp"
 
 namespace NickvisionApplication::Controllers
 {
@@ -16,14 +18,21 @@ namespace NickvisionApplication::Controllers
     	 * Constructs a MainWindowController
     	 *
     	 * @param appInfo The AppInfo for the application (Stored as a reference)
+    	 * @param configuration The Configuration for the application (Stored as a reference)
     	 */
-    	MainWindowController(NickvisionApplication::Models::AppInfo& appInfo);
+    	MainWindowController(NickvisionApplication::Models::AppInfo& appInfo, NickvisionApplication::Models::Configuration& configuration);
     	/**
     	 * Gets the AppInfo object representing the application's information
     	 *
     	 * @returns The AppInfo object for the application
     	 */
     	const NickvisionApplication::Models::AppInfo& getAppInfo() const;
+    	/**
+    	 * Creates a PreferencesDialogController
+    	 *
+    	 * @returns A new PreferencesDialogController
+    	 */
+    	PreferencesDialogController createPreferencesDialogController() const;
     	/**
     	 * Gets the opened folder path
     	 *
@@ -56,6 +65,7 @@ namespace NickvisionApplication::Controllers
     	
     private:
     	NickvisionApplication::Models::AppInfo& m_appInfo;
+    	NickvisionApplication::Models::Configuration& m_configuration;
     	std::string m_folderPath;
     	std::function<void()> m_folderChangedCallback;
     };

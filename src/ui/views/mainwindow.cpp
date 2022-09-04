@@ -118,7 +118,7 @@ void MainWindow::onOpenFolder()
 
 void MainWindow::onPreferences()
 {
-    PreferencesDialog* preferencesDialog{ new PreferencesDialog(GTK_WINDOW(m_gobj)) };
+    PreferencesDialog* preferencesDialog{ new PreferencesDialog(GTK_WINDOW(m_gobj), m_controller.createPreferencesDialogController()) };
     std::pair<PreferencesDialog*, MainWindow*>* pointers{ new std::pair<PreferencesDialog*, MainWindow*>(preferencesDialog, this) };
     g_signal_connect(preferencesDialog->gobj(), "hide", G_CALLBACK((void (*)(GtkWidget*, gpointer*))([](GtkWidget* widget, gpointer* data)
     {
