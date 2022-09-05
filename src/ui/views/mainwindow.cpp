@@ -36,7 +36,7 @@ MainWindow::MainWindow(GtkApplication* application, const MainWindowController& 
     m_btnMenuHelp = gtk_menu_button_new();
     GMenu* menuHelp{ g_menu_new() };
     g_menu_append(menuHelp, "Preferences", "win.preferences");
-    g_menu_append(menuHelp, "About", "win.about");
+    g_menu_append(menuHelp, std::string("About " + m_controller.getAppInfo().getShortName()).c_str(), "win.about");
     gtk_menu_button_set_direction(GTK_MENU_BUTTON(m_btnMenuHelp), GTK_ARROW_NONE);
     gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(m_btnMenuHelp), G_MENU_MODEL(menuHelp));
     gtk_widget_set_tooltip_text(m_btnMenuHelp, "Main Menu");
