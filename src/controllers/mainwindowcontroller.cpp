@@ -26,6 +26,11 @@ PreferencesDialogController MainWindowController::createPreferencesDialogControl
     return { m_configuration };
 }
 
+void MainWindowController::registerSendToastCallback(const std::function<void(const std::string& message)>& callback)
+{
+    m_sendToastCallback = callback;
+}
+
 void MainWindowController::startup()
 {
     if(!m_isOpened)
@@ -36,6 +41,7 @@ void MainWindowController::startup()
             m_configuration.save();
         }
         std::this_thread::sleep_for(std::chrono::seconds(2));
+        m_sendToastCallback("Welcome!");
         m_isOpened = true;
     }
 }
@@ -55,7 +61,6 @@ void MainWindowController::registerFolderChangedCallback(const std::function<voi
     m_folderChangedCallback = callback;
 }
 
-
 bool MainWindowController::openFolder(const std::string& folderPath)
 {
     m_folderPath = folderPath;
@@ -65,6 +70,7 @@ bool MainWindowController::openFolder(const std::string& folderPath)
         m_folderPath = "No Folder Opened";
     }
     m_folderChangedCallback();
+    m_sendToastCallback("Folder Opened: " + m_folderPath);
     return isValid;
 }  
 
@@ -72,4 +78,5 @@ void MainWindowController::closeFolder()
 {
     m_folderPath = "No Folder Opened";
     m_folderChangedCallback();
+    m_sendToastCallback("Folder closed successfully.");
 }

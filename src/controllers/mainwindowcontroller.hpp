@@ -40,6 +40,12 @@ namespace NickvisionApplication::Controllers
     	 */
     	PreferencesDialogController createPreferencesDialogController() const;
     	/**
+    	 * Registers a callback for sending a toast notification on the MainWindow
+    	 *
+    	 * @param callback A void(const std::string&) function
+    	 */
+    	void registerSendToastCallback(const std::function<void(const std::string& message)>& callback);
+    	/**
     	 * Runs startup functions
     	 */
     	void startup();
@@ -77,6 +83,7 @@ namespace NickvisionApplication::Controllers
     	NickvisionApplication::Models::AppInfo& m_appInfo;
     	NickvisionApplication::Models::Configuration& m_configuration;
     	bool m_isOpened;
+    	std::function<void(const std::string& message)> m_sendToastCallback;
     	std::string m_folderPath;
     	std::function<void()> m_folderChangedCallback;
     };

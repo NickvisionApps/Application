@@ -50,7 +50,9 @@ MainWindow::MainWindow(GtkApplication* application, const MainWindowController& 
     gtk_box_append(GTK_BOX(m_mainBox), m_headerBar);
     gtk_box_append(GTK_BOX(m_mainBox), m_toastOverlay);
     adw_application_window_set_content(ADW_APPLICATION_WINDOW(m_gobj), m_mainBox);
-    //Folder Changed Event
+    //Send Toast Callback
+    m_controller.registerSendToastCallback([&](const std::string& message) { adw_toast_overlay_add_toast(ADW_TOAST_OVERLAY(m_toastOverlay), adw_toast_new(message.c_str())); });
+    //Folder Changed Callback
     m_controller.registerFolderChangedCallback([&]() { onFolderChanged(); });
     //Open Folder Action
     m_actOpenFolder = g_simple_action_new("openFolder", nullptr);
