@@ -17,3 +17,5 @@ sources = files('main.cpp',
 		'ui/views/mainwindow.cpp',
 		'ui/views/preferencesdialog.hpp',
 		'ui/views/preferencesdialog.cpp')
+
+resources = files('resources/org.nickvision.application.png')

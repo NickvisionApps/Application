@@ -7,3 +7,4 @@ curlpp = dependency('curlpp')
 subdir('src')
 
 executable('NickvisionApplication', sources, dependencies: [adwaita, jsoncpp, curlpp], install: true)
+install_data(resources, install_dir: 'share/icons/hicolor/scalable/apps')
