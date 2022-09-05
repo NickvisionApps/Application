@@ -36,7 +36,6 @@ MainWindow::MainWindow(GtkApplication* application, const MainWindowController& 
     m_btnMenuHelp = gtk_menu_button_new();
     GMenu* menuHelp{ g_menu_new() };
     g_menu_append(menuHelp, "Preferences", "win.preferences");
-    g_menu_append(menuHelp, "Changelog", "win.changelog");
     g_menu_append(menuHelp, "About", "win.about");
     gtk_menu_button_set_direction(GTK_MENU_BUTTON(m_btnMenuHelp), GTK_ARROW_NONE);
     gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(m_btnMenuHelp), G_MENU_MODEL(menuHelp));
@@ -68,10 +67,6 @@ MainWindow::MainWindow(GtkApplication* application, const MainWindowController& 
     g_signal_connect(m_actPreferences, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction*, GVariant*, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onPreferences(); }), this);
     g_action_map_add_action(G_ACTION_MAP(m_gobj), G_ACTION(m_actPreferences));
     gtk_application_set_accels_for_action(application, "win.preferences", new const char*[2]{ "<Ctrl>period", nullptr });
-    //Changelog Action
-    m_actChangelog = g_simple_action_new("changelog", nullptr);
-    g_signal_connect(m_actChangelog, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction*, GVariant*, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onChangelog(); }), this);
-    g_action_map_add_action(G_ACTION_MAP(m_gobj), G_ACTION(m_actChangelog));
     //About Action
     m_actAbout = g_simple_action_new("about", nullptr);
     g_signal_connect(m_actAbout, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction*, GVariant*, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onAbout(); }), this);
@@ -138,18 +133,18 @@ void MainWindow::onPreferences()
     preferencesDialog->show();
 }
 
-void MainWindow::onChangelog()
-{
-    GtkWidget* changelogDialog{ gtk_message_dialog_new(GTK_WINDOW(m_gobj), GtkDialogFlags(GTK_DIALOG_MODAL), GTK_MESSAGE_INFO, GTK_BUTTONS_OK, "What's New?") };
-    gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(changelogDialog), m_controller.getAppInfo().getChangelog().c_str());
-    g_signal_connect(changelogDialog, "response", G_CALLBACK(gtk_window_destroy), nullptr);
-    gtk_widget_show(changelogDialog);
-}
-
 void MainWindow::onAbout()
 {
-    gtk_show_about_dialog(GTK_WINDOW(m_gobj), "program-name", m_controller.getAppInfo().getName().c_str(), "version", m_controller.getAppInfo().getVersion().c_str(),
-                          "comments", m_controller.getAppInfo().getDescription().c_str(),
-                          "copyright", "(C) Nickvision 2021-2022", "license-type", GTK_LICENSE_GPL_3_0, "website", m_controller.getAppInfo().getGitHubRepo().c_str(),
-                          "website-label", "GitHub", "authors", new const char*[2]{ "Nicholas Logozzo", nullptr }, nullptr);
+    adw_show_about_window(GTK_WINDOW(m_gobj),
+                          "application-name", m_controller.getAppInfo().getShortName().c_str(),
+                          "application-icon", "org.nickvision.application",
+                          "version", m_controller.getAppInfo().getVersion().c_str(),
+                          "developer-name", "Nickvision",
+                          "license-type", GTK_LICENSE_GPL_3_0,
+                          "copyright", "(C) Nickvision 2021-2022",
+                          "issue-url", m_controller.getAppInfo().getIssueTracker().c_str(),
+                          "website", m_controller.getAppInfo().getGitHubRepo().c_str(),
+                          "developers", new const char*[2]{ "Nicholas Logozzo", nullptr },
+                          "release-notes", m_controller.getAppInfo().getChangelog().c_str(),
+                          nullptr);
 }

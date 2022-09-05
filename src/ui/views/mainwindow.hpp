@@ -42,7 +42,6 @@ namespace NickvisionApplication::UI::Views
 	GSimpleAction* m_actOpenFolder{ nullptr };
 	GSimpleAction* m_actCloseFolder{ nullptr };
 	GSimpleAction* m_actPreferences{ nullptr };
-	GSimpleAction* m_actChangelog{ nullptr };
 	GSimpleAction* m_actAbout{ nullptr };
 	/**
 	 * Runs startup functions
@@ -60,10 +59,6 @@ namespace NickvisionApplication::UI::Views
     	 * Displays the preferences dialog
     	 */
     	void onPreferences();
-    	/**
-    	 * Displays the changelog dialog
-    	 */
-    	void onChangelog();
     	/**
     	 * Displays the about dialog
     	 */
