@@ -139,6 +139,7 @@ void MainWindow::onAbout()
                           "application-name", m_controller.getAppInfo().getShortName().c_str(),
                           "application-icon", "org.nickvision.application",
                           "version", m_controller.getAppInfo().getVersion().c_str(),
+                          "comments", m_controller.getAppInfo().getDescription().c_str(),
                           "developer-name", "Nickvision",
                           "license-type", GTK_LICENSE_GPL_3_0,
                           "copyright", "(C) Nickvision 2021-2022",
