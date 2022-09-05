@@ -36,7 +36,6 @@ MainWindow::MainWindow(GtkApplication* application, const MainWindowController& 
     m_btnMenuHelp = gtk_menu_button_new();
     GMenu* menuHelp{ g_menu_new() };
     g_menu_append(menuHelp, "Preferences", "win.preferences");
-    g_menu_append(menuHelp, "Keyboard Shortcuts", "win.keyboardShortcuts");
     g_menu_append(menuHelp, "Changelog", "win.changelog");
     g_menu_append(menuHelp, "About", "win.about");
     gtk_menu_button_set_direction(GTK_MENU_BUTTON(m_btnMenuHelp), GTK_ARROW_NONE);
@@ -69,11 +68,6 @@ MainWindow::MainWindow(GtkApplication* application, const MainWindowController& 
     g_signal_connect(m_actPreferences, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction*, GVariant*, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onPreferences(); }), this);
     g_action_map_add_action(G_ACTION_MAP(m_gobj), G_ACTION(m_actPreferences));
     gtk_application_set_accels_for_action(application, "win.preferences", new const char*[2]{ "<Ctrl>period", nullptr });
-    //Keyboard Shortcuts Action
-    m_actKeyboardShortcuts = g_simple_action_new("keyboardShortcuts", nullptr);
-    g_signal_connect(m_actKeyboardShortcuts, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction*, GVariant*, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onKeyboardShortcuts(); }), this);
-    g_action_map_add_action(G_ACTION_MAP(m_gobj), G_ACTION(m_actKeyboardShortcuts));
-    gtk_application_set_accels_for_action(application, "win.keyboardShortcuts", new const char*[2]{ "<Ctrl>question", nullptr });
     //Changelog Action
     m_actChangelog = g_simple_action_new("changelog", nullptr);
     g_signal_connect(m_actChangelog, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction*, GVariant*, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onChangelog(); }), this);
@@ -85,7 +79,7 @@ MainWindow::MainWindow(GtkApplication* application, const MainWindowController& 
     gtk_application_set_accels_for_action(application, "win.about", new const char*[2]{ "F1", nullptr });
 }
 
-GtkWidget* MainWindow::gobj() const
+GtkWidget* MainWindow::gobj()
 {
     return m_gobj;
 }
@@ -142,11 +136,6 @@ void MainWindow::onPreferences()
         delete pointers;
     })), pointers);
     preferencesDialog->show();
-}
-
-void MainWindow::onKeyboardShortcuts()
-{
-
 }
 
 void MainWindow::onChangelog()

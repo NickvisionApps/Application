@@ -3,7 +3,7 @@
 using namespace NickvisionApplication::Controllers;
 using namespace NickvisionApplication::UI::Views;
 
-PreferencesDialog::PreferencesDialog(GtkWindow* parent, const PreferencesDialogController& controller) : m_gobj{ adw_window_new() }, m_controller{ controller }
+PreferencesDialog::PreferencesDialog(GtkWindow* parent, const PreferencesDialogController& controller) : m_controller{ controller }, m_gobj{ adw_window_new() }
 {
     //Window Settings
     gtk_window_set_transient_for(GTK_WINDOW(m_gobj), parent);
@@ -66,7 +66,7 @@ PreferencesDialog::~PreferencesDialog()
     gtk_window_destroy(GTK_WINDOW(m_gobj));
 }
 
-GtkWidget* PreferencesDialog::gobj() const
+GtkWidget* PreferencesDialog::gobj()
 {
     return m_gobj;
 }

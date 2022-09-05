@@ -23,7 +23,7 @@ namespace NickvisionApplication::UI::Views
     	 *
     	 * @returns The GtkWidget* representing the MainWindow 
     	 */
-    	GtkWidget* gobj() const;
+    	GtkWidget* gobj();
     	/**
     	 * Shows the MainWindow
     	 */
@@ -42,7 +42,6 @@ namespace NickvisionApplication::UI::Views
 	GSimpleAction* m_actOpenFolder{ nullptr };
 	GSimpleAction* m_actCloseFolder{ nullptr };
 	GSimpleAction* m_actPreferences{ nullptr };
-	GSimpleAction* m_actKeyboardShortcuts{ nullptr };
 	GSimpleAction* m_actChangelog{ nullptr };
 	GSimpleAction* m_actAbout{ nullptr };
 	/**
@@ -61,10 +60,6 @@ namespace NickvisionApplication::UI::Views
     	 * Displays the preferences dialog
     	 */
     	void onPreferences();
-    	/**
-    	 * Displays the keyboard shortcuts dialog
-    	 */
-    	void onKeyboardShortcuts();
     	/**
     	 * Displays the changelog dialog
     	 */

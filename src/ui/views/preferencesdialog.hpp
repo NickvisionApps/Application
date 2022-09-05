@@ -27,7 +27,7 @@ namespace NickvisionApplication::UI::Views
     	 *
     	 * @returns The GtkWidget* representing the PreferencesDialog
     	 */
-    	GtkWidget* gobj() const;
+    	GtkWidget* gobj();
     	/**
     	 * Shows the PreferencesDialog
     	 */
