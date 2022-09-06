@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Name=Application
+Comment=A template for creating Nickvision applications
+Exec=org.nickvision.application
+Icon=org.nickvision.application
+Terminal=false
+Type=Application
