@@ -88,14 +88,11 @@ void MainWindow::show()
 
 void MainWindow::onStartup()
 {
-    if(!m_controller.getIsOpened())
+    ProgressDialog* progressDialog{ new ProgressDialog(GTK_WINDOW(m_gobj), "Starting application...", [&]()
     {
-        ProgressDialog* progressDialog{ new ProgressDialog(GTK_WINDOW(m_gobj), "Starting application...", [&]()
-        {
-            m_controller.startup();
-        }, []() {}) };
-        progressDialog->show();
-    }
+        m_controller.startup();
+    }, []() {}) };
+    progressDialog->show();
 }
 
 void MainWindow::onFolderChanged()

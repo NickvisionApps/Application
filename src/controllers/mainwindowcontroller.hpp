@@ -28,12 +28,6 @@ namespace NickvisionApplication::Controllers
     	 */
     	const NickvisionApplication::Models::AppInfo& getAppInfo() const;
     	/**
-    	 * Gets whether or not the window has been opened
-    	 *
-    	 * @returns True if opened already, else false
-    	 */
-    	bool getIsOpened() const;
-    	/**
     	 * Creates a PreferencesDialogController
     	 *
     	 * @returns A new PreferencesDialogController

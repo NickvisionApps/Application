@@ -16,11 +16,6 @@ const AppInfo& MainWindowController::getAppInfo() const
     return m_appInfo;
 }
 
-bool MainWindowController::getIsOpened() const
-{
-    return m_isOpened;
-}
-
 PreferencesDialogController MainWindowController::createPreferencesDialogController() const
 {
     return { m_configuration };
@@ -37,11 +32,10 @@ void MainWindowController::startup()
     {
         if(m_configuration.getIsFirstTimeOpen())
         {
+            m_sendToastCallback("Welcome!");
             m_configuration.setIsFirstTimeOpen(false);
             m_configuration.save();
         }
-        std::this_thread::sleep_for(std::chrono::seconds(2));
-        m_sendToastCallback("Welcome!");
         m_isOpened = true;
     }
 }
