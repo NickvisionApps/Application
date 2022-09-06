@@ -14,6 +14,7 @@
 ![FolderOpen](https://user-images.githubusercontent.com/17648453/188352502-08cfd064-c8ef-4cc3-8235-f63cbe3697c1.png)
 ![DarkMode](https://user-images.githubusercontent.com/17648453/188352505-75b12b3f-172b-448f-896b-1217dfe4b0a5.png)
 ![PreferencesDialog](https://user-images.githubusercontent.com/17648453/188352511-89444eb7-7cfb-4c8d-83f5-93d339c8ed2a.png)
+![ShortcutsDialog](https://user-images.githubusercontent.com/17648453/188636456-c10370c6-0d01-47d5-8544-2ee90feefcf0.png)
 ![AboutDialog](https://user-images.githubusercontent.com/17648453/188543750-3e228bc8-4ecd-4c70-a733-1b6d6a28e1a8.png)
 
 # Dependencies
