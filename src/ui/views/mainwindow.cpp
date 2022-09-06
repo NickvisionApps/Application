@@ -147,10 +147,17 @@ void MainWindow::onChangelog()
 
 void MainWindow::onAbout()
 {
-    gtk_show_about_dialog(GTK_WINDOW(m_gobj), "program-name", m_controller.getAppInfo().getName().c_str(), "version", m_controller.getAppInfo().getVersion().c_str(),
+    gtk_show_about_dialog(GTK_WINDOW(m_gobj),
+                          "program-name", m_controller.getAppInfo().getName().c_str(),
+                          "version", m_controller.getAppInfo().getVersion().c_str(),
+                          "logo-icon-name", "org.nickvision.application".
                           "comments", m_controller.getAppInfo().getDescription().c_str(),
-                          "copyright", "(C) Nickvision 2021-2022", "license-type", GTK_LICENSE_GPL_3_0, "website", m_controller.getAppInfo().getGitHubRepo().c_str(),
-                          "website-label", "GitHub", "authors", new const char*[2]{ "Nicholas Logozzo", nullptr }, nullptr);
+                          "copyright", "(C) Nickvision 2021-2022",
+                          "license-type", GTK_LICENSE_GPL_3_0,
+                          "website", m_controller.getAppInfo().getGitHubRepo().c_str(),
+                          "website-label", "GitHub",
+                          "authors", new const char*[2]{ "Nicholas Logozzo", nullptr },
+                          nullptr);
     /*
     adw_show_about_window(GTK_WINDOW(m_gobj),
                           "application-name", m_controller.getAppInfo().getShortName().c_str(),
