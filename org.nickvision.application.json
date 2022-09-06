@@ -13,6 +13,67 @@
         "--filesystem=host"
     ],
     "modules" : [
+    	{
+            "name": "libadwaita",
+            "buildsystem": "meson",
+            "config-opts": [
+                "-Dvapi=false",
+                "-Dtests=false",
+                "-Dexamples=false",
+                "-Dintrospection=enabled"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://gitlab.gnome.org/GNOME/libadwaita.git",
+                    "tag": "1.2.rc"
+                }
+            ],
+            "modules": [
+                {
+                    "name": "sassc",
+                    "sources": [
+                        {
+                            "type": "git",
+                            "url": "https://github.com/sass/sassc.git",
+                            "tag": "3.6.2"
+                        },
+                        {
+                            "type": "script",
+                            "dest-filename": "autogen.sh",
+                            "commands": [
+                                "autoreconf -si"
+                            ]
+                        }
+                    ],
+                    "cleanup": [
+                        "*"
+                    ],
+                    "modules": [
+                        {
+                            "name": "libsass",
+                            "sources": [
+                                {
+                                    "type": "git",
+                                    "url": "https://github.com/sass/libsass.git",
+                                    "tag": "3.6.5"
+                                },
+                                {
+                                    "type": "script",
+                                    "dest-filename": "autogen.sh",
+                                    "commands": [
+                                        "autoreconf -si"
+                                    ]
+                                }
+                            ],
+                            "cleanup": [
+                                "*"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
         {
             "name": "jsoncpp",
             "buildsystem": "meson",
@@ -39,7 +100,7 @@
             "name": "org.nickvision.application",
             "buildsystem": "meson",
             "config-opts": [
-                "--buildtype=release"
+                "-Dbuildtype=release"
             ],
             "sources": [
                 {

@@ -2,9 +2,19 @@
 
 using namespace NickvisionApplication::Models;
 
-AppInfo::AppInfo() : m_name{ "" }, m_shortName{ "" }, m_description{ "" }, m_version{ "" }, m_changelog{ "" }, m_gitHubRepo{ "" }, m_issueTracker{ "" }
+AppInfo::AppInfo() : m_id{ "" }, m_name{ "" }, m_shortName{ "" }, m_description{ "" }, m_version{ "" }, m_changelog{ "" }, m_gitHubRepo{ "" }, m_issueTracker{ "" }
 {
 
+}
+
+const std::string& AppInfo::getId() const
+{
+	return m_id;
+}
+
+void AppInfo::setId(const std::string& id)
+{
+	m_id = id;
 }
 
 const std::string& AppInfo::getName() const

@@ -15,6 +15,18 @@ namespace NickvisionApplication::Models
     	 */
     	AppInfo();
     	/**
+    	 * Gets the id of the application
+    	 *
+    	 * @returns The id of the application
+    	 */
+	const std::string& getId() const;
+	/**
+	 * Sets the id of the application
+	 *
+	 * @param id The new id of the application
+	 */
+	void setId(const std::string& id);
+    	/**
     	 * Gets the name of the application
     	 *
     	 * @returns The name of the application
@@ -100,6 +112,7 @@ namespace NickvisionApplication::Models
 	void setIssueTracker(const std::string& issueTracker);
     	
     private:
+    	std::string m_id;
     	std::string m_name;
     	std::string m_shortName;
 	std::string m_description;
