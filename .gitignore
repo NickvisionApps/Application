@@ -377,3 +377,4 @@ build/
 
 # GNOME Builder
 .goutputstream-*
+tags.*
