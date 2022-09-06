@@ -42,6 +42,7 @@ namespace NickvisionApplication::UI::Views
 	GSimpleAction* m_actOpenFolder{ nullptr };
 	GSimpleAction* m_actCloseFolder{ nullptr };
 	GSimpleAction* m_actPreferences{ nullptr };
+	GSimpleAction* m_actKeyboardShortcuts{ nullptr };
 	GSimpleAction* m_actAbout{ nullptr };
 	/**
 	 * Runs startup functions
@@ -59,6 +60,10 @@ namespace NickvisionApplication::UI::Views
     	 * Displays the preferences dialog
     	 */
     	void onPreferences();
+    	/**
+    	 * Displays the keyboard shortcuts dialog
+    	 */
+    	void onKeyboardShortcuts();
     	/**
     	 * Displays the about dialog
     	 */

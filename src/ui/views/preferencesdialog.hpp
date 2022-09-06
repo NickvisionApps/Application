@@ -19,7 +19,7 @@ namespace NickvisionApplication::UI::Views
     	 */
     	PreferencesDialog(GtkWindow* parent, const NickvisionApplication::Controllers::PreferencesDialogController& controller);
     	/**
-    	 * Destructs the PreferencesDialog
+    	 * Destroys the PreferencesDialog
     	 */
     	~PreferencesDialog();
     	/**

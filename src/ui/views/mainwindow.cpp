@@ -1,6 +1,7 @@
 #include "mainwindow.hpp"
 #include <utility>
 #include "preferencesdialog.hpp"
+#include "shortcutsdialog.hpp"
 #include "../controls/progressdialog.hpp"
 
 using namespace NickvisionApplication::Controllers;
@@ -36,6 +37,7 @@ MainWindow::MainWindow(GtkApplication* application, const MainWindowController& 
     m_btnMenuHelp = gtk_menu_button_new();
     GMenu* menuHelp{ g_menu_new() };
     g_menu_append(menuHelp, "Preferences", "win.preferences");
+    g_menu_append(menuHelp, "Keyboard Shortcuts", "win.keyboardShortcuts");
     g_menu_append(menuHelp, std::string("About " + m_controller.getAppInfo().getShortName()).c_str(), "win.about");
     gtk_menu_button_set_direction(GTK_MENU_BUTTON(m_btnMenuHelp), GTK_ARROW_NONE);
     gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(m_btnMenuHelp), G_MENU_MODEL(menuHelp));
@@ -69,6 +71,10 @@ MainWindow::MainWindow(GtkApplication* application, const MainWindowController& 
     g_signal_connect(m_actPreferences, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction*, GVariant*, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onPreferences(); }), this);
     g_action_map_add_action(G_ACTION_MAP(m_gobj), G_ACTION(m_actPreferences));
     gtk_application_set_accels_for_action(application, "win.preferences", new const char*[2]{ "<Ctrl>period", nullptr });
+    //Keyboard Shortcuts Action
+    m_actKeyboardShortcuts = g_simple_action_new("keyboardShortcuts", nullptr);
+    g_signal_connect(m_actKeyboardShortcuts, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction*, GVariant*, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onKeyboardShortcuts(); }), this);
+    g_action_map_add_action(G_ACTION_MAP(m_gobj), G_ACTION(m_actKeyboardShortcuts));
     //About Action
     m_actAbout = g_simple_action_new("about", nullptr);
     g_signal_connect(m_actAbout, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction*, GVariant*, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onAbout(); }), this);
@@ -125,11 +131,22 @@ void MainWindow::onPreferences()
     std::pair<PreferencesDialog*, MainWindow*>* pointers{ new std::pair<PreferencesDialog*, MainWindow*>(preferencesDialog, this) };
     g_signal_connect(preferencesDialog->gobj(), "hide", G_CALLBACK((void (*)(GtkWidget*, gpointer*))([](GtkWidget*, gpointer* data)
     {
-        std::pair<PreferencesDialog*, MainWindow*>* pointers{reinterpret_cast<std::pair<PreferencesDialog*, MainWindow*>*>(data)};
+        std::pair<PreferencesDialog*, MainWindow*>* pointers{ reinterpret_cast<std::pair<PreferencesDialog*, MainWindow*>*>(data) };
         delete pointers->first;
         delete pointers;
     })), pointers);
     preferencesDialog->show();
+}
+
+void MainWindow::onKeyboardShortcuts()
+{
+    ShortcutsDialog* shortcutsDialog{ new ShortcutsDialog(GTK_WINDOW(m_gobj)) };
+    g_signal_connect(shortcutsDialog->gobj(), "hide", G_CALLBACK((void (*)(GtkWidget*, gpointer*))([](GtkWidget*, gpointer* data)
+    {
+        ShortcutsDialog* dialog{ reinterpret_cast<ShortcutsDialog*>(data) };
+        delete dialog;
+    })), shortcutsDialog);
+    shortcutsDialog->show();
 }
 
 void MainWindow::onAbout()
