@@ -105,6 +105,10 @@ void MainWindow::onFolderChanged()
 {
     adw_window_title_set_subtitle(ADW_WINDOW_TITLE(m_adwTitle), m_controller.getFolderPath().c_str());
     gtk_widget_set_visible(m_btnCloseFolder, m_controller.getIsFolderValid());
+    GNotification* notf{ g_notification_new("Folder Changed") };
+    g_notification_set_body(notf, m_controller.getFolderPath().c_str());
+    g_application_send_notification(g_application_get_default(), "folder-changed", notf);
+    g_object_unref(notf);
 }
 
 void MainWindow::onOpenFolder()

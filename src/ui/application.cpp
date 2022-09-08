@@ -9,7 +9,7 @@ using namespace NickvisionApplication::UI::Views;
 Application::Application(const std::string& id, GApplicationFlags flags) : m_adwApp{ adw_application_new(id.c_str(), flags) }
 {
     //AppInfo
-    m_appInfo.setId("org.nickvision.application");
+    m_appInfo.setId(id);
     m_appInfo.setName("NickvisionApplication");
     m_appInfo.setShortName("Application");
     m_appInfo.setDescription("A template for creating Nickvision applications.");

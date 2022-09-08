@@ -6,3 +6,6 @@ Exec=org.nickvision.application
 Icon=org.nickvision.application
 Terminal=false
 Type=Application
+StartupNotify=true
+DBusActivatable=true
+X-GNOME-UsesNotifications=true
