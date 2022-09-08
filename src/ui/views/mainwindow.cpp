@@ -54,6 +54,14 @@ MainWindow::MainWindow(GtkApplication* application, const MainWindowController& 
     adw_application_window_set_content(ADW_APPLICATION_WINDOW(m_gobj), m_mainBox);
     //Send Toast Callback
     m_controller.registerSendToastCallback([&](const std::string& message) { adw_toast_overlay_add_toast(ADW_TOAST_OVERLAY(m_toastOverlay), adw_toast_new(message.c_str())); });
+    //Send Notification Callback
+    m_controller.registerSendNotificationCallback([&](const std::string& title, const std::string& message)
+    {
+        GNotification* notification{ g_notification_new(title.c_str()) };
+        g_notification_set_body(notification, message.c_str());
+        g_application_send_notification(g_application_get_default(), title.c_str(), notification);
+        g_object_unref(notification);
+    });
     //Folder Changed Callback
     m_controller.registerFolderChangedCallback([&]() { onFolderChanged(); });
     //Open Folder Action
@@ -105,10 +113,6 @@ void MainWindow::onFolderChanged()
 {
     adw_window_title_set_subtitle(ADW_WINDOW_TITLE(m_adwTitle), m_controller.getFolderPath().c_str());
     gtk_widget_set_visible(m_btnCloseFolder, m_controller.getIsFolderValid());
-    GNotification* notf{ g_notification_new("Folder Changed") };
-    g_notification_set_body(notf, m_controller.getFolderPath().c_str());
-    g_application_send_notification(g_application_get_default(), "folder-changed", notf);
-    g_object_unref(notf);
 }
 
 void MainWindow::onOpenFolder()

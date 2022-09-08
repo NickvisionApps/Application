@@ -26,13 +26,18 @@ void MainWindowController::registerSendToastCallback(const std::function<void(co
     m_sendToastCallback = callback;
 }
 
+void MainWindowController::registerSendNotificationCallback(const std::function<void(const std::string& title, const std::string& message)>& callback)
+{
+    m_sendNotificationCallback = callback;
+}
+
 void MainWindowController::startup()
 {
     if(!m_isOpened)
     {
         if(m_configuration.getIsFirstTimeOpen())
         {
-            m_sendToastCallback("Welcome!");
+            m_sendNotificationCallback("Welcome", "Application has been opened for the first time!");
             m_configuration.setIsFirstTimeOpen(false);
             m_configuration.save();
         }

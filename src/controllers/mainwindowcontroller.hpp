@@ -39,6 +39,12 @@ namespace NickvisionApplication::Controllers
     	 * @param callback A void(const std::string&) function
     	 */
     	void registerSendToastCallback(const std::function<void(const std::string& message)>& callback);
+    	 /**
+    	 * Registers a callback for sending a desktop notification
+    	 *
+    	 * @param callback A void(const std::string&, const std::string&) function
+    	 */
+    	void registerSendNotificationCallback(const std::function<void(const std::string& title, const std::string& message)>& callback);
     	/**
     	 * Runs startup functions
     	 */
@@ -78,6 +84,7 @@ namespace NickvisionApplication::Controllers
     	NickvisionApplication::Models::Configuration& m_configuration;
     	bool m_isOpened;
     	std::function<void(const std::string& message)> m_sendToastCallback;
+    	std::function<void(const std::string& title, const std::string& message)> m_sendNotificationCallback;
     	std::string m_folderPath;
     	std::function<void()> m_folderChangedCallback;
     };
