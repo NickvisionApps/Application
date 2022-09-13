@@ -52,7 +52,7 @@ namespace NickvisionApplication::Controllers
     	/**
     	 * Updates the controller based on the configuration changes
     	 */
-    	void onConfigurationChagned();
+    	void onConfigurationChanged();
     	/**
     	 * Gets the opened folder path
     	 *

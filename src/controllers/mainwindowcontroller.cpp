@@ -45,7 +45,7 @@ void MainWindowController::startup()
     }
 }
 
-void MainWindowController::onConfigurationChagned()
+void MainWindowController::onConfigurationChanged()
 {
 
 }
