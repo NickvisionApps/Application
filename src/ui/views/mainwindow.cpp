@@ -141,6 +141,7 @@ void MainWindow::onPreferences()
     {
         std::pair<PreferencesDialog*, MainWindow*>* pointers{ reinterpret_cast<std::pair<PreferencesDialog*, MainWindow*>*>(data) };
         delete pointers->first;
+        pointers->second->m_controller.onConfigurationChagned();
         delete pointers;
     })), pointers);
     preferencesDialog->show();

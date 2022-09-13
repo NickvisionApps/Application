@@ -45,6 +45,11 @@ void MainWindowController::startup()
     }
 }
 
+void MainWindowController::onConfigurationChagned()
+{
+
+}
+
 const std::string& MainWindowController::getFolderPath() const
 {
     return m_folderPath;

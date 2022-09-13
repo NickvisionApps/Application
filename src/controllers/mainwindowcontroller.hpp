@@ -50,6 +50,10 @@ namespace NickvisionApplication::Controllers
     	 */
     	void startup();
     	/**
+    	 * Updates the controller based on the configuration changes
+    	 */
+    	void onConfigurationChagned();
+    	/**
     	 * Gets the opened folder path
     	 *
     	 * @returns The opened folder path or "No Folder Path" if no folder is opened
