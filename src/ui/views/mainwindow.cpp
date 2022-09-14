@@ -105,7 +105,7 @@ void MainWindow::onStartup()
     ProgressDialog* progressDialog{ new ProgressDialog(GTK_WINDOW(m_gobj), "Starting application...", [&]()
     {
         m_controller.startup();
-    }, []() {}) };
+    }) };
     progressDialog->show();
 }
 
