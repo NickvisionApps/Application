@@ -43,6 +43,7 @@ MainWindow::MainWindow(GtkApplication* application, const MainWindowController& 
     gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(m_btnMenuHelp), G_MENU_MODEL(menuHelp));
     gtk_widget_set_tooltip_text(m_btnMenuHelp, "Main Menu");
     adw_header_bar_pack_end(ADW_HEADER_BAR(m_headerBar), m_btnMenuHelp);
+    g_object_unref(menuHelp);
     //Toast Overlay
     m_toastOverlay = adw_toast_overlay_new();
     gtk_widget_set_hexpand(m_toastOverlay, true);
