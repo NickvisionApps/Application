@@ -13,6 +13,7 @@ MainWindow::MainWindow(GtkApplication* application, const MainWindowController& 
     //Window Settings
     gtk_window_set_default_size(GTK_WINDOW(m_gobj), 1000, 800);
     g_signal_connect(m_gobj, "show", G_CALLBACK((void (*)(GtkWidget*, gpointer*))[](GtkWidget*, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onStartup(); }), this);
+    gtk_style_context_add_class(gtk_widget_get_style_context(m_gobj), "devel");
     //Header Bar
     m_headerBar = adw_header_bar_new();
     m_adwTitle = adw_window_title_new(m_controller.getAppInfo().getShortName().c_str(), m_controller.getFolderPath().c_str());
@@ -89,6 +90,11 @@ MainWindow::MainWindow(GtkApplication* application, const MainWindowController& 
     g_signal_connect(m_actAbout, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction*, GVariant*, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onAbout(); }), this);
     g_action_map_add_action(G_ACTION_MAP(m_gobj), G_ACTION(m_actAbout));
     gtk_application_set_accels_for_action(application, "win.about", new const char*[2]{ "F1", nullptr });
+}
+
+MainWindow::~MainWindow()
+{
+    gtk_window_destroy(GTK_WINDOW(m_gobj));
 }
 
 GtkWidget* MainWindow::gobj()
