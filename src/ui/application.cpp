@@ -42,5 +42,5 @@ void Application::onActivate(GtkApplication* app)
     }
     m_mainWindow = std::make_shared<MainWindow>(app, MainWindowController(m_appInfo, m_configuration));
     gtk_application_add_window(app, GTK_WINDOW(m_mainWindow->gobj()));
-    m_mainWindow->show();
+    m_mainWindow->start();
 }

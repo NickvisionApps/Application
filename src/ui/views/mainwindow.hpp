@@ -25,9 +25,9 @@ namespace NickvisionApplication::UI::Views
     	 */
     	GtkWidget* gobj();
     	/**
-    	 * Shows the MainWindow
+    	 * Starts the MainWindow
     	 */
-    	void show();
+    	void start();
     	
     private:
     	NickvisionApplication::Controllers::MainWindowController m_controller;
@@ -44,10 +44,6 @@ namespace NickvisionApplication::UI::Views
 	GSimpleAction* m_actPreferences{ nullptr };
 	GSimpleAction* m_actKeyboardShortcuts{ nullptr };
 	GSimpleAction* m_actAbout{ nullptr };
-	/**
-	 * Runs startup functions
-	 */
-	void onStartup();
 	/**
     	 * Updates the UI with the current folder
     	 */

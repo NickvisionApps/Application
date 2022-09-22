@@ -12,7 +12,6 @@ MainWindow::MainWindow(GtkApplication* application, const MainWindowController& 
 {
     //Window Settings
     gtk_window_set_default_size(GTK_WINDOW(m_gobj), 1000, 800);
-    g_signal_connect(m_gobj, "show", G_CALLBACK((void (*)(GtkWidget*, gpointer))[](GtkWidget*, gpointer data) { reinterpret_cast<MainWindow*>(data)->onStartup(); }), this);
     gtk_style_context_add_class(gtk_widget_get_style_context(m_gobj), "devel");
     //Header Bar
     m_headerBar = adw_header_bar_new();
@@ -97,18 +96,10 @@ GtkWidget* MainWindow::gobj()
     return m_gobj;
 }
 
-void MainWindow::show()
+void MainWindow::start()
 {
     gtk_widget_show(m_gobj);
-}
-
-void MainWindow::onStartup()
-{
-    ProgressDialog* progressDialog{ new ProgressDialog(GTK_WINDOW(m_gobj), "Starting application...", [&]()
-    {
-        m_controller.startup();
-    }) };
-    progressDialog->show();
+    m_controller.startup();
 }
 
 void MainWindow::onFolderChanged()
