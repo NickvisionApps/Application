@@ -12,7 +12,7 @@ MainWindow::MainWindow(GtkApplication* application, const MainWindowController& 
 {
     //Window Settings
     gtk_window_set_default_size(GTK_WINDOW(m_gobj), 1000, 800);
-    g_signal_connect(m_gobj, "show", G_CALLBACK((void (*)(GtkWidget*, gpointer*))[](GtkWidget*, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onStartup(); }), this);
+    g_signal_connect(m_gobj, "show", G_CALLBACK((void (*)(GtkWidget*, gpointer))[](GtkWidget*, gpointer data) { reinterpret_cast<MainWindow*>(data)->onStartup(); }), this);
     gtk_style_context_add_class(gtk_widget_get_style_context(m_gobj), "devel");
     //Header Bar
     m_headerBar = adw_header_bar_new();
@@ -68,26 +68,26 @@ MainWindow::MainWindow(GtkApplication* application, const MainWindowController& 
     m_controller.registerFolderChangedCallback([&]() { onFolderChanged(); });
     //Open Folder Action
     m_actOpenFolder = g_simple_action_new("openFolder", nullptr);
-    g_signal_connect(m_actOpenFolder, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction*, GVariant*, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onOpenFolder(); }), this);
+    g_signal_connect(m_actOpenFolder, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer))[](GSimpleAction*, GVariant*, gpointer data) { reinterpret_cast<MainWindow*>(data)->onOpenFolder(); }), this);
     g_action_map_add_action(G_ACTION_MAP(m_gobj), G_ACTION(m_actOpenFolder));
     gtk_application_set_accels_for_action(application, "win.openFolder", new const char*[2]{ "<Ctrl>o", nullptr });
     //Close Folder Action
     m_actCloseFolder = g_simple_action_new("closeFolder", nullptr);
-    g_signal_connect(m_actCloseFolder, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction*, GVariant*, gpointer* data) { reinterpret_cast<MainWindow*>(data)->m_controller.closeFolder(); }), this);
+    g_signal_connect(m_actCloseFolder, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer))[](GSimpleAction*, GVariant*, gpointer data) { reinterpret_cast<MainWindow*>(data)->m_controller.closeFolder(); }), this);
     g_action_map_add_action(G_ACTION_MAP(m_gobj), G_ACTION(m_actCloseFolder));
     gtk_application_set_accels_for_action(application, "win.closeFolder", new const char*[2]{ "<Ctrl>w", nullptr });
     //Preferences Action
     m_actPreferences = g_simple_action_new("preferences", nullptr);
-    g_signal_connect(m_actPreferences, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction*, GVariant*, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onPreferences(); }), this);
+    g_signal_connect(m_actPreferences, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer))[](GSimpleAction*, GVariant*, gpointer data) { reinterpret_cast<MainWindow*>(data)->onPreferences(); }), this);
     g_action_map_add_action(G_ACTION_MAP(m_gobj), G_ACTION(m_actPreferences));
     gtk_application_set_accels_for_action(application, "win.preferences", new const char*[2]{ "<Ctrl>period", nullptr });
     //Keyboard Shortcuts Action
     m_actKeyboardShortcuts = g_simple_action_new("keyboardShortcuts", nullptr);
-    g_signal_connect(m_actKeyboardShortcuts, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction*, GVariant*, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onKeyboardShortcuts(); }), this);
+    g_signal_connect(m_actKeyboardShortcuts, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer))[](GSimpleAction*, GVariant*, gpointer data) { reinterpret_cast<MainWindow*>(data)->onKeyboardShortcuts(); }), this);
     g_action_map_add_action(G_ACTION_MAP(m_gobj), G_ACTION(m_actKeyboardShortcuts));
     //About Action
     m_actAbout = g_simple_action_new("about", nullptr);
-    g_signal_connect(m_actAbout, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer*))[](GSimpleAction*, GVariant*, gpointer* data) { reinterpret_cast<MainWindow*>(data)->onAbout(); }), this);
+    g_signal_connect(m_actAbout, "activate", G_CALLBACK((void (*)(GSimpleAction*, GVariant*, gpointer))[](GSimpleAction*, GVariant*, gpointer data) { reinterpret_cast<MainWindow*>(data)->onAbout(); }), this);
     g_action_map_add_action(G_ACTION_MAP(m_gobj), G_ACTION(m_actAbout));
     gtk_application_set_accels_for_action(application, "win.about", new const char*[2]{ "F1", nullptr });
 }
@@ -126,7 +126,7 @@ void MainWindow::onOpenFolder()
 {
     GtkFileChooserNative* openFolderDialog{ gtk_file_chooser_native_new("Open Folder", GTK_WINDOW(m_gobj), GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER, "_Open", "_Cancel") };
     gtk_native_dialog_set_modal(GTK_NATIVE_DIALOG(openFolderDialog), true);
-    g_signal_connect(openFolderDialog, "response", G_CALLBACK((void (*)(GtkNativeDialog*, gint, gpointer*))([](GtkNativeDialog* dialog, gint response_id, gpointer* data)
+    g_signal_connect(openFolderDialog, "response", G_CALLBACK((void (*)(GtkNativeDialog*, gint, gpointer))([](GtkNativeDialog* dialog, gint response_id, gpointer data)
     {
         if(response_id == GTK_RESPONSE_ACCEPT)
         {
@@ -144,7 +144,7 @@ void MainWindow::onPreferences()
 {
     PreferencesDialog* preferencesDialog{ new PreferencesDialog(GTK_WINDOW(m_gobj), m_controller.createPreferencesDialogController()) };
     std::pair<PreferencesDialog*, MainWindow*>* pointers{ new std::pair<PreferencesDialog*, MainWindow*>(preferencesDialog, this) };
-    g_signal_connect(preferencesDialog->gobj(), "hide", G_CALLBACK((void (*)(GtkWidget*, gpointer*))([](GtkWidget*, gpointer* data)
+    g_signal_connect(preferencesDialog->gobj(), "hide", G_CALLBACK((void (*)(GtkWidget*, gpointer))([](GtkWidget*, gpointer data)
     {
         std::pair<PreferencesDialog*, MainWindow*>* pointers{ reinterpret_cast<std::pair<PreferencesDialog*, MainWindow*>*>(data) };
         delete pointers->first;
@@ -157,7 +157,7 @@ void MainWindow::onPreferences()
 void MainWindow::onKeyboardShortcuts()
 {
     ShortcutsDialog* shortcutsDialog{ new ShortcutsDialog(GTK_WINDOW(m_gobj)) };
-    g_signal_connect(shortcutsDialog->gobj(), "hide", G_CALLBACK((void (*)(GtkWidget*, gpointer*))([](GtkWidget*, gpointer* data)
+    g_signal_connect(shortcutsDialog->gobj(), "hide", G_CALLBACK((void (*)(GtkWidget*, gpointer))([](GtkWidget*, gpointer data)
     {
         ShortcutsDialog* dialog{ reinterpret_cast<ShortcutsDialog*>(data) };
         delete dialog;

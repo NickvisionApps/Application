@@ -18,7 +18,7 @@ Application::Application(const std::string& id, GApplicationFlags flags) : m_adw
     m_appInfo.setGitHubRepo("https://github.com/nlogozzo/NickvisionApplication");
     m_appInfo.setIssueTracker("https://github.com/nlogozzo/NickvisionApplication/issues/new");
     //Signals
-    g_signal_connect(m_adwApp, "activate", G_CALLBACK((void (*)(GtkApplication*, gpointer*))[](GtkApplication* app, gpointer* data) { reinterpret_cast<Application*>(data)->onActivate(app); }), this);
+    g_signal_connect(m_adwApp, "activate", G_CALLBACK((void (*)(GtkApplication*, gpointer))[](GtkApplication* app, gpointer data) { reinterpret_cast<Application*>(data)->onActivate(app); }), this);
 }
 
 int Application::run(int argc, char* argv[])
