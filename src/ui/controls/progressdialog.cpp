@@ -11,6 +11,7 @@ ProgressDialog::ProgressDialog(GtkWindow* parent, const std::string& description
     gtk_window_set_resizable(GTK_WINDOW(m_gobj), false);
     gtk_window_set_deletable(GTK_WINDOW(m_gobj), false);
     gtk_window_set_destroy_with_parent(GTK_WINDOW(m_gobj), false);
+    g_signal_connect(m_gobj, "show", G_CALLBACK((void (*)(GtkWidget*, gpointer))[](GtkWidget*, gpointer data) { reinterpret_cast<ProgressDialog*>(data)->onStartup(); }), this);
     //Description Label
     m_lblDescription = gtk_label_new(nullptr);
     gtk_label_set_markup(GTK_LABEL(m_lblDescription), std::string("<b>" + description + "</b>").c_str());
@@ -26,11 +27,23 @@ ProgressDialog::ProgressDialog(GtkWindow* parent, const std::string& description
     gtk_box_append(GTK_BOX(m_mainBox), m_lblDescription);
     gtk_box_append(GTK_BOX(m_mainBox), m_progBar);
     adw_window_set_content(ADW_WINDOW(m_gobj), m_mainBox);
+}
+
+void ProgressDialog::show()
+{
+    if(!m_isFinished)
+    {
+        gtk_widget_show(m_gobj);
+    }
+}
+
+void ProgressDialog::onStartup()
+{
     //Timeout
     g_timeout_add(50, [](void* data) -> int
     {
         ProgressDialog* dialog{ reinterpret_cast<ProgressDialog*>(data) };
-        bool result = dialog->timeout();
+        bool result = dialog->onTimeout();
         if(!result)
         {
             delete dialog;
@@ -45,15 +58,7 @@ ProgressDialog::ProgressDialog(GtkWindow* parent, const std::string& description
     });
 }
 
-void ProgressDialog::show()
-{
-    if(!m_isFinished)
-    {
-        gtk_widget_show(m_gobj);
-    }
-}
-
-bool ProgressDialog::timeout()
+bool ProgressDialog::onTimeout()
 {
     gtk_progress_bar_pulse(GTK_PROGRESS_BAR(m_progBar));
     if(m_isFinished)

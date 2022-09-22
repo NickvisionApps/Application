@@ -36,6 +36,7 @@ namespace NickvisionApplication::UI::Controls
 	GtkWidget* m_mainBox{ nullptr };
 	GtkWidget* m_lblDescription{ nullptr };
 	GtkWidget* m_progBar{ nullptr };
-	bool timeout();
+	void onStartup();
+	bool onTimeout();
     };
 }
