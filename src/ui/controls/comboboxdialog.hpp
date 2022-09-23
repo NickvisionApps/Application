@@ -32,7 +32,6 @@ namespace NickvisionApplication::UI::Controls
     	 * @returns The GtkWidget* representing the ComboBoxDialog
     	 */
     	GtkWidget* gobj();
-    	void setResponse(const std::string& response);
     	/**
     	 * Run the ComboBoxDialog
     	 *
@@ -46,5 +45,6 @@ namespace NickvisionApplication::UI::Controls
     	GtkWidget* m_gobj{ nullptr };
     	GtkWidget* m_preferencesGroup{ nullptr };
 	GtkWidget* m_rowChoices{ nullptr };
+	void setResponse(const std::string& response);
     };
 }
