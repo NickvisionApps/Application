@@ -1,4 +1,6 @@
 #include "mainwindow.hpp"
+#include <chrono>
+#include <thread>
 #include <utility>
 #include "preferencesdialog.hpp"
 #include "shortcutsdialog.hpp"
@@ -99,11 +101,14 @@ GtkWidget* MainWindow::gobj()
 void MainWindow::start()
 {
     gtk_widget_show(m_gobj);
-    m_controller.startup();
+    ProgressDialog progressDialog{ GTK_WINDOW(m_gobj), "Starting application...", [&]() { m_controller.startup(); } };
+    progressDialog.run();
 }
 
 void MainWindow::onFolderChanged()
 {
+    ProgressDialog progressDialog{ GTK_WINDOW(m_gobj), "Folder operation...", [&]() { std::this_thread::sleep_for (std::chrono::seconds(1)); } };
+    progressDialog.run();
     adw_window_title_set_subtitle(ADW_WINDOW_TITLE(m_adwTitle), m_controller.getFolderPath().c_str());
     gtk_widget_set_visible(m_btnCloseFolder, m_controller.getIsFolderValid());
 }
@@ -128,27 +133,15 @@ void MainWindow::onOpenFolder()
 
 void MainWindow::onPreferences()
 {
-    PreferencesDialog* preferencesDialog{ new PreferencesDialog(GTK_WINDOW(m_gobj), m_controller.createPreferencesDialogController()) };
-    std::pair<PreferencesDialog*, MainWindow*>* pointers{ new std::pair<PreferencesDialog*, MainWindow*>(preferencesDialog, this) };
-    g_signal_connect(preferencesDialog->gobj(), "hide", G_CALLBACK((void (*)(GtkWidget*, gpointer))([](GtkWidget*, gpointer data)
-    {
-        std::pair<PreferencesDialog*, MainWindow*>* pointers{ reinterpret_cast<std::pair<PreferencesDialog*, MainWindow*>*>(data) };
-        delete pointers->first;
-        pointers->second->m_controller.onConfigurationChanged();
-        delete pointers;
-    })), pointers);
-    preferencesDialog->show();
+    PreferencesDialog preferencesDialog{ GTK_WINDOW(m_gobj), m_controller.createPreferencesDialogController() };
+    preferencesDialog.run();
+    m_controller.onConfigurationChanged();
 }
 
 void MainWindow::onKeyboardShortcuts()
 {
-    ShortcutsDialog* shortcutsDialog{ new ShortcutsDialog(GTK_WINDOW(m_gobj)) };
-    g_signal_connect(shortcutsDialog->gobj(), "hide", G_CALLBACK((void (*)(GtkWidget*, gpointer))([](GtkWidget*, gpointer data)
-    {
-        ShortcutsDialog* dialog{ reinterpret_cast<ShortcutsDialog*>(data) };
-        delete dialog;
-    })), shortcutsDialog);
-    shortcutsDialog->show();
+    ShortcutsDialog shortcutsDialog{ GTK_WINDOW(m_gobj) };
+    shortcutsDialog.run();
 }
 
 void MainWindow::onAbout()

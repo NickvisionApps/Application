@@ -27,25 +27,22 @@ namespace NickvisionApplication::UI::Controls
     	 */
 	~ComboBoxDialog();
 	/**
-	 * Gets the selected choice from the combo box
-	 *
-	 * @returns The selected choice from the combo box
-	 */
-	std::string getSelectedChoice() const;
-	/**
-    	 * Gets the GtkWidget* representing the PreferencesDialog
+    	 * Gets the GtkWidget* representing the ComboBoxDialog
     	 *
-    	 * @returns The GtkWidget* representing the PreferencesDialog
+    	 * @returns The GtkWidget* representing the ComboBoxDialog
     	 */
     	GtkWidget* gobj();
+    	void setResponse(const std::string& response);
     	/**
-    	 * Shows the PreferencesDialog
+    	 * Run the ComboBoxDialog
+    	 *
+    	 * @returns The selected choice from the combo box
     	 */
-    	void show();
+    	std::string run();
 
     private:
     	std::vector<std::string> m_choices;
-    	std::string m_selectedChoice;
+    	std::string m_response;
     	GtkWidget* m_gobj{ nullptr };
     	GtkWidget* m_preferencesGroup{ nullptr };
 	GtkWidget* m_rowChoices{ nullptr };

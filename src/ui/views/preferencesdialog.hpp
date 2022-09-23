@@ -29,9 +29,9 @@ namespace NickvisionApplication::UI::Views
     	 */
     	GtkWidget* gobj();
     	/**
-    	 * Shows the PreferencesDialog
+    	 * Runs the PreferencesDialog
     	 */
-    	void show();
+    	void run();
 
     private:
     	NickvisionApplication::Controllers::PreferencesDialogController m_controller;

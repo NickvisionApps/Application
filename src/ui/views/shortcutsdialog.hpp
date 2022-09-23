@@ -28,9 +28,9 @@ namespace NickvisionApplication::UI::Views
     	 */
 	GtkWidget* gobj();
 	/**
-	 * Shows the ShortcutsDialog
+	 * Runs the ShortcutsDialog
 	 */
-	void show();
+	void run();
 
     private:
 	std::string m_xml;
