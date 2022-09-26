@@ -1,7 +1,5 @@
 #include "mainwindowcontroller.hpp"
-#include <chrono>
 #include <filesystem>
-#include <thread>
 
 using namespace NickvisionApplication::Controllers;
 using namespace NickvisionApplication::Models;
