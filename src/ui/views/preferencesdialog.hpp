@@ -38,15 +38,11 @@ namespace NickvisionApplication::UI::Views
 	GtkWidget* m_gobj{ nullptr };
 	GtkWidget* m_mainBox{ nullptr };
 	GtkWidget* m_headerBar{ nullptr };
-	GtkWidget* m_btnCancel{ nullptr };
-	GtkWidget* m_btnSave{ nullptr };
 	GtkWidget* m_page{ nullptr };
 	GtkWidget* m_grpUserInterface{ nullptr };
 	GtkWidget* m_rowTheme{ nullptr };
 	GtkWidget* m_grpApplication{ nullptr };
 	GtkWidget* m_rowIsFirstTimeOpen{ nullptr };
 	GtkWidget* m_switchIsFirstTimeOpen{ nullptr };
-	void onCancel();
-        void onSave();
     };
 }
