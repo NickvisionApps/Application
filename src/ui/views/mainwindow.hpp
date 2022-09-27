@@ -31,20 +31,20 @@ namespace NickvisionApplication::UI::Views
     	
     private:
     	NickvisionApplication::Controllers::MainWindowController m_controller;
-	GtkWidget* m_gobj{ nullptr };
-	GtkWidget* m_mainBox{ nullptr };
-	GtkWidget* m_headerBar{ nullptr };
-	GtkWidget* m_adwTitle{ nullptr };
-	GtkWidget* m_btnOpenFolder{ nullptr };
-	GtkWidget* m_btnCloseFolder{ nullptr };
-	GtkWidget* m_btnMenuHelp{ nullptr };
-	GtkWidget* m_toastOverlay{ nullptr };
-	GSimpleAction* m_actOpenFolder{ nullptr };
-	GSimpleAction* m_actCloseFolder{ nullptr };
-	GSimpleAction* m_actPreferences{ nullptr };
-	GSimpleAction* m_actKeyboardShortcuts{ nullptr };
-	GSimpleAction* m_actAbout{ nullptr };
-	/**
+		GtkWidget* m_gobj{ nullptr };
+		GtkWidget* m_mainBox{ nullptr };
+		GtkWidget* m_headerBar{ nullptr };
+		GtkWidget* m_adwTitle{ nullptr };
+		GtkWidget* m_btnOpenFolder{ nullptr };
+		GtkWidget* m_btnCloseFolder{ nullptr };
+		GtkWidget* m_btnMenuHelp{ nullptr };
+		GtkWidget* m_toastOverlay{ nullptr };
+		GSimpleAction* m_actOpenFolder{ nullptr };
+		GSimpleAction* m_actCloseFolder{ nullptr };
+		GSimpleAction* m_actPreferences{ nullptr };
+		GSimpleAction* m_actKeyboardShortcuts{ nullptr };
+		GSimpleAction* m_actAbout{ nullptr };
+		/**
     	 * Updates the UI with the current folder
     	 */
     	void onFolderChanged();

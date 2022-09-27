@@ -35,14 +35,14 @@ namespace NickvisionApplication::UI::Views
 
     private:
     	NickvisionApplication::Controllers::PreferencesDialogController m_controller;
-	GtkWidget* m_gobj{ nullptr };
-	GtkWidget* m_mainBox{ nullptr };
-	GtkWidget* m_headerBar{ nullptr };
-	GtkWidget* m_page{ nullptr };
-	GtkWidget* m_grpUserInterface{ nullptr };
-	GtkWidget* m_rowTheme{ nullptr };
-	GtkWidget* m_grpApplication{ nullptr };
-	GtkWidget* m_rowIsFirstTimeOpen{ nullptr };
-	GtkWidget* m_switchIsFirstTimeOpen{ nullptr };
+		GtkWidget* m_gobj{ nullptr };
+		GtkWidget* m_mainBox{ nullptr };
+		GtkWidget* m_headerBar{ nullptr };
+		GtkWidget* m_page{ nullptr };
+		GtkWidget* m_grpUserInterface{ nullptr };
+		GtkWidget* m_rowTheme{ nullptr };
+		GtkWidget* m_grpApplication{ nullptr };
+		GtkWidget* m_rowIsFirstTimeOpen{ nullptr };
+		GtkWidget* m_switchIsFirstTimeOpen{ nullptr };
     };
 }

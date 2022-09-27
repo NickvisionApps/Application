@@ -16,11 +16,11 @@ namespace NickvisionApplication::Controllers
          * @param configuration The configuration fot the application (Stored as reference)
          */
     	PreferencesDialogController(NickvisionApplication::Models::Configuration& configuration);
-	/**
-	 * Gets the theme from the configuration as an int
-	 *
-	 * @returns The theme from the configuration as an int
-	 */
+		/**
+		 * Gets the theme from the configuration as an int
+		 *
+		 * @returns The theme from the configuration as an int
+		 */
     	int getThemeAsInt() const;
     	/**
     	 * Sets the theme in the configuration
@@ -46,6 +46,6 @@ namespace NickvisionApplication::Controllers
     	void saveConfiguration() const;
 
     private:
-	NickvisionApplication::Models::Configuration& m_configuration;
+		NickvisionApplication::Models::Configuration& m_configuration;
     };
 }
