@@ -21,6 +21,7 @@ PreferencesDialog::PreferencesDialog(GtkWindow* parent, const PreferencesDialogC
     //Theme Row
     m_rowTheme = adw_combo_row_new();
     adw_preferences_row_set_title(ADW_PREFERENCES_ROW(m_rowTheme), "Theme");
+    adw_action_row_set_subtitle(ADW_ACTION_ROW(m_rowTheme), "A theme change will be applied once the dialog is closed.");
     adw_combo_row_set_model(ADW_COMBO_ROW(m_rowTheme), G_LIST_MODEL(gtk_string_list_new(new const char*[4]{ "System", "Light", "Dark", nullptr })));
     adw_preferences_group_add(ADW_PREFERENCES_GROUP(m_grpUserInterface), m_rowTheme);
     //Application Group
