@@ -25,17 +25,6 @@
             ]
         },
         {
-            "name": "curlpp",
-            "buildsystem": "cmake-ninja",
-            "sources": [
-                {
-                    "type": "git",
-                    "url": "https://github.com/jpbarrette/curlpp.git",
-                    "tag": "v0.8.1"
-                }
-            ]
-        },
-        {
             "name": "org.nickvision.application",
             "buildsystem": "meson",
             "config-opts": [
