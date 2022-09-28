@@ -107,7 +107,7 @@ namespace NickvisionApplication::Models
 		/**
 		 * Sets the issue tracker link of the application
 		 *
-		 * @param issueTracker THe new issue tracker link of the application
+		 * @param issueTracker The new issue tracker link of the application
 		 */
 		void setIssueTracker(const std::string& issueTracker);
 		/**
@@ -119,7 +119,7 @@ namespace NickvisionApplication::Models
 		/**
 		 * Sets the support url of the application
 		 *
-		 * @param supportUrl THe new support url of the application
+		 * @param supportUrl The new support url of the application
 		 */
 		void setSupportUrl(const std::string& supportUrl);
     	
