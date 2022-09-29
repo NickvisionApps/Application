@@ -4,21 +4,21 @@
 
 namespace NickvisionApplication::Models
 {
-    /**
-     * A model for the information of an application
-     */
-    class AppInfo
-    {
-    public:
-    	/**
-    	 * Constructs an AppInfo
-    	 */
-    	AppInfo();
-    	/**
-    	 * Gets the id of the application
-    	 *
-    	 * @returns The id of the application
-    	 */
+	/**
+	 * A model for the information of an application
+	 */
+	class AppInfo
+	{
+	public:
+		/**
+		 * Constructs an AppInfo
+		 */
+		AppInfo();
+		/**
+		 * Gets the id of the application
+		 *
+		 * @returns The id of the application
+		 */
 		const std::string& getId() const;
 		/**
 		 * Sets the id of the application
@@ -26,11 +26,11 @@ namespace NickvisionApplication::Models
 		 * @param id The new id of the application
 		 */
 		void setId(const std::string& id);
-    	/**
-    	 * Gets the name of the application
-    	 *
-    	 * @returns The name of the application
-    	 */
+		/**
+		 * Gets the name of the application
+		 *
+		 * @returns The name of the application
+		 */
 		const std::string& getName() const;
 		/**
 		 * Sets the name of the application
@@ -122,16 +122,16 @@ namespace NickvisionApplication::Models
 		 * @param supportUrl The new support url of the application
 		 */
 		void setSupportUrl(const std::string& supportUrl);
-    	
-    private:
-    	std::string m_id;
-    	std::string m_name;
-    	std::string m_shortName;
+
+	private:
+		std::string m_id;
+		std::string m_name;
+		std::string m_shortName;
 		std::string m_description;
 		std::string m_version;
 		std::string m_changelog;
 		std::string m_gitHubRepo;
 		std::string m_issueTracker;
 		std::string m_supportUrl;
-    };
+	};
 }
