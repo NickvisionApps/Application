@@ -57,14 +57,6 @@ MainWindow::MainWindow(GtkApplication* application, const MainWindowController& 
     adw_application_window_set_content(ADW_APPLICATION_WINDOW(m_gobj), m_mainBox);
     //Send Toast Callback
     m_controller.registerSendToastCallback([&](const std::string& message) { adw_toast_overlay_add_toast(ADW_TOAST_OVERLAY(m_toastOverlay), adw_toast_new(message.c_str())); });
-    //Send Notification Callback
-    m_controller.registerSendNotificationCallback([&](const std::string& title, const std::string& message)
-    {
-        GNotification* notification{ g_notification_new(title.c_str()) };
-        g_notification_set_body(notification, message.c_str());
-        g_application_send_notification(g_application_get_default(), title.c_str(), notification);
-        g_object_unref(notification);
-    });
     //Folder Changed Callback
     m_controller.registerFolderChangedCallback([&]() { onFolderChanged(); });
     //Open Folder Action

@@ -18,10 +18,6 @@ namespace NickvisionApplication::UI::Views
 		 */
 		ShortcutsDialog(GtkWindow* parent);
 		/**
-		 * Destroys the ShortcutsDialog
-		 */
-		~ShortcutsDialog();
-		/**
 		 * Gets the GtkWidget* representing the ShortcutsDialog
 		 *
 		 * @returns The GtkWidget* representing the ShortcutsDialog
