@@ -13,7 +13,7 @@ using namespace NickvisionApplication::UI::Views;
 MainWindow::MainWindow(GtkApplication* application, const MainWindowController& controller) : m_controller{ controller }, m_gobj{ adw_application_window_new(application) }
 {
     //Window Settings
-    gtk_window_set_default_size(GTK_WINDOW(m_gobj), 1000, 800);
+    gtk_window_set_default_size(GTK_WINDOW(m_gobj), 800, 600);
     gtk_style_context_add_class(gtk_widget_get_style_context(m_gobj), "devel");
     //Header Bar
     m_headerBar = adw_header_bar_new();
