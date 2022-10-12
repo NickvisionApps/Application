@@ -28,6 +28,12 @@ namespace NickvisionApplication::Controllers
 		 */
 		const NickvisionApplication::Models::AppInfo& getAppInfo() const;
 		/**
+		 * Gets whether or not the application version is a development version or not
+		 *
+		 * @returns True for development version, else false
+		 */
+		bool getIsDevVersion() const;
+		/**
 		 * Creates a PreferencesDialogController
 		 *
 		 * @returns A new PreferencesDialogController
@@ -81,6 +87,7 @@ namespace NickvisionApplication::Controllers
 		NickvisionApplication::Models::AppInfo& m_appInfo;
 		NickvisionApplication::Models::Configuration& m_configuration;
 		bool m_isOpened;
+		bool m_isDevVersion;
 		std::function<void(const std::string& message)> m_sendToastCallback;
 		std::string m_folderPath;
 		std::function<void()> m_folderChangedCallback;
