@@ -1,5 +1,5 @@
 # Application
-![icon](src/resources/org.nickvision.application.png)
+<img src="src/resources/org.nickvision.application.png" width="100" height="100"/>
 
  **A template for creating Nickvision applications**
 
@@ -8,6 +8,9 @@
   - System/Light/Dark theme support
 - Modern C++ codebase
 - Support for saving application settings via a json configuration
+
+# Chat
+<a href='https://matrix.to/#/#nickvision:matrix.org'><img width='140' alt='Join our room' src='https://user-images.githubusercontent.com/17648453/196094077-c896527d-af6d-4b43-a5d8-e34a00ffd8f6.png'/></a>
 
 # Screenshots
 ![MainWindow](https://user-images.githubusercontent.com/17648453/188352482-90eeeb3c-25de-4b7c-9270-c49b7692485b.png)
