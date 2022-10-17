@@ -40,5 +40,9 @@ namespace NickvisionApplication::UI::Views
 		GtkWidget* m_grpApplication{ nullptr };
 		GtkWidget* m_rowIsFirstTimeOpen{ nullptr };
 		GtkWidget* m_switchIsFirstTimeOpen{ nullptr };
+		/**
+		 * Ocurrs when the theme row is changed
+		 */
+		void onThemeChanged();
 	};
 }
