@@ -10,6 +10,12 @@
         "--device=dri",
         "--share=ipc"
     ],
+    "cleanup":[
+    	"/include",
+    	"/lib/debug",
+	    "/lib/pkgconfig",
+    	"*.a"
+    ],
     "modules" : [
         {
             "name": "jsoncpp",
