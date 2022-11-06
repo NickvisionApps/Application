@@ -5,6 +5,7 @@
 #include "preferencesdialog.hpp"
 #include "shortcutsdialog.hpp"
 #include "../controls/progressdialog.hpp"
+#include "../../helpers/translation.hpp"
 
 using namespace NickvisionApplication::Controllers;
 using namespace NickvisionApplication::UI::Controls;
@@ -26,27 +27,27 @@ MainWindow::MainWindow(GtkApplication* application, const MainWindowController& 
     m_btnOpenFolder = gtk_button_new();
     GtkWidget* btnOpenFolderContent{ adw_button_content_new() };
     adw_button_content_set_icon_name(ADW_BUTTON_CONTENT(btnOpenFolderContent), "folder-open-symbolic");
-    adw_button_content_set_label(ADW_BUTTON_CONTENT(btnOpenFolderContent), "Open");
+    adw_button_content_set_label(ADW_BUTTON_CONTENT(btnOpenFolderContent), _("Open"));
     gtk_button_set_child(GTK_BUTTON(m_btnOpenFolder), btnOpenFolderContent);
-    gtk_widget_set_tooltip_text(m_btnOpenFolder, "Open Folder (Ctrl+O)");
+    gtk_widget_set_tooltip_text(m_btnOpenFolder, _("Open Folder (Ctrl+O)"));
     gtk_actionable_set_action_name(GTK_ACTIONABLE(m_btnOpenFolder), "win.openFolder");
     adw_header_bar_pack_start(ADW_HEADER_BAR(m_headerBar), m_btnOpenFolder);
     //Close Folder Button
     m_btnCloseFolder = gtk_button_new();
     gtk_button_set_icon_name(GTK_BUTTON(m_btnCloseFolder), "window-close-symbolic");
-    gtk_widget_set_tooltip_text(m_btnCloseFolder, "Close Folder (Ctrl+W)");
+    gtk_widget_set_tooltip_text(m_btnCloseFolder, _("Close Folder (Ctrl+W)"));
     gtk_widget_set_visible(m_btnCloseFolder, false);
     gtk_actionable_set_action_name(GTK_ACTIONABLE(m_btnCloseFolder), "win.closeFolder");
     adw_header_bar_pack_start(ADW_HEADER_BAR(m_headerBar), m_btnCloseFolder);
     //Menu Help Button
     m_btnMenuHelp = gtk_menu_button_new();
     GMenu* menuHelp{ g_menu_new() };
-    g_menu_append(menuHelp, "Preferences", "win.preferences");
-    g_menu_append(menuHelp, "Keyboard Shortcuts", "win.keyboardShortcuts");
-    g_menu_append(menuHelp, std::string("About " + m_controller.getAppInfo().getShortName()).c_str(), "win.about");
+    g_menu_append(menuHelp, _("Preferences"), "win.preferences");
+    g_menu_append(menuHelp, _("Keyboard Shortcuts"), "win.keyboardShortcuts");
+    g_menu_append(menuHelp, std::string(_("About ") + m_controller.getAppInfo().getShortName()).c_str(), "win.about");
     gtk_menu_button_set_direction(GTK_MENU_BUTTON(m_btnMenuHelp), GTK_ARROW_NONE);
     gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(m_btnMenuHelp), G_MENU_MODEL(menuHelp));
-    gtk_widget_set_tooltip_text(m_btnMenuHelp, "Main Menu");
+    gtk_widget_set_tooltip_text(m_btnMenuHelp, _("Main Menu"));
     adw_header_bar_pack_end(ADW_HEADER_BAR(m_headerBar), m_btnMenuHelp);
     g_object_unref(menuHelp);
     //Toast Overlay
@@ -97,13 +98,13 @@ GtkWidget* MainWindow::gobj()
 void MainWindow::start()
 {
     gtk_widget_show(m_gobj);
-    ProgressDialog progressDialog{ GTK_WINDOW(m_gobj), "Starting application...", [&]() { m_controller.startup(); } };
+    ProgressDialog progressDialog{ GTK_WINDOW(m_gobj), _("Starting application..."), [&]() { m_controller.startup(); } };
     progressDialog.run();
 }
 
 void MainWindow::onFolderChanged()
 {
-    ProgressDialog progressDialog{ GTK_WINDOW(m_gobj), "Folder operation...", [&]() { std::this_thread::sleep_for (std::chrono::seconds(1)); } };
+    ProgressDialog progressDialog{ GTK_WINDOW(m_gobj), _("Folder operation..."), [&]() { std::this_thread::sleep_for (std::chrono::seconds(1)); } };
     progressDialog.run();
     adw_window_title_set_subtitle(ADW_WINDOW_TITLE(m_adwTitle), m_controller.getFolderPath().c_str());
     gtk_widget_set_visible(m_btnCloseFolder, m_controller.getIsFolderValid());
@@ -111,7 +112,7 @@ void MainWindow::onFolderChanged()
 
 void MainWindow::onOpenFolder()
 {
-    GtkFileChooserNative* openFolderDialog{ gtk_file_chooser_native_new("Open Folder", GTK_WINDOW(m_gobj), GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER, "_Open", "_Cancel") };
+    GtkFileChooserNative* openFolderDialog{ gtk_file_chooser_native_new(_("Open Folder"), GTK_WINDOW(m_gobj), GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER, _("_Open"), _("_Cancel")) };
     gtk_native_dialog_set_modal(GTK_NATIVE_DIALOG(openFolderDialog), true);
     g_signal_connect(openFolderDialog, "response", G_CALLBACK((void (*)(GtkNativeDialog*, gint, gpointer))([](GtkNativeDialog* dialog, gint response_id, gpointer data)
     {

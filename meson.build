@@ -8,6 +8,7 @@ adwaita = dependency('libadwaita-1', version: '>= 1.2.0')
 jsoncpp = dependency('jsoncpp')
 
 subdir('src')
+subdir('po')
 
 executable('org.nickvision.application', sources, dependencies: [threads, adwaita, jsoncpp], install: true)
 install_data(resources, install_dir: 'share/icons/hicolor/scalable/apps')

@@ -1,5 +1,6 @@
 #include "application.hpp"
 #include "../controllers/mainwindowcontroller.hpp"
+#include "../helpers/translation.hpp"
 
 using namespace NickvisionApplication::Controllers;
 using namespace NickvisionApplication::Models;
@@ -12,8 +13,8 @@ Application::Application(const std::string& id, GApplicationFlags flags) : m_adw
     m_appInfo.setId(id);
     m_appInfo.setName("NickvisionApplication");
     m_appInfo.setShortName("Application");
-    m_appInfo.setDescription("A template for creating Nickvision applications.");
-    m_appInfo.setVersion("2022.10.0");
+    m_appInfo.setDescription(_("A template for creating Nickvision applications."));
+    m_appInfo.setVersion("2022.11.0-next");
     m_appInfo.setChangelog("<ul><li>Initial Release</li></ul>");
     m_appInfo.setGitHubRepo("https://github.com/nlogozzo/NickvisionApplication");
     m_appInfo.setIssueTracker("https://github.com/nlogozzo/NickvisionApplication/issues/new");
