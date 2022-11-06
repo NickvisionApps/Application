@@ -5,9 +5,11 @@
 #include "preferencesdialog.hpp"
 #include "shortcutsdialog.hpp"
 #include "../controls/progressdialog.hpp"
+#include "../../helpers/stringhelpers.hpp"
 #include "../../helpers/translation.hpp"
 
 using namespace NickvisionApplication::Controllers;
+using namespace NickvisionApplication::Helpers;
 using namespace NickvisionApplication::UI::Controls;
 using namespace NickvisionApplication::UI::Views;
 
@@ -44,7 +46,7 @@ MainWindow::MainWindow(GtkApplication* application, const MainWindowController& 
     GMenu* menuHelp{ g_menu_new() };
     g_menu_append(menuHelp, _("Preferences"), "win.preferences");
     g_menu_append(menuHelp, _("Keyboard Shortcuts"), "win.keyboardShortcuts");
-    g_menu_append(menuHelp, std::string(_("About ") + m_controller.getAppInfo().getShortName()).c_str(), "win.about");
+    g_menu_append(menuHelp, std::string(StringHelpers::format(_("About %s"), m_controller.getAppInfo().getShortName().c_str())).c_str(), "win.about");
     gtk_menu_button_set_direction(GTK_MENU_BUTTON(m_btnMenuHelp), GTK_ARROW_NONE);
     gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(m_btnMenuHelp), G_MENU_MODEL(menuHelp));
     gtk_widget_set_tooltip_text(m_btnMenuHelp, _("Main Menu"));
