@@ -19,7 +19,7 @@ MainWindow::MainWindow(GtkApplication* application, const MainWindowController& 
     gtk_window_set_default_size(GTK_WINDOW(m_gobj), 900, 700);
     if(m_controller.getIsDevVersion())
     {
-        gtk_style_context_add_class(gtk_widget_get_style_context(m_gobj), "devel");
+        gtk_widget_add_css_class(m_gobj, "devel");
     }
     //Header Bar
     m_headerBar = adw_header_bar_new();
