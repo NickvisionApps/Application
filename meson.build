@@ -14,4 +14,5 @@ executable('org.nickvision.application', sources, dependencies: [threads, adwait
 install_data(resources, install_dir: 'share/icons/hicolor/scalable/apps')
 install_data('org.nickvision.application.desktop', install_dir: 'share/applications')
 install_data('org.nickvision.application.metainfo.xml', install_dir: 'share/metainfo')
+install_data('po/CREDITS.json', install_dir: 'share/org.nickvision.application')
 gnome.post_install(gtk_update_icon_cache: true, update_desktop_database: true)
