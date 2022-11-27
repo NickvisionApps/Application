@@ -49,7 +49,7 @@ Put your translated file in `NickvisionApplication/po` directory in format `<LAN
 
 Put the language code of your language in `NickvisionApplication/po/LINGUAS` (this file, as a convention, should remain in alphabetical order.)
 
-Add information in `NickvisionMoney/po/CREDITS.json` so your name will appear in the app's About dialog:
+Add information in `NickvisionApplication/po/CREDITS.json` so your name will appear in the app's About dialog:
 ```
 "Jango Fett": {
     "lang": "Mandalorian",
@@ -66,7 +66,7 @@ If you made multiple translations, use an array to list all languages:
 
 To test your translation in GNOME Builder, press Ctrl+Alt+T to open a terminal inside the app's environment and then run:
 ```
-LC_ALL=<LOCALE> /app/bin/org.nickvision.money
+LC_ALL=<LOCALE> /app/bin/org.nickvision.application
 ```
 where `<LOCALE>` is your locale (e.g. `it_IT.UTF-8`.)
 
