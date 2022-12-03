@@ -11,13 +11,19 @@ public class NotificationSentEventArgs : EventArgs
     /// The message of the notification
     /// </summary>
     public string Message { get; set; }
+    /// <summary>
+    /// The severity of the notification
+    /// </summary>
+    public NotificationSeverity Severity { get; set; }
 
     /// <summary>
     /// Constructs a NotificationSentEventArgs
     /// </summary>
     /// <param name="message">The message of the notification</param>
-    public NotificationSentEventArgs(string message = "")
+    /// <param name="severity">The severity of the notification</param>
+    public NotificationSentEventArgs(string message, NotificationSeverity severity)
     {
         Message = message;
+        Severity = severity;
     }
 }

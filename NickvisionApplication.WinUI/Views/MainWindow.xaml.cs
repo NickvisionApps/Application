@@ -3,10 +3,15 @@ using Microsoft.UI.Composition;
 using Microsoft.UI.Composition.SystemBackdrops;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
+using NickvisionApplication.Shared.Controllers;
+using NickvisionApplication.Shared.Events;
 using NickvisionApplication.Shared.Models;
+using NickvisionApplication.WinUI.Controls;
 using System;
 using Vanara.PInvoke;
+using Windows.Storage.Pickers;
 using WinRT;
 using WinRT.Interop;
 
@@ -17,6 +22,7 @@ namespace NickvisionApplication.WinUI.Views;
 /// </summary>
 public sealed partial class MainWindow : Window
 {
+    private readonly MainWindowController _controller;
     private readonly IntPtr _hwnd;
     private readonly AppWindow _appWindow;
     private bool _isActived;
@@ -27,17 +33,19 @@ public sealed partial class MainWindow : Window
     /// <summary>
     /// Constructs a MainWindow
     /// </summary>
-    public MainWindow()
+    /// <param name="controller">The MainWindowController</param>
+    public MainWindow(MainWindowController controller)
     {
         InitializeComponent();
         //Initialize Vars
+        _controller = controller;
         _hwnd = WindowNative.GetWindowHandle(this);
         _appWindow = AppWindow.GetFromWindowId(Win32Interop.GetWindowIdFromWindow(_hwnd));
         _isActived = true;
         //Register Events
         _appWindow.Closing += Window_Closing;
         //Set TitleBar
-        TitleBarTitle.Text = AppInfo.Current.ShortName;
+        TitleBarTitle.Text = _controller.AppInfo.ShortName;
         _appWindow.Title = TitleBarTitle.Text;
         if (AppWindowTitleBar.IsCustomizationSupported())
         {
@@ -50,7 +58,7 @@ public sealed partial class MainWindow : Window
         else
         {
             TitleBar.Visibility = Visibility.Collapsed;
-            NavView.Margin = new Thickness(0, 0, 0, 0);
+            MainGrid.Margin = new Thickness(0, 0, 0, 0);
         }
         //Setup Backdrop
         WindowsSystemDispatcherQueueHelper.EnsureWindowsSystemDispatcherQueueController();
@@ -79,6 +87,8 @@ public sealed partial class MainWindow : Window
         }
         //Maximize
         User32.ShowWindow(_hwnd, ShowWindowCommand.SW_SHOWMAXIMIZED);
+        //Controller Events
+        _controller.NotificationSent += NotificationSent;
     }
 
     /// <summary>
@@ -131,5 +141,70 @@ public sealed partial class MainWindow : Window
             ElementTheme.Dark => SystemBackdropTheme.Dark,
             _ => SystemBackdropTheme.Default
         };
+    }
+
+    /// <summary>
+    /// Occurs when a notification is sent from the controller
+    /// </summary>
+    /// <param name="sender">object?</param>
+    /// <param name="e">NotificationSentEventArgs</param>
+    private void NotificationSent(object? sender, NotificationSentEventArgs e)
+    {
+        InfoBar.Message = e.Message;
+        InfoBar.Severity = e.Severity switch
+        {
+            NotificationSeverity.Informational => InfoBarSeverity.Informational,
+            NotificationSeverity.Success => InfoBarSeverity.Success,
+            NotificationSeverity.Warning => InfoBarSeverity.Warning,
+            NotificationSeverity.Error => InfoBarSeverity.Error,
+            _ => InfoBarSeverity.Informational
+        };
+        InfoBar.IsOpen = true;
+    }
+
+    /// <summary>
+    /// Occurs when the open folder button is clicked
+    /// </summary>
+    /// <param name="sender">object</param>
+    /// <param name="e">RoutedEventArgs</param>
+    private async void OpenFolder(object sender, RoutedEventArgs e)
+    {
+        var folderPicker = new FolderPicker();
+        InitializeWithWindow(folderPicker);
+        folderPicker.FileTypeFilter.Add("*");
+        var file = await folderPicker.PickSingleFolderAsync();
+        if(file != null && _controller.OpenFolder(file.Path))
+        {
+            TitleBarTitle.Text = $"{_controller.FolderPath} - {_controller.AppInfo.ShortName}";
+            _appWindow.Title = TitleBarTitle.Text;
+            BtnCloseFolder.Visibility = Visibility.Visible;
+        }
+    }
+
+    /// <summary>
+    /// Occurs when the close folder button is clicked
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void CloseFolder(object sender, RoutedEventArgs e)
+    {
+        _controller.CloseFolder();
+        TitleBarTitle.Text = _controller.AppInfo.ShortName;
+        _appWindow.Title = TitleBarTitle.Text;
+        BtnCloseFolder.Visibility = Visibility.Collapsed;
+    }
+
+    /// <summary>
+    /// Occurs when the about menu item is clicked
+    /// </summary>
+    /// <param name="sender">object</param>
+    /// <param name="e">RoutedEventArgs</param>
+    private async void About(object sender, RoutedEventArgs e)
+    {
+        var aboutDialog = new AboutDialog(_controller.AppInfo)
+        {
+            XamlRoot = Content.XamlRoot
+        };
+        await aboutDialog.ShowAsync();
     }
 }

@@ -38,7 +38,7 @@ public class Configuration
     /// <summary>
     /// Gets the singleton object
     /// </summary>
-    public static Configuration Current
+    internal static Configuration Current
     {
         get
         {

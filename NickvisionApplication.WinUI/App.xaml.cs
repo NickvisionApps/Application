@@ -1,5 +1,5 @@
 ﻿using Microsoft.UI.Xaml;
-using NickvisionApplication.Shared.Models;
+using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.WinUI.Views;
 using System;
 
@@ -12,21 +12,21 @@ public partial class App : Application
     public App()
     {
         InitializeComponent();
-        //Set AppInfo
-        AppInfo.Current.ID = "org.nickvision.application";
-        AppInfo.Current.Name = "NickvisionApplication";
-        AppInfo.Current.ShortName = "Application";
-        AppInfo.Current.Description = "A template for creating Nickvision applications.";
-        AppInfo.Current.Version = "2022.12.0-next";
-        AppInfo.Current.Changelog = "- Initial Release";
-        AppInfo.Current.GitHubRepo = new Uri("https://github.com/nlogozzo/NickvisionApplication");
-        AppInfo.Current.IssueTracker = new Uri("https://github.com/nlogozzo/NickvisionApplication/issues/new");
-        AppInfo.Current.SupportUrl = new Uri("https://github.com/nlogozzo/NickvisionApplication/discussions");
     }
 
     protected override void OnLaunched(LaunchActivatedEventArgs args)
     {
-        _mainWindow = new MainWindow();
+        var controller = new MainWindowController();
+        controller.AppInfo.ID = "org.nickvision.application";
+        controller.AppInfo.Name = "NickvisionApplication";
+        controller.AppInfo.ShortName = "Application";
+        controller.AppInfo.Description = "A template for creating Nickvision applications.";
+        controller.AppInfo.Version = "2022.12.0-next";
+        controller.AppInfo.Changelog = "- Initial Release";
+        controller.AppInfo.GitHubRepo = new Uri("https://github.com/nlogozzo/NickvisionApplication");
+        controller.AppInfo.IssueTracker = new Uri("https://github.com/nlogozzo/NickvisionApplication/issues/new");
+        controller.AppInfo.SupportUrl = new Uri("https://github.com/nlogozzo/NickvisionApplication/discussions");
+        _mainWindow = new MainWindow(controller);
         _mainWindow.Activate();
     }
 }

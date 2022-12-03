@@ -13,7 +13,7 @@ public class AppInfo
     /// <summary>
     /// Gets the singleton object
     /// </summary>
-    public static AppInfo Current => _instance ??= new AppInfo();
+    internal static AppInfo Current => _instance ??= new AppInfo();
 
     /// <summary>
     /// The id of the application
@@ -59,7 +59,7 @@ public class AppInfo
     /// <summary>
     /// Constructs an AppInfo
     /// </summary>
-    private AppInfo()
+    public AppInfo()
     {
         ID = "";
         Name = "";

@@ -20,8 +20,73 @@
             <TextBlock Name="TitleBarTitle" Grid.Column="1" VerticalAlignment="Center" Margin="28,0,0,0" Style="{StaticResource CaptionTextBlockStyle}"/>
         </Grid>
 
-        <NavigationView Name="NavView" Margin="0,36,0,0">
-            
-        </NavigationView>
+        <Grid Name="MainGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,34,0,0">
+            <Grid Name="ToolBar" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="6,0,6,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="40"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Name="BtnOpenFolder" Grid.Column="0" Width="40" Style="{ThemeResource AlternateCloseButtonStyle}" ToolTipService.Placement="Bottom" ToolTipService.ToolTip="Open Folder (Ctrl+O)" Click="OpenFolder">
+                    <Button.Content>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" FontSize="16" Glyph="&#xe838;"/>
+                    </Button.Content>
+                    
+                    <Button.KeyboardAccelerators>
+                        <KeyboardAccelerator Modifiers="Control" Key="O"/>
+                    </Button.KeyboardAccelerators>
+                </Button>
+
+                <Button Name="BtnCloseFolder" Grid.Column="1" Width="40" Visibility="Collapsed" Style="{ThemeResource AlternateCloseButtonStyle}" ToolTipService.Placement="Bottom" ToolTipService.ToolTip="Close Folder (Ctrl+W)" Click="CloseFolder">
+                    <Button.Content>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" FontSize="16" Glyph="&#xe8f6;"/>
+                    </Button.Content>
+
+                    <Button.KeyboardAccelerators>
+                        <KeyboardAccelerator Modifiers="Control" Key="W"/>
+                    </Button.KeyboardAccelerators>
+                </Button>
+
+                <Button Name="BtnHelp" Grid.Column="3" Width="40" Style="{ThemeResource AlternateCloseButtonStyle}" ToolTipService.Placement="Bottom" ToolTipService.ToolTip="Menu">
+                    <Button.Content>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" FontSize="16" Glyph="&#xe712;"/>
+                    </Button.Content>
+
+                    <Button.Flyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Name="MenuSettings" Text="Settings">
+                                <MenuFlyoutItem.Icon>
+                                    <SymbolIcon Symbol="Setting"/>
+                                </MenuFlyoutItem.Icon>
+
+                                <MenuFlyoutItem.KeyboardAccelerators>
+                                    <KeyboardAccelerator Modifiers="Control" Key="I"/>
+                                </MenuFlyoutItem.KeyboardAccelerators>
+                            </MenuFlyoutItem>
+
+                            <MenuFlyoutSeparator/>
+
+                            <MenuFlyoutItem Name="MenuAbout" Text="About" Click="About">
+                                <MenuFlyoutItem.Icon>
+                                    <SymbolIcon Symbol="Help"/>
+                                </MenuFlyoutItem.Icon>
+
+                                <MenuFlyoutItem.KeyboardAccelerators>
+                                    <KeyboardAccelerator Modifiers="None" Key="F1"/>
+                                </MenuFlyoutItem.KeyboardAccelerators>
+                            </MenuFlyoutItem>
+                        </MenuFlyout>
+                    </Button.Flyout>
+                </Button>
+            </Grid>
+
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,40,0,0" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
+                
+            </Grid>
+        </Grid>
+
+        <InfoBar Name="InfoBar" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="20,0,20,0"/>
     </Grid>
 </Window>

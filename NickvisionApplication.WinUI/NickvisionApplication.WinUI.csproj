@@ -13,8 +13,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <Content Remove="Assets\org.nickvision.application.ico" />
-    <Content Remove="Assets\org.nickvision.application.png" />
+    <None Remove="Controls\AboutDialog.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -45,12 +44,13 @@
     <ProjectReference Include="..\NickvisionApplication.Shared\NickvisionApplication.Shared.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\org.nickvision.application.ico">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Assets\org.nickvision.application.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
+	  <Resource Include="Assets\org.nickvision.application.ico" />
+	  <Resource Include="Assets\org.nickvision.application.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\AboutDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <!-- 

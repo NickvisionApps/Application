@@ -13,6 +13,10 @@ public class MainWindowController
     private bool _isOpened;
 
     /// <summary>
+    /// Gets the AppInfo object
+    /// </summary>
+    public AppInfo AppInfo => AppInfo.Current;
+    /// <summary>
     /// Whether or not the version is a development version or not
     /// </summary>
     public bool IsDevVersion => AppInfo.Current.Version.IndexOf('-') != -1;
@@ -57,10 +61,10 @@ public class MainWindowController
     /// <returns>True if folder opened, else false</returns>
     public bool OpenFolder(string folderPath)
     {
-        if (Path.Exists(FolderPath))
+        if(Directory.Exists(folderPath))
         {
             FolderPath = folderPath;
-            NotificationSent?.Invoke(this, new NotificationSentEventArgs($"Folder Opened: {FolderPath}"));
+            NotificationSent?.Invoke(this, new NotificationSentEventArgs($"Folder Opened: {FolderPath}", NotificationSeverity.Success));
             FolderChanged?.Invoke(this, EventArgs.Empty);
             return true;
         }
@@ -73,7 +77,7 @@ public class MainWindowController
     public void CloseFolder()
     {
         FolderPath = "No Folder Opened";
-        NotificationSent?.Invoke(this, new NotificationSentEventArgs("Folder closed."));
+        NotificationSent?.Invoke(this, new NotificationSentEventArgs("Folder closed.", NotificationSeverity.Warning));
         FolderChanged?.Invoke(this, EventArgs.Empty);
     }
 }
