@@ -7,8 +7,6 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
 using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.Shared.Events;
-using NickvisionApplication.Shared.Models;
-using NickvisionApplication.WinUI.Controls;
 using System;
 using Vanara.PInvoke;
 using Windows.Storage.Pickers;
@@ -44,6 +42,7 @@ public sealed partial class MainWindow : Window
         _isActived = true;
         //Register Events
         _appWindow.Closing += Window_Closing;
+        _controller.NotificationSent += NotificationSent;
         //Set TitleBar
         TitleBarTitle.Text = _controller.AppInfo.ShortName;
         _appWindow.Title = TitleBarTitle.Text;
@@ -87,8 +86,6 @@ public sealed partial class MainWindow : Window
         }
         //Maximize
         User32.ShowWindow(_hwnd, ShowWindowCommand.SW_SHOWMAXIMIZED);
-        //Controller Events
-        _controller.NotificationSent += NotificationSent;
     }
 
     /// <summary>
@@ -163,7 +160,7 @@ public sealed partial class MainWindow : Window
     }
 
     /// <summary>
-    /// Occurs when the open folder button is clicked
+    /// Occurs when the open menu item is clicked
     /// </summary>
     /// <param name="sender">object</param>
     /// <param name="e">RoutedEventArgs</param>
@@ -175,23 +172,38 @@ public sealed partial class MainWindow : Window
         var file = await folderPicker.PickSingleFolderAsync();
         if(file != null && _controller.OpenFolder(file.Path))
         {
-            TitleBarTitle.Text = $"{_controller.FolderPath} - {_controller.AppInfo.ShortName}";
-            _appWindow.Title = TitleBarTitle.Text;
-            BtnCloseFolder.Visibility = Visibility.Visible;
+            MenuCloseFolder.IsEnabled = true;
+            LblStatus.Text = _controller.FolderPath;
         }
     }
 
     /// <summary>
-    /// Occurs when the close folder button is clicked
+    /// Occurs when the close menu item is clicked
     /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
+    /// <param name="sender">object</param>
+    /// <param name="e">RoutedEventArgs</param>
     private void CloseFolder(object sender, RoutedEventArgs e)
     {
         _controller.CloseFolder();
-        TitleBarTitle.Text = _controller.AppInfo.ShortName;
-        _appWindow.Title = TitleBarTitle.Text;
-        BtnCloseFolder.Visibility = Visibility.Collapsed;
+        MenuCloseFolder.IsEnabled = false;
+        LblStatus.Text = "Ready";
+    }
+
+    /// <summary>
+    /// Occurs when the exit menu item is clicked
+    /// </summary>
+    /// <param name="sender">object</param>
+    /// <param name="e">RoutedEventArgs</param>
+    private void Exit(object sender, RoutedEventArgs e) => Close();
+
+    /// <summary>
+    /// Occurs when the settings menu item is clicked
+    /// </summary>
+    /// <param name="sender">object</param>
+    /// <param name="e">RoutedEventArgs</param>
+    private void Settings(object sender, RoutedEventArgs e)
+    {
+
     }
 
     /// <summary>
@@ -199,12 +211,8 @@ public sealed partial class MainWindow : Window
     /// </summary>
     /// <param name="sender">object</param>
     /// <param name="e">RoutedEventArgs</param>
-    private async void About(object sender, RoutedEventArgs e)
+    private void About(object sender, RoutedEventArgs e)
     {
-        var aboutDialog = new AboutDialog(_controller.AppInfo)
-        {
-            XamlRoot = Content.XamlRoot
-        };
-        await aboutDialog.ShowAsync();
+        
     }
 }

@@ -12,9 +12,6 @@
     <EnableMsixTooling>true</EnableMsixTooling>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-  <ItemGroup>
-    <None Remove="Controls\AboutDialog.xaml" />
-  </ItemGroup>
 
   <ItemGroup>
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -48,9 +45,7 @@
 	  <Resource Include="Assets\org.nickvision.application.png" />
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Controls\AboutDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <Folder Include="Controls\" />
   </ItemGroup>
 
   <!-- 

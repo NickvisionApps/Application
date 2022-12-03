@@ -21,69 +21,80 @@
         </Grid>
 
         <Grid Name="MainGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,34,0,0">
-            <Grid Name="ToolBar" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="6,0,6,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="40"/>
-                    <ColumnDefinition Width="40"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="40"/>
-                </Grid.ColumnDefinitions>
+            <MenuBar Name="MenuBar" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <MenuBarItem Name="MenuFile" Title="File">
+                    <MenuFlyoutItem Name="MenuOpenFolder" Text="Open Folder" Click="OpenFolder">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe838;"/>
+                        </MenuFlyoutItem.Icon>
+                        
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                            <KeyboardAccelerator Modifiers="Control" Key="O"/>
+                        </MenuFlyoutItem.KeyboardAccelerators>
+                    </MenuFlyoutItem>
 
-                <Button Name="BtnOpenFolder" Grid.Column="0" Width="40" Style="{ThemeResource AlternateCloseButtonStyle}" ToolTipService.Placement="Bottom" ToolTipService.ToolTip="Open Folder (Ctrl+O)" Click="OpenFolder">
-                    <Button.Content>
-                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" FontSize="16" Glyph="&#xe838;"/>
-                    </Button.Content>
-                    
-                    <Button.KeyboardAccelerators>
-                        <KeyboardAccelerator Modifiers="Control" Key="O"/>
-                    </Button.KeyboardAccelerators>
-                </Button>
+                    <MenuFlyoutItem Name="MenuCloseFolder" Text="Close Folder" IsEnabled="False" Click="CloseFolder">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe8f6;"/>
+                        </MenuFlyoutItem.Icon>
+                        
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                            <KeyboardAccelerator Modifiers="Control" Key="W"/>
+                        </MenuFlyoutItem.KeyboardAccelerators>
+                    </MenuFlyoutItem>
 
-                <Button Name="BtnCloseFolder" Grid.Column="1" Width="40" Visibility="Collapsed" Style="{ThemeResource AlternateCloseButtonStyle}" ToolTipService.Placement="Bottom" ToolTipService.ToolTip="Close Folder (Ctrl+W)" Click="CloseFolder">
-                    <Button.Content>
-                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" FontSize="16" Glyph="&#xe8f6;"/>
-                    </Button.Content>
+                    <MenuFlyoutSeparator/>
 
-                    <Button.KeyboardAccelerators>
-                        <KeyboardAccelerator Modifiers="Control" Key="W"/>
-                    </Button.KeyboardAccelerators>
-                </Button>
+                    <MenuFlyoutItem Name="MenuExit" Text="Exit" Click="Exit">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe711;"/>
+                        </MenuFlyoutItem.Icon>
+                        
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                            <KeyboardAccelerator Modifiers="Menu" Key="F4"/>
+                        </MenuFlyoutItem.KeyboardAccelerators>
+                    </MenuFlyoutItem>
+                </MenuBarItem>
 
-                <Button Name="BtnHelp" Grid.Column="3" Width="40" Style="{ThemeResource AlternateCloseButtonStyle}" ToolTipService.Placement="Bottom" ToolTipService.ToolTip="Menu">
-                    <Button.Content>
-                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" FontSize="16" Glyph="&#xe712;"/>
-                    </Button.Content>
+                <MenuBarItem Name="MenuEdit" Title="Edit">
+                    <MenuFlyoutItem Name="MenuSetting" Text="Settings" Click="Settings">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe713;"/>
+                        </MenuFlyoutItem.Icon>
+                        
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                            <KeyboardAccelerator Modifiers="Control" Key="I"/>
+                        </MenuFlyoutItem.KeyboardAccelerators>
+                    </MenuFlyoutItem>
+                </MenuBarItem>
 
-                    <Button.Flyout>
-                        <MenuFlyout>
-                            <MenuFlyoutItem Name="MenuSettings" Text="Settings">
-                                <MenuFlyoutItem.Icon>
-                                    <SymbolIcon Symbol="Setting"/>
-                                </MenuFlyoutItem.Icon>
+                <MenuBarItem Name="MenuHelp" Title="Help">
+                    <MenuFlyoutItem Name="MenuAbout" Text="About" Click="About">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe897;"/>
+                        </MenuFlyoutItem.Icon>
+                        
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                            <KeyboardAccelerator Modifiers="None" Key="F1"/>
+                        </MenuFlyoutItem.KeyboardAccelerators>
+                    </MenuFlyoutItem>
+                </MenuBarItem>
+            </MenuBar>
 
-                                <MenuFlyoutItem.KeyboardAccelerators>
-                                    <KeyboardAccelerator Modifiers="Control" Key="I"/>
-                                </MenuFlyoutItem.KeyboardAccelerators>
-                            </MenuFlyoutItem>
+            <Border HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="6,40,6,0" CornerRadius="6" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
+                <CommandBar HorizontalAlignment="Left" DefaultLabelPosition="Right">
+                    <CommandBar.PrimaryCommands>
+                        <AppBarButton Label="Open" Click="OpenFolder">
+                            <AppBarButton.Icon>
+                                <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe838;"/>
+                            </AppBarButton.Icon>
+                        </AppBarButton>
+                    </CommandBar.PrimaryCommands>
+                </CommandBar>
+            </Border>
 
-                            <MenuFlyoutSeparator/>
-
-                            <MenuFlyoutItem Name="MenuAbout" Text="About" Click="About">
-                                <MenuFlyoutItem.Icon>
-                                    <SymbolIcon Symbol="Help"/>
-                                </MenuFlyoutItem.Icon>
-
-                                <MenuFlyoutItem.KeyboardAccelerators>
-                                    <KeyboardAccelerator Modifiers="None" Key="F1"/>
-                                </MenuFlyoutItem.KeyboardAccelerators>
-                            </MenuFlyoutItem>
-                        </MenuFlyout>
-                    </Button.Flyout>
-                </Button>
-            </Grid>
-
-            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,40,0,0" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
-                
+            <Grid Name="StatusBar" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="36" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
+                <TextBlock Name="LblStatus" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="6,0,0,0" Style="{ThemeResource CaptionTextBlockStyle}" Text="Ready"/>
             </Grid>
         </Grid>
 
