@@ -9,7 +9,9 @@ using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.Shared.Events;
 using System;
 using Vanara.PInvoke;
+using Windows.Graphics;
 using Windows.Storage.Pickers;
+using Windows.System;
 using WinRT;
 using WinRT.Interop;
 
@@ -77,7 +79,8 @@ public sealed partial class MainWindow : Window
             _micaController.AddSystemBackdropTarget(this.As<ICompositionSupportsSystemBackdrop>());
             _micaController.SetSystemBackdropConfiguration(_backdropConfiguration);
         }
-        //Maximize
+        //Window Sizing
+        _appWindow.Resize(new SizeInt32(800, 600));
         User32.ShowWindow(_hwnd, ShowWindowCommand.SW_SHOWMAXIMIZED);
     }
 
@@ -199,12 +202,52 @@ public sealed partial class MainWindow : Window
     }
 
     /// <summary>
+    /// Occurs when the changelog menu item is clicked
+    /// </summary>
+    /// <param name="sender">object</param>
+    /// <param name="e">RoutedEventArgs</param>
+    private async void Changelog(object sender, RoutedEventArgs e)
+    {
+        var changelogDialog = new ContentDialog()
+        {
+            Title = "What's New?",
+            Content = _controller.AppInfo.Changelog,
+            CloseButtonText = "OK",
+            DefaultButton = ContentDialogButton.Close,
+            XamlRoot = Content.XamlRoot
+        };
+        await changelogDialog.ShowAsync();
+    }
+
+    /// <summary>
+    /// Occurs when the github repo menu item is clicked
+    /// </summary>
+    /// <param name="sender">object</param>
+    /// <param name="e">RoutedEventArgs</param>
+    private async void GitHubRepo(object sender, RoutedEventArgs e) => await Launcher.LaunchUriAsync(_controller.AppInfo.GitHubRepo);
+
+    /// <summary>
+    /// Occurs when the report a bug menu item is clicked
+    /// </summary>
+    /// <param name="sender">object</param>
+    /// <param name="e">RoutedEventArgs</param>
+    private async void ReportABug(object sender, RoutedEventArgs e) => await Launcher.LaunchUriAsync(_controller.AppInfo.IssueTracker);
+
+    /// <summary>
     /// Occurs when the about menu item is clicked
     /// </summary>
     /// <param name="sender">object</param>
     /// <param name="e">RoutedEventArgs</param>
-    private void About(object sender, RoutedEventArgs e)
+    private async void About(object sender, RoutedEventArgs e)
     {
-        
+        var aboutDialog = new ContentDialog()
+        {
+            Title = $"About {_controller.AppInfo.ShortName}",
+            Content = $"{_controller.AppInfo.Name}\n{_controller.AppInfo.Description}\n\nVersion: {_controller.AppInfo.Version}\n\nCopyright (C) 2021-2022\nAll rights reserved.\nNicholas Logozzo\nNickvision",
+            CloseButtonText = "OK",
+            DefaultButton = ContentDialogButton.Close,
+            XamlRoot = Content.XamlRoot
+        };
+        await aboutDialog.ShowAsync();
     }
 }

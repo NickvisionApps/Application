@@ -8,12 +8,10 @@ namespace NickvisionApplication.Shared.Models;
 /// </summary>
 public class AppInfo
 {
-    private static AppInfo? _instance;
-
     /// <summary>
     /// Gets the singleton object
     /// </summary>
-    internal static AppInfo Current => _instance ??= new AppInfo();
+    internal static AppInfo Current { get; } = new();
 
     /// <summary>
     /// The id of the application
