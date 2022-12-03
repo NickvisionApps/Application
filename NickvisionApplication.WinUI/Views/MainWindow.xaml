@@ -81,7 +81,7 @@
                 </MenuBarItem>
             </MenuBar>
 
-            <Border HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="6,40,6,0" CornerRadius="6" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
+            <Border HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="6,40,6,0" CornerRadius="6" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
                 <CommandBar HorizontalAlignment="Left" DefaultLabelPosition="Right">
                     <CommandBar.PrimaryCommands>
                         <AppBarButton Label="Open" Click="OpenFolder">
@@ -93,7 +93,7 @@
                 </CommandBar>
             </Border>
 
-            <Grid Name="StatusBar" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="36" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
+            <Grid Name="StatusBar" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="34" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
                 <TextBlock Name="LblStatus" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="6,0,0,0" Style="{ThemeResource CaptionTextBlockStyle}" Text="Ready"/>
             </Grid>
         </Grid>

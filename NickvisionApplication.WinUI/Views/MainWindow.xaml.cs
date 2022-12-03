@@ -26,7 +26,6 @@ public sealed partial class MainWindow : Window
     private bool _isActived;
     private readonly SystemBackdropConfiguration _backdropConfiguration;
     private readonly MicaController? _micaController;
-    private readonly DesktopAcrylicController? _acrylicController;
 
     /// <summary>
     /// Constructs a MainWindow
@@ -78,12 +77,6 @@ public sealed partial class MainWindow : Window
             _micaController.AddSystemBackdropTarget(this.As<ICompositionSupportsSystemBackdrop>());
             _micaController.SetSystemBackdropConfiguration(_backdropConfiguration);
         }
-        else if (DesktopAcrylicController.IsSupported())
-        {
-            _acrylicController = new DesktopAcrylicController();
-            _acrylicController.AddSystemBackdropTarget(this.As<ICompositionSupportsSystemBackdrop>());
-            _acrylicController.SetSystemBackdropConfiguration(_backdropConfiguration);
-        }
         //Maximize
         User32.ShowWindow(_hwnd, ShowWindowCommand.SW_SHOWMAXIMIZED);
     }
@@ -117,7 +110,6 @@ public sealed partial class MainWindow : Window
     private void Window_Closing(AppWindow sender, AppWindowClosingEventArgs e)
     {
         _micaController?.Dispose();
-        _acrylicController?.Dispose();
     }
 
     /// <summary>
