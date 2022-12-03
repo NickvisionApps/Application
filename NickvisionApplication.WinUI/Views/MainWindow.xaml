@@ -1,0 +1,27 @@
+<Window
+    x:Class="NickvisionApplication.WinUI.Views.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:NickvisionApplication.WinUI.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" Activated="Window_Activated">
+
+    <Grid ActualThemeChanged="Window_ActualThemeChanged">
+        <Grid Name="TitleBar" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="32">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="TitleBarLeftPaddingColumn" Width="0"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition x:Name="TitleBarRightPaddingColumn" Width="0"/>
+            </Grid.ColumnDefinitions>
+
+            <Image Name="TitleBarIcon" Grid.Column="1" HorizontalAlignment="Left" Margin="8,0,0,0" Width="16" Height="16" Source="../Assets/org.nickvision.application.ico"/>
+
+            <TextBlock Name="TitleBarTitle" Grid.Column="1" VerticalAlignment="Center" Margin="28,0,0,0" Style="{StaticResource CaptionTextBlockStyle}"/>
+        </Grid>
+
+        <NavigationView Name="NavView" Margin="0,36,0,0">
+            
+        </NavigationView>
+    </Grid>
+</Window>
