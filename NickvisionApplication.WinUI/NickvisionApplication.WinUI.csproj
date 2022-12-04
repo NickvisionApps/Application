@@ -14,6 +14,8 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Controls\StatusPage.xaml" />
+    <None Remove="Controls\ViewStack.xaml" />
+    <None Remove="Controls\ViewStackPage.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,6 +48,16 @@
   <ItemGroup>
 	  <Resource Include="Assets\org.nickvision.application.ico" />
 	  <Resource Include="Assets\org.nickvision.application.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\ViewStack.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\ViewStackPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Controls\StatusPage.xaml">

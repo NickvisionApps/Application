@@ -7,6 +7,7 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
 using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.Shared.Events;
+using NickvisionApplication.WinUI.Controls;
 using System;
 using Vanara.PInvoke;
 using Windows.Graphics;
@@ -82,6 +83,8 @@ public sealed partial class MainWindow : Window
         //Window Sizing
         _appWindow.Resize(new SizeInt32(800, 600));
         User32.ShowWindow(_hwnd, ShowWindowCommand.SW_SHOWMAXIMIZED);
+        //Page
+        ViewStack.ChangePage("NoFolder");
     }
 
     /// <summary>
@@ -110,10 +113,7 @@ public sealed partial class MainWindow : Window
     /// </summary>
     /// <param name="sender">AppWindow</param>
     /// <param name="e">AppWindowClosingEventArgs</param>
-    private void Window_Closing(AppWindow sender, AppWindowClosingEventArgs e)
-    {
-        _micaController?.Dispose();
-    }
+    private void Window_Closing(AppWindow sender, AppWindowClosingEventArgs e) => _micaController?.Dispose();
 
     /// <summary>
     /// Occurs when the window's theme is changed
@@ -168,6 +168,7 @@ public sealed partial class MainWindow : Window
         if(file != null && _controller.OpenFolder(file.Path))
         {
             MenuCloseFolder.IsEnabled = true;
+            ViewStack.ChangePage("Folder");
             LblStatus.Text = _controller.FolderPath;
         }
     }
@@ -181,6 +182,7 @@ public sealed partial class MainWindow : Window
     {
         _controller.CloseFolder();
         MenuCloseFolder.IsEnabled = false;
+        ViewStack.ChangePage("NoFolder");
         LblStatus.Text = "Ready";
     }
 
@@ -198,7 +200,7 @@ public sealed partial class MainWindow : Window
     /// <param name="e">RoutedEventArgs</param>
     private void Settings(object sender, RoutedEventArgs e)
     {
-
+        ViewStack.ChangePage("hj");
     }
 
     /// <summary>

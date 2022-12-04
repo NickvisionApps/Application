@@ -9,22 +9,22 @@
     mc:Ignorable="d" Activated="Window_Activated">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" ActualThemeChanged="Window_ActualThemeChanged">
-        <Grid Name="TitleBar" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="32">
+        <Grid x:Name="TitleBar" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="32">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition x:Name="TitleBarLeftPaddingColumn" Width="0"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition x:Name="TitleBarRightPaddingColumn" Width="0"/>
             </Grid.ColumnDefinitions>
 
-            <Image Name="TitleBarIcon" Grid.Column="1" HorizontalAlignment="Left" Margin="8,0,0,0" Width="16" Height="16" Source="../Assets/org.nickvision.application.ico"/>
+            <Image x:Name="TitleBarIcon" Grid.Column="1" HorizontalAlignment="Left" Margin="8,0,0,0" Width="16" Height="16" Source="../Assets/org.nickvision.application.ico"/>
 
-            <TextBlock Name="TitleBarTitle" Grid.Column="1" VerticalAlignment="Center" Margin="28,0,0,0" Style="{StaticResource CaptionTextBlockStyle}"/>
+            <TextBlock x:Name="TitleBarTitle" Grid.Column="1" VerticalAlignment="Center" Margin="28,0,0,0" Style="{StaticResource CaptionTextBlockStyle}"/>
         </Grid>
 
-        <Grid Name="MainGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,34,0,0">
-            <MenuBar Name="MenuBar" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <MenuBarItem Name="MenuFile" Title="File">
-                    <MenuFlyoutItem Name="MenuOpenFolder" Text="Open Folder" Click="OpenFolder">
+        <Grid x:Name="MainGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,34,0,0">
+            <MenuBar x:Name="MenuBar" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <MenuBarItem x:Name="MenuFile" Title="File">
+                    <MenuFlyoutItem x:Name="MenuOpenFolder" Text="Open Folder" Click="OpenFolder">
                         <MenuFlyoutItem.Icon>
                             <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe838;"/>
                         </MenuFlyoutItem.Icon>
@@ -34,7 +34,7 @@
                         </MenuFlyoutItem.KeyboardAccelerators>
                     </MenuFlyoutItem>
 
-                    <MenuFlyoutItem Name="MenuCloseFolder" Text="Close Folder" IsEnabled="False" Click="CloseFolder">
+                    <MenuFlyoutItem x:Name="MenuCloseFolder" Text="Close Folder" IsEnabled="False" Click="CloseFolder">
                         <MenuFlyoutItem.Icon>
                             <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe8f6;"/>
                         </MenuFlyoutItem.Icon>
@@ -46,7 +46,7 @@
 
                     <MenuFlyoutSeparator/>
 
-                    <MenuFlyoutItem Name="MenuExit" Text="Exit" Click="Exit">
+                    <MenuFlyoutItem x:Name="MenuExit" Text="Exit" Click="Exit">
                         <MenuFlyoutItem.Icon>
                             <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe711;"/>
                         </MenuFlyoutItem.Icon>
@@ -57,8 +57,8 @@
                     </MenuFlyoutItem>
                 </MenuBarItem>
 
-                <MenuBarItem Name="MenuEdit" Title="Edit">
-                    <MenuFlyoutItem Name="MenuSetting" Text="Settings" Click="Settings">
+                <MenuBarItem x:Name="MenuEdit" Title="Edit">
+                    <MenuFlyoutItem x:Name="MenuSetting" Text="Settings" Click="Settings">
                         <MenuFlyoutItem.Icon>
                             <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe713;"/>
                         </MenuFlyoutItem.Icon>
@@ -69,8 +69,8 @@
                     </MenuFlyoutItem>
                 </MenuBarItem>
 
-                <MenuBarItem Name="MenuHelp" Title="Help">
-                    <MenuFlyoutItem Name="MenuChangelog" Text="Changelog" Click="Changelog">
+                <MenuBarItem x:Name="MenuHelp" Title="Help">
+                    <MenuFlyoutItem x:Name="MenuChangelog" Text="Changelog" Click="Changelog">
                         <MenuFlyoutItem.Icon>
                             <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe8FD;"/>
                         </MenuFlyoutItem.Icon>
@@ -78,13 +78,13 @@
 
                     <MenuFlyoutSeparator/>
 
-                    <MenuFlyoutItem Name="MenuGitHubRepo" Text="GitHub Repo" Click="GitHubRepo">
+                    <MenuFlyoutItem x:Name="MenuGitHubRepo" Text="GitHub Repo" Click="GitHubRepo">
                         <MenuFlyoutItem.Icon>
                             <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe1D3;"/>
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
 
-                    <MenuFlyoutItem Name="MenuReportABug" Text="Report a Bug" Click="ReportABug">
+                    <MenuFlyoutItem x:Name="MenuReportABug" Text="Report a Bug" Click="ReportABug">
                         <MenuFlyoutItem.Icon>
                             <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xeBE8;"/>
                         </MenuFlyoutItem.Icon>
@@ -92,7 +92,7 @@
 
                     <MenuFlyoutSeparator/>
 
-                    <MenuFlyoutItem Name="MenuAbout" Text="About" Click="About">
+                    <MenuFlyoutItem x:Name="MenuAbout" Text="About" Click="About">
                         <MenuFlyoutItem.Icon>
                             <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe897;"/>
                         </MenuFlyoutItem.Icon>
@@ -116,15 +116,27 @@
                 </CommandBar>
             </Border>
 
-            <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="6,96,6,40" CornerRadius="6" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
-                <nickvision:StatusPage HorizontalAlignment="Center" VerticalAlignment="Center" Glyph="&#xe8B7;" Title="No Folder Opened" Message="Open a folder (or drag one into the app) to get started."/>
-            </Border>
+            <nickvision:ViewStack x:Name="ViewStack" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="6,96,6,40">
+                <nickvision:ViewStack.Pages>
+                    <nickvision:ViewStackPage PageName="NoFolder">
+                        <Border CornerRadius="6" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
+                            <nickvision:StatusPage x:Name="StatusPage" HorizontalAlignment="Center" VerticalAlignment="Center" Glyph="&#xe8B7;" Title="No Folder Opened" Message="Open a folder (or drag one into the app) to get started."/>
+                        </Border>
+                    </nickvision:ViewStackPage>
 
-            <Grid Name="StatusBar" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="34" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
-                <TextBlock Name="LblStatus" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="6,0,0,0" Text="Ready"/>
+                    <nickvision:ViewStackPage PageName="Folder">
+                        <Grid>
+
+                        </Grid>
+                    </nickvision:ViewStackPage>
+                </nickvision:ViewStack.Pages>
+            </nickvision:ViewStack>
+
+            <Grid x:Name="StatusBar" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="34" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
+                <TextBlock x:Name="LblStatus" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="6,0,0,0" Text="Ready"/>
             </Grid>
         </Grid>
         
-        <InfoBar Name="InfoBar" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="100,0,100,10"/>
+        <InfoBar x:Name="InfoBar" HorizontalAlignment="Center" VerticalAlignment="Bottom" CornerRadius="12" Margin="0,0,0,10"/>
     </Grid>
 </Window>
