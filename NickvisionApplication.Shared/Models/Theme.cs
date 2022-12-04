@@ -2,7 +2,7 @@
 
 public enum Theme
 {
-    System = 0,
-    Light,
-    Dark
+    Light = 0,
+    Dark,
+    System
 }

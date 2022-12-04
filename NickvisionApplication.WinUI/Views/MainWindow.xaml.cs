@@ -9,6 +9,7 @@ using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.Shared.Events;
 using NickvisionApplication.WinUI.Controls;
 using System;
+using System.Collections.Generic;
 using Vanara.PInvoke;
 using Windows.Graphics;
 using Windows.Storage.Pickers;
@@ -60,7 +61,7 @@ public sealed partial class MainWindow : Window
         else
         {
             TitleBar.Visibility = Visibility.Collapsed;
-            MainGrid.Margin = new Thickness(0, 0, 0, 0);
+            ContentGrid.Margin = new Thickness(0, 0, 0, 0);
         }
         //Setup Backdrop
         WindowsSystemDispatcherQueueHelper.EnsureWindowsSystemDispatcherQueueController();
@@ -103,8 +104,8 @@ public sealed partial class MainWindow : Window
     {
         _isActived = e.WindowActivationState != WindowActivationState.Deactivated;
         //Update TitleBar
-        TitleBarTitle.Foreground = (SolidColorBrush)App.Current.Resources[_isActived ? "WindowCaptionForeground" : "WindowCaptionForegroundDisabled"];
-        _appWindow.TitleBar.ButtonForegroundColor = ((SolidColorBrush)App.Current.Resources[_isActived ? "WindowCaptionForeground" : "WindowCaptionForegroundDisabled"]).Color;
+        TitleBarTitle.Foreground = (SolidColorBrush)Application.Current.Resources[_isActived ? "WindowCaptionForeground" : "WindowCaptionForegroundDisabled"];
+        _appWindow.TitleBar.ButtonForegroundColor = ((SolidColorBrush)Application.Current.Resources[_isActived ? "WindowCaptionForeground" : "WindowCaptionForegroundDisabled"]).Color;
         //Update Backdrop
         _backdropConfiguration.IsInputActive = _isActived;
     }
@@ -124,8 +125,8 @@ public sealed partial class MainWindow : Window
     private void Window_ActualThemeChanged(FrameworkElement sender, object e)
     {
         //Update TitleBar
-        TitleBarTitle.Foreground = (SolidColorBrush)App.Current.Resources[_isActived ? "WindowCaptionForeground" : "WindowCaptionForegroundDisabled"];
-        _appWindow.TitleBar.ButtonForegroundColor = ((SolidColorBrush)App.Current.Resources[_isActived ? "WindowCaptionForeground" : "WindowCaptionForegroundDisabled"]).Color;
+        TitleBarTitle.Foreground = (SolidColorBrush)Application.Current.Resources[_isActived ? "WindowCaptionForeground" : "WindowCaptionForegroundDisabled"];
+        _appWindow.TitleBar.ButtonForegroundColor = ((SolidColorBrush)Application.Current.Resources[_isActived ? "WindowCaptionForeground" : "WindowCaptionForegroundDisabled"]).Color;
         //Update Backdrop
         _backdropConfiguration.Theme = sender.ActualTheme switch
         {
@@ -160,11 +161,20 @@ public sealed partial class MainWindow : Window
     /// </summary>
     /// <param name="sender">object?</param>
     /// <param name="e">EventArgs</param>
-    private void FolderChanged(object? sender, EventArgs e)
+    private async void FolderChanged(object? sender, EventArgs e)
     {
         MenuCloseFolder.IsEnabled = _controller.IsFolderOpened;
         ViewStack.ChangePage(_controller.IsFolderOpened ? "Folder" : "NoFolder");
         LblStatus.Text = _controller.IsFolderOpened ? _controller.FolderPath : "Ready";
+        ListFilesInFolder.Items.Clear();
+        if(_controller.IsFolderOpened)
+        {
+            List<string>? files = await _controller.GetFilesInFolderAsync();
+            foreach(var file in files!)
+            {
+                ListFilesInFolder.Items.Add(file);
+            }
+        }
     }
 
     /// <summary>
@@ -203,9 +213,13 @@ public sealed partial class MainWindow : Window
     /// </summary>
     /// <param name="sender">object</param>
     /// <param name="e">RoutedEventArgs</param>
-    private void Settings(object sender, RoutedEventArgs e)
+    private async void Settings(object sender, RoutedEventArgs e)
     {
-        
+        var preferencesDialog = new PreferencesDialog(new PreferencesViewController())
+        {
+            XamlRoot = Content.XamlRoot
+        };
+        await preferencesDialog.ShowAsync();
     }
 
     /// <summary>

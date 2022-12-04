@@ -1,7 +1,9 @@
 ﻿using NickvisionApplication.Shared.Events;
 using NickvisionApplication.Shared.Models;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace NickvisionApplication.Shared.Controllers;
 
@@ -25,6 +27,10 @@ public class MainWindowController
     /// Whether or not the version is a development version or not
     /// </summary>
     public bool IsDevVersion => AppInfo.Current.Version.IndexOf('-') != -1;
+    /// <summary>
+    /// The prefered theme of the application
+    /// </summary>
+    public Theme Theme => Configuration.Current.Theme;
     /// <summary>
     /// Whether or not the folder is opened
     /// </summary>
@@ -84,5 +90,22 @@ public class MainWindowController
         FolderPath = "No Folder Opened";
         NotificationSent?.Invoke(this, new NotificationSentEventArgs("Folder closed.", NotificationSeverity.Warning));
         FolderChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    public async Task<List<string>?> GetFilesInFolderAsync()
+    {
+        if(IsFolderOpened)
+        {
+            var files = new List<string>();
+            await Task.Run(() =>
+            {
+                foreach(var path in Directory.EnumerateFiles(FolderPath, "*", SearchOption.AllDirectories)) 
+                { 
+                    files.Add(Path.GetFileName(path));
+                }
+            });
+            return files;
+        }
+        return null;
     }
 }

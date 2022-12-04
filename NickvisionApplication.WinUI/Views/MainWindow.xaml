@@ -6,9 +6,10 @@
     xmlns:nickvision="using:NickvisionApplication.WinUI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:labs="using:CommunityToolkit.Labs.WinUI"
     mc:Ignorable="d" Activated="Window_Activated">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" ActualThemeChanged="Window_ActualThemeChanged">
+    <Grid x:Name="MainGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" ActualThemeChanged="Window_ActualThemeChanged">
         <Grid.ChildrenTransitions>
             <TransitionCollection>
                 <ContentThemeTransition/>
@@ -27,7 +28,7 @@
             <TextBlock x:Name="TitleBarTitle" Grid.Column="1" VerticalAlignment="Center" Margin="28,0,0,0" Style="{StaticResource CaptionTextBlockStyle}"/>
         </Grid>
 
-        <Grid x:Name="MainGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,34,0,0">
+        <Grid x:Name="ContentGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,34,0,0">
             <MenuBar x:Name="MenuBar" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <MenuBarItem x:Name="MenuFile" Title="File">
                     <MenuFlyoutItem x:Name="MenuOpenFolder" Text="Open Folder" Click="OpenFolder">
@@ -139,13 +140,13 @@
                     <nickvision:ViewStackPage PageName="Folder">
                         <Grid>
                             <Border HorizontalAlignment="Left" VerticalAlignment="Stretch" CornerRadius="6" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
-                                <ListBox x:Name="ListFilesInFolder" Width="320">
-                                    <ListBox.ItemContainerTransitions>
+                                <ListView x:Name="ListFilesInFolder" Width="320">
+                                    <ListView.ItemContainerTransitions>
                                         <TransitionCollection>
                                             <ContentThemeTransition/>
                                         </TransitionCollection>
-                                    </ListBox.ItemContainerTransitions>
-                                </ListBox>
+                                    </ListView.ItemContainerTransitions>
+                                </ListView>
                             </Border>
                         </Grid>
                     </nickvision:ViewStackPage>
