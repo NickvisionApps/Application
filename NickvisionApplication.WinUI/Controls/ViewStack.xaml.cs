@@ -8,7 +8,7 @@ namespace NickvisionApplication.WinUI.Controls;
 /// <summary>
 /// A control for showing one page at a time
 /// </summary>
-public sealed partial class ViewStack : UserControl
+public sealed partial class ViewStack : Frame
 {
     public static DependencyProperty PagesProperty { get; } = DependencyProperty.Register("Pages", typeof(ObservableCollection<ViewStackPage>), typeof(ViewStack), new PropertyMetadata(new ObservableCollection<ViewStackPage>()));
 

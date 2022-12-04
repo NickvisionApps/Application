@@ -45,6 +45,7 @@ public sealed partial class MainWindow : Window
         //Register Events
         _appWindow.Closing += Window_Closing;
         _controller.NotificationSent += NotificationSent;
+        _controller.FolderChanged += FolderChanged;
         //Set TitleBar
         TitleBarTitle.Text = _controller.AppInfo.ShortName;
         _appWindow.Title = TitleBarTitle.Text;
@@ -155,6 +156,18 @@ public sealed partial class MainWindow : Window
     }
 
     /// <summary>
+    /// Occurs when the folder is changed
+    /// </summary>
+    /// <param name="sender">object?</param>
+    /// <param name="e">EventArgs</param>
+    private void FolderChanged(object? sender, EventArgs e)
+    {
+        MenuCloseFolder.IsEnabled = _controller.IsFolderOpened;
+        ViewStack.ChangePage(_controller.IsFolderOpened ? "Folder" : "NoFolder");
+        LblStatus.Text = _controller.IsFolderOpened ? _controller.FolderPath : "Ready";
+    }
+
+    /// <summary>
     /// Occurs when the open menu item is clicked
     /// </summary>
     /// <param name="sender">object</param>
@@ -165,11 +178,9 @@ public sealed partial class MainWindow : Window
         InitializeWithWindow(folderPicker);
         folderPicker.FileTypeFilter.Add("*");
         var file = await folderPicker.PickSingleFolderAsync();
-        if(file != null && _controller.OpenFolder(file.Path))
+        if(file != null)
         {
-            MenuCloseFolder.IsEnabled = true;
-            ViewStack.ChangePage("Folder");
-            LblStatus.Text = _controller.FolderPath;
+            _controller.OpenFolder(file.Path);
         }
     }
 
@@ -178,13 +189,7 @@ public sealed partial class MainWindow : Window
     /// </summary>
     /// <param name="sender">object</param>
     /// <param name="e">RoutedEventArgs</param>
-    private void CloseFolder(object sender, RoutedEventArgs e)
-    {
-        _controller.CloseFolder();
-        MenuCloseFolder.IsEnabled = false;
-        ViewStack.ChangePage("NoFolder");
-        LblStatus.Text = "Ready";
-    }
+    private void CloseFolder(object sender, RoutedEventArgs e) => _controller.CloseFolder();
 
     /// <summary>
     /// Occurs when the exit menu item is clicked
@@ -200,7 +205,7 @@ public sealed partial class MainWindow : Window
     /// <param name="e">RoutedEventArgs</param>
     private void Settings(object sender, RoutedEventArgs e)
     {
-        ViewStack.ChangePage("hj");
+        
     }
 
     /// <summary>

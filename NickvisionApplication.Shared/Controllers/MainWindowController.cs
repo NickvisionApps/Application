@@ -13,6 +13,11 @@ public class MainWindowController
     private bool _isOpened;
 
     /// <summary>
+    /// The path of the folder opened
+    /// </summary>
+    public string FolderPath { get; private set; }
+
+    /// <summary>
     /// Gets the AppInfo object
     /// </summary>
     public AppInfo AppInfo => AppInfo.Current;
@@ -21,9 +26,9 @@ public class MainWindowController
     /// </summary>
     public bool IsDevVersion => AppInfo.Current.Version.IndexOf('-') != -1;
     /// <summary>
-    /// The path of the folder opened
+    /// Whether or not the folder is opened
     /// </summary>
-    public string FolderPath { get; private set; }
+    public bool IsFolderOpened => FolderPath != "No Folder Opened";
 
     /// <summary>
     /// Occurs when a notification is sent

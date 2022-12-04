@@ -9,6 +9,12 @@
     mc:Ignorable="d" Activated="Window_Activated">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" ActualThemeChanged="Window_ActualThemeChanged">
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <ContentThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+        
         <Grid x:Name="TitleBar" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="32">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition x:Name="TitleBarLeftPaddingColumn" Width="0"/>
@@ -106,8 +112,14 @@
 
             <Border HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="6,40,6,0" CornerRadius="6" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
                 <CommandBar HorizontalAlignment="Left" DefaultLabelPosition="Right">
+                    <CommandBar.Transitions>
+                        <TransitionCollection>
+                            <ContentThemeTransition/>
+                        </TransitionCollection>
+                    </CommandBar.Transitions>
+                    
                     <CommandBar.PrimaryCommands>
-                        <AppBarButton Label="Open" Click="OpenFolder">
+                        <AppBarButton x:Name="BtnCmdOpenFolder" Label="Open" Click="OpenFolder">
                             <AppBarButton.Icon>
                                 <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe838;"/>
                             </AppBarButton.Icon>
@@ -120,13 +132,21 @@
                 <nickvision:ViewStack.Pages>
                     <nickvision:ViewStackPage PageName="NoFolder">
                         <Border CornerRadius="6" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
-                            <nickvision:StatusPage x:Name="StatusPage" HorizontalAlignment="Center" VerticalAlignment="Center" Glyph="&#xe8B7;" Title="No Folder Opened" Message="Open a folder (or drag one into the app) to get started."/>
+                            <nickvision:StatusPage HorizontalAlignment="Center" VerticalAlignment="Center" Glyph="&#xe8B7;" Title="No Folder Opened" Message="Open a folder (or drag one into the app) to get started."/>
                         </Border>
                     </nickvision:ViewStackPage>
 
                     <nickvision:ViewStackPage PageName="Folder">
                         <Grid>
-
+                            <Border HorizontalAlignment="Left" VerticalAlignment="Stretch" CornerRadius="6" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
+                                <ListBox x:Name="ListFilesInFolder" Width="320">
+                                    <ListBox.ItemContainerTransitions>
+                                        <TransitionCollection>
+                                            <ContentThemeTransition/>
+                                        </TransitionCollection>
+                                    </ListBox.ItemContainerTransitions>
+                                </ListBox>
+                            </Border>
                         </Grid>
                     </nickvision:ViewStackPage>
                 </nickvision:ViewStack.Pages>
