@@ -11,7 +11,9 @@ using NickvisionApplication.WinUI.Controls;
 using System;
 using System.Collections.Generic;
 using Vanara.PInvoke;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Graphics;
+using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.System;
 using WinRT;
@@ -135,6 +137,40 @@ public sealed partial class MainWindow : Window
             ElementTheme.Dark => SystemBackdropTheme.Dark,
             _ => SystemBackdropTheme.Default
         };
+    }
+
+    /// <summary>
+    /// Occurs when something is dragged over the window
+    /// </summary>
+    /// <param name="sender">object</param>
+    /// <param name="e">DragEventArgs</param>
+    private void Window_DragOver(object sender, DragEventArgs e)
+    {
+        e.AcceptedOperation = DataPackageOperation.Link;
+    }
+
+    /// <summary>
+    /// Occurs when something is dropped on the window
+    /// </summary>
+    /// <param name="sender">object</param>
+    /// <param name="e">DragEventArgs</param>
+    private async void Window_Drop(object sender, DragEventArgs e)
+    {
+        if(e.DataView.Contains(StandardDataFormats.StorageItems))
+        {
+            var items = await e.DataView.GetStorageItemsAsync();
+            if(items.Count > 0)
+            {
+                foreach(var item in items)
+                {
+                    if(item is StorageFolder folder)
+                    {
+                        _controller.OpenFolder(folder.Path);
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     /// <summary>
