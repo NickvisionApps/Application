@@ -4,6 +4,7 @@ public class Program
 {
     public static int Main(string[] args)
     {
+        Adw.Module.Initialize();
         var application = Adw.Application.New("org.nickvision.application", Gio.ApplicationFlags.FlagsNone);
         application.OnActivate += (sender, e) =>
         {
