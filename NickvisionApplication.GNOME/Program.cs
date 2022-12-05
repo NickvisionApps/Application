@@ -5,12 +5,23 @@ using System;
 
 namespace NickvisionApplication.GNOME;
 
+/// <summary>
+/// The Program 
+/// </summary>
 public class Program
 {
     private readonly Adw.Application _application;
 
+    /// <summary>
+    /// Main method
+    /// </summary>
+    /// <param name="args">string[]</param>
+    /// <returns>Return code from Adw.Application.Run()</returns>
     public static int Main(string[] args) => new Program().Run();
 
+    /// <summary>
+    /// Constructs a Program
+    /// </summary>
     public Program()
     {
         Adw.Module.Initialize();
@@ -18,9 +29,18 @@ public class Program
         _application.OnActivate += OnActivate;
     }
 
+    /// <summary>
+    /// Runs the program
+    /// </summary>
+    /// <returns>Return code from Adw.Application.Run()</returns>
     public int Run() => _application.Run();
 
-    private void OnActivate(object sedner, EventArgs e)
+    /// <summary>
+    /// Occurs when the application is activated
+    /// </summary>
+    /// <param name="sedner">Gio.Application</param>
+    /// <param name="e">EventArgs</param>
+    private void OnActivate(Gio.Application sedner, EventArgs e)
     {
         //Controller Setup
         var mainWindowController = new MainWindowController();
