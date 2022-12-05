@@ -111,14 +111,14 @@
                 </MenuBarItem>
             </MenuBar>
 
-            <Border HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="6,40,6,0" CornerRadius="6" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
+            <Border HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="6,40,6,0" Height="50" CornerRadius="6" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
                 <CommandBar HorizontalAlignment="Left" DefaultLabelPosition="Right">
                     <CommandBar.Transitions>
                         <TransitionCollection>
                             <ContentThemeTransition/>
                         </TransitionCollection>
                     </CommandBar.Transitions>
-                    
+
                     <CommandBar.PrimaryCommands>
                         <AppBarButton x:Name="BtnCmdOpenFolder" Label="Open" Click="OpenFolder">
                             <AppBarButton.Icon>
