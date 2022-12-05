@@ -4,13 +4,13 @@ using Microsoft.UI.Xaml.Controls;
 namespace NickvisionApplication.WinUI.Controls;
 
 /// <summary>
-/// A control for displaying a status message and an icon
+/// A control for displaying a status
 /// </summary>
 public sealed partial class StatusPage : UserControl
 {
     public static DependencyProperty GlyphProperty { get; } = DependencyProperty.Register("Glyph", typeof(string), typeof(StatusPage), new PropertyMetadata(""));
     public static DependencyProperty TitleProperty { get; } = DependencyProperty.Register("Title", typeof(string), typeof(StatusPage), new PropertyMetadata(""));
-    public static DependencyProperty MessageProperty { get; } = DependencyProperty.Register("Message", typeof(string), typeof(StatusPage), new PropertyMetadata(""));
+    public static DependencyProperty DescriptionProperty { get; } = DependencyProperty.Register("Description", typeof(string), typeof(StatusPage), new PropertyMetadata(""));
 
     /// <summary>
     /// Constructs a StatusPage
@@ -43,10 +43,10 @@ public sealed partial class StatusPage : UserControl
     /// <summary>
     /// The message of the status
     /// </summary>
-    public string Message
+    public string Description
     {
-        get => (string)GetValue(MessageProperty);
+        get => (string)GetValue(DescriptionProperty);
 
-        set => SetValue(MessageProperty, value);
+        set => SetValue(DescriptionProperty, value);
     }
 }

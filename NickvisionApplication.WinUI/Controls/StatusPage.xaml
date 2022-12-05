@@ -12,6 +12,6 @@
 
         <TextBlock HorizontalAlignment="Center" Style="{ThemeResource TitleTextBlockStyle}" Text="{x:Bind Title}"/>
 
-        <TextBlock HorizontalAlignment="Center" Style="{ThemeResource CaptionTextBlockStyle}" Text="{x:Bind Message}"/>
+        <TextBlock HorizontalAlignment="Center" Style="{ThemeResource CaptionTextBlockStyle}" Text="{x:Bind Description}"/>
     </StackPanel>
 </UserControl>

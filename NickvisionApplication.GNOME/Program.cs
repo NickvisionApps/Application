@@ -56,13 +56,13 @@ public class Program
         //Set Adw Theme
         _application.StyleManager!.ColorScheme = mainWindowController.Theme switch
         {
-            Theme.System => Adw.ColorScheme.PreferLight,
+            Theme.System => Adw.ColorScheme.ForceDark,
             Theme.Light => Adw.ColorScheme.ForceLight,
             Theme.Dark => Adw.ColorScheme.ForceDark,
             _ => Adw.ColorScheme.PreferLight
         };
         //Main Window
-        var mainWindow = new MainWindow(mainWindowController);
+        var mainWindow = new MainWindow(mainWindowController, _application);
         _application.AddWindow(mainWindow);
         mainWindow.Show();
     }

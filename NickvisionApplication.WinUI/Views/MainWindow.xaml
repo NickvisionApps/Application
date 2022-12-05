@@ -133,7 +133,7 @@
                 <nickvision:ViewStack.Pages>
                     <nickvision:ViewStackPage PageName="NoFolder">
                         <Border CornerRadius="6" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
-                            <nickvision:StatusPage HorizontalAlignment="Center" VerticalAlignment="Center" Glyph="&#xe8B7;" Title="No Folder Opened" Message="Open a folder (or drag one into the app) to get started."/>
+                            <nickvision:StatusPage HorizontalAlignment="Center" VerticalAlignment="Center" Glyph="&#xe8B7;" Title="No Folder Opened" Description="Open a folder (or drag one into the app) to get started."/>
                         </Border>
                     </nickvision:ViewStackPage>
 
