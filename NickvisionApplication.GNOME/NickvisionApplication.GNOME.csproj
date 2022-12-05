@@ -10,4 +10,8 @@
     <PackageReference Include="GirCore.Adw-1" Version="0.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\NickvisionApplication.Shared\NickvisionApplication.Shared.csproj" />
+  </ItemGroup>
+
 </Project>
