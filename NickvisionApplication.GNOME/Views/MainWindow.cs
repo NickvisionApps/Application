@@ -10,6 +10,7 @@ namespace NickvisionApplication.GNOME.Views;
 public class MainWindow : Adw.ApplicationWindow
 {
     private readonly MainWindowController _controller;
+    private readonly Adw.Application _application;
     private readonly Gtk.Box _mainBox;
     private readonly Adw.HeaderBar _headerBar;
     private readonly Adw.WindowTitle _windowTitle;
@@ -24,10 +25,12 @@ public class MainWindow : Adw.ApplicationWindow
     /// Constructs a MainWindow
     /// </summary>
     /// <param name="controller">The MainWindowController</param>
-    public MainWindow(MainWindowController controller, Gtk.Application application)
+    /// <param name="application">The Adw.Application</param>
+    public MainWindow(MainWindowController controller, Adw.Application application)
     {
         //Window Settings
         _controller = controller;
+        _application = application;
         New();
         SetDefaultSize(800, 600);
         if(_controller.IsDevVersion)
@@ -166,7 +169,7 @@ public class MainWindow : Adw.ApplicationWindow
     /// <param name="e">EventArgs</param>
     private void Preferences(Gio.SimpleAction sender, EventArgs e)
     {
-        var preferencesDialog = new PreferencesDialog(new PreferencesViewController(), this);
+        var preferencesDialog = new PreferencesDialog(new PreferencesViewController(), _application, this);
         preferencesDialog.Show();
     }
 
