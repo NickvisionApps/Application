@@ -1,0 +1,56 @@
+{
+    "app-id" : "org.nickvision.application",
+    "runtime" : "org.gnome.Platform",
+    "runtime-version" : "43",
+    "sdk" : "org.gnome.Sdk",
+    "command" : "/app/opt/org.nickvision.application/NickvisionApplication.GNOME",
+    "finish-args":[
+        "--socket=fallback-x11",
+        "--socket=wayland",
+        "--device=dri",
+        "--share=ipc",
+        "--share=network",
+        "--filesystem=home"
+    ],
+    "cleanup":[
+	"/include",
+	"/lib/pkgconfig",
+	"*.a",
+    ],
+    "modules" : [
+    	{
+    	    "name": "dotnet",
+    	    "buildsystem": "simple",
+    	    "build-commands": [
+    	    	"mkdir -p /app/opt/dotnet",
+    	        "mv ./* /app/opt/dotnet/"
+    	    ],
+    	    "sources": [
+    	        {
+    	            "type": "archive",
+    	            "url": "https://download.visualstudio.microsoft.com/download/pr/253e5af8-41aa-48c6-86f1-39a51b44afdc/5bb2cb9380c5b1a7f0153e0a2775727b/dotnet-sdk-7.0.100-linux-x64.tar.gz",
+    	            "md5": "bf44eaaa3d25d97ac48272fdbae9f936"
+    	        }
+    	    ],
+    	    "cleanup": [
+    	        "*"
+    	    ]
+    	},
+        {
+            "name": "org.nickvision.application",
+            "buildsystem": "simple",
+            "build-commands": [
+                "mkdir -p /app/opt/org.nickvision.application",
+                "/app/opt/dotnet/dotnet publish NickvisionApplication.GNOME --self-contained -o /app/opt/org.nickvision.application",
+            	"chmod +x /app/opt/org.nickvision.application/NickvisionApplication.GNOME"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/nlogozzo/NickvisionApplication.git",
+                    "branch": "csharp"
+                }
+            ]
+        }
+    ]
+}
