@@ -56,7 +56,7 @@ public class Program
         //Set Adw Theme
         _application.StyleManager!.ColorScheme = mainWindowController.Theme switch
         {
-            Theme.System => Adw.ColorScheme.ForceDark,
+            Theme.System => Adw.ColorScheme.PreferLight,
             Theme.Light => Adw.ColorScheme.ForceLight,
             Theme.Dark => Adw.ColorScheme.ForceDark,
             _ => Adw.ColorScheme.PreferLight
