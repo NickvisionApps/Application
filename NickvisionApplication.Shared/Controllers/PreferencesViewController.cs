@@ -28,5 +28,5 @@ public class PreferencesViewController
     /// <summary>
     /// Saves the configuration to disk
     /// </summary>
-    public void Save() => Configuration.Current.Save();
+    public void SaveConfiguration() => Configuration.Current.Save();
 }

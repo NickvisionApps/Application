@@ -1,7 +1,6 @@
 ﻿using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.Shared.Events;
 using System;
-using System.Collections.Generic;
 
 namespace NickvisionApplication.GNOME.Views;
 
@@ -167,7 +166,8 @@ public class MainWindow : Adw.ApplicationWindow
     /// <param name="e">EventArgs</param>
     private void Preferences(Gio.SimpleAction sender, EventArgs e)
     {
-        
+        var preferencesDialog = new PreferencesDialog(new PreferencesViewController(), this);
+        preferencesDialog.Show();
     }
 
     /// <summary>

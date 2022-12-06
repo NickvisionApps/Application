@@ -22,6 +22,6 @@ public sealed partial class PreferencesDialog : ContentDialog
     private void Dialog_Closed(ContentDialog sender, ContentDialogClosedEventArgs args)
     {
         _controller.Theme = (Theme)CmbTheme.SelectedIndex;
-        _controller.Save();
+        _controller.SaveConfiguration();
     }
 }
