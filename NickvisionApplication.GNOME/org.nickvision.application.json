@@ -15,7 +15,7 @@
     "cleanup":[
 	"/include",
 	"/lib/pkgconfig",
-	"*.a",
+	"*.a"
     ],
     "modules" : [
     	{
