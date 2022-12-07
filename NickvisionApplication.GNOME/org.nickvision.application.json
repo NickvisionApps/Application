@@ -51,9 +51,13 @@
     		}
 	    },
             "build-commands": [
-            	"dotnet publish -c Release --source ./nuget-sources NickvisionApplication.GNOME/NickvisionApplication.GNOME.csproj --runtime $RUNTIME --self-contained true",
-            	"mkdir -p /app/bin",
-            	"cp -r --remove-destination /run/build/org.nickvision.application/NickvisionApplication.GNOME/bin/Release/net7.0/$RUNTIME/publish/* /app/opt/org.nickvision.application/"
+                "dotnet publish -c Release --source ./nuget-sources NickvisionApplication.GNOME/NickvisionApplication.GNOME.csproj --runtime $RUNTIME --self-contained true",
+                "mkdir -p /app/bin",
+                "cp -r --remove-destination /run/build/org.nickvision.application/NickvisionApplication.GNOME/bin/Release/net7.0/$RUNTIME/publish/* /app/opt/org.nickvision.application/",
+                "mkdir -p /app/share/applications",
+                "cp NickvisionApplication.GNOME/org.nickvision.application.desktop /app/share/applications/",
+                "mkdir -p /app/share/metainfo",
+                "cp NickvisionApplication.GNOME/org.nickvision.application.metainfo.xml /app/share/metainfo/"
 	    ],
             "sources": [
                 "sources.json",
