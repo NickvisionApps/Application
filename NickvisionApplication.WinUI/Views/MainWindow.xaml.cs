@@ -5,6 +5,7 @@ using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
+using Microsoft.Windows.AppLifecycle;
 using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.Shared.Events;
 using NickvisionApplication.WinUI.Controls;
@@ -251,11 +252,29 @@ public sealed partial class MainWindow : Window
     /// <param name="e">RoutedEventArgs</param>
     private async void Settings(object sender, RoutedEventArgs e)
     {
+        var oldTheme = _controller.Theme; 
         var preferencesDialog = new PreferencesDialog(new PreferencesViewController())
         {
             XamlRoot = Content.XamlRoot
         };
         await preferencesDialog.ShowAsync();
+        if(oldTheme != _controller.Theme)
+        {
+            var restartDialog = new ContentDialog()
+            {
+                Title = "Apply new theme?",
+                Content = $"Would you like to restart {_controller.AppInfo.ShortName} to apply the new theme?\nAny unsaved work will be lost.",
+                PrimaryButtonText = "Yes",
+                CloseButtonText = "No",
+                DefaultButton = ContentDialogButton.Close,
+                XamlRoot = Content.XamlRoot
+            };
+            var result = await restartDialog.ShowAsync();
+            if(result == ContentDialogResult.Primary)
+            {
+                AppInstance.Restart("Apply new theme");
+            }
+        }
     }
 
     /// <summary>
