@@ -13,7 +13,7 @@
             "PKG_CONFIG_PATH": "/app/lib/pkgconfig:/app/share/pkgconfig:/usr/lib/pkgconfig:/usr/share/pkgconfig:/usr/lib/sdk/dotnet7/lib/pkgconfig"
     	}
     },
-    "command" : "/app/bin/NickvisionApplication.GNOME",
+    "command" : "/app/opt/org.nickvision.application/NickvisionApplication.GNOME",
     "finish-args":[
         "--socket=fallback-x11",
         "--socket=wayland",
@@ -53,7 +53,7 @@
             "build-commands": [
             	"dotnet publish -c Release --source ./nuget-sources NickvisionApplication.GNOME/NickvisionApplication.GNOME.csproj --runtime $RUNTIME --self-contained true",
             	"mkdir -p /app/bin",
-            	"cp -r --remove-destination /run/build/org.nickvision.application/NickvisionApplication.GNOME/bin/Release/net7.0/$RUNTIME/publish/* /app/bin/"
+            	"cp -r --remove-destination /run/build/org.nickvision.application/NickvisionApplication.GNOME/bin/Release/net7.0/$RUNTIME/publish/* /app/opt/org.nickvision.application/"
 	    ],
             "sources": [
                 "sources.json",
