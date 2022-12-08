@@ -10,12 +10,6 @@
     mc:Ignorable="d" Activated="Window_Activated">
 
     <Grid x:Name="MainGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" ActualThemeChanged="Window_ActualThemeChanged" AllowDrop="True" DragOver="Window_DragOver" Drop="Window_Drop">
-        <Grid.ChildrenTransitions>
-            <TransitionCollection>
-                <ContentThemeTransition/>
-            </TransitionCollection>
-        </Grid.ChildrenTransitions>
-        
         <Grid x:Name="TitleBar" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="32">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition x:Name="TitleBarLeftPaddingColumn" Width="0"/>
@@ -99,11 +93,17 @@
 
                     <MenuFlyoutItem x:Name="MenuSupport" Text="Supprt" Click="Support">
                         <MenuFlyoutItem.Icon>
-                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe125;"/>
+                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe776;"/>
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
 
                     <MenuFlyoutSeparator/>
+
+                    <MenuFlyoutItem x:Name="MenuCredits" Text="Credits" Click="Credits">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe125;"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
 
                     <MenuFlyoutItem x:Name="MenuAbout" Text="About" Click="About">
                         <MenuFlyoutItem.Icon>

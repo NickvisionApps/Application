@@ -262,7 +262,7 @@ public sealed partial class MainWindow : Window
         {
             var restartDialog = new ContentDialog()
             {
-                Title = "Apply new theme?",
+                Title = "Restart To Apply Theme?",
                 Content = $"Would you like to restart {_controller.AppInfo.ShortName} to apply the new theme?\nAny unsaved work will be lost.",
                 PrimaryButtonText = "Yes",
                 CloseButtonText = "No",
@@ -316,6 +316,24 @@ public sealed partial class MainWindow : Window
     /// <param name="sender">object</param>
     /// <param name="e">RoutedEventArgs</param>
     private async void Support(object sender, RoutedEventArgs e) => await Launcher.LaunchUriAsync(_controller.AppInfo.SupportUrl);
+
+    /// <summary>
+    /// Occurs when the credits menu item is clicked
+    /// </summary>
+    /// <param name="sender">object</param>
+    /// <param name="e">RoutedEventArgs</param>
+    private async void Credits(object sender, RoutedEventArgs e)
+    {
+        var creditsDialog = new ContentDialog()
+        {
+            Title = "Credits",
+            Content = "Translators:\n",
+            CloseButtonText = "OK",
+            DefaultButton = ContentDialogButton.Close,
+            XamlRoot = Content.XamlRoot
+        };
+        await creditsDialog.ShowAsync();
+    }
 
     /// <summary>
     /// Occurs when the about menu item is clicked
