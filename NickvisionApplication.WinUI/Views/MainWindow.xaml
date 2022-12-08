@@ -91,7 +91,7 @@
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
 
-                    <MenuFlyoutItem x:Name="MenuSupport" Text="Supprt" Click="Support">
+                    <MenuFlyoutItem x:Name="MenuSupport" Text="Support" Click="Support">
                         <MenuFlyoutItem.Icon>
                             <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe776;"/>
                         </MenuFlyoutItem.Icon>
