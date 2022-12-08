@@ -309,6 +309,14 @@ public sealed partial class MainWindow : Window
     /// <param name="e">RoutedEventArgs</param>
     private async void ReportABug(object sender, RoutedEventArgs e) => await Launcher.LaunchUriAsync(_controller.AppInfo.IssueTracker);
 
+
+    /// <summary>
+    /// Occurs when the support menu item is clicked
+    /// </summary>
+    /// <param name="sender">object</param>
+    /// <param name="e">RoutedEventArgs</param>
+    private async void Support(object sender, RoutedEventArgs e) => await Launcher.LaunchUriAsync(_controller.AppInfo.SupportUrl);
+
     /// <summary>
     /// Occurs when the about menu item is clicked
     /// </summary>

@@ -97,6 +97,12 @@
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
 
+                    <MenuFlyoutItem x:Name="MenuSupport" Text="Supprt" Click="Support">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe125;"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
                     <MenuFlyoutSeparator/>
 
                     <MenuFlyoutItem x:Name="MenuAbout" Text="About" Click="About">
