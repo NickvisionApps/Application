@@ -7,10 +7,4 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Frame.ContentTransitions>
-        <TransitionCollection>
-            <ContentThemeTransition/>
-        </TransitionCollection>
-    </Frame.ContentTransitions>
-
 </Frame>

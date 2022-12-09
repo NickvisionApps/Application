@@ -5,8 +5,10 @@ using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
+using Microsoft.Windows.AppLifecycle;
 using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.Shared.Events;
+using NickvisionApplication.Shared.Helpers;
 using NickvisionApplication.WinUI.Controls;
 using System;
 using System.Collections.Generic;
@@ -87,6 +89,25 @@ public sealed partial class MainWindow : Window
         //Window Sizing
         _appWindow.Resize(new SizeInt32(800, 600));
         User32.ShowWindow(_hwnd, ShowWindowCommand.SW_SHOWMAXIMIZED);
+        //Localize Strings
+        MenuFile.Title = _controller.Localizer["File"];
+        MenuOpenFolder.Text = _controller.Localizer["OpenFolder"];
+        MenuCloseFolder.Text = _controller.Localizer["CloseFolder"];
+        MenuExit.Text = _controller.Localizer["Exit"];
+        MenuEdit.Title = _controller.Localizer["Edit"];
+        MenuSettings.Text = _controller.Localizer["Settings"];
+        MenuHelp.Title = _controller.Localizer["Help"];
+        MenuChangelog.Text = _controller.Localizer["Changelog"];
+        MenuGitHubRepo.Text = _controller.Localizer["GitHubRepo"];
+        MenuReportABug.Text = _controller.Localizer["ReportABug"];
+        MenuSupport.Text = _controller.Localizer["Support"];
+        MenuCredits.Text = _controller.Localizer["Credits"];
+        MenuAbout.Text = string.Format(_controller.Localizer["About"], _controller.AppInfo.ShortName);
+        BtnCmdOpenFolder.Label = _controller.Localizer["Open"];
+        ToolTipService.SetToolTip(BtnCmdOpenFolder, _controller.Localizer["OpenFolderTooltip"]);
+        PageNoFolder.Title = _controller.Localizer["NoFolderOpened"];
+        PageNoFolder.Description = _controller.Localizer["NoFolderDescription"];
+        LblStatus.Text = _controller.Localizer["Ready"];
         //Page
         ViewStack.ChangePage("NoFolder");
     }
@@ -201,7 +222,7 @@ public sealed partial class MainWindow : Window
     {
         MenuCloseFolder.IsEnabled = _controller.IsFolderOpened;
         ViewStack.ChangePage(_controller.IsFolderOpened ? "Folder" : "NoFolder");
-        LblStatus.Text = _controller.IsFolderOpened ? _controller.FolderPath : "Ready";
+        LblStatus.Text = _controller.IsFolderOpened ? _controller.FolderPath : _controller.Localizer["Ready"];
         ListFilesInFolder.Items.Clear();
         if(_controller.IsFolderOpened)
         {
@@ -251,11 +272,29 @@ public sealed partial class MainWindow : Window
     /// <param name="e">RoutedEventArgs</param>
     private async void Settings(object sender, RoutedEventArgs e)
     {
-        var preferencesDialog = new PreferencesDialog(new PreferencesViewController())
+        var oldTheme = _controller.Theme; 
+        var preferencesDialog = new PreferencesDialog(_controller.PreferencesViewController)
         {
             XamlRoot = Content.XamlRoot
         };
         await preferencesDialog.ShowAsync();
+        if(oldTheme != _controller.Theme)
+        {
+            var restartDialog = new ContentDialog()
+            {
+                Title = _controller.Localizer["RestartThemeTitle"],
+                Content = string.Format(_controller.Localizer["RestartThemeDescription"], _controller.AppInfo.ShortName),
+                PrimaryButtonText = _controller.Localizer["Yes"],
+                CloseButtonText = _controller.Localizer["No"],
+                DefaultButton = ContentDialogButton.Close,
+                XamlRoot = Content.XamlRoot
+            };
+            var result = await restartDialog.ShowAsync();
+            if(result == ContentDialogResult.Primary)
+            {
+                AppInstance.Restart("Apply new theme");
+            }
+        }
     }
 
     /// <summary>
@@ -267,9 +306,9 @@ public sealed partial class MainWindow : Window
     {
         var changelogDialog = new ContentDialog()
         {
-            Title = "What's New?",
+            Title = _controller.Localizer["ChangelogDialogTitle"],
             Content = _controller.AppInfo.Changelog,
-            CloseButtonText = "OK",
+            CloseButtonText = _controller.Localizer["OK"],
             DefaultButton = ContentDialogButton.Close,
             XamlRoot = Content.XamlRoot
         };
@@ -290,6 +329,32 @@ public sealed partial class MainWindow : Window
     /// <param name="e">RoutedEventArgs</param>
     private async void ReportABug(object sender, RoutedEventArgs e) => await Launcher.LaunchUriAsync(_controller.AppInfo.IssueTracker);
 
+
+    /// <summary>
+    /// Occurs when the support menu item is clicked
+    /// </summary>
+    /// <param name="sender">object</param>
+    /// <param name="e">RoutedEventArgs</param>
+    private async void Support(object sender, RoutedEventArgs e) => await Launcher.LaunchUriAsync(_controller.AppInfo.SupportUrl);
+
+    /// <summary>
+    /// Occurs when the credits menu item is clicked
+    /// </summary>
+    /// <param name="sender">object</param>
+    /// <param name="e">RoutedEventArgs</param>
+    private async void Credits(object sender, RoutedEventArgs e)
+    {
+        var creditsDialog = new ContentDialog()
+        {
+            Title = _controller.Localizer["CreditsDialogTitle"],
+            Content = string.Format(_controller.Localizer["CreditsDialogDescription"], ""),
+            CloseButtonText = _controller.Localizer["OK"],
+            DefaultButton = ContentDialogButton.Close,
+            XamlRoot = Content.XamlRoot
+        };
+        await creditsDialog.ShowAsync();
+    }
+
     /// <summary>
     /// Occurs when the about menu item is clicked
     /// </summary>
@@ -299,9 +364,9 @@ public sealed partial class MainWindow : Window
     {
         var aboutDialog = new ContentDialog()
         {
-            Title = $"About {_controller.AppInfo.ShortName}",
-            Content = $"{_controller.AppInfo.Name}\n{_controller.AppInfo.Description}\n\nVersion: {_controller.AppInfo.Version}\n\nCopyright (C) 2021-2022\nAll rights reserved.\nNicholas Logozzo\nNickvision",
-            CloseButtonText = "OK",
+            Title = string.Format(_controller.Localizer["About"], _controller.AppInfo.ShortName),
+            Content = string.Format(_controller.Localizer["AboutDialogDescription"], _controller.AppInfo.Name, _controller.AppInfo.Description, _controller.AppInfo.Version),
+            CloseButtonText = _controller.Localizer["OK"],
             DefaultButton = ContentDialogButton.Close,
             XamlRoot = Content.XamlRoot
         };
