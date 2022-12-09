@@ -17,6 +17,10 @@
   </resheader>
 
   <!--Use: &#xA; for newline-->
+
+  <data name="Description" xml:space="preserve">
+    <value>A template for creating Nickvision applications.</value>
+  </data>
 	
   <!--Credits-->
   <data name="TranslatorCredits" xml:space="preserve">
