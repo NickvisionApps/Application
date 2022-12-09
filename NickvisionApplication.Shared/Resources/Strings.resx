@@ -176,7 +176,7 @@
   </data>
 
   <data name="SettingsUserInterfaceDescription" xml:space="preserve">
-    <value>"Customize the application's user interface."</value>
+    <value>Customize the application's user interface.</value>
   </data>
 
 	<data name="SettingsTheme" xml:space="preserve">
