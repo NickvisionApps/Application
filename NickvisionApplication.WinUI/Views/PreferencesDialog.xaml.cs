@@ -12,6 +12,13 @@ public sealed partial class PreferencesDialog : ContentDialog
     {
         InitializeComponent();
         _controller = controller;
+        //Localize Strings
+        Title = _controller.Localizer["Settings"];
+        CardTheme.Header = _controller.Localizer["SettingsTheme"];
+        CardTheme.Description = _controller.Localizer["SettingsThemeDescription"];
+        CmbTheme.Items.Add(_controller.Localizer["SettingsThemeLight"]);
+        CmbTheme.Items.Add(_controller.Localizer["SettingsThemeDark"]);
+        CmbTheme.Items.Add(_controller.Localizer["SettingsThemeSystem"]);
     }
 
     private void Dialog_Opened(ContentDialog sender, ContentDialogOpenedEventArgs args)
