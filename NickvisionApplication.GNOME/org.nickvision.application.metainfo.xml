@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>org.nickvision.application</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0+</project_license>
+  <name>Application</name>
+  <summary>A template for creating Nickvision applications</summary>
+  <description>
+    <p>
+      A template for creating Nickvision applications
+    </p>
+  </description>
+  <launchable type="desktop-id">org.nickvision.application.desktop</launchable>
+  <screenshots>
+    <screenshot type="default">
+      <caption>MainWindow</caption>
+      <image>https://user-images.githubusercontent.com/17648453/188352482-90eeeb3c-25de-4b7c-9270-c49b7692485b.png</image>
+    </screenshot>
+    <screenshot>
+        <caption>DarkMode</caption>
+      <image>https://user-images.githubusercontent.com/17648453/188352505-75b12b3f-172b-448f-896b-1217dfe4b0a5.png</image>
+    </screenshot>
+    <screenshot>
+        <caption>PreferencesDialog</caption>
+      <image>https://user-images.githubusercontent.com/17648453/188352511-89444eb7-7cfb-4c8d-83f5-93d339c8ed2a.png</image>
+    </screenshot>>
+    <screenshot>
+        <caption>AboutDialog</caption>
+      <image>https://user-images.githubusercontent.com/17648453/188543750-3e228bc8-4ecd-4c70-a733-1b6d6a28e1a8.png</image>
+    </screenshot>
+  </screenshots>
+  <url type="homepage">https://github.com/nlogozzo/NickvisionApplication</url>
+  <project_group>Nickvision</project_group>
+  <provides>
+    <binary>org.nickvision.application</binary>
+  </provides>
+  <releases>
+    <release version="2022.11.0" date="2022-11-01">
+      <description>
+        <p>- Initial Release</p>
+      </description>
+    </release>
+  </releases>
+  <content_rating type="oars-1.1" />
+</component>
