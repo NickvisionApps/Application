@@ -102,8 +102,9 @@ public sealed partial class MainWindow : Window
         MenuReportABug.Text = _controller.Localizer["ReportABug"];
         MenuSupport.Text = _controller.Localizer["Support"];
         MenuCredits.Text = _controller.Localizer["Credits"];
-        MenuAbout.Text = _controller.Localizer["About"];
+        MenuAbout.Text = string.Format(_controller.Localizer["About"], _controller.AppInfo.ShortName);
         BtnCmdOpenFolder.Label = _controller.Localizer["Open"];
+        ToolTipService.SetToolTip(BtnCmdOpenFolder, _controller.Localizer["OpenFolderTooltip"]);
         PageNoFolder.Title = _controller.Localizer["NoFolderOpened"];
         PageNoFolder.Description = _controller.Localizer["NoFolderDescription"];
         LblStatus.Text = _controller.Localizer["Ready"];
@@ -363,7 +364,7 @@ public sealed partial class MainWindow : Window
     {
         var aboutDialog = new ContentDialog()
         {
-            Title = string.Format(_controller.Localizer["AboutDialogTitle"], _controller.AppInfo.ShortName),
+            Title = string.Format(_controller.Localizer["About"], _controller.AppInfo.ShortName),
             Content = string.Format(_controller.Localizer["AboutDialogDescription"], _controller.AppInfo.Name, _controller.AppInfo.Description, _controller.AppInfo.Version),
             CloseButtonText = _controller.Localizer["OK"],
             DefaultButton = ContentDialogButton.Close,
