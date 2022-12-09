@@ -20,7 +20,7 @@
 	
   <!--Credits-->
   <data name="TranslatorCredits" xml:space="preserve">
-	 <!--TRANSLATOR NAME(S) GOES HERE. SEPARATE WITH &#xA;-->
+    <!--TRANSLATOR NAME(S) GOES HERE. SEPARATE WITH &#xA;-->
     <value>Fyodor Sobolev https://github.com/fsobolev</value>
   </data>
   
@@ -33,7 +33,7 @@
     <value>Папка закрыта.</value>
   </data>
 	
-	<!--Dialog-->
+  <!--Dialog-->
   <data name="OK" xml:space="preserve">
     <value>Ок</value>
   </data>
@@ -72,18 +72,18 @@
   </data>
 	
   <data name="Settings" xml:space="preserve">
-    <value>Параметры</value>
+    <value>Настройки</value>
   </data>
 
   <data name="Preferences" xml:space="preserve">
-    <value>Настройки</value>
+    <value>Параметры</value>
   </data>
 
   <data name="KeyboardShortcuts" xml:space="preserve">
     <value>Сочетания клавиш</value>
   </data>
 
-	<data name="Help" xml:space="preserve">
+  <data name="Help" xml:space="preserve">
     <value>Помощь</value>
   </data>
 	
@@ -128,7 +128,7 @@
     <value>Закрыть папку (Ctrl+W)</value>
   </data>
 
-	<!--NoFolderPage-->
+  <!--NoFolderPage-->
   <data name="NoFolderOpened" xml:space="preserve">
     <value>Папка не открыта</value>
   </data>
@@ -179,7 +179,7 @@
     <value>Настройте интерфейс приложения.</value>
   </data>
 
-	<data name="SettingsTheme" xml:space="preserve">
+  <data name="SettingsTheme" xml:space="preserve">
     <value>Тема</value>
   </data>
 	
