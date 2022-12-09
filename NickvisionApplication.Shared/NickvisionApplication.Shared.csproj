@@ -6,11 +6,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\org.nickvision.application-devel.svg" />
+    <None Remove="Resources\org.nickvision.application-symbolic.svg" />
     <None Remove="Resources\org.nickvision.application.png" />
+    <None Remove="Resources\org.nickvision.application.svg" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\org.nickvision.application-devel.svg" />
+    <Resource Include="Resources\org.nickvision.application-symbolic.svg" />
     <Resource Include="Resources\org.nickvision.application.png" />
+    <Resource Include="Resources\org.nickvision.application.svg" />
   </ItemGroup>
 
   <ItemGroup>
