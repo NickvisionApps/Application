@@ -336,3 +336,6 @@ ASALocalRun/
 
 #Intellij
 .idea/
+
+#Resources
+*.Designer.cs

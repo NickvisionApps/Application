@@ -1,4 +1,5 @@
 ﻿using NickvisionApplication.Shared.Events;
+using NickvisionApplication.Shared.Helpers;
 using NickvisionApplication.Shared.Models;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,10 @@ public class MainWindowController
     private bool _isOpened;
 
     /// <summary>
+    /// The localizer to get translated strings from
+    /// </summary>
+    public Localizer Localizer { get; init; }
+    /// <summary>
     /// The path of the folder opened
     /// </summary>
     public string FolderPath { get; private set; }
@@ -23,6 +28,10 @@ public class MainWindowController
     /// Gets the AppInfo object
     /// </summary>
     public AppInfo AppInfo => AppInfo.Current;
+    /// <summary>
+    /// A PreferencesViewController
+    /// </summary>
+    public PreferencesViewController PreferencesViewController => new PreferencesViewController(Localizer);
     /// <summary>
     /// Whether or not the version is a development version or not
     /// </summary>
@@ -51,6 +60,7 @@ public class MainWindowController
     public MainWindowController()
     {
         _isOpened = false;
+        Localizer = new Localizer();
         FolderPath = "No Folder Opened";
     }
 
@@ -75,7 +85,7 @@ public class MainWindowController
         if(Directory.Exists(folderPath))
         {
             FolderPath = folderPath;
-            NotificationSent?.Invoke(this, new NotificationSentEventArgs($"Folder Opened: {FolderPath}", NotificationSeverity.Success));
+            NotificationSent?.Invoke(this, new NotificationSentEventArgs(string.Format(Localizer["FolderOpened"], FolderPath), NotificationSeverity.Success));
             FolderChanged?.Invoke(this, EventArgs.Empty);
             return true;
         }
@@ -88,7 +98,7 @@ public class MainWindowController
     public void CloseFolder()
     {
         FolderPath = "No Folder Opened";
-        NotificationSent?.Invoke(this, new NotificationSentEventArgs("Folder closed.", NotificationSeverity.Warning));
+        NotificationSent?.Invoke(this, new NotificationSentEventArgs(Localizer["FolderClosed"], NotificationSeverity.Warning));
         FolderChanged?.Invoke(this, EventArgs.Empty);
     }
 
