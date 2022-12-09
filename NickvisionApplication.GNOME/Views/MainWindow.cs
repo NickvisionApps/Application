@@ -144,7 +144,7 @@ public class MainWindow : Adw.ApplicationWindow
     /// <param name="e">EventArgs</param>
     private void OpenFolder(Gio.SimpleAction sender, EventArgs e)
     {
-        var openFolderDialog = Gtk.FileChooserNative.New(_controller.Localizer["OpenFolder"], this, Gtk.FileChooserAction.SelectFolder, "Open", "Cancel");
+        var openFolderDialog = Gtk.FileChooserNative.New(_controller.Localizer["OpenFolder"], this, Gtk.FileChooserAction.SelectFolder, _controller.Localizer["Open"], _controller.Localizer["Cancel"]);
         openFolderDialog.SetModal(true);
         openFolderDialog.OnResponse += (sender, e) =>
         {
