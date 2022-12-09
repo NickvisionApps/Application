@@ -20,7 +20,7 @@
 	
   <!--Credits-->
   <data name="TranslatorCredits" xml:space="preserve">
-	 <!--TRANSLATOR NAME GOES HERE-->
+	 <!--TRANSLATOR NAME(S) GOES HERE. SEPARATE WITH &#xA;-->
     <value></value>
   </data>
 
