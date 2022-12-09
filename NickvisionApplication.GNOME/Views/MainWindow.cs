@@ -47,27 +47,28 @@ public class MainWindow : Adw.ApplicationWindow
         //Open Folder Button
         _btnOpenFolder = Gtk.Button.New();
         var btnOpenFolderContent = Adw.ButtonContent.New();
-        btnOpenFolderContent.SetLabel("Open");
+        btnOpenFolderContent.SetLabel(_controller.Localizer["Open"]);
         btnOpenFolderContent.SetIconName("folder-open-symbolic");
         _btnOpenFolder.SetChild(btnOpenFolderContent);
-        _btnOpenFolder.SetTooltipText("Open Folder (Ctrl+O)");
+        _btnOpenFolder.SetTooltipText(_controller.Localizer["OpenFolderTooltip"]);
         _btnOpenFolder.SetActionName("win.openFolder");
         _headerBar.PackStart(_btnOpenFolder);
         //Close Folder Button
         _btnCloseFolder = Gtk.Button.New();
         _btnCloseFolder.SetIconName("window-close-symbolic");
+        _btnOpenFolder.SetTooltipText(_controller.Localizer["CloseFolderTooltip"]);
         _btnCloseFolder.SetVisible(false);
         _btnCloseFolder.SetActionName("win.closeFolder");
         _headerBar.PackStart(_btnCloseFolder);
         //Menu Help Button
         _btnMenuHelp = Gtk.MenuButton.New();
         var menuHelp = Gio.Menu.New();
-        menuHelp.Append("Preferences", "win.preferences");
-        menuHelp.Append("Keyboard Shortcuts", "win.keyboardShortcuts");
-        menuHelp.Append($"About {_controller.AppInfo.ShortName}", "win.about");
+        menuHelp.Append(_controller.Localizer["Preferences"], "win.preferences");
+        menuHelp.Append(_controller.Localizer["KeyboardShortcuts"], "win.keyboardShortcuts");
+        menuHelp.Append(string.Format(_controller.Localizer["About"], _controller.AppInfo.ShortName), "win.about");
         _btnMenuHelp.SetDirection(Gtk.ArrowType.None);
         _btnMenuHelp.SetMenuModel(menuHelp);
-        _btnMenuHelp.SetTooltipText("Main Menu");
+        _btnMenuHelp.SetTooltipText(_controller.Localizer["MainMenu"]);
         _headerBar.PackEnd(_btnMenuHelp);
         //Toast Overlay
         _toastOverlay = Adw.ToastOverlay.New();
@@ -80,8 +81,8 @@ public class MainWindow : Adw.ApplicationWindow
         //No Folder Page
         _pageNoFolder = Adw.StatusPage.New();
         _pageNoFolder.SetIconName("folder-symbolic");
-        _pageNoFolder.SetTitle("No Folder Opened");
-        _pageNoFolder.SetDescription("Open a folder (or drag one into the app) to get started.");
+        _pageNoFolder.SetTitle(_controller.Localizer["NoFolderOpened"]);
+        _pageNoFolder.SetDescription(_controller.Localizer["NoFolderDescription"]);
         _viewStack.AddNamed(_pageNoFolder, "NoFolder");
         //Folder Page
         var pageFolder = Gtk.Box.New(Gtk.Orientation.Vertical, 0);
@@ -143,7 +144,7 @@ public class MainWindow : Adw.ApplicationWindow
     /// <param name="e">EventArgs</param>
     private void OpenFolder(Gio.SimpleAction sender, EventArgs e)
     {
-        var openFolderDialog = Gtk.FileChooserNative.New("Open Folder", this, Gtk.FileChooserAction.SelectFolder, "Open", "Cancel");
+        var openFolderDialog = Gtk.FileChooserNative.New(_controller.Localizer["OpenFolder"], this, Gtk.FileChooserAction.SelectFolder, "Open", "Cancel");
         openFolderDialog.SetModal(true);
         openFolderDialog.OnResponse += (sender, e) =>
         {
@@ -169,7 +170,7 @@ public class MainWindow : Adw.ApplicationWindow
     /// <param name="e">EventArgs</param>
     private void Preferences(Gio.SimpleAction sender, EventArgs e)
     {
-        var preferencesDialog = new PreferencesDialog(new PreferencesViewController(), _application, this);
+        var preferencesDialog = new PreferencesDialog(_controller.PreferencesViewController, _application, this);
         preferencesDialog.Show();
     }
 

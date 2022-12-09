@@ -66,8 +66,16 @@
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
   </data>
-	
-  <data name="Help" xml:space="preserve">
+
+  <data name="Preferences" xml:space="preserve">
+    <value>Preferences</value>
+  </data>
+
+  <data name="KeyboardShortcuts" xml:space="preserve">
+    <value>Keyboard Shortcuts</value>
+  </data>
+
+	<data name="Help" xml:space="preserve">
     <value>Help</value>
   </data>
 	
@@ -92,14 +100,27 @@
   </data>
 	
   <data name="About" xml:space="preserve">
-    <value>About</value>
+    <value>About {0}</value>
   </data>
-	
+
+  <data name="MainMenu" xml:space="preserve">
+    <value>Main Menu</value>
+  </data>
+
+  <!--CommandBar-->
   <data name="Open" xml:space="preserve">
     <value>Open</value>
   </data>
-	
-  <!--NoFolderPage-->
+
+  <data name="OpenFolderTooltip" xml:space="preserve">
+    <value>Open Folder (Ctrl+O)</value>
+  </data>
+
+  <data name="CloseFolderTooltip" xml:space="preserve">
+    <value>Close Folder (Ctrl+W)</value>
+  </data>
+
+	<!--NoFolderPage-->
   <data name="NoFolderOpened" xml:space="preserve">
     <value>No Folder Opened</value>
   </data>
@@ -136,26 +157,30 @@
     <value>Translators:&#xA;{0}</value>
   </data>
 	
-  <!--AboutDialog-->
-  <data name="AboutDialogTitle" xml:space="preserve">
-    <value>About {0}</value>
-  </data>
-	
+  <!--AboutDialog-->	
   <data name="AboutDialogDescription" xml:space="preserve">
     <value>{0}&#xA;{1}&#xA;&#xA;Version: {2}&#xA;&#xA;Copyright (C) 2021-2022&#xA;All rights reserved.&#xA;Nicholas Logozzo&#xA;Nickvision</value>
   </data>
 	
   <!--Settings-->
-  <data name="Preferences" xml:space="preserve">
-    <value>Preferences</value>
+  <data name="SettingsUserInterface" xml:space="preserve">
+    <value>User Interface</value>
   </data>
-	
-  <data name="SettingsTheme" xml:space="preserve">
+
+  <data name="SettingsUserInterfaceDescription" xml:space="preserve">
+    <value>"Customize the application's user interface."</value>
+  </data>
+
+	<data name="SettingsTheme" xml:space="preserve">
     <value>Theme</value>
   </data>
 	
   <data name="SettingsThemeDescription" xml:space="preserve">
     <value>An application restart is required to change the theme.</value>
+  </data>
+
+  <data name="SettingsThemeDescriptionGtk" xml:space="preserve">
+    <value>A theme change will be applied when the dialog is closed.</value>
   </data>
 	
   <data name="SettingsThemeLight" xml:space="preserve">

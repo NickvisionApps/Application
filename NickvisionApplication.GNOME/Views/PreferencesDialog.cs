@@ -29,19 +29,19 @@ public class PreferencesDialog : Adw.Window
         _mainBox = Gtk.Box.New(Gtk.Orientation.Vertical, 0);
         //Header Bar
         _headerBar = Adw.HeaderBar.New();
-        _headerBar.SetTitleWidget(Adw.WindowTitle.New("Preferences", ""));
+        _headerBar.SetTitleWidget(Adw.WindowTitle.New(_controller.Localizer["Preferences"], ""));
         _mainBox.Append(_headerBar);
         //Preferences Page
         _page = Adw.PreferencesPage.New();
         _mainBox.Append(_page);
         //User Interface Group
         _grpUserInterface = Adw.PreferencesGroup.New();
-        _grpUserInterface.SetTitle("User Interface");
-        _grpUserInterface.SetDescription("Customize the application's user interface.");
+        _grpUserInterface.SetTitle(_controller.Localizer["SettingsUserInterface"]);
+        _grpUserInterface.SetDescription(_controller.Localizer["SettingsUserInterfaceDescription"]);
         _rowTheme = Adw.ComboRow.New();
-        _rowTheme.SetTitle("Theme");
-        _rowTheme.SetSubtitle("A theme change will be applied when the dialog is closed.");
-        _rowTheme.SetModel(Gtk.StringList.New(new string[] { "Light", "Dark", "System" }));
+        _rowTheme.SetTitle(_controller.Localizer["SettingsTheme"]);
+        _rowTheme.SetSubtitle(_controller.Localizer["SettingThemeDescriptionGtk"]);
+        _rowTheme.SetModel(Gtk.StringList.New(new string[] { _controller.Localizer["SettingsThemeLight"], _controller.Localizer["SettingsThemeDark"], _controller.Localizer["SettingsThemeSystem"] }));
         _grpUserInterface.Add(_rowTheme);
         _page.Add(_grpUserInterface);
         //Layout
