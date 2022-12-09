@@ -4,10 +4,17 @@ using NickvisionApplication.Shared.Models;
 
 namespace NickvisionApplication.WinUI.Views;
 
+/// <summary>
+/// The PreferencesDialog for the application
+/// </summary>
 public sealed partial class PreferencesDialog : ContentDialog
 {
     private readonly PreferencesViewController _controller;
 
+    /// <summary>
+    /// Constructs a PreferencesDialog
+    /// </summary>
+    /// <param name="controller">PreferencesViewController</param>
     public PreferencesDialog(PreferencesViewController controller)
     {
         InitializeComponent();
@@ -21,11 +28,21 @@ public sealed partial class PreferencesDialog : ContentDialog
         CmbTheme.Items.Add(_controller.Localizer["SettingsThemeSystem"]);
     }
 
+    /// <summary>
+    /// Occurs when the dialog is opened
+    /// </summary>
+    /// <param name="sender">ContentDialog</param>
+    /// <param name="args">ContentDialogOpenedEventArgs</param>
     private void Dialog_Opened(ContentDialog sender, ContentDialogOpenedEventArgs args)
     {
         CmbTheme.SelectedIndex = (int)_controller.Theme;
     }
 
+    /// <summary>
+    /// Occurs when the dialog is closed
+    /// </summary>
+    /// <param name="sender">ContentDialog</param>
+    /// <param name="args">ContentDialogOpenedEventArgs</param>
     private void Dialog_Closed(ContentDialog sender, ContentDialogClosedEventArgs args)
     {
         _controller.Theme = (Theme)CmbTheme.SelectedIndex;

@@ -4,6 +4,9 @@ using System;
 
 namespace NickvisionApplication.GNOME.Views;
 
+/// <summary>
+/// The PreferencesDialog for the application
+/// </summary>
 public class PreferencesDialog : Adw.Window
 {
     private readonly PreferencesViewController _controller;
@@ -14,6 +17,12 @@ public class PreferencesDialog : Adw.Window
     private readonly Adw.PreferencesGroup _grpUserInterface;
     private readonly Adw.ComboRow _rowTheme;
 
+    /// <summary>
+    /// Constructs a PreferencesDialog
+    /// </summary>
+    /// <param name="controller">PreferencesViewController</param>
+    /// <param name="application">Adw.Application</param>
+    /// <param name="parent">Gtk.Window</param>
     public PreferencesDialog(PreferencesViewController controller, Adw.Application application, Gtk.Window parent)
     {
         //Window Settings
@@ -51,6 +60,11 @@ public class PreferencesDialog : Adw.Window
         _rowTheme.SetSelected((uint)_controller.Theme);
     }
 
+    /// <summary>
+    /// Occurs when the dialog is hidden
+    /// </summary>
+    /// <param name="sender">Gtk.Widget</param>
+    /// <param name="e">EventArgs</param>
     private void Hide(Gtk.Widget sender, EventArgs e)
     {
         _controller.Theme = (Theme)_rowTheme.GetSelected();

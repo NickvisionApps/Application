@@ -1,5 +1,8 @@
 ﻿namespace NickvisionApplication.Shared.Events;
 
+/// <summary>
+/// Severities for a notification
+/// </summary>
 public enum NotificationSeverity
 {
     Informational = 0,
