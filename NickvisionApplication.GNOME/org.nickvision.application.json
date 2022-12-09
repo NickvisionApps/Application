@@ -52,7 +52,7 @@
 	    },
             "build-commands": [
                 "dotnet publish -c Release --source ./nuget-sources NickvisionApplication.GNOME/NickvisionApplication.GNOME.csproj --runtime $RUNTIME --self-contained true",
-                "mkdir -p /app/bin",
+                "mkdir -p /app/opt/org.nickvision.application",
                 "cp -r --remove-destination /run/build/org.nickvision.application/NickvisionApplication.GNOME/bin/Release/net7.0/$RUNTIME/publish/* /app/opt/org.nickvision.application/",
                 "mkdir -p /app/share/icons/hicolor/scalable/apps",
                 "cp NickvisionApplication.Shared/Resources/org.nickvision.application.png /app/share/icons/hicolor/scalable/apps/",
