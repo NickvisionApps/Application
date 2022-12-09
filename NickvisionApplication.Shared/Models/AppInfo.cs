@@ -49,10 +49,6 @@ public class AppInfo
     /// The support url for the application
     /// </summary>
     public Uri SupportUrl { get; set; }
-    /// <summary>
-    /// The list of translators of the application
-    /// </summary>
-    public List<string> Translators { get; init; }
 
     /// <summary>
     /// Constructs an AppInfo
@@ -68,6 +64,5 @@ public class AppInfo
         GitHubRepo = new Uri("about:blank");
         IssueTracker = new Uri("about:blank");
         SupportUrl = new Uri("about:blank");
-        Translators = new List<string>();
     }
 }

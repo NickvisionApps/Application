@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Resources;
 
 namespace NickvisionApplication.Shared.Helpers;
@@ -9,6 +10,7 @@ namespace NickvisionApplication.Shared.Helpers;
 public class Localizer
 {
     private readonly ResourceManager _resourceManager;
+    private readonly ResourceSet _resourceSet;
 
     /// <summary>
     /// Gets a localized non-plural/plural string
@@ -31,6 +33,7 @@ public class Localizer
     public Localizer()
     { 
         _resourceManager = new ResourceManager("NickvisionApplication.Shared.Resources.Strings", GetType().Assembly);
+        _resourceSet = _resourceManager.GetResourceSet(CultureInfo.CurrentCulture, true, true)!;
     }
 
     /// <summary>
@@ -38,7 +41,7 @@ public class Localizer
     /// </summary>
     /// <param name="name">The name of the string resource</param>
     /// <returns>The localized string</returns>
-    public string GetString(string name) => _resourceManager.GetString(name) ?? string.Empty;
+    public string GetString(string name) => _resourceSet.GetString(name) ?? string.Empty;
 
     /// <summary>
     /// Gets a localized string by context
@@ -46,12 +49,12 @@ public class Localizer
     /// <param name="name">The name of the string resource</param>
     /// <param name="context">The name of the context</param>
     /// <returns>The localized string with the context</returns>
-    public string GetStringWithContext(string name, string context) => _resourceManager.GetString($"{name}.{context}") ?? string.Empty;
+    public string GetStringWithContext(string name, string context) => _resourceSet.GetString($"{name}.{context}") ?? string.Empty;
 
     /// <summary>
     /// Gets a localized plural string
     /// </summary>
     /// <param name="name">The name of the string resource</param>
     /// <returns>The localized plural string</returns>
-    public string GetPluralString(string name) => _resourceManager.GetString($"{name}.Plural") ?? string.Empty;
+    public string GetPluralString(string name) => _resourceSet.GetString($"{name}.Plural") ?? string.Empty;
 }
