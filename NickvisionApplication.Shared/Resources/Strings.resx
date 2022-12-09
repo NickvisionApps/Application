@@ -16,7 +16,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
 
-  <!--MainWindowConroller-->
+  <!--Use: &#xA; for newline-->
+	
+  <!--Credits-->
+  <data name="TranslatorCredits" xml:space="preserve">
+	 <!--TRANSLATOR NAME(S) GOES HERE. SEPARATE WITH &#xA;-->
+    <value></value>
+  </data>
+
+	<!--MainWindowConroller-->
   <data name="FolderOpened" xml:space="preserve">
     <value>Folder Opened: {0}</value>
   </data>
@@ -154,7 +162,7 @@
   </data>
 	
   <data name="CreditsDialogDescription" xml:space="preserve">
-    <value>Translators:&#xA;{0}</value>
+    <value>Developers:&#xA;{0}&#xA;&#xA;Designers:&#xA;{1}&#xA;&#xA;Artists:&#xA;{2}&#xA;&#xA;Translators:&#xA;{3}</value>
   </data>
 	
   <!--AboutDialog-->	

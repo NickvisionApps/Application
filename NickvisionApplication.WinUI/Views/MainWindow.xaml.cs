@@ -347,7 +347,7 @@ public sealed partial class MainWindow : Window
         var creditsDialog = new ContentDialog()
         {
             Title = _controller.Localizer["CreditsDialogTitle"],
-            Content = string.Format(_controller.Localizer["CreditsDialogDescription"], ""),
+            Content = string.Format(_controller.Localizer["CreditsDialogDescription"], "Nicholas Logozzo", "Nicholas Logozzo", "Nicholas Logozzo", _controller.Localizer["TranslatorCredits"]),
             CloseButtonText = _controller.Localizer["OK"],
             DefaultButton = ContentDialogButton.Close,
             XamlRoot = Content.XamlRoot
