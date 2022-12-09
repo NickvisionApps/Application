@@ -34,6 +34,8 @@
             "build-commands": [
                 "mkdir -p /app/opt/org.nickvision.application",
                 "dotnet publish NickvisionApplication.GNOME --self-contained true -o /app/opt/org.nickvision.application",
+                "mkdir -p /app/share/icons/hicolor/scalable/apps",
+                "cp NickvisionApplication.Shared/Resources/org.nickvision.application.png /app/share/icons/hicolor/scalable/apps/",
                 "mkdir -p /app/share/applications",
                 "cp NickvisionApplication.GNOME/org.nickvision.application.desktop /app/share/applications/",
                 "mkdir -p /app/share/metainfo",
