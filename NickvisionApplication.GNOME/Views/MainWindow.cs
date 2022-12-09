@@ -41,7 +41,7 @@ public class MainWindow : Adw.ApplicationWindow
         _mainBox = Gtk.Box.New(Gtk.Orientation.Vertical, 0);
         //Header Bar
         _headerBar = Adw.HeaderBar.New();
-        _windowTitle = Adw.WindowTitle.New(_controller.AppInfo.ShortName, _controller.FolderPath);
+        _windowTitle = Adw.WindowTitle.New(_controller.AppInfo.ShortName, _controller.FolderPath == "No Folder Opened" ? _controller.Localizer["NoFolderOpened"] : _controller.FolderPath);
         _headerBar.SetTitleWidget(_windowTitle);
         _mainBox.Append(_headerBar);
         //Open Folder Button
