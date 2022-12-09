@@ -50,7 +50,6 @@
   </ItemGroup>
   <ItemGroup>
 	  <Resource Include="Assets\org.nickvision.application.ico" />
-	  <Resource Include="Assets\org.nickvision.application.png" />
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\PreferencesDialog.xaml">
