@@ -1,5 +1,5 @@
-﻿using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.Shared.Models;
+using NickvisionApplication.Shared.Helpers;
 using System;
 
 namespace NickvisionApplication.GNOME.Views;
@@ -12,7 +12,7 @@ public class ShortcutsDialog
     private readonly Gtk.Builder _builder;
     private readonly Gtk.ShortcutsWindow _window;
 
-    public ShortcutsDialog(MainWindowController controller, Gtk.Window parent)
+    public ShortcutsDialog(Localizer localizer, string appName, Gtk.Window parent)
     {
     	string xml = $@"<?xml version='1.0' encoding='UTF-8'?>
             <interface>
@@ -27,16 +27,16 @@ public class ShortcutsDialog
                         <object class='GtkShortcutsSection'>
                             <child>
                                 <object class='GtkShortcutsGroup'>
-                                    <property name='title'>{ controller.Localizer["Folder"] }</property>
+                                    <property name='title'>{ localizer["Folder"] }</property>
                                     <child>
                                         <object class='GtkShortcutsShortcut'>
-                                            <property name='title'>{ controller.Localizer["OpenFolder"] }</property>
+                                            <property name='title'>{ localizer["OpenFolder"] }</property>
                                             <property name='accelerator'>&lt;Control&gt;o</property>
                                         </object>
                                     </child>
                                     <child>
                                         <object class='GtkShortcutsShortcut'>
-                                            <property name='title'>{ controller.Localizer["CloseFolder"] }</property>
+                                            <property name='title'>{ localizer["CloseFolder"] }</property>
                                             <property name='accelerator'>&lt;Control&gt;w</property>
                                         </object>
                                     </child>
@@ -44,22 +44,22 @@ public class ShortcutsDialog
                             </child>
                             <child>
                                 <object class='GtkShortcutsGroup'>
-                                    <property name='title'>{ controller.Localizer["Application"] }</property>
+                                    <property name='title'>{ localizer["Application"] }</property>
                                     <child>
                                         <object class='GtkShortcutsShortcut'>
-                                            <property name='title'>{ controller.Localizer["Preferences"] }</property>
+                                            <property name='title'>{ localizer["Preferences"] }</property>
                                             <property name='accelerator'>&lt;Control&gt;comma</property>
                                         </object>
                                     </child>
                                     <child>
                                         <object class='GtkShortcutsShortcut'>
-                                            <property name='title'>{ controller.Localizer["KeyboardShortcuts"] }</property>
+                                            <property name='title'>{ localizer["KeyboardShortcuts"] }</property>
                                             <property name='accelerator'>&lt;Control&gt;question</property>
                                         </object>
                                     </child>
                                     <child>
                                         <object class='GtkShortcutsShortcut'>
-                                            <property name='title'>{ string.Format(controller.Localizer["About"], controller.AppInfo.ShortName) }</property>
+                                            <property name='title'>{ string.Format(localizer["About"], appName) }</property>
                                             <property name='accelerator'>F1</property>
                                         </object>
                                     </child>
