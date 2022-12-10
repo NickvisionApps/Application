@@ -112,10 +112,12 @@ public class MainWindow : Adw.ApplicationWindow
         var actKeyboardShortcuts = Gio.SimpleAction.New("keyboardShortcuts", null);
         actKeyboardShortcuts.OnActivate += KeyboardShortcuts;
         AddAction(actKeyboardShortcuts);
+        application.SetAccelsForAction("win.keyboardShortcuts", new string[] { "<Ctrl>question" });
         //About Action
         var actAbout = Gio.SimpleAction.New("about", null);
         actAbout.OnActivate += About;
         AddAction(actAbout);
+        application.SetAccelsForAction("win.about", new string[] { "F1" });
     }
 
     /// <summary>
