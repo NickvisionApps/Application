@@ -212,31 +212,11 @@
   </data>
 
   <!--Shortcuts Dialog-->
-  <data name="ShortcutsFolder" xml:space="preserve">
+  <data name="Folder" xml:space="preserve">
     <value>Folder</value>
   </data>
 
-  <data name="ShortcutsOpenFolder" xml:space="preserve">
-    <value>Open Folder</value>
-  </data>
-
-  <data name="ShortcutsCloseFolder" xml:space="preserve">
-    <value>Close Folder</value>
-  </data>
-
-  <data name="ShortcutsApplication" xml:space="preserve">
+  <data name="Application" xml:space="preserve">
     <value>Application</value>
-  </data>
-
-  <data name="ShortcutsPreferences" xml:space="preserve">
-    <value>Preferences</value>
-  </data>
-
-  <data name="ShortcutsShortcuts" xml:space="preserve">
-    <value>Keyboard Shortcuts</value>
-  </data>
-
-  <data name="ShortcutsAbout" xml:space="preserve">
-    <value>About</value>
   </data>
 </root>

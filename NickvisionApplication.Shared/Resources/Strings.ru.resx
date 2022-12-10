@@ -212,31 +212,11 @@
   </data>
 
   <!--Shortcuts Dialog-->
-  <data name="ShortcutsFolder" xml:space="preserve">
+  <data name="Folder" xml:space="preserve">
     <value>Папка</value>
   </data>
 
-  <data name="ShortcutsOpenFolder" xml:space="preserve">
-    <value>Открыть папку</value>
-  </data>
-
-  <data name="ShortcutsCloseFolder" xml:space="preserve">
-    <value>Закрыть папку</value>
-  </data>
-
-  <data name="ShortcutsApplication" xml:space="preserve">
+  <data name="Application" xml:space="preserve">
     <value>Приложение</value>
-  </data>
-
-  <data name="ShortcutsPreferences" xml:space="preserve">
-    <value>Параметры</value>
-  </data>
-
-  <data name="ShortcutsShortcuts" xml:space="preserve">
-    <value>Сочетания клавиш</value>
-  </data>
-
-  <data name="ShortcutsAbout" xml:space="preserve">
-    <value>О приложении</value>
   </data>
 </root>
