@@ -191,6 +191,22 @@ public class MainWindow : Adw.ApplicationWindow
     /// <param name="e">EventArgs</param>
     private void About(Gio.SimpleAction sender, EventArgs e)
     {
-        
+        var aboutWindow = Gtk.AboutDialog.New();
+        aboutWindow.SetModal(true);
+        aboutWindow.SetTransientFor(this);
+        aboutWindow.SetProgramName(_controller.AppInfo.Name);
+        aboutWindow.SetLogoIconName(_controller.AppInfo.ID);
+        aboutWindow.SetVersion(_controller.AppInfo.Version);
+        aboutWindow.SetComments(_controller.AppInfo.Description);
+        aboutWindow.SetLicenseType(Gtk.License.Gpl30);
+        aboutWindow.SetCopyright("© Nickvision 2021-2022");
+        aboutWindow.SetWebsite(Convert.ToString(_controller.AppInfo.GitHubRepo));
+        aboutWindow.SetAuthors(_controller.Localizer["Developers"].Split(Environment.NewLine));
+        string translatorCredits = _controller.Localizer["TranslatorCredits"];
+        if(translatorCredits.Length > 0)
+        {
+            aboutWindow.SetTranslatorCredits(translatorCredits);
+        }
+        aboutWindow.Present();
     }
 }

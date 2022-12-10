@@ -23,6 +23,10 @@
   </data>
 	
   <!--Credits-->
+  <data name="Developers" xml:space="preserve">
+    <value>Nicholas Logozzo https://github.com/nlogozzo&#xA;Contributors on GitHub https://github.com/nlogozzo/NickvisionApplication/graphs/contributors</value>
+  </data>
+
   <data name="TranslatorCredits" xml:space="preserve">
 	 <!--TRANSLATOR NAME(S) GOES HERE. SEPARATE WITH &#xA;-->
     <value></value>
