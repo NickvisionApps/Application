@@ -196,7 +196,7 @@ public class MainWindow : Adw.ApplicationWindow
         var aboutWindow = Gtk.AboutDialog.New();
         aboutWindow.SetModal(true);
         aboutWindow.SetTransientFor(this);
-        aboutWindow.SetProgramName(_controller.AppInfo.Name);
+        aboutWindow.SetProgramName(_controller.AppInfo.ShortName);
         aboutWindow.SetLogoIconName(_controller.AppInfo.ID);
         aboutWindow.SetVersion(_controller.AppInfo.Version);
         aboutWindow.SetComments(_controller.AppInfo.Description);
