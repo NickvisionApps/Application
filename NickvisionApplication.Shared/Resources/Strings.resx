@@ -23,6 +23,10 @@
   </data>
 	
   <!--Credits-->
+  <data name="Developers" xml:space="preserve">
+    <value>Nicholas Logozzo https://github.com/nlogozzo&#xA;Contributors on GitHub https://github.com/nlogozzo/NickvisionApplication/graphs/contributors</value>
+  </data>
+
   <data name="TranslatorCredits" xml:space="preserve">
 	 <!--TRANSLATOR NAME(S) GOES HERE. SEPARATE WITH &#xA;-->
     <value></value>
@@ -205,5 +209,14 @@
 	
   <data name="SettingsThemeSystem" xml:space="preserve">
     <value>System</value>
+  </data>
+
+  <!--Shortcuts Dialog-->
+  <data name="Folder" xml:space="preserve">
+    <value>Folder</value>
+  </data>
+
+  <data name="Application" xml:space="preserve">
+    <value>Application</value>
   </data>
 </root>

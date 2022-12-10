@@ -112,10 +112,12 @@ public class MainWindow : Adw.ApplicationWindow
         var actKeyboardShortcuts = Gio.SimpleAction.New("keyboardShortcuts", null);
         actKeyboardShortcuts.OnActivate += KeyboardShortcuts;
         AddAction(actKeyboardShortcuts);
+        application.SetAccelsForAction("win.keyboardShortcuts", new string[] { "<Ctrl>question" });
         //About Action
         var actAbout = Gio.SimpleAction.New("about", null);
         actAbout.OnActivate += About;
         AddAction(actAbout);
+        application.SetAccelsForAction("win.about", new string[] { "F1" });
     }
 
     /// <summary>
@@ -181,7 +183,8 @@ public class MainWindow : Adw.ApplicationWindow
     /// <param name="e">EventArgs</param>
     private void KeyboardShortcuts(Gio.SimpleAction sender, EventArgs e)
     {
-        
+        var shortcutsDialog = new ShortcutsDialog(_controller.Localizer, _controller.AppInfo.ShortName, this);
+        shortcutsDialog.Show();
     }
 
     /// <summary>
@@ -191,6 +194,18 @@ public class MainWindow : Adw.ApplicationWindow
     /// <param name="e">EventArgs</param>
     private void About(Gio.SimpleAction sender, EventArgs e)
     {
-        
+        var aboutWindow = Gtk.AboutDialog.New();
+        aboutWindow.SetTransientFor(this);
+        aboutWindow.SetModal(true);
+        aboutWindow.SetProgramName(_controller.AppInfo.ShortName);
+        aboutWindow.SetLogoIconName(_controller.AppInfo.ID);
+        aboutWindow.SetVersion(_controller.AppInfo.Version);
+        aboutWindow.SetComments(_controller.AppInfo.Description);
+        aboutWindow.SetLicenseType(Gtk.License.Gpl30);
+        aboutWindow.SetCopyright("© Nickvision 2021-2022");
+        aboutWindow.SetWebsite(_controller.AppInfo.GitHubRepo.ToString());
+        aboutWindow.SetAuthors(_controller.Localizer["Developers"].Split(Environment.NewLine));
+        aboutWindow.SetTranslatorCredits(_controller.Localizer["TranslatorCredits"].Length > 0 ? _controller.Localizer["TranslatorCredits"] : null);
+        aboutWindow.Show();
     }
 }
