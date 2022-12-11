@@ -34,15 +34,7 @@
             "build-commands": [
                 "mkdir -p /app/opt/org.nickvision.application",
                 "dotnet publish NickvisionApplication.GNOME --self-contained true -o /app/opt/org.nickvision.application",
-                "mkdir -p /app/share/icons/hicolor/scalable/apps",
-                "cp NickvisionApplication.Shared/Resources/org.nickvision.application.svg /app/share/icons/hicolor/scalable/apps/",
-                "cp NickvisionApplication.Shared/Resources/org.nickvision.application-devel.svg /app/share/icons/hicolor/scalable/apps/",
-                "mkdir -p /app/share/icons/hicolor/symbolic/apps",
-                "cp NickvisionApplication.Shared/Resources/org.nickvision.application-symbolic.svg /app/share/icons/hicolor/symbolic/apps/",
-                "mkdir -p /app/share/applications",
-                "cp NickvisionApplication.GNOME/org.nickvision.application.desktop /app/share/applications/",
-                "mkdir -p /app/share/metainfo",
-                "cp NickvisionApplication.GNOME/org.nickvision.application.metainfo.xml /app/share/metainfo/"
+                "NickvisionApplication.GNOME/install_extras.sh /app"
             ],
             "sources": [
                 {
