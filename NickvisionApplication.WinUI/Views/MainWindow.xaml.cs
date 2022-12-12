@@ -8,7 +8,6 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.Windows.AppLifecycle;
 using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.Shared.Events;
-using NickvisionApplication.Shared.Helpers;
 using NickvisionApplication.WinUI.Controls;
 using System;
 using System.Collections.Generic;
@@ -328,7 +327,6 @@ public sealed partial class MainWindow : Window
     /// <param name="sender">object</param>
     /// <param name="e">RoutedEventArgs</param>
     private async void ReportABug(object sender, RoutedEventArgs e) => await Launcher.LaunchUriAsync(_controller.AppInfo.IssueTracker);
-
 
     /// <summary>
     /// Occurs when the support menu item is clicked
