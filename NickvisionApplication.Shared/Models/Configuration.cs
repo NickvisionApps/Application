@@ -26,7 +26,7 @@ public class Configuration
     /// <summary>
     /// Constructs a Configuration
     /// </summary>
-    internal Configuration()
+    public Configuration()
     {
         if(!Directory.Exists(ConfigDir))
         {

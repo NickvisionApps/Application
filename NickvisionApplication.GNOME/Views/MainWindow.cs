@@ -65,7 +65,7 @@ public class MainWindow : Adw.ApplicationWindow
         var menuHelp = Gio.Menu.New();
         menuHelp.Append(_controller.Localizer["Preferences"], "win.preferences");
         menuHelp.Append(_controller.Localizer["KeyboardShortcuts"], "win.keyboardShortcuts");
-        menuHelp.Append(string.Format(_controller.Localizer["About", "GTK"], _controller.AppInfo.ShortName), "win.about");
+        menuHelp.Append(string.Format(_controller.Localizer["About"], _controller.AppInfo.ShortName), "win.about");
         _btnMenuHelp.SetDirection(Gtk.ArrowType.None);
         _btnMenuHelp.SetMenuModel(menuHelp);
         _btnMenuHelp.SetTooltipText(_controller.Localizer["MainMenu", "GTK"]);

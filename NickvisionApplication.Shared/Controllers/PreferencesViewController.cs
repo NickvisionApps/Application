@@ -14,6 +14,11 @@ public class PreferencesViewController
     public Localizer Localizer { get; init; }
 
     /// <summary>
+    /// Gets the AppInfo object
+    /// </summary>
+    public AppInfo AppInfo => AppInfo.Current;
+
+    /// <summary>
     /// Constructs a PreferencesViewController
     /// </summary>
     internal PreferencesViewController(Localizer localizer)

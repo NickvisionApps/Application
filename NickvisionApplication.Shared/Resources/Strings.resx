@@ -22,9 +22,36 @@
         <value>A template for creating Nickvision applications.</value>
     </data>
 
+	<data name="Version" xml:space="preserve">
+		<value>Version: {0}</value>
+	</data>
+
+	<data name="About" xml:space="preserve">
+		<value>About {0}</value>
+	</data>
+
+	<data name="Changelog" xml:space="preserve">
+        <value>Changelog</value>
+    </data>
+
 	<!--Credits-->
+	<data name="Credits" xml:space="preserve">
+        <value>Credits</value>
+    </data>
+
 	<data name="Developers.Credits" xml:space="preserve">
-        <value>Nicholas Logozzo https://github.com/nlogozzo&#xA;Contributors on GitHub https://github.com/nlogozzo/NickvisionApplication/graphs/contributors</value>
+        <!--DEVELOPER NAME(S) GOES HERE. SEPARATE WITH &#xA;-->
+		<value>Nicholas Logozzo https://github.com/nlogozzo&#xA;Contributors on GitHub https://github.com/nlogozzo/NickvisionApplication/graphs/contributors</value>
+    </data>
+
+	<data name="Designers.Credits" xml:space="preserve">
+        <!--DESIGNER NAME(S) GOES HERE. SEPARATE WITH &#xA;-->
+		<value>Nicholas Logozzo https://github.com/nlogozzo&#xA;Fyodor Sobolev https://github.com/fsobolev</value>
+    </data>
+
+	<data name="Artists.Credits" xml:space="preserve">
+		<!--ARTIST NAME(S) GOES HERE. SEPARATE WITH &#xA;-->
+        <value>Nicholas Logozzo https://github.com/nlogozzo</value>
     </data>
 
 	<data name="Translators.Credits" xml:space="preserve">
@@ -167,6 +194,14 @@
     </data>
 	
     <!--WinUI Specific-->
+	<data name="ChangelogTitle.WinUI" xml:space="preserve">
+        <value>What's New?</value>
+    </data>
+
+	<data name="CreditsDialogDescription.WinUI" xml:space="preserve">
+		<value>Developers:&#xA;{0}&#xA;&#xA;Designers:&#xA;{1}&#xA;&#xA;Artists:&#xA;{2}&#xA;&#xA;Translators:&#xA;{3}</value>
+	</data>
+
 	<data name="ThemeDescription.WinUI" xml:space="preserve">
         <value>An application restart is required to change the theme.</value>
     </data>
@@ -182,10 +217,6 @@
 	<!--GTK Specific-->
 	<data name="MainMenu.GTK" xml:space="preserve">
 		<value>Main Menu</value>
-	</data>
-
-	<data name="About.GTK" xml:space="preserve">
-		<value>About {0}</value>
 	</data>
 	
 	<data name="ThemeDescription.GTK" xml:space="preserve">

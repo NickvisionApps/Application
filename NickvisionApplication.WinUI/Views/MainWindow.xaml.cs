@@ -88,6 +88,7 @@ public sealed partial class MainWindow : Window
         NavViewItemHome.Content = _controller.Localizer["Home"];
         NavViewItemFolder.Content = _controller.Localizer["Folder"];
         NavViewItemSettings.Content = _controller.Localizer["Settings"];
+        StatusPageHome.Glyph = _controller.ShowSun ? "\xE706" : "\xF1DB";
         StatusPageHome.Title = _controller.Greeting;
         StatusPageHome.Description = _controller.Localizer["NoFolderDescription"];
         ToolTipService.SetToolTip(BtnHomeNewFolder, _controller.Localizer["NewFolder", "Tooltip"]);
@@ -191,7 +192,7 @@ public sealed partial class MainWindow : Window
         }
         else if(pageName == "Settings")
         {
-            
+            PageSettings.Content = new PreferencesPage(_controller.PreferencesViewController);
         }
         ViewStack.ChangePage(pageName);
     }
@@ -220,7 +221,7 @@ public sealed partial class MainWindow : Window
     /// </summary>
     /// <param name="sender">object?</param>
     /// <param name="e">EventArgs</param>
-    private async void FolderChanged(object? sender, EventArgs e)
+    private void FolderChanged(object? sender, EventArgs e)
     {
         
     }
@@ -230,7 +231,7 @@ public sealed partial class MainWindow : Window
     /// </summary>
     /// <param name="sender">object</param>
     /// <param name="e">RoutedEventArgs</param>
-    private async void OpenFolder(object sender, RoutedEventArgs e)
+    private void OpenFolder(object sender, RoutedEventArgs e)
     {
         
     }
