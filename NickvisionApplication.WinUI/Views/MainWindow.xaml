@@ -50,7 +50,7 @@
                 <nickvision:ViewStack x:Name="ViewStack" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <nickvision:ViewStack.Pages>
                         <nickvision:ViewStackPage x:Name="PageHome" PageName="Home">
-                            <nickvision:StatusPage x:Name="StatusPageHome" HorizontalAlignment="Center" VerticalAlignment="Center" Glyph="&#xF133;">
+                            <nickvision:StatusPage x:Name="StatusPageHome" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <nickvision:StatusPage.Child>
                                     <StackPanel HorizontalAlignment="Center" Margin="0,10,0,0" Orientation="Horizontal" Spacing="12">
                                         <Button x:Name="BtnHomeNewFolder" Width="100" Height="40" Style="{ThemeResource AccentButtonStyle}">
