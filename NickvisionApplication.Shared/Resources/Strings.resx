@@ -85,7 +85,7 @@
     </data>
 
 	<data name="Close" xml:space="preserve">
-        <value>Open</value>
+        <value>Close</value>
     </data>
 	
 	<!--Pages-->
@@ -97,10 +97,12 @@
         <value>Folder</value>
     </data>
 
+  <!--Mostly used in WinUI-->
 	<data name="Settings" xml:space="preserve">
         <value>Settings</value>
     </data>
 
+  <!--Mostly used in GNOME-->
 	<data name="Preferences" xml:space="preserve">
         <value>Preferences</value>
     </data>
