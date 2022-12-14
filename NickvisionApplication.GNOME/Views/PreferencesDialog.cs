@@ -45,12 +45,12 @@ public class PreferencesDialog : Adw.Window
         _mainBox.Append(_page);
         //User Interface Group
         _grpUserInterface = Adw.PreferencesGroup.New();
-        _grpUserInterface.SetTitle(_controller.Localizer["SettingsUserInterface"]);
-        _grpUserInterface.SetDescription(_controller.Localizer["SettingsUserInterfaceDescription"]);
+        _grpUserInterface.SetTitle(_controller.Localizer["UserInterface"]);
+        _grpUserInterface.SetDescription(_controller.Localizer["UserInterfaceDescription"]);
         _rowTheme = Adw.ComboRow.New();
-        _rowTheme.SetTitle(_controller.Localizer["SettingsTheme"]);
-        _rowTheme.SetSubtitle(_controller.Localizer["SettingThemeDescriptionGtk"]);
-        _rowTheme.SetModel(Gtk.StringList.New(new string[] { _controller.Localizer["SettingsThemeLight"], _controller.Localizer["SettingsThemeDark"], _controller.Localizer["SettingsThemeSystem"] }));
+        _rowTheme.SetTitle(_controller.Localizer["Theme"]);
+        _rowTheme.SetSubtitle(_controller.Localizer["ThemeDescription", "GTK"]);
+        _rowTheme.SetModel(Gtk.StringList.New(new string[] { _controller.Localizer["ThemeLight"], _controller.Localizer["ThemeDark"], _controller.Localizer["ThemeSystem"] }));
         _grpUserInterface.Add(_rowTheme);
         _page.Add(_grpUserInterface);
         //Layout

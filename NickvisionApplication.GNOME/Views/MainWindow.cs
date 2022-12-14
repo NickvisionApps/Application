@@ -50,13 +50,13 @@ public class MainWindow : Adw.ApplicationWindow
         btnOpenFolderContent.SetLabel(_controller.Localizer["Open"]);
         btnOpenFolderContent.SetIconName("folder-open-symbolic");
         _btnOpenFolder.SetChild(btnOpenFolderContent);
-        _btnOpenFolder.SetTooltipText(_controller.Localizer["OpenFolderTooltip"]);
+        _btnOpenFolder.SetTooltipText(_controller.Localizer["OpenFolder", "Tooltip"]);
         _btnOpenFolder.SetActionName("win.openFolder");
         _headerBar.PackStart(_btnOpenFolder);
         //Close Folder Button
         _btnCloseFolder = Gtk.Button.New();
         _btnCloseFolder.SetIconName("window-close-symbolic");
-        _btnOpenFolder.SetTooltipText(_controller.Localizer["CloseFolderTooltip"]);
+        _btnOpenFolder.SetTooltipText(_controller.Localizer["CloseFolder", "Tooltip"]);
         _btnCloseFolder.SetVisible(false);
         _btnCloseFolder.SetActionName("win.closeFolder");
         _headerBar.PackStart(_btnCloseFolder);
@@ -65,10 +65,10 @@ public class MainWindow : Adw.ApplicationWindow
         var menuHelp = Gio.Menu.New();
         menuHelp.Append(_controller.Localizer["Preferences"], "win.preferences");
         menuHelp.Append(_controller.Localizer["KeyboardShortcuts"], "win.keyboardShortcuts");
-        menuHelp.Append(string.Format(_controller.Localizer["About"], _controller.AppInfo.ShortName), "win.about");
+        menuHelp.Append(string.Format(_controller.Localizer["About", "GTK"], _controller.AppInfo.ShortName), "win.about");
         _btnMenuHelp.SetDirection(Gtk.ArrowType.None);
         _btnMenuHelp.SetMenuModel(menuHelp);
-        _btnMenuHelp.SetTooltipText(_controller.Localizer["MainMenu"]);
+        _btnMenuHelp.SetTooltipText(_controller.Localizer["MainMenu", "GTK"]);
         _headerBar.PackEnd(_btnMenuHelp);
         //Toast Overlay
         _toastOverlay = Adw.ToastOverlay.New();
@@ -80,8 +80,8 @@ public class MainWindow : Adw.ApplicationWindow
         _toastOverlay.SetChild(_viewStack);
         //No Folder Page
         _pageNoFolder = Adw.StatusPage.New();
-        _pageNoFolder.SetIconName("folder-symbolic");
-        _pageNoFolder.SetTitle(_controller.Localizer["NoFolderOpened"]);
+        _pageNoFolder.SetIconName("face-smile-symbolic");
+        _pageNoFolder.SetTitle(_controller.Greeting);
         _pageNoFolder.SetDescription(_controller.Localizer["NoFolderDescription"]);
         _viewStack.AddNamed(_pageNoFolder, "NoFolder");
         //Folder Page
@@ -204,8 +204,8 @@ public class MainWindow : Adw.ApplicationWindow
         aboutWindow.SetLicenseType(Gtk.License.Gpl30);
         aboutWindow.SetCopyright("© Nickvision 2021-2022");
         aboutWindow.SetWebsite(_controller.AppInfo.GitHubRepo.ToString());
-        aboutWindow.SetAuthors(_controller.Localizer["Developers"].Split(Environment.NewLine));
-        aboutWindow.SetTranslatorCredits(string.IsNullOrEmpty(_controller.Localizer["TranslatorCredits"]) ? null : _controller.Localizer["TranslatorCredits"]);
+        aboutWindow.SetAuthors(_controller.Localizer["Developers", "Credits"].Split(Environment.NewLine));
+        aboutWindow.SetTranslatorCredits(string.IsNullOrEmpty(_controller.Localizer["Translators", "Credits"]) ? null : _controller.Localizer["Translators", "Credits"]);
         aboutWindow.Show();
     }
 }

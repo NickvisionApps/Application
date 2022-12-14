@@ -1,6 +1,4 @@
-using NickvisionApplication.Shared.Models;
 using NickvisionApplication.Shared.Helpers;
-using System;
 
 namespace NickvisionApplication.GNOME.Views;
 
@@ -12,6 +10,12 @@ public class ShortcutsDialog
     private readonly Gtk.Builder _builder;
     private readonly Gtk.ShortcutsWindow _window;
 
+    /// <summary>
+    /// Constructs a ShortcutDialog
+    /// </summary>
+    /// <param name="localizer">The application Localizer object</param>
+    /// <param name="appName">The application short name</param>
+    /// <param name="parent">Gtk.Window</param>
     public ShortcutsDialog(Localizer localizer, string appName, Gtk.Window parent)
     {
     	string xml = $@"<?xml version='1.0' encoding='UTF-8'?>
@@ -27,7 +31,7 @@ public class ShortcutsDialog
                         <object class='GtkShortcutsSection'>
                             <child>
                                 <object class='GtkShortcutsGroup'>
-                                    <property name='title'>{ localizer["Folder"] }</property>
+                                    <property name='title'>{ localizer["Folder", "Shortcut"] }</property>
                                     <child>
                                         <object class='GtkShortcutsShortcut'>
                                             <property name='title'>{ localizer["OpenFolder"] }</property>
@@ -44,7 +48,7 @@ public class ShortcutsDialog
                             </child>
                             <child>
                                 <object class='GtkShortcutsGroup'>
-                                    <property name='title'>{ localizer["Application"] }</property>
+                                    <property name='title'>{ localizer["Application", "Shortcut"] }</property>
                                     <child>
                                         <object class='GtkShortcutsShortcut'>
                                             <property name='title'>{ localizer["Preferences"] }</property>
@@ -59,7 +63,7 @@ public class ShortcutsDialog
                                     </child>
                                     <child>
                                         <object class='GtkShortcutsShortcut'>
-                                            <property name='title'>{ string.Format(localizer["About"], appName) }</property>
+                                            <property name='title'>{ string.Format(localizer["About", "GTK"], appName) }</property>
                                             <property name='accelerator'>F1</property>
                                         </object>
                                     </child>
