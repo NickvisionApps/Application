@@ -5,18 +5,14 @@ using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
-using Microsoft.Windows.AppLifecycle;
 using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.Shared.Events;
 using NickvisionApplication.WinUI.Controls;
 using System;
-using System.Collections.Generic;
 using Vanara.PInvoke;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Graphics;
 using Windows.Storage;
-using Windows.Storage.Pickers;
-using Windows.System;
 using WinRT;
 using WinRT.Interop;
 
@@ -64,7 +60,7 @@ public sealed partial class MainWindow : Window
         else
         {
             TitleBar.Visibility = Visibility.Collapsed;
-            ContentGrid.Margin = new Thickness(0, 0, 0, 0);
+            NavView.Margin = new Thickness(0, 0, 0, 0);
         }
         //Setup Backdrop
         WindowsSystemDispatcherQueueHelper.EnsureWindowsSystemDispatcherQueueController();
@@ -89,26 +85,17 @@ public sealed partial class MainWindow : Window
         _appWindow.Resize(new SizeInt32(800, 600));
         User32.ShowWindow(_hwnd, ShowWindowCommand.SW_SHOWMAXIMIZED);
         //Localize Strings
-        MenuFile.Title = _controller.Localizer["File"];
-        MenuOpenFolder.Text = _controller.Localizer["OpenFolder"];
-        MenuCloseFolder.Text = _controller.Localizer["CloseFolder"];
-        MenuExit.Text = _controller.Localizer["Exit"];
-        MenuEdit.Title = _controller.Localizer["Edit"];
-        MenuSettings.Text = _controller.Localizer["Settings"];
-        MenuHelp.Title = _controller.Localizer["Help"];
-        MenuChangelog.Text = _controller.Localizer["Changelog"];
-        MenuGitHubRepo.Text = _controller.Localizer["GitHubRepo"];
-        MenuReportABug.Text = _controller.Localizer["ReportABug"];
-        MenuSupport.Text = _controller.Localizer["Support"];
-        MenuCredits.Text = _controller.Localizer["Credits"];
-        MenuAbout.Text = string.Format(_controller.Localizer["About"], _controller.AppInfo.ShortName);
-        BtnCmdOpenFolder.Label = _controller.Localizer["Open"];
-        ToolTipService.SetToolTip(BtnCmdOpenFolder, _controller.Localizer["OpenFolderTooltip"]);
-        PageNoFolder.Title = _controller.Localizer["NoFolderOpened"];
-        PageNoFolder.Description = _controller.Localizer["NoFolderDescription"];
-        LblStatus.Text = _controller.Localizer["Ready"];
+        NavViewItemHome.Content = _controller.Localizer["Home"];
+        NavViewItemFolder.Content = _controller.Localizer["Folder"];
+        NavViewItemSettings.Content = _controller.Localizer["Settings"];
+        StatusPageHome.Title = _controller.Greeting;
+        StatusPageHome.Description = _controller.Localizer["NoFolderDescription"];
+        ToolTipService.SetToolTip(BtnHomeNewFolder, _controller.Localizer["NewFolder", "Tooltip"]);
+        LblBtnHomeNewFolder.Text = _controller.Localizer["New"];
+        ToolTipService.SetToolTip(BtnHomeOpenFolder, _controller.Localizer["OpenFolder", "Tooltip"]);
+        LblBtnHomeOpenFolder.Text = _controller.Localizer["Open"];
         //Page
-        ViewStack.ChangePage("NoFolder");
+        NavViewItemHome.IsSelected = true;
     }
 
     /// <summary>
@@ -164,10 +151,7 @@ public sealed partial class MainWindow : Window
     /// </summary>
     /// <param name="sender">object</param>
     /// <param name="e">DragEventArgs</param>
-    private void Window_DragOver(object sender, DragEventArgs e)
-    {
-        e.AcceptedOperation = DataPackageOperation.Link;
-    }
+    private void Window_DragOver(object sender, DragEventArgs e) => e.AcceptedOperation = DataPackageOperation.Link;
 
     /// <summary>
     /// Occurs when something is dropped on the window
@@ -191,6 +175,25 @@ public sealed partial class MainWindow : Window
                 }
             }
         }
+    }
+
+    /// <summary>
+    /// Occurs when the NavigationView's item selection is changed
+    /// </summary>
+    /// <param name="sender">NavigationView</param>
+    /// <param name="e">NavigationViewSelectionChangedEventArgs</param>
+    private void NavView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs e)
+    {
+        var pageName = (string)((NavigationViewItem)e.SelectedItem).Tag;
+        if(pageName == "Folder")
+        {
+
+        }
+        else if(pageName == "Settings")
+        {
+            
+        }
+        ViewStack.ChangePage(pageName);
     }
 
     /// <summary>
@@ -219,18 +222,7 @@ public sealed partial class MainWindow : Window
     /// <param name="e">EventArgs</param>
     private async void FolderChanged(object? sender, EventArgs e)
     {
-        MenuCloseFolder.IsEnabled = _controller.IsFolderOpened;
-        ViewStack.ChangePage(_controller.IsFolderOpened ? "Folder" : "NoFolder");
-        LblStatus.Text = _controller.IsFolderOpened ? _controller.FolderPath : _controller.Localizer["Ready"];
-        ListFilesInFolder.Items.Clear();
-        if(_controller.IsFolderOpened)
-        {
-            List<string>? files = await _controller.GetFilesInFolderAsync();
-            foreach(var file in files!)
-            {
-                ListFilesInFolder.Items.Add(file);
-            }
-        }
+        
     }
 
     /// <summary>
@@ -240,14 +232,7 @@ public sealed partial class MainWindow : Window
     /// <param name="e">RoutedEventArgs</param>
     private async void OpenFolder(object sender, RoutedEventArgs e)
     {
-        var folderPicker = new FolderPicker();
-        InitializeWithWindow(folderPicker);
-        folderPicker.FileTypeFilter.Add("*");
-        var file = await folderPicker.PickSingleFolderAsync();
-        if(file != null)
-        {
-            _controller.OpenFolder(file.Path);
-        }
+        
     }
 
     /// <summary>
@@ -255,119 +240,8 @@ public sealed partial class MainWindow : Window
     /// </summary>
     /// <param name="sender">object</param>
     /// <param name="e">RoutedEventArgs</param>
-    private void CloseFolder(object sender, RoutedEventArgs e) => _controller.CloseFolder();
-
-    /// <summary>
-    /// Occurs when the exit menu item is clicked
-    /// </summary>
-    /// <param name="sender">object</param>
-    /// <param name="e">RoutedEventArgs</param>
-    private void Exit(object sender, RoutedEventArgs e) => Close();
-
-    /// <summary>
-    /// Occurs when the settings menu item is clicked
-    /// </summary>
-    /// <param name="sender">object</param>
-    /// <param name="e">RoutedEventArgs</param>
-    private async void Settings(object sender, RoutedEventArgs e)
+    private void CloseFolder(object sender, RoutedEventArgs e)
     {
-        var oldTheme = _controller.Theme; 
-        var preferencesDialog = new PreferencesDialog(_controller.PreferencesViewController)
-        {
-            XamlRoot = Content.XamlRoot
-        };
-        await preferencesDialog.ShowAsync();
-        if(oldTheme != _controller.Theme)
-        {
-            var restartDialog = new ContentDialog()
-            {
-                Title = _controller.Localizer["RestartThemeTitle"],
-                Content = string.Format(_controller.Localizer["RestartThemeDescription"], _controller.AppInfo.ShortName),
-                PrimaryButtonText = _controller.Localizer["Yes"],
-                CloseButtonText = _controller.Localizer["No"],
-                DefaultButton = ContentDialogButton.Close,
-                XamlRoot = Content.XamlRoot
-            };
-            var result = await restartDialog.ShowAsync();
-            if(result == ContentDialogResult.Primary)
-            {
-                AppInstance.Restart("Apply new theme");
-            }
-        }
-    }
 
-    /// <summary>
-    /// Occurs when the changelog menu item is clicked
-    /// </summary>
-    /// <param name="sender">object</param>
-    /// <param name="e">RoutedEventArgs</param>
-    private async void Changelog(object sender, RoutedEventArgs e)
-    {
-        var changelogDialog = new ContentDialog()
-        {
-            Title = _controller.Localizer["ChangelogDialogTitle"],
-            Content = _controller.AppInfo.Changelog,
-            CloseButtonText = _controller.Localizer["OK"],
-            DefaultButton = ContentDialogButton.Close,
-            XamlRoot = Content.XamlRoot
-        };
-        await changelogDialog.ShowAsync();
-    }
-
-    /// <summary>
-    /// Occurs when the github repo menu item is clicked
-    /// </summary>
-    /// <param name="sender">object</param>
-    /// <param name="e">RoutedEventArgs</param>
-    private async void GitHubRepo(object sender, RoutedEventArgs e) => await Launcher.LaunchUriAsync(_controller.AppInfo.GitHubRepo);
-
-    /// <summary>
-    /// Occurs when the report a bug menu item is clicked
-    /// </summary>
-    /// <param name="sender">object</param>
-    /// <param name="e">RoutedEventArgs</param>
-    private async void ReportABug(object sender, RoutedEventArgs e) => await Launcher.LaunchUriAsync(_controller.AppInfo.IssueTracker);
-
-    /// <summary>
-    /// Occurs when the support menu item is clicked
-    /// </summary>
-    /// <param name="sender">object</param>
-    /// <param name="e">RoutedEventArgs</param>
-    private async void Support(object sender, RoutedEventArgs e) => await Launcher.LaunchUriAsync(_controller.AppInfo.SupportUrl);
-
-    /// <summary>
-    /// Occurs when the credits menu item is clicked
-    /// </summary>
-    /// <param name="sender">object</param>
-    /// <param name="e">RoutedEventArgs</param>
-    private async void Credits(object sender, RoutedEventArgs e)
-    {
-        var creditsDialog = new ContentDialog()
-        {
-            Title = _controller.Localizer["CreditsDialogTitle"],
-            Content = string.Format(_controller.Localizer["CreditsDialogDescription"], "Nicholas Logozzo", "Nicholas Logozzo", "Nicholas Logozzo", _controller.Localizer["TranslatorCredits"]),
-            CloseButtonText = _controller.Localizer["OK"],
-            DefaultButton = ContentDialogButton.Close,
-            XamlRoot = Content.XamlRoot
-        };
-        await creditsDialog.ShowAsync();
-    }
-
-    /// <summary>
-    /// Occurs when the about menu item is clicked
-    /// </summary>
-    /// <param name="sender">object</param>
-    /// <param name="e">RoutedEventArgs</param>
-    private async void About(object sender, RoutedEventArgs e)
-    {
-        var aboutDialog = new ContentDialog()
-        {
-            Title = string.Format(_controller.Localizer["About"], _controller.AppInfo.ShortName),
-            Content = string.Format(_controller.Localizer["AboutDialogDescription"], _controller.AppInfo.Name, _controller.AppInfo.Description, _controller.AppInfo.Version),
-            CloseButtonText = _controller.Localizer["OK"],
-            DefaultButton = ContentDialogButton.Close,
-            XamlRoot = Content.XamlRoot
-        };
-        await aboutDialog.ShowAsync();
     }
 }
