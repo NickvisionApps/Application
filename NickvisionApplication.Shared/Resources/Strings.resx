@@ -83,6 +83,10 @@
 	<data name="Open" xml:space="preserve">
         <value>Open</value>
     </data>
+
+	<data name="Close" xml:space="preserve">
+        <value>Open</value>
+    </data>
 	
 	<!--Pages-->
 	<data name="Home" xml:space="preserve">
