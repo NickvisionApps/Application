@@ -64,6 +64,15 @@ public class MainWindowController
         FolderPath = "No Folder Opened";
     }
 
+    public bool ShowSun
+    {
+        get
+        {
+            var timeNowHours = DateTime.Now.Hour;
+            return timeNowHours >= 6 && timeNowHours < 18;
+        }
+    }
+
     /// <summary>
     /// Get the string for greeting on the home page
     /// </summary>
