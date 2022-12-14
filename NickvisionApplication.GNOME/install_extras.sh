@@ -19,6 +19,8 @@ cp $SOURCE_PREFIX/NickvisionApplication.Shared/Resources/org.nickvision.applicat
 cp $SOURCE_PREFIX/NickvisionApplication.Shared/Resources/org.nickvision.application-devel.svg $INSTALL_PREFIX/share/icons/hicolor/scalable/apps/
 mkdir -p $INSTALL_PREFIX/share/icons/hicolor/symbolic/apps
 cp $SOURCE_PREFIX/NickvisionApplication.Shared/Resources/org.nickvision.application-symbolic.svg $INSTALL_PREFIX/share/icons/hicolor/symbolic/apps/
+cp $SOURCE_PREFIX/NickvisionApplication.Shared/Resources/moon-symbolic.svg $INSTALL_PREFIX/share/icons/hicolor/symbolic/apps/
+cp $SOURCE_PREFIX/NickvisionApplication.Shared/Resources/sun-alt-symbolic.svg $INSTALL_PREFIX/share/icons/hicolor/symbolic/apps/
 
 #echo Installing GResource...
 #mkdir -p $INSTALL_PREFIX/share/org.nickvision.application
