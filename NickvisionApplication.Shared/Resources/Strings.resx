@@ -22,6 +22,10 @@
         <value>A template for creating Nickvision applications.</value>
     </data>
 
+	<data name="About" xml:space="preserve">
+		<value>About {0}</value>
+	</data>
+
 	<!--Credits-->
 	<data name="Developers.Credits" xml:space="preserve">
         <value>Nicholas Logozzo https://github.com/nlogozzo&#xA;Contributors on GitHub https://github.com/nlogozzo/NickvisionApplication/graphs/contributors</value>
@@ -182,10 +186,6 @@
 	<!--GTK Specific-->
 	<data name="MainMenu.GTK" xml:space="preserve">
 		<value>Main Menu</value>
-	</data>
-
-	<data name="About.GTK" xml:space="preserve">
-		<value>About {0}</value>
 	</data>
 	
 	<data name="ThemeDescription.GTK" xml:space="preserve">
