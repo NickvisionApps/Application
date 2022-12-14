@@ -46,7 +46,7 @@
 
             <ScrollViewer wct:DockPanel.Dock="Left">
                 <StackPanel Margin="20,0,20,0" Spacing="6">
-                    <labs:SettingsExpander x:Name="CardUserInterface" HorizontalAlignment="Left">
+                    <labs:SettingsExpander x:Name="CardUserInterface">
                         <labs:SettingsExpander.HeaderIcon>
                             <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE771;"/>
                         </labs:SettingsExpander.HeaderIcon>
