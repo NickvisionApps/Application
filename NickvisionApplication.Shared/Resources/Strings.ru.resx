@@ -1,222 +1,196 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <resheader name="resmimetype">
-    <value>text/microsoft-resx</value>
-  </resheader>
-	
-  <resheader name="version">
-    <value>2.0</value>
-  </resheader>
-	
-  <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-	
-  <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+	</resheader>
 
-  <!--Use: &#xA; for newline-->
-	
-  <data name="Description" xml:space="preserve">
-    <value>Шаблон для создания приложений Nickvision.</value>
-  </data>
+    <resheader name="version">
+        <value>2.0</value>
+    </resheader>
 
-  <!--Credits-->
-  <data name="Developers" xml:space="preserve">
-    <value>Nicholas Logozzo https://github.com/nlogozzo&#xA;Соавторы на GitHub https://github.com/nlogozzo/NickvisionApplication/graphs/contributors</value>
-  </data>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
 
-  <data name="TranslatorCredits" xml:space="preserve">
-    <!--TRANSLATOR NAME(S) GOES HERE. SEPARATE WITH &#xA;-->
-    <value>Фёдор Соболев https://github.com/fsobolev</value>
-  </data>
-  
-  <!--MainWindowConroller-->
-  <data name="FolderOpened" xml:space="preserve">
-    <value>Папка открыта: {0}</value>
-  </data>
-	
-  <data name="FolderClosed" xml:space="preserve">
-    <value>Папка закрыта.</value>
-  </data>
-	
-  <!--Dialog-->
-  <data name="OK" xml:space="preserve">
-    <value>Ок</value>
-  </data>
-	
-  <data name="Yes" xml:space="preserve">
-    <value>Да</value>
-  </data>
-	
-  <data name="No" xml:space="preserve">
-    <value>Нет</value>
-  </data>
-	
-  <data name="Cancel" xml:space="preserve">
-    <value>Отмена</value>
-  </data>
-	
-  <!--MenuBar-->
-  <data name="File" xml:space="preserve">
-    <value>Файл</value>
-  </data>
-	
-  <data name="OpenFolder" xml:space="preserve">
-    <value>Открыть папку</value>
-  </data>
-	
-  <data name="CloseFolder" xml:space="preserve">
-    <value>Закрыть папку</value>
-  </data>
-	
-  <data name="Exit" xml:space="preserve">
-    <value>Выход</value>
-  </data>
-	
-  <data name="Edit" xml:space="preserve">
-    <value>Правка</value>
-  </data>
-	
-  <data name="Settings" xml:space="preserve">
-    <value>Настройки</value>
-  </data>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
 
-  <data name="Preferences" xml:space="preserve">
-    <value>Параметры</value>
-  </data>
+    <!--Use: &#xA; for newline-->
 
-  <data name="KeyboardShortcuts" xml:space="preserve">
-    <value>Сочетания клавиш</value>
-  </data>
+    <data name="Description" xml:space="preserve">
+        <value>Шаблон для создания приложений Nickvision.</value>
+    </data>
 
-  <data name="Help" xml:space="preserve">
-    <value>Помощь</value>
-  </data>
-	
-  <data name="Changelog" xml:space="preserve">
-    <value>Список изменений</value>
-  </data>
-	
-  <data name="GitHubRepo" xml:space="preserve">
-    <value>Репозиторий GitHub</value>
-  </data>
-	
-  <data name="ReportABug" xml:space="preserve">
-    <value>Сообщить о проблеме</value>
-  </data>
-	
-  <data name="Support" xml:space="preserve">
-    <value>Поддержка</value>
-  </data>
-	
-  <data name="Credits" xml:space="preserve">
-    <value>Авторы</value>
-  </data>
-	
-  <data name="About" xml:space="preserve">
-    <value>О приложении</value>
-  </data>
+	<!--Credits-->
+	<data name="Developers.Credits" xml:space="preserve">
+        <value>Nicholas Logozzo https://github.com/nlogozzo&#xA;Соавторы на GitHub https://github.com/nlogozzo/NickvisionApplication/graphs/contributors</value>
+    </data>
 
-  <data name="MainMenu" xml:space="preserve">
-    <value>Главное меню</value>
-  </data>
+	<data name="Translators.Credits" xml:space="preserve">
+	    <!--TRANSLATOR NAME(S) GOES HERE. SEPARATE WITH &#xA;-->
+        <value>Фёдор Соболев https://github.com/fsobolev</value>
+    </data>
 
-  <!--CommandBar-->
-  <data name="Open" xml:space="preserve">
-    <value>Открыть</value>
-  </data>
+	<!--Actions-->
+	<data name="OK" xml:space="preserve">
+        <value>Ок</value>
+    </data>
 
-  <data name="OpenFolderTooltip" xml:space="preserve">
-    <value>Открыть папку (Ctrl+O)</value>
-  </data>
+	<data name="Yes" xml:space="preserve">
+        <value>Да</value>
+    </data>
 
-  <data name="CloseFolderTooltip" xml:space="preserve">
-    <value>Закрыть папку (Ctrl+W)</value>
-  </data>
+	<data name="No" xml:space="preserve">
+        <value>Нет</value>
+    </data>
 
-  <!--NoFolderPage-->
-  <data name="NoFolderOpened" xml:space="preserve">
-    <value>Папка не открыта</value>
-  </data>
-	
-  <data name="NoFolderDescription" xml:space="preserve">
-    <value>Откройте или перетащите папку, чтобы начать.</value>
-  </data>
-	
-  <!--LblStatus-->
-  <data name="Ready" xml:space="preserve">
-    <value>Готово</value>
-  </data>
-	
-  <!--RestartThemeDialog-->
-  <data name="RestartThemeTitle" xml:space="preserve">
-    <value>Перезапустить приложение, чтобы применить тему?</value>
-  </data>
-	
-  <data name="RestartThemeDescription" xml:space="preserve">
-    <value>Вы хотите перезапустить {0}, чтобы применить тему?&#xA;Несохранённые изменения будут утеряны.</value>
-  </data>
-	
-  <!--ChangelogDialog-->
-  <data name="ChangelogDialogTitle" xml:space="preserve">
-    <value>Что нового?</value>
-  </data>
-	
-  <!--CreditsDialog-->
-  <data name="CreditsDialogTitle" xml:space="preserve">
-    <value>Авторы</value>
-  </data>
-	
-  <data name="CreditsDialogDescription" xml:space="preserve">
-    <value>Переводчики:&#xA;{0}</value>
-  </data>
-	
-  <!--AboutDialog-->	
-  <data name="AboutDialogDescription" xml:space="preserve">
-    <value>{0}&#xA;{1}&#xA;&#xA;Версия: {2}&#xA;&#xA;Copyright (C) 2021-2022&#xA;Все права защищены.&#xA;Nicholas Logozzo&#xA;Nickvision</value>
-  </data>
-	
-  <!--Settings-->
-  <data name="SettingsUserInterface" xml:space="preserve">
-    <value>Интерфейс</value>
-  </data>
+	<data name="Cancel" xml:space="preserve">
+        <value>Отмена</value>
+    </data>
 
-  <data name="SettingsUserInterfaceDescription" xml:space="preserve">
-    <value>Настройте интерфейс приложения.</value>
-  </data>
+	<data name="New" xml:space="preserve">
+        <value>Новая</value>
+    </data>
 
-  <data name="SettingsTheme" xml:space="preserve">
-    <value>Тема</value>
-  </data>
-	
-  <data name="SettingsThemeDescription" xml:space="preserve">
-    <value>Для применения темы требуется перезапуск приложения.</value>
-  </data>
+	<data name="Open" xml:space="preserve">
+        <value>Открыть</value>
+    </data>
 
-  <data name="SettingsThemeDescriptionGtk" xml:space="preserve">
-    <value>Тема будет изменена после закрытия диалога.</value>
-  </data>
-	
-  <data name="SettingsThemeLight" xml:space="preserve">
-    <value>Светлая</value>
-  </data>
-	
-  <data name="SettingsThemeDark" xml:space="preserve">
-    <value>Тёмная</value>
-  </data>
-	
-  <data name="SettingsThemeSystem" xml:space="preserve">
-    <value>Системная</value>
-  </data>
+	<!--Pages-->
+	<data name="Home" xml:space="preserve">
+        <value>Дом</value>
+    </data>
 
-  <!--Shortcuts Dialog-->
-  <data name="Folder" xml:space="preserve">
-    <value>Папка</value>
-  </data>
+	<data name="Folder" xml:space="preserve">
+        <value>Папка</value>
+    </data>
 
-  <data name="Application" xml:space="preserve">
-    <value>Приложение</value>
-  </data>
+  <!--Mostly used in WinUI-->
+	<data name="Settings" xml:space="preserve">
+        <value>Настройки</value>
+    </data>
+
+  <!--Mostly used in GNOME-->
+	<data name="Preferences" xml:space="preserve">
+        <value>Параметры</value>
+    </data>
+
+	<data name="KeyboardShortcuts" xml:space="preserve">
+        <value>Сочетания клавиш</value>
+    </data>
+
+	<!--MainWindow-->
+	<data name="OpenFolder" xml:space="preserve">
+        <value>Открыть папку</value>
+    </data>
+
+	<data name="OpenFolder.Tooltip" xml:space="preserve">
+        <value>Открыть папку (Ctrl+O)</value>
+    </data>
+
+	<data name="CloseFolder" xml:space="preserve">
+        <value>Закрыть папку</value>
+    </data>
+
+	<data name="CloseFolder.Tooltip" xml:space="preserve">
+        <value>Закрыть папку (Ctrl+W)</value>
+    </data>
+
+	<data name="NoFolderOpened" xml:space="preserve">
+        <value>Папка не открыта</value>
+    </data>
+
+	<data name="NoFolderDescription" xml:space="preserve">
+        <value>Откройте или перетащите папку, чтобы начать.</value>
+    </data>
+
+	<!--MainWindowController-->
+	<data name="Greeting.Generic" xml:space="preserve">
+        <value>Здравствуйте!</value>
+     </data>
+
+	<data name="Greeting.Morning" xml:space="preserve">
+        <value>Доброе утро!</value>
+     </data>
+
+	<data name="Greeting.Afternoon" xml:space="preserve">
+        <value>Добрый день!</value>
+     </data>
+
+	<data name="Greeting.Evening" xml:space="preserve">
+        <value>Добрый вечер!</value>
+     </data>
+
+	<data name="Greeting.Night" xml:space="preserve">
+        <value>Доброй ночи!</value>
+     </data>
+
+	<data name="FolderOpened" xml:space="preserve">
+        <value>Папка открыта: {0}</value>
+    </data>
+
+	<data name="FolderClosed" xml:space="preserve">
+        <value>Папка закрыта.</value>
+    </data>
+
+	<!--Settings-->
+	<data name="UserInterface" xml:space="preserve">
+        <value>Интерфейс</value>
+    </data>
+
+	<data name="UserInterfaceDescription" xml:space="preserve">
+        <value>Настройте интерфейс приложения.</value>
+    </data>
+
+	<data name="Theme" xml:space="preserve">
+        <value>Тема</value>
+    </data>
+
+	<data name="ThemeLight" xml:space="preserve">
+        <value>Светлая</value>
+    </data>
+
+	<data name="ThemeDark" xml:space="preserve">
+        <value>Тёмная</value>
+    </data>
+
+	<data name="ThemeSystem" xml:space="preserve">
+        <value>Системная</value>
+    </data>
+
+	<!--Shortcuts Dialog-->
+	<data name="Folder.Shortcut" xml:space="preserve">
+        <value>Папка</value>
+    </data>
+
+	<data name="Application.Shortcut" xml:space="preserve">
+        <value>Приложение</value>
+    </data>
+
+    <!--WinUI Specific-->
+	<data name="ThemeDescription.WinUI" xml:space="preserve">
+        <value>Для применения темы требуется перезапуск приложения.</value>
+    </data>
+
+	<data name="RestartThemeTitle.WinUI" xml:space="preserve">
+        <value>Перезапустить приложение, чтобы применить тему?</value>
+    </data>
+
+    <data name="RestartThemeDescription.WinUI" xml:space="preserve">
+        <value>Вы хотите перезапустить {0}, чтобы применить тему?&#xA;Несохранённые изменения будут утеряны.</value>
+    </data>
+
+	<!--GTK Specific-->
+	<data name="MainMenu.GTK" xml:space="preserve">
+		<value>Главное меню</value>
+	</data>
+
+	<data name="About.GTK" xml:space="preserve">
+		<value>О приложении</value>
+	</data>
+
+	<data name="ThemeDescription.GTK" xml:space="preserve">
+        <value>Тема будет изменена после закрытия диалога.</value>
+    </data>
 </root>

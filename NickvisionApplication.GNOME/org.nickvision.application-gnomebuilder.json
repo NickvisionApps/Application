@@ -33,8 +33,10 @@
             "buildsystem": "simple",
             "build-commands": [
                 "mkdir -p /app/opt/org.nickvision.application",
-                "dotnet publish NickvisionApplication.GNOME --self-contained true -o /app/opt/org.nickvision.application",
-                "NickvisionApplication.GNOME/install_extras.sh /app"
+                "dotnet publish NickvisionApplication.GNOME/NickvisionApplication.GNOME.csproj --self-contained true -o /app/opt/org.nickvision.application",
+		"chmod +x NickvisionApplication.GNOME/install_extras.sh",
+                "NickvisionApplication.GNOME/install_extras.sh /app",
+                "chmod -x NickvisionApplication.GNOME/install_extras.sh"
             ],
             "sources": [
                 {

@@ -80,7 +80,7 @@ public class MainWindow : Adw.ApplicationWindow
         _toastOverlay.SetChild(_viewStack);
         //No Folder Page
         _pageNoFolder = Adw.StatusPage.New();
-        _pageNoFolder.SetIconName("face-smile-symbolic");
+        _pageNoFolder.SetIconName(controller.ShowSun ? "sun-alt-symbolic" : "moon-symbolic");
         _pageNoFolder.SetTitle(_controller.Greeting);
         _pageNoFolder.SetDescription(_controller.Localizer["NoFolderDescription"]);
         _viewStack.AddNamed(_pageNoFolder, "NoFolder");
