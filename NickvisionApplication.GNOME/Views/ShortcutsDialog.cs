@@ -63,7 +63,7 @@ public class ShortcutsDialog
                                     </child>
                                     <child>
                                         <object class='GtkShortcutsShortcut'>
-                                            <property name='title'>{ string.Format(localizer["About", "GTK"], appName) }</property>
+                                            <property name='title'>{ string.Format(localizer["About"], appName) }</property>
                                             <property name='accelerator'>F1</property>
                                         </object>
                                     </child>
