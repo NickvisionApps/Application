@@ -13,6 +13,7 @@ using Vanara.PInvoke;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Graphics;
 using Windows.Storage;
+using Windows.Storage.Pickers;
 using WinRT;
 using WinRT.Interop;
 
@@ -91,8 +92,6 @@ public sealed partial class MainWindow : Window
         StatusPageHome.Glyph = _controller.ShowSun ? "\xE706" : "\xF1DB";
         StatusPageHome.Title = _controller.Greeting;
         StatusPageHome.Description = _controller.Localizer["NoFolderDescription"];
-        ToolTipService.SetToolTip(BtnHomeNewFolder, _controller.Localizer["NewFolder", "Tooltip"]);
-        LblBtnHomeNewFolder.Text = _controller.Localizer["New"];
         ToolTipService.SetToolTip(BtnHomeOpenFolder, _controller.Localizer["OpenFolder", "Tooltip"]);
         LblBtnHomeOpenFolder.Text = _controller.Localizer["Open"];
         //Page
@@ -223,7 +222,14 @@ public sealed partial class MainWindow : Window
     /// <param name="e">EventArgs</param>
     private void FolderChanged(object? sender, EventArgs e)
     {
-        
+        if(_controller.IsFolderOpened)
+        {
+            NavViewItemFolder.IsSelected = true;
+        }
+        else
+        {
+            NavViewItemHome.IsSelected = true;
+        }
     }
 
     /// <summary>
@@ -231,18 +237,15 @@ public sealed partial class MainWindow : Window
     /// </summary>
     /// <param name="sender">object</param>
     /// <param name="e">RoutedEventArgs</param>
-    private void OpenFolder(object sender, RoutedEventArgs e)
+    private async void OpenFolder(object sender, RoutedEventArgs e)
     {
-        
-    }
-
-    /// <summary>
-    /// Occurs when the close menu item is clicked
-    /// </summary>
-    /// <param name="sender">object</param>
-    /// <param name="e">RoutedEventArgs</param>
-    private void CloseFolder(object sender, RoutedEventArgs e)
-    {
-
+        var folderPicker = new FolderPicker();
+        InitializeWithWindow(folderPicker);
+        folderPicker.FileTypeFilter.Add("*");
+        var file = await folderPicker.PickSingleFolderAsync();
+        if (file != null)
+        {
+            _controller.OpenFolder(file.Path);
+        }
     }
 }

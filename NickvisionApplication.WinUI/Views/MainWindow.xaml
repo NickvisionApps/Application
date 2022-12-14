@@ -53,24 +53,18 @@
                             <nickvision:StatusPage x:Name="StatusPageHome" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <nickvision:StatusPage.Child>
                                     <StackPanel HorizontalAlignment="Center" Margin="0,10,0,0" Orientation="Horizontal" Spacing="12">
-                                        <Button x:Name="BtnHomeNewFolder" Width="100" Height="40" Style="{ThemeResource AccentButtonStyle}">
+                                        <Button x:Name="BtnHomeOpenFolder" Width="100" Height="40" Style="{ThemeResource AccentButtonStyle}" Click="OpenFolder">
                                             <Button.Content>
                                                 <StackPanel Orientation="Horizontal" Spacing="6">
-                                                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE130;"/>
-
-                                                    <TextBlock x:Name="LblBtnHomeNewFolder"/>
-                                                </StackPanel>
-                                            </Button.Content>
-                                        </Button>
-
-                                        <Button x:Name="BtnHomeOpenFolder" Width="100" Height="40">
-                                            <Button.Content>
-                                                <StackPanel Orientation="Horizontal" Spacing="6">
-                                                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE1A5;"/>
+                                                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE197;"/>
 
                                                     <TextBlock x:Name="LblBtnHomeOpenFolder"/>
                                                 </StackPanel>
                                             </Button.Content>
+
+                                            <Button.KeyboardAccelerators>
+                                                <KeyboardAccelerator Modifiers="Control" Key="O"/>
+                                            </Button.KeyboardAccelerators>
                                         </Button>
                                     </StackPanel>
                                 </nickvision:StatusPage.Child>
