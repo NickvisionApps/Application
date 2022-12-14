@@ -37,7 +37,7 @@ public class MainWindowController
     /// </summary>
     public bool IsDevVersion => AppInfo.Current.Version.IndexOf('-') != -1;
     /// <summary>
-    /// The prefered theme of the application
+    /// The preferred theme of the application
     /// </summary>
     public Theme Theme => Configuration.Current.Theme;
     /// <summary>
@@ -65,13 +65,33 @@ public class MainWindowController
     }
 
     /// <summary>
-    /// Runs startup functions
+    /// Get the string for greeting on the home page
     /// </summary>
-    public void Startup()
+    public string Greeting
     {
-        if(!_isOpened)
+        get
         {
-            _isOpened = false;
+            var timeNowHours = DateTime.Now.Hour;
+            if (timeNowHours >= 0 && timeNowHours < 6)
+            {
+                return Localizer["Greeting", "Night"];
+            }
+            else if (timeNowHours >= 6 && timeNowHours < 12)
+            {
+                return Localizer["Greeting", "Morning"];
+            }
+            else if (timeNowHours >= 12 && timeNowHours < 18)
+            {
+                return Localizer["Greeting", "Afternoon"];
+            }
+            else if (timeNowHours >= 18 && timeNowHours < 24)
+            {
+                return Localizer["Greeting", "Evening"];
+            }
+            else
+            {
+                return Localizer["Greeting", "Generic"];
+            }
         }
     }
 

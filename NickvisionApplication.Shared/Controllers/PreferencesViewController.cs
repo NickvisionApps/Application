@@ -16,7 +16,7 @@ public class PreferencesViewController
     /// <summary>
     /// Constructs a PreferencesViewController
     /// </summary>
-    public PreferencesViewController(Localizer localizer)
+    internal PreferencesViewController(Localizer localizer)
     {
         Localizer = localizer;
     }
