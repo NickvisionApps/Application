@@ -64,6 +64,9 @@ public class MainWindowController
         FolderPath = "No Folder Opened";
     }
 
+    /// <summary>
+    /// Whether or not to show a sun icon on the home page
+    /// </summary>
     public bool ShowSun
     {
         get
@@ -74,7 +77,7 @@ public class MainWindowController
     }
 
     /// <summary>
-    /// Get the string for greeting on the home page
+    /// The string for greeting on the home page
     /// </summary>
     public string Greeting
     {
