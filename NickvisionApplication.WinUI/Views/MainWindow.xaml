@@ -6,6 +6,7 @@
     xmlns:nickvision="using:NickvisionApplication.WinUI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:wct="using:CommunityToolkit.WinUI.UI.Controls"
     xmlns:labs="using:CommunityToolkit.Labs.WinUI"
     mc:Ignorable="d" Activated="Window_Activated">
 
