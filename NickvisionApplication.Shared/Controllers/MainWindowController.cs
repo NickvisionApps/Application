@@ -2,9 +2,7 @@
 using NickvisionApplication.Shared.Helpers;
 using NickvisionApplication.Shared.Models;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Threading.Tasks;
 
 namespace NickvisionApplication.Shared.Controllers;
 
@@ -13,8 +11,6 @@ namespace NickvisionApplication.Shared.Controllers;
 /// </summary>
 public class MainWindowController
 {
-    private bool _isOpened;
-
     /// <summary>
     /// The localizer to get translated strings from
     /// </summary>
@@ -59,7 +55,6 @@ public class MainWindowController
     /// </summary>
     public MainWindowController()
     {
-        _isOpened = false;
         Localizer = new Localizer();
         FolderPath = "No Folder Opened";
     }
