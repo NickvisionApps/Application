@@ -133,21 +133,4 @@ public class MainWindowController
         NotificationSent?.Invoke(this, new NotificationSentEventArgs(Localizer["FolderClosed"], NotificationSeverity.Warning));
         FolderChanged?.Invoke(this, EventArgs.Empty);
     }
-
-    public async Task<List<string>?> GetFilesInFolderAsync()
-    {
-        if(IsFolderOpened)
-        {
-            var files = new List<string>();
-            await Task.Run(() =>
-            {
-                foreach(var path in Directory.EnumerateFiles(FolderPath, "*", SearchOption.AllDirectories)) 
-                { 
-                    files.Add(Path.GetFileName(path));
-                }
-            });
-            return files;
-        }
-        return null;
-    }
 }
