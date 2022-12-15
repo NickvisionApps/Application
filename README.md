@@ -12,8 +12,8 @@
 <a href='https://matrix.to/#/#nickvision:matrix.org'><img width='140' alt='Join our room' src='https://user-images.githubusercontent.com/17648453/196094077-c896527d-af6d-4b43-a5d8-e34a00ffd8f6.png'/></a>
 
 # Screenshots
-![WinUILight](https://user-images.githubusercontent.com/17648453/206728736-0616cc96-13e3-4279-aa9d-0710471fe3fc.png)
-![WinUIDark](https://user-images.githubusercontent.com/17648453/206728647-557d44c7-355a-4897-941c-a7ba49b36458.png)
+![WinUILight](https://user-images.githubusercontent.com/17648453/207794202-2ec536e0-106c-451d-b380-2091c2db96bf.png)
+![WinUIDark](https://user-images.githubusercontent.com/17648453/207794094-f6e371b0-9c0e-4356-b9ea-7cdca7eb3b05.png)
 ![GNOMELight](https://user-images.githubusercontent.com/17648453/206729313-01c7f089-2393-49a3-9dd6-a861b7d7c84f.png)
 ![GNOMEDark](https://user-images.githubusercontent.com/17648453/206729405-d73d5912-7773-451d-941d-297ddf4d9c6b.png)
 
