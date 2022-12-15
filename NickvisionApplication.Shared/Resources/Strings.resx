@@ -97,13 +97,13 @@
         <value>Folder</value>
     </data>
 
-  <!--Mostly used in WinUI-->
 	<data name="Settings" xml:space="preserve">
+		<!--Mostly used in WinUI-->
         <value>Settings</value>
     </data>
 
-  <!--Mostly used in GNOME-->
 	<data name="Preferences" xml:space="preserve">
+		<!--Mostly used in GNOME-->
         <value>Preferences</value>
     </data>
 
