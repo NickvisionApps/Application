@@ -1,88 +1,33 @@
 # Application
-<img src="src/resources/org.nickvision.application.png" width="100" height="100"/>
+<img src="NickvisionApplication.Shared/Resources/org.nickvision.application.png" width="100" height="100"/>
 
  **A template for creating Nickvision applications**
 
 # Features
-- Modern GTK 4 and libadwaita design
-  - System/Light/Dark theme support
-- Modern C++ codebase
-- Support for saving application settings via a json configuration
+- A cross-platform C# application
+  - Windows UI in Windows App SDK (WinUI 3)
+  - GNOME UI in gir.core (Gtk4/Libadwaita)
 
 # Chat
 <a href='https://matrix.to/#/#nickvision:matrix.org'><img width='140' alt='Join our room' src='https://user-images.githubusercontent.com/17648453/196094077-c896527d-af6d-4b43-a5d8-e34a00ffd8f6.png'/></a>
 
 # Screenshots
-![MainWindow](https://user-images.githubusercontent.com/17648453/188352482-90eeeb3c-25de-4b7c-9270-c49b7692485b.png)
-![FolderOpen](https://user-images.githubusercontent.com/17648453/188352502-08cfd064-c8ef-4cc3-8235-f63cbe3697c1.png)
-![DarkMode](https://user-images.githubusercontent.com/17648453/188352505-75b12b3f-172b-448f-896b-1217dfe4b0a5.png)
-![PreferencesDialog](https://user-images.githubusercontent.com/17648453/188352511-89444eb7-7cfb-4c8d-83f5-93d339c8ed2a.png)
-![ShortcutsDialog](https://user-images.githubusercontent.com/17648453/188636456-c10370c6-0d01-47d5-8544-2ee90feefcf0.png)
-![AboutDialog](https://user-images.githubusercontent.com/17648453/188543750-3e228bc8-4ecd-4c70-a733-1b6d6a28e1a8.png)
+![WinUILight](https://user-images.githubusercontent.com/17648453/207794202-2ec536e0-106c-451d-b380-2091c2db96bf.png)
+![WinUIDark](https://user-images.githubusercontent.com/17648453/207794094-f6e371b0-9c0e-4356-b9ea-7cdca7eb3b05.png)
+![GNOMELight](https://user-images.githubusercontent.com/17648453/206729313-01c7f089-2393-49a3-9dd6-a861b7d7c84f.png)
+![GNOMEDark](https://user-images.githubusercontent.com/17648453/206729405-d73d5912-7773-451d-941d-297ddf4d9c6b.png)
 
 # Translating
 Everyone is welcome to translate this app into their native or known languages, so that the application is accessible to everyone.
 
-To translate the app, fork the repository and clone it locally. Make sure that `meson` is installed. Run the commands in your shell while in the directory of repository:
-```bash
-meson build
-cd build
-meson compile org.nickvision.application-pot
-```
-Or, if you are using GNOME Builder, build the app and then run in the Builder's terminal:
-```bash
-flatpak run --command=sh org.gnome.Builder
-cd _build
-meson compile org.nickvision.application-pot
-```
-This would generate a `NickvisionApplication/po/org.nickvision.application.pot` file, now you can use this file to translate the strings into your target language. You may use [Gtranslator](https://flathub.org/apps/details/org.gnome.Gtranslator) or [poedit](poedit.net) if you do not know how to translate manually in text itself. After translating (either through tools or directly in text editor), make sure to include the required metadata on the top of translation file (see existing files in `NickvisionApplication/po/` directory.)
+To start translating the app, fork the repository and clone it locally.
 
-One particular thing you should keep in mind is that some strings in this project are bifurcated into multiple strings to cater to responsiveness of the application, like:
-```
-msgid ""
-"If checked, the currency symbol will be displayed on the right of a monetary "
-"value."
-```
-You should use the same format for translated strings as well. But, because all languages do not have the same sentence structure, you may not need to follow this word-by-word, rather you should bifurcate the string in about the same ratio. (For examples, look into translations of languages which do not have a English-like structure in `NickvisionApplication/po/`)
+In the `NickvisionApplication.Shared/Resources` folder you will see a file called `String.resx`. This is a C# resource file that contains all the strings for the application. Simply copy that file and rename it `String.<lang-code>.resx`. For example, if I'm creating an Italian translation, the copied file would be called `Strings.it.resx`. Once you have your copied file, simply replace each `<value>` block of each `<data>` string block with your language's appropriate translation.
 
-Put your translated file in `NickvisionApplication/po` directory in format `<LANG>.po` where `<LANG>` is the language code.
+To check your translation file, make sure your system is in the locale of the language you are translating and run the app. You should see your translated strings!
 
-Put the language code of your language in `NickvisionApplication/po/LINGUAS` (this file, as a convention, should remain in alphabetical order.)
-
-Add information in `NickvisionApplication/po/CREDITS.json` so your name will appear in the app's About dialog:
-```
-"Jango Fett": {
-    "lang": "Mandalorian",
-    "email": "jango@galaxyfarfar.away"
-}
-```
-If you made multiple translations, use an array to list all languages:
-```
-"C-3PO": {
-    "lang": ["Ewokese", "Wookieespeak", "Jawaese"],
-    "url": "https://free.droids"
-}
-```
-
-To test your translation in GNOME Builder, press Ctrl+Alt+T to open a terminal inside the app's environment and then run:
-```
-LC_ALL=<LOCALE> /app/bin/org.nickvision.application
-```
-where `<LOCALE>` is your locale (e.g. `it_IT.UTF-8`.)
-
-Commit these changes, and then create a pull request to the project.
-
-As more strings may be added in the application in future, the following command needs to be ran to update all the `.po` files, which would add new strings to be translated without altering the already translated strings. But, because running this command would do this for all the languages, generally a maintainer would do that.
-
-```bash
-meson compile org.nickvision.application-update-po
-```
-
-The upper command needs to be run in `build` directory generated by `meson`.
+Once all changes to your translated file are made, make sure the file is in the path `NickvisionApplication.Shared/Resources/String.<lang-code>.resx` and commit these changes, and then create a pull request to the project.
 
 # Dependencies
-- [C++20](https://en.cppreference.com/w/cpp/20)
-- [GTK 4](https://www.gtk.org/)
-- [libadwaita](https://gnome.pages.gitlab.gnome.org/libadwaita/)
-- [jsoncpp](https://github.com/open-source-parsers/jsoncpp)
+- [.NET 7](https://dotnet.microsoft.com/en-us/)
 

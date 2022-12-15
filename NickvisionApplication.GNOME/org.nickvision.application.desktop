@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Application
+Comment=A template for creating Nickvision applications
+Exec=/opt/org.nickvision.application/NickvisionApplication.GNOME
+Icon=org.nickvision.application
+Terminal=false
+Type=Application
+X-GNOME-UsesNotifications=true

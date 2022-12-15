@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\org.nickvision.application-devel.svg" />
+    <None Remove="Resources\org.nickvision.application-symbolic.svg" />
+    <None Remove="Resources\org.nickvision.application.png" />
+    <None Remove="Resources\org.nickvision.application.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\org.nickvision.application-devel.svg" />
+    <Resource Include="Resources\org.nickvision.application-symbolic.svg" />
+    <Resource Include="Resources\org.nickvision.application.png" />
+    <Resource Include="Resources\org.nickvision.application.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\Strings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Strings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>
