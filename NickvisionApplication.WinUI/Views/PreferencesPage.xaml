@@ -23,7 +23,7 @@
 
                 <TextBlock Foreground="Gray" Text="(C) Nickvision 2021-2022&#xA;"/>
 
-                <HyperlinkButton Margin="-12,0,0,0" Click="BtnChangelog_Clicked">
+                <HyperlinkButton Margin="-12,0,0,0" Click="Changelog">
                     <HyperlinkButton.Content>
                         <StackPanel Orientation="Horizontal" Spacing="6">
                             <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8FD;"/>
@@ -33,7 +33,7 @@
                     </HyperlinkButton.Content>
                 </HyperlinkButton>
 
-                <HyperlinkButton Margin="-12,0,0,0" Click="BtnCredits_Clicked">
+                <HyperlinkButton Margin="-12,0,0,0" Click="Credits">
                     <HyperlinkButton.Content>
                         <StackPanel Orientation="Horizontal" Spacing="6">
                             <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE125;"/>

@@ -41,11 +41,38 @@ public sealed partial class PreferencesPage : UserControl
     }
 
     /// <summary>
+    /// Removes URLs from a credits string
+    /// </summary>
+    /// <param name="s">The credits string</param>
+    /// <returns>The new credits string with URLs removed</returns>
+    private string RemoveUrlsFromCredits(string s)
+    {
+        var credits = s.Split('\n');
+        var result = "";
+        for (int i = 0; i < credits.Length; i++)
+        {
+            if (credits[i].IndexOf("https://") != -1)
+            {
+                result += credits[i].Remove(credits[i].IndexOf("https://"));
+            }
+            else if (credits[i].IndexOf("http://") != -1)
+            {
+                result += credits[i].Remove(credits[i].IndexOf("http://"));
+            }
+            if(i != credits.Length - 1)
+            {
+                result += "\n";
+            }
+        }
+        return result;
+    }
+
+    /// <summary>
     /// Occurs when the changelog button is clicked
     /// </summary>
     /// <param name="sender">object</param>
     /// <param name="e">RoutedEventArgs</param>
-    private async void BtnChangelog_Clicked(object sender, RoutedEventArgs e)
+    private async void Changelog(object sender, RoutedEventArgs e)
     {
         var changelogDialog = new ContentDialog()
         {
@@ -63,12 +90,12 @@ public sealed partial class PreferencesPage : UserControl
     /// </summary>
     /// <param name="sender">object</param>
     /// <param name="e">RoutedEventArgs</param>
-    private async void BtnCredits_Clicked(object sender, RoutedEventArgs e)
+    private async void Credits(object sender, RoutedEventArgs e)
     {
         var creditsDialog = new ContentDialog()
         {
             Title = _controller.Localizer["Credits"],
-            Content = string.Format(_controller.Localizer["CreditsDialogDescription", "WinUI"], _controller.Localizer["Developers", "Credits"], _controller.Localizer["Designers", "Credits"], _controller.Localizer["Artists", "Credits"], _controller.Localizer["Translators", "Credits"]),
+            Content = string.Format(_controller.Localizer["CreditsDialogDescription", "WinUI"], RemoveUrlsFromCredits(_controller.Localizer["Developers", "Credits"]), RemoveUrlsFromCredits(_controller.Localizer["Designers", "Credits"]), RemoveUrlsFromCredits(_controller.Localizer["Artists", "Credits"]), RemoveUrlsFromCredits(_controller.Localizer["Translators", "Credits"])),
             CloseButtonText = _controller.Localizer["OK"],
             DefaultButton = ContentDialogButton.Close,
             XamlRoot = Content.XamlRoot
