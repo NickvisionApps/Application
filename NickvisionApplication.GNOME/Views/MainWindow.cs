@@ -32,7 +32,6 @@ public class MainWindow : Adw.ApplicationWindow
     private static extern string g_file_get_path(nint file);
 
     [DllImport("adwaita-1")]
-    [return: MarshalAs(UnmanagedType.LPStr)]
     private static extern nuint g_file_get_type();
 
     /// <summary>
