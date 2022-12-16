@@ -1,6 +1,7 @@
 ﻿using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.Shared.Events;
 using System;
+using System.Runtime.InteropServices;
 
 namespace NickvisionApplication.GNOME.Views;
 
@@ -20,6 +21,13 @@ public class MainWindow : Adw.ApplicationWindow
     private readonly Adw.ToastOverlay _toastOverlay;
     private readonly Adw.ViewStack _viewStack;
     private readonly Adw.StatusPage _pageNoFolder;
+
+    [DllImport("adwaita-1")]
+    private static extern nint gtk_file_chooser_get_file(nint chooser);
+
+    [DllImport("adwaita-1", CharSet = CharSet.Ansi)]
+    [return: MarshalAs(UnmanagedType.LPStr)]
+    private static extern string g_file_get_path(nint file);
 
     /// <summary>
     /// Constructs a MainWindow
@@ -152,7 +160,8 @@ public class MainWindow : Adw.ApplicationWindow
         {
             if (e.ResponseId == (int)Gtk.ResponseType.Accept)
             {
-                _controller.OpenFolder(openFolderDialog.GetFile().GetPath() ?? "");
+                var path = g_file_get_path(gtk_file_chooser_get_file(openFolderDialog.Handle));
+                _controller.OpenFolder(path);
             }
         };
         openFolderDialog.Show();
