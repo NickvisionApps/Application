@@ -1,6 +1,7 @@
 ﻿using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.Shared.Events;
 using System;
+using System.IO;
 using System.Runtime.InteropServices;
 
 namespace NickvisionApplication.GNOME.Views;
@@ -21,6 +22,7 @@ public class MainWindow : Adw.ApplicationWindow
     private readonly Adw.ToastOverlay _toastOverlay;
     private readonly Adw.ViewStack _viewStack;
     private readonly Adw.StatusPage _pageNoFolder;
+    private readonly Gtk.DropTarget _dropTarget;
 
     [DllImport("adwaita-1")]
     private static extern nint gtk_file_chooser_get_file(nint chooser);
@@ -28,6 +30,10 @@ public class MainWindow : Adw.ApplicationWindow
     [DllImport("adwaita-1", CharSet = CharSet.Ansi)]
     [return: MarshalAs(UnmanagedType.LPStr)]
     private static extern string g_file_get_path(nint file);
+
+    [DllImport("adwaita-1")]
+    [return: MarshalAs(UnmanagedType.LPStr)]
+    private static extern nuint g_file_get_type();
 
     /// <summary>
     /// Constructs a MainWindow
@@ -126,6 +132,10 @@ public class MainWindow : Adw.ApplicationWindow
         actAbout.OnActivate += About;
         AddAction(actAbout);
         application.SetAccelsForAction("win.about", new string[] { "F1" });
+        //Drop Target
+        _dropTarget = Gtk.DropTarget.New(g_file_get_type(), Gdk.DragAction.Copy);
+        _dropTarget.OnDrop += OnDrop;
+        AddController(_dropTarget);
     }
 
     /// <summary>
@@ -134,6 +144,24 @@ public class MainWindow : Adw.ApplicationWindow
     /// <param name="sender">object?</param>
     /// <param name="e">NotificationSentEventArgs</param>
     private void NotificationSent(object? sender, NotificationSentEventArgs e) => _toastOverlay.AddToast(Adw.Toast.New(e.Message));
+
+    /// <summary>
+    /// Occurs when something is dropped onto the window
+    /// </summary>
+    /// <param name="sender">Gtk.DropTarget</param>
+    /// <param name="e">Gtk.DropTarget.DropSignalArgs</param>
+    private void OnDrop(Gtk.DropTarget sender, Gtk.DropTarget.DropSignalArgs e)
+    {
+        var obj = e.Value.GetObject();
+        if(obj != null)
+        {
+            var path = g_file_get_path(obj.Handle);
+            if(Directory.Exists(path))
+            {
+                _controller.OpenFolder(path);
+            }
+        }
+    }
 
     /// <summary>
     /// Occurs when the folder is changed
