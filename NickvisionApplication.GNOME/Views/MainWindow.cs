@@ -1,6 +1,7 @@
 ﻿using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.Shared.Events;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 
@@ -11,6 +12,35 @@ namespace NickvisionApplication.GNOME.Views;
 /// </summary>
 public class MainWindow : Adw.ApplicationWindow
 {
+    [DllImport("adwaita-1", CallingConvention = CallingConvention.Cdecl)]
+    private static extern nint adw_show_about_window(nint parent,
+        [MarshalAs(UnmanagedType.LPStr)] string appNameKey, [MarshalAs(UnmanagedType.LPStr)] string appNameValue,
+        [MarshalAs(UnmanagedType.LPStr)] string iconKey, [MarshalAs(UnmanagedType.LPStr)] string iconValue,
+        [MarshalAs(UnmanagedType.LPStr)] string versionKey, [MarshalAs(UnmanagedType.LPStr)] string versionValue,
+        [MarshalAs(UnmanagedType.LPStr)] string commentsKey, [MarshalAs(UnmanagedType.LPStr)] string commentsValue,
+        [MarshalAs(UnmanagedType.LPStr)] string developerNameKey, [MarshalAs(UnmanagedType.LPStr)] string developerNameValue,
+        [MarshalAs(UnmanagedType.LPStr)] string licenseKey, int licenseValue,
+        [MarshalAs(UnmanagedType.LPStr)] string copyrightKey, [MarshalAs(UnmanagedType.LPStr)] string copyrightValue,
+        [MarshalAs(UnmanagedType.LPStr)] string websiteKey, [MarshalAs(UnmanagedType.LPStr)] string websiteValue,
+        [MarshalAs(UnmanagedType.LPStr)] string issueTrackerKey, [MarshalAs(UnmanagedType.LPStr)] string issueTrackerValue,
+        [MarshalAs(UnmanagedType.LPStr)] string supportUrlKey, [MarshalAs(UnmanagedType.LPStr)] string supportUrlValue,
+        [MarshalAs(UnmanagedType.LPStr)] string developersKey, [In, Out] string[] developersValue,
+        [MarshalAs(UnmanagedType.LPStr)] string designersKey, [In, Out] string[] designersValue,
+        [MarshalAs(UnmanagedType.LPStr)] string artistsKey, [In, Out] string[] artistsValue,
+        [MarshalAs(UnmanagedType.LPStr)] string translatorCreditsKey, [MarshalAs(UnmanagedType.LPStr)] string translatorCreditsValue,
+        [MarshalAs(UnmanagedType.LPStr)] string releaseNotesKey, [MarshalAs(UnmanagedType.LPStr)] string releaseNotesValue,
+        nint terminator);
+
+    [DllImport("adwaita-1")]
+    private static extern nint gtk_file_chooser_get_file(nint chooser);
+
+    [DllImport("adwaita-1", CharSet = CharSet.Ansi)]
+    [return: MarshalAs(UnmanagedType.LPStr)]
+    private static extern string g_file_get_path(nint file);
+
+    [DllImport("adwaita-1")]
+    private static extern nuint g_file_get_type();
+
     private readonly MainWindowController _controller;
     private readonly Adw.Application _application;
     private readonly Gtk.Box _mainBox;
@@ -23,16 +53,6 @@ public class MainWindow : Adw.ApplicationWindow
     private readonly Adw.ViewStack _viewStack;
     private readonly Adw.StatusPage _pageNoFolder;
     private readonly Gtk.DropTarget _dropTarget;
-
-    [DllImport("adwaita-1")]
-    private static extern nint gtk_file_chooser_get_file(nint chooser);
-
-    [DllImport("adwaita-1", CharSet = CharSet.Ansi)]
-    [return: MarshalAs(UnmanagedType.LPStr)]
-    private static extern string g_file_get_path(nint file);
-
-    [DllImport("adwaita-1")]
-    private static extern nuint g_file_get_type();
 
     /// <summary>
     /// Constructs a MainWindow
@@ -230,18 +250,28 @@ public class MainWindow : Adw.ApplicationWindow
     /// <param name="e">EventArgs</param>
     private void About(Gio.SimpleAction sender, EventArgs e)
     {
-        var aboutWindow = Gtk.AboutDialog.New();
-        aboutWindow.SetTransientFor(this);
-        aboutWindow.SetModal(true);
-        aboutWindow.SetProgramName(_controller.AppInfo.ShortName);
-        aboutWindow.SetLogoIconName(_controller.AppInfo.ID);
-        aboutWindow.SetVersion(_controller.AppInfo.Version);
-        aboutWindow.SetComments(_controller.AppInfo.Description);
-        aboutWindow.SetLicenseType(Gtk.License.Gpl30);
-        aboutWindow.SetCopyright("© Nickvision 2021-2022");
-        aboutWindow.SetWebsite(_controller.AppInfo.GitHubRepo.ToString());
-        aboutWindow.SetAuthors(_controller.Localizer["Developers", "Credits"].Split(Environment.NewLine));
-        aboutWindow.SetTranslatorCredits(string.IsNullOrEmpty(_controller.Localizer["Translators", "Credits"]) ? null : _controller.Localizer["Translators", "Credits"]);
-        aboutWindow.Show();
+        var developersCredits = new List<string>(_controller.Localizer["Developers", "Credits"].Split(Environment.NewLine));
+        developersCredits.Add(null);
+        var designersCredits = new List<string>(_controller.Localizer["Designers", "Credits"].Split(Environment.NewLine));
+        designersCredits.Add(null);
+        var artistsCredits = new List<string>(_controller.Localizer["Artists", "Credits"].Split(Environment.NewLine));
+        artistsCredits.Add(null);
+        adw_show_about_window(this.Handle,
+            "application-name", _controller.AppInfo.ShortName,
+            "application-icon", (_controller.AppInfo.ID + (_controller.AppInfo.GetIsDevelVersion() ? "-devel" : "")),
+            "version", _controller.AppInfo.Version,
+            "comments", _controller.AppInfo.Description,
+            "developer-name", "Nickvision",
+            "license-type", (int)Gtk.License.Gpl30,
+            "copyright", "© Nickvision 2021-2022",
+            "website", _controller.AppInfo.GitHubRepo.ToString(),
+            "issue-url", _controller.AppInfo.IssueTracker.ToString(),
+            "support-url", _controller.AppInfo.SupportUrl.ToString(),
+            "developers", developersCredits.ToArray(),
+            "designers", designersCredits.ToArray(),
+            "artists", artistsCredits.ToArray(),
+            "translator-credits", (string.IsNullOrEmpty(_controller.Localizer["Translators", "Credits"]) ? null : _controller.Localizer["Translators", "Credits"]),
+            "release-notes", _controller.AppInfo.Changelog,
+            IntPtr.Zero);
     }
 }
