@@ -1,6 +1,7 @@
 ﻿using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.Shared.Models;
 using System;
+using System.Runtime.InteropServices;
 
 namespace NickvisionApplication.GNOME.Views;
 
@@ -9,6 +10,12 @@ namespace NickvisionApplication.GNOME.Views;
 /// </summary>
 public class PreferencesDialog : Adw.Window
 {
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    private delegate void SignalCallback(nint gObject, nint gParamSpec, nint data);
+
+    [DllImport("adwaita-1")]
+    private static extern ulong g_signal_connect_data(nint instance, [MarshalAs(UnmanagedType.LPStr)] string detailed_signal, [MarshalAs(UnmanagedType.FunctionPtr)]SignalCallback c_handler, nint data, nint destroy_data, int connect_flags);
+
     private readonly PreferencesViewController _controller;
     private readonly Adw.Application _application;
     private readonly Gtk.Box _mainBox;
@@ -49,8 +56,8 @@ public class PreferencesDialog : Adw.Window
         _grpUserInterface.SetDescription(_controller.Localizer["UserInterfaceDescription"]);
         _rowTheme = Adw.ComboRow.New();
         _rowTheme.SetTitle(_controller.Localizer["Theme"]);
-        _rowTheme.SetSubtitle(_controller.Localizer["ThemeDescription", "GTK"]);
         _rowTheme.SetModel(Gtk.StringList.New(new string[] { _controller.Localizer["ThemeLight"], _controller.Localizer["ThemeDark"], _controller.Localizer["ThemeSystem"] }));
+        g_signal_connect_data(_rowTheme.Handle, "notify::selected-item", OnThemeChanged, IntPtr.Zero, IntPtr.Zero, 0);
         _grpUserInterface.Add(_rowTheme);
         _page.Add(_grpUserInterface);
         //Layout
@@ -67,6 +74,12 @@ public class PreferencesDialog : Adw.Window
     /// <param name="e">EventArgs</param>
     private void Hide(Gtk.Widget sender, EventArgs e)
     {
+        _controller.SaveConfiguration();
+        Destroy();
+    }
+
+    private void OnThemeChanged(nint sender, nint gParamSpec, nint data)
+    {
         _controller.Theme = (Theme)_rowTheme.GetSelected();
         _application.StyleManager!.ColorScheme = _controller.Theme switch
         {
@@ -75,7 +88,5 @@ public class PreferencesDialog : Adw.Window
             Theme.Dark => Adw.ColorScheme.ForceDark,
             _ => Adw.ColorScheme.PreferLight
         };
-        _controller.SaveConfiguration();
-        Destroy();
     }
 }

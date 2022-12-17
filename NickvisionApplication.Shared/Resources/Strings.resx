@@ -224,8 +224,4 @@
 	<data name="MainMenu.GTK" xml:space="preserve">
 		<value>Main Menu</value>
 	</data>
-	
-	<data name="ThemeDescription.GTK" xml:space="preserve">
-        <value>A theme change will be applied when the dialog is closed.</value>
-    </data>
 </root>

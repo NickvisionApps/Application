@@ -224,8 +224,4 @@
 	<data name="MainMenu.GTK" xml:space="preserve">
 		<value>Главное меню</value>
 	</data>
-
-	<data name="ThemeDescription.GTK" xml:space="preserve">
-        <value>Тема будет изменена после закрытия диалога.</value>
-    </data>
 </root>
