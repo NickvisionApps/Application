@@ -270,7 +270,7 @@ public class MainWindow : Adw.ApplicationWindow
             "developers", developersCredits.ToArray(),
             "designers", designersCredits.ToArray(),
             "artists", artistsCredits.ToArray(),
-            "translator-credits", (string.IsNullOrEmpty(_controller.Localizer["Translators", "Credits"]) ? null : _controller.Localizer["Translators", "Credits"]),
+            "translator-credits", (string.IsNullOrEmpty(_controller.Localizer["Translators", "Credits"]) ? "" : _controller.Localizer["Translators", "Credits"]),
             "release-notes", _controller.AppInfo.Changelog,
             IntPtr.Zero);
     }

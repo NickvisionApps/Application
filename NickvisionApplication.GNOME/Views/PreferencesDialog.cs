@@ -57,7 +57,7 @@ public class PreferencesDialog : Adw.Window
         _rowTheme = Adw.ComboRow.New();
         _rowTheme.SetTitle(_controller.Localizer["Theme"]);
         _rowTheme.SetModel(Gtk.StringList.New(new string[] { _controller.Localizer["ThemeLight"], _controller.Localizer["ThemeDark"], _controller.Localizer["ThemeSystem"] }));
-        g_signal_connect_data(_rowTheme.Handle, "notify::selected-item", OnThemeChanged, IntPtr.Zero, IntPtr.Zero, 0);
+        g_signal_connect_data(_rowTheme.Handle, "notify::selected-item", (nint sender, nint gParamSpec, nint data) => OnThemeChanged(), IntPtr.Zero, IntPtr.Zero, 0);
         _grpUserInterface.Add(_rowTheme);
         _page.Add(_grpUserInterface);
         //Layout
@@ -78,7 +78,10 @@ public class PreferencesDialog : Adw.Window
         Destroy();
     }
 
-    private void OnThemeChanged(nint sender, nint gParamSpec, nint data)
+    /// <summary>
+    /// Occurs when the theme selection is changed
+    /// </summary>
+    private void OnThemeChanged()
     {
         _controller.Theme = (Theme)_rowTheme.GetSelected();
         _application.StyleManager!.ColorScheme = _controller.Theme switch
