@@ -8,13 +8,13 @@ namespace NickvisionApplication.GNOME.Views;
 /// <summary>
 /// The PreferencesDialog for the application
 /// </summary>
-public class PreferencesDialog : Adw.Window
+public partial class PreferencesDialog : Adw.Window
 {
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate void SignalCallback(nint gObject, nint gParamSpec, nint data);
 
-    [DllImport("adwaita-1")]
-    private static extern ulong g_signal_connect_data(nint instance, [MarshalAs(UnmanagedType.LPStr)] string detailed_signal, [MarshalAs(UnmanagedType.FunctionPtr)]SignalCallback c_handler, nint data, nint destroy_data, int connect_flags);
+    [LibraryImport("adwaita-1", StringMarshalling = StringMarshalling.Utf8)]
+    private static partial ulong g_signal_connect_data(nint instance, string detailed_signal, [MarshalAs(UnmanagedType.FunctionPtr)]SignalCallback c_handler, nint data, nint destroy_data, int connect_flags);
 
     private readonly PreferencesViewController _controller;
     private readonly Adw.Application _application;

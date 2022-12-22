@@ -10,36 +10,35 @@ namespace NickvisionApplication.GNOME.Views;
 /// <summary>
 /// The MainWindow for the application
 /// </summary>
-public class MainWindow : Adw.ApplicationWindow
+public partial class MainWindow : Adw.ApplicationWindow
 {
-    [DllImport("adwaita-1", CallingConvention = CallingConvention.Cdecl)]
-    private static extern nint adw_show_about_window(nint parent,
-        [MarshalAs(UnmanagedType.LPStr)] string appNameKey, [MarshalAs(UnmanagedType.LPStr)] string appNameValue,
-        [MarshalAs(UnmanagedType.LPStr)] string iconKey, [MarshalAs(UnmanagedType.LPStr)] string iconValue,
-        [MarshalAs(UnmanagedType.LPStr)] string versionKey, [MarshalAs(UnmanagedType.LPStr)] string versionValue,
-        [MarshalAs(UnmanagedType.LPStr)] string commentsKey, [MarshalAs(UnmanagedType.LPStr)] string commentsValue,
-        [MarshalAs(UnmanagedType.LPStr)] string developerNameKey, [MarshalAs(UnmanagedType.LPStr)] string developerNameValue,
-        [MarshalAs(UnmanagedType.LPStr)] string licenseKey, int licenseValue,
-        [MarshalAs(UnmanagedType.LPStr)] string copyrightKey, [MarshalAs(UnmanagedType.LPStr)] string copyrightValue,
-        [MarshalAs(UnmanagedType.LPStr)] string websiteKey, [MarshalAs(UnmanagedType.LPStr)] string websiteValue,
-        [MarshalAs(UnmanagedType.LPStr)] string issueTrackerKey, [MarshalAs(UnmanagedType.LPStr)] string issueTrackerValue,
-        [MarshalAs(UnmanagedType.LPStr)] string supportUrlKey, [MarshalAs(UnmanagedType.LPStr)] string supportUrlValue,
-        [MarshalAs(UnmanagedType.LPStr)] string developersKey, [In, Out] string[] developersValue,
-        [MarshalAs(UnmanagedType.LPStr)] string designersKey, [In, Out] string[] designersValue,
-        [MarshalAs(UnmanagedType.LPStr)] string artistsKey, [In, Out] string[] artistsValue,
-        [MarshalAs(UnmanagedType.LPStr)] string translatorCreditsKey, [MarshalAs(UnmanagedType.LPStr)] string translatorCreditsValue,
-        [MarshalAs(UnmanagedType.LPStr)] string releaseNotesKey, [MarshalAs(UnmanagedType.LPStr)] string releaseNotesValue,
+    [LibraryImport("adwaita-1", StringMarshalling = StringMarshalling.Utf8)]
+    private static partial nint adw_show_about_window(nint parent,
+        string appNameKey, string appNameValue,
+        string iconKey, string iconValue,
+        string versionKey, string versionValue,
+        string commentsKey, string commentsValue,
+        string developerNameKey, string developerNameValue,
+        string licenseKey, int licenseValue,
+        string copyrightKey, string copyrightValue,
+        string websiteKey, string websiteValue,
+        string issueTrackerKey, string issueTrackerValue,
+        string supportUrlKey, string supportUrlValue,
+        string developersKey, string[] developersValue,
+         string designersKey, string[] designersValue,
+        string artistsKey, string[] artistsValue,
+        string translatorCreditsKey, string translatorCreditsValue,
+        string releaseNotesKey, string releaseNotesValue,
         nint terminator);
 
-    [DllImport("adwaita-1")]
-    private static extern nint gtk_file_chooser_get_file(nint chooser);
+    [LibraryImport("adwaita-1", StringMarshalling = StringMarshalling.Utf8)]
+    private static partial nint gtk_file_chooser_get_file(nint chooser);
 
-    [DllImport("adwaita-1", CharSet = CharSet.Ansi)]
-    [return: MarshalAs(UnmanagedType.LPStr)]
-    private static extern string g_file_get_path(nint file);
+    [LibraryImport("adwaita-1", StringMarshalling = StringMarshalling.Utf8)]
+    private static partial string g_file_get_path(nint file);
 
-    [DllImport("adwaita-1")]
-    private static extern nuint g_file_get_type();
+    [LibraryImport("adwaita-1", StringMarshalling = StringMarshalling.Utf8)]
+    private static partial nuint g_file_get_type();
 
     private readonly MainWindowController _controller;
     private readonly Adw.Application _application;
