@@ -34,7 +34,7 @@
             "build-commands": [
                 "mkdir -p /app/opt/org.nickvision.application",
                 "dotnet publish NickvisionApplication.GNOME/NickvisionApplication.GNOME.csproj --self-contained true -o /app/opt/org.nickvision.application",
-                "bash NickvisionApplication.GNOME/install_extras.sh /app",
+                "bash NickvisionApplication.GNOME/install_extras.sh /app"
             ],
             "sources": [
                 {
