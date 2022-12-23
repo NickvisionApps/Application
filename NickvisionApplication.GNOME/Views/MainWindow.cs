@@ -25,7 +25,7 @@ public partial class MainWindow : Adw.ApplicationWindow
         string issueTrackerKey, string issueTrackerValue,
         string supportUrlKey, string supportUrlValue,
         string developersKey, string[] developersValue,
-         string designersKey, string[] designersValue,
+        string designersKey, string[] designersValue,
         string artistsKey, string[] artistsValue,
         string translatorCreditsKey, string translatorCreditsValue,
         string releaseNotesKey, string releaseNotesValue,
