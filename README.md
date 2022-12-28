@@ -12,10 +12,10 @@
 <a href='https://matrix.to/#/#nickvision:matrix.org'><img width='140' alt='Join our room' src='https://user-images.githubusercontent.com/17648453/196094077-c896527d-af6d-4b43-a5d8-e34a00ffd8f6.png'/></a>
 
 # Screenshots
-![WinUILight](https://user-images.githubusercontent.com/17648453/207794202-2ec536e0-106c-451d-b380-2091c2db96bf.png)
-![WinUIDark](https://user-images.githubusercontent.com/17648453/207794094-f6e371b0-9c0e-4356-b9ea-7cdca7eb3b05.png)
-![GNOMELight](https://user-images.githubusercontent.com/17648453/206729313-01c7f089-2393-49a3-9dd6-a861b7d7c84f.png)
-![GNOMEDark](https://user-images.githubusercontent.com/17648453/206729405-d73d5912-7773-451d-941d-297ddf4d9c6b.png)
+![WinUILight](NickvisionApplication.WinUI/Screenshots/Light.png)
+![WinUIDark](NickvisionApplication.WinUI/Screenshots/Dark.png)
+![GNOMELight](NickvisionApplication.GNOME/Screenshots/Light.png)
+![GNOMEDark](NickvisionApplication.GNOME/Screenshots/Dark.png)
 
 # Translating
 Everyone is welcome to translate this app into their native or known languages, so that the application is accessible to everyone.
@@ -26,8 +26,17 @@ In the `NickvisionApplication.Shared/Resources` folder you will see a file calle
 
 To check your translation file, make sure your system is in the locale of the language you are translating and run the app. You should see your translated strings!
 
-Once all changes to your translated file are made, make sure the file is in the path `NickvisionApplication.Shared/Resources/String.<lang-code>.resx` and commit these changes, and then create a pull request to the project.
+Once all changes to your translated file are made, make sure the file is in the path `NickvisionApplication.Shared/Resources/String.<lang-code>.resx` and commit these changes.
+
+Even if you're running Windows, we ask you to also translate metadata for GNOME (Linux) version of the app. There are 2 places that require changes when a new translation is added:
+- `NickvisionApplication.GNOME/org.nickvision.application.desktop`: `Comment[lang-code]` line
+- `NickvisionApplication.GNOME/org.nickvision.application.metainfo.xml`: `<description>` section
+
+When you're done, create a pull request to the project.
 
 # Dependencies
 - [.NET 7](https://dotnet.microsoft.com/en-us/)
 
+# Code of Conduct
+
+This project follows the [GNOME Code of Conduct](https://wiki.gnome.org/Foundation/CodeOfConduct).
