@@ -14,19 +14,11 @@
   <screenshots>
     <screenshot type="default">
       <caption>MainWindow</caption>
-      <image>https://user-images.githubusercontent.com/17648453/188352482-90eeeb3c-25de-4b7c-9270-c49b7692485b.png</image>
+      <image>https://raw.githubusercontent.com/nlogozzo/NickvisionApplication/master/NickvisionApplication.GNOME/Screenshots/Light.png</image>
     </screenshot>
     <screenshot>
         <caption>DarkMode</caption>
-      <image>https://user-images.githubusercontent.com/17648453/188352505-75b12b3f-172b-448f-896b-1217dfe4b0a5.png</image>
-    </screenshot>
-    <screenshot>
-        <caption>PreferencesDialog</caption>
-      <image>https://user-images.githubusercontent.com/17648453/188352511-89444eb7-7cfb-4c8d-83f5-93d339c8ed2a.png</image>
-    </screenshot>>
-    <screenshot>
-        <caption>AboutDialog</caption>
-      <image>https://user-images.githubusercontent.com/17648453/188543750-3e228bc8-4ecd-4c70-a733-1b6d6a28e1a8.png</image>
+      <image>https://raw.githubusercontent.com/nlogozzo/NickvisionApplication/master/NickvisionApplication.GNOME/Screenshots/Dark.png</image>
     </screenshot>
   </screenshots>
   <url type="homepage">https://github.com/nlogozzo/NickvisionApplication</url>
