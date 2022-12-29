@@ -2,6 +2,8 @@
 using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.Shared.Models;
 using System;
+// Uncomment if the application uses GResource file
+//using System.Collections.Generic;
 
 namespace NickvisionApplication.GNOME;
 
@@ -27,6 +29,21 @@ public class Program
         Adw.Module.Initialize();
         _application = Adw.Application.New("org.nickvision.application", Gio.ApplicationFlags.FlagsNone);
         _application.OnActivate += OnActivate;
+        
+        // Uncomment following lines if the application uses GResource file
+        //var prefixes = new List<string> {
+        //    Directory.GetParent(Directory.GetParent(Path.GetFullPath(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))).FullName).FullName,
+        //    Directory.GetParent(Path.GetFullPath(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))).FullName,
+        //    "/usr"
+        //};
+        //foreach(var prefix in prefixes)
+        //{
+        //    if(File.Exists(prefix + "/share/org.nickvision.money/org.nickvision.money.gresource"))
+        //    {
+        //        g_resources_register(g_resource_load(Path.GetFullPath(prefix + "/share/org.nickvision.money/org.nickvision.money.gresource")));
+        //        break;
+        //    }
+        //}
     }
 
     /// <summary>
