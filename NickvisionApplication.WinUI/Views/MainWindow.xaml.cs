@@ -89,7 +89,7 @@ public sealed partial class MainWindow : Window
         NavViewItemHome.Content = _controller.Localizer["Home"];
         NavViewItemFolder.Content = _controller.Localizer["Folder"];
         NavViewItemSettings.Content = _controller.Localizer["Settings"];
-        StatusPageHome.Glyph = _controller.ShowSun ? "\xE706" : "\xF1DB";
+        StatusPageHome.Glyph = _controller.ShowSun ? "\xE706" : "\xE708";
         StatusPageHome.Title = _controller.Greeting;
         StatusPageHome.Description = _controller.Localizer["NoFolderDescription"];
         ToolTipService.SetToolTip(BtnHomeOpenFolder, _controller.Localizer["OpenFolder", "Tooltip"]);
