@@ -1,26 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-    <resheader name="resmimetype">
-        <value>text/microsoft-resx</value>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
 	</resheader>
 
-    <resheader name="version">
-        <value>2.0</value>
-    </resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
 
-    <resheader name="reader">
-        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-    </resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
 
-    <resheader name="writer">
-        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-    </resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
 
-    <!--Use: &#xA; for newline-->
+	<!--Use: &#xA; for newline-->
 
-    <data name="Description" xml:space="preserve">
-        <value>Шаблон для создания приложений Nickvision.</value>
-    </data>
+	<data name="Description" xml:space="preserve">
+		<value>Шаблон для создания приложений Nickvision.</value>
+	</data>
 
   <data name="Version" xml:space="preserve">
 		<value>Версия: {0}</value>
@@ -31,194 +31,194 @@
 	</data>
 
 	<data name="Changelog" xml:space="preserve">
-        <value>Список изменений</value>
-    </data>
+		<value>Список изменений</value>
+	</data>
 
 	<!--Credits-->
   <data name="Credits" xml:space="preserve">
-        <value>Авторы</value>
-    </data>
+		<value>Авторы</value>
+	</data>
 
 	<data name="Developers.Credits" xml:space="preserve">
-        <!--DEVELOPER NAME(S) GOES HERE. SEPARATE WITH &#xA;-->
+		<!--DEVELOPER NAME(S) GOES HERE. SEPARATE WITH &#xA;-->
 		<value>Nicholas Logozzo https://github.com/nlogozzo&#xA;Соавторы на GitHub ❤️ https://github.com/nlogozzo/NickvisionApplication/graphs/contributors</value>
-    </data>
+	</data>
 
 	<data name="Designers.Credits" xml:space="preserve">
-        <!--DESIGNER NAME(S) GOES HERE. SEPARATE WITH &#xA;-->
+		<!--DESIGNER NAME(S) GOES HERE. SEPARATE WITH &#xA;-->
 		<value>Nicholas Logozzo https://github.com/nlogozzo&#xA;Фёдор Соболев https://github.com/fsobolev</value>
-    </data>
+	</data>
 
 	<data name="Artists.Credits" xml:space="preserve">
 		<!--ARTIST NAME(S) GOES HERE. SEPARATE WITH &#xA;-->
-        <value>Nicholas Logozzo https://github.com/nlogozzo</value>
-    </data>
+		<value>Nicholas Logozzo https://github.com/nlogozzo</value>
+	</data>
 
 	<data name="Translators.Credits" xml:space="preserve">
-	    <!--TRANSLATOR NAME(S) GOES HERE. SEPARATE WITH &#xA;-->
-        <value>Фёдор Соболев https://github.com/fsobolev</value>
-    </data>
+		<!--TRANSLATOR NAME(S) GOES HERE. SEPARATE WITH &#xA;-->
+		<value>Фёдор Соболев https://github.com/fsobolev</value>
+	</data>
 
 	<!--Actions-->
 	<data name="OK" xml:space="preserve">
-        <value>Ок</value>
-    </data>
+		<value>Ок</value>
+	</data>
 
 	<data name="Yes" xml:space="preserve">
-        <value>Да</value>
-    </data>
+		<value>Да</value>
+	</data>
 
 	<data name="No" xml:space="preserve">
-        <value>Нет</value>
-    </data>
+		<value>Нет</value>
+	</data>
 
 	<data name="Cancel" xml:space="preserve">
-        <value>Отмена</value>
-    </data>
+		<value>Отмена</value>
+	</data>
 
 	<data name="New" xml:space="preserve">
-        <value>Новая</value>
-    </data>
+		<value>Новая</value>
+	</data>
 
 	<data name="Open" xml:space="preserve">
-        <value>Открыть</value>
-    </data>
+		<value>Открыть</value>
+	</data>
 
-    <data name="Close" xml:space="preserve">
-        <value>Закрыть</value>
-    </data>
+	<data name="Close" xml:space="preserve">
+		<value>Закрыть</value>
+	</data>
 
 	<!--Pages-->
 	<data name="Home" xml:space="preserve">
-        <value>Дом</value>
-    </data>
+		<value>Дом</value>
+	</data>
 
 	<data name="Folder" xml:space="preserve">
-        <value>Папка</value>
-    </data>
+		<value>Папка</value>
+	</data>
 
   <!--Mostly used in WinUI-->
 	<data name="Settings" xml:space="preserve">
-        <value>Настройки</value>
-    </data>
+		<value>Настройки</value>
+	</data>
 
   <!--Mostly used in GNOME-->
 	<data name="Preferences" xml:space="preserve">
-        <value>Параметры</value>
-    </data>
+		<value>Параметры</value>
+	</data>
 
 	<data name="KeyboardShortcuts" xml:space="preserve">
-        <value>Сочетания клавиш</value>
-    </data>
+		<value>Сочетания клавиш</value>
+	</data>
 
 	<!--MainWindow-->
 	<data name="OpenFolder" xml:space="preserve">
-        <value>Открыть папку</value>
-    </data>
+		<value>Открыть папку</value>
+	</data>
 
 	<data name="OpenFolder.Tooltip" xml:space="preserve">
-        <value>Открыть папку (Ctrl+O)</value>
-    </data>
+		<value>Открыть папку (Ctrl+O)</value>
+	</data>
 
 	<data name="CloseFolder" xml:space="preserve">
-        <value>Закрыть папку</value>
-    </data>
+		<value>Закрыть папку</value>
+	</data>
 
 	<data name="CloseFolder.Tooltip" xml:space="preserve">
-        <value>Закрыть папку (Ctrl+W)</value>
-    </data>
+		<value>Закрыть папку (Ctrl+W)</value>
+	</data>
 
 	<data name="NoFolderOpened" xml:space="preserve">
-        <value>Папка не открыта</value>
-    </data>
+		<value>Папка не открыта</value>
+	</data>
 
 	<data name="NoFolderDescription" xml:space="preserve">
-        <value>Откройте или перетащите папку, чтобы начать.</value>
-    </data>
+		<value>Откройте или перетащите папку, чтобы начать.</value>
+	</data>
 
 	<!--MainWindowController-->
 	<data name="Greeting.Generic" xml:space="preserve">
-        <value>Здравствуйте!</value>
-     </data>
+		<value>Здравствуйте!</value>
+	</data>
 
 	<data name="Greeting.Morning" xml:space="preserve">
-        <value>Доброе утро!</value>
-     </data>
+		<value>Доброе утро!</value>
+	</data>
 
 	<data name="Greeting.Afternoon" xml:space="preserve">
-        <value>Добрый день!</value>
-     </data>
+		<value>Добрый день!</value>
+	</data>
 
 	<data name="Greeting.Evening" xml:space="preserve">
-        <value>Добрый вечер!</value>
-     </data>
+		<value>Добрый вечер!</value>
+	</data>
 
 	<data name="Greeting.Night" xml:space="preserve">
-        <value>Доброй ночи!</value>
-     </data>
+		<value>Доброй ночи!</value>
+	</data>
 
 	<data name="FolderOpened" xml:space="preserve">
-        <value>Папка открыта: {0}</value>
-    </data>
+		<value>Папка открыта: {0}</value>
+	</data>
 
 	<data name="FolderClosed" xml:space="preserve">
-        <value>Папка закрыта.</value>
-    </data>
+		<value>Папка закрыта.</value>
+	</data>
 
 	<!--Settings-->
 	<data name="UserInterface" xml:space="preserve">
-        <value>Интерфейс</value>
-    </data>
+		<value>Интерфейс</value>
+	</data>
 
 	<data name="UserInterfaceDescription" xml:space="preserve">
-        <value>Настройте интерфейс приложения.</value>
-    </data>
+		<value>Настройте интерфейс приложения.</value>
+	</data>
 
 	<data name="Theme" xml:space="preserve">
-        <value>Тема</value>
-    </data>
+		<value>Тема</value>
+	</data>
 
 	<data name="ThemeLight" xml:space="preserve">
-        <value>Светлая</value>
-    </data>
+		<value>Светлая</value>
+	</data>
 
 	<data name="ThemeDark" xml:space="preserve">
-        <value>Тёмная</value>
-    </data>
+		<value>Тёмная</value>
+	</data>
 
 	<data name="ThemeSystem" xml:space="preserve">
-        <value>Системная</value>
-    </data>
+		<value>Системная</value>
+	</data>
 
 	<!--Shortcuts Dialog-->
 	<data name="Folder.Shortcut" xml:space="preserve">
-        <value>Папка</value>
-    </data>
+		<value>Папка</value>
+	</data>
 
 	<data name="Application.Shortcut" xml:space="preserve">
-        <value>Приложение</value>
-    </data>
+		<value>Приложение</value>
+	</data>
 
-    <!--WinUI Specific-->
-    <data name="ChangelogTitle.WinUI" xml:space="preserve">
-        <value>Что нового?</value>
-    </data>
+	<!--WinUI Specific-->
+	<data name="ChangelogTitle.WinUI" xml:space="preserve">
+		<value>Что нового?</value>
+	</data>
 
 	<data name="CreditsDialogDescription.WinUI" xml:space="preserve">
 		<value>Разработка:&#xA;{0}&#xA;&#xA;Дизайн:&#xA;{1}&#xA;&#xA;Художественная работа:&#xA;{2}&#xA;&#xA;Перевод:&#xA;{3}</value>
 	</data>
 
 	<data name="ThemeDescription.WinUI" xml:space="preserve">
-        <value>Для применения темы требуется перезапуск приложения.</value>
-    </data>
+		<value>Для применения темы требуется перезапуск приложения.</value>
+	</data>
 
 	<data name="RestartThemeTitle.WinUI" xml:space="preserve">
-        <value>Перезапустить приложение, чтобы применить тему?</value>
-    </data>
+		<value>Перезапустить приложение, чтобы применить тему?</value>
+	</data>
 
-    <data name="RestartThemeDescription.WinUI" xml:space="preserve">
-        <value>Вы хотите перезапустить {0}, чтобы применить тему?&#xA;Несохранённые изменения будут утеряны.</value>
-    </data>
+	<data name="RestartThemeDescription.WinUI" xml:space="preserve">
+		<value>Вы хотите перезапустить {0}, чтобы применить тему?&#xA;Несохранённые изменения будут утеряны.</value>
+	</data>
 
 	<!--GTK Specific-->
 	<data name="MainMenu.GTK" xml:space="preserve">
