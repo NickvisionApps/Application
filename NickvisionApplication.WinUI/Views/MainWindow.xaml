@@ -23,7 +23,7 @@
             <TextBlock x:Name="TitleBarTitle" Grid.Column="1" VerticalAlignment="Center" Margin="28,0,0,0" Style="{StaticResource CaptionTextBlockStyle}"/>
         </Grid>
 
-        <NavigationView x:Name="NavView" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,34,0,0" 
+        <NavigationView x:Name="NavView" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,34,0,0" PaneDisplayMode="Top"
                         IsBackButtonVisible="Collapsed" IsSettingsVisible="False" OpenPaneLength="260" SelectionChanged="NavView_SelectionChanged">
             <NavigationView.MenuItems>
                 <NavigationViewItem x:Name="NavViewItemHome" Tag="Home">
