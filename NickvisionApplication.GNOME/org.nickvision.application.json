@@ -61,9 +61,8 @@
             "sources": [
                 "sources.json",
                 {
-                    "type": "git",
-                    "url": "https://github.com/nlogozzo/NickvisionApplication.git",
-                    "branch": "csharp"
+                    "type": "dir",
+                    "path": ".."
                 }
             ]
         }
