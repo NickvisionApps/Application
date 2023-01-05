@@ -183,7 +183,7 @@ public partial class MainWindow : Adw.ApplicationWindow
     private void FolderChanged(object? sender, EventArgs e)
     {
         _windowTitle.SetSubtitle(_controller.FolderPath);
-        _btnCloseFolder.SetVisible(true);
+        _btnCloseFolder.SetVisible(_controller.IsFolderOpened ? true : false);
         _viewStack.SetVisibleChildName(_controller.IsFolderOpened ? "Folder" : "NoFolder");
     }
 
