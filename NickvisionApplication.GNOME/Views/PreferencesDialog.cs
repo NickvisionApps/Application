@@ -17,7 +17,6 @@ public partial class PreferencesDialog : Adw.Window
     private readonly Adw.PreferencesPage _page;
     private readonly Adw.PreferencesGroup _grpUserInterface;
     private readonly Adw.ComboRow _rowTheme;
-    private readonly NotifySignal _themeChangedSignal;
 
     /// <summary>
     /// Constructs a PreferencesDialog
