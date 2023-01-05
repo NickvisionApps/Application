@@ -1,4 +1,5 @@
-﻿using NickvisionApplication.Shared.Controllers;
+﻿using NickvisionApplication.GNOME.Controls;
+using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.Shared.Events;
 using System;
 using System.Collections.Generic;
@@ -212,7 +213,14 @@ public partial class MainWindow : Adw.ApplicationWindow
     /// </summary>
     /// <param name="sender">Gio.SimpleAction</param>
     /// <param name="e">EventArgs</param>
-    private void CloseFolder(Gio.SimpleAction sender, EventArgs e) => _controller.CloseFolder();
+    private async void CloseFolder(Gio.SimpleAction sender, EventArgs e)
+    {
+        var dialog = new MessageDialog(this, _controller.Localizer["CloseFolderDialog", "Title"], _controller.Localizer["CloseFolderDialog", "Description"], _controller.Localizer["Cancel"], _controller.Localizer["Close"]);
+        if (await dialog.RunAsync() == MessageDialogResponse.Destructive)
+        {
+            _controller.CloseFolder();
+        }
+    }
 
     /// <summary>
     /// Occurs when the preferences action is triggered

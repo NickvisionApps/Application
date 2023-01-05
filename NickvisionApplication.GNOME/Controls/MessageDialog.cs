@@ -52,7 +52,6 @@ public partial class MessageDialog
             _dialog.SetResponseAppearance("suggested", Adw.ResponseAppearance.Suggested);
         }
         _dialog.OnResponse += (sender, e) => SetResponse(e.Response);
-        //g_signal_connect_data(_dialog, "response", (nint sender, string response, nint data) => SetResponse(response), IntPtr.Zero, IntPtr.Zero, 0);
     }
 
     /// <summary>
