@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
@@ -21,6 +21,7 @@ public partial class MessageDialog
 {
     private readonly Adw.MessageDialog _dialog;
     private MessageDialogResponse _response;
+    private readonly ResponseSignal _responseSignal;
 
     /// <summary>
     /// Constructs a MessageDialog

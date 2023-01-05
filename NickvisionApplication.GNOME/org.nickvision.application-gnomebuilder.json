@@ -35,14 +35,13 @@
                 "mkdir -p /app/opt/org.nickvision.application",
                 "dotnet publish NickvisionApplication.GNOME/NickvisionApplication.GNOME.csproj --self-contained true -o /app/opt/org.nickvision.application",
                 "ln -sf /usr/lib/$(uname -m)-linux-gnu/libadwaita-1.so.0 /app/opt/org.nickvision.application/libadwaita-1.so",
-                "bash NickvisionApplication.GNOME/install_extras.sh /app",
+                "sh NickvisionApplication.GNOME/install_extras.sh /app",
                 "desktop-file-edit --set-key='Exec' --set-value='/app/opt/org.nickvision.application/NickvisionApplication.GNOME' /app/share/applications/org.nickvision.application.desktop"
             ],
             "sources": [
                 {
-                    "type": "git",
-                    "url": "https://github.com/nlogozzo/NickvisionApplication.git",
-                    "branch": "csharp"
+                    "type": "dir",
+                    "path": ".."
                 }
             ]
         }
