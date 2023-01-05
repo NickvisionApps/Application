@@ -32,12 +32,6 @@ public partial class MainWindow : Adw.ApplicationWindow
         nint terminator);
 
     [LibraryImport("adwaita-1", StringMarshalling = StringMarshalling.Utf8)]
-    private static partial nint gtk_file_chooser_get_file(nint chooser);
-
-    [LibraryImport("adwaita-1", StringMarshalling = StringMarshalling.Utf8)]
-    private static partial string g_file_get_path(nint file);
-
-    [LibraryImport("adwaita-1", StringMarshalling = StringMarshalling.Utf8)]
     private static partial nuint g_file_get_type();
 
     private readonly MainWindowController _controller;
@@ -170,10 +164,10 @@ public partial class MainWindow : Adw.ApplicationWindow
     /// <param name="e">Gtk.DropTarget.DropSignalArgs</param>
     private void OnDrop(Gtk.DropTarget sender, Gtk.DropTarget.DropSignalArgs e)
     {
-        var obj = e.Value.GetObject();
+        var obj = (Gio.FileHelper)e.Value.GetObject();
         if(obj != null)
         {
-            var path = g_file_get_path(obj.Handle);
+            var path = obj.GetPath();
             if(Directory.Exists(path))
             {
                 _controller.OpenFolder(path);
@@ -206,7 +200,7 @@ public partial class MainWindow : Adw.ApplicationWindow
         {
             if (e.ResponseId == (int)Gtk.ResponseType.Accept)
             {
-                var path = g_file_get_path(gtk_file_chooser_get_file(openFolderDialog.Handle));
+                var path = openFolderDialog.GetFile().GetPath();
                 _controller.OpenFolder(path);
             }
         };

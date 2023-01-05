@@ -10,11 +10,6 @@ namespace NickvisionApplication.GNOME.Views;
 /// </summary>
 public partial class PreferencesDialog : Adw.Window
 {
-    private delegate void SignalCallback(nint gObject, nint gParamSpec, nint data);
-
-    [LibraryImport("adwaita-1", StringMarshalling = StringMarshalling.Utf8)]
-    private static partial ulong g_signal_connect_data(nint instance, string detailed_signal, [MarshalAs(UnmanagedType.FunctionPtr)] SignalCallback c_handler, nint data, nint destroy_data, int connect_flags);
-
     private readonly PreferencesViewController _controller;
     private readonly Adw.Application _application;
     private readonly Gtk.Box _mainBox;
@@ -56,7 +51,13 @@ public partial class PreferencesDialog : Adw.Window
         _rowTheme = Adw.ComboRow.New();
         _rowTheme.SetTitle(_controller.Localizer["Theme"]);
         _rowTheme.SetModel(Gtk.StringList.New(new string[] { _controller.Localizer["ThemeLight"], _controller.Localizer["ThemeDark"], _controller.Localizer["ThemeSystem"] }));
-        g_signal_connect_data(_rowTheme.Handle, "notify::selected-item", (nint sender, nint gParamSpec, nint data) => OnThemeChanged(), IntPtr.Zero, IntPtr.Zero, 0);
+        _rowTheme.OnNotify += (sender, e) =>
+        {
+            if(e.Pspec.GetName() == "selected-item")
+            {
+                OnThemeChanged();
+            }
+        };
         _grpUserInterface.Add(_rowTheme);
         _page.Add(_grpUserInterface);
         //Layout
