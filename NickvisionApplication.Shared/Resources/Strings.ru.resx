@@ -19,7 +19,7 @@
 	<!--Use: &#xA; for newline-->
 
 	<data name="Description" xml:space="preserve">
-		<value>Шаблон для создания приложений Nickvision.</value>
+		<value>Шаблон для создания приложений Nickvision</value>
 	</data>
 
   <data name="Version" xml:space="preserve">

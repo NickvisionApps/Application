@@ -19,7 +19,7 @@
 	<!--Use: &#xA; for newline-->
 
 	<data name="Description" xml:space="preserve">
-		<value>A template for creating Nickvision applications.</value>
+		<value>A template for creating Nickvision applications</value>
 	</data>
 
 	<data name="Version" xml:space="preserve">

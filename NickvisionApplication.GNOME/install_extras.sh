@@ -44,6 +44,9 @@ mkdir -p "${INSTALL_PREFIX}"/share/metainfo
 cp ./NickvisionApplication.GNOME/org.nickvision.application.metainfo.xml    \
    "${INSTALL_PREFIX}"/share/metainfo/
 
+echo "Translating desktop file and metainfo..."
+python3 ./NickvisionApplication.GNOME/translate_meta.py ${INSTALL_PREFIX}
+
 # echo "Installing mime types..."
 # mkdir -p "${INSTALL_PREFIX}"/share/mime/packages
 # cp ./NickvisionApplication.GNOME/org.nickvision.application.extension.xml   \

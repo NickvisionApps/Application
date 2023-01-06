@@ -63,7 +63,7 @@ public class Program
         mainWindowController.AppInfo.ID = "org.nickvision.application";
         mainWindowController.AppInfo.Name = "NickvisionApplication";
         mainWindowController.AppInfo.ShortName = "Application";
-        mainWindowController.AppInfo.Description = mainWindowController.Localizer["Description"];
+        mainWindowController.AppInfo.Description = $"{mainWindowController.Localizer["Description"]}.";
         mainWindowController.AppInfo.Version = "2022.12.0-next";
         mainWindowController.AppInfo.Changelog = "<ul><li>Initial Release</li></ul>";
         mainWindowController.AppInfo.GitHubRepo = new Uri("https://github.com/nlogozzo/NickvisionApplication");
