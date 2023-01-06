@@ -1,4 +1,5 @@
-﻿using NickvisionApplication.Shared.Controllers;
+﻿using NickvisionApplication.GNOME.Controls;
+using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.Shared.Events;
 using System;
 using System.Collections.Generic;
@@ -12,28 +13,6 @@ namespace NickvisionApplication.GNOME.Views;
 /// </summary>
 public partial class MainWindow : Adw.ApplicationWindow
 {
-    [LibraryImport("adwaita-1", StringMarshalling = StringMarshalling.Utf8)]
-    private static partial nint adw_show_about_window(nint parent,
-        string appNameKey, string appNameValue,
-        string iconKey, string iconValue,
-        string versionKey, string versionValue,
-        string commentsKey, string commentsValue,
-        string developerNameKey, string developerNameValue,
-        string licenseKey, int licenseValue,
-        string copyrightKey, string copyrightValue,
-        string websiteKey, string websiteValue,
-        string issueTrackerKey, string issueTrackerValue,
-        string supportUrlKey, string supportUrlValue,
-        string developersKey, string[] developersValue,
-        string designersKey, string[] designersValue,
-        string artistsKey, string[] artistsValue,
-        string translatorCreditsKey, string translatorCreditsValue,
-        string releaseNotesKey, string releaseNotesValue,
-        nint terminator);
-
-    [LibraryImport("adwaita-1", StringMarshalling = StringMarshalling.Utf8)]
-    private static partial nint gtk_file_chooser_get_file(nint chooser);
-
     [LibraryImport("adwaita-1", StringMarshalling = StringMarshalling.Utf8)]
     private static partial string g_file_get_path(nint file);
 
@@ -189,7 +168,7 @@ public partial class MainWindow : Adw.ApplicationWindow
     private void FolderChanged(object? sender, EventArgs e)
     {
         _windowTitle.SetSubtitle(_controller.FolderPath);
-        _btnCloseFolder.SetVisible(true);
+        _btnCloseFolder.SetVisible(_controller.IsFolderOpened ? true : false);
         _viewStack.SetVisibleChildName(_controller.IsFolderOpened ? "Folder" : "NoFolder");
     }
 
@@ -206,7 +185,7 @@ public partial class MainWindow : Adw.ApplicationWindow
         {
             if (e.ResponseId == (int)Gtk.ResponseType.Accept)
             {
-                var path = g_file_get_path(gtk_file_chooser_get_file(openFolderDialog.Handle));
+                var path = openFolderDialog.GetFile().GetPath();
                 _controller.OpenFolder(path);
             }
         };
@@ -218,7 +197,14 @@ public partial class MainWindow : Adw.ApplicationWindow
     /// </summary>
     /// <param name="sender">Gio.SimpleAction</param>
     /// <param name="e">EventArgs</param>
-    private void CloseFolder(Gio.SimpleAction sender, EventArgs e) => _controller.CloseFolder();
+    private async void CloseFolder(Gio.SimpleAction sender, EventArgs e)
+    {
+        var dialog = new MessageDialog(this, _controller.Localizer["CloseFolderDialog", "Title"], _controller.Localizer["CloseFolderDialog", "Description"], _controller.Localizer["Cancel"], _controller.Localizer["Close"]);
+        if (await dialog.RunAsync() == MessageDialogResponse.Destructive)
+        {
+            _controller.CloseFolder();
+        }
+    }
 
     /// <summary>
     /// Occurs when the preferences action is triggered
@@ -249,28 +235,23 @@ public partial class MainWindow : Adw.ApplicationWindow
     /// <param name="e">EventArgs</param>
     private void About(Gio.SimpleAction sender, EventArgs e)
     {
-        var developersCredits = new List<string>(_controller.Localizer["Developers", "Credits"].Split(Environment.NewLine));
-        developersCredits.Add(null);
-        var designersCredits = new List<string>(_controller.Localizer["Designers", "Credits"].Split(Environment.NewLine));
-        designersCredits.Add(null);
-        var artistsCredits = new List<string>(_controller.Localizer["Artists", "Credits"].Split(Environment.NewLine));
-        artistsCredits.Add(null);
-        adw_show_about_window(this.Handle,
-            "application-name", _controller.AppInfo.ShortName,
-            "application-icon", (_controller.AppInfo.ID + (_controller.AppInfo.GetIsDevelVersion() ? "-devel" : "")),
-            "version", _controller.AppInfo.Version,
-            "comments", _controller.AppInfo.Description,
-            "developer-name", "Nickvision",
-            "license-type", (int)Gtk.License.MitX11,
-            "copyright", "© Nickvision 2021-2022",
-            "website", _controller.AppInfo.GitHubRepo.ToString(),
-            "issue-url", _controller.AppInfo.IssueTracker.ToString(),
-            "support-url", _controller.AppInfo.SupportUrl.ToString(),
-            "developers", developersCredits.ToArray(),
-            "designers", designersCredits.ToArray(),
-            "artists", artistsCredits.ToArray(),
-            "translator-credits", (string.IsNullOrEmpty(_controller.Localizer["Translators", "Credits"]) ? "" : _controller.Localizer["Translators", "Credits"]),
-            "release-notes", _controller.AppInfo.Changelog,
-            IntPtr.Zero);
+        var dialog = Adw.AboutWindow.New();
+        dialog.SetTransientFor(this);
+        dialog.SetApplicationName(_controller.AppInfo.ShortName);
+        dialog.SetApplicationIcon(_controller.AppInfo.ID + (_controller.AppInfo.GetIsDevelVersion() ? "-devel" : ""));
+        dialog.SetVersion(_controller.AppInfo.Version);
+        dialog.SetComments(_controller.AppInfo.Description);
+        dialog.SetDeveloperName("Nickvision");
+        dialog.SetLicenseType(Gtk.License.MitX11);
+        dialog.SetCopyright("© Nickvision 2021-2023");
+        dialog.SetWebsite(_controller.AppInfo.GitHubRepo.ToString());
+        dialog.SetIssueUrl(_controller.AppInfo.IssueTracker.ToString());
+        dialog.SetSupportUrl(_controller.AppInfo.SupportUrl.ToString());
+        dialog.SetDevelopers(_controller.Localizer["Developers", "Credits"].Split(Environment.NewLine));
+        dialog.SetDesigners(_controller.Localizer["Designers", "Credits"].Split(Environment.NewLine));
+        dialog.SetArtists(_controller.Localizer["Artists", "Credits"].Split(Environment.NewLine));
+        dialog.SetTranslatorCredits((string.IsNullOrEmpty(_controller.Localizer["Translators", "Credits"]) ? "" : _controller.Localizer["Translators", "Credits"]));
+        dialog.SetReleaseNotes(_controller.AppInfo.Changelog);
+        dialog.Show();
     }
 }

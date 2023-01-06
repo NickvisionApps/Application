@@ -182,7 +182,15 @@
 	<data name="FolderClosed" xml:space="preserve">
 		<value>Folder closed.</value>
 	</data>
-	
+
+	<data name="CloseFolderDialog.Title" xml:space="preserve">
+		<value>Close Folder?</value>
+	</data>
+
+	<data name="CloseFolderDialog.Description" xml:space="preserve">
+		<value>Are you sure you want to close the folder?</value>
+	</data>
+
 	<!--Settings-->
 	<data name="UserInterface" xml:space="preserve">
 		<value>User Interface</value>

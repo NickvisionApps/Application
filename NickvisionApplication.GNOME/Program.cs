@@ -26,7 +26,6 @@ public class Program
     /// </summary>
     public Program()
     {
-        Adw.Module.Initialize();
         _application = Adw.Application.New("org.nickvision.application", Gio.ApplicationFlags.FlagsNone);
         _application.OnActivate += OnActivate;
         
