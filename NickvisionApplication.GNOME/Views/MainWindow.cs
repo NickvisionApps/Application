@@ -14,25 +14,6 @@ namespace NickvisionApplication.GNOME.Views;
 public partial class MainWindow : Adw.ApplicationWindow
 {
     [LibraryImport("adwaita-1", StringMarshalling = StringMarshalling.Utf8)]
-    private static partial nint adw_show_about_window(nint parent,
-        string appNameKey, string appNameValue,
-        string iconKey, string iconValue,
-        string versionKey, string versionValue,
-        string commentsKey, string commentsValue,
-        string developerNameKey, string developerNameValue,
-        string licenseKey, int licenseValue,
-        string copyrightKey, string copyrightValue,
-        string websiteKey, string websiteValue,
-        string issueTrackerKey, string issueTrackerValue,
-        string supportUrlKey, string supportUrlValue,
-        string developersKey, string[] developersValue,
-        string designersKey, string[] designersValue,
-        string artistsKey, string[] artistsValue,
-        string translatorCreditsKey, string translatorCreditsValue,
-        string releaseNotesKey, string releaseNotesValue,
-        nint terminator);
-
-    [LibraryImport("adwaita-1", StringMarshalling = StringMarshalling.Utf8)]
     private static partial string g_file_get_path(nint file);
 
     [LibraryImport("adwaita-1", StringMarshalling = StringMarshalling.Utf8)]
@@ -254,28 +235,23 @@ public partial class MainWindow : Adw.ApplicationWindow
     /// <param name="e">EventArgs</param>
     private void About(Gio.SimpleAction sender, EventArgs e)
     {
-        var developersCredits = new List<string>(_controller.Localizer["Developers", "Credits"].Split(Environment.NewLine));
-        developersCredits.Add(null);
-        var designersCredits = new List<string>(_controller.Localizer["Designers", "Credits"].Split(Environment.NewLine));
-        designersCredits.Add(null);
-        var artistsCredits = new List<string>(_controller.Localizer["Artists", "Credits"].Split(Environment.NewLine));
-        artistsCredits.Add(null);
-        adw_show_about_window(this.Handle,
-            "application-name", _controller.AppInfo.ShortName,
-            "application-icon", (_controller.AppInfo.ID + (_controller.AppInfo.GetIsDevelVersion() ? "-devel" : "")),
-            "version", _controller.AppInfo.Version,
-            "comments", _controller.AppInfo.Description,
-            "developer-name", "Nickvision",
-            "license-type", (int)Gtk.License.MitX11,
-            "copyright", "© Nickvision 2021-2022",
-            "website", _controller.AppInfo.GitHubRepo.ToString(),
-            "issue-url", _controller.AppInfo.IssueTracker.ToString(),
-            "support-url", _controller.AppInfo.SupportUrl.ToString(),
-            "developers", developersCredits.ToArray(),
-            "designers", designersCredits.ToArray(),
-            "artists", artistsCredits.ToArray(),
-            "translator-credits", (string.IsNullOrEmpty(_controller.Localizer["Translators", "Credits"]) ? "" : _controller.Localizer["Translators", "Credits"]),
-            "release-notes", _controller.AppInfo.Changelog,
-            IntPtr.Zero);
+        var dialog = Adw.AboutWindow.New();
+        dialog.SetTransientFor(this);
+        dialog.SetApplicationName(_controller.AppInfo.ShortName);
+        dialog.SetApplicationIcon(_controller.AppInfo.ID + (_controller.AppInfo.GetIsDevelVersion() ? "-devel" : ""));
+        dialog.SetVersion(_controller.AppInfo.Version);
+        dialog.SetComments(_controller.AppInfo.Description);
+        dialog.SetDeveloperName("Nickvision");
+        dialog.SetLicenseType(Gtk.License.MitX11);
+        dialog.SetCopyright("© Nickvision 2021-2023");
+        dialog.SetWebsite(_controller.AppInfo.GitHubRepo.ToString());
+        dialog.SetIssueUrl(_controller.AppInfo.IssueTracker.ToString());
+        dialog.SetSupportUrl(_controller.AppInfo.SupportUrl.ToString());
+        dialog.SetDevelopers(_controller.Localizer["Developers", "Credits"].Split(Environment.NewLine));
+        dialog.SetDesigners(_controller.Localizer["Designers", "Credits"].Split(Environment.NewLine));
+        dialog.SetArtists(_controller.Localizer["Artists", "Credits"].Split(Environment.NewLine));
+        dialog.SetTranslatorCredits((string.IsNullOrEmpty(_controller.Localizer["Translators", "Credits"]) ? "" : _controller.Localizer["Translators", "Credits"]));
+        dialog.SetReleaseNotes(_controller.AppInfo.Changelog);
+        dialog.Show();
     }
 }
