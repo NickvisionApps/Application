@@ -2,7 +2,6 @@
 using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.Shared.Events;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 
@@ -185,8 +184,8 @@ public partial class MainWindow : Adw.ApplicationWindow
         {
             if (e.ResponseId == (int)Gtk.ResponseType.Accept)
             {
-                var path = openFolderDialog.GetFile().GetPath();
-                _controller.OpenFolder(path);
+                var path = openFolderDialog.GetFile()!.GetPath();
+                _controller.OpenFolder(path ?? "");
             }
         };
         openFolderDialog.Show();
@@ -197,10 +196,10 @@ public partial class MainWindow : Adw.ApplicationWindow
     /// </summary>
     /// <param name="sender">Gio.SimpleAction</param>
     /// <param name="e">EventArgs</param>
-    private async void CloseFolder(Gio.SimpleAction sender, EventArgs e)
+    private void CloseFolder(Gio.SimpleAction sender, EventArgs e)
     {
         var dialog = new MessageDialog(this, _controller.Localizer["CloseFolderDialog", "Title"], _controller.Localizer["CloseFolderDialog", "Description"], _controller.Localizer["Cancel"], _controller.Localizer["Close"]);
-        if (await dialog.RunAsync() == MessageDialogResponse.Destructive)
+        if (dialog.Run() == MessageDialogResponse.Destructive)
         {
             _controller.CloseFolder();
         }
