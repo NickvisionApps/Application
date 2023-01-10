@@ -49,7 +49,7 @@ We will then take care of the question as soon as possible.
 A good bug report shouldn't leave others needing to chase you up for more information. Therefore, we ask you to investigate carefully, collect information and describe the issue in detail in your report. Please complete the following steps in advance to help us fix any potential bug as fast as possible.
 
 - Make sure that you are using the latest released version.
-- Determine if your bug is really a bug and not an error on your side. If you are looking for support, you might want to check [this section](#i-have-a-question)).
+- Determine if your bug is really a bug and not an error on your side. If you are looking for support, you might want to check [this section](#i-have-a-question).
 - To see if other users have experienced (and potentially already solved) the same issue you are having, check if there is not already a bug report existing for your bug or error in both the [Discussions](https://github.com/nlogozzo/NickvisionApplication/discussions) and [Issues](https://github.com/nlogozzo/NickvisionApplication/issues) sections.
 - Collect information about the bug:
   - Stack trace (Traceback)
@@ -93,17 +93,17 @@ Enhancement suggestions are tracked as [GitHub issues](https://github.com/nlogoz
 - Use a **clear and descriptive title** for the issue to identify the suggestion.
 - Provide a **step-by-step description of the suggested enhancement** in as many details as possible.
 - **Describe the current behavior** and **explain which behavior you expected to see instead** and why. At this point you can also tell which alternatives do not work for you.
-- You may want to **include screenshots and animated GIFs** which help you demonstrate the steps or point out the part which the suggestion is related to. You can use [this tool](https://www.cockos.com/licecap/) to record GIFs on macOS and Windows, and [this tool](https://github.com/colinkeenan/silentcast) or [this tool](https://github.com/GNOME/byzanz) on Linux.
+- You may want to **include screenshots and animated GIFs** which help you demonstrate the steps or point out the part which the suggestion is related to. You can use [this tool](https://www.cockos.com/licecap/) to record GIFs on macOS and Windows, and [this tool](https://github.com/colinkeenan/silentcast) or [this tool](https://flathub.org/apps/details/com.uploadedlobster.peek) on Linux.
 - **Explain why this enhancement would be useful** to most Nickvision Application users. You may also want to point out the other projects that solved it better and which could serve as inspiration.
 
 ### Providing Translations
 
 Everyone is welcome to translate this app into their native or known languages, so that the application is accessible to everyone.
 
-#### Via Weblate
+<!--#### Via Weblate
 
-Application is available to translate on [Weblate](https://hosted.weblate.org/engage/nickvision-money/)!
-
+Application is available to translate on [Weblate](https://hosted.weblate.org/engage/nickvision-application/)!
+-->
 #### Manually
 
 To start translating the app, fork the repository and clone it locally.
@@ -111,6 +111,12 @@ To start translating the app, fork the repository and clone it locally.
 In the `NickvisionApplication.Shared/Resources` folder you will see a file called `String.resx`. This is a C# resource file that contains all the strings for the application. Simply copy that file and rename it `String.<lang-code>.resx`. For example, if I'm creating an Italian translation, the copied file would be called `Strings.it.resx`. Once you have your copied file, simply replace each `<value>` block of each `<data>` string block with your language's appropriate translation.
 
 To check your translation file, make sure your system is in the locale of the language you are translating and run the app. You should see your translated strings!
+
+In case you run the app in GNOME Builder, it will force the app to run in en_US locale. To run the app in your locale without exporting and installing it, follow this steps:
+
+1. Build the application
+2. Press Ctrl+Alt+T to open a terminal inside the application environment
+3. Run the application with the following command: `LC_ALL=<locale-code> /app/opt/org.nickvision.application/NickvisionApplication.GNOME`, where `<locale-code>` is your system locale code (e.g. `it_IT.UTF8`).
 
 Once all changes to your translated file are made, make sure the file is in the path `NickvisionApplication.Shared/Resources/String.<lang-code>.resx`, commit these changes and create a pull request to the project.
 
@@ -161,9 +167,9 @@ Although, any IDE that supports .NET 7 and WindowsAppSDK should work.
 
 Recommended IDE:
 - Builder 43 and up.
- - Use Application's [gnome-builder-manifest](https://github.com/nlogozzo/NickvisionApplication/blob/main/NickvisionApplication.GNOME/org.nickvision.money-gnomebuilder.json) when running the application through builder
+ - Use Application's [gnome-builder-manifest](https://github.com/nlogozzo/NickvisionApplication/blob/main/NickvisionApplication.GNOME/org.nickvision.application-gnomebuilder.json) when running the application through builder
 
-You may also make your changes via any code editor and use `flatpak-builder` with Application's [flatpak-manifest](https://github.com/nlogozzo/NickvisionApplication/blob/main/NickvisionApplication.GNOME/org.nickvision.money.json) to run the application locally through flatpak.
+You may also make your changes via any code editor and use `flatpak-builder` with Application's [flatpak-manifest](https://github.com/nlogozzo/NickvisionApplication/blob/main/NickvisionApplication.GNOME/org.nickvision.application.json) to run the application locally through flatpak.
 
 You may also simply install .NET 7 locally and use dotnet's CLI to run the application.
 
