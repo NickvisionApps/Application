@@ -100,10 +100,10 @@ Enhancement suggestions are tracked as [GitHub issues](https://github.com/nlogoz
 
 Everyone is welcome to translate this app into their native or known languages, so that the application is accessible to everyone.
 
-#### Via Weblate
+<!--#### Via Weblate
 
-Application is available to translate on [Weblate](https://hosted.weblate.org/engage/nickvision-money/)!
-
+Application is available to translate on [Weblate](https://hosted.weblate.org/engage/nickvision-application/)!
+-->
 #### Manually
 
 To start translating the app, fork the repository and clone it locally.
@@ -116,14 +116,10 @@ In case you run the app in GNOME Builder, it will force the app to run in en_US 
 
 1. Build the application
 2. Press Ctrl+Alt+T to open a terminal inside the application environment
-3. Run the application with the following command: `LC_ALL=<locale-code> /app/opt/org.nickvision.money/NickvisionMoney.GNOME`, where `<locale-code>` is your system locale code (e.g. `it_IT.UTF8`).
+3. Run the application with the following command: `LC_ALL=<locale-code> /app/opt/org.nickvision.application/NickvisionApplication.GNOME`, where `<locale-code>` is your system locale code (e.g. `it_IT.UTF8`).
 
 Once all changes to your translated file are made, make sure the file is in the path `NickvisionApplication.Shared/Resources/String.<lang-code>.resx`, commit these changes and create a pull request to the project.
 
-<!--#### Translating documentation
-
-User documentation for Denaro is translated separately from the application itself. Denaro uses [Yelp](http://yelp.io/) to provide documentation written in [Mallard](http://projectmallard.org/index.html). To add a new translation, in `NickvisionMoney.Shared/Docs/yelp` create a directory with a name of language code, copy the content of `C` directory there and translate pages using any text editor. On Windows the application uses pages in HTML format (located in `NickvisionMoney.Shared/Docs/html`) that are generated from Yelp pages. HTML pages shouldn't be touched and your pull request should not contain any changes for HTML - our team will generate HTML pages after your translation will be accepted to be sure that the content of HTML pages will be the same as of Yelp pages.
--->
 ### Your First Code Contribution
 
 Application is built using .NET 7 and C#. With these technologies, Application is built for both GNOME (Linux) and Windows.
@@ -171,9 +167,9 @@ Although, any IDE that supports .NET 7 and WindowsAppSDK should work.
 
 Recommended IDE:
 - Builder 43 and up.
- - Use Application's [gnome-builder-manifest](https://github.com/nlogozzo/NickvisionApplication/blob/main/NickvisionApplication.GNOME/org.nickvision.money-gnomebuilder.json) when running the application through builder
+ - Use Application's [gnome-builder-manifest](https://github.com/nlogozzo/NickvisionApplication/blob/main/NickvisionApplication.GNOME/org.nickvision.application-gnomebuilder.json) when running the application through builder
 
-You may also make your changes via any code editor and use `flatpak-builder` with Application's [flatpak-manifest](https://github.com/nlogozzo/NickvisionApplication/blob/main/NickvisionApplication.GNOME/org.nickvision.money.json) to run the application locally through flatpak.
+You may also make your changes via any code editor and use `flatpak-builder` with Application's [flatpak-manifest](https://github.com/nlogozzo/NickvisionApplication/blob/main/NickvisionApplication.GNOME/org.nickvision.application.json) to run the application locally through flatpak.
 
 You may also simply install .NET 7 locally and use dotnet's CLI to run the application.
 
