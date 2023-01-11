@@ -6,7 +6,7 @@
 # Features
 - A cross-platform C# application
   - Windows UI in Windows App SDK (WinUI 3)
-  - GNOME UI in gir.core (Gtk4/Libadwaita)
+  - GNOME UI in [gir.core](https://gircore.github.io/) (Gtk4/Libadwaita)
 
 # Chat
 <a href='https://matrix.to/#/#nickvision:matrix.org'><img width='140' alt='Join our room' src='https://user-images.githubusercontent.com/17648453/196094077-c896527d-af6d-4b43-a5d8-e34a00ffd8f6.png'/></a>
