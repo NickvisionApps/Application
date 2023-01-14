@@ -6,11 +6,18 @@ using System;
 
 namespace NickvisionApplication.WinUI;
 
+
+/// <summary>
+/// The App
+/// </summary>
 public partial class App : Application
 {
     private Window? _mainWindow;
     private MainWindowController _mainWindowController;
 
+    /// <summary>
+    /// Constructs an App
+    /// </summary>
     public App()
     {
         InitializeComponent();
@@ -36,6 +43,15 @@ public partial class App : Application
         }
     }
 
+    /// <summary>
+    /// Finalizes an App
+    /// </summary>
+    ~App() => _mainWindowController.Dispose();
+
+    /// <summary>
+    /// Occurs when the app is launched
+    /// </summary>
+    /// <param name="args">LaunchActivatedEventArgs</param>
     protected override void OnLaunched(LaunchActivatedEventArgs args)
     {
         _mainWindow = new MainWindow(_mainWindowController);

@@ -13,6 +13,8 @@ namespace NickvisionApplication.GNOME;
 public class Program
 {
     private readonly Adw.Application _application;
+    private MainWindow? _mainWindow;
+    private MainWindowController _mainWindowController;
 
     /// <summary>
     /// Main method
@@ -27,8 +29,18 @@ public class Program
     public Program()
     {
         _application = Adw.Application.New("org.nickvision.application", Gio.ApplicationFlags.FlagsNone);
+        _mainWindow = null;
+        _mainWindowController = new MainWindowController();
+        _mainWindowController.AppInfo.ID = "org.nickvision.application";
+        _mainWindowController.AppInfo.Name = "NickvisionApplication";
+        _mainWindowController.AppInfo.ShortName = "Application";
+        _mainWindowController.AppInfo.Description = $"{_mainWindowController.Localizer["Description"]}.";
+        _mainWindowController.AppInfo.Version = "2023.1.0-next";
+        _mainWindowController.AppInfo.Changelog = "<ul><li>Initial Release</li></ul>";
+        _mainWindowController.AppInfo.GitHubRepo = new Uri("https://github.com/nlogozzo/NickvisionApplication");
+        _mainWindowController.AppInfo.IssueTracker = new Uri("https://github.com/nlogozzo/NickvisionApplication/issues/new");
+        _mainWindowController.AppInfo.SupportUrl = new Uri("https://github.com/nlogozzo/NickvisionApplication/discussions");
         _application.OnActivate += OnActivate;
-        
         // Uncomment following lines if the application uses GResource file
         //var prefixes = new List<string> {
         //    Directory.GetParent(Directory.GetParent(Path.GetFullPath(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))).FullName).FullName,
@@ -46,6 +58,11 @@ public class Program
     }
 
     /// <summary>
+    /// Finalizes a Program
+    /// </summary>
+    ~Program() => _mainWindowController.Dispose();
+
+    /// <summary>
     /// Runs the program
     /// </summary>
     /// <returns>Return code from Adw.Application.Run()</returns>
@@ -58,19 +75,8 @@ public class Program
     /// <param name="e">EventArgs</param>
     private void OnActivate(Gio.Application sedner, EventArgs e)
     {
-        //Controller Setup
-        var mainWindowController = new MainWindowController();
-        mainWindowController.AppInfo.ID = "org.nickvision.application";
-        mainWindowController.AppInfo.Name = "NickvisionApplication";
-        mainWindowController.AppInfo.ShortName = "Application";
-        mainWindowController.AppInfo.Description = $"{mainWindowController.Localizer["Description"]}.";
-        mainWindowController.AppInfo.Version = "2023.1.0-next";
-        mainWindowController.AppInfo.Changelog = "<ul><li>Initial Release</li></ul>";
-        mainWindowController.AppInfo.GitHubRepo = new Uri("https://github.com/nlogozzo/NickvisionApplication");
-        mainWindowController.AppInfo.IssueTracker = new Uri("https://github.com/nlogozzo/NickvisionApplication/issues/new");
-        mainWindowController.AppInfo.SupportUrl = new Uri("https://github.com/nlogozzo/NickvisionApplication/discussions");
         //Set Adw Theme
-        _application.StyleManager!.ColorScheme = mainWindowController.Theme switch
+        _application.StyleManager!.ColorScheme = _mainWindowController.Theme switch
         {
             Theme.System => Adw.ColorScheme.PreferLight,
             Theme.Light => Adw.ColorScheme.ForceLight,
@@ -78,8 +84,8 @@ public class Program
             _ => Adw.ColorScheme.PreferLight
         };
         //Main Window
-        var mainWindow = new MainWindow(mainWindowController, _application);
-        _application.AddWindow(mainWindow);
-        mainWindow.Show();
+        _mainWindow = new MainWindow(_mainWindowController, _application);
+        _application.AddWindow(_mainWindow);
+        _mainWindow.Show();
     }
 }

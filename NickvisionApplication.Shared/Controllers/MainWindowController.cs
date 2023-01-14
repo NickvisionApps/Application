@@ -9,8 +9,10 @@ namespace NickvisionApplication.Shared.Controllers;
 /// <summary>
 /// A controller for a MainWindow
 /// </summary>
-public class MainWindowController
+public class MainWindowController : IDisposable
 {
+    private bool _disposed;
+
     /// <summary>
     /// The localizer to get translated strings from
     /// </summary>
@@ -55,6 +57,7 @@ public class MainWindowController
     /// </summary>
     public MainWindowController()
     {
+        _disposed = false;
         Localizer = new Localizer();
         FolderPath = "No Folder Opened";
     }
@@ -100,6 +103,31 @@ public class MainWindowController
                 return Localizer["Greeting", "Generic"];
             }
         }
+    }
+
+    /// <summary>
+    /// Frees resources used by the Account object
+    /// </summary>
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    /// <summary>
+    /// Frees resources used by the Account object
+    /// </summary>
+    protected virtual void Dispose(bool disposing)
+    {
+        if (_disposed)
+        {
+            return;
+        }
+        if (disposing)
+        {
+            Localizer.Dispose();
+        }
+        _disposed = true;
     }
 
     /// <summary>
