@@ -32,24 +32,24 @@
             "name": "org.nickvision.application",
             "buildsystem": "simple",
             "build-options": {
-            "arch": {
-                "arm": {
-                        "env" : {
-                        "RUNTIME": "linux-arm"
-                    }
-                },
-                "aarch64": {
-                        "env" : {
-                        "RUNTIME": "linux-arm64"
+                "arch": {
+                    "arm": {
+                            "env" : {
+                            "RUNTIME": "linux-arm"
                         }
-                },
-                "x86_64": {
-                    "env" : {
-                        "RUNTIME": "linux-x64"
+                    },
+                    "aarch64": {
+                            "env" : {
+                            "RUNTIME": "linux-arm64"
+                            }
+                    },
+                    "x86_64": {
+                        "env" : {
+                            "RUNTIME": "linux-x64"
+                        }
                     }
                 }
-            }
-        },
+            },
             "build-commands": [
                 "mkdir -p /app/opt/org.nickvision.application",
                 "dotnet publish -c Release NickvisionApplication.GNOME/NickvisionApplication.GNOME.csproj $([ -d \"./nuget-sources\" ] && echo \"--source ./nuget-sources\") $([ \"$RUNTIME\" ] && echo \"--runtime $RUNTIME\") --self-contained true -o /app/opt/org.nickvision.application",
