@@ -34,12 +34,12 @@
             "build-options": {
                 "arch": {
                     "arm": {
-                            "env" : {
+                        "env" : {
                             "RUNTIME": "linux-arm"
                         }
                     },
                     "aarch64": {
-                            "env" : {
+                        "env" : {
                             "RUNTIME": "linux-arm64"
                             }
                     },
