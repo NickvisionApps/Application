@@ -199,10 +199,15 @@ public partial class MainWindow : Adw.ApplicationWindow
     private void CloseFolder(Gio.SimpleAction sender, EventArgs e)
     {
         var dialog = new MessageDialog(this, _controller.Localizer["CloseFolderDialog", "Title"], _controller.Localizer["CloseFolderDialog", "Description"], _controller.Localizer["Cancel"], _controller.Localizer["Close"]);
-        if (dialog.Run() == MessageDialogResponse.Destructive)
+        dialog.Show();
+        dialog.OnResponse += (sender, e) =>
         {
-            _controller.CloseFolder();
-        }
+            if (dialog.Response == MessageDialogResponse.Destructive)
+            {
+                _controller.CloseFolder();
+            }
+            dialog.Destroy();
+        };
     }
 
     /// <summary>
