@@ -226,6 +226,10 @@
 	</data>
 	
 	<!--WinUI Specific-->
+	<data name="Preview.WinUI" xml:space="preserve">
+		<value>PREVIEW</value>
+	</data>
+
 	<data name="ChangelogTitle.WinUI" xml:space="preserve">
 		<value>What's New?</value>
 	</data>
