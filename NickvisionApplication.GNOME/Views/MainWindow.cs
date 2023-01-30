@@ -43,6 +43,7 @@ public partial class MainWindow : Adw.ApplicationWindow
         _application = application;
         New();
         SetDefaultSize(800, 600);
+        SetTitle(_controller.AppInfo.ShortName);
         if(_controller.IsDevVersion)
         {
             AddCssClass("devel");
