@@ -15,9 +15,6 @@ public partial class MainWindow : Adw.ApplicationWindow
     [LibraryImport("libadwaita-1.so.0", StringMarshalling = StringMarshalling.Utf8)]
     private static partial string g_file_get_path(nint file);
 
-    [LibraryImport("libadwaita-1.so.0", StringMarshalling = StringMarshalling.Utf8)]
-    private static partial nuint g_file_get_type();
-
     private readonly MainWindowController _controller;
     private readonly Adw.Application _application;
     private readonly Gtk.Box _mainBox;
@@ -130,7 +127,7 @@ public partial class MainWindow : Adw.ApplicationWindow
         AddAction(actAbout);
         application.SetAccelsForAction("win.about", new string[] { "F1" });
         //Drop Target
-        _dropTarget = Gtk.DropTarget.New(g_file_get_type(), Gdk.DragAction.Copy);
+        _dropTarget = Gtk.DropTarget.New(Gio.FileHelper.GetGType(), Gdk.DragAction.Copy);
         _dropTarget.OnDrop += OnDrop;
         AddController(_dropTarget);
     }
@@ -147,7 +144,7 @@ public partial class MainWindow : Adw.ApplicationWindow
     /// </summary>
     /// <param name="sender">Gtk.DropTarget</param>
     /// <param name="e">Gtk.DropTarget.DropSignalArgs</param>
-    private void OnDrop(Gtk.DropTarget sender, Gtk.DropTarget.DropSignalArgs e)
+    private bool OnDrop(Gtk.DropTarget sender, Gtk.DropTarget.DropSignalArgs e)
     {
         var obj = e.Value.GetObject();
         if(obj != null)
@@ -156,8 +153,10 @@ public partial class MainWindow : Adw.ApplicationWindow
             if(Directory.Exists(path))
             {
                 _controller.OpenFolder(path);
+                return true;
             }
         }
+        return false;
     }
 
     /// <summary>
