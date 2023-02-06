@@ -41,7 +41,7 @@ public partial class MainWindow : Adw.ApplicationWindow
         New();
         SetDefaultSize(800, 600);
         SetTitle(_controller.AppInfo.ShortName);
-        if(_controller.IsDevVersion)
+        if (_controller.IsDevVersion)
         {
             AddCssClass("devel");
         }
@@ -152,10 +152,10 @@ public partial class MainWindow : Adw.ApplicationWindow
     private bool OnDrop(Gtk.DropTarget sender, Gtk.DropTarget.DropSignalArgs e)
     {
         var obj = e.Value.GetObject();
-        if(obj != null)
+        if (obj != null)
         {
             var path = g_file_get_path(obj.Handle);
-            if(Directory.Exists(path))
+            if (Directory.Exists(path))
             {
                 _controller.OpenFolder(path);
                 return true;

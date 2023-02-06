@@ -28,7 +28,7 @@ public class Configuration
     /// </summary>
     public Configuration()
     {
-        if(!Directory.Exists(ConfigDir))
+        if (!Directory.Exists(ConfigDir))
         {
             Directory.CreateDirectory(ConfigDir);
         }

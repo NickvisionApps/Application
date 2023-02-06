@@ -137,7 +137,7 @@ public class MainWindowController : IDisposable
     /// <returns>True if folder opened, else false</returns>
     public bool OpenFolder(string folderPath)
     {
-        if(Directory.Exists(folderPath))
+        if (Directory.Exists(folderPath))
         {
             FolderPath = folderPath;
             NotificationSent?.Invoke(this, new NotificationSentEventArgs(string.Format(Localizer["FolderOpened"], FolderPath), NotificationSeverity.Success));

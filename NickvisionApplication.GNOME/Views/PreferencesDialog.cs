@@ -51,7 +51,7 @@ public partial class PreferencesDialog : Adw.Window
         _rowTheme.SetModel(Gtk.StringList.New(new string[] { _controller.Localizer["ThemeLight"], _controller.Localizer["ThemeDark"], _controller.Localizer["ThemeSystem"] }));
         _rowTheme.OnNotify += (sender, e) =>
         {
-            if(e.Pspec.GetName() == "selected-item")
+            if (e.Pspec.GetName() == "selected-item")
             {
                 OnThemeChanged();
             }

@@ -37,7 +37,7 @@ public partial class App : Application
         {
             RequestedTheme = ApplicationTheme.Light;
         }
-        else if(_mainWindowController.Theme == Theme.Dark)
+        else if (_mainWindowController.Theme == Theme.Dark)
         {
             RequestedTheme = ApplicationTheme.Dark;
         }

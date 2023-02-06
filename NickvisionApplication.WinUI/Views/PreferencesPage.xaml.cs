@@ -63,7 +63,7 @@ public sealed partial class PreferencesPage : UserControl
             {
                 result += credits[i].Remove(credits[i].IndexOf("http://"));
             }
-            if(i != credits.Length - 1)
+            if (i != credits.Length - 1)
             {
                 result += "\n";
             }
@@ -135,7 +135,7 @@ public sealed partial class PreferencesPage : UserControl
     /// <param name="e"></param>
     private async void CmbTheme_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if(_controller.Theme != (Theme)CmbTheme.SelectedIndex)
+        if (_controller.Theme != (Theme)CmbTheme.SelectedIndex)
         {
             _controller.Theme = (Theme)CmbTheme.SelectedIndex;
             _controller.SaveConfiguration();

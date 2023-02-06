@@ -18,7 +18,7 @@ public class ShortcutsDialog
     /// <param name="parent">Gtk.Window</param>
     public ShortcutsDialog(Localizer localizer, string appName, Gtk.Window parent)
     {
-    	string xml = $@"<?xml version='1.0' encoding='UTF-8'?>
+        string xml = $@"<?xml version='1.0' encoding='UTF-8'?>
             <interface>
                 <object class='GtkShortcutsWindow' id='dialog'>
                     <property name='default-width'>600</property>
@@ -31,16 +31,16 @@ public class ShortcutsDialog
                         <object class='GtkShortcutsSection'>
                             <child>
                                 <object class='GtkShortcutsGroup'>
-                                    <property name='title'>{ localizer["Folder", "Shortcut"] }</property>
+                                    <property name='title'>{localizer["Folder", "Shortcut"]}</property>
                                     <child>
                                         <object class='GtkShortcutsShortcut'>
-                                            <property name='title'>{ localizer["OpenFolder"] }</property>
+                                            <property name='title'>{localizer["OpenFolder"]}</property>
                                             <property name='accelerator'>&lt;Control&gt;o</property>
                                         </object>
                                     </child>
                                     <child>
                                         <object class='GtkShortcutsShortcut'>
-                                            <property name='title'>{ localizer["CloseFolder"] }</property>
+                                            <property name='title'>{localizer["CloseFolder"]}</property>
                                             <property name='accelerator'>&lt;Control&gt;w</property>
                                         </object>
                                     </child>
@@ -48,22 +48,22 @@ public class ShortcutsDialog
                             </child>
                             <child>
                                 <object class='GtkShortcutsGroup'>
-                                    <property name='title'>{ localizer["Application", "Shortcut"] }</property>
+                                    <property name='title'>{localizer["Application", "Shortcut"]}</property>
                                     <child>
                                         <object class='GtkShortcutsShortcut'>
-                                            <property name='title'>{ localizer["Preferences"] }</property>
+                                            <property name='title'>{localizer["Preferences"]}</property>
                                             <property name='accelerator'>&lt;Control&gt;comma</property>
                                         </object>
                                     </child>
                                     <child>
                                         <object class='GtkShortcutsShortcut'>
-                                            <property name='title'>{ localizer["KeyboardShortcuts"] }</property>
+                                            <property name='title'>{localizer["KeyboardShortcuts"]}</property>
                                             <property name='accelerator'>&lt;Control&gt;question</property>
                                         </object>
                                     </child>
                                     <child>
                                         <object class='GtkShortcutsShortcut'>
-                                            <property name='title'>{ string.Format(localizer["About"], appName) }</property>
+                                            <property name='title'>{string.Format(localizer["About"], appName)}</property>
                                             <property name='accelerator'>F1</property>
                                         </object>
                                     </child>

@@ -161,14 +161,14 @@ public sealed partial class MainWindow : Window
     /// <param name="e">DragEventArgs</param>
     private async void Window_Drop(object sender, DragEventArgs e)
     {
-        if(e.DataView.Contains(StandardDataFormats.StorageItems))
+        if (e.DataView.Contains(StandardDataFormats.StorageItems))
         {
             var items = await e.DataView.GetStorageItemsAsync();
-            if(items.Count > 0)
+            if (items.Count > 0)
             {
-                foreach(var item in items)
+                foreach (var item in items)
                 {
-                    if(item is StorageFolder folder)
+                    if (item is StorageFolder folder)
                     {
                         _controller.OpenFolder(folder.Path);
                         break;
@@ -186,11 +186,11 @@ public sealed partial class MainWindow : Window
     private void NavView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs e)
     {
         var pageName = (string)((NavigationViewItem)e.SelectedItem).Tag;
-        if(pageName == "Folder")
+        if (pageName == "Folder")
         {
 
         }
-        else if(pageName == "Settings")
+        else if (pageName == "Settings")
         {
             PageSettings.Content = new PreferencesPage(_controller.PreferencesViewController);
         }
@@ -223,7 +223,7 @@ public sealed partial class MainWindow : Window
     /// <param name="e">EventArgs</param>
     private void FolderChanged(object? sender, EventArgs e)
     {
-        if(_controller.IsFolderOpened)
+        if (_controller.IsFolderOpened)
         {
             NavViewItemFolder.IsSelected = true;
         }
