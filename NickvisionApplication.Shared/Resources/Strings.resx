@@ -123,6 +123,10 @@
 		<value>Keyboard Shortcuts</value>
 	</data>
 
+	<data name="Quit" xml:space="preserve">
+		<value>Quit</value>
+	</data>
+
 	<!--MainWindow-->
 	<data name="OpenFolder" xml:space="preserve">
 		<value>Open Folder</value>
