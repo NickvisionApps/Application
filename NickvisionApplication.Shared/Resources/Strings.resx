@@ -258,4 +258,8 @@
 	<data name="MainMenu.GTK" xml:space="preserve">
 		<value>Main Menu</value>
 	</data>
+
+	<data name="Summary.GTK" xml:space="preserve">
+		<value>Create new Nickvision application</value>
+	</data>
 </root>
