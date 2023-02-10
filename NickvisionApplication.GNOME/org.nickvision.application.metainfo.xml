@@ -2,10 +2,10 @@
 <component type="desktop-application">
   <id>org.nickvision.application</id>
   <metadata_license>CC0-1.0</metadata_license>
-  <project_license>GPL-3.0+</project_license>
+  <project_license>MIT</project_license>
   <name>Application</name>
   <developer_name>Nickvision</developer_name>
-  <summary>A template for creating Nickvision applications</summary>
+  <summary>Create new Nickvision application</summary>
   <description>
     <p>
       A template for creating Nickvision applications
@@ -14,18 +14,19 @@
   <launchable type="desktop-id">org.nickvision.application.desktop</launchable>
   <screenshots>
     <screenshot type="default">
-      <caption>MainWindow</caption>
       <image>https://raw.githubusercontent.com/nlogozzo/NickvisionApplication/master/NickvisionApplication.GNOME/Screenshots/Light.png</image>
     </screenshot>
     <screenshot>
-        <caption>DarkMode</caption>
       <image>https://raw.githubusercontent.com/nlogozzo/NickvisionApplication/master/NickvisionApplication.GNOME/Screenshots/Dark.png</image>
     </screenshot>
   </screenshots>
   <url type="homepage">https://github.com/nlogozzo/NickvisionApplication</url>
+  <url type="bugtracker">https://github.com/nlogozzo/NickvisionApplication/issues</url>
+  <url type="donation">https://github.com/sponsors/nlogozzo</url>
+  <url type="translate">https://github.com/nlogozzo/NickvisionApplication/blob/master/CONTRIBUTING.md#providing-translations</url>
   <project_group>Nickvision</project_group>
   <provides>
-    <binary>org.nickvision.application</binary>
+    <binary>NickvisionApplication.GNOME</binary>
   </provides>
   <releases>
     <release version="2023.1.0-next" date="2023-01-01">
