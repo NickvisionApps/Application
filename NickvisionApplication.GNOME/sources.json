@@ -131,5 +131,12 @@
         "sha512": "3af5711902471ccd0f663419a4255c93bac3cd84243fb9fe6a3d73dccdec4d10cd454277c83ce1a8f25b02924cadebee7e57e866086082184961c3697351b1b7",
         "dest": "nuget-sources",
         "dest-filename": "microsoft.netcore.app.runtime.linux-x64.7.0.1.nupkg"
+    },
+    {
+        "type": "file",
+        "url": "https://api.nuget.org/v3-flatcontainer/microsoft.netcore.targets/5.0.0/microsoft.netcore.targets.5.0.0.nupkg",
+        "sha512": "8581e6dc902340efe7c92c5c9751296616045bed8fdc7d5e2d936bf90c603b94e72d2ea1aad7e2e567218d0ce389de393189a1cb65fb20e99c5ad0cfe1fa4c1b",
+        "dest": "nuget-sources",
+        "dest-filename": "microsoft.netcore.targets.5.0.0.nupkg"
     }
 ]
