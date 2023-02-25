@@ -79,6 +79,7 @@ public partial class MainWindow
         _btnMenuHelp.SetDirection(Gtk.ArrowType.None);
         _btnMenuHelp.SetMenuModel(menuHelp);
         _btnMenuHelp.SetTooltipText(_controller.Localizer["MainMenu", "GTK"]);
+        _btnMenuHelp.SetPrimary(true);
         _headerBar.PackEnd(_btnMenuHelp);
         //Toast Overlay
         _toastOverlay = Adw.ToastOverlay.New();
@@ -90,7 +91,7 @@ public partial class MainWindow
         _toastOverlay.SetChild(_viewStack);
         //No Folder Page
         _pageNoFolder = Adw.StatusPage.New();
-        _pageNoFolder.SetIconName(controller.ShowSun ? "sun-alt-symbolic" : "moon-symbolic");
+        _pageNoFolder.SetIconName(controller.ShowSun ? "sun-outline-symbolic" : "moon-outline-symbolic");
         _pageNoFolder.SetTitle(_controller.Greeting);
         _pageNoFolder.SetDescription(_controller.Localizer["NoFolderDescription"]);
         _viewStack.AddNamed(_pageNoFolder, "NoFolder");
