@@ -21,8 +21,8 @@ do
 done
 mkdir -p "${INSTALL_PREFIX}"/share/icons/hicolor/symbolic/apps
 for icon in org.nickvision.application-symbolic.svg  \
-                moon-symbolic.svg                    \
-                sun-alt-symbolic.svg
+                moon-outline-symbolic.svg            \
+                sun-outline-symbolic.svg
 do
     cp ./NickvisionApplication.Shared/Resources/${icon}               \
        "${INSTALL_PREFIX}"/share/icons/hicolor/symbolic/apps/
