@@ -12,8 +12,8 @@ namespace NickvisionApplication.WinUI;
 /// </summary>
 public partial class App : Application
 {
-    private Window? _mainWindow;
-    private MainWindowController _mainWindowController;
+    public static Window? MainWindow { get; private set; } = null;
+    private readonly MainWindowController _mainWindowController;
 
     /// <summary>
     /// Constructs an App
@@ -54,7 +54,7 @@ public partial class App : Application
     /// <param name="args">LaunchActivatedEventArgs</param>
     protected override void OnLaunched(LaunchActivatedEventArgs args)
     {
-        _mainWindow = new MainWindow(_mainWindowController);
-        _mainWindow.Activate();
+        MainWindow = new MainWindow(_mainWindowController);
+        MainWindow.Activate();
     }
 }
