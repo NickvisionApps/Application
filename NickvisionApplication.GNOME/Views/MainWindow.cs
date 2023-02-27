@@ -21,7 +21,8 @@ public partial class MainWindow : Adw.ApplicationWindow
 
     [Gtk.Connect] private readonly Gtk.Box _mainBox;
     [Gtk.Connect] private readonly Adw.WindowTitle _title;
-    [Gtk.Connect] private readonly Gtk.Button _closeFOlderButton;
+    [Gtk.Connect] private readonly Gtk.Button _closeFolderButton;
+    [Gtk.Connect] private readonly Adw.ToastOverlay _toastOverlay;
     [Gtk.Connect] private readonly Adw.ViewStack _viewStack;
     private readonly Gtk.DropTarget _dropTarget;
 
@@ -41,8 +42,14 @@ public partial class MainWindow : Adw.ApplicationWindow
         {
             AddCssClass("devel");
         }
+        //Build UI
+        var builder = Builder.FromFile("window.ui", _controller.Localizer, (s) => s == "About" ? string.Format(_controller.Localizer[s], _controller.AppInfo.ShortName) : _controller.Localizer[s]);
+        builder.Connect(this);
         _title.SetTitle(_controller.AppInfo.ShortName);
         _title.SetSubtitle(_controller.FolderPath == "No Folder Opened" ? _controller.Localizer["NoFolderOpened"] : _controller.FolderPath);
+        var greeting = (Adw.StatusPage)builder.GetObject("_greeting");
+        greeting.SetIconName(controller.ShowSun ? "sun-outline-symbolic" : "moon-outline-symbolic");
+        greeting.SetTitle(_controller.Greeting);
         SetContent(_mainBox);
         //Register Events 
         _controller.NotificationSent += NotificationSent;
@@ -127,7 +134,7 @@ public partial class MainWindow : Adw.ApplicationWindow
     private void FolderChanged(object? sender, EventArgs e)
     {
         _title.SetSubtitle(_controller.FolderPath);
-        _closeFOlderButton.SetVisible(_controller.IsFolderOpened ? true : false);
+        _closeFolderButton.SetVisible(_controller.IsFolderOpened);
         _viewStack.SetVisibleChildName(_controller.IsFolderOpened ? "Folder" : "NoFolder");
     }
 
@@ -209,7 +216,7 @@ public partial class MainWindow : Adw.ApplicationWindow
     private void About(Gio.SimpleAction sender, EventArgs e)
     {
         var dialog = Adw.AboutWindow.New();
-        dialog.SetTransientFor(Handle);
+        dialog.SetTransientFor(this);
         dialog.SetApplicationName(_controller.AppInfo.ShortName);
         dialog.SetApplicationIcon(_controller.AppInfo.ID + (_controller.AppInfo.GetIsDevelVersion() ? "-devel" : ""));
         dialog.SetVersion(_controller.AppInfo.Version);

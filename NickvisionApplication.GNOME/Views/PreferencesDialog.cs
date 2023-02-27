@@ -1,3 +1,4 @@
+using NickvisionApplication.GNOME.Helpers;
 using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.Shared.Models;
 using System;
@@ -33,6 +34,7 @@ public partial class PreferencesDialog : Adw.PreferencesWindow
         SetHideOnClose(true);
         //Build UI
         var builder = Builder.FromFile("preferences_dialog.ui", _controller.Localizer);
+        builder.Connect(this);
         _themeRow.OnNotify += (sender, e) =>
         {
             if (e.Pspec.GetName() == "selected-item")
@@ -62,7 +64,7 @@ public partial class PreferencesDialog : Adw.PreferencesWindow
     /// </summary>
     private void OnThemeChanged()
     {
-        _controller.Theme = (Theme)_rowTheme.GetSelected();
+        _controller.Theme = (Theme)_themeRow.GetSelected();
         _application.StyleManager!.ColorScheme = _controller.Theme switch
         {
             Theme.System => Adw.ColorScheme.PreferLight,

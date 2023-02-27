@@ -25,7 +25,7 @@ Gtk.Box _mainBox {
     }
     
     [start]
-    Gtk.Button {
+    Gtk.Button _closeFolderButton {
       icon-name: "window-close-symbolic";
       tooltip-text: _("CloseFolder.Tooltip");
       action-name: "win.closeFolder";
@@ -41,20 +41,18 @@ Gtk.Box _mainBox {
     }
   }
   
-  Adw.ToastOverlay {
+  Adw.ToastOverlay _toastOverlay {
     hexpand: true;
     vexpand: true;
     
-    Adw.ViewStack {
+    Adw.ViewStack _viewStack {
       Adw.ViewStackPage {
         name: "NoFolder";
         child: Adw.StatusPage _greeting {
           description: _("NoFolderDescription");
         };
       }
-    }
-    
-    Adw.ViewStack {
+
       Adw.ViewStackPage {
         name: "Folder";
         child: Gtk.Box {
