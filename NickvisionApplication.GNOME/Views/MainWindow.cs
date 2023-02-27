@@ -1,4 +1,5 @@
 ﻿using NickvisionApplication.GNOME.Controls;
+using NickvisionApplication.GNOME.Helpers;
 using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.Shared.Events;
 using System;
@@ -245,8 +246,10 @@ public partial class MainWindow
     /// <param name="e">EventArgs</param>
     private void KeyboardShortcuts(Gio.SimpleAction sender, EventArgs e)
     {
-        var shortcutsDialog = new ShortcutsDialog(_controller.Localizer, _controller.AppInfo.ShortName, Handle);
-        shortcutsDialog.Show();
+        var builder = Builder.FromFile("shortcuts_dialog.ui", _controller.Localizer, (s) => s == "About" ? string.Format(_controller.Localizer[s], _controller.AppInfo.ShortName) : _controller.Localizer[s]);
+        var shortcutsWindow = (Gtk.ShortcutsWindow)builder.GetObject("_shortcuts");
+        shortcutsWindow.SetTransientFor(this);
+        shortcutsWindow.Show();
     }
 
     /// <summary>
