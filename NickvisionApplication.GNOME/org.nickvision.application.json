@@ -54,7 +54,7 @@
             "name": "org.nickvision.application",
             "buildsystem": "simple",
             "build-commands": [
-                "just NickvisionApplication.GNOME/ publish-flatpak"
+                "just NickvisionApplication.GNOME/ publish-self-contained /app"
             ],
             "sources": [
                 {

@@ -74,12 +74,6 @@ publish-self-contained PREFIX LIB_DIR=lib: && (_install_extras PREFIX)
     EOF
     chmod +x {{PREFIX}}/bin/{{app_id}}
 
-# Recipe to use in Flatpak
-publish-flatpak: (publish-self-contained "/app")
-    desktop-file-edit --set-key='Exec' \
-    --set-value='/app/bin/org.nickvision.application' \
-    /app/share/applications/org.nickvision.application.desktop
-
 _install_extras PREFIX: && (_translate_meta PREFIX)
     # Installing icons
     mkdir -p {{PREFIX}}/share/icons/hicolor/scalable/apps
@@ -100,6 +94,9 @@ _install_extras PREFIX: && (_translate_meta PREFIX)
     # Installing desktop file
     mkdir -p {{PREFIX}}/share/applications
     cp ./org.nickvision.application.desktop {{PREFIX}}/share/applications/
+    desktop-file-edit --set-key='Exec' \
+    --set-value='{{PREFIX}}/bin/org.nickvision.application' \
+    {{PREFIX}}/share/applications/org.nickvision.application.desktop
 
     # Installing metainfo
     mkdir -p {{PREFIX}}/share/metainfo
