@@ -18,15 +18,11 @@ public partial class MainWindow : Adw.ApplicationWindow
 
     private readonly MainWindowController _controller;
     private readonly Adw.Application _application;
-    private readonly Gtk.Box _mainBox;
-    private readonly Adw.HeaderBar _headerBar;
-    private readonly Adw.WindowTitle _windowTitle;
-    private readonly Gtk.Button _btnOpenFolder;
-    private readonly Gtk.Button _btnCloseFolder;
-    private readonly Gtk.MenuButton _btnMenuHelp;
-    private readonly Adw.ToastOverlay _toastOverlay;
-    private readonly Adw.ViewStack _viewStack;
-    private readonly Adw.StatusPage _pageNoFolder;
+
+    [Gtk.Connect] private readonly Gtk.Box _mainBox;
+    [Gtk.Connect] private readonly Adw.WindowTitle _title;
+    [Gtk.Connect] private readonly Gtk.Button _closeFOlderButton;
+    [Gtk.Connect] private readonly Adw.ViewStack _viewStack;
     private readonly Gtk.DropTarget _dropTarget;
 
     /// <summary>
@@ -45,60 +41,9 @@ public partial class MainWindow : Adw.ApplicationWindow
         {
             AddCssClass("devel");
         }
-        //Main Box
-        _mainBox = Gtk.Box.New(Gtk.Orientation.Vertical, 0);
-        //Header Bar
-        _headerBar = Adw.HeaderBar.New();
-        _windowTitle = Adw.WindowTitle.New(_controller.AppInfo.ShortName, _controller.FolderPath == "No Folder Opened" ? _controller.Localizer["NoFolderOpened"] : _controller.FolderPath);
-        _headerBar.SetTitleWidget(_windowTitle);
-        _mainBox.Append(_headerBar);
-        //Open Folder Button
-        _btnOpenFolder = Gtk.Button.New();
-        var btnOpenFolderContent = Adw.ButtonContent.New();
-        btnOpenFolderContent.SetLabel(_controller.Localizer["Open"]);
-        btnOpenFolderContent.SetIconName("folder-open-symbolic");
-        _btnOpenFolder.SetChild(btnOpenFolderContent);
-        _btnOpenFolder.SetTooltipText(_controller.Localizer["OpenFolder", "Tooltip"]);
-        _btnOpenFolder.SetActionName("win.openFolder");
-        _headerBar.PackStart(_btnOpenFolder);
-        //Close Folder Button
-        _btnCloseFolder = Gtk.Button.New();
-        _btnCloseFolder.SetIconName("window-close-symbolic");
-        _btnOpenFolder.SetTooltipText(_controller.Localizer["CloseFolder", "Tooltip"]);
-        _btnCloseFolder.SetVisible(false);
-        _btnCloseFolder.SetActionName("win.closeFolder");
-        _headerBar.PackStart(_btnCloseFolder);
-        //Menu Help Button
-        _btnMenuHelp = Gtk.MenuButton.New();
-        var menuHelp = Gio.Menu.New();
-        menuHelp.Append(_controller.Localizer["Preferences"], "win.preferences");
-        menuHelp.Append(_controller.Localizer["KeyboardShortcuts"], "win.keyboardShortcuts");
-        menuHelp.Append(string.Format(_controller.Localizer["About"], _controller.AppInfo.ShortName), "win.about");
-        _btnMenuHelp.SetDirection(Gtk.ArrowType.None);
-        _btnMenuHelp.SetMenuModel(menuHelp);
-        _btnMenuHelp.SetTooltipText(_controller.Localizer["MainMenu", "GTK"]);
-        _btnMenuHelp.SetPrimary(true);
-        _headerBar.PackEnd(_btnMenuHelp);
-        //Toast Overlay
-        _toastOverlay = Adw.ToastOverlay.New();
-        _toastOverlay.SetHexpand(true);
-        _toastOverlay.SetVexpand(true);
-        _mainBox.Append(_toastOverlay);
-        //View Stack
-        _viewStack = Adw.ViewStack.New();
-        _toastOverlay.SetChild(_viewStack);
-        //No Folder Page
-        _pageNoFolder = Adw.StatusPage.New();
-        _pageNoFolder.SetIconName(controller.ShowSun ? "sun-outline-symbolic" : "moon-outline-symbolic");
-        _pageNoFolder.SetTitle(_controller.Greeting);
-        _pageNoFolder.SetDescription(_controller.Localizer["NoFolderDescription"]);
-        _viewStack.AddNamed(_pageNoFolder, "NoFolder");
-        //Folder Page
-        var pageFolder = Gtk.Box.New(Gtk.Orientation.Vertical, 0);
-        _viewStack.AddNamed(pageFolder, "Folder");
-        //Layout
+        _title.SetTitle(_controller.AppInfo.ShortName);
+        _title.SetSubtitle(_controller.FolderPath == "No Folder Opened" ? _controller.Localizer["NoFolderOpened"] : _controller.FolderPath);
         SetContent(_mainBox);
-        _viewStack.SetVisibleChildName("NoFolder");
         //Register Events 
         _controller.NotificationSent += NotificationSent;
         _controller.FolderChanged += FolderChanged;
@@ -181,8 +126,8 @@ public partial class MainWindow : Adw.ApplicationWindow
     /// <param name="e">EventArgs</param>
     private void FolderChanged(object? sender, EventArgs e)
     {
-        _windowTitle.SetSubtitle(_controller.FolderPath);
-        _btnCloseFolder.SetVisible(_controller.IsFolderOpened ? true : false);
+        _title.SetSubtitle(_controller.FolderPath);
+        _closeFOlderButton.SetVisible(_controller.IsFolderOpened ? true : false);
         _viewStack.SetVisibleChildName(_controller.IsFolderOpened ? "Folder" : "NoFolder");
     }
 
