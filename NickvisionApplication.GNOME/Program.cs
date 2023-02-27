@@ -2,16 +2,24 @@
 using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.Shared.Models;
 using System;
-// Uncomment if the application uses GResource file
-//using System.Collections.Generic;
+using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
+using System.Runtime.InteropServices;
 
 namespace NickvisionApplication.GNOME;
 
 /// <summary>
 /// The Program 
 /// </summary>
-public class Program
+public partial class Program
 {
+    [LibraryImport("libadwaita-1.so.0", StringMarshalling = StringMarshalling.Utf8)]
+    private static partial nint g_resource_load(string path);
+
+    [LibraryImport("libadwaita-1.so.0", StringMarshalling = StringMarshalling.Utf8)]
+    private static partial void g_resources_register(nint file);
+
     private readonly Adw.Application _application;
     private MainWindow? _mainWindow;
     private MainWindowController _mainWindowController;
@@ -41,20 +49,27 @@ public class Program
         _mainWindowController.AppInfo.IssueTracker = new Uri("https://github.com/nlogozzo/NickvisionApplication/issues/new");
         _mainWindowController.AppInfo.SupportUrl = new Uri("https://github.com/nlogozzo/NickvisionApplication/discussions");
         _application.OnActivate += OnActivate;
-        // Uncomment following lines if the application uses GResource file
-        //var prefixes = new List<string> {
-        //    Directory.GetParent(Directory.GetParent(Path.GetFullPath(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))).FullName).FullName,
-        //    Directory.GetParent(Path.GetFullPath(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))).FullName,
-        //    "/usr"
-        //};
-        //foreach(var prefix in prefixes)
-        //{
-        //    if(File.Exists(prefix + "/share/org.nickvision.money/org.nickvision.money.gresource"))
-        //    {
-        //        g_resources_register(g_resource_load(Path.GetFullPath(prefix + "/share/org.nickvision.money/org.nickvision.money.gresource")));
-        //        break;
-        //    }
-        //}
+        if (File.Exists(Path.GetFullPath(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)) + "/org.nickvision.application.gresource"))
+        {
+            //Load file from program directory, required for `dotnet run`
+            g_resources_register(g_resource_load(Path.GetFullPath(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)) + "/org.nickvision.application.gresource"));
+        }
+        else
+        {
+            var prefixes = new List<string> {
+               Directory.GetParent(Directory.GetParent(Path.GetFullPath(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))).FullName).FullName,
+               Directory.GetParent(Path.GetFullPath(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))).FullName,
+               "/usr"
+            };
+            foreach (var prefix in prefixes)
+            {
+               if (File.Exists(prefix + "/share/org.nickvision.application/org.nickvision.application.gresource"))
+               {
+                   g_resources_register(g_resource_load(Path.GetFullPath(prefix + "/share/org.nickvision.application/org.nickvision.application.gresource")));
+                   break;
+               }
+            }
+        }
     }
 
     /// <summary>

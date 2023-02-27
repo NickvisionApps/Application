@@ -2,7 +2,7 @@
 Version=1.0
 Name=Application
 Comment=A template for creating Nickvision applications
-Exec=/usr/opt/org.nickvision.application/NickvisionApplication.GNOME
+Exec=/usr/bin/org.nickvision.application
 Icon=org.nickvision.application
 Terminal=false
 Type=Application

@@ -26,6 +26,7 @@
   <url type="translate">https://github.com/nlogozzo/NickvisionApplication/blob/master/CONTRIBUTING.md#providing-translations</url>
   <project_group>Nickvision</project_group>
   <provides>
+    <binary>org.nickvision.application</binary>
     <binary>NickvisionApplication.GNOME</binary>
   </provides>
   <releases>
