@@ -11,11 +11,9 @@ public partial class PreferencesDialog : Adw.PreferencesWindow
 {
     private readonly PreferencesViewController _controller;
     private readonly Adw.Application _application;
-    private readonly Gtk.Box _mainBox;
-    private readonly Adw.HeaderBar _headerBar;
-    private readonly Adw.PreferencesPage _page;
-    private readonly Adw.PreferencesGroup _grpUserInterface;
-    private readonly Adw.ComboRow _rowTheme;
+
+    [Gtk.Connect] private readonly Gtk.Box _mainBox;
+    [Gtk.Connect] private readonly Adw.ComboRow _themeRow;
 
     /// <summary>
     /// Constructs a PreferencesDialog
@@ -33,36 +31,19 @@ public partial class PreferencesDialog : Adw.PreferencesWindow
         SetModal(true);
         SetDestroyWithParent(false);
         SetHideOnClose(true);
-        //Main Box
-        _mainBox = Gtk.Box.New(Gtk.Orientation.Vertical, 0);
-        //Header Bar
-        _headerBar = Adw.HeaderBar.New();
-        _headerBar.SetTitleWidget(Adw.WindowTitle.New(_controller.Localizer["Preferences"], ""));
-        _mainBox.Append(_headerBar);
-        //Preferences Page
-        _page = Adw.PreferencesPage.New();
-        _mainBox.Append(_page);
-        //User Interface Group
-        _grpUserInterface = Adw.PreferencesGroup.New();
-        _grpUserInterface.SetTitle(_controller.Localizer["UserInterface"]);
-        _grpUserInterface.SetDescription(_controller.Localizer["UserInterfaceDescription"]);
-        _rowTheme = Adw.ComboRow.New();
-        _rowTheme.SetTitle(_controller.Localizer["Theme"]);
-        _rowTheme.SetModel(Gtk.StringList.New(new string[] { _controller.Localizer["ThemeLight"], _controller.Localizer["ThemeDark"], _controller.Localizer["ThemeSystem"] }));
-        _rowTheme.OnNotify += (sender, e) =>
+        //Build UI
+        var builder = Builder.FromFile("preferences_dialog.ui", _controller.Localizer);
+        _themeRow.OnNotify += (sender, e) =>
         {
             if (e.Pspec.GetName() == "selected-item")
             {
                 OnThemeChanged();
             }
         };
-        _grpUserInterface.Add(_rowTheme);
-        _page.Add(_grpUserInterface);
+        _themeRow.SetSelected((uint)_controller.Theme);
         //Layout
         SetContent(_mainBox);
         OnHide += Hide;
-        //Load Config
-        _rowTheme.SetSelected((uint)_controller.Theme);
     }
 
     /// <summary>

@@ -1,4 +1,5 @@
 ﻿using NickvisionApplication.GNOME.Controls;
+using NickvisionApplication.GNOME.Helpers;
 using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.Shared.Events;
 using System;
@@ -10,25 +11,19 @@ namespace NickvisionApplication.GNOME.Views;
 /// <summary>
 /// The MainWindow for the application
 /// </summary>
-public partial class MainWindow
+public partial class MainWindow : Adw.ApplicationWindow
 {
     [LibraryImport("libadwaita-1.so.0", StringMarshalling = StringMarshalling.Utf8)]
     private static partial string g_file_get_path(nint file);
 
     private readonly MainWindowController _controller;
     private readonly Adw.Application _application;
-    private readonly Gtk.Box _mainBox;
-    private readonly Adw.HeaderBar _headerBar;
-    private readonly Adw.WindowTitle _windowTitle;
-    private readonly Gtk.Button _btnOpenFolder;
-    private readonly Gtk.Button _btnCloseFolder;
-    private readonly Gtk.MenuButton _btnMenuHelp;
-    private readonly Adw.ToastOverlay _toastOverlay;
-    private readonly Adw.ViewStack _viewStack;
-    private readonly Adw.StatusPage _pageNoFolder;
-    private readonly Gtk.DropTarget _dropTarget;
 
-    public Adw.ApplicationWindow Handle { get; init; }
+    [Gtk.Connect] private readonly Gtk.Box _mainBox;
+    [Gtk.Connect] private readonly Adw.WindowTitle _title;
+    [Gtk.Connect] private readonly Gtk.Button _closeFOlderButton;
+    [Gtk.Connect] private readonly Adw.ViewStack _viewStack;
+    private readonly Gtk.DropTarget _dropTarget;
 
     /// <summary>
     /// Constructs a MainWindow
@@ -40,104 +35,52 @@ public partial class MainWindow
         //Window Settings
         _controller = controller;
         _application = application;
-        Handle = Adw.ApplicationWindow.New(_application);
-        Handle.SetDefaultSize(800, 600);
-        Handle.SetTitle(_controller.AppInfo.ShortName);
+        SetDefaultSize(800, 600);
+        SetTitle(_controller.AppInfo.ShortName);
         if (_controller.IsDevVersion)
         {
-            Handle.AddCssClass("devel");
+            AddCssClass("devel");
         }
-        //Main Box
-        _mainBox = Gtk.Box.New(Gtk.Orientation.Vertical, 0);
-        //Header Bar
-        _headerBar = Adw.HeaderBar.New();
-        _windowTitle = Adw.WindowTitle.New(_controller.AppInfo.ShortName, _controller.FolderPath == "No Folder Opened" ? _controller.Localizer["NoFolderOpened"] : _controller.FolderPath);
-        _headerBar.SetTitleWidget(_windowTitle);
-        _mainBox.Append(_headerBar);
-        //Open Folder Button
-        _btnOpenFolder = Gtk.Button.New();
-        var btnOpenFolderContent = Adw.ButtonContent.New();
-        btnOpenFolderContent.SetLabel(_controller.Localizer["Open"]);
-        btnOpenFolderContent.SetIconName("folder-open-symbolic");
-        _btnOpenFolder.SetChild(btnOpenFolderContent);
-        _btnOpenFolder.SetTooltipText(_controller.Localizer["OpenFolder", "Tooltip"]);
-        _btnOpenFolder.SetActionName("win.openFolder");
-        _headerBar.PackStart(_btnOpenFolder);
-        //Close Folder Button
-        _btnCloseFolder = Gtk.Button.New();
-        _btnCloseFolder.SetIconName("window-close-symbolic");
-        _btnOpenFolder.SetTooltipText(_controller.Localizer["CloseFolder", "Tooltip"]);
-        _btnCloseFolder.SetVisible(false);
-        _btnCloseFolder.SetActionName("win.closeFolder");
-        _headerBar.PackStart(_btnCloseFolder);
-        //Menu Help Button
-        _btnMenuHelp = Gtk.MenuButton.New();
-        var menuHelp = Gio.Menu.New();
-        menuHelp.Append(_controller.Localizer["Preferences"], "win.preferences");
-        menuHelp.Append(_controller.Localizer["KeyboardShortcuts"], "win.keyboardShortcuts");
-        menuHelp.Append(string.Format(_controller.Localizer["About"], _controller.AppInfo.ShortName), "win.about");
-        _btnMenuHelp.SetDirection(Gtk.ArrowType.None);
-        _btnMenuHelp.SetMenuModel(menuHelp);
-        _btnMenuHelp.SetTooltipText(_controller.Localizer["MainMenu", "GTK"]);
-        _btnMenuHelp.SetPrimary(true);
-        _headerBar.PackEnd(_btnMenuHelp);
-        //Toast Overlay
-        _toastOverlay = Adw.ToastOverlay.New();
-        _toastOverlay.SetHexpand(true);
-        _toastOverlay.SetVexpand(true);
-        _mainBox.Append(_toastOverlay);
-        //View Stack
-        _viewStack = Adw.ViewStack.New();
-        _toastOverlay.SetChild(_viewStack);
-        //No Folder Page
-        _pageNoFolder = Adw.StatusPage.New();
-        _pageNoFolder.SetIconName(controller.ShowSun ? "sun-outline-symbolic" : "moon-outline-symbolic");
-        _pageNoFolder.SetTitle(_controller.Greeting);
-        _pageNoFolder.SetDescription(_controller.Localizer["NoFolderDescription"]);
-        _viewStack.AddNamed(_pageNoFolder, "NoFolder");
-        //Folder Page
-        var pageFolder = Gtk.Box.New(Gtk.Orientation.Vertical, 0);
-        _viewStack.AddNamed(pageFolder, "Folder");
-        //Layout
-        Handle.SetContent(_mainBox);
-        _viewStack.SetVisibleChildName("NoFolder");
+        _title.SetTitle(_controller.AppInfo.ShortName);
+        _title.SetSubtitle(_controller.FolderPath == "No Folder Opened" ? _controller.Localizer["NoFolderOpened"] : _controller.FolderPath);
+        SetContent(_mainBox);
         //Register Events 
         _controller.NotificationSent += NotificationSent;
         _controller.FolderChanged += FolderChanged;
         //Open Folder Action
         var actOpenFolder = Gio.SimpleAction.New("openFolder", null);
         actOpenFolder.OnActivate += OpenFolder;
-        Handle.AddAction(actOpenFolder);
+        AddAction(actOpenFolder);
         application.SetAccelsForAction("win.openFolder", new string[] { "<Ctrl>O" });
         //Close Folder Action
         var actCloseFolder = Gio.SimpleAction.New("closeFolder", null);
         actCloseFolder.OnActivate += CloseFolder;
-        Handle.AddAction(actCloseFolder);
+        AddAction(actCloseFolder);
         application.SetAccelsForAction("win.closeFolder", new string[] { "<Ctrl>W" });
         //Preferences Action
         var actPreferences = Gio.SimpleAction.New("preferences", null);
         actPreferences.OnActivate += Preferences;
-        Handle.AddAction(actPreferences);
+        AddAction(actPreferences);
         application.SetAccelsForAction("win.preferences", new string[] { "<Ctrl>comma" });
         //Keyboard Shortcuts Action
         var actKeyboardShortcuts = Gio.SimpleAction.New("keyboardShortcuts", null);
         actKeyboardShortcuts.OnActivate += KeyboardShortcuts;
-        Handle.AddAction(actKeyboardShortcuts);
+        AddAction(actKeyboardShortcuts);
         application.SetAccelsForAction("win.keyboardShortcuts", new string[] { "<Ctrl>question" });
         //Quit Action
         var actQuit = Gio.SimpleAction.New("quit", null);
         actQuit.OnActivate += Quit;
-        Handle.AddAction(actQuit);
+        AddAction(actQuit);
         application.SetAccelsForAction("win.quit", new string[] { "<Ctrl>q" });
         //About Action
         var actAbout = Gio.SimpleAction.New("about", null);
         actAbout.OnActivate += About;
-        Handle.AddAction(actAbout);
+        AddAction(actAbout);
         application.SetAccelsForAction("win.about", new string[] { "F1" });
         //Drop Target
         _dropTarget = Gtk.DropTarget.New(Gio.FileHelper.GetGType(), Gdk.DragAction.Copy);
         _dropTarget.OnDrop += OnDrop;
-        Handle.AddController(_dropTarget);
+        AddController(_dropTarget);
     }
 
     /// <summary>
@@ -145,8 +88,8 @@ public partial class MainWindow
     /// </summary>
     public void Start()
     {
-        _application.AddWindow(Handle);
-        Handle.Show();
+        _application.AddWindow(this);
+        Show();
     }
 
     /// <summary>
@@ -183,8 +126,8 @@ public partial class MainWindow
     /// <param name="e">EventArgs</param>
     private void FolderChanged(object? sender, EventArgs e)
     {
-        _windowTitle.SetSubtitle(_controller.FolderPath);
-        _btnCloseFolder.SetVisible(_controller.IsFolderOpened ? true : false);
+        _title.SetSubtitle(_controller.FolderPath);
+        _closeFOlderButton.SetVisible(_controller.IsFolderOpened ? true : false);
         _viewStack.SetVisibleChildName(_controller.IsFolderOpened ? "Folder" : "NoFolder");
     }
 
@@ -195,7 +138,7 @@ public partial class MainWindow
     /// <param name="e">EventArgs</param>
     private void OpenFolder(Gio.SimpleAction sender, EventArgs e)
     {
-        var openFolderDialog = Gtk.FileChooserNative.New(_controller.Localizer["OpenFolder"], Handle, Gtk.FileChooserAction.SelectFolder, _controller.Localizer["Open"], _controller.Localizer["Cancel"]);
+        var openFolderDialog = Gtk.FileChooserNative.New(_controller.Localizer["OpenFolder"], this, Gtk.FileChooserAction.SelectFolder, _controller.Localizer["Open"], _controller.Localizer["Cancel"]);
         openFolderDialog.SetModal(true);
         openFolderDialog.OnResponse += (sender, e) =>
         {
@@ -215,7 +158,7 @@ public partial class MainWindow
     /// <param name="e">EventArgs</param>
     private void CloseFolder(Gio.SimpleAction sender, EventArgs e)
     {
-        var dialog = new MessageDialog(Handle, _controller.Localizer["CloseFolderDialog", "Title"], _controller.Localizer["CloseFolderDialog", "Description"], _controller.Localizer["Cancel"], _controller.Localizer["Close"]);
+        var dialog = new MessageDialog(this, _controller.Localizer["CloseFolderDialog", "Title"], _controller.Localizer["CloseFolderDialog", "Description"], _controller.Localizer["Cancel"], _controller.Localizer["Close"]);
         dialog.Show();
         dialog.OnResponse += (sender, e) =>
         {
@@ -234,7 +177,7 @@ public partial class MainWindow
     /// <param name="e">EventArgs</param>
     private void Preferences(Gio.SimpleAction sender, EventArgs e)
     {
-        var preferencesDialog = new PreferencesDialog(_controller.PreferencesViewController, _application, Handle);
+        var preferencesDialog = new PreferencesDialog(_controller.PreferencesViewController, _application, this);
         preferencesDialog.Show();
     }
 
@@ -245,8 +188,10 @@ public partial class MainWindow
     /// <param name="e">EventArgs</param>
     private void KeyboardShortcuts(Gio.SimpleAction sender, EventArgs e)
     {
-        var shortcutsDialog = new ShortcutsDialog(_controller.Localizer, _controller.AppInfo.ShortName, Handle);
-        shortcutsDialog.Show();
+        var builder = Builder.FromFile("shortcuts_dialog.ui", _controller.Localizer, (s) => s == "About" ? string.Format(_controller.Localizer[s], _controller.AppInfo.ShortName) : _controller.Localizer[s]);
+        var shortcutsWindow = (Gtk.ShortcutsWindow)builder.GetObject("_shortcuts");
+        shortcutsWindow.SetTransientFor(this);
+        shortcutsWindow.Show();
     }
 
     /// <summary>

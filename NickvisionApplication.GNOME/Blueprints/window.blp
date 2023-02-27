@@ -1,0 +1,66 @@
+using Gtk 4.0;
+using Adw 1;
+
+menu mainMenu {
+  item(_("Preferences"), "win.preferences")
+  item(_("KeyboardShortcuts"), "win.keyboardShortcuts")
+  item(_("About"), "win.about")
+}
+
+Gtk.Box _mainBox {
+  orientation: vertical;
+  
+  Adw.HeaderBar {
+    title-widget: Adw.WindowTitle _title {};
+    
+    [start]
+    Gtk.Button {
+      tooltip-text: _("OpenFolder.Tooltip");
+      action-name: "win.openFolder";
+      
+      Adw.ButtonContent {
+        label: _("Open");
+        icon-name: "folder-open-symbolic";
+      }
+    }
+    
+    [start]
+    Gtk.Button {
+      icon-name: "window-close-symbolic";
+      tooltip-text: _("CloseFolder.Tooltip");
+      action-name: "win.closeFolder";
+      visible: false;
+    }
+    
+    [end]
+    Gtk.MenuButton {
+      direction: none;
+      menu-model: mainMenu;
+      tooltip-text: _("MainMenu.GTK");
+      primary: true;
+    }
+  }
+  
+  Adw.ToastOverlay {
+    hexpand: true;
+    vexpand: true;
+    
+    Adw.ViewStack {
+      Adw.ViewStackPage {
+        name: "NoFolder";
+        child: Adw.StatusPage _greeting {
+          description: _("NoFolderDescription");
+        };
+      }
+    }
+    
+    Adw.ViewStack {
+      Adw.ViewStackPage {
+        name: "Folder";
+        child: Gtk.Box {
+          orientation: vertical;
+        };
+      }
+    }
+  }
+}
