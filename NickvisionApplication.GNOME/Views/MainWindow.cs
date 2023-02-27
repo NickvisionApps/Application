@@ -11,7 +11,7 @@ namespace NickvisionApplication.GNOME.Views;
 /// <summary>
 /// The MainWindow for the application
 /// </summary>
-public partial class MainWindow
+public partial class MainWindow : Adw.ApplicationWindow
 {
     [LibraryImport("libadwaita-1.so.0", StringMarshalling = StringMarshalling.Utf8)]
     private static partial string g_file_get_path(nint file);
@@ -29,8 +29,6 @@ public partial class MainWindow
     private readonly Adw.StatusPage _pageNoFolder;
     private readonly Gtk.DropTarget _dropTarget;
 
-    public Adw.ApplicationWindow Handle { get; init; }
-
     /// <summary>
     /// Constructs a MainWindow
     /// </summary>
@@ -41,12 +39,11 @@ public partial class MainWindow
         //Window Settings
         _controller = controller;
         _application = application;
-        Handle = Adw.ApplicationWindow.New(_application);
-        Handle.SetDefaultSize(800, 600);
-        Handle.SetTitle(_controller.AppInfo.ShortName);
+        SetDefaultSize(800, 600);
+        SetTitle(_controller.AppInfo.ShortName);
         if (_controller.IsDevVersion)
         {
-            Handle.AddCssClass("devel");
+            AddCssClass("devel");
         }
         //Main Box
         _mainBox = Gtk.Box.New(Gtk.Orientation.Vertical, 0);
@@ -100,7 +97,7 @@ public partial class MainWindow
         var pageFolder = Gtk.Box.New(Gtk.Orientation.Vertical, 0);
         _viewStack.AddNamed(pageFolder, "Folder");
         //Layout
-        Handle.SetContent(_mainBox);
+        SetContent(_mainBox);
         _viewStack.SetVisibleChildName("NoFolder");
         //Register Events 
         _controller.NotificationSent += NotificationSent;
@@ -108,37 +105,37 @@ public partial class MainWindow
         //Open Folder Action
         var actOpenFolder = Gio.SimpleAction.New("openFolder", null);
         actOpenFolder.OnActivate += OpenFolder;
-        Handle.AddAction(actOpenFolder);
+        AddAction(actOpenFolder);
         application.SetAccelsForAction("win.openFolder", new string[] { "<Ctrl>O" });
         //Close Folder Action
         var actCloseFolder = Gio.SimpleAction.New("closeFolder", null);
         actCloseFolder.OnActivate += CloseFolder;
-        Handle.AddAction(actCloseFolder);
+        AddAction(actCloseFolder);
         application.SetAccelsForAction("win.closeFolder", new string[] { "<Ctrl>W" });
         //Preferences Action
         var actPreferences = Gio.SimpleAction.New("preferences", null);
         actPreferences.OnActivate += Preferences;
-        Handle.AddAction(actPreferences);
+        AddAction(actPreferences);
         application.SetAccelsForAction("win.preferences", new string[] { "<Ctrl>comma" });
         //Keyboard Shortcuts Action
         var actKeyboardShortcuts = Gio.SimpleAction.New("keyboardShortcuts", null);
         actKeyboardShortcuts.OnActivate += KeyboardShortcuts;
-        Handle.AddAction(actKeyboardShortcuts);
+        AddAction(actKeyboardShortcuts);
         application.SetAccelsForAction("win.keyboardShortcuts", new string[] { "<Ctrl>question" });
         //Quit Action
         var actQuit = Gio.SimpleAction.New("quit", null);
         actQuit.OnActivate += Quit;
-        Handle.AddAction(actQuit);
+        AddAction(actQuit);
         application.SetAccelsForAction("win.quit", new string[] { "<Ctrl>q" });
         //About Action
         var actAbout = Gio.SimpleAction.New("about", null);
         actAbout.OnActivate += About;
-        Handle.AddAction(actAbout);
+        AddAction(actAbout);
         application.SetAccelsForAction("win.about", new string[] { "F1" });
         //Drop Target
         _dropTarget = Gtk.DropTarget.New(Gio.FileHelper.GetGType(), Gdk.DragAction.Copy);
         _dropTarget.OnDrop += OnDrop;
-        Handle.AddController(_dropTarget);
+        AddController(_dropTarget);
     }
 
     /// <summary>
@@ -146,8 +143,8 @@ public partial class MainWindow
     /// </summary>
     public void Start()
     {
-        _application.AddWindow(Handle);
-        Handle.Show();
+        _application.AddWindow(this);
+        Show();
     }
 
     /// <summary>
@@ -196,7 +193,7 @@ public partial class MainWindow
     /// <param name="e">EventArgs</param>
     private void OpenFolder(Gio.SimpleAction sender, EventArgs e)
     {
-        var openFolderDialog = Gtk.FileChooserNative.New(_controller.Localizer["OpenFolder"], Handle, Gtk.FileChooserAction.SelectFolder, _controller.Localizer["Open"], _controller.Localizer["Cancel"]);
+        var openFolderDialog = Gtk.FileChooserNative.New(_controller.Localizer["OpenFolder"], this, Gtk.FileChooserAction.SelectFolder, _controller.Localizer["Open"], _controller.Localizer["Cancel"]);
         openFolderDialog.SetModal(true);
         openFolderDialog.OnResponse += (sender, e) =>
         {
@@ -216,7 +213,7 @@ public partial class MainWindow
     /// <param name="e">EventArgs</param>
     private void CloseFolder(Gio.SimpleAction sender, EventArgs e)
     {
-        var dialog = new MessageDialog(Handle, _controller.Localizer["CloseFolderDialog", "Title"], _controller.Localizer["CloseFolderDialog", "Description"], _controller.Localizer["Cancel"], _controller.Localizer["Close"]);
+        var dialog = new MessageDialog(this, _controller.Localizer["CloseFolderDialog", "Title"], _controller.Localizer["CloseFolderDialog", "Description"], _controller.Localizer["Cancel"], _controller.Localizer["Close"]);
         dialog.Show();
         dialog.OnResponse += (sender, e) =>
         {
@@ -235,7 +232,7 @@ public partial class MainWindow
     /// <param name="e">EventArgs</param>
     private void Preferences(Gio.SimpleAction sender, EventArgs e)
     {
-        var preferencesDialog = new PreferencesDialog(_controller.PreferencesViewController, _application, Handle);
+        var preferencesDialog = new PreferencesDialog(_controller.PreferencesViewController, _application, this);
         preferencesDialog.Show();
     }
 
