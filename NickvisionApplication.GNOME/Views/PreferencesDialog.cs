@@ -13,27 +13,15 @@ public partial class PreferencesDialog : Adw.PreferencesWindow
     private readonly PreferencesViewController _controller;
     private readonly Adw.Application _application;
 
-    [Gtk.Connect] private readonly Gtk.Box _mainBox;
     [Gtk.Connect] private readonly Adw.ComboRow _themeRow;
 
-    /// <summary>
-    /// Constructs a PreferencesDialog
-    /// </summary>
-    /// <param name="controller">PreferencesViewController</param>
-    /// <param name="application">Adw.Application</param>
-    /// <param name="parent">Gtk.Window</param>
-    public PreferencesDialog(PreferencesViewController controller, Adw.Application application, Gtk.Window parent)
+    private PreferencesDialog(Gtk.Builder builder, PreferencesViewController controller, Adw.Application application, Gtk.Window parent) : base(builder.GetPointer("_root"), false)
     {
         //Window Settings
         _controller = controller;
         _application = application;
         SetTransientFor(parent);
-        SetDefaultSize(600, 400);
-        SetModal(true);
-        SetDestroyWithParent(false);
-        SetHideOnClose(true);
         //Build UI
-        var builder = Builder.FromFile("preferences_dialog.ui", _controller.Localizer);
         builder.Connect(this);
         _themeRow.OnNotify += (sender, e) =>
         {
@@ -44,8 +32,17 @@ public partial class PreferencesDialog : Adw.PreferencesWindow
         };
         _themeRow.SetSelected((uint)_controller.Theme);
         //Layout
-        SetContent(_mainBox);
         OnHide += Hide;
+    }
+
+    /// <summary>
+    /// Constructs a PreferencesDialog
+    /// </summary>
+    /// <param name="controller">PreferencesViewController</param>
+    /// <param name="application">Adw.Application</param>
+    /// <param name="parent">Gtk.Window</param>
+    public PreferencesDialog(PreferencesViewController controller, Adw.Application application, Gtk.Window parent) : this(Builder.FromFile("preferences_dialog.ui", controller.Localizer), controller, application, parent)
+    {
     }
 
     /// <summary>
