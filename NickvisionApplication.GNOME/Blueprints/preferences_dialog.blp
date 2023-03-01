@@ -1,25 +1,33 @@
 using Gtk 4.0;
 using Adw 1;
 
-Gtk.Box _mainBox {
-  orientation: vertical;
+Adw.PreferencesWindow _root {
+  default-width: 600;
+  default-height: 400;
+  modal: true;
+  destroy-with-parent: false;
+  hide-on-close: true;
 
-  Adw.HeaderBar {
-    title-widget: Adw.WindowTitle {
-      title: _("Preferences");
-    };
-  }
+  Gtk.Box {
+    orientation: vertical;
 
-  Adw.PreferencesPage {
-    Adw.PreferencesGroup {
-      title: _("UserInterface");
-      description: _("UserInterfaceDescription");
+    Adw.HeaderBar {
+      title-widget: Adw.WindowTitle {
+        title: _("Preferences");
+      };
+    }
 
-      Adw.ComboRow _themeRow {
-        title: _("Theme");
-        model: Gtk.StringList {
-          strings [_("ThemeLight"), _("ThemeDark"), _("ThemeSystem")]
-        };
+    Adw.PreferencesPage {
+      Adw.PreferencesGroup {
+        title: _("UserInterface");
+        description: _("UserInterfaceDescription");
+
+        Adw.ComboRow _themeRow {
+          title: _("Theme");
+          model: Gtk.StringList {
+            strings [_("ThemeLight"), _("ThemeDark"), _("ThemeSystem")]
+          };
+        }
       }
     }
   }

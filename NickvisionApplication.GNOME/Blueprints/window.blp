@@ -7,57 +7,62 @@ menu mainMenu {
   item(_("About"), "win.about")
 }
 
-Gtk.Box _mainBox {
-  orientation: vertical;
-  
-  Adw.HeaderBar {
-    title-widget: Adw.WindowTitle _title {};
-    
-    [start]
-    Gtk.Button {
-      tooltip-text: _("OpenFolder.Tooltip");
-      action-name: "win.openFolder";
-      
-      Adw.ButtonContent {
-        label: _("Open");
-        icon-name: "folder-open-symbolic";
-      }
-    }
-    
-    [start]
-    Gtk.Button _closeFolderButton {
-      icon-name: "window-close-symbolic";
-      tooltip-text: _("CloseFolder.Tooltip");
-      action-name: "win.closeFolder";
-      visible: false;
-    }
-    
-    [end]
-    Gtk.MenuButton {
-      direction: none;
-      menu-model: mainMenu;
-      tooltip-text: _("MainMenu.GTK");
-      primary: true;
-    }
-  }
-  
-  Adw.ToastOverlay _toastOverlay {
-    hexpand: true;
-    vexpand: true;
-    
-    Adw.ViewStack _viewStack {
-      Adw.ViewStackPage {
-        name: "NoFolder";
-        child: Adw.StatusPage _greeting {
-          description: _("NoFolderDescription");
-        };
-      }
+Adw.ApplicationWindow _root {
+  default-width: 800;
+  default-height: 600;
 
-      Adw.ViewStackPage {
-        name: "Folder";
-        child: Gtk.Box {
-          orientation: vertical;
-        };
+  Gtk.Box {
+    orientation: vertical;
+    
+    Adw.HeaderBar {
+      title-widget: Adw.WindowTitle _title {};
+      
+      [start]
+      Gtk.Button {
+        tooltip-text: _("OpenFolder.Tooltip");
+        action-name: "win.openFolder";
+        
+        Adw.ButtonContent {
+          label: _("Open");
+          icon-name: "folder-open-symbolic";
+        }
+      }
+      
+      [start]
+      Gtk.Button _closeFolderButton {
+        icon-name: "window-close-symbolic";
+        tooltip-text: _("CloseFolder.Tooltip");
+        action-name: "win.closeFolder";
+        visible: false;
+      }
+      
+      [end]
+      Gtk.MenuButton {
+        direction: none;
+        menu-model: mainMenu;
+        tooltip-text: _("MainMenu.GTK");
+        primary: true;
+      }
+    }
+    
+    Adw.ToastOverlay _toastOverlay {
+      hexpand: true;
+      vexpand: true;
+      
+      Adw.ViewStack _viewStack {
+        Adw.ViewStackPage {
+          name: "NoFolder";
+          child: Adw.StatusPage _greeting {
+            description: _("NoFolderDescription");
+          };
+        }
+
+        Adw.ViewStackPage {
+          name: "Folder";
+          child: Gtk.Box {
+            orientation: vertical;
+          };
+        }
       }
     }
   }

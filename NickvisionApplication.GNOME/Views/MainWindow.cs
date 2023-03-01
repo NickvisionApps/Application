@@ -19,19 +19,13 @@ public partial class MainWindow : Adw.ApplicationWindow
     private readonly MainWindowController _controller;
     private readonly Adw.Application _application;
 
-    [Gtk.Connect] private readonly Gtk.Box _mainBox;
     [Gtk.Connect] private readonly Adw.WindowTitle _title;
     [Gtk.Connect] private readonly Gtk.Button _closeFolderButton;
     [Gtk.Connect] private readonly Adw.ToastOverlay _toastOverlay;
     [Gtk.Connect] private readonly Adw.ViewStack _viewStack;
     private readonly Gtk.DropTarget _dropTarget;
 
-    /// <summary>
-    /// Constructs a MainWindow
-    /// </summary>
-    /// <param name="controller">The MainWindowController</param>
-    /// <param name="application">The Adw.Application</param>
-    public MainWindow(MainWindowController controller, Adw.Application application)
+    private MainWindow(Gtk.Builder builder, MainWindowController controller, Adw.Application application) : base(builder.GetPointer("_root"), false)
     {
         //Window Settings
         _controller = controller;
@@ -43,14 +37,12 @@ public partial class MainWindow : Adw.ApplicationWindow
             AddCssClass("devel");
         }
         //Build UI
-        var builder = Builder.FromFile("window.ui", _controller.Localizer, (s) => s == "About" ? string.Format(_controller.Localizer[s], _controller.AppInfo.ShortName) : _controller.Localizer[s]);
         builder.Connect(this);
         _title.SetTitle(_controller.AppInfo.ShortName);
         _title.SetSubtitle(_controller.FolderPath == "No Folder Opened" ? _controller.Localizer["NoFolderOpened"] : _controller.FolderPath);
         var greeting = (Adw.StatusPage)builder.GetObject("_greeting");
         greeting.SetIconName(controller.ShowSun ? "sun-outline-symbolic" : "moon-outline-symbolic");
         greeting.SetTitle(_controller.Greeting);
-        SetContent(_mainBox);
         //Register Events 
         _controller.NotificationSent += NotificationSent;
         _controller.FolderChanged += FolderChanged;
@@ -88,6 +80,15 @@ public partial class MainWindow : Adw.ApplicationWindow
         _dropTarget = Gtk.DropTarget.New(Gio.FileHelper.GetGType(), Gdk.DragAction.Copy);
         _dropTarget.OnDrop += OnDrop;
         AddController(_dropTarget);
+    }
+
+    /// <summary>
+    /// Constructs a MainWindow
+    /// </summary>
+    /// <param name="controller">The MainWindowController</param>
+    /// <param name="application">The Adw.Application</param>
+    public MainWindow(MainWindowController controller, Adw.Application application) : this(Builder.FromFile("window.ui", controller.Localizer, (s) => s == "About" ? string.Format(controller.Localizer[s], controller.AppInfo.ShortName) : controller.Localizer[s]), controller, application)
+    {
     }
 
     /// <summary>
