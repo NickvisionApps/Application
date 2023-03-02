@@ -36,6 +36,7 @@ public partial class MainWindow : Adw.ApplicationWindow
         {
             AddCssClass("devel");
         }
+        OnCloseRequest += OnCloseRequested;
         //Build UI
         builder.Connect(this);
         _title.SetTitle(_controller.AppInfo.ShortName);
@@ -106,6 +107,18 @@ public partial class MainWindow : Adw.ApplicationWindow
     /// <param name="sender">object?</param>
     /// <param name="e">NotificationSentEventArgs</param>
     private void NotificationSent(object? sender, NotificationSentEventArgs e) => _toastOverlay.AddToast(Adw.Toast.New(e.Message));
+
+    /// <summary>
+    /// Occurs when the window tries to close
+    /// </summary>
+    /// <param name="sender">Gtk.Window</param>
+    /// <param name="e">EventArgs</param>
+    /// <returns>True to stop close, else false</returns>
+    private bool OnCloseRequested(Gtk.Window sender, EventArgs e)
+    {
+        _controller.Dispose();
+        return false;
+    }
 
     /// <summary>
     /// Occurs when something is dropped onto the window

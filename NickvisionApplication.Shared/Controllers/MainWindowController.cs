@@ -106,7 +106,7 @@ public class MainWindowController : IDisposable
     }
 
     /// <summary>
-    /// Frees resources used by the Account object
+    /// Frees resources used by the MainWindowController object
     /// </summary>
     public void Dispose()
     {
@@ -115,7 +115,7 @@ public class MainWindowController : IDisposable
     }
 
     /// <summary>
-    /// Frees resources used by the Account object
+    /// Frees resources used by the MainWindowController object
     /// </summary>
     protected virtual void Dispose(bool disposing)
     {
