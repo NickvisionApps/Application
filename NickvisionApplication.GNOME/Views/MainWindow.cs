@@ -233,6 +233,7 @@ public partial class MainWindow : Adw.ApplicationWindow
     {
         var dialog = Adw.AboutWindow.New();
         dialog.SetTransientFor(this);
+        dialog.SetIconName(_controller.AppInfo.ID);
         dialog.SetApplicationName(_controller.AppInfo.ShortName);
         dialog.SetApplicationIcon(_controller.AppInfo.ID + (_controller.AppInfo.GetIsDevelVersion() ? "-devel" : ""));
         dialog.SetVersion(_controller.AppInfo.Version);
