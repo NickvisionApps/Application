@@ -39,6 +39,7 @@ publish PREFIX LIB_DIR=lib: clean && (_install_extras PREFIX)
     echo -e "\033[1m# Publishing the app\033[0m"
     mkdir -p {{builddir}}{{PREFIX}}/{{LIB_DIR}}/{{app_id}}
     blueprint-compiler batch-compile Blueprints/ Blueprints/ Blueprints/*.blp
+    [ $? != 0 ] && exit 1
     dotnet publish -c Release {{project_name}}.GNOME.csproj \
         --runtime {{dotnet_runtime}} \
         --self-contained false \
@@ -69,6 +70,7 @@ publish-self-contained PREFIX LIB_DIR=lib: clean && (_install_extras PREFIX)
     echo -e "\033[1m# Publishing the app (self-contained)\033[0m"
     mkdir -p {{builddir}}{{PREFIX}}/{{LIB_DIR}}/{{app_id}}
     blueprint-compiler batch-compile Blueprints/ Blueprints/ Blueprints/*.blp
+    [ $? != 0 ] && exit 1
     dotnet publish -c Release {{project_name}}.GNOME.csproj \
         $([ -d "$FLATPAK_BUILDER_BUILDDIR/nuget-sources" ] && \
         echo "--source $FLATPAK_BUILDER_BUILDDIR/nuget-sources") \
@@ -125,6 +127,14 @@ _install_extras PREFIX: && (_translate_meta PREFIX)
     desktop-file-edit --set-key='Exec' \
     --set-value='{{PREFIX}}/bin/{{app_id}}' \
     {{builddir}}{{PREFIX}}/share/applications/{{app_id}}.desktop
+
+    # Installing DBUS service
+    mkdir -p {{builddir}}{{PREFIX}}/share/dbus-1/services
+    cat > {{builddir}}{{PREFIX}}/share/dbus-1/services/{{app_id}}.service << EOF{{"\n"}}\
+    [D-BUS Service]{{"\n"}}\
+    Name={{app_id}}{{"\n"}}\
+    Exec={{PREFIX}}/bin/{{app_id}} --gapplication-service{{"\n"}}\
+    EOF
 
     # Installing metainfo
     mkdir -p {{builddir}}{{PREFIX}}/share/metainfo
