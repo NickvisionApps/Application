@@ -229,6 +229,7 @@ public sealed partial class MainWindow : Window
     {
         if (_controller.IsFolderOpened)
         {
+            NavViewItemFolder.Visibility = Visibility.Visible;
             NavViewItemFolder.IsSelected = true;
         }
         else

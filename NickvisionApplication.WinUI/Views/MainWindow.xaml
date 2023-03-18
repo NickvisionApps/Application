@@ -27,7 +27,7 @@
             </StackPanel>
         </Grid>
 
-        <NavigationView x:Name="NavView" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,34,0,0" PaneDisplayMode="LeftCompact"
+        <NavigationView x:Name="NavView" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,34,0,0" PaneDisplayMode="Left"
                         IsBackButtonVisible="Collapsed" IsSettingsVisible="False" OpenPaneLength="260" SelectionChanged="NavView_SelectionChanged">
             <NavigationView.MenuItems>
                 <NavigationViewItem x:Name="NavViewItemHome" Tag="Home">
@@ -36,7 +36,7 @@
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
 
-                <NavigationViewItem x:Name="NavViewItemFolder" Tag="Folder">
+                <NavigationViewItem x:Name="NavViewItemFolder" Tag="Folder" Visibility="Collapsed">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8B7;"/>
                     </NavigationViewItem.Icon>
