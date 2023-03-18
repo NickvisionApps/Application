@@ -21,6 +21,7 @@ public partial class PreferencesDialog : Adw.PreferencesWindow
         _controller = controller;
         _application = application;
         SetTransientFor(parent);
+        SetIconName(_controller.AppInfo.ID);
         //Build UI
         builder.Connect(this);
         _themeRow.OnNotify += (sender, e) =>

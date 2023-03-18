@@ -23,15 +23,17 @@ public partial class MessageDialog
     /// Constructs a MessageDialog
     /// </summary>
     /// <param name="parentWindow">Gtk.Window</param>
+    /// <param name="icon_name">The window icon name</param>
     /// <param name="title">The title of the dialog</param>
     /// <param name="message">The message of the dialog</param>
     /// <param name="cancelText">The text of the cancel button</param>
     /// <param name="destructiveText">The text of the destructive button</param>
     /// <param name="suggestedText">The text of the suggested button</param>
-    public MessageDialog(Gtk.Window parentWindow, string title, string message, string? cancelText, string? destructiveText = null, string? suggestedText = null)
+    public MessageDialog(Gtk.Window parentWindow, string icon_name, string title, string message, string? cancelText, string? destructiveText = null, string? suggestedText = null)
     {
         _dialog = Adw.MessageDialog.New(parentWindow, title, message);
         _dialog.SetHideOnClose(true);
+        _dialog.SetIconName(icon_name);
         Response = MessageDialogResponse.Cancel;
         if (!string.IsNullOrEmpty(cancelText))
         {

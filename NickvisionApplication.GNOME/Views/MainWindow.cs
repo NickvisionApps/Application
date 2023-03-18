@@ -32,6 +32,7 @@ public partial class MainWindow : Adw.ApplicationWindow
         _application = application;
         SetDefaultSize(800, 600);
         SetTitle(_controller.AppInfo.ShortName);
+        SetIconName(_controller.AppInfo.ID);
         if (_controller.IsDevVersion)
         {
             AddCssClass("devel");
@@ -179,7 +180,7 @@ public partial class MainWindow : Adw.ApplicationWindow
     /// <param name="e">EventArgs</param>
     private void CloseFolder(Gio.SimpleAction sender, EventArgs e)
     {
-        var dialog = new MessageDialog(this, _controller.Localizer["CloseFolderDialog", "Title"], _controller.Localizer["CloseFolderDialog", "Description"], _controller.Localizer["Cancel"], _controller.Localizer["Close"]);
+        var dialog = new MessageDialog(this, _controller.AppInfo.ID, _controller.Localizer["CloseFolderDialog", "Title"], _controller.Localizer["CloseFolderDialog", "Description"], _controller.Localizer["Cancel"], _controller.Localizer["Close"]);
         dialog.Show();
         dialog.OnResponse += (sender, e) =>
         {
@@ -212,6 +213,7 @@ public partial class MainWindow : Adw.ApplicationWindow
         var builder = Builder.FromFile("shortcuts_dialog.ui", _controller.Localizer, (s) => s == "About" ? string.Format(_controller.Localizer[s], _controller.AppInfo.ShortName) : _controller.Localizer[s]);
         var shortcutsWindow = (Gtk.ShortcutsWindow)builder.GetObject("_shortcuts");
         shortcutsWindow.SetTransientFor(this);
+        shortcutsWindow.SetIconName(_controller.AppInfo.ID);
         shortcutsWindow.Show();
     }
 
