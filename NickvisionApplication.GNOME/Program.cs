@@ -29,7 +29,7 @@ public partial class Program
     /// </summary>
     /// <param name="args">string[]</param>
     /// <returns>Return code from Adw.Application.Run()</returns>
-    public static int Main(string[] args) => new Program().Run();
+    public static int Main(string[] args) => new Program().Run(args);
 
     /// <summary>
     /// Constructs a Program
@@ -76,7 +76,22 @@ public partial class Program
     /// Runs the program
     /// </summary>
     /// <returns>Return code from Adw.Application.Run()</returns>
-    public int Run() => _application.Run();
+    public int Run(string[] args)
+    {
+        try
+        {
+            var argv = new string[args.Length + 1];
+            argv[0] = $"{_mainWindowController.AppInfo.Name}.GNOME";
+            args.CopyTo(argv, 1);
+            return _application.Run(args.Length + 1, argv);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            Console.WriteLine($"\n\n{ex.StackTrace}");
+            return -1;
+        }
+    }
 
     /// <summary>
     /// Occurs when the application is activated
