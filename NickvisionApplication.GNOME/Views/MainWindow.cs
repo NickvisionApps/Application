@@ -13,11 +13,26 @@ namespace NickvisionApplication.GNOME.Views;
 /// </summary>
 public partial class MainWindow : Adw.ApplicationWindow
 {
+    private delegate void GAsyncReadyCallback(nint source, nint res, nint user_data);
+
     [LibraryImport("libadwaita-1.so.0", StringMarshalling = StringMarshalling.Utf8)]
     private static partial string g_file_get_path(nint file);
 
+    [LibraryImport("libadwaita-1.so.0", StringMarshalling = StringMarshalling.Utf8)]
+    private static partial nint gtk_file_dialog_new();
+
+    [LibraryImport("libadwaita-1.so.0", StringMarshalling = StringMarshalling.Utf8)]
+    private static partial void gtk_file_dialog_set_title(nint dialog, string title);
+
+    [LibraryImport("libadwaita-1.so.0", StringMarshalling = StringMarshalling.Utf8)]
+    private static partial void gtk_file_dialog_select_folder(nint dialog, nint parent, nint cancellable, GAsyncReadyCallback callback, nint user_data);
+
+    [LibraryImport("libadwaita-1.so.0", StringMarshalling = StringMarshalling.Utf8)]
+    private static partial nint gtk_file_dialog_select_folder_finish(nint dialog, nint result, nint error);
+
     private readonly MainWindowController _controller;
     private readonly Adw.Application _application;
+    private GAsyncReadyCallback? _saveCallback;
 
     [Gtk.Connect] private readonly Adw.WindowTitle _title;
     [Gtk.Connect] private readonly Gtk.Button _closeFolderButton;
@@ -30,6 +45,7 @@ public partial class MainWindow : Adw.ApplicationWindow
         //Window Settings
         _controller = controller;
         _application = application;
+        _saveCallback = null;
         SetDefaultSize(800, 600);
         SetTitle(_controller.AppInfo.ShortName);
         SetIconName(_controller.AppInfo.ID);
@@ -99,7 +115,7 @@ public partial class MainWindow : Adw.ApplicationWindow
     public void Start()
     {
         _application.AddWindow(this);
-        Show();
+        Present();
     }
 
     /// <summary>
@@ -160,17 +176,18 @@ public partial class MainWindow : Adw.ApplicationWindow
     /// <param name="e">EventArgs</param>
     private void OpenFolder(Gio.SimpleAction sender, EventArgs e)
     {
-        var openFolderDialog = Gtk.FileChooserNative.New(_controller.Localizer["OpenFolder"], this, Gtk.FileChooserAction.SelectFolder, _controller.Localizer["Open"], _controller.Localizer["Cancel"]);
-        openFolderDialog.SetModal(true);
-        openFolderDialog.OnResponse += (sender, e) =>
+        var folderDialog = gtk_file_dialog_new();
+        gtk_file_dialog_set_title(folderDialog, _controller.Localizer["OpenFolder"]);
+        _saveCallback = (source, res, data) =>
         {
-            if (e.ResponseId == (int)Gtk.ResponseType.Accept)
+            var fileHandle = gtk_file_dialog_select_folder_finish(folderDialog, res, IntPtr.Zero);
+            if (fileHandle != IntPtr.Zero)
             {
-                var path = openFolderDialog.GetFile()!.GetPath();
-                _controller.OpenFolder(path ?? "");
+                var path = g_file_get_path(fileHandle);
+                _controller.OpenFolder(path);
             }
         };
-        openFolderDialog.Show();
+        gtk_file_dialog_select_folder(folderDialog, Handle, IntPtr.Zero, _saveCallback, IntPtr.Zero);
     }
 
     /// <summary>
@@ -181,7 +198,7 @@ public partial class MainWindow : Adw.ApplicationWindow
     private void CloseFolder(Gio.SimpleAction sender, EventArgs e)
     {
         var dialog = new MessageDialog(this, _controller.AppInfo.ID, _controller.Localizer["CloseFolderDialog", "Title"], _controller.Localizer["CloseFolderDialog", "Description"], _controller.Localizer["Cancel"], _controller.Localizer["Close"]);
-        dialog.Show();
+        dialog.Present();
         dialog.OnResponse += (sender, e) =>
         {
             if (dialog.Response == MessageDialogResponse.Destructive)
@@ -200,7 +217,7 @@ public partial class MainWindow : Adw.ApplicationWindow
     private void Preferences(Gio.SimpleAction sender, EventArgs e)
     {
         var preferencesDialog = new PreferencesDialog(_controller.CreatePreferencesViewController(), _application, this);
-        preferencesDialog.Show();
+        preferencesDialog.Present();
     }
 
     /// <summary>
@@ -214,7 +231,7 @@ public partial class MainWindow : Adw.ApplicationWindow
         var shortcutsWindow = (Gtk.ShortcutsWindow)builder.GetObject("_shortcuts");
         shortcutsWindow.SetTransientFor(this);
         shortcutsWindow.SetIconName(_controller.AppInfo.ID);
-        shortcutsWindow.Show();
+        shortcutsWindow.Present();
     }
 
     /// <summary>
@@ -249,6 +266,6 @@ public partial class MainWindow : Adw.ApplicationWindow
         dialog.SetArtists(_controller.Localizer["Artists", "Credits"].Split(Environment.NewLine));
         dialog.SetTranslatorCredits((string.IsNullOrEmpty(_controller.Localizer["Translators", "Credits"]) ? "" : _controller.Localizer["Translators", "Credits"]));
         dialog.SetReleaseNotes(_controller.AppInfo.Changelog);
-        dialog.Show();
+        dialog.Present();
     }
 }
