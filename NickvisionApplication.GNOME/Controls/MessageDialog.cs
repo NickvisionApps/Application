@@ -20,20 +20,23 @@ public partial class MessageDialog
     public MessageDialogResponse Response { get; private set; }
 
     /// <summary>
+    /// Whether or not the dialog is visible
+    /// </summary>
+    public bool Visible => _dialog.GetVisible();
+
+    /// <summary>
     /// Constructs a MessageDialog
     /// </summary>
     /// <param name="parentWindow">Gtk.Window</param>
-    /// <param name="icon_name">The window icon name</param>
     /// <param name="title">The title of the dialog</param>
     /// <param name="message">The message of the dialog</param>
     /// <param name="cancelText">The text of the cancel button</param>
     /// <param name="destructiveText">The text of the destructive button</param>
     /// <param name="suggestedText">The text of the suggested button</param>
-    public MessageDialog(Gtk.Window parentWindow, string icon_name, string title, string message, string? cancelText, string? destructiveText = null, string? suggestedText = null)
+    public MessageDialog(Gtk.Window parentWindow, string title, string message, string? cancelText, string? destructiveText = null, string? suggestedText = null)
     {
         _dialog = Adw.MessageDialog.New(parentWindow, title, message);
         _dialog.SetHideOnClose(true);
-        _dialog.SetIconName(icon_name);
         Response = MessageDialogResponse.Cancel;
         if (!string.IsNullOrEmpty(cancelText))
         {
@@ -67,9 +70,9 @@ public partial class MessageDialog
     }
 
     /// <summary>
-    /// Shows the dialog
+    /// Presents the dialog
     /// </summary>
-    public void Show() => _dialog.Show();
+    public void Present() => _dialog.Present();
 
     /// <summary>
     /// Destroys the dialog
