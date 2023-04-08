@@ -53,9 +53,11 @@ jobs:
         Configuration: ${{ matrix.configuration }}
     # Decode the base 64 encoded pfx and save the Signing_Certificate
     - name: Decode the pfx
+      env:
+         PfxPath: ${{ github.workspace }}\GitHubActionsWorkflow.pfx
       run: |
         $pfx_cert_byte = [System.Convert]::FromBase64String("${{ secrets.BASE64_ENCODED_PFX }}")
-        $certificatePath = "GitHubActionsWorkflow.pfx"
+        $certificatePath = $env:PfxPath
         [IO.File]::WriteAllBytes("$certificatePath", $pfx_cert_byte)
    # Create the app package by building and packaging the project
     - name: Create the app package
