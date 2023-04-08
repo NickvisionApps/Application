@@ -61,5 +61,5 @@ jobs:
     - name: Upload app
       uses: actions/upload-artifact@v3.1.2
       with:
-        name: Upload app
+        name: org.nickvision.application-${{ matrix.platform }}
         path: ${{ github.workspace }}\NickvisionApplication.WinUI\bin\${{ matrix.platform }}\Release\net7.0-windows10.0.19041.0
