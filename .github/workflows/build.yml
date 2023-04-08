@@ -62,4 +62,4 @@ jobs:
       uses: actions/upload-artifact@v3.1.2
       with:
         name: Upload app
-        path: ${{ env.Solution_Name }}\\NickvisionApplication.WinUI\\bin
+        path: ${{ github.workspace }}\NickvisionApplication\NickvisionApplication\NickvisionApplication.WinUI\bin
