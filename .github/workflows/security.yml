@@ -1,0 +1,44 @@
+on: ["push", "pull_request"]
+name: CodeQL
+jobs:
+  windows:
+    name: Security Analysis
+    runs-on: windows-latest
+    permissions:
+      security-events: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.5.0
+        with:
+          fetch-depth: 0
+      # Install the .NET Core workload
+      - name: Install .NET Core
+        uses: actions/setup-dotnet@v3.0.3
+        with:
+          dotnet-version: 7.0.x
+      # Add MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
+      - name: Setup MSBuild.exe
+        uses: microsoft/setup-msbuild@v1.3.1
+      # Setup CodeQL
+      - name: Setup CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: csharp
+      # Shared
+      - name: Restore Shared
+        run: dotnet restore "/NickvisionApplication.Shared"
+      - name: Build Shared
+        run: dotnet build "/NickvisionApplication.Shared"
+      # WinUI
+      - name: Restore WinUI
+        run: dotnet restore "/NickvisionApplication.WinUI"
+      - name: Build WinUI
+        run: dotnet build "/NickvisionApplication.WinUI"
+      # GNOME
+      - name: Restore GNOME
+        run: dotnet restore "/NickvisionApplication.GNOME"
+      - name: Build GNOME
+        run: dotnet build "/NickvisionApplication.GNOME"
+      # Analyze
+      - name: Analyze
+        uses: github/codeql-action/analyze@v2
