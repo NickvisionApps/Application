@@ -1,4 +1,10 @@
-on: ["push", "pull_request"]
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  schedule:
+    - cron: '21 11 * * 0'
 name: CodeQL
 jobs:
   windows:
@@ -33,12 +39,12 @@ jobs:
         with:
           languages: csharp
       # Restore
-      - name: Restore the application
+      - name: Restore Solution
         run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
         env:
           Configuration: ${{ matrix.configuration }}
       # Build
-      - name: Create the app package
+      - name: Build Solution
         run: msbuild $env:Solution_Name /p:Configuration=$env:Configuration /p:Platform=$env:Platform
         env:
           Configuration: ${{ matrix.configuration }}
