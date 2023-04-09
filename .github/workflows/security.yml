@@ -3,8 +3,16 @@ name: CodeQL
 jobs:
   windows:
     name: Security Analysis
+    strategy:
+      matrix:
+        configuration: [Release]
+        platform: [x64]
     runs-on: windows-latest
+    env:
+      Solution_Name: NickvisionApplication.sln
     permissions:
+      actions: read
+      contents: read
       security-events: write
     steps:
       - name: Checkout
@@ -24,21 +32,17 @@ jobs:
         uses: github/codeql-action/init@v2
         with:
           languages: csharp
-      # Shared
-      - name: Restore Shared
-        run: dotnet restore "/NickvisionApplication.Shared"
-      - name: Build Shared
-        run: dotnet build "/NickvisionApplication.Shared"
-      # WinUI
-      - name: Restore WinUI
-        run: dotnet restore "/NickvisionApplication.WinUI"
-      - name: Build WinUI
-        run: dotnet build "/NickvisionApplication.WinUI"
-      # GNOME
-      - name: Restore GNOME
-        run: dotnet restore "/NickvisionApplication.GNOME"
-      - name: Build GNOME
-        run: dotnet build "/NickvisionApplication.GNOME"
+      # Restore
+      - name: Restore the application
+        run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
+        env:
+          Configuration: ${{ matrix.configuration }}
+      # Build
+      - name: Create the app package
+        run: msbuild $env:Solution_Name /p:Configuration=$env:Configuration /p:Platform=$env:Platform
+        env:
+          Configuration: ${{ matrix.configuration }}
+          Platform: ${{ matrix.platform }}
       # Analyze
       - name: Analyze
         uses: github/codeql-action/analyze@v2
