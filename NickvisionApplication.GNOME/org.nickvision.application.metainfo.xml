@@ -7,8 +7,13 @@
   <developer_name>Nickvision</developer_name>
   <summary>Create new Nickvision application</summary>
   <description>
-    <p>
-      A template for creating Nickvision applications
+    <p><span>Recipe for the Ultimate Power:</span>
+      <ul>
+        <li>C#</li>
+        <li>gir.core</li>
+        <li>WinUI</li>
+        <li>Shaken, not stirred</li>
+      </ul>
     </p>
   </description>
   <launchable type="desktop-id">org.nickvision.application.desktop</launchable>

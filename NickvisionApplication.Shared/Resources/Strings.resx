@@ -19,7 +19,7 @@
 	<!--Use: &#xA; for newline-->
 
 	<data name="Description" xml:space="preserve">
-		<value>A template for creating Nickvision applications</value>
+		<value>Create new Nickvision application</value>
 	</data>
 
 	<data name="Version" xml:space="preserve">
@@ -259,7 +259,13 @@
 		<value>Main Menu</value>
 	</data>
 
-	<data name="Summary.GTK" xml:space="preserve">
-		<value>Create new Nickvision application</value>
+	<data name="MetadataDescription.GTK" xml:space="preserve">
+		<value><span>Recipe for the Ultimate Power:</span>
+		<ul>
+			<li>C#</li>
+			<li>gir.core</li>
+			<li>WinUI</li>
+			<li>Shaken, not stirred</li>
+		</ul></value>
 	</data>
 </root>

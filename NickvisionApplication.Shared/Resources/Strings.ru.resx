@@ -19,10 +19,10 @@
 	<!--Use: &#xA; for newline-->
 
 	<data name="Description" xml:space="preserve">
-		<value>Шаблон для создания приложений Nickvision</value>
+		<value>Создайте новое приложение Nickvision</value>
 	</data>
 
-  <data name="Version" xml:space="preserve">
+	<data name="Version" xml:space="preserve">
 		<value>Версия: {0}</value>
 	</data>
 
@@ -34,8 +34,20 @@
 		<value>Список изменений</value>
 	</data>
 
+	<data name="GitHubRepo" xml:space="preserve">
+		<value>Репозиторий GitHub</value>
+	</data>
+
+	<data name="ReportABug" xml:space="preserve">
+		<value>Сообщить об ошибке</value>
+	</data>
+
+	<data name="Discussions" xml:space="preserve">
+		<value>Обсуждения</value>
+	</data>
+
 	<!--Credits-->
-  <data name="Credits" xml:space="preserve">
+	<data name="Credits" xml:space="preserve">
 		<value>Авторы</value>
 	</data>
 
@@ -109,6 +121,10 @@
 
 	<data name="KeyboardShortcuts" xml:space="preserve">
 		<value>Сочетания клавиш</value>
+	</data>
+
+	<data name="Quit" xml:space="preserve">
+		<value>Выход</value>
 	</data>
 
 	<!--MainWindow-->
@@ -228,8 +244,22 @@
 		<value>Вы хотите перезапустить {0}, чтобы применить тему?&#xA;Несохранённые изменения будут утеряны.</value>
 	</data>
 
+	<data name="Preview.WinUI" xml:space="preserve">
+		<value>ПРЕДВАРИТЕЛЬНАЯ ВЕРСИЯ</value>
+	</data>
+
 	<!--GTK Specific-->
 	<data name="MainMenu.GTK" xml:space="preserve">
 		<value>Главное меню</value>
+	</data>
+
+	<data name="MetadataDescription.GTK" xml:space="preserve">
+		<value><span>Рецепт Безграничной Мощи:</span>
+		<ul>
+			<li>C#</li>
+			<li>gir.core</li>
+			<li>WinUI</li>
+			<li>Смешать, но не взбалтывать</li>
+		</ul></value>
 	</data>
 </root>
