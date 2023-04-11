@@ -1,7 +1,7 @@
 [Desktop Entry]
 Version=1.0
 Name=Application
-Comment=A template for creating Nickvision applications
+Comment=Create new Nickvision application
 Exec=/usr/bin/org.nickvision.application
 Icon=org.nickvision.application
 Terminal=false

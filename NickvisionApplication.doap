@@ -6,7 +6,6 @@
 
   <name xml:lang="en">Application</name>
   <shortdesc xml:lang="en">Create new Nickvision application</shortdesc>
-  <description xml:lang="en">A template for creating Nickvision applications</description>
   <homepage rdf:resource="https://github.com/nlogozzo/NickvisionApplication" />
   <bug-database rdf:resource="https://github.com/nlogozzo/NickvisionApplication/issues"/>
   <download-page rdf:resource="https://github.com/nlogozzo/NickvisionApplication" /> <!-- replace with flathub link -->
