@@ -1,5 +1,5 @@
 on: ["push", "pull_request"]
-name: Codacy Analysis CLI
+name: Codacy
 jobs:
   codacy-analysis-cli:
     name: Codacy Analysis CLI
