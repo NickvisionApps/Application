@@ -5,7 +5,7 @@
   <project_license>MIT</project_license>
   <name>Application</name>
   <developer_name>Nickvision</developer_name>
-  <summary>Create new Nickvision application</summary>
+  <summary>Create new Nickvision applications</summary>
   <description>
     <p><span>Recipe for the Ultimate Power:</span>
       <ul>
@@ -19,16 +19,16 @@
   <launchable type="desktop-id">org.nickvision.application.desktop</launchable>
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/nlogozzo/NickvisionApplication/master/NickvisionApplication.GNOME/Screenshots/Light.png</image>
+      <image>https://raw.githubusercontent.com/NickvisionApps/Application/main/NickvisionApplication.GNOME/Screenshots/Light.png</image>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/nlogozzo/NickvisionApplication/master/NickvisionApplication.GNOME/Screenshots/Dark.png</image>
+      <image>https://raw.githubusercontent.com/NickvisionApps/Application/main/NickvisionApplication.GNOME/Screenshots/Dark.png</image>
     </screenshot>
   </screenshots>
-  <url type="homepage">https://github.com/nlogozzo/NickvisionApplication</url>
-  <url type="bugtracker">https://github.com/nlogozzo/NickvisionApplication/issues</url>
+  <url type="homepage">https://github.com/NickvisionApps/Application</url>
+  <url type="bugtracker">https://github.com/NickvisionApps/Application/issues</url>
   <url type="donation">https://github.com/sponsors/nlogozzo</url>
-  <url type="translate">https://github.com/nlogozzo/NickvisionApplication/blob/master/CONTRIBUTING.md#providing-translations</url>
+  <url type="translate">https://github.com/NickvisionApps/Application/blob/master/CONTRIBUTING.md#providing-translations</url>
   <project_group>Nickvision</project_group>
   <provides>
     <binary>org.nickvision.application</binary>
