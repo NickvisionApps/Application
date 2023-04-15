@@ -5,10 +5,10 @@
          xmlns="http://usefulinc.com/ns/doap#">
 
   <name xml:lang="en">Application</name>
-  <shortdesc xml:lang="en">Create new Nickvision application</shortdesc>
-  <homepage rdf:resource="https://github.com/nlogozzo/NickvisionApplication" />
-  <bug-database rdf:resource="https://github.com/nlogozzo/NickvisionApplication/issues"/>
-  <download-page rdf:resource="https://github.com/nlogozzo/NickvisionApplication" /> <!-- replace with flathub link -->
+  <shortdesc xml:lang="en">Create new Nickvision applications</shortdesc>
+  <homepage rdf:resource="https://github.com/NickvisionApps/Application" />
+  <bug-database rdf:resource="https://github.com/NickvisionApps/Application/issues"/>
+  <download-page rdf:resource="https://github.com/NickvisionApps/Application" /> <!-- replace with flathub link -->
   <category rdf:resource="http://api.gnome.org/doap-extensions#apps" />
   <programming-language>C#</programming-language>
 
