@@ -15,6 +15,7 @@ jobs:
         configuration: [Release]
         platform: [x64]
     runs-on: windows-latest
+    if: ${{ github.event.pull_request.user.login != "weblate" }}
     env:
       Solution_Name: NickvisionApplication.sln
     permissions:
