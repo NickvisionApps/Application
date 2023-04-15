@@ -45,9 +45,9 @@ public partial class Program
         _mainWindowController.AppInfo.Description = $"{_mainWindowController.Localizer["Description"]}.";
         _mainWindowController.AppInfo.Version = "2023.4.0-next";
         _mainWindowController.AppInfo.Changelog = "<ul><li>Initial Release</li></ul>";
-        _mainWindowController.AppInfo.GitHubRepo = new Uri("https://github.com/nlogozzo/NickvisionApplication");
-        _mainWindowController.AppInfo.IssueTracker = new Uri("https://github.com/nlogozzo/NickvisionApplication/issues/new");
-        _mainWindowController.AppInfo.SupportUrl = new Uri("https://github.com/nlogozzo/NickvisionApplication/discussions");
+        _mainWindowController.AppInfo.GitHubRepo = new Uri("https://github.com/NickvisionApps/Application");
+        _mainWindowController.AppInfo.IssueTracker = new Uri("https://github.com/NickvisionApps/Application/issues/new");
+        _mainWindowController.AppInfo.SupportUrl = new Uri("https://github.com/NickvisionApps/Application/discussions");
         _application.OnActivate += OnActivate;
         if (File.Exists(Path.GetFullPath(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)) + "/org.nickvision.application.gresource"))
         {
