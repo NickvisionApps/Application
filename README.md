@@ -1,7 +1,7 @@
 # Application
 <img src="NickvisionApplication.Shared/Resources/org.nickvision.application.png" width="100" height="100"/>
 
- **A template for creating Nickvision applications**
+ **Create new Nickvision applications**
 
 # Features
 - A cross-platform C# application
