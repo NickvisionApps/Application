@@ -1,6 +1,4 @@
 using Microsoft.UI;
-using Microsoft.UI.Composition;
-using Microsoft.UI.Composition.SystemBackdrops;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -14,7 +12,6 @@ using Windows.ApplicationModel.DataTransfer;
 using Windows.Graphics;
 using Windows.Storage;
 using Windows.Storage.Pickers;
-using WinRT;
 using WinRT.Interop;
 
 namespace NickvisionApplication.WinUI.Views;
@@ -26,10 +23,7 @@ public sealed partial class MainWindow : Window
 {
     private readonly MainWindowController _controller;
     private readonly IntPtr _hwnd;
-    private readonly AppWindow _appWindow;
     private bool _isActived;
-    private readonly SystemBackdropConfiguration _backdropConfiguration;
-    private readonly MicaController? _micaController;
 
     /// <summary>
     /// Constructs a MainWindow
@@ -41,51 +35,32 @@ public sealed partial class MainWindow : Window
         //Initialize Vars
         _controller = controller;
         _hwnd = WindowNative.GetWindowHandle(this);
-        _appWindow = AppWindow.GetFromWindowId(Win32Interop.GetWindowIdFromWindow(_hwnd));
         _isActived = true;
         //Register Events
-        _appWindow.Closing += Window_Closing;
+        AppWindow.Closing += Window_Closing;
         _controller.NotificationSent += NotificationSent;
         _controller.FolderChanged += FolderChanged;
         //Set TitleBar
         TitleBarTitle.Text = _controller.AppInfo.ShortName;
-        _appWindow.Title = TitleBarTitle.Text;
-        _appWindow.SetIcon(@"Assets\org.nickvision.application.ico");
+        AppWindow.Title = TitleBarTitle.Text;
+        AppWindow.SetIcon(@"Assets\org.nickvision.application.ico");
         TitlePreview.Text = _controller.IsDevVersion ? _controller.Localizer["Preview", "WinUI"] : "";
         if (AppWindowTitleBar.IsCustomizationSupported())
         {
-            _appWindow.TitleBar.ExtendsContentIntoTitleBar = true;
-            TitleBarLeftPaddingColumn.Width = new GridLength(_appWindow.TitleBar.LeftInset);
-            TitleBarRightPaddingColumn.Width = new GridLength(_appWindow.TitleBar.RightInset);
-            _appWindow.TitleBar.ButtonBackgroundColor = Colors.Transparent;
-            _appWindow.TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+            AppWindow.TitleBar.ExtendsContentIntoTitleBar = true;
+            TitleBarLeftPaddingColumn.Width = new GridLength(AppWindow.TitleBar.LeftInset);
+            TitleBarRightPaddingColumn.Width = new GridLength(AppWindow.TitleBar.RightInset);
+            AppWindow.TitleBar.ButtonBackgroundColor = Colors.Transparent;
+            AppWindow.TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
         }
         else
         {
             TitleBar.Visibility = Visibility.Collapsed;
             NavView.Margin = new Thickness(0, 0, 0, 0);
         }
-        //Setup Backdrop
-        WindowsSystemDispatcherQueueHelper.EnsureWindowsSystemDispatcherQueueController();
-        _backdropConfiguration = new SystemBackdropConfiguration()
-        {
-            IsInputActive = true,
-            Theme = ((FrameworkElement)Content).ActualTheme switch
-            {
-                ElementTheme.Default => SystemBackdropTheme.Default,
-                ElementTheme.Light => SystemBackdropTheme.Light,
-                ElementTheme.Dark => SystemBackdropTheme.Dark,
-                _ => SystemBackdropTheme.Default
-            }
-        };
-        if (MicaController.IsSupported())
-        {
-            _micaController = new MicaController();
-            _micaController.AddSystemBackdropTarget(this.As<ICompositionSupportsSystemBackdrop>());
-            _micaController.SetSystemBackdropConfiguration(_backdropConfiguration);
-        }
+        SystemBackdrop = new MicaBackdrop();
         //Window Sizing
-        _appWindow.Resize(new SizeInt32(800, 600));
+        AppWindow.Resize(new SizeInt32(800, 600));
         User32.ShowWindow(_hwnd, ShowWindowCommand.SW_SHOWMAXIMIZED);
         //Localize Strings
         NavViewItemHome.Content = _controller.Localizer["Home"];
@@ -116,9 +91,7 @@ public sealed partial class MainWindow : Window
         _isActived = e.WindowActivationState != WindowActivationState.Deactivated;
         //Update TitleBar
         TitleBarTitle.Foreground = (SolidColorBrush)Application.Current.Resources[_isActived ? "WindowCaptionForeground" : "WindowCaptionForegroundDisabled"];
-        _appWindow.TitleBar.ButtonForegroundColor = ((SolidColorBrush)Application.Current.Resources[_isActived ? "WindowCaptionForeground" : "WindowCaptionForegroundDisabled"]).Color;
-        //Update Backdrop
-        _backdropConfiguration.IsInputActive = _isActived;
+        AppWindow.TitleBar.ButtonForegroundColor = ((SolidColorBrush)Application.Current.Resources[_isActived ? "WindowCaptionForeground" : "WindowCaptionForegroundDisabled"]).Color;
     }
 
     /// <summary>
@@ -129,7 +102,6 @@ public sealed partial class MainWindow : Window
     private void Window_Closing(AppWindow sender, AppWindowClosingEventArgs e)
     {
         _controller.Dispose();
-        _micaController?.Dispose();
     }
 
     /// <summary>
@@ -141,15 +113,7 @@ public sealed partial class MainWindow : Window
     {
         //Update TitleBar
         TitleBarTitle.Foreground = (SolidColorBrush)Application.Current.Resources[_isActived ? "WindowCaptionForeground" : "WindowCaptionForegroundDisabled"];
-        _appWindow.TitleBar.ButtonForegroundColor = ((SolidColorBrush)Application.Current.Resources[_isActived ? "WindowCaptionForeground" : "WindowCaptionForegroundDisabled"]).Color;
-        //Update Backdrop
-        _backdropConfiguration.Theme = sender.ActualTheme switch
-        {
-            ElementTheme.Default => SystemBackdropTheme.Default,
-            ElementTheme.Light => SystemBackdropTheme.Light,
-            ElementTheme.Dark => SystemBackdropTheme.Dark,
-            _ => SystemBackdropTheme.Default
-        };
+        AppWindow.TitleBar.ButtonForegroundColor = ((SolidColorBrush)Application.Current.Resources[_isActived ? "WindowCaptionForeground" : "WindowCaptionForegroundDisabled"]).Color;
     }
 
     /// <summary>
