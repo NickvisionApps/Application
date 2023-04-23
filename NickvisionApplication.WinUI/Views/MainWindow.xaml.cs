@@ -56,23 +56,19 @@ public sealed partial class MainWindow : Window
         else
         {
             TitleBar.Visibility = Visibility.Collapsed;
-            NavView.Margin = new Thickness(0, 0, 0, 0);
         }
         SystemBackdrop = new MicaBackdrop();
         //Window Sizing
         AppWindow.Resize(new SizeInt32(800, 600));
         User32.ShowWindow(_hwnd, ShowWindowCommand.SW_SHOWMAXIMIZED);
         //Localize Strings
-        NavViewItemHome.Content = _controller.Localizer["Home"];
-        NavViewItemFolder.Content = _controller.Localizer["Folder"];
-        NavViewItemSettings.Content = _controller.Localizer["Settings"];
         StatusPageHome.Glyph = _controller.ShowSun ? "\xE706" : "\xE708";
         StatusPageHome.Title = _controller.Greeting;
         StatusPageHome.Description = _controller.Localizer["NoFolderDescription"];
         ToolTipService.SetToolTip(BtnHomeOpenFolder, _controller.Localizer["OpenFolder", "Tooltip"]);
         LblBtnHomeOpenFolder.Text = _controller.Localizer["Open"];
-        //Page
-        NavViewItemHome.IsSelected = true;
+        //Pages
+        ViewStack.ChangePage("Home");
     }
 
     /// <summary>
@@ -148,31 +144,13 @@ public sealed partial class MainWindow : Window
     }
 
     /// <summary>
-    /// Occurs when the NavigationView's item selection is changed
-    /// </summary>
-    /// <param name="sender">NavigationView</param>
-    /// <param name="e">NavigationViewSelectionChangedEventArgs</param>
-    private void NavView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs e)
-    {
-        var pageName = (string)((NavigationViewItem)e.SelectedItem).Tag;
-        if (pageName == "Folder")
-        {
-
-        }
-        else if (pageName == "Settings")
-        {
-            PageSettings.Content = new PreferencesPage(_controller.CreatePreferencesViewController());
-        }
-        ViewStack.ChangePage(pageName);
-    }
-
-    /// <summary>
     /// Occurs when a notification is sent from the controller
     /// </summary>
     /// <param name="sender">object?</param>
     /// <param name="e">NotificationSentEventArgs</param>
     private void NotificationSent(object? sender, NotificationSentEventArgs e)
     {
+        //InfoBar
         InfoBar.Message = e.Message;
         InfoBar.Severity = e.Severity switch
         {
@@ -183,6 +161,45 @@ public sealed partial class MainWindow : Window
             _ => InfoBarSeverity.Informational
         };
         InfoBar.IsOpen = true;
+        //Notification Badge
+        BadgeNotification.Value++;
+        BadgeNotification.Style = (Style)Application.Current.Resources["AttentionValueInfoBadgeStyle"];
+        //Notifiation Flyout
+        var newNotification = new Border()
+        {
+            Margin = new Thickness(0, 0, 0, 6),
+            Background = (Brush)Application.Current.Resources["CardBackgroundFillColorDefaultBrush"],
+            BorderBrush = (Brush)Application.Current.Resources["CardStrokeColorDefaultBrush"],
+            BorderThickness = new Thickness(1, 1, 1, 1),
+            CornerRadius = new CornerRadius(6.0)
+        };
+        newNotification.Child = new TextBlock()
+        {
+            Margin = new Thickness(12, 12, 12, 12),
+            Text = e.Message,
+            TextWrapping = TextWrapping.Wrap
+        };
+        ListNotifications.Items.Insert(0, newNotification);
+    }
+
+    /// <summary>
+    /// Occurs when the open notifications is clicked
+    /// </summary>
+    /// <param name="sender">object</param>
+    /// <param name="e">RoutedEventArgs</param>
+    private void OpenNotifications(object sender, RoutedEventArgs e) => InfoBar.IsOpen = false;
+
+    /// <summary>
+    /// Occurs when the clear notifications is clicked
+    /// </summary>
+    /// <param name="sender">object</param>
+    /// <param name="e">RoutedEventArgs</param>
+    private void ClearNotifications(object sender, RoutedEventArgs e)
+    {
+        ListNotifications.Items.Clear();
+        FlyoutNotifications.Hide();
+        BadgeNotification.Value = 0;
+        BadgeNotification.Style = (Style)Application.Current.Resources["InformationalValueInfoBadgeStyle"];
     }
 
     /// <summary>
@@ -192,15 +209,8 @@ public sealed partial class MainWindow : Window
     /// <param name="e">EventArgs</param>
     private void FolderChanged(object? sender, EventArgs e)
     {
-        if (_controller.IsFolderOpened)
-        {
-            NavViewItemFolder.Visibility = Visibility.Visible;
-            NavViewItemFolder.IsSelected = true;
-        }
-        else
-        {
-            NavViewItemHome.IsSelected = true;
-        }
+        IconStatus.Glyph = "\uE8B7";
+        LblStatus.Text = _controller.FolderPath;
     }
 
     /// <summary>

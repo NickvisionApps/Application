@@ -10,8 +10,15 @@
     xmlns:labs="using:CommunityToolkit.Labs.WinUI"
     mc:Ignorable="d" Activated="Window_Activated">
 
-    <Grid x:Name="MainGrid" ActualThemeChanged="Window_ActualThemeChanged" AllowDrop="True" DragOver="Window_DragOver" Drop="Window_Drop">
-        <Grid x:Name="TitleBar" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="32">
+    <Grid x:Name="MainGrid" RowSpacing="6" AllowDrop="True" ActualThemeChanged="Window_ActualThemeChanged" DragOver="Window_DragOver" Drop="Window_Drop">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <Grid x:Name="TitleBar" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="32">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition x:Name="TitleBarLeftPaddingColumn" Width="0"/>
                 <ColumnDefinition Width="*"/>
@@ -23,38 +30,41 @@
 
                 <TextBlock x:Name="TitleBarTitle" Style="{ThemeResource CaptionTextBlockStyle}"/>
 
-                <TextBlock x:Name="TitlePreview" Grid.Column="1" Margin="10,0,0,0"  Style="{ThemeResource NavigationViewItemHeaderTextStyle}" Foreground="Gray" FontSize="12" Text="PREVIEW"/>
+                <TextBlock x:Name="TitlePreview" Margin="10,0,0,0"  Style="{ThemeResource NavigationViewItemHeaderTextStyle}" Foreground="Gray" FontSize="12"/>
             </StackPanel>
         </Grid>
 
-        <NavigationView x:Name="NavView" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,34,0,0" PaneDisplayMode="Auto"
-                        IsBackButtonVisible="Collapsed" IsSettingsVisible="False" OpenPaneLength="260" SelectionChanged="NavView_SelectionChanged">
-            <NavigationView.MenuItems>
-                <NavigationViewItem x:Name="NavViewItemHome" Tag="Home">
-                    <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE10F;"/>
-                    </NavigationViewItem.Icon>
-                </NavigationViewItem>
+        <wct:DockPanel Grid.Row="1" LastChildFill="False">
+            <MenuBar x:Name="MainMenu" wct:DockPanel.Dock="Left">
+                <MenuBarItem Title="File">
+                    
+                </MenuBarItem>
 
-                <NavigationViewItem x:Name="NavViewItemFolder" Tag="Folder" Visibility="Collapsed">
-                    <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8B7;"/>
-                    </NavigationViewItem.Icon>
-                </NavigationViewItem>
-            </NavigationView.MenuItems>
+                <MenuBarItem Title="Edit">
 
-            <NavigationView.FooterMenuItems>
-                <NavigationViewItem x:Name="NavViewItemSettings" Tag="Settings">
-                    <NavigationViewItem.Icon>
+                </MenuBarItem>
+
+                <MenuBarItem Title="Help">
+
+                </MenuBarItem>
+            </MenuBar>
+
+            <Button wct:DockPanel.Dock="Right" Margin="0,0,6,0">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal" Spacing="6">
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE713;"/>
-                    </NavigationViewItem.Icon>
-                </NavigationViewItem>
-            </NavigationView.FooterMenuItems>
-            
-            <Grid>
-                <nickvision:ViewStack x:Name="ViewStack" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                    <nickvision:ViewStack.Pages>
-                        <nickvision:ViewStackPage x:Name="PageHome" PageName="Home">
+
+                        <TextBlock Text="Settings"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+        </wct:DockPanel>
+
+        <Grid Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <nickvision:ViewStack x:Name="ViewStack" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="6,0,6,0">
+                <nickvision:ViewStack.Pages>
+                    <nickvision:ViewStackPage PageName="Home">
+                        <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="8">
                             <nickvision:StatusPage x:Name="StatusPageHome" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <nickvision:StatusPage.Child>
                                     <StackPanel HorizontalAlignment="Center" Margin="0,10,0,0" Orientation="Horizontal" Spacing="12">
@@ -74,16 +84,47 @@
                                     </StackPanel>
                                 </nickvision:StatusPage.Child>
                             </nickvision:StatusPage>
-                        </nickvision:ViewStackPage>
+                        </Border>
+                    </nickvision:ViewStackPage>
+                </nickvision:ViewStack.Pages>
+            </nickvision:ViewStack>
 
-                        <nickvision:ViewStackPage x:Name="PageFolder" PageName="Folder"/>
+            <InfoBar x:Name="InfoBar" HorizontalAlignment="Right" VerticalAlignment="Bottom" MinWidth="240"/>
+        </Grid>
 
-                        <nickvision:ViewStackPage x:Name="PageSettings" PageName="Settings"/>
-                    </nickvision:ViewStack.Pages>
-                </nickvision:ViewStack>
+        <Border x:Name="StatusBar" Grid.Row="3" HorizontalAlignment="Stretch" Height="32" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
+            <wct:DockPanel LastChildFill="False">
+                <FontIcon x:Name="IconStatus" wct:DockPanel.Dock="Left" VerticalAlignment="Center" Margin="6,0,10,0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE73E;"/>
+                
+                <TextBlock x:Name="LblStatus" wct:DockPanel.Dock="Left" VerticalAlignment="Center" Text="Ready"/>
 
-                <InfoBar x:Name="InfoBar" HorizontalAlignment="Center" VerticalAlignment="Bottom" CornerRadius="12" Margin="0,0,0,10"/>
-            </Grid>
-        </NavigationView>
+                <Button wct:DockPanel.Dock="Right" VerticalAlignment="Center" Margin="0,0,6,0" Background="Transparent" BorderThickness="0" Click="OpenNotifications">
+                    <Button.Content>
+                        <InfoBadge x:Name="BadgeNotification" Style="{ThemeResource InformationalValueInfoBadgeStyle}" Value="0"/>
+                    </Button.Content>
+
+                    <Button.Flyout>
+                        <Flyout x:Name="FlyoutNotifications" Placement="Top">
+                            <Grid Width="400" MinHeight="200" RowSpacing="6">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                
+                                <TextBlock x:Name="LblNotifications" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Text="Notifications" Style="{ThemeResource NavigationViewItemHeaderTextStyle}"/>
+
+                                <Button x:Name="BtnClearNotifications" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top" Click="ClearNotifications">
+                                    <Button.Content>
+                                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE107;"/>
+                                    </Button.Content>
+                                </Button>
+
+                                <ListView x:Name="ListNotifications" Grid.Row="1" Margin="-16,0,0,-16" SelectionMode="None"/>
+                            </Grid>
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
+            </wct:DockPanel>
+        </Border>
     </Grid>
 </Window>
