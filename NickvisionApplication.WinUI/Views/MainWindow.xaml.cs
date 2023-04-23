@@ -65,7 +65,7 @@ public sealed partial class MainWindow : Window
         MenuFile.Title = _controller.Localizer["File"];
         MenuEdit.Title = _controller.Localizer["Edit"];
         MenuHelp.Title = _controller.Localizer["Help"];
-        LblBtnSettings.Text = _controller.Localizer["Settings"];
+        ToolTipService.SetToolTip(BtnSettings, _controller.Localizer["Settings"]);
         LblStatus.Text = _controller.Localizer["StatusReady", "WinUI"];
         ToolTipService.SetToolTip(BtnOpenNotifications, _controller.Localizer["OpenNotifications", "WinUI"]);
         LblNotifications.Text = _controller.Localizer["Notifications", "WinUI"];
@@ -181,24 +181,41 @@ public sealed partial class MainWindow : Window
             BorderThickness = new Thickness(1, 1, 1, 1),
             CornerRadius = new CornerRadius(6.0)
         };
-        newNotification.Child = new TextBlock()
+        var newNotificationStackPanel = new StackPanel()
         {
             Margin = new Thickness(12, 12, 12, 12),
+            Orientation = Orientation.Horizontal,
+            Spacing = 6
+        };
+        newNotificationStackPanel.Children.Add(new FontIcon()
+        {
+            FontFamily = (Microsoft.UI.Xaml.Media.FontFamily)Application.Current.Resources["SymbolThemeFontFamily"],
+            Glyph = e.Severity switch
+            {
+                NotificationSeverity.Success => "\uE73E",
+                NotificationSeverity.Warning => "\uE7BA",
+                NotificationSeverity.Error => "\uEA39",
+                _ => "\uE946"
+            }
+        });
+        newNotificationStackPanel.Children.Add(new TextBlock()
+        {
             Text = e.Message,
             TextWrapping = TextWrapping.Wrap
-        };
+        });
+        newNotification.Child = newNotificationStackPanel;
         ListNotifications.Items.Insert(0, newNotification);
     }
 
     /// <summary>
-    /// Occurs when the open notifications is clicked
+    /// Occurs when the open notifications button is clicked
     /// </summary>
     /// <param name="sender">object</param>
     /// <param name="e">RoutedEventArgs</param>
     private void OpenNotifications(object sender, RoutedEventArgs e) => InfoBar.IsOpen = false;
 
     /// <summary>
-    /// Occurs when the clear notifications is clicked
+    /// Occurs when the clear notifications button is clicked
     /// </summary>
     /// <param name="sender">object</param>
     /// <param name="e">RoutedEventArgs</param>
@@ -236,5 +253,16 @@ public sealed partial class MainWindow : Window
         {
             _controller.OpenFolder(file.Path);
         }
+    }
+
+    /// <summary>
+    /// Occurs when the settings button is clicked
+    /// </summary>
+    /// <param name="sender">object</param>
+    /// <param name="e">RoutedEventArgs</param>
+    private void Settings(object sender, RoutedEventArgs e)
+    {
+        PageSettings.Content = new PreferencesPage(_controller.CreatePreferencesViewController());
+        ViewStack.ChangePage("Settings");
     }
 }

@@ -49,13 +49,9 @@
                 </MenuBarItem>
             </MenuBar>
 
-            <Button wct:DockPanel.Dock="Right" Margin="0,0,6,0">
+            <Button x:Name="BtnSettings" wct:DockPanel.Dock="Right" Margin="0,0,6,0" Background="Transparent" BorderThickness="0" Click="Settings">
                 <Button.Content>
-                    <StackPanel Orientation="Horizontal" Spacing="6">
-                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE713;"/>
-
-                        <TextBlock x:Name="LblBtnSettings"/>
-                    </StackPanel>
+                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" FontSize="16" Glyph="&#xE713;"/>
                 </Button.Content>
             </Button>
         </wct:DockPanel>
@@ -86,19 +82,21 @@
                             </nickvision:StatusPage>
                         </Border>
                     </nickvision:ViewStackPage>
+
+                    <nickvision:ViewStackPage x:Name="PageSettings" PageName="Settings"/>
                 </nickvision:ViewStack.Pages>
             </nickvision:ViewStack>
 
             <InfoBar x:Name="InfoBar" HorizontalAlignment="Right" VerticalAlignment="Bottom" MinWidth="240"/>
         </Grid>
 
-        <Border x:Name="StatusBar" Grid.Row="3" HorizontalAlignment="Stretch" Height="32" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
+        <Border x:Name="StatusBar" Grid.Row="3" HorizontalAlignment="Stretch" Height="36" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
             <wct:DockPanel LastChildFill="False">
-                <FontIcon x:Name="IconStatus" wct:DockPanel.Dock="Left" VerticalAlignment="Center" Margin="6,0,10,0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE73E;"/>
+                <FontIcon x:Name="IconStatus" wct:DockPanel.Dock="Left" VerticalAlignment="Center" Margin="6,0,10,0" FontFamily="{StaticResource SymbolThemeFontFamily}" FontSize="16" Foreground="Gray" Glyph="&#xE73E;"/>
                 
-                <TextBlock x:Name="LblStatus" wct:DockPanel.Dock="Left" VerticalAlignment="Center"/>
+                <TextBlock x:Name="LblStatus" wct:DockPanel.Dock="Left" VerticalAlignment="Center" Foreground="Gray"/>
 
-                <Button x:Name="BtnOpenNotifications" wct:DockPanel.Dock="Right" VerticalAlignment="Center" Margin="0,0,6,0" Background="Transparent" BorderThickness="0" Click="OpenNotifications">
+                <Button x:Name="BtnOpenNotifications" wct:DockPanel.Dock="Right" VerticalAlignment="Center" Margin="0,0,0,0" Background="Transparent" BorderThickness="0" Click="OpenNotifications">
                     <Button.Content>
                         <InfoBadge x:Name="BadgeNotification" Style="{ThemeResource InformationalValueInfoBadgeStyle}" Value="0"/>
                     </Button.Content>
@@ -115,11 +113,11 @@
 
                                 <Button x:Name="BtnClearNotifications" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top" Click="ClearNotifications">
                                     <Button.Content>
-                                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE107;"/>
+                                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" FontSize="16" Glyph="&#xE107;"/>
                                     </Button.Content>
                                 </Button>
 
-                                <ListView x:Name="ListNotifications" Grid.Row="1" Margin="-16,0,0,-16" SelectionMode="None"/>
+                                <ListView x:Name="ListNotifications" Grid.Row="1" HorizontalAlignment="Stretch" Margin="-16,0,-16,0" SelectionMode="None"/>
                             </Grid>
                         </Flyout>
                     </Button.Flyout>
