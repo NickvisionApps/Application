@@ -131,6 +131,10 @@
 	<data name="File" xml:space="preserve">
 		<value>File</value>
 	</data>
+
+	<data name="Exit" xml:space="preserve">
+		<value>Exit</value>
+	</data>
 	
 	<data name="Edit" xml:space="preserve">
 		<value>Edit</value>

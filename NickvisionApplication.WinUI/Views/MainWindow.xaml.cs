@@ -7,6 +7,7 @@ using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.Shared.Events;
 using NickvisionApplication.WinUI.Controls;
 using System;
+using System.IO;
 using Vanara.PInvoke;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Graphics;
@@ -63,9 +64,12 @@ public sealed partial class MainWindow : Window
         User32.ShowWindow(_hwnd, ShowWindowCommand.SW_SHOWMAXIMIZED);
         //Localize Strings
         MenuFile.Title = _controller.Localizer["File"];
+        MenuOpenFolder.Text = _controller.Localizer["OpenFolder"];
+        MenuCloseFolder.Text = _controller.Localizer["CloseFolder"];
+        MenuExit.Text = _controller.Localizer["Exit"];
         MenuEdit.Title = _controller.Localizer["Edit"];
+        MenuSettings.Text = _controller.Localizer["Settings"];
         MenuHelp.Title = _controller.Localizer["Help"];
-        ToolTipService.SetToolTip(BtnSettings, _controller.Localizer["Settings"]);
         LblStatus.Text = _controller.Localizer["StatusReady", "WinUI"];
         ToolTipService.SetToolTip(BtnOpenNotifications, _controller.Localizer["OpenNotifications", "WinUI"]);
         LblNotifications.Text = _controller.Localizer["Notifications", "WinUI"];
@@ -75,6 +79,7 @@ public sealed partial class MainWindow : Window
         StatusPageHome.Description = _controller.Localizer["NoFolderDescription"];
         ToolTipService.SetToolTip(BtnHomeOpenFolder, _controller.Localizer["OpenFolder", "Tooltip"]);
         LblBtnHomeOpenFolder.Text = _controller.Localizer["Open"];
+        BtnCloseFolder.Label = _controller.Localizer["CloseFolder"];
         //Pages
         ViewStack.ChangePage("Home");
     }
@@ -234,7 +239,16 @@ public sealed partial class MainWindow : Window
     /// <param name="e">EventArgs</param>
     private void FolderChanged(object? sender, EventArgs e)
     {
-        IconStatus.Glyph = "\uE8B7";
+        if(Directory.Exists(_controller.FolderPath))
+        {
+            IconStatus.Glyph = "\uE8B7";
+            ViewStack.ChangePage("Folder");
+        }
+        else
+        {
+            IconStatus.Glyph = "\uE73E";
+            ViewStack.ChangePage("Home");
+        }
         LblStatus.Text = _controller.FolderPath;
     }
 
@@ -256,7 +270,21 @@ public sealed partial class MainWindow : Window
     }
 
     /// <summary>
-    /// Occurs when the settings button is clicked
+    /// Occurs when the close folder menu item is clicked
+    /// </summary>
+    /// <param name="sender">object</param>
+    /// <param name="e">RoutedEventArgs</param>
+    private void CloseFolder(object sender, RoutedEventArgs e) => _controller.CloseFolder();
+
+    /// <summary>
+    /// Occurs when the exit menu item is clicked
+    /// </summary>
+    /// <param name="sender">object</param>
+    /// <param name="e">RoutedEventArgs</param>
+    private void Exit(object sender, RoutedEventArgs e) => Close();
+
+    /// <summary>
+    /// Occurs when the settings menu item is clicked
     /// </summary>
     /// <param name="sender">object</param>
     /// <param name="e">RoutedEventArgs</param>

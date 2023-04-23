@@ -37,23 +37,55 @@
         <wct:DockPanel Grid.Row="1" LastChildFill="False">
             <MenuBar x:Name="MainMenu" wct:DockPanel.Dock="Left">
                 <MenuBarItem x:Name="MenuFile">
+                    <MenuFlyoutItem x:Name="MenuOpenFolder" Click="OpenFolder">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE197;"/>
+                        </MenuFlyoutItem.Icon>
 
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                            <KeyboardAccelerator Modifiers="Control" Key="O"/>
+                        </MenuFlyoutItem.KeyboardAccelerators>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutItem x:Name="MenuCloseFolder" Click="CloseFolder">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8F6;"/>
+                        </MenuFlyoutItem.Icon>
+
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                            <KeyboardAccelerator Modifiers="Control" Key="W"/>
+                        </MenuFlyoutItem.KeyboardAccelerators>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutSeparator/>
+
+                    <MenuFlyoutItem x:Name="MenuExit" Click="Exit">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE106;"/>
+                        </MenuFlyoutItem.Icon>
+
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                            <KeyboardAccelerator Modifiers="Menu" Key="F4"/>
+                        </MenuFlyoutItem.KeyboardAccelerators>
+                    </MenuFlyoutItem>
                 </MenuBarItem>
 
                 <MenuBarItem x:Name="MenuEdit">
+                    <MenuFlyoutItem x:Name="MenuSettings" Click="Settings">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE713;"/>
+                        </MenuFlyoutItem.Icon>
 
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                            <KeyboardAccelerator Modifiers="Control" Key="K"/>
+                        </MenuFlyoutItem.KeyboardAccelerators>
+                    </MenuFlyoutItem>
                 </MenuBarItem>
 
                 <MenuBarItem x:Name="MenuHelp">
 
                 </MenuBarItem>
             </MenuBar>
-
-            <Button x:Name="BtnSettings" wct:DockPanel.Dock="Right" Margin="0,0,6,0" Background="Transparent" BorderThickness="0" Click="Settings">
-                <Button.Content>
-                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" FontSize="16" Glyph="&#xE713;"/>
-                </Button.Content>
-            </Button>
         </wct:DockPanel>
 
         <Grid Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -72,10 +104,6 @@
                                                     <TextBlock x:Name="LblBtnHomeOpenFolder"/>
                                                 </StackPanel>
                                             </Button.Content>
-
-                                            <Button.KeyboardAccelerators>
-                                                <KeyboardAccelerator Modifiers="Control" Key="O"/>
-                                            </Button.KeyboardAccelerators>
                                         </Button>
                                     </StackPanel>
                                 </nickvision:StatusPage.Child>
@@ -83,18 +111,38 @@
                         </Border>
                     </nickvision:ViewStackPage>
 
+                    <nickvision:ViewStackPage x:Name="PageFolder" PageName="Folder">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="8">
+                                <CommandBar HorizontalAlignment="Left" DefaultLabelPosition="Right">
+                                    <CommandBar.PrimaryCommands>
+                                        <AppBarButton x:Name="BtnCloseFolder" Click="CloseFolder">
+                                            <AppBarButton.Icon>
+                                                <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8F6;"/>
+                                            </AppBarButton.Icon>
+                                        </AppBarButton>
+                                    </CommandBar.PrimaryCommands>
+                                </CommandBar>
+                            </Border>
+                        </Grid>
+                    </nickvision:ViewStackPage>
+
                     <nickvision:ViewStackPage x:Name="PageSettings" PageName="Settings"/>
                 </nickvision:ViewStack.Pages>
             </nickvision:ViewStack>
 
-            <InfoBar x:Name="InfoBar" HorizontalAlignment="Right" VerticalAlignment="Bottom" MinWidth="240"/>
+            <InfoBar x:Name="InfoBar" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
         </Grid>
 
         <Border x:Name="StatusBar" Grid.Row="3" HorizontalAlignment="Stretch" Height="36" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
             <wct:DockPanel LastChildFill="False">
-                <FontIcon x:Name="IconStatus" wct:DockPanel.Dock="Left" VerticalAlignment="Center" Margin="6,0,10,0" FontFamily="{StaticResource SymbolThemeFontFamily}" FontSize="16" Foreground="Gray" Glyph="&#xE73E;"/>
+                <FontIcon x:Name="IconStatus" wct:DockPanel.Dock="Left" VerticalAlignment="Center" Margin="6,0,10,0" FontFamily="{StaticResource SymbolThemeFontFamily}" FontSize="16" Glyph="&#xE73E;"/>
                 
-                <TextBlock x:Name="LblStatus" wct:DockPanel.Dock="Left" VerticalAlignment="Center" Foreground="Gray"/>
+                <TextBlock x:Name="LblStatus" wct:DockPanel.Dock="Left" VerticalAlignment="Center"/>
 
                 <Button x:Name="BtnOpenNotifications" wct:DockPanel.Dock="Right" VerticalAlignment="Center" Margin="0,0,0,0" Background="Transparent" BorderThickness="0" Click="OpenNotifications">
                     <Button.Content>
