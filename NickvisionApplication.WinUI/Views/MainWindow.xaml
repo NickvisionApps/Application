@@ -36,15 +36,15 @@
 
         <wct:DockPanel Grid.Row="1" LastChildFill="False">
             <MenuBar x:Name="MainMenu" wct:DockPanel.Dock="Left">
-                <MenuBarItem Title="File">
-                    
-                </MenuBarItem>
-
-                <MenuBarItem Title="Edit">
+                <MenuBarItem x:Name="MenuFile">
 
                 </MenuBarItem>
 
-                <MenuBarItem Title="Help">
+                <MenuBarItem x:Name="MenuEdit">
+
+                </MenuBarItem>
+
+                <MenuBarItem x:Name="MenuHelp">
 
                 </MenuBarItem>
             </MenuBar>
@@ -54,7 +54,7 @@
                     <StackPanel Orientation="Horizontal" Spacing="6">
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE713;"/>
 
-                        <TextBlock Text="Settings"/>
+                        <TextBlock x:Name="LblBtnSettings"/>
                     </StackPanel>
                 </Button.Content>
             </Button>
@@ -96,9 +96,9 @@
             <wct:DockPanel LastChildFill="False">
                 <FontIcon x:Name="IconStatus" wct:DockPanel.Dock="Left" VerticalAlignment="Center" Margin="6,0,10,0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE73E;"/>
                 
-                <TextBlock x:Name="LblStatus" wct:DockPanel.Dock="Left" VerticalAlignment="Center" Text="Ready"/>
+                <TextBlock x:Name="LblStatus" wct:DockPanel.Dock="Left" VerticalAlignment="Center"/>
 
-                <Button wct:DockPanel.Dock="Right" VerticalAlignment="Center" Margin="0,0,6,0" Background="Transparent" BorderThickness="0" Click="OpenNotifications">
+                <Button x:Name="BtnOpenNotifications" wct:DockPanel.Dock="Right" VerticalAlignment="Center" Margin="0,0,6,0" Background="Transparent" BorderThickness="0" Click="OpenNotifications">
                     <Button.Content>
                         <InfoBadge x:Name="BadgeNotification" Style="{ThemeResource InformationalValueInfoBadgeStyle}" Value="0"/>
                     </Button.Content>

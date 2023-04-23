@@ -99,6 +99,10 @@
 	<data name="Close" xml:space="preserve">
 		<value>Close</value>
 	</data>
+
+	<data name="Quit" xml:space="preserve">
+		<value>Quit</value>
+	</data>
 	
 	<!--Pages-->
 	<data name="Home" xml:space="preserve">
@@ -123,11 +127,19 @@
 		<value>Keyboard Shortcuts</value>
 	</data>
 
-	<data name="Quit" xml:space="preserve">
-		<value>Quit</value>
+	<!--MainWindow-->
+	<data name="File" xml:space="preserve">
+		<value>File</value>
+	</data>
+	
+	<data name="Edit" xml:space="preserve">
+		<value>Edit</value>
+	</data>
+	
+	<data name="Help" xml:space="preserve">
+		<value>Help</value>
 	</data>
 
-	<!--MainWindow-->
 	<data name="OpenFolder" xml:space="preserve">
 		<value>Open Folder</value>
 	</data>
@@ -252,6 +264,22 @@
 	
 	<data name="RestartThemeDescription.WinUI" xml:space="preserve">
 		<value>Would you like to restart {0} to apply the new theme?&#xA;Any unsaved work will be lost.</value>
+	</data>
+
+	<data name="StatusReady.WinUI" xml:space="preserve">
+		<value>Ready</value>
+	</data>
+
+	<data name="Notifications.WinUI" xml:space="preserve">
+		<value>Notifications</value>
+	</data>
+
+	<data name="OpenNotifications.WinUI" xml:space="preserve">
+		<value>Open Notifications</value>
+	</data>
+
+	<data name="ClearNotifications.WinUI" xml:space="preserve">
+		<value>Clear Notifications</value>
 	</data>
 	
 	<!--GTK Specific-->

@@ -62,6 +62,14 @@ public sealed partial class MainWindow : Window
         AppWindow.Resize(new SizeInt32(800, 600));
         User32.ShowWindow(_hwnd, ShowWindowCommand.SW_SHOWMAXIMIZED);
         //Localize Strings
+        MenuFile.Title = _controller.Localizer["File"];
+        MenuEdit.Title = _controller.Localizer["Edit"];
+        MenuHelp.Title = _controller.Localizer["Help"];
+        LblBtnSettings.Text = _controller.Localizer["Settings"];
+        LblStatus.Text = _controller.Localizer["StatusReady", "WinUI"];
+        ToolTipService.SetToolTip(BtnOpenNotifications, _controller.Localizer["OpenNotifications", "WinUI"]);
+        LblNotifications.Text = _controller.Localizer["Notifications", "WinUI"];
+        ToolTipService.SetToolTip(BtnClearNotifications, _controller.Localizer["ClearNotifications", "WinUI"]);
         StatusPageHome.Glyph = _controller.ShowSun ? "\xE706" : "\xE708";
         StatusPageHome.Title = _controller.Greeting;
         StatusPageHome.Description = _controller.Localizer["NoFolderDescription"];
