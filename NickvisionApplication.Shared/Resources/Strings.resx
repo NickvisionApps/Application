@@ -97,11 +97,21 @@
 	</data>
 
 	<data name="Close" xml:space="preserve">
+		<!--Mostly used in GNOME-->
 		<value>Close</value>
+	</data>
+
+	<data name="Exit" xml:space="preserve">
+		<!--Mostly used in WinUI-->
+		<value>Exit</value>
 	</data>
 
 	<data name="Quit" xml:space="preserve">
 		<value>Quit</value>
+	</data>
+
+	<data name="Apply" xml:space="preserve">
+		<value>Apply</value>
 	</data>
 	
 	<!--Pages-->
@@ -130,10 +140,6 @@
 	<!--MainWindow-->
 	<data name="File" xml:space="preserve">
 		<value>File</value>
-	</data>
-
-	<data name="Exit" xml:space="preserve">
-		<value>Exit</value>
 	</data>
 	
 	<data name="Edit" xml:space="preserve">

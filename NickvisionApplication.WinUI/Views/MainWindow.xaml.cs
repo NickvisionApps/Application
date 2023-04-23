@@ -13,6 +13,7 @@ using Windows.ApplicationModel.DataTransfer;
 using Windows.Graphics;
 using Windows.Storage;
 using Windows.Storage.Pickers;
+using Windows.System;
 using WinRT.Interop;
 
 namespace NickvisionApplication.WinUI.Views;
@@ -69,6 +70,11 @@ public sealed partial class MainWindow : Window
         MenuExit.Text = _controller.Localizer["Exit"];
         MenuEdit.Title = _controller.Localizer["Edit"];
         MenuSettings.Text = _controller.Localizer["Settings"];
+        MenuChangelog.Text = _controller.Localizer["Changelog"];
+        MenuGitHubRepo.Text = _controller.Localizer["GitHubRepo"];
+        MenuReportABug.Text = _controller.Localizer["ReportABug"];
+        MenuDiscussions.Text = _controller.Localizer["Discussions"];
+        MenuAbout.Text = string.Format(_controller.Localizer["About"], _controller.AppInfo.ShortName);
         MenuHelp.Title = _controller.Localizer["Help"];
         LblStatus.Text = _controller.Localizer["StatusReady", "WinUI"];
         ToolTipService.SetToolTip(BtnOpenNotifications, _controller.Localizer["OpenNotifications", "WinUI"]);
@@ -80,6 +86,7 @@ public sealed partial class MainWindow : Window
         ToolTipService.SetToolTip(BtnHomeOpenFolder, _controller.Localizer["OpenFolder", "Tooltip"]);
         LblBtnHomeOpenFolder.Text = _controller.Localizer["Open"];
         BtnCloseFolder.Label = _controller.Localizer["CloseFolder"];
+        ToolTipService.SetToolTip(BtnCloseFolder, _controller.Localizer["CloseFolder", "Tooltip"]);
         //Pages
         ViewStack.ChangePage("Home");
     }
@@ -288,9 +295,69 @@ public sealed partial class MainWindow : Window
     /// </summary>
     /// <param name="sender">object</param>
     /// <param name="e">RoutedEventArgs</param>
-    private void Settings(object sender, RoutedEventArgs e)
+    private async void Settings(object sender, RoutedEventArgs e)
     {
-        PageSettings.Content = new PreferencesPage(_controller.CreatePreferencesViewController());
-        ViewStack.ChangePage("Settings");
+        var preferencesDialog = new SettingsDialog(_controller.CreatePreferencesViewController())
+        {
+            XamlRoot = Content.XamlRoot
+        };
+        await preferencesDialog.ShowAsync();
+    }
+
+    /// <summary>
+    /// Occurs when the changelog menu item is clicked
+    /// </summary>
+    /// <param name="sender">object</param>
+    /// <param name="e">RoutedEventArgs</param>
+    private async void Changelog(object sender, RoutedEventArgs e)
+    {
+        var changelogDialog = new ContentDialog()
+        {
+            Title = _controller.Localizer["ChangelogTitle", "WinUI"],
+            Content = _controller.AppInfo.Changelog,
+            CloseButtonText = _controller.Localizer["OK"],
+            DefaultButton = ContentDialogButton.Close,
+            XamlRoot = Content.XamlRoot
+        };
+        await changelogDialog.ShowAsync();
+    }
+
+    /// <summary>
+    /// Occurs when the github repo menu item is clicked
+    /// </summary>
+    /// <param name="sender">object</param>
+    /// <param name="e">RoutedEventArgs</param>
+    private async void GitHubRepo(object sender, RoutedEventArgs e) => await Launcher.LaunchUriAsync(_controller.AppInfo.GitHubRepo);
+
+    /// <summary>
+    /// Occurs when the report a bug menu item is clicked
+    /// </summary>
+    /// <param name="sender">object</param>
+    /// <param name="e">RoutedEventArgs</param>
+    private async void ReportABug(object sender, RoutedEventArgs e) => await Launcher.LaunchUriAsync(_controller.AppInfo.IssueTracker);
+
+    /// <summary>
+    /// Occurs when the discussions menu item is clicked
+    /// </summary>
+    /// <param name="sender">object</param>
+    /// <param name="e">RoutedEventArgs</param>
+    private async void Discussions(object sender, RoutedEventArgs e) => await Launcher.LaunchUriAsync(_controller.AppInfo.SupportUrl);
+
+    /// <summary>
+    /// Occurs when the about menu item is clicked
+    /// </summary>
+    /// <param name="sender">object</param>
+    /// <param name="e">RoutedEventArgs</param>
+    private async void About(object sender, RoutedEventArgs e)
+    {
+        var changelogDialog = new ContentDialog()
+        {
+            Title = _controller.Localizer["ChangelogTitle", "WinUI"],
+            Content = _controller.AppInfo.Changelog,
+            CloseButtonText = _controller.Localizer["OK"],
+            DefaultButton = ContentDialogButton.Close,
+            XamlRoot = Content.XamlRoot
+        };
+        await changelogDialog.ShowAsync();
     }
 }
