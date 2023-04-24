@@ -284,18 +284,6 @@
 	<data name="StatusReady.WinUI" xml:space="preserve">
 		<value>Ready</value>
 	</data>
-
-	<data name="Notifications.WinUI" xml:space="preserve">
-		<value>Notifications</value>
-	</data>
-
-	<data name="OpenNotifications.WinUI" xml:space="preserve">
-		<value>Open Notifications</value>
-	</data>
-
-	<data name="ClearNotifications.WinUI" xml:space="preserve">
-		<value>Clear Notifications</value>
-	</data>
 	
 	<!--GTK Specific-->
 	<data name="MainMenu.GTK" xml:space="preserve">

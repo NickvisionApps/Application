@@ -175,35 +175,8 @@
         <Border x:Name="StatusBar" Grid.Row="3" HorizontalAlignment="Stretch" Height="36" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
             <wct:DockPanel LastChildFill="False">
                 <FontIcon x:Name="IconStatus" wct:DockPanel.Dock="Left" VerticalAlignment="Center" Margin="6,0,10,0" FontFamily="{StaticResource SymbolThemeFontFamily}" FontSize="16" Glyph="&#xE73E;"/>
-                
+
                 <TextBlock x:Name="LblStatus" wct:DockPanel.Dock="Left" VerticalAlignment="Center"/>
-
-                <Button x:Name="BtnOpenNotifications" wct:DockPanel.Dock="Right" VerticalAlignment="Center" Margin="0,0,0,0" Background="Transparent" BorderThickness="0" Click="OpenNotifications">
-                    <Button.Content>
-                        <InfoBadge x:Name="BadgeNotification" Style="{ThemeResource InformationalValueInfoBadgeStyle}" Value="0"/>
-                    </Button.Content>
-
-                    <Button.Flyout>
-                        <Flyout x:Name="FlyoutNotifications" Placement="Top">
-                            <Grid Width="400" MinHeight="200" RowSpacing="6">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
-                                
-                                <TextBlock x:Name="LblNotifications" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Text="Notifications" Style="{ThemeResource NavigationViewItemHeaderTextStyle}"/>
-
-                                <Button x:Name="BtnClearNotifications" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top" Click="ClearNotifications">
-                                    <Button.Content>
-                                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" FontSize="16" Glyph="&#xE107;"/>
-                                    </Button.Content>
-                                </Button>
-
-                                <ListView x:Name="ListNotifications" Grid.Row="1" HorizontalAlignment="Stretch" Margin="-16,0,-16,0" SelectionMode="None"/>
-                            </Grid>
-                        </Flyout>
-                    </Button.Flyout>
-                </Button>
             </wct:DockPanel>
         </Border>
     </Grid>

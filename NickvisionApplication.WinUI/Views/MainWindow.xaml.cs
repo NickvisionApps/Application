@@ -77,9 +77,6 @@ public sealed partial class MainWindow : Window
         MenuAbout.Text = string.Format(_controller.Localizer["About"], _controller.AppInfo.ShortName);
         MenuHelp.Title = _controller.Localizer["Help"];
         LblStatus.Text = _controller.Localizer["StatusReady", "WinUI"];
-        ToolTipService.SetToolTip(BtnOpenNotifications, _controller.Localizer["OpenNotifications", "WinUI"]);
-        LblNotifications.Text = _controller.Localizer["Notifications", "WinUI"];
-        ToolTipService.SetToolTip(BtnClearNotifications, _controller.Localizer["ClearNotifications", "WinUI"]);
         StatusPageHome.Glyph = _controller.ShowSun ? "\xE706" : "\xE708";
         StatusPageHome.Title = _controller.Greeting;
         StatusPageHome.Description = _controller.Localizer["NoFolderDescription"];
@@ -181,62 +178,6 @@ public sealed partial class MainWindow : Window
             _ => InfoBarSeverity.Informational
         };
         InfoBar.IsOpen = true;
-        //Notification Badge
-        BadgeNotification.Value++;
-        BadgeNotification.Style = (Style)Application.Current.Resources["AttentionValueInfoBadgeStyle"];
-        //Notifiation Flyout
-        var newNotification = new Border()
-        {
-            Margin = new Thickness(0, 0, 0, 6),
-            Background = (Brush)Application.Current.Resources["CardBackgroundFillColorDefaultBrush"],
-            BorderBrush = (Brush)Application.Current.Resources["CardStrokeColorDefaultBrush"],
-            BorderThickness = new Thickness(1, 1, 1, 1),
-            CornerRadius = new CornerRadius(6.0)
-        };
-        var newNotificationStackPanel = new StackPanel()
-        {
-            Margin = new Thickness(12, 12, 12, 12),
-            Orientation = Orientation.Horizontal,
-            Spacing = 6
-        };
-        newNotificationStackPanel.Children.Add(new FontIcon()
-        {
-            FontFamily = (Microsoft.UI.Xaml.Media.FontFamily)Application.Current.Resources["SymbolThemeFontFamily"],
-            Glyph = e.Severity switch
-            {
-                NotificationSeverity.Success => "\uE73E",
-                NotificationSeverity.Warning => "\uE7BA",
-                NotificationSeverity.Error => "\uEA39",
-                _ => "\uE946"
-            }
-        });
-        newNotificationStackPanel.Children.Add(new TextBlock()
-        {
-            Text = e.Message,
-            TextWrapping = TextWrapping.Wrap
-        });
-        newNotification.Child = newNotificationStackPanel;
-        ListNotifications.Items.Insert(0, newNotification);
-    }
-
-    /// <summary>
-    /// Occurs when the open notifications button is clicked
-    /// </summary>
-    /// <param name="sender">object</param>
-    /// <param name="e">RoutedEventArgs</param>
-    private void OpenNotifications(object sender, RoutedEventArgs e) => InfoBar.IsOpen = false;
-
-    /// <summary>
-    /// Occurs when the clear notifications button is clicked
-    /// </summary>
-    /// <param name="sender">object</param>
-    /// <param name="e">RoutedEventArgs</param>
-    private void ClearNotifications(object sender, RoutedEventArgs e)
-    {
-        ListNotifications.Items.Clear();
-        FlyoutNotifications.Hide();
-        BadgeNotification.Value = 0;
-        BadgeNotification.Style = (Style)Application.Current.Resources["InformationalValueInfoBadgeStyle"];
     }
 
     /// <summary>
