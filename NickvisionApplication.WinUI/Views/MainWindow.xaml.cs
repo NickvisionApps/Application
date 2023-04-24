@@ -352,14 +352,35 @@ public sealed partial class MainWindow : Window
     /// <param name="e">RoutedEventArgs</param>
     private async void About(object sender, RoutedEventArgs e)
     {
-        var changelogDialog = new ContentDialog()
+        var removeUrlFromCredits = (string s) =>
         {
-            Title = _controller.Localizer["ChangelogTitle", "WinUI"],
-            Content = _controller.AppInfo.Changelog,
+            var credits = s.Split('\n');
+            var result = "";
+            for (int i = 0; i < credits.Length; i++)
+            {
+                if (credits[i].IndexOf("https://") != -1)
+                {
+                    result += credits[i].Remove(credits[i].IndexOf("https://"));
+                }
+                else if (credits[i].IndexOf("http://") != -1)
+                {
+                    result += credits[i].Remove(credits[i].IndexOf("http://"));
+                }
+                if (i != credits.Length - 1)
+                {
+                    result += "\n";
+                }
+            }
+            return result;
+        };
+        var aboutDialog = new ContentDialog()
+        {
+            Title = string.Format(_controller.Localizer["About"], _controller.AppInfo.ShortName),
+            Content = $"{_controller.AppInfo.Description}\n{string.Format(_controller.Localizer["Version"], _controller.AppInfo.Version)}\n\n{string.Format(_controller.Localizer["CreditsDialogDescription", "WinUI"], removeUrlFromCredits(_controller.Localizer["Developers", "Credits"]), removeUrlFromCredits(_controller.Localizer["Designers", "Credits"]), removeUrlFromCredits(_controller.Localizer["Artists", "Credits"]), removeUrlFromCredits(_controller.Localizer["Translators", "Credits"]))}",
             CloseButtonText = _controller.Localizer["OK"],
             DefaultButton = ContentDialogButton.Close,
             XamlRoot = Content.XamlRoot
         };
-        await changelogDialog.ShowAsync();
+        await aboutDialog.ShowAsync();
     }
 }
