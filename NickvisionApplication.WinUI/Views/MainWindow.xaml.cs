@@ -7,7 +7,9 @@ using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.Shared.Events;
 using NickvisionApplication.WinUI.Controls;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Runtime.InteropServices;
 using Vanara.PInvoke;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Graphics;
@@ -27,6 +29,17 @@ public sealed partial class MainWindow : Window
     private readonly IntPtr _hwnd;
     private bool _isActived;
 
+    private enum Monitor_DPI_Type : int
+    {
+        MDT_Effective_DPI = 0,
+        MDT_Angular_DPI = 1,
+        MDT_Raw_DPI = 2,
+        MDT_Default = MDT_Effective_DPI
+    }
+
+    [DllImport("Shcore.dll", SetLastError = true)]
+    private static extern int GetDpiForMonitor(IntPtr hmonitor, Monitor_DPI_Type dpiType, out uint dpiX, out uint dpiY);
+
     /// <summary>
     /// Constructs a MainWindow
     /// </summary>
@@ -44,21 +57,13 @@ public sealed partial class MainWindow : Window
         _controller.FolderChanged += FolderChanged;
         //Set TitleBar
         TitleBarTitle.Text = _controller.AppInfo.ShortName;
+        AppWindow.TitleBar.ExtendsContentIntoTitleBar = true;
+        AppWindow.TitleBar.PreferredHeightOption = TitleBarHeightOption.Tall;
+        AppWindow.TitleBar.ButtonBackgroundColor = Colors.Transparent;
+        AppWindow.TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+        TitlePreview.Text = _controller.IsDevVersion ? _controller.Localizer["Preview", "WinUI"] : "";
         AppWindow.Title = TitleBarTitle.Text;
         AppWindow.SetIcon(@"Assets\org.nickvision.application.ico");
-        TitlePreview.Text = _controller.IsDevVersion ? _controller.Localizer["Preview", "WinUI"] : "";
-        if (AppWindowTitleBar.IsCustomizationSupported())
-        {
-            AppWindow.TitleBar.ExtendsContentIntoTitleBar = true;
-            TitleBarLeftPaddingColumn.Width = new GridLength(AppWindow.TitleBar.LeftInset);
-            TitleBarRightPaddingColumn.Width = new GridLength(AppWindow.TitleBar.RightInset);
-            AppWindow.TitleBar.ButtonBackgroundColor = Colors.Transparent;
-            AppWindow.TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
-        }
-        else
-        {
-            TitleBar.Visibility = Visibility.Collapsed;
-        }
         SystemBackdrop = new MicaBackdrop();
         //Window Sizing
         AppWindow.Resize(new SizeInt32(800, 600));
@@ -126,6 +131,9 @@ public sealed partial class MainWindow : Window
     {
         //Update TitleBar
         TitleBarTitle.Foreground = (SolidColorBrush)Application.Current.Resources[_isActived ? "WindowCaptionForeground" : "WindowCaptionForegroundDisabled"];
+        MenuFile.Foreground = (SolidColorBrush)Application.Current.Resources[_isActived ? "WindowCaptionForeground" : "WindowCaptionForegroundDisabled"];
+        MenuEdit.Foreground = (SolidColorBrush)Application.Current.Resources[_isActived ? "WindowCaptionForeground" : "WindowCaptionForegroundDisabled"];
+        MenuHelp.Foreground = (SolidColorBrush)Application.Current.Resources[_isActived ? "WindowCaptionForeground" : "WindowCaptionForegroundDisabled"];
         AppWindow.TitleBar.ButtonForegroundColor = ((SolidColorBrush)Application.Current.Resources[_isActived ? "WindowCaptionForeground" : "WindowCaptionForegroundDisabled"]).Color;
     }
 
@@ -158,6 +166,59 @@ public sealed partial class MainWindow : Window
                 }
             }
         }
+    }
+
+    /// <summary>
+    /// Occurs when the TitleBar is loaded
+    /// </summary>
+    /// <param name="sender">object</param>
+    /// <param name="e">RoutedEventArgs</param>
+    private void TitleBar_Loaded(object sender, RoutedEventArgs e) => SetDragRegionForCustomTitleBar();
+
+    /// <summary>
+    /// Occurs when the TitleBar's size is changed
+    /// </summary>
+    /// <param name="sender">object</param>
+    /// <param name="e">RoutedEventArgs</param>
+    private void TitleBar_SizeChanged(object sender, SizeChangedEventArgs e) => SetDragRegionForCustomTitleBar();
+
+    /// <summary>
+    /// Sets the drag region for the TitleBar
+    /// </summary>
+    /// <exception cref="Exception"></exception>
+    private void SetDragRegionForCustomTitleBar()
+    {
+        var hMonitor = Win32Interop.GetMonitorFromDisplayId(DisplayArea.GetFromWindowId(Win32Interop.GetWindowIdFromWindow(_hwnd), DisplayAreaFallback.Primary).DisplayId);
+        var result = GetDpiForMonitor(hMonitor, Monitor_DPI_Type.MDT_Default, out uint dpiX, out uint _);
+        if (result != 0)
+        {
+            throw new Exception("Could not get DPI for monitor.");
+        }
+        var scaleFactorPercent = (uint)(((long)dpiX * 100 + (96 >> 1)) / 96);
+        var scaleAdjustment = scaleFactorPercent / 100.0;
+        RightPaddingColumn.Width = new GridLength(AppWindow.TitleBar.RightInset / scaleAdjustment);
+        LeftPaddingColumn.Width = new GridLength(AppWindow.TitleBar.LeftInset / scaleAdjustment);
+        var dragRectsList = new List<RectInt32>();
+        RectInt32 dragRectL;
+        dragRectL.X = (int)((LeftPaddingColumn.ActualWidth) * scaleAdjustment);
+        dragRectL.Y = 0;
+        dragRectL.Height = (int)(TitleBar.ActualHeight * scaleAdjustment);
+        dragRectL.Width = (int)((IconColumn.ActualWidth
+                                + TitleColumn.ActualWidth
+                                + LeftDragColumn.ActualWidth) * scaleAdjustment);
+        dragRectsList.Add(dragRectL);
+        RectInt32 dragRectR;
+        dragRectR.X = (int)((LeftPaddingColumn.ActualWidth
+                            + IconColumn.ActualWidth
+                            + TitleBarTitle.ActualWidth
+                            + LeftDragColumn.ActualWidth
+                            + MenuBlock.ActualWidth) * scaleAdjustment);
+        dragRectR.Y = 0;
+        dragRectR.Height = (int)(TitleBar.ActualHeight * scaleAdjustment);
+        dragRectR.Width = (int)(RightDragColumn.ActualWidth * scaleAdjustment);
+        dragRectsList.Add(dragRectR);
+        RectInt32[] dragRects = dragRectsList.ToArray();
+        AppWindow.TitleBar.SetDragRectangles(dragRects);
     }
 
     /// <summary>

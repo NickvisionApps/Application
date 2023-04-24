@@ -10,121 +10,122 @@
     xmlns:labs="using:CommunityToolkit.Labs.WinUI"
     mc:Ignorable="d" Activated="Window_Activated">
 
-    <Grid x:Name="MainGrid" RowSpacing="6" AllowDrop="True" ActualThemeChanged="Window_ActualThemeChanged" DragOver="Window_DragOver" Drop="Window_Drop">
+    <Grid x:Name="MainGrid" AllowDrop="True" ActualThemeChanged="Window_ActualThemeChanged" DragOver="Window_DragOver" Drop="Window_Drop">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        
-        <Grid x:Name="TitleBar" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="32">
+
+        <Grid x:Name="TitleBar" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="48" Loaded="TitleBar_Loaded" SizeChanged="TitleBar_SizeChanged">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition x:Name="TitleBarLeftPaddingColumn" Width="0"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition x:Name="TitleBarRightPaddingColumn" Width="0"/>
+                <ColumnDefinition x:Name="LeftPaddingColumn" Width="0"/>
+                <ColumnDefinition x:Name="IconColumn" Width="Auto"/>
+                <ColumnDefinition x:Name="TitleColumn" Width="Auto"/>
+                <ColumnDefinition x:Name="LeftDragColumn" Width="0"/>
+                <ColumnDefinition x:Name="MenuColumn" Width="Auto"/>
+                <ColumnDefinition x:Name="RightDragColumn" Width="*"/>
+                <ColumnDefinition x:Name="RightPaddingColumn" Width="0"/>
             </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="8,0,0,0" Orientation="Horizontal" Spacing="4">
-                <Image x:Name="TitleBarIcon" Width="16" Height="16" Source="../Assets/org.nickvision.application.ico"/>
+            <Image x:Name="TitleBarIcon" Grid.Column="1" Margin="8,0,0,0" Width="16" Height="16" Source="../Assets/org.nickvision.application.ico"/>
 
-                <TextBlock x:Name="TitleBarTitle" Style="{ThemeResource CaptionTextBlockStyle}"/>
+            <TextBlock x:Name="TitleBarTitle" Grid.Column="2" VerticalAlignment="Center" Margin="4,0,0,0" Style="{ThemeResource CaptionTextBlockStyle}"/>
 
-                <TextBlock x:Name="TitlePreview" Margin="10,0,0,0"  Style="{ThemeResource NavigationViewItemHeaderTextStyle}" Foreground="Gray" FontSize="12"/>
+            <StackPanel x:Name="MenuBlock" Grid.Column="4" Margin="4,0,4,0" Orientation="Horizontal" Spacing="4">
+                <MenuBar x:Name="MainMenu">
+                    <MenuBarItem x:Name="MenuFile">
+                        <MenuFlyoutItem x:Name="MenuOpenFolder" Click="OpenFolder">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE197;"/>
+                            </MenuFlyoutItem.Icon>
+
+                            <MenuFlyoutItem.KeyboardAccelerators>
+                                <KeyboardAccelerator Modifiers="Control" Key="O"/>
+                            </MenuFlyoutItem.KeyboardAccelerators>
+                        </MenuFlyoutItem>
+
+                        <MenuFlyoutItem x:Name="MenuCloseFolder" Click="CloseFolder" IsEnabled="False">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8F6;"/>
+                            </MenuFlyoutItem.Icon>
+
+                            <MenuFlyoutItem.KeyboardAccelerators>
+                                <KeyboardAccelerator Modifiers="Control" Key="W"/>
+                            </MenuFlyoutItem.KeyboardAccelerators>
+                        </MenuFlyoutItem>
+
+                        <MenuFlyoutSeparator/>
+
+                        <MenuFlyoutItem x:Name="MenuExit" Click="Exit">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE106;"/>
+                            </MenuFlyoutItem.Icon>
+
+                            <MenuFlyoutItem.KeyboardAccelerators>
+                                <KeyboardAccelerator Modifiers="Menu" Key="F4"/>
+                            </MenuFlyoutItem.KeyboardAccelerators>
+                        </MenuFlyoutItem>
+                    </MenuBarItem>
+
+                    <MenuBarItem x:Name="MenuEdit">
+                        <MenuFlyoutItem x:Name="MenuSettings" Click="Settings">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE713;"/>
+                            </MenuFlyoutItem.Icon>
+
+                            <MenuFlyoutItem.KeyboardAccelerators>
+                                <KeyboardAccelerator Modifiers="Control" Key="K"/>
+                            </MenuFlyoutItem.KeyboardAccelerators>
+                        </MenuFlyoutItem>
+                    </MenuBarItem>
+
+                    <MenuBarItem x:Name="MenuHelp">
+                        <MenuFlyoutItem x:Name="MenuChangelog" Click="Changelog">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEC24;"/>
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+
+                        <MenuFlyoutSeparator/>
+
+                        <MenuFlyoutItem x:Name="MenuGitHubRepo" Click="GitHubRepo">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE1D3;"/>
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+
+                        <MenuFlyoutItem x:Name="MenuReportABug" Click="ReportABug">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEBE8;"/>
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+
+                        <MenuFlyoutItem x:Name="MenuDiscussions" Click="Discussions">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE15F;"/>
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+
+                        <MenuFlyoutSeparator/>
+
+                        <MenuFlyoutItem x:Name="MenuAbout" Click="About">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE946;"/>
+                            </MenuFlyoutItem.Icon>
+
+                            <MenuFlyoutItem.KeyboardAccelerators>
+                                <KeyboardAccelerator Modifiers="None" Key="F1"/>
+                            </MenuFlyoutItem.KeyboardAccelerators>
+                        </MenuFlyoutItem>
+                    </MenuBarItem>
+                </MenuBar>
+
+                <TextBlock x:Name="TitlePreview" VerticalAlignment="Center" Margin="10,0,0,0" Style="{ThemeResource NavigationViewItemHeaderTextStyle}" Foreground="Gray" FontSize="12"/>
             </StackPanel>
         </Grid>
 
-        <wct:DockPanel Grid.Row="1" LastChildFill="False">
-            <MenuBar x:Name="MainMenu" wct:DockPanel.Dock="Left">
-                <MenuBarItem x:Name="MenuFile">
-                    <MenuFlyoutItem x:Name="MenuOpenFolder" Click="OpenFolder">
-                        <MenuFlyoutItem.Icon>
-                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE197;"/>
-                        </MenuFlyoutItem.Icon>
-
-                        <MenuFlyoutItem.KeyboardAccelerators>
-                            <KeyboardAccelerator Modifiers="Control" Key="O"/>
-                        </MenuFlyoutItem.KeyboardAccelerators>
-                    </MenuFlyoutItem>
-
-                    <MenuFlyoutItem x:Name="MenuCloseFolder" Click="CloseFolder" IsEnabled="False">
-                        <MenuFlyoutItem.Icon>
-                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8F6;"/>
-                        </MenuFlyoutItem.Icon>
-
-                        <MenuFlyoutItem.KeyboardAccelerators>
-                            <KeyboardAccelerator Modifiers="Control" Key="W"/>
-                        </MenuFlyoutItem.KeyboardAccelerators>
-                    </MenuFlyoutItem>
-
-                    <MenuFlyoutSeparator/>
-
-                    <MenuFlyoutItem x:Name="MenuExit" Click="Exit">
-                        <MenuFlyoutItem.Icon>
-                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE106;"/>
-                        </MenuFlyoutItem.Icon>
-
-                        <MenuFlyoutItem.KeyboardAccelerators>
-                            <KeyboardAccelerator Modifiers="Menu" Key="F4"/>
-                        </MenuFlyoutItem.KeyboardAccelerators>
-                    </MenuFlyoutItem>
-                </MenuBarItem>
-
-                <MenuBarItem x:Name="MenuEdit">
-                    <MenuFlyoutItem x:Name="MenuSettings" Click="Settings">
-                        <MenuFlyoutItem.Icon>
-                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE713;"/>
-                        </MenuFlyoutItem.Icon>
-
-                        <MenuFlyoutItem.KeyboardAccelerators>
-                            <KeyboardAccelerator Modifiers="Control" Key="K"/>
-                        </MenuFlyoutItem.KeyboardAccelerators>
-                    </MenuFlyoutItem>
-                </MenuBarItem>
-
-                <MenuBarItem x:Name="MenuHelp">
-                    <MenuFlyoutItem x:Name="MenuChangelog" Click="Changelog">
-                        <MenuFlyoutItem.Icon>
-                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEC24;"/>
-                        </MenuFlyoutItem.Icon>
-                    </MenuFlyoutItem>
-
-                    <MenuFlyoutSeparator/>
-
-                    <MenuFlyoutItem x:Name="MenuGitHubRepo" Click="GitHubRepo">
-                        <MenuFlyoutItem.Icon>
-                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE1D3;"/>
-                        </MenuFlyoutItem.Icon>
-                    </MenuFlyoutItem>
-
-                    <MenuFlyoutItem x:Name="MenuReportABug" Click="ReportABug">
-                        <MenuFlyoutItem.Icon>
-                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEBE8;"/>
-                        </MenuFlyoutItem.Icon>
-                    </MenuFlyoutItem>
-
-                    <MenuFlyoutItem x:Name="MenuDiscussions" Click="Discussions">
-                        <MenuFlyoutItem.Icon>
-                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE15F;"/>
-                        </MenuFlyoutItem.Icon>
-                    </MenuFlyoutItem>
-
-                    <MenuFlyoutSeparator/>
-
-                    <MenuFlyoutItem x:Name="MenuAbout" Click="About">
-                        <MenuFlyoutItem.Icon>
-                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE946;"/>
-                        </MenuFlyoutItem.Icon>
-
-                        <MenuFlyoutItem.KeyboardAccelerators>
-                            <KeyboardAccelerator Modifiers="None" Key="F1"/>
-                        </MenuFlyoutItem.KeyboardAccelerators>
-                    </MenuFlyoutItem>
-                </MenuBarItem>
-            </MenuBar>
-        </wct:DockPanel>
-
-        <Grid Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <nickvision:ViewStack x:Name="ViewStack" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="6,0,6,0">
                 <nickvision:ViewStack.Pages>
                     <nickvision:ViewStackPage PageName="Home">
@@ -169,10 +170,10 @@
                 </nickvision:ViewStack.Pages>
             </nickvision:ViewStack>
 
-            <InfoBar x:Name="InfoBar" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+            <InfoBar x:Name="InfoBar" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,6"/>
         </Grid>
 
-        <Border x:Name="StatusBar" Grid.Row="3" HorizontalAlignment="Stretch" Height="36" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
+        <Border x:Name="StatusBar" Grid.Row="2" HorizontalAlignment="Stretch" Margin="0,6,0,0" Height="36" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
             <wct:DockPanel LastChildFill="False">
                 <FontIcon x:Name="IconStatus" wct:DockPanel.Dock="Left" VerticalAlignment="Center" Margin="6,0,10,0" FontFamily="{StaticResource SymbolThemeFontFamily}" FontSize="16" Glyph="&#xE73E;"/>
 
