@@ -254,12 +254,10 @@
 	</data>
 
 	<data name="MetadataDescription.GTK" xml:space="preserve">
-		<value><span>Рецепт Безграничной Мощи:</span>
-		<ul>
-			<li>C#</li>
-			<li>gir.core</li>
-			<li>WinUI</li>
-			<li>Смешать, но не взбалтывать</li>
-		</ul></value>
+		<value>Рецепт Безграничной Мощи:
+— C#
+— gir.core
+— WinUI
+— Смешать, но не взбалтывать</value>
 	</data>
 </root>
