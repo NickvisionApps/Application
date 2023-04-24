@@ -250,11 +250,13 @@ public sealed partial class MainWindow : Window
         {
             IconStatus.Glyph = "\uE8B7";
             ViewStack.ChangePage("Folder");
+            MenuCloseFolder.IsEnabled = true;
         }
         else
         {
             IconStatus.Glyph = "\uE73E";
             ViewStack.ChangePage("Home");
+            MenuCloseFolder.IsEnabled = false;
         }
         LblStatus.Text = _controller.FolderPath;
     }

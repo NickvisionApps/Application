@@ -47,7 +47,7 @@
                         </MenuFlyoutItem.KeyboardAccelerators>
                     </MenuFlyoutItem>
 
-                    <MenuFlyoutItem x:Name="MenuCloseFolder" Click="CloseFolder">
+                    <MenuFlyoutItem x:Name="MenuCloseFolder" Click="CloseFolder" IsEnabled="False">
                         <MenuFlyoutItem.Icon>
                             <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8F6;"/>
                         </MenuFlyoutItem.Icon>
