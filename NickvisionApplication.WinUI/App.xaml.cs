@@ -25,7 +25,7 @@ public partial class App : Application
         //AppInfo
         _mainWindowController.AppInfo.ID = "org.nickvision.application";
         _mainWindowController.AppInfo.Name = "NickvisionApplication";
-        _mainWindowController.AppInfo.ShortName = "Application";
+        _mainWindowController.AppInfo.ShortName = _mainWindowController.Localizer["ShortName"];
         _mainWindowController.AppInfo.Description = $"{_mainWindowController.Localizer["Description"]}.";
         _mainWindowController.AppInfo.Version = "2023.4.0-next";
         _mainWindowController.AppInfo.Changelog = "- Initial Release";
