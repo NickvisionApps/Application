@@ -18,6 +18,11 @@
 
 	<!--Use: &#xA; for newline-->
 
+	<data name="ShortName" xml:space="preserve">
+		<!--Follow guidelines and/or common practices for your language translations to decide whether the app name should be translated/transliterated-->
+		<value>Application</value>
+	</data>
+
 	<data name="Description" xml:space="preserve">
 		<value>Create new Nickvision applications</value>
 	</data>
@@ -260,12 +265,10 @@
 	</data>
 
 	<data name="MetadataDescription.GTK" xml:space="preserve">
-		<value><span>Recipe for the Ultimate Power:</span>
-		<ul>
-			<li>C#</li>
-			<li>gir.core</li>
-			<li>WinUI</li>
-			<li>Shaken, not stirred</li>
-		</ul></value>
+		<value>Recipe for the Ultimate Power:
+— C#
+— gir.core
+— WinUI
+— Shaken, not stirred</value>
 	</data>
 </root>
