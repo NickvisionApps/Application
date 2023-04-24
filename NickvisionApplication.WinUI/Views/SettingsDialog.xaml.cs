@@ -7,10 +7,17 @@ using System.Threading.Tasks;
 
 namespace NickvisionApplication.WinUI.Views;
 
+/// <summary>
+/// A dialog for managing application settings
+/// </summary>
 public sealed partial class SettingsDialog : ContentDialog
 {
     private readonly PreferencesViewController _controller;
 
+    /// <summary>
+    /// Constructs a SettingsDialog
+    /// </summary>
+    /// <param name="controller">PreferencesViewController</param>
     public SettingsDialog(PreferencesViewController controller)
     {
         InitializeComponent();
@@ -30,6 +37,10 @@ public sealed partial class SettingsDialog : ContentDialog
         CmbTheme.SelectedIndex = (int)_controller.Theme;
     }
 
+    /// <summary>
+    /// Shows the dialog
+    /// </summary>
+    /// <returns>ContentDialogResult</returns>
     public new async Task<ContentDialogResult> ShowAsync()
     {
         var result = await base.ShowAsync();

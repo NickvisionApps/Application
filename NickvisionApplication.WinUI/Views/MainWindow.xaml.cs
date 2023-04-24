@@ -75,10 +75,6 @@ public sealed partial class MainWindow : Window
         MenuExit.Text = _controller.Localizer["Exit"];
         MenuEdit.Title = _controller.Localizer["Edit"];
         MenuSettings.Text = _controller.Localizer["Settings"];
-        MenuChangelog.Text = _controller.Localizer["Changelog"];
-        MenuGitHubRepo.Text = _controller.Localizer["GitHubRepo"];
-        MenuReportABug.Text = _controller.Localizer["ReportABug"];
-        MenuDiscussions.Text = _controller.Localizer["Discussions"];
         MenuAbout.Text = string.Format(_controller.Localizer["About"], _controller.AppInfo.ShortName);
         MenuHelp.Title = _controller.Localizer["Help"];
         LblStatus.Text = _controller.Localizer["StatusReady", "WinUI"];
@@ -309,78 +305,14 @@ public sealed partial class MainWindow : Window
     }
 
     /// <summary>
-    /// Occurs when the changelog menu item is clicked
-    /// </summary>
-    /// <param name="sender">object</param>
-    /// <param name="e">RoutedEventArgs</param>
-    private async void Changelog(object sender, RoutedEventArgs e)
-    {
-        var changelogDialog = new ContentDialog()
-        {
-            Title = _controller.Localizer["ChangelogTitle", "WinUI"],
-            Content = _controller.AppInfo.Changelog,
-            CloseButtonText = _controller.Localizer["OK"],
-            DefaultButton = ContentDialogButton.Close,
-            XamlRoot = Content.XamlRoot
-        };
-        await changelogDialog.ShowAsync();
-    }
-
-    /// <summary>
-    /// Occurs when the github repo menu item is clicked
-    /// </summary>
-    /// <param name="sender">object</param>
-    /// <param name="e">RoutedEventArgs</param>
-    private async void GitHubRepo(object sender, RoutedEventArgs e) => await Launcher.LaunchUriAsync(_controller.AppInfo.GitHubRepo);
-
-    /// <summary>
-    /// Occurs when the report a bug menu item is clicked
-    /// </summary>
-    /// <param name="sender">object</param>
-    /// <param name="e">RoutedEventArgs</param>
-    private async void ReportABug(object sender, RoutedEventArgs e) => await Launcher.LaunchUriAsync(_controller.AppInfo.IssueTracker);
-
-    /// <summary>
-    /// Occurs when the discussions menu item is clicked
-    /// </summary>
-    /// <param name="sender">object</param>
-    /// <param name="e">RoutedEventArgs</param>
-    private async void Discussions(object sender, RoutedEventArgs e) => await Launcher.LaunchUriAsync(_controller.AppInfo.SupportUrl);
-
-    /// <summary>
     /// Occurs when the about menu item is clicked
     /// </summary>
     /// <param name="sender">object</param>
     /// <param name="e">RoutedEventArgs</param>
     private async void About(object sender, RoutedEventArgs e)
     {
-        var removeUrlFromCredits = (string s) =>
+        var aboutDialog = new AboutDialog(_controller.AppInfo, _controller.Localizer)
         {
-            var credits = s.Split('\n');
-            var result = "";
-            for (int i = 0; i < credits.Length; i++)
-            {
-                if (credits[i].IndexOf("https://") != -1)
-                {
-                    result += credits[i].Remove(credits[i].IndexOf("https://"));
-                }
-                else if (credits[i].IndexOf("http://") != -1)
-                {
-                    result += credits[i].Remove(credits[i].IndexOf("http://"));
-                }
-                if (i != credits.Length - 1)
-                {
-                    result += "\n";
-                }
-            }
-            return result;
-        };
-        var aboutDialog = new ContentDialog()
-        {
-            Title = string.Format(_controller.Localizer["About"], _controller.AppInfo.ShortName),
-            Content = $"{_controller.AppInfo.Description}\n{string.Format(_controller.Localizer["Version"], _controller.AppInfo.Version)}\n\n{string.Format(_controller.Localizer["CreditsDialogDescription", "WinUI"], removeUrlFromCredits(_controller.Localizer["Developers", "Credits"]), removeUrlFromCredits(_controller.Localizer["Designers", "Credits"]), removeUrlFromCredits(_controller.Localizer["Artists", "Credits"]), removeUrlFromCredits(_controller.Localizer["Translators", "Credits"]))}",
-            CloseButtonText = _controller.Localizer["OK"],
-            DefaultButton = ContentDialogButton.Close,
             XamlRoot = Content.XamlRoot
         };
         await aboutDialog.ShowAsync();

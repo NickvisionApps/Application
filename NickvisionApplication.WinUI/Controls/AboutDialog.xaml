@@ -1,0 +1,25 @@
+<ContentDialog
+    x:Class="NickvisionApplication.WinUI.Controls.AboutDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:NickvisionApplication.WinUI.Controls"
+    xmlns:nickvision="using:NickvisionApplication.WinUI.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:wct="using:CommunityToolkit.WinUI.UI.Controls"
+    xmlns:labs="using:CommunityToolkit.Labs.WinUI"
+    mc:Ignorable="d" Style="{StaticResource DefaultContentDialogStyle}"
+    DefaultButton="Close">
+
+    <StackPanel Orientation="Vertical" Spacing="6">
+        <Image HorizontalAlignment="Center" Width="128" Height="128" Source="../Assets/org.nickvision.application.ico"/>
+
+        <TextBlock HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="16" Text="Nickvision"/>
+
+        <Border HorizontalAlignment="Center" Background="{ThemeResource AccentFillColorDisabledBrush}" CornerRadius="12">
+            <TextBlock x:Name="LblVersion" Margin="6,6,6,6" Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"/>
+        </Border>
+        
+        
+    </StackPanel>
+</ContentDialog>
