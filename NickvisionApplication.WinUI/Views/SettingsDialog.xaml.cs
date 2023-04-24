@@ -19,8 +19,8 @@ public sealed partial class SettingsDialog : ContentDialog
         Title = _controller.Localizer["Settings"];
         PrimaryButtonText = _controller.Localizer["Apply"];
         CloseButtonText = _controller.Localizer["Cancel"];
-        CardUserInterface.Header = _controller.Localizer["UserInterface"];
-        CardUserInterface.Description = _controller.Localizer["UserInterfaceDescription"];
+        LblUserInterface.Text = _controller.Localizer["UserInterface"];
+        LblUserInterfaceDescription.Text = _controller.Localizer["UserInterfaceDescription"];
         CardTheme.Header = _controller.Localizer["Theme"];
         CardTheme.Description = _controller.Localizer["ThemeDescription", "WinUI"];
         CmbTheme.Items.Add(_controller.Localizer["ThemeLight"]);

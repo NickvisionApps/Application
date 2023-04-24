@@ -11,23 +11,19 @@
     mc:Ignorable="d" Style="{StaticResource DefaultContentDialogStyle}"
     DefaultButton="Primary">
 
-    <ScrollViewer>
+    <ScrollViewer MinWidth="520" MinHeight="200">
         <StackPanel Spacing="6">
-            <labs:SettingsExpander x:Name="CardUserInterface">
-                <labs:SettingsExpander.HeaderIcon>
-                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE771;"/>
-                </labs:SettingsExpander.HeaderIcon>
+            <TextBlock x:Name="LblUserInterface" Margin="0,6,0,0" FontWeight="SemiBold"/>
 
-                <labs:SettingsExpander.Items>
-                    <labs:SettingsCard x:Name="CardTheme">
-                        <labs:SettingsCard.HeaderIcon>
-                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE790;"/>
-                        </labs:SettingsCard.HeaderIcon>
+            <TextBlock x:Name="LblUserInterfaceDescription" Foreground="Gray"/>
 
-                        <ComboBox x:Name="CmbTheme"/>
-                    </labs:SettingsCard>
-                </labs:SettingsExpander.Items>
-            </labs:SettingsExpander>
+            <labs:SettingsCard x:Name="CardTheme">
+                <labs:SettingsCard.HeaderIcon>
+                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE790;"/>
+                </labs:SettingsCard.HeaderIcon>
+
+                <ComboBox x:Name="CmbTheme"/>
+            </labs:SettingsCard>
         </StackPanel>
     </ScrollViewer>
 </ContentDialog>
