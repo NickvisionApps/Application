@@ -33,7 +33,7 @@ public sealed partial class SettingsDialog : ContentDialog
     public new async Task<ContentDialogResult> ShowAsync()
     {
         var result = await base.ShowAsync();
-        if(result == ContentDialogResult.Primary)
+        if (result == ContentDialogResult.Primary)
         {
             var needsRestart = false;
             if (_controller.Theme != (Theme)CmbTheme.SelectedIndex)
@@ -42,7 +42,7 @@ public sealed partial class SettingsDialog : ContentDialog
                 needsRestart = true;
             }
             _controller.SaveConfiguration();
-            if(needsRestart)
+            if (needsRestart)
             {
                 var restartDialog = new ContentDialog()
                 {

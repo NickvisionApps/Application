@@ -187,7 +187,7 @@ public sealed partial class MainWindow : Window
     /// <param name="e">EventArgs</param>
     private void FolderChanged(object? sender, EventArgs e)
     {
-        if(Directory.Exists(_controller.FolderPath))
+        if (Directory.Exists(_controller.FolderPath))
         {
             IconStatus.Glyph = "\uE8B7";
             ViewStack.ChangePage("Folder");
