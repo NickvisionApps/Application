@@ -284,6 +284,10 @@
 	<data name="StatusReady.WinUI" xml:space="preserve">
 		<value>Ready</value>
 	</data>
+
+	<data name="CopiedSysInfo.WinUI" xml:space="preserve">
+		<value>Copied to clipboard.</value>
+	</data>
 	
 	<!--GTK Specific-->
 	<data name="MainMenu.GTK" xml:space="preserve">

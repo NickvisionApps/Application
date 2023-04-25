@@ -3,6 +3,8 @@ using Microsoft.UI.Xaml.Controls;
 using NickvisionApplication.Shared.Helpers;
 using NickvisionApplication.Shared.Models;
 using System;
+using System.Globalization;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.System;
 
 namespace NickvisionApplication.WinUI.Controls;
@@ -21,8 +23,15 @@ public sealed partial class AboutDialog : ContentDialog
         //Localize Strings
         Title = string.Format(localizer["About"], _appInfo.ShortName);
         CloseButtonText = localizer["OK"];
+        CardChangelog.Header = localizer["Changelog"];
+        CardGitHubRepo.Header = localizer["GitHubRepo"];
+        CardReportABug.Header = localizer["ReportABug"];
+        CardDiscussions.Header = localizer["Discussions"];
+        InfoBar.Message = localizer["CopiedSysInfo", "WinUI"];
         //Load AppInfo
-        LblVersion.Text = $"V{_appInfo.Version}";
+        LblDescription.Text = _appInfo.Description;
+        LblVersion.Text = _appInfo.Version;
+        CardLblChangelog.Header = _appInfo.Changelog;
     }
 
     /// <summary>
@@ -53,21 +62,34 @@ public sealed partial class AboutDialog : ContentDialog
     }
 
     /// <summary>
-    /// Occurs when the github repo menu item is clicked
+    /// Occurs when the version button is clicked
+    /// </summary>
+    /// <param name="sender">object</param>
+    /// <param name="e">RoutedEventArgs</param>
+    private void CopySystemInformation(object sender, RoutedEventArgs e)
+    {
+        var dataPackage = new DataPackage();
+        dataPackage.SetText($"{_appInfo.ID}\n{_appInfo.Version}\n\n{System.Environment.OSVersion}\n{CultureInfo.CurrentCulture.Name}");
+        Clipboard.SetContent(dataPackage);
+        InfoBar.IsOpen = true;
+    }
+
+    /// <summary>
+    /// Occurs when the github repo button is clicked
     /// </summary>
     /// <param name="sender">object</param>
     /// <param name="e">RoutedEventArgs</param>
     private async void GitHubRepo(object sender, RoutedEventArgs e) => await Launcher.LaunchUriAsync(_appInfo.GitHubRepo);
 
     /// <summary>
-    /// Occurs when the report a bug menu item is clicked
+    /// Occurs when the report a bug button is clicked
     /// </summary>
     /// <param name="sender">object</param>
     /// <param name="e">RoutedEventArgs</param>
     private async void ReportABug(object sender, RoutedEventArgs e) => await Launcher.LaunchUriAsync(_appInfo.IssueTracker);
 
     /// <summary>
-    /// Occurs when the discussions menu item is clicked
+    /// Occurs when the discussions button is clicked
     /// </summary>
     /// <param name="sender">object</param>
     /// <param name="e">RoutedEventArgs</param>

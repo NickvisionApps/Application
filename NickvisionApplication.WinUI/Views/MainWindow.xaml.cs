@@ -15,7 +15,6 @@ using Windows.ApplicationModel.DataTransfer;
 using Windows.Graphics;
 using Windows.Storage;
 using Windows.Storage.Pickers;
-using Windows.System;
 using WinRT.Interop;
 
 namespace NickvisionApplication.WinUI.Views;
@@ -66,7 +65,7 @@ public sealed partial class MainWindow : Window
         AppWindow.SetIcon(@"Assets\org.nickvision.application.ico");
         SystemBackdrop = new MicaBackdrop();
         //Window Sizing
-        AppWindow.Resize(new SizeInt32(800, 600));
+        AppWindow.Resize(new SizeInt32(900, 700));
         User32.ShowWindow(_hwnd, ShowWindowCommand.SW_SHOWMAXIMIZED);
         //Localize Strings
         MenuFile.Title = _controller.Localizer["File"];

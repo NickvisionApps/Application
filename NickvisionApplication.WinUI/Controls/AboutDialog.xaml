@@ -11,15 +11,65 @@
     mc:Ignorable="d" Style="{StaticResource DefaultContentDialogStyle}"
     DefaultButton="Close">
 
-    <StackPanel Orientation="Vertical" Spacing="6">
-        <Image HorizontalAlignment="Center" Width="128" Height="128" Source="../Assets/org.nickvision.application.ico"/>
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Orientation="Vertical" Spacing="3">
+            <StackPanel Orientation="Horizontal" Spacing="6">
+                <Image Width="128" Height="128" Source="../Assets/org.nickvision.application.ico"/>
 
-        <TextBlock HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="16" Text="Nickvision"/>
+                <StackPanel VerticalAlignment="Center" Orientation="Vertical" Spacing="6">
+                    <TextBlock x:Name="LblDescription" Margin="4,0,0,0" FontWeight="SemiBold" FontSize="16"/>
 
-        <Border HorizontalAlignment="Center" Background="{ThemeResource AccentFillColorDisabledBrush}" CornerRadius="12">
-            <TextBlock x:Name="LblVersion" Margin="6,6,6,6" Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"/>
-        </Border>
-        
-        
-    </StackPanel>
+                    <TextBlock Margin="4,0,0,0" Foreground="Gray" Text="© Nickvision 2021-2023"/>
+
+                    <Button Style="{ThemeResource AccentButtonStyle}" CornerRadius="12" Click="CopySystemInformation">
+                        <Button.Content>
+                            <TextBlock x:Name="LblVersion"/>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+
+            <labs:SettingsExpander x:Name="CardChangelog" Margin="0,9,0,0">
+                <labs:SettingsExpander.HeaderIcon>
+                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEC24;"/>
+                </labs:SettingsExpander.HeaderIcon>
+
+                <labs:SettingsExpander.Items>
+                    <labs:SettingsCard x:Name="CardLblChangelog"/>
+                </labs:SettingsExpander.Items>
+            </labs:SettingsExpander>
+
+            <labs:SettingsCard x:Name="CardGitHubRepo" IsClickEnabled="True" Click="GitHubRepo">
+                <labs:SettingsCard.HeaderIcon>
+                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8F1;"/>
+                </labs:SettingsCard.HeaderIcon>
+
+                <labs:SettingsCard.ActionIcon>
+                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8A7;"/>
+                </labs:SettingsCard.ActionIcon>
+            </labs:SettingsCard>
+
+            <labs:SettingsCard x:Name="CardReportABug" IsClickEnabled="True" Click="ReportABug">
+                <labs:SettingsCard.HeaderIcon>
+                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEBE8;"/>
+                </labs:SettingsCard.HeaderIcon>
+
+                <labs:SettingsCard.ActionIcon>
+                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8A7;"/>
+                </labs:SettingsCard.ActionIcon>
+            </labs:SettingsCard>
+
+            <labs:SettingsCard x:Name="CardDiscussions" IsClickEnabled="True" Click="Discussions">
+                <labs:SettingsCard.HeaderIcon>
+                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8F2;"/>
+                </labs:SettingsCard.HeaderIcon>
+
+                <labs:SettingsCard.ActionIcon>
+                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8A7;"/>
+                </labs:SettingsCard.ActionIcon>
+            </labs:SettingsCard>
+
+            <InfoBar x:Name="InfoBar" Margin="0,3,0,0" Severity="Success"/>
+        </StackPanel>
+    </ScrollViewer>
 </ContentDialog>

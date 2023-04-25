@@ -10,10 +10,20 @@
     xmlns:labs="using:CommunityToolkit.Labs.WinUI"
     mc:Ignorable="d" Style="{StaticResource DefaultContentDialogStyle}"
     DefaultButton="Primary">
-
+    
+    <ContentDialog.Resources>
+        <Style x:Key="SettingsSectionHeaderTextBlockStyle"
+               BasedOn="{StaticResource BodyStrongTextBlockStyle}"
+               TargetType="TextBlock">
+            <Style.Setters>
+                <Setter Property="Margin" Value="1,29,0,5" />
+            </Style.Setters>
+        </Style>
+    </ContentDialog.Resources>
+    
     <ScrollViewer MinWidth="520" MinHeight="200">
         <StackPanel Spacing="6">
-            <TextBlock x:Name="LblUserInterface" Margin="0,6,0,0" FontWeight="SemiBold"/>
+            <TextBlock x:Name="LblUserInterface" Margin="0,6,0,0" Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"/>
 
             <TextBlock x:Name="LblUserInterfaceDescription" Foreground="Gray"/>
 
