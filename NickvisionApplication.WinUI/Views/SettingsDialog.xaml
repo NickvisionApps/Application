@@ -21,13 +21,13 @@
         </Style>
     </ContentDialog.Resources>
     
-    <ScrollViewer MinWidth="520" MinHeight="200" VerticalScrollBarVisibility="Auto">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel Spacing="6">
             <TextBlock x:Name="LblUserInterface" Margin="0,6,0,0" Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"/>
 
             <TextBlock x:Name="LblUserInterfaceDescription" Foreground="Gray"/>
 
-            <labs:SettingsCard x:Name="CardTheme">
+            <labs:SettingsCard x:Name="CardTheme" MinWidth="540">
                 <labs:SettingsCard.HeaderIcon>
                     <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE790;"/>
                 </labs:SettingsCard.HeaderIcon>
