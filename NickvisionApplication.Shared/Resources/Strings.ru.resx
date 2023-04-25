@@ -102,7 +102,22 @@
 	</data>
 
 	<data name="Close" xml:space="preserve">
+		<!--Mostly used in GNOME-->
 		<value>Закрыть</value>
+	</data>
+
+	<data name="Exit" xml:space="preserve">
+		<!--Mostly used in WinUI-->
+		<value>Выход</value>
+	</data>
+
+	<data name="Quit" xml:space="preserve">
+		<!--Mostly used in GNOME-->
+		<value>Выход</value>
+	</data>
+
+	<data name="Apply" xml:space="preserve">
+		<value>Применить</value>
 	</data>
 
 	<!--Pages-->
@@ -128,11 +143,19 @@
 		<value>Сочетания клавиш</value>
 	</data>
 
-	<data name="Quit" xml:space="preserve">
-		<value>Выход</value>
+	<!--MainWindow-->
+	<data name="File" xml:space="preserve">
+		<value>Файл</value>
 	</data>
 
-	<!--MainWindow-->
+	<data name="Edit" xml:space="preserve">
+		<value>Правка</value>
+	</data>
+
+	<data name="Help" xml:space="preserve">
+		<value>Помощь</value>
+	</data>
+
 	<data name="OpenFolder" xml:space="preserve">
 		<value>Открыть папку</value>
 	</data>
@@ -251,6 +274,14 @@
 
 	<data name="Preview.WinUI" xml:space="preserve">
 		<value>ПРЕДВАРИТЕЛЬНАЯ ВЕРСИЯ</value>
+	</data>
+
+	<data name="StatusReady.WinUI" xml:space="preserve">
+		<value>Готово</value>
+	</data>
+
+	<data name="CopiedSysInfo.WinUI" xml:space="preserve">
+		<value>Отладочная информация скопирована в буфер обмена.</value>
 	</data>
 
 	<!--GTK Specific-->

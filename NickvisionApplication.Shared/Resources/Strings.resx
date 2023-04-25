@@ -112,6 +112,7 @@
 	</data>
 
 	<data name="Quit" xml:space="preserve">
+		<!--Mostly used in GNOME-->
 		<value>Quit</value>
 	</data>
 
