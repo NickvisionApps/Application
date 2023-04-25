@@ -286,7 +286,7 @@
 	</data>
 
 	<data name="CopiedSysInfo.WinUI" xml:space="preserve">
-		<value>Copied to clipboard.</value>
+		<value>Copied debug info to clipboard.</value>
 	</data>
 	
 	<!--GTK Specific-->
