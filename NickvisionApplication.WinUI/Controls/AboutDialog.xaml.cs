@@ -21,7 +21,7 @@ public sealed partial class AboutDialog : ContentDialog
         InitializeComponent();
         _appInfo = appInfo;
         //Localize Strings
-        Title = string.Format(localizer["About"], _appInfo.ShortName);
+        Title = _appInfo.ShortName;
         CloseButtonText = localizer["OK"];
         CardChangelog.Header = localizer["Changelog"];
         CardGitHubRepo.Header = localizer["GitHubRepo"];
