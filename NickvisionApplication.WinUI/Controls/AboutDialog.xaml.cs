@@ -62,6 +62,13 @@ public sealed partial class AboutDialog : ContentDialog
     }
 
     /// <summary>
+    /// Occurs when the ScrollViewer's size is changed
+    /// </summary>
+    /// <param name="sender">object</param>
+    /// <param name="e">SizeChangedEventArgs</param>
+    private void ScrollViewer_SizeChanged(object sender, SizeChangedEventArgs e) => StackPanel.Margin = new Thickness(0, 0, ScrollViewer.ComputedVerticalScrollBarVisibility == Visibility.Visible ? 14 : 0, 0);
+
+    /// <summary>
     /// Occurs when the version button is clicked
     /// </summary>
     /// <param name="sender">object</param>

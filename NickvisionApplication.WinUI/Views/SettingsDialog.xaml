@@ -20,9 +20,9 @@
             </Style.Setters>
         </Style>
     </ContentDialog.Resources>
-    
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel Spacing="6">
+
+    <ScrollViewer x:Name="ScrollViewer" VerticalScrollBarVisibility="Auto" SizeChanged="ScrollViewer_SizeChanged">
+        <StackPanel x:Name="StackPanel" Spacing="6">
             <TextBlock x:Name="LblUserInterface" Margin="0,6,0,0" Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"/>
 
             <TextBlock x:Name="LblUserInterfaceDescription" Foreground="Gray"/>

@@ -1,3 +1,4 @@
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.Windows.AppLifecycle;
 using NickvisionApplication.Shared.Controllers;
@@ -73,4 +74,11 @@ public sealed partial class SettingsDialog : ContentDialog
         }
         return result;
     }
+
+    /// <summary>
+    /// Occurs when the ScrollViewer's size is changed
+    /// </summary>
+    /// <param name="sender">object</param>
+    /// <param name="e">SizeChangedEventArgs</param>
+    private void ScrollViewer_SizeChanged(object sender, SizeChangedEventArgs e) => StackPanel.Margin = new Thickness(0, 0, ScrollViewer.ComputedVerticalScrollBarVisibility == Visibility.Visible ? 14 : 0, 0);
 }

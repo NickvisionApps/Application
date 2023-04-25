@@ -11,8 +11,8 @@
     mc:Ignorable="d" Style="{StaticResource DefaultContentDialogStyle}"
     DefaultButton="Close">
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel Orientation="Vertical" Spacing="3">
+    <ScrollViewer x:Name="ScrollViewer" VerticalScrollBarVisibility="Auto" SizeChanged="ScrollViewer_SizeChanged">
+        <StackPanel x:Name="StackPanel" Orientation="Vertical" Spacing="3">
             <StackPanel Orientation="Horizontal" Spacing="6">
                 <Image Width="128" Height="128" Source="../Assets/org.nickvision.application.ico"/>
 
