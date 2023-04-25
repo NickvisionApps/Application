@@ -3,8 +3,11 @@ using NickvisionApplication.GNOME.Helpers;
 using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.Shared.Events;
 using System;
+using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace NickvisionApplication.GNOME.Views;
 
@@ -248,12 +251,47 @@ public partial class MainWindow : Adw.ApplicationWindow
     /// <param name="e">EventArgs</param>
     private void About(Gio.SimpleAction sender, EventArgs e)
     {
+        var debugInfo = new StringBuilder();
+        debugInfo.AppendLine(_controller.AppInfo.ID);
+        debugInfo.AppendLine(_controller.AppInfo.Version);
+        debugInfo.AppendLine($"GTK {Gtk.Functions.GetMajorVersion()}.{Gtk.Functions.GetMinorVersion()}.{Gtk.Functions.GetMicroVersion()}");
+        debugInfo.AppendLine($"libadwaita {Adw.Functions.GetMajorVersion()}.{Adw.Functions.GetMinorVersion()}.{Adw.Functions.GetMicroVersion()}");
+        if (File.Exists("/.flatpak-info"))
+        {
+            debugInfo.AppendLine("Flatpak");
+        }
+        else if (!String.IsNullOrEmpty(Environment.GetEnvironmentVariable("SNAP")))
+        {
+            debugInfo.AppendLine("Snap");
+        }
+        debugInfo.AppendLine(CultureInfo.CurrentCulture.ToString());
+        var localeProcess = new Process
+        {
+            StartInfo = new ProcessStartInfo
+            {
+                FileName = "locale",
+                UseShellExecute = false,
+                RedirectStandardOutput = true
+            }
+        };
+        try
+        {
+            localeProcess.Start();
+            var localeString = localeProcess.StandardOutput.ReadToEnd().Trim();
+            localeProcess.WaitForExit();
+            debugInfo.AppendLine(localeString);
+        }
+        catch
+        {
+            debugInfo.AppendLine("Unknown locale");
+        }
         var dialog = Adw.AboutWindow.New();
         dialog.SetTransientFor(this);
         dialog.SetIconName(_controller.AppInfo.ID);
         dialog.SetApplicationName(_controller.AppInfo.ShortName);
         dialog.SetApplicationIcon(_controller.AppInfo.ID + (_controller.AppInfo.GetIsDevelVersion() ? "-devel" : ""));
         dialog.SetVersion(_controller.AppInfo.Version);
+        dialog.SetDebugInfo(debugInfo.ToString());
         dialog.SetComments(_controller.AppInfo.Description);
         dialog.SetDeveloperName("Nickvision");
         dialog.SetLicenseType(Gtk.License.MitX11);
