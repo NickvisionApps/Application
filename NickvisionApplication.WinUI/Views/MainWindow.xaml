@@ -32,7 +32,7 @@
 
             <TextBlock x:Name="TitleBarTitle" Grid.Column="2" VerticalAlignment="Center" Margin="4,0,0,0" Style="{ThemeResource CaptionTextBlockStyle}"/>
 
-            <StackPanel x:Name="MenuBlock" Grid.Column="4" Margin="4,0,4,0" Orientation="Horizontal" Spacing="4">
+            <StackPanel Grid.Column="4" Margin="4,0,4,0" Orientation="Horizontal" Spacing="4">
                 <MenuBar x:Name="MainMenu">
                     <MenuBarItem x:Name="MenuFile">
                         <MenuFlyoutItem x:Name="MenuOpenFolder" Click="OpenFolder">

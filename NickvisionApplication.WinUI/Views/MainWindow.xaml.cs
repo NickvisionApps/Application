@@ -207,7 +207,7 @@ public sealed partial class MainWindow : Window
                             + IconColumn.ActualWidth
                             + TitleBarTitle.ActualWidth
                             + LeftDragColumn.ActualWidth
-                            + MenuBlock.ActualWidth) * scaleAdjustment);
+                            + MainMenu.ActualWidth) * scaleAdjustment);
         dragRectR.Y = 0;
         dragRectR.Height = (int)(TitleBar.ActualHeight * scaleAdjustment);
         dragRectR.Width = (int)(RightDragColumn.ActualWidth * scaleAdjustment);
