@@ -124,9 +124,10 @@
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
 
-                            <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="8">
+                            <Border Grid.Row="0" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="8">
                                 <CommandBar HorizontalAlignment="Left" DefaultLabelPosition="Right">
                                     <CommandBar.PrimaryCommands>
                                         <AppBarButton x:Name="BtnCloseFolder" Click="CloseFolder">
@@ -137,6 +138,12 @@
                                     </CommandBar.PrimaryCommands>
                                 </CommandBar>
                             </Border>
+                            
+                            <ScrollViewer Grid.Row="1" HorizontalAlignment="Stretch" VerticalScrollBarVisibility="Auto">
+                                <Grid>
+                                    
+                                </Grid>
+                            </ScrollViewer>
                         </Grid>
                     </nickvision:ViewStackPage>
                 </nickvision:ViewStack.Pages>
