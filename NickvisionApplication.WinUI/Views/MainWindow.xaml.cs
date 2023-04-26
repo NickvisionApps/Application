@@ -298,7 +298,8 @@ public sealed partial class MainWindow : Window
     {
         var preferencesDialog = new SettingsDialog(_controller.CreatePreferencesViewController())
         {
-            XamlRoot = Content.XamlRoot
+            XamlRoot = Content.XamlRoot,
+            RequestedTheme = MainMenu.RequestedTheme
         };
         await preferencesDialog.ShowAsync();
     }
@@ -312,7 +313,8 @@ public sealed partial class MainWindow : Window
     {
         var aboutDialog = new AboutDialog(_controller.AppInfo, _controller.Localizer)
         {
-            XamlRoot = Content.XamlRoot
+            XamlRoot = Content.XamlRoot,
+            RequestedTheme = MainMenu.RequestedTheme
         };
         await aboutDialog.ShowAsync();
     }
