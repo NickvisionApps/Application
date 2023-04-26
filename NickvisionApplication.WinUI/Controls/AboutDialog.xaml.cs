@@ -33,7 +33,12 @@ public sealed partial class AboutDialog : ContentDialog
         LblDescription.Text = _appInfo.Description;
         LblVersion.Text = _appInfo.Version;
         CardLblChangelog.Header = _appInfo.Changelog;
-        CardLblCredits.Header = string.Format(localizer["CreditsDialogDescription", "WinUI"], RemoveUrlFromCredits(localizer["Developers", "Credits"]), RemoveUrlFromCredits(localizer["Designers", "Credits"]), RemoveUrlFromCredits(localizer["Artists", "Credits"]), RemoveUrlFromCredits(localizer["Translators", "Credits"]));
+        var credits = string.Format(localizer["CreditsDialogDescription", "WinUI"], RemoveUrlFromCredits(localizer["Developers", "Credits"]), RemoveUrlFromCredits(localizer["Designers", "Credits"]), RemoveUrlFromCredits(localizer["Artists", "Credits"]), RemoveUrlFromCredits(localizer["Translators", "Credits"]));
+        if (string.IsNullOrEmpty(localizer["Translators", "Credits"]))
+        {
+            credits = credits.Remove(credits.TrimEnd().LastIndexOf('\n'));
+        }
+        CardLblCredits.Header = credits;
     }
 
     /// <summary>
@@ -61,16 +66,6 @@ public sealed partial class AboutDialog : ContentDialog
             }
         }
         return string.IsNullOrEmpty(result) ? s : result;
-    }
-
-    /// <summary>
-    /// Occurs when the ContentDialog's size is changed
-    /// </summary>
-    /// <param name="sender">object</param>
-    /// <param name="e">SizeChangedEventArgs</param>
-    private void ContentDialog_SizeChanged(object sender, SizeChangedEventArgs e)
-    {
-        LblDescription.Text = e.NewSize.ToString();
     }
 
     /// <summary>
