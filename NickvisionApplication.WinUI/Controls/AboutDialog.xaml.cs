@@ -27,11 +27,13 @@ public sealed partial class AboutDialog : ContentDialog
         CardGitHubRepo.Header = localizer["GitHubRepo"];
         CardReportABug.Header = localizer["ReportABug"];
         CardDiscussions.Header = localizer["Discussions"];
+        CardCredits.Header = localizer["Credits"];
         InfoBar.Message = localizer["CopiedSysInfo", "WinUI"];
         //Load AppInfo
         LblDescription.Text = _appInfo.Description;
         LblVersion.Text = _appInfo.Version;
         CardLblChangelog.Header = _appInfo.Changelog;
+        CardLblCredits.Header = string.Format(localizer["CreditsDialogDescription", "WinUI"], RemoveUrlFromCredits(localizer["Developers", "Credits"]), RemoveUrlFromCredits(localizer["Designers", "Credits"]), RemoveUrlFromCredits(localizer["Artists", "Credits"]), RemoveUrlFromCredits(localizer["Translators", "Credits"]));
     }
 
     /// <summary>
@@ -58,7 +60,17 @@ public sealed partial class AboutDialog : ContentDialog
                 result += "\n";
             }
         }
-        return result;
+        return string.IsNullOrEmpty(result) ? s : result;
+    }
+
+    /// <summary>
+    /// Occurs when the ContentDialog's size is changed
+    /// </summary>
+    /// <param name="sender">object</param>
+    /// <param name="e">SizeChangedEventArgs</param>
+    private void ContentDialog_SizeChanged(object sender, SizeChangedEventArgs e)
+    {
+        LblDescription.Text = e.NewSize.ToString();
     }
 
     /// <summary>

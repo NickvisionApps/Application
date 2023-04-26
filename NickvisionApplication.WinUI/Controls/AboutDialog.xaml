@@ -69,6 +69,16 @@
                 </labs:SettingsCard.ActionIcon>
             </labs:SettingsCard>
 
+            <labs:SettingsExpander x:Name="CardCredits">
+                <labs:SettingsExpander.HeaderIcon>
+                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE125;"/>
+                </labs:SettingsExpander.HeaderIcon>
+
+                <labs:SettingsExpander.Items>
+                    <labs:SettingsCard x:Name="CardLblCredits"/>
+                </labs:SettingsExpander.Items>
+            </labs:SettingsExpander>
+
             <InfoBar x:Name="InfoBar" Margin="0,3,0,0" Severity="Success"/>
         </StackPanel>
     </ScrollViewer>
