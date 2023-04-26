@@ -13,11 +13,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Controls\AboutDialog.xaml" />
     <None Remove="Controls\ActionRow.xaml" />
     <None Remove="Controls\StatusPage.xaml" />
     <None Remove="Controls\ViewStack.xaml" />
     <None Remove="Controls\ViewStackPage.xaml" />
-    <None Remove="Views\PreferencesPage.xaml" />
+    <None Remove="Views\SettingsDialog.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -54,12 +55,17 @@
 	  <Resource Include="Assets\org.nickvision.application.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Controls\ActionRow.xaml">
+    <Page Update="Controls\AboutDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Views\PreferencesPage.xaml">
+    <Page Update="Views\SettingsDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\ActionRow.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

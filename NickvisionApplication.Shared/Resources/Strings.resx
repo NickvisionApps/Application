@@ -102,7 +102,22 @@
 	</data>
 
 	<data name="Close" xml:space="preserve">
+		<!--Mostly used in GNOME-->
 		<value>Close</value>
+	</data>
+
+	<data name="Exit" xml:space="preserve">
+		<!--Mostly used in WinUI-->
+		<value>Exit</value>
+	</data>
+
+	<data name="Quit" xml:space="preserve">
+		<!--Mostly used in GNOME-->
+		<value>Quit</value>
+	</data>
+
+	<data name="Apply" xml:space="preserve">
+		<value>Apply</value>
 	</data>
 	
 	<!--Pages-->
@@ -128,11 +143,19 @@
 		<value>Keyboard Shortcuts</value>
 	</data>
 
-	<data name="Quit" xml:space="preserve">
-		<value>Quit</value>
+	<!--MainWindow-->
+	<data name="File" xml:space="preserve">
+		<value>File</value>
+	</data>
+	
+	<data name="Edit" xml:space="preserve">
+		<value>Edit</value>
+	</data>
+	
+	<data name="Help" xml:space="preserve">
+		<value>Help</value>
 	</data>
 
-	<!--MainWindow-->
 	<data name="OpenFolder" xml:space="preserve">
 		<value>Open Folder</value>
 	</data>
@@ -257,6 +280,14 @@
 	
 	<data name="RestartThemeDescription.WinUI" xml:space="preserve">
 		<value>Would you like to restart {0} to apply the new theme?&#xA;Any unsaved work will be lost.</value>
+	</data>
+
+	<data name="StatusReady.WinUI" xml:space="preserve">
+		<value>Ready</value>
+	</data>
+
+	<data name="CopiedSysInfo.WinUI" xml:space="preserve">
+		<value>Copied debug info to clipboard.</value>
 	</data>
 	
 	<!--GTK Specific-->
