@@ -149,7 +149,11 @@
                 </nickvision:ViewStack.Pages>
             </nickvision:ViewStack>
 
-            <InfoBar x:Name="InfoBar" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,6"/>
+            <InfoBar x:Name="InfoBar" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,6" CornerRadius="12">
+                <InfoBar.ActionButton>
+                    <Button x:Name="BtnInfoBar" HorizontalAlignment="Right"/>
+                </InfoBar.ActionButton>
+            </InfoBar>
         </Grid>
 
         <Border x:Name="StatusBar" Grid.Row="2" HorizontalAlignment="Stretch" Margin="0,6,0,0" Height="36" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
