@@ -130,7 +130,7 @@ public class MainWindowController : IDisposable
         if (Directory.Exists(folderPath))
         {
             FolderPath = folderPath;
-            NotificationSent?.Invoke(this, new NotificationSentEventArgs(string.Format(Localizer["FolderOpened"], FolderPath), NotificationSeverity.Success));
+            NotificationSent?.Invoke(this, new NotificationSentEventArgs(string.Format(Localizer["FolderOpened"], FolderPath), NotificationSeverity.Success, "close"));
             FolderChanged?.Invoke(this, EventArgs.Empty);
             return true;
         }

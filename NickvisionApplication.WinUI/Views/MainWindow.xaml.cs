@@ -3,6 +3,8 @@ using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
+using Microsoft.Windows.AppNotifications;
+using Microsoft.Windows.AppNotifications.Builder;
 using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.Shared.Events;
 using NickvisionApplication.WinUI.Controls;
@@ -27,6 +29,7 @@ public sealed partial class MainWindow : Window
     private readonly MainWindowController _controller;
     private readonly IntPtr _hwnd;
     private bool _isActived;
+    private RoutedEventHandler? _notificationButtonClickEvent;
 
     private enum Monitor_DPI_Type : int
     {
@@ -233,7 +236,28 @@ public sealed partial class MainWindow : Window
             NotificationSeverity.Error => InfoBarSeverity.Error,
             _ => InfoBarSeverity.Informational
         };
+        if (_notificationButtonClickEvent != null)
+        {
+            BtnInfoBar.Click -= _notificationButtonClickEvent;
+        }
+        BtnInfoBar.Visibility = !string.IsNullOrEmpty(e.Action) ? Visibility.Visible : Visibility.Collapsed;
+        if (e.Action == "close")
+        {
+            BtnInfoBar.Content = _controller.Localizer["Close"];
+            _notificationButtonClickEvent = (sender, ex) => _controller.CloseFolder();
+            BtnInfoBar.Click += _notificationButtonClickEvent;
+        }
         InfoBar.IsOpen = true;
+    }
+
+    /// <summary>
+    /// Sends a shell notification
+    /// </summary>
+    /// <param name="e">ShellNotificationSentEventArgs</param>
+    private void SendShellNotification(ShellNotificationSentEventArgs e)
+    {
+        var notificationBuilder = new AppNotificationBuilder().AddText(e.Title, new AppNotificationTextProperties().SetMaxLines(1)).AddText(e.Message);
+        AppNotificationManager.Default.Show(notificationBuilder.BuildNotification());
     }
 
     /// <summary>
