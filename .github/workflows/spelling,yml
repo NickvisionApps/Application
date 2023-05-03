@@ -4,8 +4,6 @@ on:
   pull_request:
     branches: [ "main" ]
     types: [ "review_requested", "ready_for_review" ]
-  schedule:
-    - cron: '21 11 * * 0'
 name: Spell Check
 jobs:
   codespell:
