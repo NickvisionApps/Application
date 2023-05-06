@@ -59,6 +59,11 @@ public class MainWindowController : IDisposable
     }
 
     /// <summary>
+    /// Finalizes the MainWindowController
+    /// </summary>
+    ~MainWindowController() => Dispose(false);
+
+    /// <summary>
     /// Whether or not to show a sun icon on the home page
     /// </summary>
     public bool ShowSun
