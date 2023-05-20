@@ -194,7 +194,6 @@ You may also build the app manually without using flatpak. List of dependencies:
 - libadwaita >=1.2
 - [just](https://github.com/casey/just) (build only)
 - blueprint-compiler, GTK and libadwaita development files (build only)
-- python3 (build only)
 - glib-compile-resources (build only)
 
 Navigate to `NickvisionApplication.GNOME` and use one of the commands to build the app:
