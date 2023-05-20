@@ -61,6 +61,11 @@ Adw.ApplicationWindow _root {
           name: "Folder";
           child: Gtk.Box {
             orientation: vertical;
+
+            Gtk.Label _filesLabel {
+              hexpand: true;
+              vexpand: true;
+            }
           };
         }
       }

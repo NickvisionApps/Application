@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-20 19:08+0300\n"
+"POT-Creation-Date: 2023-05-20 21:21+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,19 +16,43 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: ../../../Controllers/MainWindowController.cs:76
-msgid "Good Afternoon!"
+#: ../../../Controllers/MainWindowController.cs:77
+msgid "Good Evening!"
 msgstr ""
 
-#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:143
-#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:236
-msgid "Close"
+#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:337
+msgid ""
+"Nicholas Logozzo https://github.com/nlogozzo\n"
+"Contributors on GitHub ❤️ https://github.com/NickvisionApps/Application/"
+"graphs/contributors"
 msgstr ""
 
-#: ../../../Controllers/MainWindowController.cs:75
-msgctxt "Morning"
+#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:238
+msgid "Are you sure you want to close the folder?"
+msgstr ""
+
+#: ../../../Controllers/MainWindowController.cs:74
+msgctxt "Night"
 msgid "Good Morning!"
+msgstr ""
+
+#: ../../../../NickvisionApplication.GNOME/Program.cs:50
+#: org.nickvision.application.desktop:5
+#: org.nickvision.application.metainfo.xml:8
+msgid "Create new Nickvision applications"
+msgstr ""
+
+#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:225
+#, csharp-format
+msgid "There is {0} file in the folder."
+msgid_plural "There are {0} files in the folder."
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:73
+msgid "No Folder Opened"
 msgstr ""
 
 #: ../../../Controllers/MainWindowController.cs:99
@@ -36,18 +60,22 @@ msgstr ""
 msgid "Folder Opened: {0}"
 msgstr ""
 
-#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:337
-msgid "Nicholas Logozzo https://github.com/nlogozzo"
+#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:144
+#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:238
+msgid "Close"
 msgstr ""
 
-#: ../../../../NickvisionApplication.GNOME/Program.cs:49
-#: org.nickvision.application.desktop:4
-#: org.nickvision.application.metainfo.xml:6
-msgid "Application"
+#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:217
+#: Blueprints/shortcuts_dialog.blp:17
+msgid "Open Folder"
 msgstr ""
 
-#: ../../../Controllers/MainWindowController.cs:77
-msgid "Good Evening!"
+#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:238
+msgid "Cancel"
+msgstr ""
+
+#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:340
+msgid "translator-credits"
 msgstr ""
 
 #: ../../../Controllers/MainWindowController.cs:112
@@ -58,53 +86,33 @@ msgstr ""
 msgid "Good Day!"
 msgstr ""
 
-#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:338
-msgid "translator-credits"
-msgstr ""
-
-#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:236
-msgid "Close Folder?"
-msgstr ""
-
-#: ../../../Controllers/MainWindowController.cs:74
-msgctxt "Night"
+#: ../../../Controllers/MainWindowController.cs:75
+msgctxt "Morning"
 msgid "Good Morning!"
 msgstr ""
 
-#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:335
-msgid ""
-"Nicholas Logozzo https://github.com/nlogozzo\n"
-"Contributors on GitHub ❤️ https://github.com/NickvisionApps/Application/"
-"graphs/contributors"
+#: ../../../Controllers/MainWindowController.cs:76
+msgid "Good Afternoon!"
 msgstr ""
 
-#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:216
-#: Blueprints/shortcuts_dialog.blp:17
-msgid "Open Folder"
+#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:238
+msgid "Close Folder?"
 msgstr ""
 
-#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:236
-msgid "Cancel"
+#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:339
+msgid "Nicholas Logozzo https://github.com/nlogozzo"
 msgstr ""
 
-#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:72
-msgid "No Folder Opened"
-msgstr ""
-
-#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:236
-msgid "Are you sure you want to close the folder?"
-msgstr ""
-
-#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:336
+#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:338
 msgid ""
 "Nicholas Logozzo https://github.com/nlogozzo\n"
 "Fyodor Sobolev https://github.com/fsobolev"
 msgstr ""
 
-#: ../../../../NickvisionApplication.GNOME/Program.cs:50
-#: org.nickvision.application.desktop:5
-#: org.nickvision.application.metainfo.xml:8
-msgid "Create new Nickvision applications"
+#: ../../../../NickvisionApplication.GNOME/Program.cs:49
+#: org.nickvision.application.desktop:4
+#: org.nickvision.application.metainfo.xml:6
+msgid "Application"
 msgstr ""
 
 #: Blueprints/preferences_dialog.blp:10 Blueprints/shortcuts_dialog.blp:31

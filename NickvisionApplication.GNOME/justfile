@@ -26,8 +26,8 @@ run:
     mv ./Resources/{{app_id}}.gresource ./bin/Debug/net7.0/
     while read lang_code; do \
         mkdir -p ./bin/Debug/net7.0/$lang_code; \
-        msgfmt ../{{project_name}}.Shared/Resources/po/${lang_code}.po -o /bin/Debug/net7.0/$lang_code/{{short_name}}.mo; \
-    done << ../{{project_name}}.Shared/Resources/po/LINGUAS
+        msgfmt ../{{project_name}}.Shared/Resources/po/${lang_code}.po -o ./bin/Debug/net7.0/$lang_code/{{short_name}}.mo; \
+    done < ../{{project_name}}.Shared/Resources/po/LINGUAS
     dotnet run
     rm Blueprints/*.ui
 
@@ -131,7 +131,7 @@ generate-pot:
 # Update PO files to match template
 update-po:
     while read lang_code; do \
-        msgmerge -U ../{{project_name}}.Shared/Resources/po/${lang_code}.po ./{{project_name}}.Shared/Resources/po/{{short_name}}.pot; \
+        msgmerge -U ../{{project_name}}.Shared/Resources/po/${lang_code}.po ../{{project_name}}.Shared/Resources/po/{{short_name}}.pot; \
     done < ../{{project_name}}.Shared/Resources/po/LINGUAS
 
 _install_extras PREFIX: && (_translate_meta PREFIX)
