@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using FluentIcons.Common;
 using NickvisionApplication.Shared.Controllers;
 
 namespace NickvisionApplication.Fluent.Views;
@@ -40,6 +41,9 @@ public partial class MainWindow : Window
         MenuHelp.Header = _controller.Localizer["Help"];
         MenuAbout.Header = string.Format(_controller.Localizer["About"], _controller.AppInfo.ShortName);
         LblStatus.Text = _controller.Localizer["StatusReady", "WinUI"];
+        StatusPageHome.Symbol = _controller.ShowSun ? Symbol.WeatherSunny : Symbol.WeatherMoon;
+        StatusPageHome.Title = _controller.Greeting;
+        StatusPageHome.Description = _controller.Localizer["NoFolderDescription"];
     }
 
     /// <summary>

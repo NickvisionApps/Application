@@ -4,6 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fluent="using:FluentAvalonia.UI.Controls"
         xmlns:icon="using:FluentIcons.FluentAvalonia"
+        xmlns:nickvision="using:NickvisionApplication.Fluent.Controls"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="NickvisionApplication.Fluent.Views.MainWindow"
         Icon="/Assets/org.nickvision.application.ico" Width="800" Height="600">
@@ -55,6 +56,16 @@
         </Menu>
         
         <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Carousel x:Name="Carousel" Margin="6,0,6,0">
+                <Carousel.Items>
+                    <Border Background="{DynamicResource ControlFillColorDefaultBrush}" BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="8">
+                        <nickvision:StatusPage x:Name="StatusPageHome" HorizontalAlignment="Center" VerticalAlignment="Center">
+ 
+                        </nickvision:StatusPage>
+                    </Border>
+                </Carousel.Items>
+            </Carousel>
+            
             <fluent:InfoBar x:Name="InfoBar" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,6" CornerRadius="12">
                 <fluent:InfoBar.ActionButton>
                     <Button x:Name="BtnInfoBar" HorizontalAlignment="Right"/>
