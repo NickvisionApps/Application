@@ -17,13 +17,13 @@
         
         <Menu Grid.Row="0">
             <MenuItem x:Name="MenuFile">
-                <MenuItem x:Name="MenuOpenFolder" InputGesture="Ctrl+O" HotKey="Ctrl+O">
+                <MenuItem x:Name="MenuOpenFolder" InputGesture="Ctrl+O" HotKey="Ctrl+O" Click="OpenFolder">
                     <MenuItem.Icon>
                         <icon:SymbolIcon Symbol="FolderOpen"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 
-                <MenuItem x:Name="MenuCloseFolder" InputGesture="Ctrl+W" HotKey="Ctrl+W">
+                <MenuItem x:Name="MenuCloseFolder" InputGesture="Ctrl+W" HotKey="Ctrl+W" IsEnabled="False">
                     <MenuItem.Icon>
                         <icon:SymbolIcon Symbol="FolderProhibited"/>
                     </MenuItem.Icon>
@@ -31,7 +31,7 @@
                 
                 <Separator/>
                 
-                <MenuItem x:Name="MenuExit" Click="Exit" InputGesture="Alt+F4" HotKey="Alt+F4">
+                <MenuItem x:Name="MenuExit" InputGesture="Alt+F4" HotKey="Alt+F4" Click="Exit">
                     <MenuItem.Icon>
                         <icon:SymbolIcon Symbol="ArrowExit"/>
                     </MenuItem.Icon>
@@ -63,6 +63,10 @@
  
                         </nickvision:StatusPage>
                     </Border>
+                    
+                    <Grid>
+                        
+                    </Grid>
                 </Carousel.Items>
             </Carousel>
             
