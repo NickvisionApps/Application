@@ -1,25 +1,19 @@
-﻿using Microsoft.UI.Xaml;
+using Avalonia;
+using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Markup.Xaml;
 using NickvisionApplication.Shared.Controllers;
-using NickvisionApplication.Shared.Models;
 using NickvisionApplication.WinUI.Views;
 using System;
 
 namespace NickvisionApplication.WinUI;
 
-/// <summary>
-/// The App
-/// </summary>
 public partial class App : Application
 {
-    public static Window? MainWindow { get; private set; } = null;
-    private readonly MainWindowController _mainWindowController;
+    private MainWindowController _mainWindowController;
 
-    /// <summary>
-    /// Constructs an App
-    /// </summary>
-    public App()
+    public override void Initialize()
     {
-        InitializeComponent();
+        AvaloniaXamlLoader.Load(this);
         _mainWindowController = new MainWindowController();
         //AppInfo
         _mainWindowController.AppInfo.ID = "org.nickvision.application";
@@ -31,24 +25,14 @@ public partial class App : Application
         _mainWindowController.AppInfo.GitHubRepo = new Uri("https://github.com/NickvisionApps/Application");
         _mainWindowController.AppInfo.IssueTracker = new Uri("https://github.com/NickvisionApps/Application/issues/new");
         _mainWindowController.AppInfo.SupportUrl = new Uri("https://github.com/NickvisionApps/Application/discussions");
-        //Theme
-        if (_mainWindowController.Theme == Theme.Light)
-        {
-            RequestedTheme = ApplicationTheme.Light;
-        }
-        else if (_mainWindowController.Theme == Theme.Dark)
-        {
-            RequestedTheme = ApplicationTheme.Dark;
-        }
     }
 
-    /// <summary>
-    /// Occurs when the app is launched
-    /// </summary>
-    /// <param name="args">LaunchActivatedEventArgs</param>
-    protected override void OnLaunched(LaunchActivatedEventArgs args)
+    public override void OnFrameworkInitializationCompleted()
     {
-        MainWindow = new MainWindow(_mainWindowController);
-        MainWindow.Activate();
+        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+        {
+            desktop.MainWindow = new MainWindow(_mainWindowController);
+        }
+        base.OnFrameworkInitializationCompleted();
     }
 }
