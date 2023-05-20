@@ -52,6 +52,10 @@ public partial class MainWindow : Window
         StatusPageHome.Symbol = _controller.ShowSun ? Symbol.WeatherSunny : Symbol.WeatherMoon;
         StatusPageHome.Title = _controller.Greeting;
         StatusPageHome.Description = _controller.Localizer["NoFolderDescription"];
+        ToolTip.SetTip(BtnHomeOpenFolder, _controller.Localizer["OpenFolder", "Tooltip"]);
+        LblBtnHomeOpenFolder.Text = _controller.Localizer["Open"];
+        BtnCloseFolder.Label = _controller.Localizer["CloseFolder"];
+        ToolTip.SetTip(BtnCloseFolder, _controller.Localizer["CloseFolder", "Tooltip"]);
     }
 
     /// <summary>

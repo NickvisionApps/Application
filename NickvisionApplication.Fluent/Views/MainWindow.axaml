@@ -60,12 +60,45 @@
                 <Carousel.Items>
                     <Border Background="{DynamicResource ControlFillColorDefaultBrush}" BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="8">
                         <nickvision:StatusPage x:Name="StatusPageHome" HorizontalAlignment="Center" VerticalAlignment="Center">
- 
+                            <nickvision:StatusPage.Child>
+                                <StackPanel HorizontalAlignment="Center" Margin="0,10,0,0" Orientation="Horizontal" Spacing="12">
+                                    <Button x:Name="BtnHomeOpenFolder" Height="40" Background="{DynamicResource AccentButtonBackground}" Foreground="{DynamicResource AccentButtonForeground}" Click="OpenFolder">
+                                        <Button.Content>
+                                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                                <icon:SymbolIcon Symbol="FolderOpen"/>
+
+                                                <TextBlock x:Name="LblBtnHomeOpenFolder"/>
+                                            </StackPanel>
+                                        </Button.Content>
+                                    </Button>
+                                </StackPanel>
+                            </nickvision:StatusPage.Child>
                         </nickvision:StatusPage>
                     </Border>
                     
                     <Grid>
-                        
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Row="0" Background="{DynamicResource ControlFillColorDefaultBrush}" BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="8">
+                            <fluent:CommandBar HorizontalAlignment="Left" DefaultLabelPosition="Right">
+                                <fluent:CommandBar.PrimaryCommands>
+                                    <fluent:CommandBarButton x:Name="BtnCloseFolder" Click="CloseFolder">
+                                        <fluent:CommandBarButton.Icon>
+                                            <icon:SymbolIcon Symbol="FolderProhibited"/>
+                                        </fluent:CommandBarButton.Icon>
+                                    </fluent:CommandBarButton>
+                                </fluent:CommandBar.PrimaryCommands>
+                            </fluent:CommandBar>
+                        </Border>
+                            
+                        <ScrollViewer Grid.Row="1" HorizontalAlignment="Stretch" VerticalScrollBarVisibility="Auto">
+                            <Grid>
+                                    
+                            </Grid>
+                        </ScrollViewer>
                     </Grid>
                 </Carousel.Items>
             </Carousel>
