@@ -55,13 +55,13 @@ jobs:
       run: dotnet restore NickvisionApplication.WinUI/NickvisionApplication.WinUI.csproj
     # Build the app
     - name: Build the app
-      run: dotnet build NickvisionApplication.WinUI/NickvisionApplication.WinUI.csproj --configuration $env:Configuration --no-restore --runtime windows-$env:Platform
+      run: dotnet build NickvisionApplication.WinUI/NickvisionApplication.WinUI.csproj --configuration $env:Configuration --no-restore --runtime win-$env:Platform
       env:
         Configuration: ${{ matrix.configuration }}
         Platform: ${{ matrix.platform }}
     # Publish the app
     - name: Publish the app
-      run: dotnet publish NickvisionApplication.WinUI/NickvisionApplication.WinUI.csproj --configuration $env:Configuration -o ${{env.DOTNET_ROOT}}/myapp --runtime windows-$env:Platform
+      run: dotnet publish NickvisionApplication.WinUI/NickvisionApplication.WinUI.csproj --configuration $env:Configuration -o ${{env.DOTNET_ROOT}}/myapp --runtime win-$env:Platform
       env:
         Configuration: ${{ matrix.configuration }}
         Platform: ${{ matrix.platform }}
