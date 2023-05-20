@@ -2,10 +2,55 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:icon="using:FluentIcons.FluentAvalonia"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="NickvisionApplication.WinUI.Views.MainWindow"
-        Icon="/Assets/org.nickvision.application.ico">
+        Icon="/Assets/org.nickvision.application.ico" Width="800" Height="600">
     <Grid x:Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
         
+        <Menu Grid.Row="0">
+            <MenuItem x:Name="MenuFile">
+                <MenuItem x:Name="MenuOpenFolder" InputGesture="Ctrl+O" HotKey="Ctrl+O">
+                    <MenuItem.Icon>
+                        <icon:SymbolIcon Symbol="FolderOpen"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                
+                <MenuItem x:Name="MenuCloseFolder" InputGesture="Ctrl+W" HotKey="Ctrl+W">
+                    <MenuItem.Icon>
+                        <icon:SymbolIcon Symbol="FolderProhibited"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                
+                <Separator/>
+                
+                <MenuItem x:Name="MenuExit" Click="Exit" InputGesture="Alt+F4" HotKey="Alt+F4">
+                    <MenuItem.Icon>
+                        <icon:SymbolIcon Symbol="ArrowExit"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            
+            <MenuItem x:Name="MenuEdit">
+                <MenuItem x:Name="MenuSettings" InputGesture="Ctrl+K" HotKey="Ctrl+K">
+                    <MenuItem.Icon>
+                        <icon:SymbolIcon Symbol="Settings"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            
+            <MenuItem x:Name="MenuHelp">
+                <MenuItem x:Name="MenuAbout" InputGesture="F1" HotKey="F1">
+                    <MenuItem.Icon>
+                        <icon:SymbolIcon Symbol="Question"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+        </Menu>
     </Grid>
 </Window>

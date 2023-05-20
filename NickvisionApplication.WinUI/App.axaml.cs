@@ -7,10 +7,16 @@ using System;
 
 namespace NickvisionApplication.WinUI;
 
+/// <summary>
+/// The App
+/// </summary>
 public partial class App : Application
 {
     private MainWindowController _mainWindowController;
 
+    /// <summary>
+    /// Occurs when Avalonia is initialized
+    /// </summary>
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
@@ -27,6 +33,9 @@ public partial class App : Application
         _mainWindowController.AppInfo.SupportUrl = new Uri("https://github.com/NickvisionApps/Application/discussions");
     }
 
+    /// <summary>
+    /// Occurs when Avalonia has finished initialization
+    /// </summary>
     public override void OnFrameworkInitializationCompleted()
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
