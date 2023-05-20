@@ -2,6 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fluent="using:FluentAvalonia.UI.Controls"
         xmlns:icon="using:FluentIcons.FluentAvalonia"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="NickvisionApplication.WinUI.Views.MainWindow"
@@ -52,5 +53,21 @@
                 </MenuItem>
             </MenuItem>
         </Menu>
+        
+        <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <fluent:InfoBar x:Name="InfoBar" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,6" CornerRadius="12">
+                <fluent:InfoBar.ActionButton>
+                    <Button x:Name="BtnInfoBar" HorizontalAlignment="Right"/>
+                </fluent:InfoBar.ActionButton>
+            </fluent:InfoBar>
+        </Grid>
+        
+        <Border x:Name="StatusBar" Grid.Row="2" HorizontalAlignment="Stretch" Margin="0,6,0,0" Height="36" Background="{DynamicResource ControlFillColorDefaultBrush}" BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}" BorderThickness="1">
+            <DockPanel LastChildFill="False">
+                <icon:SymbolIcon x:Name="IconStatus" DockPanel.Dock="Left" VerticalAlignment="Center" Margin="6,0,10,0" Symbol="Checkmark"/>
+                
+                <TextBlock x:Name="LblStatus" DockPanel.Dock="Left" VerticalAlignment="Center"/>
+            </DockPanel>
+        </Border>
     </Grid>
 </Window>

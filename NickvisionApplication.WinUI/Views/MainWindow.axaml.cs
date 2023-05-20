@@ -39,6 +39,7 @@ public partial class MainWindow : Window
         MenuSettings.Header = _controller.Localizer["Settings"];
         MenuHelp.Header = _controller.Localizer["Help"];
         MenuAbout.Header = string.Format(_controller.Localizer["About"], _controller.AppInfo.ShortName);
+        LblStatus.Text = _controller.Localizer["StatusReady", "WinUI"];
     }
 
     /// <summary>
