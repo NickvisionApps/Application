@@ -1,5 +1,6 @@
 app_id := "org.nickvision.application"
 project_name := "NickvisionApplication"
+short_name := "application"
 
 dotnet_runtime := if arch() == "arm" {
     "linux-arm"
@@ -23,6 +24,11 @@ run:
     glib-compile-resources --sourcedir ./Resources \
     ./Resources/{{app_id}}.gresource.xml
     mv ./Resources/{{app_id}}.gresource ./bin/Debug/net7.0/
+    for lang_file in $(ls ../{{project_name}}.Shared/Resources/po/*.po); do \
+        lang_code=$(basename ${lang_file:0:-3}); \
+        mkdir -p ./bin/Debug/net7.0/$lang_code; \
+        msgfmt $lang_file -o ./bin/Debug/net7.0/$lang_code/{{short_name}}.mo; \
+    done
     dotnet run
     rm Blueprints/*.ui
 
@@ -103,6 +109,21 @@ clean:
 
 # Command to be used in flatpak manifest
 publish-flatpak: (publish-self-contained "/app") install
+
+# Generate PO template file for translations
+generate-pot:
+    GetText.Extractor -s . -s ../{{project_name}}.Shared -s ../{{project_name}}.WinUI/ \
+        -as "_" -ad "_p" -ap "_n" -adp "_pn" -t ../{{project_name}}.Shared/Resources/po/application.pot
+    xgettext --from-code=UTF-8 --add-comments --keyword=_ --keyword=C_:1c,2 \
+        -o ../{{project_name}}.Shared/Resources/po/{{short_name}}.pot -j Blueprints/*.blp
+    xgettext -o ../{{project_name}}.Shared/Resources/po/{{short_name}}.pot -j {{app_id}}.desktop
+    xgettext -o ../{{project_name}}.Shared/Resources/po/{{short_name}}.pot -j {{app_id}}.metainfo.xml
+
+# Update PO files to match template
+update-po:
+    for lang_file in $(ls ../{{project_name}}.Shared/Resources/po/*.po); do \
+        msgmerge -U $lang_file ../{{project_name}}.Shared/Resources/po/{{short_name}}.pot; \
+    done
 
 _install_extras PREFIX: && (_translate_meta PREFIX)
     # Installing icons

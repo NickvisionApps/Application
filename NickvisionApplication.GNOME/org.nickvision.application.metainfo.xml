@@ -10,7 +10,7 @@
     <p>Recipe for the Ultimate Power:</p>
     <p>— C#</p>
     <p>— gir.core</p>
-    <p>— WinUI</p>
+    <p>— Avalonia</p>
     <p>— Shaken, not stirred</p>
   </description>
   <launchable type="desktop-id">org.nickvision.application.desktop</launchable>

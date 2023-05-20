@@ -1,22 +1,16 @@
 ﻿using NickvisionApplication.Shared.Events;
-using NickvisionApplication.Shared.Helpers;
 using NickvisionApplication.Shared.Models;
 using System;
 using System.IO;
+using static NickvisionApplication.Shared.Helpers.Gettext;
 
 namespace NickvisionApplication.Shared.Controllers;
 
 /// <summary>
 /// A controller for a MainWindow
 /// </summary>
-public class MainWindowController : IDisposable
+public class MainWindowController
 {
-    private bool _disposed;
-
-    /// <summary>
-    /// The localizer to get translated strings from
-    /// </summary>
-    public Localizer Localizer { get; init; }
     /// <summary>
     /// The path of the folder opened
     /// </summary>
@@ -53,15 +47,8 @@ public class MainWindowController : IDisposable
     /// </summary>
     public MainWindowController()
     {
-        _disposed = false;
-        Localizer = new Localizer();
         FolderPath = "No Folder Opened";
     }
-
-    /// <summary>
-    /// Finalizes the MainWindowController
-    /// </summary>
-    ~MainWindowController() => Dispose(false);
 
     /// <summary>
     /// Whether or not to show a sun icon on the home page
@@ -82,48 +69,22 @@ public class MainWindowController : IDisposable
     {
         get
         {
-            var greeting = DateTime.Now.Hour switch
+            return DateTime.Now.Hour switch
             {
-                >= 0 and < 6 => "Night",
-                < 12 => "Morning",
-                < 18 => "Afternoon",
-                < 24 => "Evening",
-                _ => "Generic"
+                >= 0 and < 6 => _p("Night", "Good Morning!"),
+                < 12 => _p("Morning", "Good Morning!"),
+                < 18 => _("Good Afternoon!"),
+                < 24 => _("Good Evening!"),
+                _ => _("Good Day!")
             };
-            return Localizer["Greeting", greeting];
         }
-    }
-
-    /// <summary>
-    /// Frees resources used by the MainWindowController object
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
-    }
-
-    /// <summary>
-    /// Frees resources used by the MainWindowController object
-    /// </summary>
-    protected virtual void Dispose(bool disposing)
-    {
-        if (_disposed)
-        {
-            return;
-        }
-        if (disposing)
-        {
-            Localizer.Dispose();
-        }
-        _disposed = true;
     }
 
     /// <summary>
     /// Creates a new PreferencesViewController
     /// </summary>
     /// <returns>The PreferencesViewController</returns>
-    public PreferencesViewController CreatePreferencesViewController() => new PreferencesViewController(Localizer);
+    public PreferencesViewController CreatePreferencesViewController() => new PreferencesViewController();
 
     /// <summary>
     /// Opens a folder
@@ -135,7 +96,7 @@ public class MainWindowController : IDisposable
         if (Directory.Exists(folderPath))
         {
             FolderPath = folderPath;
-            NotificationSent?.Invoke(this, new NotificationSentEventArgs(string.Format(Localizer["FolderOpened"], FolderPath), NotificationSeverity.Success, "close"));
+            NotificationSent?.Invoke(this, new NotificationSentEventArgs(_("Folder Opened: {0}", FolderPath), NotificationSeverity.Success, "close"));
             FolderChanged?.Invoke(this, EventArgs.Empty);
             return true;
         }
@@ -148,7 +109,7 @@ public class MainWindowController : IDisposable
     public void CloseFolder()
     {
         FolderPath = "No Folder Opened";
-        NotificationSent?.Invoke(this, new NotificationSentEventArgs(Localizer["FolderClosed"], NotificationSeverity.Warning));
+        NotificationSent?.Invoke(this, new NotificationSentEventArgs(_("Folder closed."), NotificationSeverity.Warning));
         FolderChanged?.Invoke(this, EventArgs.Empty);
     }
 }
