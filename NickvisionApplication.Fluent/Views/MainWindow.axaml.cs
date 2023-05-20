@@ -2,7 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using NickvisionApplication.Shared.Controllers;
 
-namespace NickvisionApplication.WinUI.Views;
+namespace NickvisionApplication.Fluent.Views;
 
 /// <summary>
 /// The MainWindow for the application
@@ -18,7 +18,7 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         _controller = new MainWindowController();
-        Title = "WinUI";
+        Title = "Application";
     }
 
     /// <summary>

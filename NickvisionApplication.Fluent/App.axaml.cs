@@ -2,10 +2,10 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using NickvisionApplication.Shared.Controllers;
-using NickvisionApplication.WinUI.Views;
+using NickvisionApplication.Fluent.Views;
 using System;
 
-namespace NickvisionApplication.WinUI;
+namespace NickvisionApplication.Fluent;
 
 /// <summary>
 /// The App

@@ -1,7 +1,7 @@
 ﻿using Avalonia;
 using System;
 
-namespace NickvisionApplication.WinUI;
+namespace NickvisionApplication.Fluent;
 
 class Program
 {
