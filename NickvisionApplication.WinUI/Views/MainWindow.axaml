@@ -5,7 +5,7 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="NickvisionApplication.WinUI.Views.MainWindow"
         Icon="/Assets/org.nickvision.application.ico">
-    <Grid x:Name="MainGrid" AllowDrop="True">
+    <Grid x:Name="MainGrid">
         
     </Grid>
 </Window>
