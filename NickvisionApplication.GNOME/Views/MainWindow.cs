@@ -75,6 +75,7 @@ public partial class MainWindow : Adw.ApplicationWindow
         greeting.SetTitle(_controller.Greeting);
         //Register Events 
         _controller.NotificationSent += NotificationSent;
+        _controller.ShellNotificationSent += ShellNotificationSent;
         _controller.FolderChanged += FolderChanged;
         //Open Folder Action
         var actOpenFolder = Gio.SimpleAction.New("openFolder", null);
@@ -147,10 +148,11 @@ public partial class MainWindow : Adw.ApplicationWindow
     }
 
     /// <summary>
-    /// Sends a shell notification
+    /// Occurs when a shell notification is sent from the controller
     /// </summary>
+    /// <param name="sender">object?</param>
     /// <param name="e">ShellNotificationSentEventArgs</param>
-    private void SendShellNotification(ShellNotificationSentEventArgs e)
+    private void ShellNotificationSent(object? sender, ShellNotificationSentEventArgs? e)
     {
         var notification = Gio.Notification.New(e.Title);
         notification.SetBody(e.Message);

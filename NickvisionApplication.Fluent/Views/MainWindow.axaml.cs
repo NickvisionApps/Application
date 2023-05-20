@@ -1,4 +1,6 @@
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Notifications;
 using Avalonia.Interactivity;
 using FluentAvalonia.UI.Controls;
 using NickvisionApplication.Shared.Controllers;
@@ -38,6 +40,7 @@ public partial class MainWindow : Window
         Title = _controller.AppInfo.ShortName;
         //Register Events
         _controller.NotificationSent += NotificationSent;
+        _controller.ShellNotificationSent += ShellNotificationSent;
         _controller.FolderChanged += FolderChanged;
         //Localize Strings
         MenuFile.Header = _controller.Localizer["File"];
@@ -86,6 +89,23 @@ public partial class MainWindow : Window
             BtnInfoBar.Click += _notificationButtonClickEvent;
         }
         InfoBar.IsOpen = true;
+    }
+
+    /// <summary>
+    /// Occurs when a shell notification is sent from the controller
+    /// </summary>
+    /// <param name="sender">object?</param>
+    /// <param name="e">ShellNotificationSentEventArgs</param>
+    private void ShellNotificationSent(object? sender, ShellNotificationSentEventArgs e)
+    {
+        var notificationManager = AvaloniaLocator.Current.GetService<INotificationManager>();
+        notificationManager!.Show(new Notification(e.Title, e.Message, e.Severity switch
+        {
+            NotificationSeverity.Error => NotificationType.Error,
+            NotificationSeverity.Success => NotificationType.Success,
+            NotificationSeverity.Warning => NotificationType.Warning,
+            _ => NotificationType.Information
+        }));
     }
 
     /// <summary>
