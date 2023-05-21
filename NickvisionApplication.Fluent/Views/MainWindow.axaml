@@ -39,7 +39,7 @@
             </MenuItem>
             
             <MenuItem x:Name="MenuEdit">
-                <MenuItem x:Name="MenuSettings" InputGesture="Ctrl+K" HotKey="Ctrl+K">
+                <MenuItem x:Name="MenuSettings" InputGesture="Ctrl+K" HotKey="Ctrl+K" Click="Settings">
                     <MenuItem.Icon>
                         <icon:SymbolIcon Symbol="Settings"/>
                     </MenuItem.Icon>
@@ -47,7 +47,7 @@
             </MenuItem>
             
             <MenuItem x:Name="MenuHelp">
-                <MenuItem x:Name="MenuAbout" InputGesture="F1" HotKey="F1">
+                <MenuItem x:Name="MenuAbout" InputGesture="F1" HotKey="F1" Click="About">
                     <MenuItem.Icon>
                         <icon:SymbolIcon Symbol="Question"/>
                     </MenuItem.Icon>

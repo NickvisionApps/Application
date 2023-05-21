@@ -1,0 +1,88 @@
+<fluent:ContentDialog xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:fluent="using:FluentAvalonia.UI.Controls"
+             xmlns:icon="using:FluentIcons.FluentAvalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450" DefaultButton="Close"
+             x:Class="NickvisionApplication.Fluent.Controls.AboutDialog">
+    <ScrollViewer x:Name="ScrollViewer" VerticalScrollBarVisibility="Auto" MaxHeight="500">
+        <StackPanel x:Name="StackPanel" Orientation="Vertical" Spacing="3">
+            <StackPanel Orientation="Horizontal" Spacing="6">
+                <Image Width="128" Height="128" Source="/Assets/org.nickvision.application.ico"/>
+                
+                <StackPanel VerticalAlignment="Center" Orientation="Vertical" Spacing="6">
+                    <TextBlock x:Name="LblDescription" Margin="4,0,0,0" FontWeight="SemiBold" FontSize="16"/>
+
+                    <TextBlock Margin="4,0,0,0" Foreground="Gray" Text="© Nickvision 2021-2023"/>
+
+                    <Button Background="{DynamicResource AccentButtonBackground}" Foreground="{DynamicResource AccentButtonForeground}" CornerRadius="12" Click="CopySystemInformation">
+                        <Button.Content>
+                            <TextBlock x:Name="LblVersion"/>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+            
+            <fluent:InfoBar x:Name="InfoBar" Margin="0,6,0,0" Severity="Success"/>
+            
+            <Expander Margin="0,9,0,0">
+                <Expander.Header>
+                    <StackPanel Orientation="Horizontal" Spacing="6">
+                        <icon:SymbolIcon Symbol="List"/>
+                        
+                        <TextBlock x:Name="LblChangelogHeader"/>
+                    </StackPanel>
+                </Expander.Header>
+                
+                <Expander.Content>
+                    <TextBlock x:Name="LblChangelog"/>
+                </Expander.Content>
+            </Expander>
+            
+            <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Height="46" Background="{DynamicResource ControlFillColorDefaultBrush}" BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}" BorderThickness="1" Click="GitHubRepo">
+                <Button.Content>
+                    <StackPanel Margin="4,0,0,0" Orientation="Horizontal" Spacing="6">
+                        <icon:SymbolIcon Symbol="Library"/>
+                        
+                        <TextBlock x:Name="LblGitHubHeader"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            
+            <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Height="46" Background="{DynamicResource ControlFillColorDefaultBrush}" BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}" BorderThickness="1" Click="ReportABug">
+                <Button.Content>
+                    <StackPanel Margin="4,0,0,0" Orientation="Horizontal" Spacing="6">
+                        <icon:SymbolIcon Symbol="Bug"/>
+                        
+                        <TextBlock x:Name="LblReportABug"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            
+            <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Height="46" Background="{DynamicResource ControlFillColorDefaultBrush}" BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}" BorderThickness="1" Click="Discussions">
+                <Button.Content>
+                    <StackPanel Margin="4,0,0,0" Orientation="Horizontal" Spacing="6">
+                        <icon:SymbolIcon Symbol="Chat"/>
+                        
+                        <TextBlock x:Name="LblDiscussions"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            
+            <Expander>
+                <Expander.Header>
+                    <StackPanel Orientation="Horizontal" Spacing="6">
+                        <icon:SymbolIcon Symbol="List"/>
+                        
+                        <TextBlock x:Name="LblCreditsHeader"/>
+                    </StackPanel>
+                </Expander.Header>
+                
+                <Expander.Content>
+                    <TextBlock x:Name="LblCredits"/>
+                </Expander.Content>
+            </Expander>
+        </StackPanel>
+    </ScrollViewer>
+</fluent:ContentDialog>

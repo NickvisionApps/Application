@@ -1,8 +1,7 @@
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.Notifications;
 using Avalonia.Interactivity;
 using FluentAvalonia.UI.Controls;
+using NickvisionApplication.Fluent.Controls;
 using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.Shared.Events;
 using Symbol = FluentIcons.Common.Symbol;
@@ -96,17 +95,7 @@ public partial class MainWindow : Window
     /// </summary>
     /// <param name="sender">object?</param>
     /// <param name="e">ShellNotificationSentEventArgs</param>
-    private void ShellNotificationSent(object? sender, ShellNotificationSentEventArgs e)
-    {
-        var notificationManager = AvaloniaLocator.Current.GetService<INotificationManager>();
-        notificationManager!.Show(new Notification(e.Title, e.Message, e.Severity switch
-        {
-            NotificationSeverity.Error => NotificationType.Error,
-            NotificationSeverity.Success => NotificationType.Success,
-            NotificationSeverity.Warning => NotificationType.Warning,
-            _ => NotificationType.Information
-        }));
-    }
+    private void ShellNotificationSent(object? sender, ShellNotificationSentEventArgs e) => NotificationSent(sender, e);
 
     /// <summary>
     /// Occurs when the folder in the application changes
@@ -161,4 +150,25 @@ public partial class MainWindow : Window
     /// <param name="sender">object?</param>
     /// <param name="e">RoutedEventArgs</param>
     private void Exit(object? sender, RoutedEventArgs e) => Close();
+
+    /// <summary>
+    /// Occurs when the settings menu item is clicked
+    /// </summary>
+    /// <param name="sender">object?</param>
+    /// <param name="e">RoutedEventArgs</param>
+    private void Settings(object? sender, RoutedEventArgs e)
+    {
+        
+    }
+
+    /// <summary>
+    /// Occurs when the about menu item is clicked
+    /// </summary>
+    /// <param name="sender">object?</param>
+    /// <param name="e">RoutedEventArgs</param>
+    private async void About(object? sender, RoutedEventArgs e)
+    {
+        var aboutDialog = new AboutDialog(_controller.AppInfo, _controller.Localizer);
+        await aboutDialog.ShowAsync(this);
+    }
 }
