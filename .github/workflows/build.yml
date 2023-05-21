@@ -61,7 +61,7 @@ jobs:
         Platform: ${{ matrix.platform }}
     # Publish the app
     - name: Publish the app
-      run: dotnet publish NickvisionApplication.Fluent/NickvisionApplication.Fluent.csproj --configuration $env:Configuration -o ${{env.DOTNET_ROOT}}/myapp --self-contained --runtime win-$env:Platform
+      run: dotnet publish NickvisionApplication.Fluent/NickvisionApplication.Fluent.csproj --configuration $env:Configuration -o "${{env.DOTNET_ROOT}}/myapp" --self-contained --runtime win-$env:Platform
       env:
         Configuration: ${{ matrix.configuration }}
         Platform: ${{ matrix.platform }}
