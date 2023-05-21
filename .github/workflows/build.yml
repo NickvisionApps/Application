@@ -52,16 +52,16 @@ jobs:
         dotnet-version: 7.0.x
     # Restore the application
     - name: Restore the application
-      run: dotnet restore NickvisionApplication.WinUI/NickvisionApplication.WinUI.csproj
+      run: dotnet restore NickvisionApplication.Fluent/NickvisionApplication.Fluent.csproj
     # Build the app
     - name: Build the app
-      run: dotnet build NickvisionApplication.WinUI/NickvisionApplication.WinUI.csproj --configuration $env:Configuration --no-restore --runtime win-$env:Platform
+      run: dotnet build NickvisionApplication.Fluent/NickvisionApplication.Fluent.csproj --configuration $env:Configuration --no-restore --runtime win-$env:Platform
       env:
         Configuration: ${{ matrix.configuration }}
         Platform: ${{ matrix.platform }}
     # Publish the app
     - name: Publish the app
-      run: dotnet publish NickvisionApplication.WinUI/NickvisionApplication.WinUI.csproj --configuration $env:Configuration -o ${{env.DOTNET_ROOT}}/myapp --runtime win-$env:Platform
+      run: dotnet publish NickvisionApplication.Fluent/NickvisionApplication.Fluent.csproj --configuration $env:Configuration -o ${{env.DOTNET_ROOT}}/myapp --runtime win-$env:Platform
       env:
         Configuration: ${{ matrix.configuration }}
         Platform: ${{ matrix.platform }}
