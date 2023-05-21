@@ -2,7 +2,7 @@
 Version=1.0
 Name=Application
 Comment=Create new Nickvision application
-Exec=/usr/bin/org.nickvision.application
+Exec=@EXEC@
 Icon=org.nickvision.application
 Terminal=false
 Type=Application
