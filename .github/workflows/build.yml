@@ -7,8 +7,8 @@ on:
   workflow_dispatch:
 name: CI
 jobs:
-  flatpak:
-    name: "Flatpak"
+  gnome-flatpak:
+    name: "GNOME on Flatpak"
     runs-on: ubuntu-latest
     if: ${{ github.event.pull_request.user.login != 'weblate' }}
     container:
@@ -32,8 +32,8 @@ jobs:
           cache-key: flatpak-builder-${{ github.sha }}
           arch: ${{ matrix.arch }}
           restore-cache: true
-  winui:
-    name: "WinUI"
+  fluent-windows:
+    name: "Fluent on Windows"
     strategy:
       matrix:
         configuration: [Release]
@@ -69,5 +69,5 @@ jobs:
     - name: Upload app
       uses: actions/upload-artifact@v3.1.2
       with:
-        name: org.nickvision.application-winui-${{ matrix.platform }}
+        name: org.nickvision.application-windows-${{ matrix.platform }}
         path: ${{env.DOTNET_ROOT}}/myapp
