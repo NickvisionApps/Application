@@ -73,6 +73,14 @@ Task("Publish")
     }
 });
 
+Task("FlatpakSourcesGen")
+    .Does(() =>
+{
+    StartProcess("flatpak-dotnet-generator.py", new ProcessSettings{
+        Arguments = $"{projectName}.{projectSuffix}{sep}nuget-sources.json {projectName}.{projectSuffix}{sep}{projectName}.{projectSuffix}.csproj"
+    });
+});
+
 //////////////////////////////////////////////////////////////////////
 // FUNCTIONS
 //////////////////////////////////////////////////////////////////////
