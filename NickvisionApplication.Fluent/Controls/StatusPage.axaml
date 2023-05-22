@@ -9,7 +9,7 @@
     <StackPanel Orientation="Vertical" Spacing="12">
         <icon:SymbolIcon HorizontalAlignment="Center" FontSize="60" Symbol="{Binding Symbol, Mode=OneWay}"/>
         
-        <TextBlock HorizontalAlignment="Center" FontSize="32" TextWrapping="Wrap" Text="{Binding Title, Mode=OneWay}"/>
+        <TextBlock HorizontalAlignment="Center" FontSize="28" TextWrapping="Wrap" Text="{Binding Title, Mode=OneWay}"/>
 
         <TextBlock HorizontalAlignment="Center" Text="{Binding Description, Mode=OneWay}" TextWrapping="Wrap"/>
 
