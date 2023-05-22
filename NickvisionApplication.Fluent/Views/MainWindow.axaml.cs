@@ -77,6 +77,7 @@ public partial class MainWindow : Window
             {
                 faTheme.PreferSystemTheme = false;
                 faTheme.RequestedTheme = _controller.Theme.ToString();
+                faTheme.ForceWin32WindowToTheme(this, faTheme.RequestedTheme);
             }
         }
     }
