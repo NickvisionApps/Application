@@ -1,4 +1,5 @@
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Styling;
 using FluentAvalonia.UI.Controls;
@@ -80,6 +81,13 @@ public partial class AboutDialog : ContentDialog, IStyleable
         }
         return string.IsNullOrEmpty(result) ? s : result;
     }
+    
+    /// <summary>
+    /// Occurs when the ScrollViewer's scrolling is changed
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void ScrollViewer_ScrollChanged(object? sender, ScrollChangedEventArgs e) => StackPanel.Margin = new Thickness(0, 0, ScrollViewer.Extent.Height > ScrollViewer.Viewport.Height ? 14 : 0, 0);
 
     /// <summary>
     /// Occurs when the version button is clicked

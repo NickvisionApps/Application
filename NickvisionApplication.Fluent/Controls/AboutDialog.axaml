@@ -6,7 +6,7 @@
              xmlns:icon="using:FluentIcons.FluentAvalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450" DefaultButton="Close"
              x:Class="NickvisionApplication.Fluent.Controls.AboutDialog">
-    <ScrollViewer x:Name="ScrollViewer" VerticalScrollBarVisibility="Auto" MaxHeight="500">
+    <ScrollViewer x:Name="ScrollViewer" VerticalScrollBarVisibility="Auto" MaxHeight="500" ScrollChanged="ScrollViewer_ScrollChanged">
         <StackPanel x:Name="StackPanel" Orientation="Vertical" Spacing="3">
             <StackPanel Orientation="Horizontal" Spacing="6">
                 <Image Width="128" Height="128" Source="/Assets/org.nickvision.application.ico"/>
