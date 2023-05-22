@@ -6,11 +6,12 @@ then
     exit 1
 fi
 
-if [ -d "cake-sources" ]
+if [ -d "nuget-sources" ]
 then
-    mkdir -p tools/Addins/Cake.FileHelpers.6.1.3
-    unzip -o cake-sources/cake.filehelpers.6.1.3.nupkg -d tools/Addins/Cake.FileHelpers.6.1.3/
-    dotnet tool restore --add-source cake-sources
+    mv flatpak/NuGet.config ./
+    mv cake-sources/cake.tool.3.0.0.nupkg flatpak/cake_repo/cake.tool/3.0.0/
+    mv cake-sources/cake.filehelpers.6.1.3.nupkg flatpak/cake_repo/cake.filehelpers/6.1.3/
+    dotnet tool restore
     dotnet cake --target=Publish --prefix=/app --ui=$1 --self-contained --sources=nuget-sources
 else
     dotnet tool restore

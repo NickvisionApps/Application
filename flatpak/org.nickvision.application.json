@@ -50,7 +50,7 @@
                     "type": "dir",
                     "path": ".."
                 },
-                "../cake-sources.json",
+                "cake-sources.json",
                 "../NickvisionApplication.GNOME/nuget-sources.json"
             ]
         }

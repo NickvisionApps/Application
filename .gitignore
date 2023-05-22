@@ -348,8 +348,8 @@ ASALocalRun/
 _nickbuild/
 *.ui
 
-# Cake Addins
-tools/
-
 # Backup files
 *.bak
+
+# Cake tools
+tools/
