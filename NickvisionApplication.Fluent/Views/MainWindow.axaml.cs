@@ -39,7 +39,7 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         _controller = controller;
-        Title = _controller.AppInfo.ShortName;
+        Title = $"{_controller.AppInfo.ShortName}{(_controller.IsDevVersion ? " - PREVIEW" : "")}";
         //Register Events
         _controller.NotificationSent += NotificationSent;
         _controller.ShellNotificationSent += ShellNotificationSent;
@@ -77,7 +77,6 @@ public partial class MainWindow : Window
             {
                 faTheme.PreferSystemTheme = false;
                 faTheme.RequestedTheme = _controller.Theme.ToString();
-                faTheme.ForceWin32WindowToTheme(this, faTheme.RequestedTheme);
             }
         }
     }
