@@ -350,3 +350,6 @@ _nickbuild/
 
 # Cake Addins
 tools/
+
+# Backup files
+*.bak

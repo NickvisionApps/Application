@@ -110,7 +110,7 @@ Application is available to translate on [Weblate](https://hosted.weblate.org/en
 
 To start translating the app, fork the repository and clone it locally.
 
-In the `NickvisionApplication.Shared/Resources` folder you will see a file called `String.resx`. This is a C# resource file that contains all the strings for the application. Simply copy that file and rename it `String.<lang-code>.resx`. For example, if I'm creating an Italian translation, the copied file would be called `Strings.it.resx`. Once you have your copied file, simply replace each `<value>` block of each `<data>` string block with your language's appropriate translation.
+Application uses [gettext](https://www.gnu.org/software/gettext/manual/gettext.html#PO-Files) for translations. In the `NickvisionApplication.Shared/Resources/po` you will find files that can be edited in your favourite `*.po` files editor or any text editor. If you want to create a new translation, copy `application.pot` file, name the new file `<lang_code>.po`, where `<lang_code>` is the language code for your translation (usually it's 2 letters, but it also can be a locale code to differentiate between different version of the same language, for example `pt` and `pt_BR`) and edit this file. Also add the language code to `LINGUAS` file (please keep codes sorted alphabetically there).
 
 To check your translation file, make sure your system is in the locale of the language you are translating and run the app. You should see your translated strings!
 
@@ -168,7 +168,6 @@ You may also build the app manually without using flatpak. List of dependencies:
 - [cake](https://cakebuild.net/) (build only)
     - `dotnet tool install --global Cake.Tool`
 - blueprint-compiler, GTK and libadwaita development files (build only)
-- python3 (build only)
 - glib-compile-resources (build only)
 
 Use one of the commands to build the app:
