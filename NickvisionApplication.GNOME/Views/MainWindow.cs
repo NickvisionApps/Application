@@ -8,6 +8,7 @@ using System.Globalization;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
+using static NickvisionApplication.Shared.Helpers.Gettext;
 
 namespace NickvisionApplication.GNOME.Views;
 
@@ -50,6 +51,7 @@ public partial class MainWindow : Adw.ApplicationWindow
     [Gtk.Connect] private readonly Gtk.Button _closeFolderButton;
     [Gtk.Connect] private readonly Adw.ToastOverlay _toastOverlay;
     [Gtk.Connect] private readonly Adw.ViewStack _viewStack;
+    [Gtk.Connect] private readonly Gtk.Label _filesLabel;
     private readonly Gtk.DropTarget _dropTarget;
 
     private MainWindow(Gtk.Builder builder, MainWindowController controller, Adw.Application application) : base(builder.GetPointer("_root"), false)
@@ -65,11 +67,10 @@ public partial class MainWindow : Adw.ApplicationWindow
         {
             AddCssClass("devel");
         }
-        OnCloseRequest += OnCloseRequested;
         //Build UI
         builder.Connect(this);
         _title.SetTitle(_controller.AppInfo.ShortName);
-        _title.SetSubtitle(_controller.FolderPath == "No Folder Opened" ? _controller.Localizer["NoFolderOpened"] : _controller.FolderPath);
+        _title.SetSubtitle(_controller.FolderPath == "No Folder Opened" ? _("No Folder Opened") : _controller.FolderPath);
         var greeting = (Adw.StatusPage)builder.GetObject("_greeting");
         greeting.SetIconName(controller.ShowSun ? "sun-outline-symbolic" : "moon-outline-symbolic");
         greeting.SetTitle(_controller.Greeting);
@@ -117,7 +118,7 @@ public partial class MainWindow : Adw.ApplicationWindow
     /// </summary>
     /// <param name="controller">The MainWindowController</param>
     /// <param name="application">The Adw.Application</param>
-    public MainWindow(MainWindowController controller, Adw.Application application) : this(Builder.FromFile("window.ui", controller.Localizer, (s) => s == "About" ? string.Format(controller.Localizer[s], controller.AppInfo.ShortName) : controller.Localizer[s]), controller, application)
+    public MainWindow(MainWindowController controller, Adw.Application application) : this(Builder.FromFile("window.ui"), controller, application)
     {
     }
 
@@ -140,7 +141,7 @@ public partial class MainWindow : Adw.ApplicationWindow
         var toast = Adw.Toast.New(e.Message);
         if (e.Action == "close")
         {
-            toast.SetButtonLabel(_controller.Localizer["Close"]);
+            toast.SetButtonLabel(_("Close"));
             toast.OnButtonClicked += (sender, ex) => _controller.CloseFolder();
         }
         _toastOverlay.AddToast(toast);
@@ -171,18 +172,6 @@ public partial class MainWindow : Adw.ApplicationWindow
             g_notification_set_icon(notification.Handle, iconHandle);
         }
         _application.SendNotification(_controller.AppInfo.ID, notification);
-    }
-
-    /// <summary>
-    /// Occurs when the window tries to close
-    /// </summary>
-    /// <param name="sender">Gtk.Window</param>
-    /// <param name="e">EventArgs</param>
-    /// <returns>True to stop close, else false</returns>
-    private bool OnCloseRequested(Gtk.Window sender, EventArgs e)
-    {
-        _controller.Dispose();
-        return false;
     }
 
     /// <summary>
@@ -225,7 +214,7 @@ public partial class MainWindow : Adw.ApplicationWindow
     private void OpenFolder(Gio.SimpleAction sender, EventArgs e)
     {
         var folderDialog = gtk_file_dialog_new();
-        gtk_file_dialog_set_title(folderDialog, _controller.Localizer["OpenFolder"]);
+        gtk_file_dialog_set_title(folderDialog, _("Open Folder"));
         _saveCallback = (source, res, data) =>
         {
             var fileHandle = gtk_file_dialog_select_folder_finish(folderDialog, res, IntPtr.Zero);
@@ -233,6 +222,7 @@ public partial class MainWindow : Adw.ApplicationWindow
             {
                 var path = g_file_get_path(fileHandle);
                 _controller.OpenFolder(path);
+                _filesLabel.SetLabel(_n("There is {0} file in the folder.", "There are {0} files in the folder.", Directory.GetFiles(path, "*", SearchOption.TopDirectoryOnly).Length));
             }
         };
         gtk_file_dialog_select_folder(folderDialog, Handle, IntPtr.Zero, _saveCallback, IntPtr.Zero);
@@ -245,7 +235,7 @@ public partial class MainWindow : Adw.ApplicationWindow
     /// <param name="e">EventArgs</param>
     private void CloseFolder(Gio.SimpleAction sender, EventArgs e)
     {
-        var dialog = new MessageDialog(this, _controller.AppInfo.ID, _controller.Localizer["CloseFolderDialog", "Title"], _controller.Localizer["CloseFolderDialog", "Description"], _controller.Localizer["Cancel"], _controller.Localizer["Close"]);
+        var dialog = new MessageDialog(this, _controller.AppInfo.ID, _("Close Folder?"), _("Are you sure you want to close the folder?"), _("Cancel"), _("Close"));
         dialog.Present();
         dialog.OnResponse += (sender, e) =>
         {
@@ -275,7 +265,7 @@ public partial class MainWindow : Adw.ApplicationWindow
     /// <param name="e">EventArgs</param>
     private void KeyboardShortcuts(Gio.SimpleAction sender, EventArgs e)
     {
-        var builder = Builder.FromFile("shortcuts_dialog.ui", _controller.Localizer, (s) => s == "About" ? string.Format(_controller.Localizer[s], _controller.AppInfo.ShortName) : _controller.Localizer[s]);
+        var builder = Builder.FromFile("shortcuts_dialog.ui");
         var shortcutsWindow = (Gtk.ShortcutsWindow)builder.GetObject("_shortcuts");
         shortcutsWindow.SetTransientFor(this);
         shortcutsWindow.SetIconName(_controller.AppInfo.ID);
@@ -344,10 +334,10 @@ public partial class MainWindow : Adw.ApplicationWindow
         dialog.SetWebsite(_controller.AppInfo.GitHubRepo.ToString());
         dialog.SetIssueUrl(_controller.AppInfo.IssueTracker.ToString());
         dialog.SetSupportUrl(_controller.AppInfo.SupportUrl.ToString());
-        dialog.SetDevelopers(_controller.Localizer["Developers", "Credits"].Split(Environment.NewLine));
-        dialog.SetDesigners(_controller.Localizer["Designers", "Credits"].Split(Environment.NewLine));
-        dialog.SetArtists(_controller.Localizer["Artists", "Credits"].Split(Environment.NewLine));
-        dialog.SetTranslatorCredits((string.IsNullOrEmpty(_controller.Localizer["Translators", "Credits"]) ? "" : _controller.Localizer["Translators", "Credits"]));
+        dialog.SetDevelopers(_("Nicholas Logozzo https://github.com/nlogozzo\nContributors on GitHub ❤️ https://github.com/NickvisionApps/Application/graphs/contributors").Split(Environment.NewLine));
+        dialog.SetDesigners(_("Nicholas Logozzo https://github.com/nlogozzo\nFyodor Sobolev https://github.com/fsobolev").Split(Environment.NewLine));
+        dialog.SetArtists(_("Nicholas Logozzo https://github.com/nlogozzo").Split(Environment.NewLine));
+        dialog.SetTranslatorCredits(_("translator-credits"));
         dialog.SetReleaseNotes(_controller.AppInfo.Changelog);
         dialog.Present();
     }

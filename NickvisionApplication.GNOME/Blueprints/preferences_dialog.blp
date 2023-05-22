@@ -11,13 +11,13 @@ Adw.PreferencesWindow _root {
 
   Adw.PreferencesPage {
     Adw.PreferencesGroup {
-      title: _("UserInterface");
-      description: _("UserInterfaceDescription");
+      title: _("User Interface");
+      description: _("Customize the application's user interface.");
 
       Adw.ComboRow _themeRow {
         title: _("Theme");
         model: Gtk.StringList {
-          strings [_("ThemeLight"), _("ThemeDark"), _("ThemeSystem")]
+          strings [C_("Theme", "Light"), C_("Theme", "Dark"), C_("Theme", "System")]
         };
       }
     }

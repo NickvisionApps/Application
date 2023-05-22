@@ -1,5 +1,4 @@
-﻿using NickvisionApplication.Shared.Helpers;
-using NickvisionApplication.Shared.Models;
+﻿using NickvisionApplication.Shared.Models;
 
 namespace NickvisionApplication.Shared.Controllers;
 
@@ -9,11 +8,6 @@ namespace NickvisionApplication.Shared.Controllers;
 public class PreferencesViewController
 {
     /// <summary>
-    /// The localizer to get translated strings from
-    /// </summary>
-    public Localizer Localizer { get; init; }
-
-    /// <summary>
     /// Gets the AppInfo object
     /// </summary>
     public AppInfo AppInfo => AppInfo.Current;
@@ -21,9 +15,9 @@ public class PreferencesViewController
     /// <summary>
     /// Constructs a PreferencesViewController
     /// </summary>
-    internal PreferencesViewController(Localizer localizer)
+    internal PreferencesViewController()
     {
-        Localizer = localizer;
+
     }
 
     /// <summary>

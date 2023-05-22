@@ -1,5 +1,6 @@
 app_id := "org.nickvision.application"
 project_name := "NickvisionApplication"
+short_name := "application"
 
 dotnet_runtime := if arch() == "arm" {
     "linux-arm"
@@ -23,6 +24,10 @@ run:
     glib-compile-resources --sourcedir ./Resources \
     ./Resources/{{app_id}}.gresource.xml
     mv ./Resources/{{app_id}}.gresource ./bin/Debug/net7.0/
+    while read lang_code; do \
+        mkdir -p ./bin/Debug/net7.0/$lang_code; \
+        msgfmt ../{{project_name}}.Shared/Resources/po/${lang_code}.po -o ./bin/Debug/net7.0/$lang_code/{{short_name}}.mo; \
+    done < ../{{project_name}}.Shared/Resources/po/LINGUAS
     dotnet run
     rm Blueprints/*.ui
 
@@ -50,6 +55,10 @@ publish PREFIX LIB_DIR=lib: clean && (_install_extras PREFIX)
     then
         exit $success
     fi
+    while read lang_code; do \
+        mkdir -p {{builddir}}{{PREFIX}}/{{LIB_DIR}}/{{app_id}}/$lang_code; \
+        msgfmt ../{{project_name}}.Shared/Resources/po/${lang_code}.po -o {{builddir}}{{PREFIX}}/{{LIB_DIR}}/{{app_id}}/$lang_code/{{short_name}}.mo; \
+    done < ../{{project_name}}.Shared/Resources/po/LINGUAS
     mkdir -p {{builddir}}{{PREFIX}}/bin
     cat > {{builddir}}{{PREFIX}}/bin/{{app_id}} << EOF
     #!/bin/sh
@@ -83,6 +92,12 @@ publish-self-contained PREFIX LIB_DIR=lib: clean && (_install_extras PREFIX)
     then
         exit $success
     fi
+    while read lang_code; do
+        echo lang $lang_code;
+        mkdir -p {{builddir}}{{PREFIX}}/{{LIB_DIR}}/{{app_id}}/$lang_code;
+        echo msgfmt;
+        msgfmt ../{{project_name}}.Shared/Resources/po/${lang_code}.po -o {{builddir}}{{PREFIX}}/{{LIB_DIR}}/{{app_id}}/$lang_code/{{short_name}}.mo;
+    done < ../{{project_name}}.Shared/Resources/po/LINGUAS
     mkdir -p {{builddir}}{{PREFIX}}/bin
     cat > {{builddir}}{{PREFIX}}/bin/{{app_id}} << EOF
     #!/bin/sh
@@ -103,6 +118,21 @@ clean:
 
 # Command to be used in flatpak manifest
 publish-flatpak: (publish-self-contained "/app") install
+
+# Generate PO template file for translations
+generate-pot:
+    GetText.Extractor -s . -s ../{{project_name}}.Shared -s ../{{project_name}}.WinUI/ \
+        -as "_" -ad "_p" -ap "_n" -adp "_pn" -t ../{{project_name}}.Shared/Resources/po/application.pot
+    xgettext --from-code=UTF-8 --add-comments --keyword=_ --keyword=C_:1c,2 \
+        -o ../{{project_name}}.Shared/Resources/po/{{short_name}}.pot -j Blueprints/*.blp
+    xgettext -o ../{{project_name}}.Shared/Resources/po/{{short_name}}.pot -j {{app_id}}.desktop
+    xgettext -o ../{{project_name}}.Shared/Resources/po/{{short_name}}.pot -j {{app_id}}.metainfo.xml
+
+# Update PO files to match template
+update-po:
+    while read lang_code; do \
+        msgmerge -U ../{{project_name}}.Shared/Resources/po/${lang_code}.po ../{{project_name}}.Shared/Resources/po/{{short_name}}.pot; \
+    done < ../{{project_name}}.Shared/Resources/po/LINGUAS
 
 _install_extras PREFIX: && (_translate_meta PREFIX)
     # Installing icons
@@ -141,87 +171,8 @@ _install_extras PREFIX: && (_translate_meta PREFIX)
     cp ./{{app_id}}.metainfo.xml {{builddir}}{{PREFIX}}/share/metainfo/
 
 _translate_meta PREFIX:
-    #!/usr/bin/env python3
-    import os
-    import re
-    import xml.etree.ElementTree as ET
-    from pathlib import Path
-
-    print("\033[1m# Translating desktop and metainfo files\033[0m")
-    resx_dir = (Path(os.getcwd()) / '../{{project_name}}.Shared/Resources/').resolve()
-    regex = re.compile(r'Strings\.(.+)\.resx')
-    desktop_names = []
-    desktop_comments = []
-    desktop_keywords = []
-    meta_names = {}
-    meta_summaries = {}
-    meta_descriptions = {}
-    for filename in os.listdir(resx_dir):
-        regex_match = regex.search(filename)
-        if regex_match:
-            lang_code = regex_match.group(1).replace('-', '_')
-            tree = ET.parse(f'{resx_dir}/{filename}')
-            root = tree.getroot()
-            for item in root.findall('./data'):
-                if item.attrib['name'] == 'ShortName':
-                    text = item.find('value').text
-                    if text:
-                        desktop_names.append(f'Name[{lang_code}]={text}')
-                        meta_names[lang_code] = ET.fromstring(f'<name xml:lang="{lang_code}">{text}</name>')
-                if item.attrib['name'] == 'Description':
-                    text = item.find('value').text
-                    if text:
-                        desktop_comments.append(f'Comment[{lang_code}]={text}')
-                        meta_summaries[lang_code] = ET.fromstring(f'<summary xml:lang="{lang_code}">{text}</summary>')
-                elif item.attrib['name'] == 'MetadataDescription.GTK':
-                    text = ET.tostring(item.find('value'), encoding='unicode').strip()[7:-8]
-                    if text:
-                        lines = text.split('\n')
-                        meta_descriptions[lang_code] = []
-                        for line in lines:
-                            text = line.strip()
-                            if text == "": continue
-                            meta_descriptions[lang_code].append(ET.fromstring(f'<p xml:lang="{lang_code}">{text}</p>'))
-                elif item.attrib['name'] == 'Keywords.GTK':
-                    text = item.find('value').text
-                    if text:
-                        desktop_keywords.append(f'Keywords[{lang_code}]={text}')
-    desktop_comments.sort()
-    desktop_keywords.sort()
-    meta_summaries = {i: meta_summaries[i] for i in sorted(meta_summaries)}
-    meta_descriptions = {i: meta_descriptions[i] for i in sorted(meta_descriptions)}
-
-    with open('{{builddir}}{{PREFIX}}/share/applications/{{app_id}}.desktop', 'r') as f:
-        contents = f.readlines()
-        new_contents = contents.copy()
-    j = 0
-    for i in range(len(contents)):
-        if contents[i].startswith('Name='):
-            new_contents.insert(j + 1, "\n".join(desktop_names) + "\n")
-            j += 1
-        if contents[i].startswith('Comment='):
-            new_contents.insert(j + 1, "\n".join(desktop_comments) + "\n")
-            j += 1
-        elif contents[i].startswith('Keywords='):
-            new_contents.insert(j + 1, "\n".join(desktop_keywords) + "\n")
-            j += 1
-        j += 1
-    with open('{{builddir}}{{PREFIX}}/share/applications/{{app_id}}.desktop', 'w') as f:
-        new_contents = ''.join(new_contents)
-        f.write(new_contents)
-
-    with open('{{builddir}}{{PREFIX}}/share/metainfo/{{app_id}}.metainfo.xml', 'r') as f:
-        metainfo = ET.fromstring(''.join(f.readlines()))
-        for i, v in enumerate(meta_names.values()):
-            metainfo.insert(list(metainfo).index(metainfo.find('name')) + i + 1, v)
-        for i, v in enumerate(meta_summaries.values()):
-            metainfo.insert(list(metainfo).index(metainfo.find('summary')) + i + 1, v)
-        for arr in meta_descriptions.values():
-            for element in arr:
-                metainfo.find('description[1]').append(element)
-        ET.indent(metainfo, '  ')
-    with open('{{builddir}}{{PREFIX}}/share/metainfo/{{app_id}}.metainfo.xml', 'w') as f:
-        f.write('<?xml version="1.0" encoding="UTF-8"?>\n' + ET.tostring(metainfo, encoding='unicode'))
+    msgfmt --desktop --template={{app_id}}.desktop -o {{builddir}}{{PREFIX}}/share/applications/{{app_id}}.desktop -d ../{{project_name}}.Shared/Resources/po/
+    msgfmt --xml --template={{app_id}}.metainfo.xml -o {{builddir}}{{PREFIX}}/share/metainfo/{{app_id}}.metainfo.xml -d ../{{project_name}}.Shared/Resources/po/
 
 # Generate sources files for Flatpak
 generate-flatpak-sources: _generate_flatpak_sources_just _generate_flatpak_sources_dotnet
