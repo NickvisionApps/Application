@@ -15,13 +15,22 @@
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for details on how can you help the project and how to provide information so we can help you in case of troubles with the app.
 
-# GNOME Screenshots
-![GNOMELight](NickvisionApplication.GNOME/Screenshots/Light.png)
-![GNOMEDark](NickvisionApplication.GNOME/Screenshots/Dark.png)
 
-# WinUI Screenshots
-![WinUILight](NickvisionApplication.WinUI/Screenshots/Light.png)
-![WinUIDark](NickvisionApplication.WinUI/Screenshots/Dark.png)
+# Screenshots
+
+<details>
+ <summary>GNOME</summary>
+
+ ![GNOMELight](NickvisionMoney.GNOME/Screenshots/Light.png)
+ ![GNOMEDark](NickvisionMoney.GNOME/Screenshots/Dark.png)
+</details>
+
+<details>
+ <summary>Fluent</summary>
+
+ ![GNOMELight](NickvisionMoney.Fluent/Screenshots/Light.png)
+ ![GNOMEDark](NickvisionMoney.Fluent/Screenshots/Dark.png)
+</details>
 
 # Dependencies
 - [.NET 7](https://dotnet.microsoft.com/en-us/)
