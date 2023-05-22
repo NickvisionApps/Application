@@ -21,15 +21,15 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for details on how can you help the proje
 <details>
  <summary>GNOME</summary>
 
- ![GNOMELight](NickvisionMoney.GNOME/Screenshots/Light.png)
- ![GNOMEDark](NickvisionMoney.GNOME/Screenshots/Dark.png)
+ ![GNOMELight](NickvisionApplication.GNOME/Screenshots/Light.png)
+ ![GNOMEDark](NickvisionApplication.GNOME/Screenshots/Dark.png)
 </details>
 
 <details>
  <summary>Fluent</summary>
 
- ![GNOMELight](NickvisionMoney.Fluent/Screenshots/Light.png)
- ![GNOMEDark](NickvisionMoney.Fluent/Screenshots/Dark.png)
+ ![FluentLight](NickvisionApplication.Fluent/Screenshots/Light.png)
+ ![FluentDark](NickvisionApplication.Fluent/Screenshots/Dark.png)
 </details>
 
 # Dependencies
