@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Application
+Comment=Create new Nickvision applications
+Exec=@EXEC@
+Icon=org.nickvision.application
+Terminal=false
+Type=Application
+X-GNOME-UsesNotifications=true
+StartupNotify=true

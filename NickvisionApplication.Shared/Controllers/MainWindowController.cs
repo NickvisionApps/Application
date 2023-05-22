@@ -38,6 +38,10 @@ public class MainWindowController
     /// </summary>
     public event EventHandler<NotificationSentEventArgs>? NotificationSent;
     /// <summary>
+    /// Occurs when a shell notification is sent
+    /// </summary>
+    public event EventHandler<ShellNotificationSentEventArgs>? ShellNotificationSent;
+    /// <summary>
     /// Occurs when a folder is opened or closed
     /// </summary>
     public event EventHandler? FolderChanged;

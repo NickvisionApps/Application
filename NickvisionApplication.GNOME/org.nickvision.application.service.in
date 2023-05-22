@@ -1,0 +1,3 @@
+[D-BUS Service]
+Name=org.nickvision.application
+Exec=@PREFIX@/bin/org.nickvision.application --gapplication-service
