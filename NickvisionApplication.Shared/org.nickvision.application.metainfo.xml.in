@@ -29,7 +29,6 @@
   <project_group>Nickvision</project_group>
   <provides>
     <binary>org.nickvision.application</binary>
-    <binary>NickvisionApplication.GNOME</binary>
   </provides>
   <releases>
     <release version="2023.5.0-next" date="2023-05-01">
