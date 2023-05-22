@@ -49,7 +49,7 @@ Task("Publish")
     var selfContained = Argument("self-contained", false) || HasArgument("self-contained") || HasArgument("sc");
     var outDir = EnvironmentVariable("NICK_BUILDDIR", "_nickbuild");
     CleanDirectory(outDir);
-    var prefix = Argument("prefix", IsRunningOnWindows() ? "" : "/usr");
+    var prefix = Argument("prefix", "/usr");
     var libDir = string.IsNullOrEmpty(prefix) ? "lib" : $"{prefix}{sep}lib";
     var publishDir = $"{outDir}{libDir}{sep}{appId}";
     var exitCode = 0;
@@ -69,14 +69,7 @@ Task("Publish")
         throw new Exception($"Publishing failed with exit code {exitCode}.");
     }
 
-    if (IsRunningOnWindows())
-    {
-        FinishPublishWindows(outDir, prefix);
-    }
-    else
-    {
-        FinishPublishLinux(outDir, prefix, libDir, selfContained);
-    }
+    FinishPublishLinux(outDir, prefix, libDir, selfContained);
 
     if (projectSuffix == "GNOME")
     {
@@ -103,11 +96,6 @@ Task("FlatpakSourcesGen")
 //////////////////////////////////////////////////////////////////////
 // FUNCTIONS
 //////////////////////////////////////////////////////////////////////
-
-private void FinishPublishWindows(string outDir, string prefix)
-{
-    // TODO
-}
 
 private void FinishPublishLinux(string outDir, string prefix, string libDir, bool selfContained)
 {
@@ -175,13 +163,12 @@ if (string.IsNullOrEmpty(ui))
 }
 projectSuffix = ui.ToLower() switch
 {
-    "fluent" => "Fluent",
     "gnome" => "GNOME",
     _ => ""
 };
 if (string.IsNullOrEmpty(projectSuffix))
 {
-    throw new Exception("Unknown UI. Possible values: fluent, gnome.");
+    throw new Exception("Unknown UI. Possible values: gnome.");
 }
 
 RunTarget(target);
