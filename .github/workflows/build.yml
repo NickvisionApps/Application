@@ -55,7 +55,7 @@ jobs:
       run: dotnet restore NickvisionApplication.Fluent/NickvisionApplication.Fluent.csproj
     # Build the app
     - name: Build the app
-      run: dotnet build NickvisionApplication.Fluent/NickvisionApplication.Fluent.csproj --configuration $env:Configuration --self-contained --runtime win-$env:Platform
+      run: dotnet build NickvisionApplication.Fluent/NickvisionApplication.Fluent.csproj --configuration $env:Configuration --runtime win-$env:Platform
       env:
         Configuration: ${{ matrix.configuration }}
         Platform: ${{ matrix.platform }}
