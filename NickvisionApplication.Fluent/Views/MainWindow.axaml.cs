@@ -1,9 +1,12 @@
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using FluentAvalonia.Styling;
 using FluentAvalonia.UI.Controls;
 using NickvisionApplication.Fluent.Controls;
 using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.Shared.Events;
+using NickvisionApplication.Shared.Models;
 using Symbol = FluentIcons.Common.Symbol;
 using System;
 using System.IO;
@@ -58,6 +61,24 @@ public partial class MainWindow : Window
         LblBtnHomeOpenFolder.Text = _controller.Localizer["Open"];
         BtnCloseFolder.Label = _controller.Localizer["CloseFolder"];
         ToolTip.SetTip(BtnCloseFolder, _controller.Localizer["CloseFolder", "Tooltip"]);
+    }
+    
+    /// <summary>
+    /// Occurs when the window opens
+    /// </summary>
+    /// <param name="sender">object?</param>
+    /// <param name="e">EventArgs</param>
+    private void Window_Opened(object? sender, EventArgs e)
+    {
+        var faTheme = AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>();
+        if (faTheme != null)
+        {
+            if (_controller.Theme != Theme.System)
+            {
+                faTheme.PreferSystemTheme = false;
+                faTheme.RequestedTheme = _controller.Theme.ToString();
+            }
+        }
     }
 
     /// <summary>
@@ -156,9 +177,10 @@ public partial class MainWindow : Window
     /// </summary>
     /// <param name="sender">object?</param>
     /// <param name="e">RoutedEventArgs</param>
-    private void Settings(object? sender, RoutedEventArgs e)
+    private async void Settings(object? sender, RoutedEventArgs e)
     {
-        
+        var settingsDialog = new SettingsDialog(_controller.CreatePreferencesViewController());
+        await settingsDialog.ShowAsync(this);
     }
 
     /// <summary>

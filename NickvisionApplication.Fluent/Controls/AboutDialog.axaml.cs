@@ -18,7 +18,7 @@ public partial class AboutDialog : ContentDialog, IStyleable
 {
     Type IStyleable.StyleKey => typeof(ContentDialog);
     
-    private AppInfo? _appInfo;
+    private readonly AppInfo _appInfo;
 
     /// <summary>
     /// Constructs an AboutDialog
@@ -98,7 +98,7 @@ public partial class AboutDialog : ContentDialog, IStyleable
     {
         if (Application.Current!.Clipboard != null)
         {
-            await Application.Current!.Clipboard.SetTextAsync($"{_appInfo!.ID}\n{_appInfo.Version}\n\n{System.Environment.OSVersion}\n{CultureInfo.CurrentCulture.Name}");
+            await Application.Current!.Clipboard.SetTextAsync($"{_appInfo.ID}\n{_appInfo.Version}\n\n{Environment.OSVersion}\n{CultureInfo.CurrentCulture.Name}");
             InfoBar.IsOpen = true;    
         }
     }
@@ -108,19 +108,19 @@ public partial class AboutDialog : ContentDialog, IStyleable
     /// </summary>
     /// <param name="sender">object</param>
     /// <param name="e">RoutedEventArgs</param>
-    private void GitHubRepo(object sender, RoutedEventArgs e) => _appInfo!.GitHubRepo.OpenInBrowser();
+    private void GitHubRepo(object sender, RoutedEventArgs e) => _appInfo.GitHubRepo.OpenInBrowser();
     
     /// <summary>
     /// Occurs when the report a bug button is clicked
     /// </summary>
     /// <param name="sender">object</param>
     /// <param name="e">RoutedEventArgs</param>
-    private void ReportABug(object sender, RoutedEventArgs e) => _appInfo!.IssueTracker.OpenInBrowser();
+    private void ReportABug(object sender, RoutedEventArgs e) => _appInfo.IssueTracker.OpenInBrowser();
     
     /// <summary>
     /// Occurs when the discussions button is clicked
     /// </summary>
     /// <param name="sender">object</param>
     /// <param name="e">RoutedEventArgs</param>
-    private void Discussions(object sender, RoutedEventArgs e) => _appInfo!.SupportUrl.OpenInBrowser();
+    private void Discussions(object sender, RoutedEventArgs e) => _appInfo.SupportUrl.OpenInBrowser();
 }

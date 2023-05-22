@@ -6,7 +6,7 @@
         xmlns:icon="using:FluentIcons.FluentAvalonia"
         xmlns:nickvision="using:NickvisionApplication.Fluent.Controls"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="NickvisionApplication.Fluent.Views.MainWindow"
+        x:Class="NickvisionApplication.Fluent.Views.MainWindow" Opened="Window_Opened"
         Icon="/Assets/org.nickvision.application.ico" Width="800" Height="600">
     <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>
