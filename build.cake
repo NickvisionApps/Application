@@ -8,7 +8,7 @@ var sep = System.IO.Path.DirectorySeparatorChar;
 
 var target = Argument("target", "Run");
 var configuration = Argument("configuration", "Debug");
-var ui = Argument("ui", EnvironmentVariable<string>("NICK_UI", ""));
+var ui = Argument("ui", EnvironmentVariable("NICK_UI", ""));
 var projectSuffix = "";
 
 //////////////////////////////////////////////////////////////////////
@@ -47,20 +47,26 @@ Task("Publish")
     .Does(() =>
 {
     var selfContained = Argument("self-contained", false) || HasArgument("self-contained") || HasArgument("sc");
-    var outDir = EnvironmentVariable<string>("NICK_BUILDDIR", "_nickbuild");
+    var outDir = EnvironmentVariable("NICK_BUILDDIR", "_nickbuild");
     CleanDirectory(outDir);
-    var prefix = Argument("prefix", IsRunningOnWindows() ? "" : "usr");
+    var prefix = Argument("prefix", IsRunningOnWindows() ? "" : "/usr");
     var libDir = string.IsNullOrEmpty(prefix) ? "lib" : $"{prefix}{sep}lib";
-    var publishDir = $"{outDir}{sep}{libDir}{sep}{appId}";
+    var publishDir = $"{outDir}{libDir}{sep}{appId}";
+    var exitCode = 0;
     DotNetPublish($".{sep}{projectName}.{projectSuffix}{sep}{projectName}.{projectSuffix}.csproj", new DotNetPublishSettings
     {
         Configuration = "Release",
         SelfContained = selfContained,
-        OutputDirectory = publishDir
+        OutputDirectory = publishDir,
+        Sources = Argument("sources", "").Split(" "),
+        HandleExitCode = code => {
+            exitCode = code;
+            return false;
+        }
     });
-    if (projectSuffix == "GNOME")
+    if (exitCode != 0)
     {
-        PostPublishGNOME(outDir, prefix, libDir);
+        throw new Exception($"Publishing failed with exit code {exitCode}.");
     }
 
     if (IsRunningOnWindows())
@@ -71,6 +77,19 @@ Task("Publish")
     {
         FinishPublishLinux(outDir, prefix, libDir, selfContained);
     }
+
+    if (projectSuffix == "GNOME")
+    {
+        PostPublishGNOME(outDir, prefix, libDir);
+    }
+});
+
+Task("Install")
+    .Does(() =>
+{
+    var buildDir = EnvironmentVariable("NICK_BUILDDIR", "_nickbuild");
+    var destDir = Argument("destdir", "/");
+    CopyDirectory(buildDir, destDir);
 });
 
 Task("FlatpakSourcesGen")
@@ -85,28 +104,6 @@ Task("FlatpakSourcesGen")
 // FUNCTIONS
 //////////////////////////////////////////////////////////////////////
 
-private void PostPublishGNOME(string outDir, string prefix, string libDir)
-{
-    var shareDir = string.IsNullOrEmpty(prefix) ? "share" : $"{prefix}{sep}share";
-
-    CreateDirectory($"{outDir}{sep}{shareDir}{sep}{appId}");
-    MoveFileToDirectory($"{outDir}{sep}{libDir}{sep}{appId}{sep}{appId}.gresource", $"{outDir}{sep}{shareDir}{sep}{appId}");
-
-    var iconsScalableDir = $"{outDir}{sep}{shareDir}{sep}icons{sep}hicolor{sep}scalable{sep}apps";
-    CreateDirectory(iconsScalableDir);
-    CopyFileToDirectory($".{sep}{projectName}.Shared{sep}Resources{sep}{appId}.svg", iconsScalableDir);
-    CopyFileToDirectory($".{sep}{projectName}.Shared{sep}Resources{sep}{appId}-devel.svg", iconsScalableDir);
-    var iconsSymbolicDir = $"{outDir}{sep}{shareDir}{sep}icons{sep}hicolor{sep}symbolic{sep}apps";
-    CreateDirectory(iconsSymbolicDir);
-    CopyFileToDirectory($".{sep}{projectName}.Shared{sep}Resources{sep}{appId}-symbolic.svg", iconsSymbolicDir);
-
-    var servicesDir = $"{outDir}{sep}{shareDir}{sep}dbus-1{sep}services";
-    CreateDirectory(servicesDir);
-    CopyFileToDirectory($".{sep}{projectName}.GNOME{sep}{appId}.service.in", servicesDir);
-    ReplaceTextInFiles($"{servicesDir}{sep}{appId}.service.in", "@PREFIX@", $"{sep}{prefix}");
-    MoveFile($"{servicesDir}{sep}{appId}.service.in", $"{servicesDir}{sep}{appId}.service");
-}
-
 private void FinishPublishWindows(string outDir, string prefix)
 {
     // TODO
@@ -114,18 +111,29 @@ private void FinishPublishWindows(string outDir, string prefix)
 
 private void FinishPublishLinux(string outDir, string prefix, string libDir, bool selfContained)
 {
-    var binDir = string.IsNullOrEmpty(prefix) ? $"{outDir}/bin" : $"{outDir}/{prefix}/bin";
+    var binDir = string.IsNullOrEmpty(prefix) ? $"{outDir}/bin" : $"{outDir}{prefix}/bin";
     CreateDirectory(binDir);
     CopyFileToDirectory($"./{projectName}.Shared/{appId}.in", binDir);
-    ReplaceTextInFiles($"{binDir}/{appId}.in", "@EXEC@", selfContained ? $"/{libDir}/{appId}/{projectName}.{projectSuffix}" : $"dotnet /{libDir}/{appId}/{projectName}.{projectSuffix}.dll");
+    ReplaceTextInFiles($"{binDir}/{appId}.in", "@EXEC@", selfContained ? $"{libDir}/{appId}/{projectName}.{projectSuffix}" : $"dotnet {libDir}/{appId}/{projectName}.{projectSuffix}.dll");
     MoveFile($"{binDir}/{appId}.in", $"{binDir}/{appId}");
+    StartProcess("chmod", new ProcessSettings{
+        Arguments = $"+x {binDir}/{appId}"
+    });
 
-    var shareDir = string.IsNullOrEmpty(prefix) ? $"{outDir}/share" : $"{outDir}/{prefix}/share";
+    var shareDir = string.IsNullOrEmpty(prefix) ? $"{outDir}/share" : $"{outDir}{prefix}/share";
+
+    var iconsScalableDir = $"{shareDir}{sep}icons{sep}hicolor{sep}scalable{sep}apps";
+    CreateDirectory(iconsScalableDir);
+    CopyFileToDirectory($".{sep}{projectName}.Shared{sep}Resources{sep}{appId}.svg", iconsScalableDir);
+    CopyFileToDirectory($".{sep}{projectName}.Shared{sep}Resources{sep}{appId}-devel.svg", iconsScalableDir);
+    var iconsSymbolicDir = $"{shareDir}{sep}icons{sep}hicolor{sep}symbolic{sep}apps";
+    CreateDirectory(iconsSymbolicDir);
+    CopyFileToDirectory($".{sep}{projectName}.Shared{sep}Resources{sep}{appId}-symbolic.svg", iconsSymbolicDir);
 
     var desktopDir = $"{shareDir}/applications";
     CreateDirectory(desktopDir);
     CopyFileToDirectory($"./{projectName}.Shared/{appId}.desktop.in", desktopDir);
-    ReplaceTextInFiles($"{desktopDir}/{appId}.desktop.in", "@EXEC@", $"/{prefix}/bin/{appId}");
+    ReplaceTextInFiles($"{desktopDir}/{appId}.desktop.in", "@EXEC@", $"{prefix}/bin/{appId}");
     MoveFile($"{desktopDir}/{appId}.desktop.in", $"{desktopDir}/{appId}.desktop");
 
     var metainfoDir = $"{shareDir}/metainfo";
@@ -135,9 +143,31 @@ private void FinishPublishLinux(string outDir, string prefix, string libDir, boo
     MoveFile($"{metainfoDir}/{appId}.metainfo.xml.in", $"{metainfoDir}/{appId}.metainfo.xml");
 }
 
+private void PostPublishGNOME(string outDir, string prefix, string libDir)
+{
+    var shareDir = string.IsNullOrEmpty(prefix) ? $"{outDir}{sep}share" : $"{outDir}{prefix}{sep}share";
+
+    CreateDirectory($"{shareDir}{sep}{appId}");
+    MoveFileToDirectory($"{outDir}{libDir}{sep}{appId}{sep}{appId}.gresource", $"{shareDir}{sep}{appId}");
+
+    var servicesDir = $"{shareDir}{sep}dbus-1{sep}services";
+    CreateDirectory(servicesDir);
+    CopyFileToDirectory($".{sep}{projectName}.GNOME{sep}{appId}.service.in", servicesDir);
+    ReplaceTextInFiles($"{servicesDir}{sep}{appId}.service.in", "@PREFIX@", $"{prefix}");
+    MoveFile($"{servicesDir}{sep}{appId}.service.in", $"{servicesDir}{sep}{appId}.service");
+
+    FileAppendLines($"{shareDir}{sep}applications{sep}{appId}.desktop" , new string[] { "\nDBusActivatable=true" });
+}
+
 //////////////////////////////////////////////////////////////////////
 // EXECUTION
 //////////////////////////////////////////////////////////////////////
+
+if (target == "Install")
+{
+    RunTarget(target);
+    return;
+}
 
 if (string.IsNullOrEmpty(ui))
 {

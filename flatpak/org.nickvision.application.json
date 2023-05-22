@@ -4,15 +4,13 @@
     "runtime-version" : "44",
     "sdk" : "org.gnome.Sdk",
     "sdk-extensions": [
-        "org.freedesktop.Sdk.Extension.dotnet7",
-        "org.freedesktop.Sdk.Extension.rust-stable"
+        "org.freedesktop.Sdk.Extension.dotnet7"
     ],
     "build-options": {
-        "append-path": "/usr/lib/sdk/dotnet7/bin:/usr/lib/sdk/rust-stable/bin",
+        "append-path": "/usr/lib/sdk/dotnet7/bin",
         "append-ld-library-path": "/usr/lib/sdk/dotnet7/lib",
         "env": {
-            "PKG_CONFIG_PATH": "/app/lib/pkgconfig:/app/share/pkgconfig:/usr/lib/pkgconfig:/usr/share/pkgconfig:/usr/lib/sdk/dotnet7/lib/pkgconfig",
-            "RUST_BACKTRACE" : "1"
+            "PKG_CONFIG_PATH": "/app/lib/pkgconfig:/app/share/pkgconfig:/usr/lib/pkgconfig:/usr/share/pkgconfig:/usr/lib/sdk/dotnet7/lib/pkgconfig"
         }
     },
     "command" : "/app/bin/org.nickvision.application",
@@ -30,31 +28,6 @@
     ],
     "modules" : [
         {
-            "name": "just",
-            "buildsystem": "simple",
-            "build-options": {
-                "env": {
-                    "CARGO_HOME": "/run/build/just/cargo"
-                }
-            },
-            "build-commands": [
-                "cargo --offline build --release",
-                "install -Dm755 target/release/just /app/bin/just"
-            ],
-            "cleanup": [
-                "/bin/just"
-            ],
-            "sources": [
-                {
-                    "type": "git",
-                    "url": "https://github.com/casey/just.git",
-                    "tag": "1.13.0",
-                    "commit": "baa2dfcc6f180d123672544c5ed1aedc32608228"
-                },
-                "cargo-sources.json"
-            ]
-        },
-        {
             "name": "blueprint-compiler",
             "buildsystem": "meson",
             "sources": [
@@ -70,14 +43,15 @@
             "name": "org.nickvision.application",
             "buildsystem": "simple",
             "build-commands": [
-                "just NickvisionApplication.GNOME/ publish-flatpak"
+                "./flatpak/build.sh gnome"
             ],
             "sources": [
                 {
                     "type": "dir",
                     "path": ".."
                 },
-                "nuget-sources.json"
+                "../cake-sources.json",
+                "../NickvisionApplication.GNOME/nuget-sources.json"
             ]
         }
     ]
