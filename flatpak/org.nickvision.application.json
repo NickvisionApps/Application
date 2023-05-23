@@ -43,7 +43,7 @@
             "name": "org.nickvision.application",
             "buildsystem": "simple",
             "build-commands": [
-                "./flatpak/build.sh gnome"
+                "build.sh gnome"
             ],
             "sources": [
                 {
