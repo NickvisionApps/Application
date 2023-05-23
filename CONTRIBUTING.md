@@ -174,8 +174,8 @@ Use one of the commands to build the app:
 
 | Command | Result |
 |---|---|
-| `dotnet cake --target=Run --ui=gnome` (in repo root folder) or `dotnet run` (in project subfolder) | Builds the application in a temporary build directory and runs it. Application will not get installed, which might result in some missing icons and lack of desktop integration. |
-| `dotnet cake --target=Publish --prefix=PREFIX --ui=gnome` | Builds the application, preparing it to be installed in a provided prefix (examples of a valid prefix: `/usr`, `/app`). If `--self-contained` is added, the application will not need dotnet-runtime to run. 
+| `dotnet cake --target=Run --ui=gnome` (in repo root folder) or `dotnet run` (in project subfolder) | Builds the application and runs it. Application will not get installed, which might result in some missing icons and lack of desktop integration. |
+| `dotnet cake --target=Publish --prefix=PREFIX --ui=gnome` | Builds the application in `_nickbuild` directory, preparing it to be installed in a provided prefix (examples of a valid prefix: `/usr`, `/app`). If `--self-contained` is added, the application will not need dotnet-runtime to run. 
 | `dotnet cake --target=Install --destdir=DESTDIR` | Copies files to the `DESTDIR`. `--destdir` is optional, by default files are copied to root (`/`). This command should be used after `Publish`. |
 
 ## Styleguides
