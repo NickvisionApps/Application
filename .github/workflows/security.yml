@@ -40,10 +40,9 @@ jobs:
         run: dotnet restore NickvisionApplication.GNOME/NickvisionApplication.GNOME.csproj
       # Build
       - name: Build GNOME
-        run: dotnet build NickvisionApplication.GNOME/NickvisionApplication.GNOME.csproj --configuration $env:Configuration --runtime linux-$env:Platform
+        run: dotnet build NickvisionApplication.GNOME/NickvisionApplication.GNOME.csproj --configuration $env:Configuration
         env:
           Configuration: ${{ matrix.configuration }}
-          Platform: ${{ matrix.platform }}
       # Analyze
       - name: Analyze
         uses: github/codeql-action/analyze@v2
