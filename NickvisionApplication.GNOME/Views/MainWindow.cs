@@ -336,9 +336,9 @@ public partial class MainWindow : Adw.ApplicationWindow
         dialog.SetWebsite(_controller.AppInfo.GitHubRepo.ToString());
         dialog.SetIssueUrl(_controller.AppInfo.IssueTracker.ToString());
         dialog.SetSupportUrl(_controller.AppInfo.SupportUrl.ToString());
-        dialog.SetDevelopers(_("Nicholas Logozzo https://github.com/nlogozzo\nContributors on GitHub ❤️ https://github.com/NickvisionApps/Application/graphs/contributors").Split(Environment.NewLine));
-        dialog.SetDesigners(_("Nicholas Logozzo https://github.com/nlogozzo\nFyodor Sobolev https://github.com/fsobolev").Split(Environment.NewLine));
-        dialog.SetArtists(_("Nicholas Logozzo https://github.com/nlogozzo").Split(Environment.NewLine));
+        dialog.SetDevelopers(string.Format(_("Nicholas Logozzo {0}\nContributors on GitHub ❤️ {1}"), "https://github.com/nlogozzo", "https://github.com/NickvisionApps/Application/graphs/contributors").Split("\n"));
+        dialog.SetDesigners(string.Format(_("Nicholas Logozzo {0}\nFyodor Sobolev {1}"), "https://github.com/nlogozzo", "https://github.com/fsobolev").Split("\n"));
+        dialog.SetArtists(string.Format(_("Nicholas Logozzo {0}"), "https://github.com/nlogozzo").Split("\n"));
         dialog.SetTranslatorCredits(_("translator-credits"));
         dialog.SetReleaseNotes(_controller.AppInfo.Changelog);
         dialog.Present();

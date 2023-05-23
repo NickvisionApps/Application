@@ -19,6 +19,11 @@
     <Exec Command="echo Compiling extra resources..." />
     <Exec Command="blueprint-compiler batch-compile ./Blueprints ./Blueprints ./Blueprints/*.blp" />
     <Exec Command="glib-compile-resources --sourcedir ./Resources ./Resources/org.nickvision.application.gresource.xml --target=$(OutDir)/org.nickvision.application.gresource" />
+    <Exec Command="
+      while read lang_code; do \
+        mkdir -p $(OutDir)/${lang_code}; \
+        msgfmt ../NickvisionApplication.Shared/Resources/po/${lang_code}.po -o $(OutDir)/${lang_code}/application.mo; \
+      done %3C ../NickvisionApplication.Shared/Resources/po/LINGUAS" />
   </Target>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
@@ -26,7 +31,11 @@
   </Target>
 
   <Target Name="PostPublish" AfterTargets="Publish">
-    <Exec Command="mv $(OutDir)/org.nickvision.application.gresource $(PublishDir)/org.nickvision.application.gresource" />
+    <Exec Command="cp $(OutDir)/org.nickvision.application.gresource $(PublishDir)/org.nickvision.application.gresource" />
+    <Exec Command="
+      while read lang_code; do \
+        cp -r $(OutDir)/${lang_code} $(PublishDir)/; \
+      done %3C ../NickvisionApplication.Shared/Resources/po/LINGUAS" />
   </Target>
 
   <Target Name="EmbedUIFiles" BeforeTargets="BeforeResGen">

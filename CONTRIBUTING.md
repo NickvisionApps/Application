@@ -120,7 +120,7 @@ In case you run the app in GNOME Builder, it will force the app to run in en_US 
 2. Press Ctrl+Alt+T to open a terminal inside the application environment
 3. Run the application with the following command: `LC_ALL=<locale-code> /app/opt/org.nickvision.application/NickvisionApplication.GNOME`, where `<locale-code>` is your system locale code (e.g. `it_IT.UTF8`).
 
-Once all changes to your translated file are made, make sure the file is in the path `NickvisionApplication.Shared/Resources/String.<lang-code>.resx`, commit these changes and create a pull request to the project.
+Once all changes to your translated file are made, commit these changes and create a pull request to the project.
 
 ### Your First Code Contribution
 
@@ -138,7 +138,7 @@ The whole solution utilizes the [MVC](https://en.wikipedia.org/wiki/Model%E2%80%
 This project contains all of the code used by all platforms of the app. 
 - Models => The data driven objects of the application (i.e. Configuration, Database, etc...)
 - Controllers => The objects used by UI views to receive and manipulate data from the Models
-- Helpers => Useful objects such as the Localizer for receiving translated strings throughout the app
+- Helpers => Useful objects and functions such as the Gettext functions for receiving translated strings throughout the app
 - Resources => Strings, icons, and fonts used by the app
 
 ##### NickvisionApplication.GNOME
@@ -159,14 +159,14 @@ Recommended IDEs:
 - GNOME Builder 43 and up.
 - VS Code with [flatpak extension](https://github.com/bilelmoussaoui/flatpak-vscode).
 
-You may also make your changes via any code editor and use `flatpak-builder` to run the application locally through flatpak.
+You may also make your changes via any code editor and use [`flatpak-builder`](https://docs.flatpak.org/en/latest/flatpak-builder.html) to run the application locally through flatpak.
 
 You may also build the app manually without using flatpak. List of dependencies:
 - dotnet >=7.0
 - GTK >=4.10
 - libadwaita >=1.2
 - [cake](https://cakebuild.net/) (build only)
-    - `dotnet tool install --global Cake.Tool`
+    - `dotnet tool install --global Cake.Tool` or `dotnet tool restore` (in repository root folder)
 - blueprint-compiler, GTK and libadwaita development files (build only)
 - glib-compile-resources (build only)
 
@@ -174,9 +174,9 @@ Use one of the commands to build the app:
 
 | Command | Result |
 |---|---|
-| `dotnet run` | Builds the application in a temporary build directory and runs it. Application will not get installed, which might result in some missing icons and lack of desktop integration. |
-| `dotnet cake --target=Publish --prefix=PREFIX --ui=gnome --self-contained` | Builds the application, preparing it to be installed in a provided prefix (examples of a valid prefix: `/usr`, `/app`). When built using this command, the application will not need dotnet-runtime to run. 
-| `dotnet cake --target=Install` | Copies files to the root directory (`/`). This command should be used after `publish`. |
+| `dotnet cake --target=Run --ui=gnome` (in repo root folder) or `dotnet run` (in project subfolder) | Builds the application and runs it. Application will not get installed, which might result in some missing icons and lack of desktop integration. |
+| `dotnet cake --target=Publish --prefix=PREFIX --ui=gnome` | Builds the application in `_nickbuild` directory, preparing it to be installed in a provided prefix (examples of a valid prefix: `/usr`, `/app`). If `--self-contained` is added, the application will not need dotnet-runtime to run. 
+| `dotnet cake --target=Install --destdir=DESTDIR` | Copies files to the `DESTDIR`. `--destdir` is optional, by default files are copied to root (`/`). This command should be used after `Publish`. |
 
 ## Styleguides
 
