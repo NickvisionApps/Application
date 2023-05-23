@@ -126,7 +126,7 @@ Once all changes to your translated file are made, make sure the file is in the 
 
 #### Structure
 
-Application is built using .NET 7 and C#. With these technologies, Application is built for both GNOME (Linux) and Windows.
+Application is built using .NET 7 and C#. With these technologies, Application is built for GNOME (Linux).
 The solution is setup into 2 projects:
  - NickvisionApplication.Shared
  - NickvisionApplication.GNOME
