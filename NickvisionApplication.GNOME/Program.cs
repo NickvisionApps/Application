@@ -41,6 +41,12 @@ public partial class Program
     /// </summary>
     public Program()
     {
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            var root = Directory.GetParent(Directory.GetParent(Path.GetFullPath(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))).FullName).FullName;
+            Environment.SetEnvironmentVariable("PATH", $"{root}\\bin");
+            Environment.SetEnvironmentVariable("XDG_DATA_DIRS", $"{root}\\share");
+        }
         NativeLibrary.SetDllImportResolver(Assembly.GetExecutingAssembly(), LibraryImportResolver);
         gtk_file_chooser_cell_get_type();
         _application = Adw.Application.New("org.nickvision.application", Gio.ApplicationFlags.FlagsNone);
