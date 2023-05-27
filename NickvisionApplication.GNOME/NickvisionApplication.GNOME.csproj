@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
+    <ApplicationIcon>../NickvisionApplication.Shared/Resources/org.nickvision.application.ico</ApplicationIcon>
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
