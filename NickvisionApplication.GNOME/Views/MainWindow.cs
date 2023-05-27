@@ -19,28 +19,28 @@ public partial class MainWindow : Adw.ApplicationWindow
 {
     private delegate void GAsyncReadyCallback(nint source, nint res, nint user_data);
 
-    [LibraryImport("libadwaita-1.so.0", StringMarshalling = StringMarshalling.Utf8)]
-    private static partial string g_file_get_path(nint file);
+    [LibraryImport("gio")]
+    private static partial nint g_file_get_path(nint file);
 
-    [LibraryImport("libadwaita-1.so.0", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("gtk", StringMarshalling = StringMarshalling.Utf8)]
     private static partial nint gtk_file_dialog_new();
 
-    [LibraryImport("libadwaita-1.so.0", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("gtk", StringMarshalling = StringMarshalling.Utf8)]
     private static partial void gtk_file_dialog_set_title(nint dialog, string title);
 
-    [LibraryImport("libadwaita-1.so.0", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("gtk", StringMarshalling = StringMarshalling.Utf8)]
     private static partial void gtk_file_dialog_select_folder(nint dialog, nint parent, nint cancellable, GAsyncReadyCallback callback, nint user_data);
 
-    [LibraryImport("libadwaita-1.so.0", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("gtk", StringMarshalling = StringMarshalling.Utf8)]
     private static partial nint gtk_file_dialog_select_folder_finish(nint dialog, nint result, nint error);
 
-    [LibraryImport("libadwaita-1.so.0", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("gio", StringMarshalling = StringMarshalling.Utf8)]
     private static partial nint g_file_new_for_path(string path);
 
-    [LibraryImport("libadwaita-1.so.0", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("gio", StringMarshalling = StringMarshalling.Utf8)]
     private static partial nint g_file_icon_new(nint gfile);
 
-    [LibraryImport("libadwaita-1.so.0", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("gio", StringMarshalling = StringMarshalling.Utf8)]
     private static partial void g_notification_set_icon(nint notification, nint icon);
 
     private readonly MainWindowController _controller;
@@ -186,7 +186,7 @@ public partial class MainWindow : Adw.ApplicationWindow
         var obj = e.Value.GetObject();
         if (obj != null)
         {
-            var path = g_file_get_path(obj.Handle);
+            var path = Marshal.PtrToStringUTF8(g_file_get_path(obj.Handle));
             if (Directory.Exists(path))
             {
                 _controller.OpenFolder(path);
@@ -222,7 +222,7 @@ public partial class MainWindow : Adw.ApplicationWindow
             var fileHandle = gtk_file_dialog_select_folder_finish(folderDialog, res, IntPtr.Zero);
             if (fileHandle != IntPtr.Zero)
             {
-                var path = g_file_get_path(fileHandle);
+                var path = Marshal.PtrToStringUTF8(g_file_get_path(fileHandle));
                 _controller.OpenFolder(path);
                 _filesLabel.SetLabel(_n("There is {0} file in the folder.", "There are {0} files in the folder.", Directory.GetFiles(path, "*", SearchOption.TopDirectoryOnly).Length));
             }

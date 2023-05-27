@@ -15,13 +15,13 @@ namespace NickvisionApplication.GNOME;
 /// </summary>
 public partial class Program
 {
-    [LibraryImport("libadwaita-1.so.0", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("gtk", StringMarshalling = StringMarshalling.Utf8)]
     private static partial nuint gtk_file_chooser_cell_get_type();
 
-    [LibraryImport("libadwaita-1.so.0", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("gio", StringMarshalling = StringMarshalling.Utf8)]
     private static partial nint g_resource_load(string path);
 
-    [LibraryImport("libadwaita-1.so.0", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("gio", StringMarshalling = StringMarshalling.Utf8)]
     private static partial void g_resources_register(nint file);
 
     private readonly Adw.Application _application;
@@ -33,6 +33,7 @@ public partial class Program
     /// </summary>
     /// <param name="args">string[]</param>
     /// <returns>Return code from Adw.Application.Run()</returns>
+    [STAThread]
     public static int Main(string[] args) => new Program().Run(args);
 
     /// <summary>
@@ -40,6 +41,7 @@ public partial class Program
     /// </summary>
     public Program()
     {
+        NativeLibrary.SetDllImportResolver(Assembly.GetExecutingAssembly(), LibraryImportResolver);
         gtk_file_chooser_cell_get_type();
         _application = Adw.Application.New("org.nickvision.application", Gio.ApplicationFlags.FlagsNone);
         _mainWindow = null;
@@ -116,5 +118,36 @@ public partial class Program
         //Main Window
         _mainWindow = new MainWindow(_mainWindowController, _application);
         _mainWindow.Start();
+    }
+
+    /// <summary>
+    /// Resolves DLL names depending on platform
+    /// </summary>
+    /// <param name="libraryName">Name of library</param>
+    /// <param name="assembly">Assembly</param>
+    /// <param name="searchPath">Path to search for library</param>
+    /// <returns>Pointer to native library</returns>
+    private static IntPtr LibraryImportResolver(string libraryName, Assembly assembly, DllImportSearchPath? searchPath)
+    {
+        var fileName = "";
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            fileName = libraryName switch
+            {
+                "gtk" => "libgtk-4-1.dll",
+                "gio" => "libgio-2.0-0.dll",
+                _ => libraryName
+            };
+        }
+        else
+        {
+            fileName = libraryName switch
+            {
+                "gtk" => "libgtk-4.so",
+                "gio" => "libgio-2.0.so",
+                _ => libraryName
+            };
+        }
+        return NativeLibrary.Load(fileName, assembly, searchPath);
     }
 }

@@ -353,3 +353,6 @@ _nickbuild/
 
 # Cake tools
 tools/
+
+# Blueprint compiler batch script
+blueprint-compiler.bat
