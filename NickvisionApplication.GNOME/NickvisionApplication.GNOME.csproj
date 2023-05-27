@@ -16,7 +16,7 @@
     <ProjectReference Include="..\NickvisionApplication.Shared\NickvisionApplication.Shared.csproj" />
   </ItemGroup>
 
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent" Condition="$([MSBuild]::IsOSPlatform('Linux'))">
+  <Target Name="PreBuildLinux" BeforeTargets="PreBuildEvent" Condition="$([MSBuild]::IsOSPlatform('Linux'))">
     <Exec Command="echo Compiling extra resources..." />
     <Exec Command="blueprint-compiler batch-compile ./Blueprints ./Blueprints ./Blueprints/*.blp" />
     <Exec Command="glib-compile-resources --sourcedir ./Resources ./Resources/org.nickvision.application.gresource.xml --target=$(OutDir)/org.nickvision.application.gresource" />
@@ -27,11 +27,11 @@
       done %3C ../NickvisionApplication.Shared/Resources/po/LINGUAS" />
   </Target>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="$([MSBuild]::IsOSPlatform('Linux'))">
+  <Target Name="PostBuildLinux" AfterTargets="PostBuildEvent" Condition="$([MSBuild]::IsOSPlatform('Linux'))">
     <Exec Command="rm ./Blueprints/*.ui" />
   </Target>
 
-  <Target Name="PostPublish" AfterTargets="Publish" Condition="$([MSBuild]::IsOSPlatform('Linux'))">
+  <Target Name="PostPublishLinux" AfterTargets="Publish" Condition="$([MSBuild]::IsOSPlatform('Linux'))">
     <Exec Command="cp $(OutDir)/org.nickvision.application.gresource $(PublishDir)/org.nickvision.application.gresource" />
     <Exec Command="
       while read lang_code; do \
@@ -39,17 +39,17 @@
       done %3C ../NickvisionApplication.Shared/Resources/po/LINGUAS" />
   </Target>
 
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent" Condition="$([MSBuild]::IsOSPlatform('Windows'))">
+  <Target Name="PreBuildWindows" BeforeTargets="PreBuildEvent" Condition="$([MSBuild]::IsOSPlatform('Windows'))">
     <Exec Command="echo 'Compiling extra resources...'" />
     <Exec Command=".\blueprint-compiler.bat batch-compile .\Blueprints .\Blueprints .\Blueprints\*.blp" />
     <Exec Command="glib-compile-resources.exe --sourcedir .\Resources .\Resources\org.nickvision.application.gresource.xml --target=$(OutDir)\org.nickvision.application.gresource" />
   </Target>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="$([MSBuild]::IsOSPlatform('Windows'))">
+  <Target Name="PostBuildWindows" AfterTargets="PostBuildEvent" Condition="$([MSBuild]::IsOSPlatform('Windows'))">
     <Exec Command="del .\Blueprints\*.ui" />
   </Target>
 
-  <Target Name="PostPublish" AfterTargets="Publish" Condition="$([MSBuild]::IsOSPlatform('Windows'))">
+  <Target Name="PostPublishWindows" AfterTargets="Publish" Condition="$([MSBuild]::IsOSPlatform('Windows'))">
     <Exec Command="copy $(OutDir)\org.nickvision.application.gresource $(PublishDir)\org.nickvision.application.gresource" />
   </Target>
 
