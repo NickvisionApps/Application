@@ -32,7 +32,7 @@
   </provides>
   <releases>
     <release version="2023.5.0-next" date="2023-05-01">
-      <description>
+      <description translatable="no">
         <p>- Initial Release</p>
       </description>
     </release>
