@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "dotnet",
+            "name": "Application GNOME",
+            "projectPath": "NickvisionApplication.GNOME.csproj",
+            "args": [],
+        },
+        
+    ]
+}
