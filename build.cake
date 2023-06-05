@@ -91,6 +91,7 @@ Task("Publish")
 Task("Install")
     .Does(() =>
 {
+    VerifyRunningLinux();
     var buildDir = EnvironmentVariable("NICK_BUILDDIR", "_nickbuild");
     var destDir = Argument("destdir", "/");
     CopyDirectory(buildDir, destDir);
@@ -99,35 +100,36 @@ Task("Install")
 Task("FlatpakSourcesGen")
     .Does(() =>
 {
+    VerifyRunningLinux();
     StartProcess("flatpak-dotnet-generator.py", new ProcessSettings {
-        Arguments = $"{projectName}.{projectSuffix}{sep}nuget-sources.json {projectName}.{projectSuffix}{sep}{projectName}.{projectSuffix}.csproj"
+        Arguments = $"{projectName}.{projectSuffix}/nuget-sources.json {projectName}.{projectSuffix}/{projectName}.{projectSuffix}.csproj"
     });
 });
 
 Task("GeneratePot")
     .Does(() =>
 {
-    StartProcess("GetText.Extractor", new ProcessSettings {
-        Arguments = $"-s ./{projectName}.GNOME -s ./{projectName}.Shared -as \"_\" -ad \"_p\" -ap \"_n\" -adp \"_pn\" -t ./{projectName}.Shared/Resources/po/{shortName}.pot"
+    StartProcess(IsRunningOnLinux() ? "GetText.Extractor" : "GetText.Extractor.exe", new ProcessSettings {
+        Arguments = $"-o -s {projectName}.GNOME -s {projectName}.Shared -as \"_\" -ad \"_p\" -ap \"_n\" -adp \"_pn\" -t {projectName}.Shared{sep}Resources{sep}po{sep}{shortName}.pot"
     });
-    StartProcess("sh", new ProcessSettings {
-        Arguments = $"-c \"xgettext --from-code=UTF-8 --add-comments --keyword=_ --keyword=C_:1c,2 -o ./{projectName}.Shared/Resources/po/{shortName}.pot -j ./{projectName}.GNOME/Blueprints/*.blp\""
-    });
-    StartProcess("xgettext", new ProcessSettings {
-        Arguments = $"-o ./{projectName}.Shared/Resources/po/{shortName}.pot -j ./{projectName}.Shared/{appId}.desktop.in"
+    StartProcess(IsRunningOnLinux() ? "sh" : "powershell.exe", new ProcessSettings {
+        Arguments = IsRunningOnLinux() ? "-c" : "-NonInteractive -executionpolicy Unrestricted -command" + $" \"xgettext --from-code=UTF-8 --add-comments --keyword=_ --keyword=C_:1c,2 -o {projectName}.Shared{sep}Resources{sep}po{sep}{shortName}.pot -j {projectName}.GNOME{sep}Blueprints{sep}*.blp\""
     });
     StartProcess("xgettext", new ProcessSettings {
-        Arguments = $"-o ./{projectName}.Shared/Resources/po/{shortName}.pot -j ./{projectName}.Shared/{appId}.metainfo.xml.in"
+        Arguments = $"-o {projectName}.Shared{sep}Resources{sep}po{sep}{shortName}.pot -j {projectName}.Shared{sep}{appId}.desktop.in"
+    });
+    StartProcess("xgettext", new ProcessSettings {
+        Arguments = $"-o {projectName}.Shared{sep}Resources{sep}po{sep}{shortName}.pot -j {projectName}.Shared{sep}{appId}.metainfo.xml.in"
     });
 });
 
 Task("UpdatePo")
     .Does(() =>
 {
-    foreach (var lang in FileReadLines($"./{projectName}.Shared/Resources/po/LINGUAS"))
+    foreach (var lang in FileReadLines($"{projectName}.Shared{sep}Resources{sep}po{sep}LINGUAS"))
     {
         StartProcess("msgmerge", new ProcessSettings {
-            Arguments = $"-U ./{projectName}.Shared/Resources/po/{lang}.po ./{projectName}.Shared/Resources/po/{shortName}.pot"
+            Arguments = $"-U {projectName}.Shared{sep}Resources{sep}po{sep}{lang}.po {projectName}.Shared{sep}Resources{sep}po{sep}{shortName}.pot"
         });
     }
 });
@@ -173,13 +175,21 @@ private void PostPublishGNOME(string outDir, string prefix, string libDir, strin
 
     if (IsRunningOnLinux())
     {
-        var servicesDir = $"{shareDir}{sep}dbus-1{sep}services";
+        var servicesDir = $"{shareDir}/dbus-1/services";
         CreateDirectory(servicesDir);
-        CopyFileToDirectory($".{sep}{projectName}.GNOME{sep}{appId}.service.in", servicesDir);
-        ReplaceTextInFiles($"{servicesDir}{sep}{appId}.service.in", "@PREFIX@", $"{prefix}");
-        MoveFile($"{servicesDir}{sep}{appId}.service.in", $"{servicesDir}{sep}{appId}.service");
+        CopyFileToDirectory($"{projectName}.GNOME/{appId}.service.in", servicesDir);
+        ReplaceTextInFiles($"{servicesDir}/{appId}.service.in", "@PREFIX@", $"{prefix}");
+        MoveFile($"{servicesDir}/{appId}.service.in", $"{servicesDir}/{appId}.service");
 
-        FileAppendLines($"{shareDir}{sep}applications{sep}{appId}.desktop" , new string[] { "\nDBusActivatable=true" });
+        FileAppendLines($"{shareDir}/applications/{appId}.desktop" , new string[] { "DBusActivatable=true" });
+    }
+}
+
+private void VerifyRunningLinux()
+{
+    if (!IsRunningOnLinux())
+    {
+        throw new Exception("This command can only be executed on Linux.");
     }
 }
 

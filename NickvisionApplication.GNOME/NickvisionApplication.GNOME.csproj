@@ -41,8 +41,9 @@
 
   <Target Name="PreBuildWindows" BeforeTargets="PreBuildEvent" Condition="$([MSBuild]::IsOSPlatform('Windows'))">
     <Exec Command="echo 'Compiling extra resources...'" />
-    <Exec Command=".\blueprint-compiler.bat batch-compile .\Blueprints .\Blueprints .\Blueprints\*.blp" />
+    <Exec Command="powershell.exe -NonInteractive -executionpolicy Unrestricted -command &quot;python3 %24(where.exe blueprint-compiler) batch-compile .\Blueprints .\Blueprints .\Blueprints\*.blp&quot;" />
     <Exec Command="glib-compile-resources.exe --sourcedir .\Resources .\Resources\org.nickvision.application.gresource.xml --target=$(OutDir)\org.nickvision.application.gresource" />
+    <Exec Command="for /F &quot;tokens=*&quot; %%l in (..\NickvisionApplication.Shared\Resources\po\LINGUAS) do @mkdir $(OutDir)\%%l &amp; msgfmt ..\NickvisionApplication.Shared\Resources\po\%%l.po -o $(OutDir)\%%l\application.mo" />
   </Target>
 
   <Target Name="PostBuildWindows" AfterTargets="PostBuildEvent" Condition="$([MSBuild]::IsOSPlatform('Windows'))">
@@ -51,6 +52,7 @@
 
   <Target Name="PostPublishWindows" AfterTargets="Publish" Condition="$([MSBuild]::IsOSPlatform('Windows'))">
     <Exec Command="copy $(OutDir)\org.nickvision.application.gresource $(PublishDir)\org.nickvision.application.gresource" />
+    <Exec Command="for /F &quot;tokens=*&quot; %%l in (..\NickvisionApplication.Shared\Resources\po\LINGUAS) do @xcopy $(OutDir)\%%l $(PublishDir)\%%l\ /Y" />
   </Target>
 
   <Target Name="EmbedUIFiles" BeforeTargets="BeforeResGen">

@@ -44,8 +44,8 @@ public partial class Program
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         {
             var root = Directory.GetParent(Directory.GetParent(Path.GetFullPath(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))).FullName).FullName;
-            Environment.SetEnvironmentVariable("PATH", $"{root}\\bin");
-            Environment.SetEnvironmentVariable("XDG_DATA_DIRS", $"{root}\\share");
+            Environment.SetEnvironmentVariable("PATH", $"{root}\\mingw64\\bin;{Environment.GetEnvironmentVariable("PATH")}");
+            Environment.SetEnvironmentVariable("XDG_DATA_DIRS", $"{root}\\mingw64\\share;{root}\\share");
         }
         NativeLibrary.SetDllImportResolver(Assembly.GetExecutingAssembly(), LibraryImportResolver);
         gtk_file_chooser_cell_get_type();
