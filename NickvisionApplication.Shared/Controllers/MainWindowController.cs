@@ -55,18 +55,6 @@ public class MainWindowController
     }
 
     /// <summary>
-    /// Whether or not to show a sun icon on the home page
-    /// </summary>
-    public bool ShowSun
-    {
-        get
-        {
-            var timeNowHours = DateTime.Now.Hour;
-            return timeNowHours >= 6 && timeNowHours < 18;
-        }
-    }
-
-    /// <summary>
     /// The string for greeting on the home page
     /// </summary>
     public string Greeting
