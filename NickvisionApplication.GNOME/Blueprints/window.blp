@@ -13,13 +13,14 @@ Adw.ApplicationWindow _root {
 
   Gtk.Box {
     orientation: vertical;
-    
-    Adw.HeaderBar {
+
+    Adw.HeaderBar _headerBar {
       title-widget: Adw.WindowTitle _title {};
       
       [start]
-      Gtk.Button {
+      Gtk.Button _openFolderButton {
         tooltip-text: _("Open Folder (Ctrl+O)");
+        visible: false;
         action-name: "win.openFolder";
         
         Adw.ButtonContent {
@@ -43,6 +44,8 @@ Adw.ApplicationWindow _root {
         tooltip-text: _("Main Menu");
         primary: true;
       }
+
+      styles ["flat"]
     }
     
     Adw.ToastOverlay _toastOverlay {
@@ -53,7 +56,14 @@ Adw.ApplicationWindow _root {
         Adw.ViewStackPage {
           name: "NoFolder";
           child: Adw.StatusPage _greeting {
+            icon-name: "org.nickvision.application";
             description: _("Open a folder (or drag one into the app) to get started.");
+            child: Gtk.Button {
+              label: _("Open");
+              halign: center;
+              action-name: "win.openFolder";
+              styles ["pill", "suggested-action"]
+            };
           };
         }
 

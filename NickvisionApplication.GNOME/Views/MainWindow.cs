@@ -47,10 +47,13 @@ public partial class MainWindow : Adw.ApplicationWindow
     private readonly Adw.Application _application;
     private GAsyncReadyCallback? _saveCallback;
 
+    [Gtk.Connect] private readonly Adw.HeaderBar _headerBar;
     [Gtk.Connect] private readonly Adw.WindowTitle _title;
+    [Gtk.Connect] private readonly Gtk.Button _openFolderButton;
     [Gtk.Connect] private readonly Gtk.Button _closeFolderButton;
     [Gtk.Connect] private readonly Adw.ToastOverlay _toastOverlay;
     [Gtk.Connect] private readonly Adw.ViewStack _viewStack;
+    [Gtk.Connect] private readonly Adw.StatusPage _greeting;
     [Gtk.Connect] private readonly Gtk.Label _filesLabel;
     private readonly Gtk.DropTarget _dropTarget;
 
@@ -70,10 +73,7 @@ public partial class MainWindow : Adw.ApplicationWindow
         //Build UI
         builder.Connect(this);
         _title.SetTitle(_controller.AppInfo.ShortName);
-        _title.SetSubtitle(_controller.FolderPath == "No Folder Opened" ? _("No Folder Opened") : _controller.FolderPath);
-        var greeting = (Adw.StatusPage)builder.GetObject("_greeting");
-        greeting.SetIconName(controller.ShowSun ? "sun-outline-symbolic" : "moon-outline-symbolic");
-        greeting.SetTitle(_controller.Greeting);
+        _greeting.SetTitle(_controller.Greeting);
         //Register Events 
         _controller.NotificationSent += NotificationSent;
         _controller.ShellNotificationSent += ShellNotificationSent;
@@ -203,9 +203,18 @@ public partial class MainWindow : Adw.ApplicationWindow
     /// <param name="e">EventArgs</param>
     private void FolderChanged(object? sender, EventArgs e)
     {
-        _title.SetSubtitle(_controller.FolderPath);
+        _title.SetSubtitle(_controller.IsFolderOpened ? _controller.FolderPath : "");
+        _openFolderButton.SetVisible(_controller.IsFolderOpened);
         _closeFolderButton.SetVisible(_controller.IsFolderOpened);
         _viewStack.SetVisibleChildName(_controller.IsFolderOpened ? "Folder" : "NoFolder");
+        if(_controller.IsFolderOpened)
+        {
+            _headerBar.RemoveCssClass("flat");
+        }
+        else
+        {
+            _headerBar.AddCssClass("flat");
+        }
     }
 
     /// <summary>
