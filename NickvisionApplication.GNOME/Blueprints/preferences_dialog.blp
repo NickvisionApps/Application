@@ -19,6 +19,11 @@ Adw.PreferencesWindow _root {
         model: Gtk.StringList {
           strings [C_("Theme", "Light"), C_("Theme", "Dark"), C_("Theme", "System")]
         };
+
+        [prefix]
+        Gtk.Image {
+          icon-name: "dark-mode-symbolic";
+        }
       }
     }
   }
