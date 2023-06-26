@@ -3,7 +3,8 @@
         {
             "type": "dotnet",
             "name": "Application GNOME",
-            "projectPath": "NickvisionApplication.GNOME.csproj",
+            "workingDir": "$PROJECT_DIR$/bin/Debug/net7.0",
+            "projectPath": "$PROJECT_DIR$/NickvisionApplication.GNOME.csproj",
             "args": [],
         },
         
