@@ -23,22 +23,10 @@ public partial class MainWindow : Adw.ApplicationWindow
     private static partial string g_file_get_path(nint file);
 
     [LibraryImport("libadwaita-1.so.0", StringMarshalling = StringMarshalling.Utf8)]
-    private static partial nint gtk_file_dialog_new();
-
-    [LibraryImport("libadwaita-1.so.0", StringMarshalling = StringMarshalling.Utf8)]
-    private static partial void gtk_file_dialog_set_title(nint dialog, string title);
-
-    [LibraryImport("libadwaita-1.so.0", StringMarshalling = StringMarshalling.Utf8)]
     private static partial void gtk_file_dialog_select_folder(nint dialog, nint parent, nint cancellable, GAsyncReadyCallback callback, nint user_data);
 
     [LibraryImport("libadwaita-1.so.0", StringMarshalling = StringMarshalling.Utf8)]
     private static partial nint gtk_file_dialog_select_folder_finish(nint dialog, nint result, nint error);
-
-    [LibraryImport("libadwaita-1.so.0", StringMarshalling = StringMarshalling.Utf8)]
-    private static partial nint g_file_new_for_path(string path);
-
-    [LibraryImport("libadwaita-1.so.0", StringMarshalling = StringMarshalling.Utf8)]
-    private static partial nint g_file_icon_new(nint gfile);
 
     [LibraryImport("libadwaita-1.so.0", StringMarshalling = StringMarshalling.Utf8)]
     private static partial void g_notification_set_icon(nint notification, nint icon);
@@ -46,6 +34,7 @@ public partial class MainWindow : Adw.ApplicationWindow
     private readonly MainWindowController _controller;
     private readonly Adw.Application _application;
     private GAsyncReadyCallback? _saveCallback;
+    private readonly Gtk.DropTarget _dropTarget;
 
     [Gtk.Connect] private readonly Adw.HeaderBar _headerBar;
     [Gtk.Connect] private readonly Adw.WindowTitle _title;
@@ -55,7 +44,6 @@ public partial class MainWindow : Adw.ApplicationWindow
     [Gtk.Connect] private readonly Adw.ViewStack _viewStack;
     [Gtk.Connect] private readonly Adw.StatusPage _greeting;
     [Gtk.Connect] private readonly Gtk.Label _filesLabel;
-    private readonly Gtk.DropTarget _dropTarget;
 
     private MainWindow(Gtk.Builder builder, MainWindowController controller, Adw.Application application) : base(builder.GetPointer("_root"), false)
     {
@@ -170,8 +158,8 @@ public partial class MainWindow : Adw.ApplicationWindow
         }
         else
         {
-            var iconHandle = g_file_icon_new(g_file_new_for_path($"{Environment.GetEnvironmentVariable("SNAP")}/usr/share/icons/hicolor/symbolic/apps/{_controller.AppInfo.ID}-symbolic.svg"));
-            g_notification_set_icon(notification.Handle, iconHandle);
+            var fileIcon = Gio.FileIcon.New(Gio.FileHelper.NewForPath($"{Environment.GetEnvironmentVariable("SNAP")}/usr/share/icons/hicolor/symbolic/apps/{_controller.AppInfo.ID}-symbolic.svg"));
+            g_notification_set_icon(notification.Handle, fileIcon.Handle);
         }
         _application.SendNotification(_controller.AppInfo.ID, notification);
     }
@@ -186,7 +174,7 @@ public partial class MainWindow : Adw.ApplicationWindow
         var obj = e.Value.GetObject();
         if (obj != null)
         {
-            var path = g_file_get_path(obj.Handle);
+            var path = ((Gio.File)obj).GetPath();
             if (Directory.Exists(path))
             {
                 _controller.OpenFolder(path);
@@ -224,11 +212,11 @@ public partial class MainWindow : Adw.ApplicationWindow
     /// <param name="e">EventArgs</param>
     private void OpenFolder(Gio.SimpleAction sender, EventArgs e)
     {
-        var folderDialog = gtk_file_dialog_new();
-        gtk_file_dialog_set_title(folderDialog, _("Open Folder"));
+        var folderDialog = Gtk.FileDialog.New();
+        folderDialog.SetTitle(_("Open Folder"));
         _saveCallback = (source, res, data) =>
         {
-            var fileHandle = gtk_file_dialog_select_folder_finish(folderDialog, res, IntPtr.Zero);
+            var fileHandle = gtk_file_dialog_select_folder_finish(source, res, IntPtr.Zero);
             if (fileHandle != IntPtr.Zero)
             {
                 var path = g_file_get_path(fileHandle);
@@ -236,7 +224,7 @@ public partial class MainWindow : Adw.ApplicationWindow
                 _filesLabel.SetLabel(_n("There is {0} file in the folder.", "There are {0} files in the folder.", Directory.GetFiles(path, "*", SearchOption.TopDirectoryOnly).Length));
             }
         };
-        gtk_file_dialog_select_folder(folderDialog, Handle, IntPtr.Zero, _saveCallback, IntPtr.Zero);
+        gtk_file_dialog_select_folder(folderDialog.Handle, Handle, IntPtr.Zero, _saveCallback, IntPtr.Zero);
     }
 
     /// <summary>
