@@ -174,7 +174,7 @@ public partial class MainWindow : Adw.ApplicationWindow
         var obj = e.Value.GetObject();
         if (obj != null)
         {
-            var path = g_file_get_path(obj.Handle);
+            var path = ((Gio.File)obj).GetPath();
             if (Directory.Exists(path))
             {
                 _controller.OpenFolder(path);
