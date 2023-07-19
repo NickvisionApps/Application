@@ -29,12 +29,6 @@ public partial class MainWindow : Adw.ApplicationWindow
     private static partial nint gtk_file_dialog_select_folder_finish(nint dialog, nint result, nint error);
 
     [LibraryImport("libadwaita-1.so.0", StringMarshalling = StringMarshalling.Utf8)]
-    private static partial nint g_file_new_for_path(string path);
-
-    [LibraryImport("libadwaita-1.so.0", StringMarshalling = StringMarshalling.Utf8)]
-    private static partial nint g_file_icon_new(nint gfile);
-
-    [LibraryImport("libadwaita-1.so.0", StringMarshalling = StringMarshalling.Utf8)]
     private static partial void g_notification_set_icon(nint notification, nint icon);
 
     private readonly MainWindowController _controller;
@@ -164,8 +158,8 @@ public partial class MainWindow : Adw.ApplicationWindow
         }
         else
         {
-            var iconHandle = g_file_icon_new(g_file_new_for_path($"{Environment.GetEnvironmentVariable("SNAP")}/usr/share/icons/hicolor/symbolic/apps/{_controller.AppInfo.ID}-symbolic.svg"));
-            g_notification_set_icon(notification.Handle, iconHandle);
+            var fileIcon = Gio.FileIcon.New(Gio.FileHelper.NewForPath($"{Environment.GetEnvironmentVariable("SNAP")}/usr/share/icons/hicolor/symbolic/apps/{_controller.AppInfo.ID}-symbolic.svg"));
+            g_notification_set_icon(notification.Handle, fileIcon.Handle);
         }
         _application.SendNotification(_controller.AppInfo.ID, notification);
     }
