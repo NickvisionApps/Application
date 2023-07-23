@@ -4,11 +4,11 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="GirCore.Adw-1" Version="0.4.0" />
+    <PackageReference Include="Nickvision.GirExt" Version="2023.7.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,11 +19,7 @@
     <Exec Command="echo Compiling extra resources..." />
     <Exec Command="blueprint-compiler batch-compile ./Blueprints ./Blueprints ./Blueprints/*.blp" />
     <Exec Command="glib-compile-resources --sourcedir ./Resources ./Resources/org.nickvision.application.gresource.xml --target=$(OutDir)/org.nickvision.application.gresource" />
-    <Exec Command="
-      while read lang_code; do \
-        mkdir -p $(OutDir)/${lang_code}; \
-        msgfmt ../NickvisionApplication.Shared/Resources/po/${lang_code}.po -o $(OutDir)/${lang_code}/application.mo; \
-      done %3C ../NickvisionApplication.Shared/Resources/po/LINGUAS" />
+    <Exec Command="while read lang_code; do \&#xA;  mkdir -p $(OutDir)${lang_code}; \&#xA;  msgfmt ../NickvisionApplication.Shared/Resources/po/${lang_code}.po -o $(OutDir)${lang_code}/application.mo; \&#xA;done %3C ../NickvisionApplication.Shared/Resources/po/LINGUAS" />
   </Target>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
@@ -32,10 +28,7 @@
 
   <Target Name="PostPublish" AfterTargets="Publish">
     <Exec Command="cp $(OutDir)/org.nickvision.application.gresource $(PublishDir)/org.nickvision.application.gresource" />
-    <Exec Command="
-      while read lang_code; do \
-        cp -r $(OutDir)/${lang_code} $(PublishDir)/; \
-      done %3C ../NickvisionApplication.Shared/Resources/po/LINGUAS" />
+    <Exec Command="while read lang_code; do \&#xA;  cp -r $(OutDir)${lang_code} $(PublishDir); \&#xA;done %3C ../NickvisionApplication.Shared/Resources/po/LINGUAS" />
   </Target>
 
   <Target Name="EmbedUIFiles" BeforeTargets="BeforeResGen">

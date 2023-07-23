@@ -6,8 +6,9 @@ using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading.Tasks;
+using static Nickvision.GirExt.GtkExt;
 using static NickvisionApplication.Shared.Helpers.Gettext;
 
 namespace NickvisionApplication.GNOME.Views;
@@ -17,23 +18,8 @@ namespace NickvisionApplication.GNOME.Views;
 /// </summary>
 public partial class MainWindow : Adw.ApplicationWindow
 {
-    private delegate void GAsyncReadyCallback(nint source, nint res, nint user_data);
-
-    [LibraryImport("libadwaita-1.so.0", StringMarshalling = StringMarshalling.Utf8)]
-    private static partial string g_file_get_path(nint file);
-
-    [LibraryImport("libadwaita-1.so.0", StringMarshalling = StringMarshalling.Utf8)]
-    private static partial void gtk_file_dialog_select_folder(nint dialog, nint parent, nint cancellable, GAsyncReadyCallback callback, nint user_data);
-
-    [LibraryImport("libadwaita-1.so.0", StringMarshalling = StringMarshalling.Utf8)]
-    private static partial nint gtk_file_dialog_select_folder_finish(nint dialog, nint result, nint error);
-
-    [LibraryImport("libadwaita-1.so.0", StringMarshalling = StringMarshalling.Utf8)]
-    private static partial void g_notification_set_icon(nint notification, nint icon);
-
     private readonly MainWindowController _controller;
     private readonly Adw.Application _application;
-    private GAsyncReadyCallback? _saveCallback;
     private readonly Gtk.DropTarget _dropTarget;
 
     [Gtk.Connect] private readonly Adw.HeaderBar _headerBar;
@@ -50,7 +36,6 @@ public partial class MainWindow : Adw.ApplicationWindow
         //Window Settings
         _controller = controller;
         _application = application;
-        _saveCallback = null;
         SetDefaultSize(800, 600);
         SetTitle(_controller.AppInfo.ShortName);
         SetIconName(_controller.AppInfo.ID);
@@ -68,7 +53,7 @@ public partial class MainWindow : Adw.ApplicationWindow
         _controller.FolderChanged += FolderChanged;
         //Open Folder Action
         var actOpenFolder = Gio.SimpleAction.New("openFolder", null);
-        actOpenFolder.OnActivate += OpenFolder;
+        actOpenFolder.OnActivate += async (sender, e) => await OpenFolderAsync();
         AddAction(actOpenFolder);
         application.SetAccelsForAction("win.openFolder", new string[] { "<Ctrl>O" });
         //Close Folder Action
@@ -159,7 +144,7 @@ public partial class MainWindow : Adw.ApplicationWindow
         else
         {
             var fileIcon = Gio.FileIcon.New(Gio.FileHelper.NewForPath($"{Environment.GetEnvironmentVariable("SNAP")}/usr/share/icons/hicolor/symbolic/apps/{_controller.AppInfo.ID}-symbolic.svg"));
-            g_notification_set_icon(notification.Handle, fileIcon.Handle);
+            notification.SetIcon(fileIcon);
         }
         _application.SendNotification(_controller.AppInfo.ID, notification);
     }
@@ -208,23 +193,17 @@ public partial class MainWindow : Adw.ApplicationWindow
     /// <summary>
     /// Occurs when the open folder action is triggered
     /// </summary>
-    /// <param name="sender">Gio.SimpleAction</param>
-    /// <param name="e">EventArgs</param>
-    private void OpenFolder(Gio.SimpleAction sender, EventArgs e)
+    private async Task OpenFolderAsync()
     {
         var folderDialog = Gtk.FileDialog.New();
         folderDialog.SetTitle(_("Open Folder"));
-        _saveCallback = (source, res, data) =>
+        try
         {
-            var fileHandle = gtk_file_dialog_select_folder_finish(source, res, IntPtr.Zero);
-            if (fileHandle != IntPtr.Zero)
-            {
-                var path = g_file_get_path(fileHandle);
-                _controller.OpenFolder(path);
-                _filesLabel.SetLabel(_n("There is {0} file in the folder.", "There are {0} files in the folder.", Directory.GetFiles(path, "*", SearchOption.TopDirectoryOnly).Length));
-            }
-        };
-        gtk_file_dialog_select_folder(folderDialog.Handle, Handle, IntPtr.Zero, _saveCallback, IntPtr.Zero);
+            var folder = await folderDialog.SelectFolderAsync(this);
+            _controller.OpenFolder(folder.GetPath());
+            _filesLabel.SetLabel(_n("There is {0} file in the folder.", "There are {0} files in the folder.", Directory.GetFiles(folder.GetPath(), "*", SearchOption.TopDirectoryOnly).Length));
+        }
+        catch { }
     }
 
     /// <summary>
