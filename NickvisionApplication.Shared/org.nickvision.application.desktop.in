@@ -6,5 +6,9 @@ Exec=@EXEC@
 Icon=org.nickvision.application
 Terminal=false
 Type=Application
+Categories=Utility;
+Keywords=Template;Nickvision;
 X-GNOME-UsesNotifications=true
 StartupNotify=true
+# Translators: Do NOT translate or transliterate this text (these are enum types)!
+X-Purism-FormFactor=Workstation;Mobile;
