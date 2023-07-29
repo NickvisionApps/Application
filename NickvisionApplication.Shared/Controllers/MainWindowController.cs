@@ -46,7 +46,7 @@ public class MainWindowController
     /// </summary>
     public event EventHandler? FolderChanged;
     /// <summary>
-    /// Occurs when another instance tried to start
+    /// Occurs when another instance tries to start
     /// </summary>
     public event Action? RaiseCommandReceived;
 
@@ -84,6 +84,18 @@ public class MainWindowController
             }
         };
         FolderPath = args.Length > 0 ? args[0] : "";
+    }
+
+    /// <summary>
+    /// Open the folder (if exists) at startup
+    /// </summary>
+    /// <remarks>Expected to be called after the main window started</remarks>
+    public void Startup()
+    {
+        if(Directory.Exists(FolderPath))
+        {
+            OpenFolder(FolderPath);
+        }
     }
 
     /// <summary>

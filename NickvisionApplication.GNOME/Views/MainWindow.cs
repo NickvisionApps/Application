@@ -104,10 +104,7 @@ public partial class MainWindow : Adw.ApplicationWindow
     {
         _application.AddWindow(this);
         Present();
-        if (!string.IsNullOrEmpty(_controller.FolderPath))
-        {
-            _controller.OpenFolder(_controller.FolderPath);
-        }
+        _controller.Startup();
     }
 
     /// <summary>
