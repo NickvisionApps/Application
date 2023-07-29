@@ -21,38 +21,31 @@ public partial class Program
     /// <summary>
     /// Main method
     /// </summary>
-    /// <param name="args">string[]</param>
+    /// <param name="args">Command-line arguments</param>
     /// <returns>Return code from Adw.Application.Run()</returns>
-    public static int Main(string[] args) => new Program().Run(args);
+    public static int Main(string[] args) => new Program(args).Run();
 
     /// <summary>
     /// Constructs a Program
     /// </summary>
-    public Program()
+    /// <param name="args">Command-line arguments</param>
+    public Program(string[] args)
     {
-        _application = Adw.Application.New("org.nickvision.application", Gio.ApplicationFlags.FlagsNone);
+        _application = Adw.Application.New("org.nickvision.application", Gio.ApplicationFlags.NonUnique);
         _mainWindow = null;
-        _mainWindowController = new MainWindowController();
-        _mainWindowController.AppInfo.ID = "org.nickvision.application";
-        _mainWindowController.AppInfo.Name = "NickvisionApplication";
-        _mainWindowController.AppInfo.ShortName = _("Application");
-        _mainWindowController.AppInfo.Description = $"{_("Create new Nickvision applications")}.";
-        _mainWindowController.AppInfo.Version = "2023.7.0-next";
-        _mainWindowController.AppInfo.Changelog = "<ul><li>Initial Release</li></ul>";
-        _mainWindowController.AppInfo.GitHubRepo = new Uri("https://github.com/NickvisionApps/Application");
-        _mainWindowController.AppInfo.IssueTracker = new Uri("https://github.com/NickvisionApps/Application/issues/new");
-        _mainWindowController.AppInfo.SupportUrl = new Uri("https://github.com/NickvisionApps/Application/discussions");
+        _mainWindowController = new MainWindowController(args);
+        _mainWindowController.AppInfo.Changelog = "* Initial Release";
         _application.OnActivate += OnActivate;
-        if (File.Exists(Path.GetFullPath(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)) + "/org.nickvision.application.gresource"))
+        if (File.Exists(Path.GetFullPath(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)) + "/org.nickvision.application.gresource"))
         {
             //Load file from program directory, required for `dotnet run`
-            Gio.Functions.ResourcesRegister(Gio.Functions.ResourceLoad(Path.GetFullPath(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)) + "/org.nickvision.application.gresource"));
+            Gio.Functions.ResourcesRegister(Gio.Functions.ResourceLoad(Path.GetFullPath(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)) + "/org.nickvision.application.gresource"));
         }
         else
         {
             var prefixes = new List<string> {
-               Directory.GetParent(Directory.GetParent(Path.GetFullPath(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))).FullName).FullName,
-               Directory.GetParent(Path.GetFullPath(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))).FullName,
+               Directory.GetParent(Directory.GetParent(Path.GetFullPath(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))).FullName).FullName,
+               Directory.GetParent(Path.GetFullPath(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))).FullName,
                "/usr"
             };
             foreach (var prefix in prefixes)
@@ -70,7 +63,7 @@ public partial class Program
     /// Runs the program
     /// </summary>
     /// <returns>Return code from Adw.Application.Run()</returns>
-    public int Run(string[] args)
+    public int Run()
     {
         try
         {
