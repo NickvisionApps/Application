@@ -39,7 +39,7 @@ public partial class MainWindow : Adw.ApplicationWindow
         SetDefaultSize(800, 600);
         SetTitle(_controller.AppInfo.ShortName);
         SetIconName(_controller.AppInfo.ID);
-        if (_controller.IsDevVersion)
+        if (_controller.AppInfo.IsDevVersion)
         {
             AddCssClass("devel");
         }
@@ -51,6 +51,7 @@ public partial class MainWindow : Adw.ApplicationWindow
         _controller.NotificationSent += NotificationSent;
         _controller.ShellNotificationSent += ShellNotificationSent;
         _controller.FolderChanged += FolderChanged;
+        _controller.RaiseCommandReceived += Present;
         //Open Folder Action
         var actOpenFolder = Gio.SimpleAction.New("openFolder", null);
         actOpenFolder.OnActivate += async (sender, e) => await OpenFolderAsync();
@@ -103,6 +104,7 @@ public partial class MainWindow : Adw.ApplicationWindow
     {
         _application.AddWindow(this);
         Present();
+        _controller.Startup();
     }
 
     /// <summary>
@@ -183,6 +185,7 @@ public partial class MainWindow : Adw.ApplicationWindow
         if(_controller.IsFolderOpened)
         {
             _headerBar.RemoveCssClass("flat");
+            _filesLabel.SetLabel(_n("There is {0} file in the folder.", "There are {0} files in the folder.", Directory.GetFiles(_controller.FolderPath, "*", SearchOption.TopDirectoryOnly).Length));
         }
         else
         {
@@ -201,7 +204,6 @@ public partial class MainWindow : Adw.ApplicationWindow
         {
             var folder = await folderDialog.SelectFolderAsync(this);
             _controller.OpenFolder(folder.GetPath());
-            _filesLabel.SetLabel(_n("There is {0} file in the folder.", "There are {0} files in the folder.", Directory.GetFiles(folder.GetPath(), "*", SearchOption.TopDirectoryOnly).Length));
         }
         catch { }
     }
@@ -302,7 +304,7 @@ public partial class MainWindow : Adw.ApplicationWindow
         dialog.SetTransientFor(this);
         dialog.SetIconName(_controller.AppInfo.ID);
         dialog.SetApplicationName(_controller.AppInfo.ShortName);
-        dialog.SetApplicationIcon(_controller.AppInfo.ID + (_controller.AppInfo.GetIsDevelVersion() ? "-devel" : ""));
+        dialog.SetApplicationIcon(_controller.AppInfo.ID + (_controller.AppInfo.IsDevVersion ? "-devel" : ""));
         dialog.SetVersion(_controller.AppInfo.Version);
         dialog.SetDebugInfo(debugInfo.ToString());
         dialog.SetComments(_controller.AppInfo.Description);
@@ -312,13 +314,16 @@ public partial class MainWindow : Adw.ApplicationWindow
         dialog.SetWebsite("https://nickvision.org/");
         dialog.SetIssueUrl(_controller.AppInfo.IssueTracker.ToString());
         dialog.SetSupportUrl(_controller.AppInfo.SupportUrl.ToString());
-        dialog.AddLink(_("GitHub Repo"), _controller.AppInfo.GitHubRepo.ToString());
-        dialog.AddLink(_("Matrix Chat"), "https://matrix.to/#/#nickvision:matrix.org");
-        dialog.SetDevelopers(_("Nicholas Logozzo {0}\nContributors on GitHub ❤️ {1}", "https://github.com/nlogozzo", "https://github.com/NickvisionApps/Denaro/graphs/contributors").Split("\n"));
-        dialog.SetDesigners(_("Nicholas Logozzo {0}\nFyodor Sobolev {1}\nDaPigGuy {2}", "https://github.com/nlogozzo", "https://github.com/fsobolev", "https://github.com/DaPigGuy").Split("\n"));
-        dialog.SetArtists(_("David Lapshin {0}", "https://github.com/daudix-UFO").Split("\n"));
-        dialog.SetTranslatorCredits(_("translator-credits"));
-        dialog.SetReleaseNotes(_controller.AppInfo.Changelog);
+        dialog.AddLink(_("GitHub Repo"), _controller.AppInfo.SourceRepo.ToString());
+        foreach (var pair in _controller.AppInfo.ExtraLinks)
+        {
+            dialog.AddLink(pair.Key, pair.Value.ToString());
+        }
+        dialog.SetDevelopers(_controller.AppInfo.ConvertURLDictToArray(_controller.AppInfo.Developers));
+        dialog.SetDesigners(_controller.AppInfo.ConvertURLDictToArray(_controller.AppInfo.Designers));
+        dialog.SetArtists(_controller.AppInfo.ConvertURLDictToArray(_controller.AppInfo.Artists));
+        dialog.SetTranslatorCredits(_controller.AppInfo.TranslatorCredits);
+        dialog.SetReleaseNotes(_controller.AppInfo.HTMLChangelog);
         dialog.Present();
     }
 }

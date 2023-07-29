@@ -1,4 +1,5 @@
-﻿using NickvisionApplication.Shared.Models;
+﻿using Nickvision.Aura;
+using NickvisionApplication.Shared.Models;
 
 namespace NickvisionApplication.Shared.Controllers;
 
@@ -10,7 +11,7 @@ public class PreferencesViewController
     /// <summary>
     /// Gets the AppInfo object
     /// </summary>
-    public AppInfo AppInfo => AppInfo.Current;
+    public AppInfo AppInfo => Aura.Active.AppInfo;
 
     /// <summary>
     /// Constructs a PreferencesViewController
@@ -33,5 +34,5 @@ public class PreferencesViewController
     /// <summary>
     /// Saves the configuration to disk
     /// </summary>
-    public void SaveConfiguration() => Configuration.Current.Save();
+    public void SaveConfiguration() => Aura.Active.SaveConfig("config");
 }

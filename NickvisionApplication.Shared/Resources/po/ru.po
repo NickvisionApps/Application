@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-23 06:27+0300\n"
+"POT-Creation-Date: 2023-07-29 04:02+0300\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -18,63 +18,91 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: ../../../Controllers/MainWindowController.cs:116
-msgid "Folder closed."
-msgstr "Папка закрыта."
-
-#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:340
-msgid ""
-"Nicholas Logozzo {0}\n"
-"Fyodor Sobolev {1}"
-msgstr ""
-"Nicholas Logozzo {0}\n"
-"Фёдор Соболев {1}"
-
-#: ../../../../NickvisionApplication.GNOME/Program.cs:49
+#: ../../../Controllers/MainWindowController.cs:59
 #: NickvisionApplication.Shared/org.nickvision.application.desktop.in:4
 #: NickvisionApplication.Shared/org.nickvision.application.metainfo.xml.in:6
 msgid "Application"
 msgstr "Application"
 
-#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:342
-msgid "translator-credits"
-msgstr "Фёдор Соболев https://github.com/fsobolev"
+#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:221
+msgid "Are you sure you want to close the folder?"
+msgstr "Вы уверены, что хотите закрыть папку?"
 
-#: ../../../../NickvisionApplication.GNOME/Program.cs:50
+#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:221
+msgid "Cancel"
+msgstr "Отмена"
+
+#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:123
+#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:221
+msgid "Close"
+msgstr "Закрыть"
+
+#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:221
+msgid "Close Folder?"
+msgstr "Закрыть папку?"
+
+#: ../../../Controllers/MainWindowController.cs:67
+msgid "Contributors on GitHub ❤️"
+msgstr "Соавторы на GitHub ❤️"
+
+#: ../../../Controllers/MainWindowController.cs:59
 #: NickvisionApplication.Shared/org.nickvision.application.desktop.in:5
 #: NickvisionApplication.Shared/org.nickvision.application.metainfo.xml.in:8
 msgid "Create new Nickvision applications"
 msgstr "Создавайте новые приложения Nickvision"
 
-#: ../../../Controllers/MainWindowController.cs:81
-msgid "Good Evening!"
-msgstr "Добрый вечер!"
+#: ../../../Controllers/MainWindowController.cs:70
+msgid "DaPigGuy"
+msgstr "DaPigGuy"
 
-#: ../../../Controllers/MainWindowController.cs:78
-msgctxt "Night"
-msgid "Good Morning!"
-msgstr "Доброй ночи!"
+#: ../../../Controllers/MainWindowController.cs:71
+msgid "David Lapshin"
+msgstr "Давид Лапшин"
 
-#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:145
-#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:240
-msgid "Close"
-msgstr "Закрыть"
+#: ../../../Controllers/MainWindowController.cs:136
+msgid "Folder closed."
+msgstr "Папка закрыта."
 
-#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:219
-#: NickvisionApplication.GNOME/Blueprints/shortcuts_dialog.blp:17
-msgid "Open Folder"
-msgstr "Открыть Папку"
-
-#: ../../../Controllers/MainWindowController.cs:103
+#: ../../../Controllers/MainWindowController.cs:123
 #, csharp-format
 msgid "Folder Opened: {0}"
 msgstr "Папка открыта: {0}"
 
-#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:240
-msgid "Close Folder?"
-msgstr "Закрыть папку?"
+#: ../../../Controllers/MainWindowController.cs:69
+msgid "Fyodor Sobolev"
+msgstr "Фёдор Соболев"
 
-#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:227
+#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:320
+msgid "GitHub Repo"
+msgstr "Репозиторий GitHub"
+
+#: ../../../Controllers/MainWindowController.cs:100
+msgid "Good Afternoon!"
+msgstr "Добрый день!"
+
+#: ../../../Controllers/MainWindowController.cs:102
+msgid "Good Day!"
+msgstr "Здравствуйте!"
+
+#: ../../../Controllers/MainWindowController.cs:101
+msgid "Good Evening!"
+msgstr "Добрый вечер!"
+
+#: ../../../Controllers/MainWindowController.cs:65
+msgid "Matrix Chat"
+msgstr "Чат Matrix"
+
+#: ../../../Controllers/MainWindowController.cs:66
+#: ../../../Controllers/MainWindowController.cs:68
+msgid "Nicholas Logozzo"
+msgstr "Nicholas Logozzo"
+
+#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:205
+#: NickvisionApplication.GNOME/Blueprints/shortcuts_dialog.blp:17
+msgid "Open Folder"
+msgstr "Открыть Папку"
+
+#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:191
 #, csharp-format
 msgid "There is {0} file in the folder."
 msgid_plural "There are {0} files in the folder."
@@ -82,56 +110,29 @@ msgstr[0] "В папке {0} файл."
 msgstr[1] "В папке {0} файла."
 msgstr[2] "В папке {0} файлов."
 
-#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:240
-msgid "Cancel"
-msgstr "Отмена"
+#: ../../../Controllers/MainWindowController.cs:72
+msgid "translator-credits"
+msgstr "Фёдор Соболев https://github.com/fsobolev"
 
-#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:339
-msgid ""
-"Nicholas Logozzo {0}\n"
-"Contributors on GitHub ❤️ {1}"
-msgstr ""
-"Nicholas Logozzo {0}\n"
-"Соавторы на GitHub ❤️ {1}"
-
-#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:73
-msgid "No Folder Opened"
-msgstr "Папка не открыта"
-
-#: ../../../Controllers/MainWindowController.cs:79
+#: ../../../Controllers/MainWindowController.cs:99
 msgctxt "Morning"
 msgid "Good Morning!"
 msgstr "Доброе утро!"
 
-#: ../../../Controllers/MainWindowController.cs:82
-msgid "Good Day!"
-msgstr "Здравствуйте!"
+#: ../../../Controllers/MainWindowController.cs:98
+msgctxt "Night"
+msgid "Good Morning!"
+msgstr "Доброй ночи!"
 
-#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:341
-msgid "Nicholas Logozzo {0}"
-msgstr "Nicholas Logozzo {0}"
-
-#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:240
-msgid "Are you sure you want to close the folder?"
-msgstr "Вы уверены, что хотите закрыть папку?"
-
-#: ../../../Controllers/MainWindowController.cs:80
-msgid "Good Afternoon!"
-msgstr "Добрый день!"
-
-#: NickvisionApplication.GNOME/Blueprints/preferences_dialog.blp:10
+#: NickvisionApplication.GNOME/Blueprints/preferences_dialog.blp:11
 #: NickvisionApplication.GNOME/Blueprints/shortcuts_dialog.blp:31
 #: NickvisionApplication.GNOME/Blueprints/window.blp:5
 msgid "Preferences"
 msgstr "Параметры"
 
-#: NickvisionApplication.GNOME/Blueprints/preferences_dialog.blp:14
+#: NickvisionApplication.GNOME/Blueprints/preferences_dialog.blp:15
 msgid "User Interface"
 msgstr "Интерфейс"
-
-#: NickvisionApplication.GNOME/Blueprints/preferences_dialog.blp:15
-msgid "Customize the application's user interface."
-msgstr "Настройте интерфейс приложения."
 
 #: NickvisionApplication.GNOME/Blueprints/preferences_dialog.blp:18
 msgid "Theme"
@@ -184,25 +185,26 @@ msgstr "Выход"
 msgid "Open Folder (Ctrl+O)"
 msgstr "Открыть папку (Ctrl+O)"
 
-#: NickvisionApplication.GNOME/Blueprints/window.blp:26
+#: NickvisionApplication.GNOME/Blueprints/window.blp:27
+#: NickvisionApplication.GNOME/Blueprints/window.blp:62
 msgid "Open"
 msgstr "Открыть"
 
-#: NickvisionApplication.GNOME/Blueprints/window.blp:34
+#: NickvisionApplication.GNOME/Blueprints/window.blp:35
 msgid "Close Folder (Ctrl+W)"
 msgstr "Закрыть папку (Ctrl+W)"
 
-#: NickvisionApplication.GNOME/Blueprints/window.blp:43
+#: NickvisionApplication.GNOME/Blueprints/window.blp:44
 msgid "Main Menu"
 msgstr "Главное меню"
 
-#: NickvisionApplication.GNOME/Blueprints/window.blp:56
+#: NickvisionApplication.GNOME/Blueprints/window.blp:60
 msgid "Open a folder (or drag one into the app) to get started."
 msgstr "Откройте или перетащите папку, чтобы начать."
 
-#: NickvisionApplication.Shared/org.nickvision.application.metainfo.xml.in:7
-msgid "Nickvision"
-msgstr "Nickvision"
+#: NickvisionApplication.Shared/org.nickvision.application.desktop.in:11
+msgid "Template;Nickvision;"
+msgstr "Заготовка;Nickvision"
 
 #: NickvisionApplication.Shared/org.nickvision.application.metainfo.xml.in:10
 msgid "Recipe for the Ultimate Power:"
@@ -223,3 +225,16 @@ msgstr "— Avalonia"
 #: NickvisionApplication.Shared/org.nickvision.application.metainfo.xml.in:14
 msgid "— Shaken, not stirred"
 msgstr "— Смешать, но не взбалтывать"
+
+#~ msgid ""
+#~ "Nicholas Logozzo {0}\n"
+#~ "Fyodor Sobolev {1}"
+#~ msgstr ""
+#~ "Nicholas Logozzo {0}\n"
+#~ "Фёдор Соболев {1}"
+
+#~ msgid "No Folder Opened"
+#~ msgstr "Папка не открыта"
+
+#~ msgid "Customize the application's user interface."
+#~ msgstr "Настройте интерфейс приложения."

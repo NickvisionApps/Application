@@ -1,4 +1,5 @@
-﻿using NickvisionApplication.Shared.Events;
+﻿using Nickvision.Aura;
+using NickvisionApplication.Shared.Events;
 using NickvisionApplication.Shared.Models;
 using System;
 using System.IO;
@@ -12,18 +13,17 @@ namespace NickvisionApplication.Shared.Controllers;
 public class MainWindowController
 {
     /// <summary>
-    /// The path of the folder opened
+    /// Applciation's Aura
     /// </summary>
-    public string FolderPath { get; private set; }
-
+    public Aura Aura { get; init; }
     /// <summary>
     /// Gets the AppInfo object
     /// </summary>
-    public AppInfo AppInfo => AppInfo.Current;
+    public AppInfo AppInfo => Aura.Active.AppInfo;
     /// <summary>
-    /// Whether or not the version is a development version or not
+    /// The path of the folder opened
     /// </summary>
-    public bool IsDevVersion => AppInfo.Current.Version.IndexOf('-') != -1;
+    public string FolderPath { get; private set; }
     /// <summary>
     /// The preferred theme of the application
     /// </summary>
@@ -31,7 +31,7 @@ public class MainWindowController
     /// <summary>
     /// Whether or not the folder is opened
     /// </summary>
-    public bool IsFolderOpened => FolderPath != "No Folder Opened";
+    public bool IsFolderOpened => !string.IsNullOrEmpty(FolderPath);
 
     /// <summary>
     /// Occurs when a notification is sent
@@ -45,13 +45,57 @@ public class MainWindowController
     /// Occurs when a folder is opened or closed
     /// </summary>
     public event EventHandler? FolderChanged;
+    /// <summary>
+    /// Occurs when another instance tries to start
+    /// </summary>
+    public event Action? RaiseCommandReceived;
 
     /// <summary>
     /// Constructs a MainWindowController
     /// </summary>
-    public MainWindowController()
+    /// <param name="args">Command-line arguments</param>
+    public MainWindowController(string[] args)
     {
-        FolderPath = "No Folder Opened";
+        Aura = new Aura("org.nickvision.application", "Nickvision Application", _("Application"), _("Create new Nickvision applications"));
+        Aura.Active.SetConfig<Configuration>("config");
+        AppInfo.Version = "2023.7.0-next";
+        AppInfo.SourceRepo = new Uri("https://github.com/NickvisionApps/Application");
+        AppInfo.IssueTracker = new Uri("https://github.com/NickvisionApps/Application/issues/new");
+        AppInfo.SupportUrl = new Uri("https://github.com/NickvisionApps/Application/discussions");
+        AppInfo.ExtraLinks[_("Matrix Chat")] = new Uri("https://matrix.to/#/#nickvision:matrix.org");
+        AppInfo.Developers[_("Nicholas Logozzo")] = new Uri("https://github.com/nlogozzo");
+        AppInfo.Developers[_("Contributors on GitHub ❤️")] = new Uri("https://github.com/NickvisionApps/Application/graphs/contributors");
+        AppInfo.Designers[_("Nicholas Logozzo")] = new Uri("https://github.com/nlogozzo");
+        AppInfo.Designers[_("Fyodor Sobolev")] = new Uri("https://github.com/fsobolev");
+        AppInfo.Designers[_("DaPigGuy")] = new Uri("https://github.com/DaPigGuy");
+        AppInfo.Artists[_("David Lapshin")] = new Uri("https://github.com/daudix-UFO");
+        AppInfo.TranslatorCredits = _("translator-credits");
+        var ipc = Aura.Communicate(args);
+        ipc.CommandReceived += (sender, args) =>
+        {
+            if (args.Length > 0)
+            {
+                OpenFolder(args[0]);
+                RaiseCommandReceived?.Invoke();
+            }
+            else
+            {
+                RaiseCommandReceived?.Invoke();
+            }
+        };
+        FolderPath = args.Length > 0 ? args[0] : "";
+    }
+
+    /// <summary>
+    /// Open the folder (if exists) at startup
+    /// </summary>
+    /// <remarks>Expected to be called after the main window started</remarks>
+    public void Startup()
+    {
+        if(Directory.Exists(FolderPath))
+        {
+            OpenFolder(FolderPath);
+        }
     }
 
     /// <summary>
@@ -100,7 +144,7 @@ public class MainWindowController
     /// </summary>
     public void CloseFolder()
     {
-        FolderPath = "No Folder Opened";
+        FolderPath = "";
         NotificationSent?.Invoke(this, new NotificationSentEventArgs(_("Folder closed."), NotificationSeverity.Warning));
         FolderChanged?.Invoke(this, EventArgs.Empty);
     }
