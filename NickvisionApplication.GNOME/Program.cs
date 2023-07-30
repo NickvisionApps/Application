@@ -34,7 +34,6 @@ public partial class Program
         _application = Adw.Application.New("org.nickvision.application", Gio.ApplicationFlags.NonUnique);
         _mainWindow = null;
         _mainWindowController = new MainWindowController(args);
-        _mainWindowController.AppInfo.Changelog = "* Initial Release";
         _application.OnActivate += OnActivate;
         if (File.Exists(Path.GetFullPath(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)) + "/org.nickvision.application.gresource"))
         {
