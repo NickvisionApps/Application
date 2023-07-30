@@ -59,8 +59,6 @@ public class MainWindowController
         Aura = new Aura("org.nickvision.application", "Nickvision Application", _("Application"), _("Create new Nickvision applications"));
         Aura.Active.SetConfig<Configuration>("config");
         AppInfo.Version = "2023.7.0-next";
-        AppInfo.Changelog = 
-            @"* Initial Release";
         AppInfo.SourceRepo = new Uri("https://github.com/NickvisionApps/Application");
         AppInfo.IssueTracker = new Uri("https://github.com/NickvisionApps/Application/issues/new");
         AppInfo.SupportUrl = new Uri("https://github.com/NickvisionApps/Application/discussions");
