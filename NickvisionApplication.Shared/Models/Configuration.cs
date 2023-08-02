@@ -5,7 +5,7 @@ namespace NickvisionApplication.Shared.Models;
 /// <summary>
 /// A model for the configuration of the application
 /// </summary>
-public class Configuration : IConfiguration
+public class Configuration : ConfigurationBase
 {
     /// <summary>
     /// The preferred theme for the application
