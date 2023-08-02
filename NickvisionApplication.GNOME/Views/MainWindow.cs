@@ -51,7 +51,6 @@ public partial class MainWindow : Adw.ApplicationWindow
         _controller.NotificationSent += NotificationSent;
         _controller.ShellNotificationSent += ShellNotificationSent;
         _controller.FolderChanged += FolderChanged;
-        _controller.RaiseCommandReceived += Present;
         //Open Folder Action
         var actOpenFolder = Gio.SimpleAction.New("openFolder", null);
         actOpenFolder.OnActivate += async (sender, e) => await OpenFolderAsync();

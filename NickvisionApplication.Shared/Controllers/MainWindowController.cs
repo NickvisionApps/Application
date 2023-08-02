@@ -44,11 +44,7 @@ public class MainWindowController
     /// <summary>
     /// Occurs when a folder is opened or closed
     /// </summary>
-    public event EventHandler? FolderChanged;
-    /// <summary>
-    /// Occurs when another instance tries to start
-    /// </summary>
-    public event Action? RaiseCommandReceived;
+    public event EventHandler<EventArgs>? FolderChanged;
 
     /// <summary>
     /// Constructs a MainWindowController
@@ -70,20 +66,10 @@ public class MainWindowController
         AppInfo.Designers[_("DaPigGuy")] = new Uri("https://github.com/DaPigGuy");
         AppInfo.Artists[_("David Lapshin")] = new Uri("https://github.com/daudix-UFO");
         AppInfo.TranslatorCredits = _("translator-credits");
-        var ipc = Aura.Communicate(args);
-        ipc.CommandReceived += (sender, args) =>
+        if (args.Length > 0)
         {
-            if (args.Length > 0)
-            {
-                OpenFolder(args[0]);
-                RaiseCommandReceived?.Invoke();
-            }
-            else
-            {
-                RaiseCommandReceived?.Invoke();
-            }
-        };
-        FolderPath = args.Length > 0 ? args[0] : "";
+            OpenFolder(args[0]);
+        }
     }
 
     /// <summary>
