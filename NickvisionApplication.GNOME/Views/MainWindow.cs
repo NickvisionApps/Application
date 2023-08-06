@@ -1,5 +1,4 @@
-﻿using NickvisionApplication.GNOME.Controls;
-using NickvisionApplication.GNOME.Helpers;
+﻿using NickvisionApplication.GNOME.Helpers;
 using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.Shared.Events;
 using System;
@@ -58,7 +57,7 @@ public partial class MainWindow : Adw.ApplicationWindow
         application.SetAccelsForAction("win.openFolder", new string[] { "<Ctrl>O" });
         //Close Folder Action
         var actCloseFolder = Gio.SimpleAction.New("closeFolder", null);
-        actCloseFolder.OnActivate += CloseFolder;
+        actCloseFolder.OnActivate += (sender, e) => CloseFolder();
         AddAction(actCloseFolder);
         application.SetAccelsForAction("win.closeFolder", new string[] { "<Ctrl>W" });
         //Preferences Action
@@ -117,7 +116,7 @@ public partial class MainWindow : Adw.ApplicationWindow
         if (e.Action == "close")
         {
             toast.SetButtonLabel(_("Close"));
-            toast.OnButtonClicked += (sender, ex) => _controller.CloseFolder();
+            toast.OnButtonClicked += (s, ex) => CloseFolder();
         }
         _toastOverlay.AddToast(toast);
     }
@@ -210,20 +209,24 @@ public partial class MainWindow : Adw.ApplicationWindow
     /// <summary>
     /// Occurs when the close folder action is triggered
     /// </summary>
-    /// <param name="sender">Gio.SimpleAction</param>
-    /// <param name="e">EventArgs</param>
-    private void CloseFolder(Gio.SimpleAction sender, EventArgs e)
+    private void CloseFolder()
     {
-        var dialog = new MessageDialog(this, _controller.AppInfo.ID, _("Close Folder?"), _("Are you sure you want to close the folder?"), _("Cancel"), _("Close"));
-        dialog.Present();
-        dialog.OnResponse += (sender, e) =>
+        var dialog = Adw.MessageDialog.New(this, _("Close Folder?"), _("Are you sure you want to close the folder?"));
+        dialog.SetIconName(_controller.AppInfo.ID);
+        dialog.AddResponse("cancel", _("Cancel"));
+        dialog.SetDefaultResponse("cancel");
+        dialog.SetCloseResponse("cancel");
+        dialog.AddResponse("close", _("Close"));
+        dialog.SetResponseAppearance("close", Adw.ResponseAppearance.Destructive);
+        dialog.OnResponse += (s, ex) =>
         {
-            if (dialog.Response == MessageDialogResponse.Destructive)
+            if (ex.Response == "close")
             {
                 _controller.CloseFolder();
             }
             dialog.Destroy();
         };
+        dialog.Present();
     }
 
     /// <summary>
@@ -245,7 +248,7 @@ public partial class MainWindow : Adw.ApplicationWindow
     private void KeyboardShortcuts(Gio.SimpleAction sender, EventArgs e)
     {
         var builder = Builder.FromFile("shortcuts_dialog.ui");
-        var shortcutsWindow = (Gtk.ShortcutsWindow)builder.GetObject("_shortcuts");
+        var shortcutsWindow = (Gtk.ShortcutsWindow)builder.GetObject("_shortcuts")!;
         shortcutsWindow.SetTransientFor(this);
         shortcutsWindow.SetIconName(_controller.AppInfo.ID);
         shortcutsWindow.Present();
