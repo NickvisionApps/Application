@@ -5,7 +5,7 @@
     <SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>
     <Nullable>enable</Nullable>
     <ApplicationId>org.nickvision.application.avalonia</ApplicationId>
-    <ApplicationVersion>2023.8.0</ApplicationVersion>
+    <ApplicationVersion>202380</ApplicationVersion>
     <ApplicationDisplayVersion>2023.8.0</ApplicationDisplayVersion>
     <AndroidPackageFormat>apk</AndroidPackageFormat>
     <AndroidEnableProfiledAot>False</AndroidEnableProfiledAot>
