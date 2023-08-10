@@ -7,7 +7,7 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <AvaloniaResource Include="..\..\NickvisionApplication.Shared\Resources\**" />
+    <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,5 +22,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\NickvisionApplication.Shared\NickvisionApplication.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\org.nickvision.application.png" />
   </ItemGroup>
 </Project>
