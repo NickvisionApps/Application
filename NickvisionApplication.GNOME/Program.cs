@@ -15,8 +15,9 @@ namespace NickvisionApplication.GNOME;
 public partial class Program
 {
     private readonly Adw.Application _application;
+    private readonly string[] _args;
+    private readonly MainWindowController _mainWindowController;
     private MainWindow? _mainWindow;
-    private MainWindowController _mainWindowController;
 
     /// <summary>
     /// Main method
@@ -32,8 +33,9 @@ public partial class Program
     public Program(string[] args)
     {
         _application = Adw.Application.New("org.nickvision.application", Gio.ApplicationFlags.NonUnique);
+        _args = args;
         _mainWindow = null;
-        _mainWindowController = new MainWindowController(args);
+        _mainWindowController = new MainWindowController();
         _mainWindowController.AppInfo.Changelog = "* Initial Release";
         _application.OnActivate += OnActivate;
         if (File.Exists(Path.GetFullPath(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)) + "/org.nickvision.application.gresource"))
@@ -94,6 +96,6 @@ public partial class Program
         };
         //Main Window
         _mainWindow = new MainWindow(_mainWindowController, _application);
-        _mainWindow.Start();
+        _mainWindow.Start(_args);
     }
 }

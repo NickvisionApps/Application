@@ -98,11 +98,12 @@ public partial class MainWindow : Adw.ApplicationWindow
     /// <summary>
     /// Starts the MainWindow
     /// </summary>
-    public void Start()
+    /// <param name="args">Command-line arguments</param>
+    public void Start(string[] args)
     {
         _application.AddWindow(this);
         Present();
-        _controller.Startup();
+        _controller.Startup(args);
     }
 
     /// <summary>
