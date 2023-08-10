@@ -38,5 +38,5 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v2.2.0
         with:
-          name: org.nickvision.application.avalonia
+          name: org.nickvision.application.avalonia-android
           path: /home/runner/work/Application/publish/org.nickvision.application.avalonia*.apk

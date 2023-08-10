@@ -29,5 +29,5 @@ jobs:
       - name: Upload EXE
         uses: actions/upload-artifact@v2.2.0
         with:
-          name: org.nickvision.application.avalonia
+          name: org.nickvision.application.avalonia-windows
           path: /home/runner/work/Application/publish/*
