@@ -1,0 +1,37 @@
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+    types: [ "review_requested", "ready_for_review" ]
+  workflow_dispatch:
+name: Android
+jobs:
+  android-avalonia:
+    name: "Avalonia on Android"
+    runs-on: ubuntu-latest
+    if: ${{ github.event.pull_request.user.login != 'weblate' }}
+    strategy:
+      matrix:
+        dotnet-version: [ '7.0.x' ]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: 11
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v3
+        with:
+            dotnet-version: ${{ matrix.dotnet-version }}
+      - name: Install dependencies
+        run: dotnet restore NickvisionApplication.Avalonia/NickvisionApplication.Avalonia.Android/NickvisionApplication.Avalonia.Android.csproj
+      - name: Build App
+        run: dotnet build NickvisionApplication.Avalonia/NickvisionApplication.Avalonia.Android/NickvisionApplication.Avalonia.Android.csproj --configuration Release --no-restore
+      - name: Upload APK
+        uses: actions/upload-artifact@v2.2.0
+        with:
+          name: Release artifact
+          path: bin/Release/net7.0-android/org.nickvision.application.avalonia*.apk
