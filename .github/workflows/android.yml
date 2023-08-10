@@ -34,9 +34,9 @@ jobs:
       - name: Build App
         run: dotnet build NickvisionApplication.Avalonia/NickvisionApplication.Avalonia.Android/NickvisionApplication.Avalonia.Android.csproj --no-restore
       - name: Publish App
-        run: dotnet publish NickvisionApplication.Avalonia/NickvisionApplication.Avalonia.Android/NickvisionApplication.Avalonia.Android.csproj -c Release -nologo
+        run: dotnet publish NickvisionApplication.Avalonia/NickvisionApplication.Avalonia.Android/NickvisionApplication.Avalonia.Android.csproj -c Release -nologo -o /home/runner/work/Application/publish/
       - name: Upload APK
         uses: actions/upload-artifact@v2.2.0
         with:
           name: org.nickvision.application.avalonia
-          path: /home/runner/work/Application/Application/NickvisionApplication.Avalonia/NickvisionApplication.Avalonia.Android/bin/Release/net7.0-android/org.nickvision.application.avalonia*.apk
+          path: /home/runner/work/Application/publish/org.nickvision.application.avalonia*.apk
