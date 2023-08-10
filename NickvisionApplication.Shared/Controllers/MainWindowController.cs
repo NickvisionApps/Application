@@ -49,8 +49,8 @@ public class MainWindowController
     /// <summary>
     /// Constructs a MainWindowController
     /// </summary>
-    /// <param name="args">Command-line arguments</param>
-    public MainWindowController(string[] args)
+    
+    public MainWindowController()
     {
         Aura = new Aura("org.nickvision.application", "Nickvision Application", _("Application"), _("Create new Nickvision applications"));
         Aura.Active.SetConfig<Configuration>("config");
@@ -66,21 +66,18 @@ public class MainWindowController
         AppInfo.Designers[_("DaPigGuy")] = new Uri("https://github.com/DaPigGuy");
         AppInfo.Artists[_("David Lapshin")] = new Uri("https://github.com/daudix-UFO");
         AppInfo.TranslatorCredits = _("translator-credits");
-        if (args.Length > 0)
-        {
-            OpenFolder(args[0]);
-        }
     }
 
     /// <summary>
     /// Open the folder (if exists) at startup
     /// </summary>
+    /// <param name="args">Command-line arguments</param>
     /// <remarks>Expected to be called after the main window started</remarks>
-    public void Startup()
+    public void Startup(string[] args)
     {
-        if(Directory.Exists(FolderPath))
+        if(args.Length > 0 && Directory.Exists(args[0]))
         {
-            OpenFolder(FolderPath);
+            OpenFolder(args[0]);
         }
     }
 
