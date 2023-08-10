@@ -8,47 +8,5 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
         x:Class="NickvisionApplication.Avalonia.Views.MainWindow"
         MinWidth="320" MinHeight="300" Width="800" Height="600" Icon="../Assets/org.nickvision.application.png">
-    <Grid x:Name="MainContent" Loaded="MainContent_OnLoaded">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="46"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        
-        <DockPanel x:Name="HeaderBar" Grid.Row="0" LastChildFill="False">
-            <fluent:CommandBar x:Name="HeaderBarStart" DockPanel.Dock="Left" DefaultLabelPosition="Right">
-                <fluent:CommandBar.PrimaryCommands>
-                    <fluent:CommandBarButton x:Name="BtnOpenFolder">
-                        <fluent:CommandBarButton.IconSource>
-                            <fluent:SymbolIconSource Symbol="OpenFolder"/>
-                        </fluent:CommandBarButton.IconSource>
-                    </fluent:CommandBarButton>
-                </fluent:CommandBar.PrimaryCommands>
-            </fluent:CommandBar>
-            
-            <fluent:CommandBar x:Name="HeaderBarEnd" DockPanel.Dock="Right">
-                <fluent:CommandBar.PrimaryCommands>
-                    <fluent:CommandBarButton x:Name="BtnSettings">
-                        <fluent:CommandBarButton.IconSource>
-                            <fluent:SymbolIconSource Symbol="Setting"/>
-                        </fluent:CommandBarButton.IconSource>
-                    </fluent:CommandBarButton>
-                </fluent:CommandBar.PrimaryCommands>
-            </fluent:CommandBar>
-        </DockPanel>
-        
-        <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <Separator HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
-            
-            <StackPanel x:Name="Greeting" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="12,12,12,12" Orientation="Vertical" Spacing="6">
-                <Image HorizontalAlignment="Center" Width="100" Height="100" Source="../Assets/org.nickvision.application.png"/>
-                
-                <TextBlock x:Name="GreetingTitle" HorizontalAlignment="Center"/>
-                
-                <TextBlock x:Name="GreetingDescription" HorizontalAlignment="Center" Foreground="Gray" TextWrapping="Wrap"/>
-            </StackPanel>
-        </Grid>
-        
-        <fluent:InfoBar x:Name="InfoBar" Grid.Row="2" Title="Message" Severity="Warning" IsOpen="True"/>
-    </Grid>
+    
 </Window>

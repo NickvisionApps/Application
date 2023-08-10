@@ -1,0 +1,54 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:NickvisionApplication.Avalonia.Views"
+             xmlns:fluent="using:FluentAvalonia.UI.Controls"
+             xmlns:fluentp="using:FluentAvalonia.UI.Controls.Primitives"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="NickvisionApplication.Avalonia.Views.MainView"
+             Loaded="OnLoaded">
+    <Grid x:Name="MainContent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="46"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <DockPanel x:Name="HeaderBar" Grid.Row="0" LastChildFill="False">
+            <fluent:CommandBar x:Name="HeaderBarStart" DockPanel.Dock="Left" DefaultLabelPosition="Right">
+                <fluent:CommandBar.PrimaryCommands>
+                    <fluent:CommandBarButton x:Name="BtnOpenFolder">
+                        <fluent:CommandBarButton.IconSource>
+                            <fluent:SymbolIconSource Symbol="OpenFolder"/>
+                        </fluent:CommandBarButton.IconSource>
+                    </fluent:CommandBarButton>
+                </fluent:CommandBar.PrimaryCommands>
+            </fluent:CommandBar>
+            
+            <fluent:CommandBar x:Name="HeaderBarEnd" DockPanel.Dock="Right">
+                <fluent:CommandBar.PrimaryCommands>
+                    <fluent:CommandBarButton x:Name="BtnSettings">
+                        <fluent:CommandBarButton.IconSource>
+                            <fluent:SymbolIconSource Symbol="Setting"/>
+                        </fluent:CommandBarButton.IconSource>
+                    </fluent:CommandBarButton>
+                </fluent:CommandBar.PrimaryCommands>
+            </fluent:CommandBar>
+        </DockPanel>
+        
+        <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Separator HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+            
+            <StackPanel x:Name="Greeting" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="12,12,12,12" Orientation="Vertical" Spacing="6">
+                <Image HorizontalAlignment="Center" Width="100" Height="100" Source="../Assets/org.nickvision.application.png"/>
+                
+                <TextBlock x:Name="GreetingTitle" HorizontalAlignment="Center"/>
+                
+                <TextBlock x:Name="GreetingDescription" HorizontalAlignment="Center" Foreground="Gray" TextWrapping="Wrap"/>
+            </StackPanel>
+        </Grid>
+        
+        <fluent:InfoBar x:Name="InfoBar" Grid.Row="2" Title="Message" Severity="Warning" IsOpen="True"/>
+    </Grid>
+</UserControl>

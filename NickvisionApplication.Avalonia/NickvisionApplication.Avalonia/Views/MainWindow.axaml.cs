@@ -1,11 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Interactivity;
-using FluentAvalonia.UI.Controls;
 using NickvisionApplication.Shared.Controllers;
-using NickvisionApplication.Shared.Events;
-using System;
-using static NickvisionApplication.Shared.Helpers.Gettext;
 
 namespace NickvisionApplication.Avalonia.Views;
 
@@ -14,10 +9,6 @@ namespace NickvisionApplication.Avalonia.Views;
 /// </summary>
 public partial class MainWindow : Window
 {
-    private readonly MainWindowController _controller;
-    private readonly IApplicationLifetime _lifetime;
-    private bool _opened;
-    
     /// <summary>
     /// Constructs a MainWindow
     /// </summary>
@@ -26,68 +17,7 @@ public partial class MainWindow : Window
     public MainWindow(MainWindowController controller, IApplicationLifetime lifetime)
     {
         InitializeComponent();
-        _controller = controller;
-        _lifetime = lifetime;
-        _opened = false;
-        //Window Settings
-        Title = $"{_controller.AppInfo.ShortName}{(_controller.AppInfo.IsDevVersion ? " - DEV" : "")}";
-        //Register Events
-        _controller.NotificationSent += NotificationSent;
-        //Header
-        BtnOpenFolder.Label = _("Open");
-        ToolTip.SetTip(BtnSettings, _("Settings"));
-        //Greeting
-        GreetingTitle.Text = _controller.Greeting;
-        GreetingDescription.Text = _("Open a folder (or drag one into the app) to get started");
-    }
-
-    /// <summary>
-    /// Occurs when the main content is loaded
-    /// </summary>
-    /// <param name="sender">object?</param>
-    /// <param name="e">RoutedEventArgs</param>
-    private void MainContent_OnLoaded(object? sender, RoutedEventArgs e)
-    {
-        if (!_opened)
-        {
-            _controller.Startup(_lifetime is IClassicDesktopStyleApplicationLifetime desktop ? (desktop.Args ?? Array.Empty<string>()) : Array.Empty<string>());
-            _opened = true;
-        }
-    }
-
-    /// <summary>
-    /// Occurs when a notification is sent from the controller
-    /// </summary>
-    /// <param name="sender">object?</param>
-    /// <param name="e">NotificationSentEventArgs</param>
-    private void NotificationSent(object? sender, NotificationSentEventArgs e)
-    {
-        InfoBar.Title = e.Message;
-        InfoBar.Severity = e.Severity switch
-        {
-            NotificationSeverity.Success => InfoBarSeverity.Success,
-            NotificationSeverity.Error => InfoBarSeverity.Error,
-            NotificationSeverity.Warning => InfoBarSeverity.Warning,
-            _ => InfoBarSeverity.Informational
-        };
-        if (e.Action == "close")
-        {
-            var button = new Button()
-            {
-                Content = _("Close")
-            };
-            button.Click += (s, ex) => CloseFolder();
-            InfoBar.ActionButton = button;
-        }
-        else
-        {
-            InfoBar.ActionButton = null;
-        }
-        InfoBar.IsOpen = true;
-    }
-
-    private void CloseFolder()
-    {
-        
+        Title = $"{controller.AppInfo.ShortName}{(controller.AppInfo.IsDevVersion ? " - DEV" : "")}";
+        Content = new MainView(controller, lifetime);
     }
 }
