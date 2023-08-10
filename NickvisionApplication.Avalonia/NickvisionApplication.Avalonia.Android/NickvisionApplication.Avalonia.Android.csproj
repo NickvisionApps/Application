@@ -4,9 +4,9 @@
     <TargetFramework>net7.0-android</TargetFramework>
     <SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>
     <Nullable>enable</Nullable>
-    <ApplicationId>com.CompanyName.NickvisionApplication.Avalonia</ApplicationId>
-    <ApplicationVersion>1</ApplicationVersion>
-    <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+    <ApplicationId>org.nickvision.application.avalonia</ApplicationId>
+    <ApplicationVersion>2023.8.0</ApplicationVersion>
+    <ApplicationDisplayVersion>2023.8.0</ApplicationDisplayVersion>
     <AndroidPackageFormat>apk</AndroidPackageFormat>
     <AndroidEnableProfiledAot>False</AndroidEnableProfiledAot>
   </PropertyGroup>
