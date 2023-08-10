@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Interactivity;
 using FluentAvalonia.UI.Controls;
+using NickvisionApplication.Avalonia.Controls;
 using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.Shared.Events;
 using System;
@@ -35,9 +36,10 @@ public partial class MainView : UserControl
         //Header
         BtnOpenFolder.Label = _("Open");
         ToolTip.SetTip(BtnSettings, _("Settings"));
+        ToolTip.SetTip(BtnAbout, _("About Application"));
         //Greeting
         GreetingTitle.Text = _controller.Greeting;
-        GreetingDescription.Text = _("Open a folder (or drag one into the app) to get started");
+        GreetingDescription.Text = _("Open a folder to get started");
     }
     
     /// <summary>
@@ -88,5 +90,11 @@ public partial class MainView : UserControl
     private void CloseFolder()
     {
         
+    }
+
+    private async void About(object? sender, RoutedEventArgs e)
+    {
+        var aboutDialog = new AboutDialog(_controller.AppInfo);
+        await aboutDialog.ShowAsync();
     }
 }
