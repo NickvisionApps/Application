@@ -27,7 +27,9 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
             dotnet-version: ${{ matrix.dotnet-version }}
-      - name: Install dependencies
+      - name: Install android Workload
+        run: dotnet workload install android
+      - name: Install Dependencies
         run: dotnet restore NickvisionApplication.Avalonia/NickvisionApplication.Avalonia.Android/NickvisionApplication.Avalonia.Android.csproj
       - name: Build App
         run: dotnet build NickvisionApplication.Avalonia/NickvisionApplication.Avalonia.Android/NickvisionApplication.Avalonia.Android.csproj --configuration Release --no-restore
