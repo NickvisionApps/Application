@@ -20,6 +20,8 @@ public partial class MainWindow : Window
         _opened = false;
         //Window Settings
         Title = $"{_controller.AppInfo.ShortName}{(_controller.AppInfo.IsDevVersion ? " - DEV" : "")}";
+        Width = 800;
+        Height = 600;
     }
 
     private void MainContent_OnLoaded(object? sender, RoutedEventArgs e)
