@@ -7,7 +7,6 @@ using Nickvision.Aura;
 using NickvisionApplication.Avalonia.Helpers;
 using System;
 using System.Globalization;
-using System.Linq;
 using static NickvisionApplication.Shared.Helpers.Gettext;
 
 namespace NickvisionApplication.Avalonia.Controls;
@@ -17,11 +16,6 @@ public partial class AboutDialog : ContentDialog, IStyleable
     Type IStyleable.StyleKey => typeof(ContentDialog);
     
     private readonly AppInfo _appInfo;
-    
-    /// <summary>
-    /// Constructs an AboutDialog
-    /// </summary>
-    public AboutDialog() => InitializeComponent();
     
     /// <summary>
     /// Constructs an AboutDialog

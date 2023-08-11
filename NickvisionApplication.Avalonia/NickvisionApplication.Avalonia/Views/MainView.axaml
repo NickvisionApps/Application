@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:local="clr-namespace:NickvisionApplication.Avalonia.Views"
+             xmlns:nickvision="clr-namespace:NickvisionApplication.Avalonia.Controls"
              xmlns:fluent="using:FluentAvalonia.UI.Controls"
              xmlns:fluentp="using:FluentAvalonia.UI.Controls.Primitives"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
@@ -15,42 +16,54 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         
-        <DockPanel x:Name="HeaderBar" Grid.Row="0" LastChildFill="False" Background="{DynamicResource ControlFillColorDefaultBrush}">
-            <fluent:CommandBar x:Name="HeaderBarStart" DockPanel.Dock="Left" DefaultLabelPosition="Right">
-                <fluent:CommandBar.PrimaryCommands>
-                    <fluent:CommandBarButton x:Name="BtnOpenFolder">
-                        <fluent:CommandBarButton.IconSource>
-                            <fluent:SymbolIconSource Symbol="OpenFolder"/>
-                        </fluent:CommandBarButton.IconSource>
-                    </fluent:CommandBarButton>
-                </fluent:CommandBar.PrimaryCommands>
-            </fluent:CommandBar>
+        <DockPanel x:Name="HeaderBar" Grid.Row="0" LastChildFill="False" Margin="6,0,6,0">
+            <StackPanel x:Name="HeaderBarStart" DockPanel.Dock="Left" Orientation="Horizontal" Spacing="6">
+                <Button x:Name="BtnOpenFolder" Click="OpenFolder">
+                    <StackPanel Orientation="Horizontal" Spacing="6">
+                        <fluent:SymbolIcon Symbol="OpenFolder" FontSize="16"/>
+                        
+                        <TextBlock x:Name="BtnOpenFolderLabel"/>
+                    </StackPanel>
+                </Button>
+                
+                <Button x:Name="BtnCloseFolder" IsVisible="False" Click="CloseFolder">
+                    <fluent:SymbolIcon Symbol="Clear" FontSize="16"/>
+                </Button>
+            </StackPanel>
             
-            <fluent:CommandBar x:Name="HeaderBarEnd" DockPanel.Dock="Right">
-                <fluent:CommandBar.PrimaryCommands>
-                    <fluent:CommandBarButton x:Name="BtnSettings">
-                        <fluent:CommandBarButton.IconSource>
-                            <fluent:SymbolIconSource Symbol="Setting"/>
-                        </fluent:CommandBarButton.IconSource>
-                    </fluent:CommandBarButton>
-                    
-                    <fluent:CommandBarButton x:Name="BtnAbout" Click="About">
-                        <fluent:CommandBarButton.IconSource>
-                            <fluent:SymbolIconSource Symbol="Help"/>
-                        </fluent:CommandBarButton.IconSource>
-                    </fluent:CommandBarButton>
-                </fluent:CommandBar.PrimaryCommands>
-            </fluent:CommandBar>
+            <StackPanel x:Name="HeaderBarEnd" DockPanel.Dock="Right" Orientation="Horizontal" Spacing="6">
+                <Button x:Name="BtnSettings">
+                    <fluent:SymbolIcon Symbol="Setting" FontSize="16"/>
+                </Button>
+                
+                <Button x:Name="BtnAbout" Click="About">
+                    <fluent:SymbolIcon Symbol="Help" FontSize="16"/>
+                </Button>
+            </StackPanel>
         </DockPanel>
         
         <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <StackPanel x:Name="Greeting" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="12,12,12,12" Orientation="Vertical" Spacing="6">
-                <Image HorizontalAlignment="Center" Width="100" Height="100" Source="../Assets/org.nickvision.application.png"/>
+            <Separator HorizontalAlignment="Stretch" VerticalAlignment="Top"></Separator>
+            
+            <Carousel x:Name="Carousel">
+                <nickvision:StatusPage x:Name="StatusPageHome" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="12,12,12,12">
+                    <nickvision:StatusPage.Child>
+                        <Button x:Name="BtnHomeOpenFolder" HorizontalAlignment="Center" Height="40" Background="{DynamicResource AccentButtonBackground}" Foreground="{DynamicResource AccentButtonForeground}"  Click="OpenFolder">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                    <fluent:SymbolIcon Symbol="OpenFolder"/>
+
+                                    <TextBlock x:Name="BtnHomeOpenFolderLabel"/>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                    </nickvision:StatusPage.Child>
+                </nickvision:StatusPage>
                 
-                <TextBlock x:Name="GreetingTitle" HorizontalAlignment="Center"/>
-                
-                <TextBlock x:Name="GreetingDescription" HorizontalAlignment="Center" Foreground="Gray" TextWrapping="Wrap"/>
-            </StackPanel>
+                <Grid>
+                    <TextBlock x:Name="FilesLabel" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
+            </Carousel>
         </Grid>
         
         <fluent:InfoBar x:Name="InfoBar" Grid.Row="2"/>

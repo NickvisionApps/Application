@@ -1,11 +1,14 @@
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Interactivity;
+using Avalonia.Platform.Storage;
 using FluentAvalonia.UI.Controls;
 using NickvisionApplication.Avalonia.Controls;
 using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.Shared.Events;
 using System;
+using System.IO;
+using System.Linq;
 using static NickvisionApplication.Shared.Helpers.Gettext;
 
 namespace NickvisionApplication.Avalonia.Views;
@@ -18,6 +21,7 @@ public partial class MainView : UserControl
     private readonly MainWindowController _controller;
     private readonly IApplicationLifetime _lifetime;
     private bool _opened;
+    private int _page;
     
     /// <summary>
     /// Constructs a MainView
@@ -31,15 +35,22 @@ public partial class MainView : UserControl
         _controller = controller;
         _lifetime = lifetime;
         _opened = false;
+        _page = 0;
         //Register Events
         _controller.NotificationSent += NotificationSent;
+        _controller.ShellNotificationSent += ShellNotificationSent;
+        _controller.FolderChanged += FolderChanged;
         //Header
-        BtnOpenFolder.Label = _("Open");
+        BtnOpenFolderLabel.Text = _("Open");
+        ToolTip.SetTip(BtnOpenFolder, _("Open Folder (Ctrl+O)"));
+        ToolTip.SetTip(BtnCloseFolder, _("Close Folder (Ctrl+W)"));
         ToolTip.SetTip(BtnSettings, _("Settings"));
         ToolTip.SetTip(BtnAbout, _("About Application"));
         //Greeting
-        GreetingTitle.Text = _controller.Greeting;
-        GreetingDescription.Text = _("Open a folder to get started");
+        StatusPageHome.Symbol = Symbol.Home;
+        StatusPageHome.Title = _controller.Greeting;
+        StatusPageHome.Description = _("Open a folder to get started");
+        BtnHomeOpenFolderLabel.Text = _("Open");
     }
     
     /// <summary>
@@ -77,7 +88,7 @@ public partial class MainView : UserControl
             {
                 Content = _("Close")
             };
-            button.Click += (s, ex) => CloseFolder();
+            button.Click += CloseFolder;
             InfoBar.ActionButton = button;
         }
         else
@@ -87,14 +98,49 @@ public partial class MainView : UserControl
         InfoBar.IsOpen = true;
     }
 
-    private void CloseFolder()
+    private void ShellNotificationSent(object? sender, ShellNotificationSentEventArgs e) => NotificationSent(sender, e);
+
+    private void FolderChanged(object? sender, EventArgs e)
     {
-        
+        if (_controller.IsFolderOpened)
+        {
+            if (_page != 1)
+            {
+                Carousel.Next();
+                _page++;
+            }
+            BtnCloseFolder.IsVisible = true;
+            FilesLabel.Text = _n("There is {0} file in the folder.", "There are {0} files in the folder.", Directory.GetFiles(_controller.FolderPath, "*", SearchOption.TopDirectoryOnly).Length);
+        }
+        else
+        {
+            if (_page != 0)
+            {
+                Carousel.Previous();
+                _page--;
+            }
+            BtnCloseFolder.IsVisible = false;
+        }
     }
+    
+    private async void OpenFolder(object? sender, RoutedEventArgs e)
+    {
+        var result = await TopLevel.GetTopLevel(this)!.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions()
+        {
+            Title = _("Open Folder"),
+            AllowMultiple = false
+        });
+        if (result.Count == 1)
+        {
+            _controller.OpenFolder(result[0].Path.AbsolutePath);
+        }
+    }
+
+    private void CloseFolder(object? sender, RoutedEventArgs e) => _controller.CloseFolder();
 
     private async void About(object? sender, RoutedEventArgs e)
     {
         var aboutDialog = new AboutDialog(_controller.AppInfo);
-        await aboutDialog.ShowAsync();
+        await aboutDialog.ShowAsync(TopLevel.GetTopLevel(this));
     }
 }
