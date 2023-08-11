@@ -21,13 +21,15 @@ public class MainActivity : AvaloniaMainActivity<App>
     {
         return base.CustomizeAppBuilder(builder)
             .WithInterFont()
-            .UseReactiveUI()
-            .AfterSetup(x =>
-            {
-                if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.WriteExternalStorage) != Permission.Granted || ContextCompat.CheckSelfPermission(this, Manifest.Permission.ReadExternalStorage) != Permission.Granted || ContextCompat.CheckSelfPermission(this, Manifest.Permission.ManageExternalStorage) != Permission.Granted)
-                {
-                    ActivityCompat.RequestPermissions(this, new string[] { Manifest.Permission.WriteExternalStorage, Manifest.Permission.ReadExternalStorage, Manifest.Permission.ManageExternalStorage }, 225);
-                }
-            });
+            .UseReactiveUI();
+    }
+    
+    protected override void OnStart()
+    {
+        base.OnStart();
+        if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.WriteExternalStorage) != Permission.Granted || ContextCompat.CheckSelfPermission(this, Manifest.Permission.ReadExternalStorage) != Permission.Granted || ContextCompat.CheckSelfPermission(this, Manifest.Permission.ManageExternalStorage) != Permission.Granted)
+        {
+            ActivityCompat.RequestPermissions(this, new string[] { Manifest.Permission.WriteExternalStorage, Manifest.Permission.ReadExternalStorage, Manifest.Permission.ManageExternalStorage }, 225);
+        }
     }
 }
