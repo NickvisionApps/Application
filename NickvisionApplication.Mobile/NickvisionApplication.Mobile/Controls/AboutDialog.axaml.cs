@@ -36,7 +36,6 @@ public partial class AboutDialog : ContentDialog, IStyleable
         LblCreditsHeader.Text = _("Credits");
         InfoBar.Message = _("Copied system information.");
         //Load AppInfo
-        LblDescription.Text = _appInfo.Description;
         LblVersion.Text = _appInfo.Version;
         LblChangelog.Text = _appInfo.Changelog;
         var credits = string.Format(_("Developers:\n{0}\n\nDesigners:\n{1}\n\nArtists:\n{2}\n\nTranslators:\n{3}"),

@@ -9,43 +9,36 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="NickvisionApplication.Mobile.Views.MainView"
              Loaded="OnLoaded">
-    <Grid x:Name="MainContent">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="46"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+    <fluent:NavigationView x:Name="NavigationView" IsSettingsVisible="False" IsBackEnabled="False" IsBackButtonVisible="False">
+        <fluent:NavigationView.MenuItems>
+            <fluent:NavigationViewItem x:Name="HomeNavItem" Tag="Home" IsSelected="True">
+                <fluent:NavigationViewItem.IconSource>
+                    <fluent:SymbolIconSource Symbol="Home"/>
+                </fluent:NavigationViewItem.IconSource>
+            </fluent:NavigationViewItem>
+        </fluent:NavigationView.MenuItems>
         
-        <DockPanel x:Name="HeaderBar" Grid.Row="0" LastChildFill="False" Margin="6,0,6,0">
-            <StackPanel x:Name="HeaderBarStart" DockPanel.Dock="Left" Orientation="Horizontal" Spacing="6">
-                <Button x:Name="BtnOpenFolder" Click="OpenFolder">
-                    <StackPanel Orientation="Horizontal" Spacing="6">
-                        <fluent:SymbolIcon Symbol="OpenFolder" FontSize="16"/>
-                        
-                        <TextBlock x:Name="BtnOpenFolderLabel"/>
-                    </StackPanel>
-                </Button>
-                
-                <Button x:Name="BtnCloseFolder" IsVisible="False" Click="CloseFolder">
-                    <fluent:SymbolIcon Symbol="Clear" FontSize="16"/>
-                </Button>
-            </StackPanel>
+        <fluent:NavigationView.FooterMenuItems>
+            <fluent:NavigationViewItem x:Name="AboutNavItem" SelectsOnInvoked="False" Tapped="About">
+                <fluent:NavigationViewItem.IconSource>
+                    <fluent:SymbolIconSource Symbol="Help"/>
+                </fluent:NavigationViewItem.IconSource>
+            </fluent:NavigationViewItem>
             
-            <StackPanel x:Name="HeaderBarEnd" DockPanel.Dock="Right" Orientation="Horizontal" Spacing="6">
-                <Button x:Name="BtnSettings">
-                    <fluent:SymbolIcon Symbol="Setting" FontSize="16"/>
-                </Button>
-                
-                <Button x:Name="BtnAbout" Click="About">
-                    <fluent:SymbolIcon Symbol="Help" FontSize="16"/>
-                </Button>
-            </StackPanel>
-        </DockPanel>
+            <fluent:NavigationViewItem x:Name="SettingsNavItem" Tag="Settings">
+                <fluent:NavigationViewItem.IconSource>
+                    <fluent:SymbolIconSource Symbol="Settings"/>
+                </fluent:NavigationViewItem.IconSource>
+            </fluent:NavigationViewItem>
+        </fluent:NavigationView.FooterMenuItems>
         
-        <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <Separator HorizontalAlignment="Stretch" VerticalAlignment="Top"></Separator>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
             
-            <Carousel x:Name="Carousel">
+            <fluent:Frame Grid.Row="0">
                 <nickvision:StatusPage x:Name="StatusPageHome" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="12,12,12,12">
                     <nickvision:StatusPage.Child>
                         <Button x:Name="BtnHomeOpenFolder" HorizontalAlignment="Center" Height="40" Background="{DynamicResource AccentButtonBackground}" Foreground="{DynamicResource AccentButtonForeground}"  Click="OpenFolder">
@@ -59,13 +52,9 @@
                         </Button>
                     </nickvision:StatusPage.Child>
                 </nickvision:StatusPage>
-                
-                <Grid>
-                    <TextBlock x:Name="FilesLabel" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                </Grid>
-            </Carousel>
+            </fluent:Frame>
+            
+            <fluent:InfoBar x:Name="InfoBar" Grid.Row="1"/>
         </Grid>
-        
-        <fluent:InfoBar x:Name="InfoBar" Grid.Row="2"/>
-    </Grid>
+    </fluent:NavigationView>
 </UserControl>

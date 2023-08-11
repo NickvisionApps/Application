@@ -12,22 +12,18 @@
             <StackPanel Orientation="Horizontal" Spacing="6">
                 <Image Width="128" Height="128" Source="../Assets/org.nickvision.application.png"/>
                 
-                <StackPanel VerticalAlignment="Center" Orientation="Vertical" Spacing="6">
-                    <TextBlock x:Name="LblDescription" Margin="4,0,0,0" FontWeight="SemiBold" FontSize="16" TextWrapping="Wrap"/>
-
-                    <TextBlock Margin="4,0,0,0" Foreground="Gray" Text="© Nickvision 2021-2023"/>
-
-                    <Button Background="{DynamicResource AccentButtonBackground}" Foreground="{DynamicResource AccentButtonForeground}" CornerRadius="12" Click="CopySystemInformation">
-                        <Button.Content>
-                            <TextBlock x:Name="LblVersion"/>
-                        </Button.Content>
-                    </Button>
-                </StackPanel>
+                <Button VerticalAlignment="Center" Background="{DynamicResource AccentButtonBackground}" Foreground="{DynamicResource AccentButtonForeground}" CornerRadius="12" Click="CopySystemInformation">
+                    <Button.Content>
+                        <TextBlock x:Name="LblVersion"/>
+                    </Button.Content>
+                </Button>
             </StackPanel>
             
             <fluent:InfoBar x:Name="InfoBar" Margin="0,6,0,0" Severity="Success"/>
             
-            <Expander Margin="0,9,0,0">
+            <TextBlock Margin="0,9,0,0" Foreground="Gray" Text="© Nickvision 2021-2023"/>
+            
+            <Expander>
                 <Expander.Header>
                     <StackPanel Orientation="Horizontal" Spacing="6">
                         <fluent:SymbolIcon Symbol="List"/>

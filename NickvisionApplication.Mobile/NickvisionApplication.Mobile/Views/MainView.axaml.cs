@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
 using FluentAvalonia.UI.Controls;
@@ -20,7 +21,6 @@ public partial class MainView : UserControl
     private readonly MainWindowController _controller;
     private readonly IApplicationLifetime _lifetime;
     private bool _opened;
-    private int _page;
     
     /// <summary>
     /// Constructs a MainView
@@ -34,17 +34,14 @@ public partial class MainView : UserControl
         _controller = controller;
         _lifetime = lifetime;
         _opened = false;
-        _page = 0;
         //Register Events
         _controller.NotificationSent += NotificationSent;
         _controller.ShellNotificationSent += ShellNotificationSent;
         _controller.FolderChanged += FolderChanged;
-        //Header
-        BtnOpenFolderLabel.Text = _("Open");
-        ToolTip.SetTip(BtnOpenFolder, _("Open Folder (Ctrl+O)"));
-        ToolTip.SetTip(BtnCloseFolder, _("Close Folder (Ctrl+W)"));
-        ToolTip.SetTip(BtnSettings, _("Settings"));
-        ToolTip.SetTip(BtnAbout, _("About Application"));
+        //NavView
+        HomeNavItem.Content = _("Home");
+        SettingsNavItem.Content = _("Settings");
+        AboutNavItem.Content = _("About Application");
         //Greeting
         StatusPageHome.Symbol = Symbol.Home;
         StatusPageHome.Title = _controller.Greeting;
@@ -113,22 +110,11 @@ public partial class MainView : UserControl
     {
         if (_controller.IsFolderOpened)
         {
-            if (_page != 1)
-            {
-                Carousel.Next();
-                _page++;
-            }
-            BtnCloseFolder.IsVisible = true;
-            FilesLabel.Text = _n("There is {0} file in the folder.", "There are {0} files in the folder.", Directory.GetFiles(_controller.FolderPath, "*", SearchOption.TopDirectoryOnly).Length);
+            
         }
         else
         {
-            if (_page != 0)
-            {
-                Carousel.Previous();
-                _page--;
-            }
-            BtnCloseFolder.IsVisible = false;
+            
         }
     }
     
@@ -156,23 +142,13 @@ public partial class MainView : UserControl
     /// <param name="sender">object?</param>
     /// <param name="e">RoutedEventArgs</param>
     private void CloseFolder(object? sender, RoutedEventArgs e) => _controller.CloseFolder();
-
-    /// <summary>
-    /// Occurs when the settings button is clicked
-    /// </summary>
-    /// <param name="sender">object?</param>
-    /// <param name="e">RoutedEventArgs</param>
-    private void Settings(object? sender, RoutedEventArgs e)
-    {
-        
-    }
     
     /// <summary>
     /// Occurs when the about button is clicked
     /// </summary>
     /// <param name="sender">object?</param>
-    /// <param name="e">RoutedEventArgs</param>
-    private async void About(object? sender, RoutedEventArgs e)
+    /// <param name="e">TappedEventArgs</param>
+    private async void About(object? sender, TappedEventArgs e)
     {
         var aboutDialog = new AboutDialog(_controller.AppInfo);
         await aboutDialog.ShowAsync(TopLevel.GetTopLevel(this));
