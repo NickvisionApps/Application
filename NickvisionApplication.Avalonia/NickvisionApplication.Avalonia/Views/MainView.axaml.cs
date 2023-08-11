@@ -146,7 +146,8 @@ public partial class MainView : UserControl
         });
         if (result.Count == 1)
         {
-            _controller.OpenFolder(result[0].TryGetLocalPath() ?? "");
+            var bookmark = await result[0].SaveBookmarkAsync() ?? "";
+            _controller.OpenFolder((await TopLevel.GetTopLevel(this)!.StorageProvider.OpenFolderBookmarkAsync(bookmark))!.TryGetLocalPath() ?? "");
         }
     }
 
