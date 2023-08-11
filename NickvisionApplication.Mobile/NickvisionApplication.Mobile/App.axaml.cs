@@ -1,10 +1,10 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using NickvisionApplication.Avalonia.Views;
+using NickvisionApplication.Mobile.Views;
 using NickvisionApplication.Shared.Controllers;
 
-namespace NickvisionApplication.Avalonia;
+namespace NickvisionApplication.Mobile;
 
 public partial class App : Application
 {

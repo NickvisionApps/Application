@@ -3,14 +3,14 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
 using FluentAvalonia.UI.Controls;
-using NickvisionApplication.Avalonia.Controls;
+using NickvisionApplication.Mobile.Controls;
 using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.Shared.Events;
 using System;
 using System.IO;
 using static NickvisionApplication.Shared.Helpers.Gettext;
 
-namespace NickvisionApplication.Avalonia.Views;
+namespace NickvisionApplication.Mobile.Views;
 
 /// <summary>
 /// The MainView for the application

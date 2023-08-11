@@ -5,7 +5,7 @@ using FluentAvalonia.UI.Controls;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace NickvisionApplication.Avalonia.Controls;
+namespace NickvisionApplication.Mobile.Controls;
 
 /// <summary>
 /// A status page control

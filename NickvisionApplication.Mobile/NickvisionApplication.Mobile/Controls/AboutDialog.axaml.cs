@@ -4,12 +4,12 @@ using Avalonia.Interactivity;
 using Avalonia.Styling;
 using FluentAvalonia.UI.Controls;
 using Nickvision.Aura;
-using NickvisionApplication.Avalonia.Helpers;
+using NickvisionApplication.Mobile.Helpers;
 using System;
 using System.Globalization;
 using static NickvisionApplication.Shared.Helpers.Gettext;
 
-namespace NickvisionApplication.Avalonia.Controls;
+namespace NickvisionApplication.Mobile.Controls;
 
 public partial class AboutDialog : ContentDialog, IStyleable
 {

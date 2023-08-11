@@ -7,7 +7,7 @@
 - A template for creating Nickvision apps
     - `Shared` - Cross-platform models, controllers, and helpers for the app
     - `GNOME` - The gtk4/libadwaita app
-    - `Avalonia` - The cross-platform desktop and android app
+    - `Mobile` - The android app
 
 # Chat
 <a href='https://matrix.to/#/#nickvision:matrix.org'><img width='140' alt='Join our room' src='https://user-images.githubusercontent.com/17648453/196094077-c896527d-af6d-4b43-a5d8-e34a00ffd8f6.png'/></a>
@@ -27,12 +27,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for details on how can you help the proje
 </details>
 
 <details>
- <summary>Avalonia (Desktop)</summary>
-
-</details>
-
-<details>
- <summary>Avalonia (Android)</summary>
+ <summary>Mobile (Android)</summary>
 
 </details>
 

@@ -2,7 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using NickvisionApplication.Shared.Controllers;
 
-namespace NickvisionApplication.Avalonia.Views;
+namespace NickvisionApplication.Mobile.Views;
 
 /// <summary>
 /// The MainWindow for the application

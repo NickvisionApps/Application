@@ -7,10 +7,10 @@ using Avalonia;
 using Avalonia.Android;
 using Avalonia.ReactiveUI;
 
-namespace NickvisionApplication.Avalonia.Android;
+namespace NickvisionApplication.Mobile.Android;
 
 [Activity(
-    Label = "NickvisionApplication.Avalonia.Android",
+    Label = "NickvisionApplication.Mobile.Android",
     Theme = "@style/MyTheme.NoActionBar",
     Icon = "@drawable/icon",
     MainLauncher = true,

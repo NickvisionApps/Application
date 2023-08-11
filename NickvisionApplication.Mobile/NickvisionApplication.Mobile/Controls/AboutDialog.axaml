@@ -2,11 +2,11 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                      xmlns:local="clr-namespace:NickvisionApplication.Avalonia.Views"
+                      xmlns:local="clr-namespace:NickvisionApplication.Mobile.Views"
                       xmlns:fluent="using:FluentAvalonia.UI.Controls"
                       xmlns:fluentp="using:FluentAvalonia.UI.Controls.Primitives"
                       mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-                      x:Class="NickvisionApplication.Avalonia.Controls.AboutDialog">
+                      x:Class="NickvisionApplication.Mobile.Controls.AboutDialog">
      <ScrollViewer x:Name="ScrollViewer" VerticalScrollBarVisibility="Auto" MaxHeight="500" ScrollChanged="ScrollViewer_ScrollChanged">
         <StackPanel x:Name="StackPanel" Orientation="Vertical" Spacing="3">
             <StackPanel Orientation="Horizontal" Spacing="6">

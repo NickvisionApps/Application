@@ -2,7 +2,7 @@
 using Avalonia;
 using Avalonia.ReactiveUI;
 
-namespace NickvisionApplication.Avalonia.Desktop;
+namespace NickvisionApplication.Mobile.Desktop;
 
 class Program
 {

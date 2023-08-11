@@ -2,12 +2,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:local="clr-namespace:NickvisionApplication.Avalonia.Views"
-             xmlns:nickvision="clr-namespace:NickvisionApplication.Avalonia.Controls"
+             xmlns:local="clr-namespace:NickvisionApplication.Mobile.Views"
+             xmlns:nickvision="clr-namespace:NickvisionApplication.Mobile.Controls"
              xmlns:fluent="using:FluentAvalonia.UI.Controls"
              xmlns:fluentp="using:FluentAvalonia.UI.Controls.Primitives"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="NickvisionApplication.Avalonia.Views.MainView"
+             x:Class="NickvisionApplication.Mobile.Views.MainView"
              Loaded="OnLoaded">
     <Grid x:Name="MainContent">
         <Grid.RowDefinitions>

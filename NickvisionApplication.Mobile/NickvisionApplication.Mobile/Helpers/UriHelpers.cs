@@ -1,7 +1,7 @@
 using System;
 using System.Diagnostics;
 
-namespace NickvisionApplication.Avalonia.Helpers;
+namespace NickvisionApplication.Mobile.Helpers;
 
 /// <summary>
 /// Helper methods for working with Uri
