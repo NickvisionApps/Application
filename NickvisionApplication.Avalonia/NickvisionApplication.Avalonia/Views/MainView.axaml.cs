@@ -8,7 +8,6 @@ using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.Shared.Events;
 using System;
 using System.IO;
-using System.Linq;
 using static NickvisionApplication.Shared.Helpers.Gettext;
 
 namespace NickvisionApplication.Avalonia.Views;
@@ -98,8 +97,18 @@ public partial class MainView : UserControl
         InfoBar.IsOpen = true;
     }
 
+    /// <summary>
+    /// Occurs when a shell notification is sent from the controller
+    /// </summary>
+    /// <param name="sender">object?</param>
+    /// <param name="e">ShellNotificationSentEventArgs</param>
     private void ShellNotificationSent(object? sender, ShellNotificationSentEventArgs e) => NotificationSent(sender, e);
 
+    /// <summary>
+    /// Occurs when the folder is changed
+    /// </summary>
+    /// <param name="sender">object?</param>
+    /// <param name="e">EventArgs</param>
     private void FolderChanged(object? sender, EventArgs e)
     {
         if (_controller.IsFolderOpened)
@@ -123,6 +132,11 @@ public partial class MainView : UserControl
         }
     }
     
+    /// <summary>
+    /// Occurs when the open folder button is clicked
+    /// </summary>
+    /// <param name="sender">object?</param>
+    /// <param name="e">RoutedEventArgs</param>
     private async void OpenFolder(object? sender, RoutedEventArgs e)
     {
         var result = await TopLevel.GetTopLevel(this)!.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions()
@@ -132,12 +146,32 @@ public partial class MainView : UserControl
         });
         if (result.Count == 1)
         {
-            _controller.OpenFolder(result[0].Path.AbsolutePath);
+            _controller.OpenFolder(result[0].TryGetLocalPath() ?? "");
         }
     }
 
+    /// <summary>
+    /// Occurs when the close folder button is clicked
+    /// </summary>
+    /// <param name="sender">object?</param>
+    /// <param name="e">RoutedEventArgs</param>
     private void CloseFolder(object? sender, RoutedEventArgs e) => _controller.CloseFolder();
 
+    /// <summary>
+    /// Occurs when the settings button is clicked
+    /// </summary>
+    /// <param name="sender">object?</param>
+    /// <param name="e">RoutedEventArgs</param>
+    private void Settings(object? sender, RoutedEventArgs e)
+    {
+        
+    }
+    
+    /// <summary>
+    /// Occurs when the about button is clicked
+    /// </summary>
+    /// <param name="sender">object?</param>
+    /// <param name="e">RoutedEventArgs</param>
     private async void About(object? sender, RoutedEventArgs e)
     {
         var aboutDialog = new AboutDialog(_controller.AppInfo);
