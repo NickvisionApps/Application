@@ -1,5 +1,8 @@
-﻿using Android.App;
+﻿using Android;
+using Android.App;
 using Android.Content.PM;
+using AndroidX.Core.App;
+using AndroidX.Core.Content;
 using Avalonia;
 using Avalonia.Android;
 using Avalonia.ReactiveUI;
@@ -18,6 +21,13 @@ public class MainActivity : AvaloniaMainActivity<App>
     {
         return base.CustomizeAppBuilder(builder)
             .WithInterFont()
-            .UseReactiveUI();
+            .UseReactiveUI()
+            .AfterSetup(x =>
+            {
+                if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.WriteExternalStorage) != Permission.Granted || ContextCompat.CheckSelfPermission(this, Manifest.Permission.ReadExternalStorage) != Permission.Granted || ContextCompat.CheckSelfPermission(this, Manifest.Permission.ManageExternalStorage) != Permission.Granted)
+                {
+                    ActivityCompat.RequestPermissions(this, new string[] { Manifest.Permission.WriteExternalStorage, Manifest.Permission.ReadExternalStorage, Manifest.Permission.ManageExternalStorage }, 225);
+                }
+            });
     }
 }
