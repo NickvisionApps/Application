@@ -9,7 +9,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="NickvisionApplication.Mobile.Views.MainView"
              Loaded="OnLoaded">
-    <fluent:NavigationView x:Name="NavigationView" IsSettingsVisible="False" IsBackEnabled="False" IsBackButtonVisible="False">
+    <fluent:NavigationView x:Name="NavigationView" IsSettingsVisible="False" IsBackEnabled="False" IsBackButtonVisible="False" PaneDisplayMode="LeftCompact" SelectionChanged="NavigationView_OnSelectionChanged">
         <fluent:NavigationView.MenuItems>
             <fluent:NavigationViewItem x:Name="HomeNavItem" Tag="Home" IsSelected="True">
                 <fluent:NavigationViewItem.IconSource>
@@ -19,7 +19,7 @@
         </fluent:NavigationView.MenuItems>
         
         <fluent:NavigationView.FooterMenuItems>
-            <fluent:NavigationViewItem x:Name="AboutNavItem" SelectsOnInvoked="False" Tapped="About">
+            <fluent:NavigationViewItem x:Name="AboutNavItem" Tag="About">
                 <fluent:NavigationViewItem.IconSource>
                     <fluent:SymbolIconSource Symbol="Help"/>
                 </fluent:NavigationViewItem.IconSource>
@@ -39,19 +39,33 @@
             </Grid.RowDefinitions>
             
             <fluent:Frame Grid.Row="0">
-                <nickvision:StatusPage x:Name="StatusPageHome" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="12,12,12,12">
-                    <nickvision:StatusPage.Child>
-                        <Button x:Name="BtnHomeOpenFolder" HorizontalAlignment="Center" Height="40" Background="{DynamicResource AccentButtonBackground}" Foreground="{DynamicResource AccentButtonForeground}"  Click="OpenFolder">
-                            <Button.Content>
-                                <StackPanel Orientation="Horizontal" Spacing="6">
-                                    <fluent:SymbolIcon Symbol="OpenFolder"/>
+                <nickvision:ViewStack x:Name="ViewStack">
+                    <nickvision:ViewStack.Pages>
+                        <nickvision:ViewStackPage Name="Home">
+                            <nickvision:StatusPage x:Name="StatusPageHome" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="12,12,12,12">
+                                <nickvision:StatusPage.Child>
+                                    <Button x:Name="BtnHomeOpenFolder" HorizontalAlignment="Center" Height="40" Background="{DynamicResource AccentButtonBackground}" Foreground="{DynamicResource AccentButtonForeground}"  Click="OpenFolder">
+                                        <Button.Content>
+                                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                                <fluent:SymbolIcon Symbol="OpenFolder"/>
 
-                                    <TextBlock x:Name="BtnHomeOpenFolderLabel"/>
-                                </StackPanel>
-                            </Button.Content>
-                        </Button>
-                    </nickvision:StatusPage.Child>
-                </nickvision:StatusPage>
+                                                <TextBlock x:Name="BtnHomeOpenFolderLabel"/>
+                                            </StackPanel>
+                                        </Button.Content>
+                                    </Button>
+                                </nickvision:StatusPage.Child>
+                            </nickvision:StatusPage>
+                        </nickvision:ViewStackPage>
+                        
+                        <nickvision:ViewStackPage Name="About">
+                            
+                        </nickvision:ViewStackPage>
+                        
+                        <nickvision:ViewStackPage Name="Settings">
+                            
+                        </nickvision:ViewStackPage>
+                    </nickvision:ViewStack.Pages>
+                </nickvision:ViewStack>
             </fluent:Frame>
             
             <fluent:InfoBar x:Name="InfoBar" Grid.Row="1"/>

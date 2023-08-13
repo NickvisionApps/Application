@@ -142,15 +142,11 @@ public partial class MainView : UserControl
     /// <param name="sender">object?</param>
     /// <param name="e">RoutedEventArgs</param>
     private void CloseFolder(object? sender, RoutedEventArgs e) => _controller.CloseFolder();
-    
+
     /// <summary>
-    /// Occurs when the about button is clicked
+    /// Occurs when the NavView's selection changes
     /// </summary>
     /// <param name="sender">object?</param>
-    /// <param name="e">TappedEventArgs</param>
-    private async void About(object? sender, TappedEventArgs e)
-    {
-        var aboutDialog = new AboutDialog(_controller.AppInfo);
-        await aboutDialog.ShowAsync(TopLevel.GetTopLevel(this));
-    }
+    /// <param name="e">NavigationViewSelectionChangedEventArgs</param>
+    private void NavigationView_OnSelectionChanged(object? sender, NavigationViewSelectionChangedEventArgs e) => ViewStack.CurrentPageName = (e.SelectedItem as NavigationViewItem)!.Tag as string ?? "";
 }
