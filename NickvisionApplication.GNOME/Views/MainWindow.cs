@@ -157,9 +157,9 @@ public partial class MainWindow : Adw.ApplicationWindow
     private bool OnDrop(Gtk.DropTarget sender, Gtk.DropTarget.DropSignalArgs e)
     {
         var obj = e.Value.GetObject();
-        if (obj != null)
+        if (obj is Gio.FileHelper file)
         {
-            var path = ((Gio.File)obj).GetPath();
+            var path = file.GetPath() ?? "";
             if (Directory.Exists(path))
             {
                 _controller.OpenFolder(path);
