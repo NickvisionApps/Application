@@ -13,10 +13,6 @@ namespace NickvisionApplication.Shared.Controllers;
 public class MainWindowController
 {
     /// <summary>
-    /// Applciation's Aura
-    /// </summary>
-    public Aura Aura { get; init; }
-    /// <summary>
     /// Gets the AppInfo object
     /// </summary>
     public AppInfo AppInfo => Aura.Active.AppInfo;
@@ -52,9 +48,11 @@ public class MainWindowController
     /// <param name="args">Command-line arguments</param>
     public MainWindowController(string[] args)
     {
-        Aura = new Aura("org.nickvision.application", "Nickvision Application", _("Application"), _("Create new Nickvision applications"));
+        Aura.Init("org.nickvision.application", "Nickvision Application");
         Aura.Active.SetConfig<Configuration>("config");
-        AppInfo.Version = "2023.8.0-next";
+        AppInfo.Version = "2023.9.0-next";
+        AppInfo.ShortName = _("Application");
+        AppInfo.Description = _("Create new Nickvision applications");
         AppInfo.SourceRepo = new Uri("https://github.com/NickvisionApps/Application");
         AppInfo.IssueTracker = new Uri("https://github.com/NickvisionApps/Application/issues/new");
         AppInfo.SupportUrl = new Uri("https://github.com/NickvisionApps/Application/discussions");

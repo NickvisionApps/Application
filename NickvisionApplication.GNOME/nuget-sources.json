@@ -113,6 +113,20 @@
   },
   {
     "type": "file",
+    "url": "https://api.nuget.org/v3-flatcontainer/meziantou.framework.win32.credentialmanager/1.4.2/meziantou.framework.win32.credentialmanager.1.4.2.nupkg",
+    "sha512": "75c861c9f4ea0eb3ec84f4dd6f369c57240975acc67f10d03913c969618f299adbc4e4be5d295db388d09a44b501c561f02f1aa78f2edea99f8cdefbafc2edfd",
+    "dest": "nuget-sources",
+    "dest-filename": "meziantou.framework.win32.credentialmanager.1.4.2.nupkg"
+  },
+  {
+    "type": "file",
+    "url": "https://api.nuget.org/v3-flatcontainer/microsoft.data.sqlite.core/7.0.5/microsoft.data.sqlite.core.7.0.5.nupkg",
+    "sha512": "319cc8ad58d2133f850404bf40bdf6fba64781565913a482b055403c12180ace43e5d12098b5b68f7d170eff57ed15c9ca70f5801150d94b892ffe012ecf7f5c",
+    "dest": "nuget-sources",
+    "dest-filename": "microsoft.data.sqlite.core.7.0.5.nupkg"
+  },
+  {
+    "type": "file",
     "url": "https://api.nuget.org/v3-flatcontainer/microsoft.netcore.targets/5.0.0/microsoft.netcore.targets.5.0.0.nupkg",
     "sha512": "8581e6dc902340efe7c92c5c9751296616045bed8fdc7d5e2d936bf90c603b94e72d2ea1aad7e2e567218d0ce389de393189a1cb65fb20e99c5ad0cfe1fa4c1b",
     "dest": "nuget-sources",
@@ -120,10 +134,10 @@
   },
   {
     "type": "file",
-    "url": "https://api.nuget.org/v3-flatcontainer/nickvision.aura/2023.8.0/nickvision.aura.2023.8.0.nupkg",
-    "sha512": "e0dfabe40b69a353931741cab3a3bd257da440fa4c684ceac8a061ec681cc675d50fb7f0646a5f197ed0572e3dcf7e9cb8e7a70ce44ff9218e723d42a270efa1",
+    "url": "https://api.nuget.org/v3-flatcontainer/nickvision.aura/2023.9.2/nickvision.aura.2023.9.2.nupkg",
+    "sha512": "48f8321ed87d2877e48bb639018000389ee72eda4f35dd55144bc8f28a8ce4ec9dd3c2e65b2403332f1dbb53521a133b2e3d5b9a3cedf17321866a783affc183",
     "dest": "nuget-sources",
-    "dest-filename": "nickvision.aura.2023.8.0.nupkg"
+    "dest-filename": "nickvision.aura.2023.9.2.nupkg"
   },
   {
     "type": "file",
@@ -131,6 +145,48 @@
     "sha512": "fa55e3402bd6d9c46834dbc7c117230a6304a04a54ba7cf86fa4b4383d83862dc455dce6a175b590a20021c288760980905a24fc07e282e351fad3a13d202d75",
     "dest": "nuget-sources",
     "dest-filename": "nickvision.girext.2023.7.1.nupkg"
+  },
+  {
+    "type": "file",
+    "url": "https://api.nuget.org/v3-flatcontainer/sqlitepclraw.bundle_e_sqlcipher/2.1.5/sqlitepclraw.bundle_e_sqlcipher.2.1.5.nupkg",
+    "sha512": "c86a1641f66f54565ff7750b3a6f21bcfdfc59c4cc633dab0f1410e5b0ee8c15b81e9d18130c3a13e47e7a29ee75e179082885f421342a4e6560df39962b6246",
+    "dest": "nuget-sources",
+    "dest-filename": "sqlitepclraw.bundle_e_sqlcipher.2.1.5.nupkg"
+  },
+  {
+    "type": "file",
+    "url": "https://api.nuget.org/v3-flatcontainer/sqlitepclraw.core/2.1.4/sqlitepclraw.core.2.1.4.nupkg",
+    "sha512": "4a654a227445d97e0c3c00223f819b90d64746e7b2483c4ff0b69ae02d6d3f22a68df7d6c00245aed6f2c51610dc29714fbe6765a8fbe42795f90448c04909d2",
+    "dest": "nuget-sources",
+    "dest-filename": "sqlitepclraw.core.2.1.4.nupkg"
+  },
+  {
+    "type": "file",
+    "url": "https://api.nuget.org/v3-flatcontainer/sqlitepclraw.core/2.1.5/sqlitepclraw.core.2.1.5.nupkg",
+    "sha512": "10379c318ea178769db9164d8bf569469fbdea73659668200d6394ab2163b9229e8a883de4702e0fdaebb4b1c2fae1f263424aa5e9765ac507eba7fceedc8a7b",
+    "dest": "nuget-sources",
+    "dest-filename": "sqlitepclraw.core.2.1.5.nupkg"
+  },
+  {
+    "type": "file",
+    "url": "https://api.nuget.org/v3-flatcontainer/sqlitepclraw.lib.e_sqlcipher/2.1.5/sqlitepclraw.lib.e_sqlcipher.2.1.5.nupkg",
+    "sha512": "570f8c23f5fe20d742ccb05128ac0b45cf55ab1912d89dbeabca44036ae161e25c73d803be629d4186a0db75fb52898b221b4de21dde886557c8ed5f4b8d545a",
+    "dest": "nuget-sources",
+    "dest-filename": "sqlitepclraw.lib.e_sqlcipher.2.1.5.nupkg"
+  },
+  {
+    "type": "file",
+    "url": "https://api.nuget.org/v3-flatcontainer/sqlitepclraw.provider.e_sqlcipher/2.1.5/sqlitepclraw.provider.e_sqlcipher.2.1.5.nupkg",
+    "sha512": "01e5db3a24867b4b563604a3b8aee0fac044354550ea80f8a836b3ad6bbc9949d4dfca358eb9294301e96220e1319463fac84b4099c99a54470ab7a92a6e8eb2",
+    "dest": "nuget-sources",
+    "dest-filename": "sqlitepclraw.provider.e_sqlcipher.2.1.5.nupkg"
+  },
+  {
+    "type": "file",
+    "url": "https://api.nuget.org/v3-flatcontainer/system.memory/4.5.3/system.memory.4.5.3.nupkg",
+    "sha512": "70fce15a52cc76aacbae05c8e89e2e398d1d32903f63f640a7dd4a3e5747f2c7a887d4bfd22f2a2e40274906cf91648dfd169734fb7c74eb9b4f72614084e1db",
+    "dest": "nuget-sources",
+    "dest-filename": "system.memory.4.5.3.nupkg"
   },
   {
     "type": "file",
