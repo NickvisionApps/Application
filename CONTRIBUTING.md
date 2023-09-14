@@ -170,6 +170,8 @@ You may also build the app manually without using flatpak. List of dependencies:
 - blueprint-compiler, GTK and libadwaita development files (build only)
 - glib-compile-resources (build only)
 
+Take note that we use Cake scripts to build the app that are located in a separate repository and added to this repository as a submodule. When cloning this repository, use `--recurse-submodules` flag or execute `git submodule update --init --recursive` for already cloned repo.
+
 Use one of the commands to build the app:
 
 | Command | Result |
