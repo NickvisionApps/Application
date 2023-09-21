@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NickvisionApplication.GNOME", "NickvisionApplication.GNOME\NickvisionApplication.GNOME.csproj", "{3CD168C3-F7F8-40E7-8670-E4D4736A79F5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NickvisionApplication.Shared", "NickvisionApplication.Shared\NickvisionApplication.Shared.csproj", "{5F621616-D022-4AEF-A4D2-31F406B83289}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3CD168C3-F7F8-40E7-8670-E4D4736A79F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CD168C3-F7F8-40E7-8670-E4D4736A79F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CD168C3-F7F8-40E7-8670-E4D4736A79F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CD168C3-F7F8-40E7-8670-E4D4736A79F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F621616-D022-4AEF-A4D2-31F406B83289}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F621616-D022-4AEF-A4D2-31F406B83289}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F621616-D022-4AEF-A4D2-31F406B83289}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F621616-D022-4AEF-A4D2-31F406B83289}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {853448B1-0C89-4915-B28B-C7DFD477619B}
+	EndGlobalSection
+EndGlobal
