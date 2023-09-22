@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:NickvisionApplication.WinUI.Views"
+    xmlns:nickvision="using:NickvisionApplication.WinUI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:wct="using:CommunityToolkit.WinUI.Controls"
@@ -38,6 +39,16 @@
             <StackPanel Grid.Column="4" Margin="4,0,4,0" Orientation="Horizontal" Spacing="4">
                 <MenuBar x:Name="MainMenu">
                     <MenuBarItem x:Name="MenuFile">
+                        <MenuFlyoutItem x:Name="MenuOpenFolder" Click="OpenFolder">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE838;"/>
+                            </MenuFlyoutItem.Icon>
+
+                            <MenuFlyoutItem.KeyboardAccelerators>
+                                <KeyboardAccelerator Modifiers="Control" Key="O"/>
+                            </MenuFlyoutItem.KeyboardAccelerators>
+                        </MenuFlyoutItem>
+
                         <MenuFlyoutSeparator/>
 
                         <MenuFlyoutItem x:Name="MenuExit" Click="Exit">
@@ -81,6 +92,20 @@
         </Grid>
 
         <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <nickvision:ViewStack x:Name="ViewStack" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="6,0,6,0">
+                <nickvision:ViewStackPage PageName="Home">
+                    <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="8">
+                        <nickvision:StatusPage x:Name="StatusPageHome" HorizontalAlignment="Center" VerticalAlignment="Center" UseAppIcon="True">
+                            <nickvision:StatusPage.Child>
+                                <StackPanel HorizontalAlignment="Center" Margin="0,10,0,0" Orientation="Horizontal" Spacing="12">
+                                    <Button x:Name="StatusPageHomeBtnOpenFolder" Height="40" Style="{ThemeResource AccentButtonStyle}" Click="OpenFolder"/>
+                                </StackPanel>
+                            </nickvision:StatusPage.Child>
+                        </nickvision:StatusPage>
+                    </Border>
+                </nickvision:ViewStackPage>
+            </nickvision:ViewStack>
+
             <InfoBar x:Name="InfoBar" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,6" CornerRadius="12">
                 <InfoBar.ActionButton>
                     <Button x:Name="BtnInfoBar" HorizontalAlignment="Right"/>

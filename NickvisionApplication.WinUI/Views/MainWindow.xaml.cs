@@ -61,12 +61,18 @@ public sealed partial class MainWindow : Window
         User32.ShowWindow(_hwnd, ShowWindowCommand.SW_SHOWMAXIMIZED);
         //Localize Strings
         MenuFile.Title = _("File");
+        MenuOpenFolder.Text = _("Open Folder");
         MenuExit.Text = _("Exit");
         MenuEdit.Title = _("Edit");
         MenuSettings.Text = _("Settings");
         MenuHelp.Title = _("Help");
         MenuAbout.Text = _("About {0}", _controller.AppInfo.ShortName);
         LblStatus.Text = _("Ready");
+        StatusPageHome.Title = _controller.Greeting;
+        StatusPageHome.Description = _("Open a folder (or drag one into the app) to get started");
+        StatusPageHomeBtnOpenFolder.Content = _("Open");
+        //View
+        ViewStack.ChangePage("Home");
     }
 
     /// <summary>
@@ -197,6 +203,16 @@ public sealed partial class MainWindow : Window
     /// <param name="sender">object?</param>
     /// <param name="e">ShellNotificationSentEventArgs</param>
     private void ShellNotificationSent(object? sender, ShellNotificationSentEventArgs e) => new ToastContentBuilder().AddText(e.Title).AddText(e.Message).Show();
+
+    /// <summary>
+    /// Occurs when the open folder menu item is clicked
+    /// </summary>
+    /// <param name="sender">object</param>
+    /// <param name="e">RoutedEventArgs</param>
+    private void OpenFolder(object sender, RoutedEventArgs e)
+    {
+
+    }
 
     /// <summary>
     /// Occurs when the exit menu item is clicked
