@@ -49,6 +49,16 @@
                             </MenuFlyoutItem.KeyboardAccelerators>
                         </MenuFlyoutItem>
 
+                        <MenuFlyoutItem x:Name="MenuCloseFolder" Click="CloseFolder" IsEnabled="False">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE106;"/>
+                            </MenuFlyoutItem.Icon>
+
+                            <MenuFlyoutItem.KeyboardAccelerators>
+                                <KeyboardAccelerator Modifiers="Control" Key="W"/>
+                            </MenuFlyoutItem.KeyboardAccelerators>
+                        </MenuFlyoutItem>
+
                         <MenuFlyoutSeparator/>
 
                         <MenuFlyoutItem x:Name="MenuExit" Click="Exit">

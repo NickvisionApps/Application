@@ -49,6 +49,7 @@ public sealed partial class MainWindow : Window
         AppWindow.Closing += Window_Closing;
         _controller.NotificationSent += NotificationSent;
         _controller.ShellNotificationSent += ShellNotificationSent;
+        _controller.FolderChanged += FolderChanged;
         //Set TitleBar
         TitleBarTitle.Text = _controller.AppInfo.ShortName;
         AppWindow.TitleBar.ExtendsContentIntoTitleBar = true;
@@ -64,6 +65,7 @@ public sealed partial class MainWindow : Window
         //Localize Strings
         MenuFile.Title = _("File");
         MenuOpenFolder.Text = _("Open Folder");
+        MenuCloseFolder.Text = _("Close Folder");
         MenuExit.Text = _("Exit");
         MenuEdit.Title = _("Edit");
         MenuSettings.Text = _("Settings");
@@ -226,16 +228,36 @@ public sealed partial class MainWindow : Window
         {
             BtnInfoBar.Click -= _notificationButtonClickEvent;
         }
+        if (e.Action == "close")
+        {
+            _notificationButtonClickEvent = (sender, e) =>
+            {
+                InfoBar.IsOpen = false;
+                CloseFolder(sender, e);
+            };
+            BtnInfoBar.Content = _("Close");
+            BtnInfoBar.Click += _notificationButtonClickEvent;
+        }
         BtnInfoBar.Visibility = !string.IsNullOrEmpty(e.Action) ? Visibility.Visible : Visibility.Collapsed;
         InfoBar.IsOpen = true;
     }
 
     /// <summary>
-    /// Sends a shell notification
+    /// Occurs when a shell notification is sent from the controller
     /// </summary>
     /// <param name="sender">object?</param>
     /// <param name="e">ShellNotificationSentEventArgs</param>
     private void ShellNotificationSent(object? sender, ShellNotificationSentEventArgs e) => new ToastContentBuilder().AddText(e.Title).AddText(e.Message).Show();
+
+    /// <summary>
+    /// Occurs when the folder is changed
+    /// </summary>
+    /// <param name="sender">object?</param>
+    /// <param name="e">EventArgs</param>
+    private void FolderChanged(object? sender, EventArgs e)
+    {
+        NotificationSent(sender, new NotificationSentEventArgs("TODO", NotificationSeverity.Warning));
+    }
 
     /// <summary>
     /// Occurs when the open folder menu item is clicked
@@ -244,7 +266,17 @@ public sealed partial class MainWindow : Window
     /// <param name="e">RoutedEventArgs</param>
     private void OpenFolder(object sender, RoutedEventArgs e)
     {
+        NotificationSent(sender, new NotificationSentEventArgs("TODO", NotificationSeverity.Warning));
+    }
 
+    /// <summary>
+    /// Occurs when the close folder menu item is clicked
+    /// </summary>
+    /// <param name="sender">object</param>
+    /// <param name="e">RoutedEventArgs</param>
+    private void CloseFolder(object sender, RoutedEventArgs e)
+    {
+        NotificationSent(sender, new NotificationSentEventArgs("TODO", NotificationSeverity.Warning));
     }
 
     /// <summary>
