@@ -212,7 +212,7 @@ public sealed partial class MainWindow : Window
     /// <param name="e">RoutedEventArgs</param>
     private void Settings(object sender, RoutedEventArgs e)
     {
-        
+        NotificationSent(sender, new NotificationSentEventArgs("TODO", NotificationSeverity.Warning));
     }
 
     /// <summary>
@@ -222,6 +222,6 @@ public sealed partial class MainWindow : Window
     /// <param name="e">RoutedEventArgs</param>
     private void About(object sender, RoutedEventArgs e)
     {
-
+        NotificationSent(sender, new NotificationSentEventArgs("TODO", NotificationSeverity.Warning));
     }
 }
