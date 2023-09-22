@@ -6,6 +6,7 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
 using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.Shared.Events;
+using NickvisionApplication.WinUI.Controls;
 using System;
 using System.Linq;
 using System.Collections.Generic;
@@ -15,7 +16,6 @@ using Windows.ApplicationModel.DataTransfer;
 using Windows.Graphics;
 using WinRT.Interop;
 using static NickvisionApplication.Shared.Helpers.Gettext;
-using NickvisionApplication.WinUI.Controls;
 
 namespace NickvisionApplication.WinUI.Views;
 
@@ -73,9 +73,11 @@ public sealed partial class MainWindow : Window
         MenuHelp.Title = _("Help");
         MenuAbout.Text = _("About {0}", _controller.AppInfo.ShortName);
         LblStatus.Text = _("Ready");
-        StatusPageHome.Title = _controller.Greeting;
-        StatusPageHome.Description = _("Open a folder (or drag one into the app) to get started");
-        StatusPageHomeBtnOpenFolder.Content = _("Open Folder");
+        PageHomeStatus.Title = _controller.Greeting;
+        PageHomeStatus.Description = _("Open a folder (or drag one into the app) to get started");
+        PageHomeCmdOpenFolder.Label = _("Open Folder");
+        PageHomeCmdSettings.Label = _("Settings");
+        PageHomeBtnOpenFolder.Content = _("Open Folder");
         //View
         ViewStack.ChangePage("Home");
     }
