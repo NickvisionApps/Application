@@ -13,6 +13,7 @@
     <AppxPackage>false</AppxPackage>
     <WindowsPackageType>None</WindowsPackageType>
     <ApplicationIcon>Resources\org.nickvision.application.ico</ApplicationIcon>
+    <EnableCoreMrtTooling Condition=" '$(BuildingInsideVisualStudio)' != 'true' ">false</EnableCoreMrtTooling>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Controls\*" />
