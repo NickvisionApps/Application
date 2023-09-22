@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
+    <TargetFramework>net7.0-windows10.0.19041.0</TargetFramework>
     <Nullable>enable</Nullable>
     <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
     <RootNamespace>NickvisionApplication.WinUI</RootNamespace>
@@ -12,16 +12,35 @@
     <UseWinUI>true</UseWinUI>
     <AppxPackage>false</AppxPackage>
     <WindowsPackageType>None</WindowsPackageType>
+    <ApplicationIcon>Resources\org.nickvision.application.ico</ApplicationIcon>
   </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Resources\org.nickvision.application.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\org.nickvision.application.ico" />
+  </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="CommunityToolkit.WinUI.Controls.Primitives" Version="8.0.230907" />
+    <PackageReference Include="CommunityToolkit.WinUI.Controls.Segmented" Version="8.0.230907" />
+    <PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.0.230907" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.4.230913002" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.756" />
+    <PackageReference Include="Vanara.PInvoke.User32" Version="3.4.16" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\NickvisionApplication.Shared\NickvisionApplication.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Views\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\org.nickvision.application.ico" />
   </ItemGroup>
 
   <!-- 

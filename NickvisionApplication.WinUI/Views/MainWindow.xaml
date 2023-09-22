@@ -6,9 +6,94 @@
     xmlns:local="using:NickvisionApplication.WinUI.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    xmlns:wct="using:CommunityToolkit.WinUI.Controls"
+    mc:Ignorable="d" Activated="Window_Activated">
 
-    <Grid>
-        
+    <Window.SystemBackdrop>
+        <MicaBackdrop />
+    </Window.SystemBackdrop>
+
+    <Grid x:Name="MainGrid" AllowDrop="True" ActualThemeChanged="Window_ActualThemeChanged">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="TitleBar" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="48" Loaded="TitleBar_Loaded" SizeChanged="TitleBar_SizeChanged">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="LeftPaddingColumn" Width="0"/>
+                <ColumnDefinition x:Name="IconColumn" Width="Auto"/>
+                <ColumnDefinition x:Name="TitleColumn" Width="Auto"/>
+                <ColumnDefinition x:Name="LeftDragColumn" Width="0"/>
+                <ColumnDefinition x:Name="MenuColumn" Width="Auto"/>
+                <ColumnDefinition x:Name="RightDragColumn" Width="*"/>
+                <ColumnDefinition x:Name="RightPaddingColumn" Width="0"/>
+            </Grid.ColumnDefinitions>
+
+            <Image x:Name="TitleBarIcon" Grid.Column="1" Margin="8,0,0,0" Width="16" Height="16" Source="../Resources/org.nickvision.application.ico"/>
+
+            <TextBlock x:Name="TitleBarTitle" Grid.Column="2" VerticalAlignment="Center" Margin="4,0,0,0" Style="{ThemeResource CaptionTextBlockStyle}"/>
+
+            <StackPanel Grid.Column="4" Margin="4,0,4,0" Orientation="Horizontal" Spacing="4">
+                <MenuBar x:Name="MainMenu">
+                    <MenuBarItem x:Name="MenuFile">
+                        <MenuFlyoutSeparator/>
+
+                        <MenuFlyoutItem x:Name="MenuExit" Click="Exit">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE106;"/>
+                            </MenuFlyoutItem.Icon>
+
+                            <MenuFlyoutItem.KeyboardAccelerators>
+                                <KeyboardAccelerator Modifiers="Menu" Key="F4"/>
+                            </MenuFlyoutItem.KeyboardAccelerators>
+                        </MenuFlyoutItem>
+                    </MenuBarItem>
+
+                    <MenuBarItem x:Name="MenuEdit">
+                        <MenuFlyoutItem x:Name="MenuSettings" Click="Settings">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE713;"/>
+                            </MenuFlyoutItem.Icon>
+
+                            <MenuFlyoutItem.KeyboardAccelerators>
+                                <KeyboardAccelerator Modifiers="Control" Key="K"/>
+                            </MenuFlyoutItem.KeyboardAccelerators>
+                        </MenuFlyoutItem>
+                    </MenuBarItem>
+
+                    <MenuBarItem x:Name="MenuHelp">
+                        <MenuFlyoutItem x:Name="MenuAbout" Click="About">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE946;"/>
+                            </MenuFlyoutItem.Icon>
+
+                            <MenuFlyoutItem.KeyboardAccelerators>
+                                <KeyboardAccelerator Modifiers="None" Key="F1"/>
+                            </MenuFlyoutItem.KeyboardAccelerators>
+                        </MenuFlyoutItem>
+                    </MenuBarItem>
+                </MenuBar>
+
+                <TextBlock x:Name="TitlePreview" VerticalAlignment="Center" Margin="10,0,0,0" Style="{ThemeResource NavigationViewItemHeaderTextStyle}" Foreground="Gray" FontSize="12"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <InfoBar x:Name="InfoBar" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,6" CornerRadius="12">
+                <InfoBar.ActionButton>
+                    <Button x:Name="BtnInfoBar" HorizontalAlignment="Right"/>
+                </InfoBar.ActionButton>
+            </InfoBar>
+        </Grid>
+
+        <Border x:Name="StatusBar" Grid.Row="2" HorizontalAlignment="Stretch" Margin="0,6,0,0" Height="36" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
+            <wct:DockPanel LastChildFill="False">
+                <FontIcon x:Name="IconStatus" wct:DockPanel.Dock="Left" VerticalAlignment="Center" Margin="6,0,10,0" FontFamily="{StaticResource SymbolThemeFontFamily}" FontSize="16" Glyph="&#xE73E;"/>
+
+                <TextBlock x:Name="LblStatus" wct:DockPanel.Dock="Left" VerticalAlignment="Center"/>
+            </wct:DockPanel>
+        </Border>
     </Grid>
 </Window>
