@@ -7,9 +7,11 @@ using Microsoft.UI.Xaml.Media;
 using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.Shared.Events;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Vanara.PInvoke;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Graphics;
 using WinRT.Interop;
 using static NickvisionApplication.Shared.Helpers.Gettext;
@@ -70,7 +72,7 @@ public sealed partial class MainWindow : Window
         LblStatus.Text = _("Ready");
         StatusPageHome.Title = _controller.Greeting;
         StatusPageHome.Description = _("Open a folder (or drag one into the app) to get started");
-        StatusPageHomeBtnOpenFolder.Content = _("Open");
+        StatusPageHomeBtnOpenFolder.Content = _("Open Folder");
         //View
         ViewStack.ChangePage("Home");
     }
@@ -170,6 +172,37 @@ public sealed partial class MainWindow : Window
         dragRectsList.Add(dragRectR);
         RectInt32[] dragRects = dragRectsList.ToArray();
         AppWindow.TitleBar.SetDragRectangles(dragRects);
+    }
+
+    /// <summary>
+    /// Occurs when something is dropped into the window
+    /// </summary>
+    /// <param name="sender">object</param>
+    /// <param name="e">DragEventArgs</param>
+    private async void OnDrop(object sender, DragEventArgs e)
+    {
+        if(e.DataView.Contains(StandardDataFormats.StorageItems))
+        {
+            var first = (await e.DataView.GetStorageItemsAsync()).FirstOrDefault();
+            if(first != null)
+            {
+                _controller.OpenFolder(first.Path);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Occurs when something is dragged over into the window
+    /// </summary>
+    /// <param name="sender">object</param>
+    /// <param name="e">DragEventArgs</param>
+    private void OnDragOver(object sender, DragEventArgs e)
+    {
+        e.AcceptedOperation = DataPackageOperation.Copy | DataPackageOperation.Link;
+        e.DragUIOverride.Caption = _("Drop here to open folder");
+        e.DragUIOverride.IsGlyphVisible = true;
+        e.DragUIOverride.IsContentVisible = true;
+        e.DragUIOverride.IsCaptionVisible = true;
     }
 
     /// <summary>

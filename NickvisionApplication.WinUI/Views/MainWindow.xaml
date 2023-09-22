@@ -14,7 +14,7 @@
         <MicaBackdrop />
     </Window.SystemBackdrop>
 
-    <Grid x:Name="MainGrid" AllowDrop="True" ActualThemeChanged="Window_ActualThemeChanged">
+    <Grid x:Name="MainGrid" AllowDrop="True" ActualThemeChanged="Window_ActualThemeChanged" Drop="OnDrop" DragOver="OnDragOver">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
