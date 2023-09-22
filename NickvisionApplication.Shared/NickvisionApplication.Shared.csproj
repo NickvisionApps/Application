@@ -13,9 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="GetText.NET" Version="1.8.7" />
+    <PackageReference Include="GetText.NET" Version="1.9.14" />
     <PackageReference Include="Microsoft.NETCore.Targets" Version="5.0.0" />
-    <PackageReference Include="Nickvision.Aura" Version="2023.9.2" />
+    <PackageReference Include="Nickvision.Aura" Version="2023.9.3" />
   </ItemGroup>
 
   <ItemGroup>
