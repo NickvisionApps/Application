@@ -9,7 +9,7 @@
         <controls:XamlControlsResources>
             <controls:XamlControlsResources.MergedDictionaries>
                 <ResourceDictionary>
-                    <x:Double x:Key="ContentDialogMaxWidth">1000</x:Double>
+                    <x:Double x:Key="ContentDialogMaxWidth">700</x:Double>
                 </ResourceDictionary>
             </controls:XamlControlsResources.MergedDictionaries>
         </controls:XamlControlsResources>

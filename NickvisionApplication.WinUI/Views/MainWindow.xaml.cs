@@ -15,6 +15,7 @@ using Windows.ApplicationModel.DataTransfer;
 using Windows.Graphics;
 using WinRT.Interop;
 using static NickvisionApplication.Shared.Helpers.Gettext;
+using NickvisionApplication.WinUI.Controls;
 
 namespace NickvisionApplication.WinUI.Views;
 
@@ -301,8 +302,12 @@ public sealed partial class MainWindow : Window
     /// </summary>
     /// <param name="sender">object</param>
     /// <param name="e">RoutedEventArgs</param>
-    private void About(object sender, RoutedEventArgs e)
+    private async void About(object sender, RoutedEventArgs e)
     {
-        NotificationSent(sender, new NotificationSentEventArgs("TODO", NotificationSeverity.Warning));
+        var aboutDialog = new AboutDialog(_controller.AppInfo)
+        {
+            XamlRoot = MainGrid.XamlRoot
+        };
+        await aboutDialog.ShowAsync();
     }
 }
