@@ -38,6 +38,10 @@
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
     <Exec Command="for /F &quot;tokens=*&quot; %%l in (..\NickvisionApplication.Shared\Resources\po\LINGUAS) do @mkdir $(OutDir)\%%l &amp; msgfmt ..\NickvisionApplication.Shared\Resources\po\%%l.po -o $(OutDir)\%%l\application.mo" />
   </Target>
+  
+  <Target Name="PostPublishWindows" AfterTargets="Publish" Condition="$([MSBuild]::IsOSPlatform('Windows'))">
+    <Exec Command="for /F &quot;tokens=*&quot; %%l in (..\NickvisionApplication.Shared\Resources\po\LINGUAS) do @xcopy $(OutDir)\%%l $(PublishDir)\%%l\ /Y" />
+  </Target>
 
   <ItemGroup>
     <ProjectReference Include="..\NickvisionApplication.Shared\NickvisionApplication.Shared.csproj" />
