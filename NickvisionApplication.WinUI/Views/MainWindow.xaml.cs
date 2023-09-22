@@ -1,10 +1,9 @@
+using CommunityToolkit.WinUI.Notifications;
 using Microsoft.UI.Windowing;
 using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
-using Microsoft.Windows.AppNotifications.Builder;
-using Microsoft.Windows.AppNotifications;
 using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.Shared.Events;
 using System;
@@ -197,11 +196,7 @@ public sealed partial class MainWindow : Window
     /// </summary>
     /// <param name="sender">object?</param>
     /// <param name="e">ShellNotificationSentEventArgs</param>
-    private void ShellNotificationSent(object? sender, ShellNotificationSentEventArgs e)
-    {
-        var notificationBuilder = new AppNotificationBuilder().AddText(e.Title, new AppNotificationTextProperties().SetMaxLines(1)).AddText(e.Message);
-        AppNotificationManager.Default.Show(notificationBuilder.BuildNotification());
-    }
+    private void ShellNotificationSent(object? sender, ShellNotificationSentEventArgs e) => new ToastContentBuilder().AddText(e.Title).AddText(e.Message).Show();
 
     /// <summary>
     /// Occurs when the exit menu item is clicked
