@@ -37,7 +37,7 @@ procedure SetupDotnet();
 var
   ResultCode: Integer;
 begin
-  if not Exec(ExpandConstant('{app}\deps\dotnet-runtime-7.0.11-win-x64.exe'), '', '', SW_SHOWNORMAL, ewWaitUntilTerminated, ResultCode)
+  if not Exec(ExpandConstant('{app}\deps\dotnet-runtime-7.0.11-win-x64.exe'), '/install /quiet /norestart', '', SW_SHOWNORMAL, ewWaitUntilTerminated, ResultCode)
   then
     MsgBox('Unable to install .NET . Please try again', mbError, MB_OK);
 end;
