@@ -29,6 +29,11 @@ public class MainWindowController
     /// Whether or not the folder is opened
     /// </summary>
     public bool IsFolderOpened => Directory.Exists(FolderPath);
+    /// <summary>
+    /// The number of files in an opened folder
+    /// </summary>
+    /// <remarks>If no folder opened, value will be -1</remarks>
+    public int FilesCount => IsFolderOpened ? Directory.GetFiles(FolderPath, "*", SearchOption.TopDirectoryOnly).Length : -1;
 
     /// <summary>
     /// Occurs when a notification is sent

@@ -183,7 +183,7 @@ public partial class MainWindow : Adw.ApplicationWindow
         if(_controller.IsFolderOpened)
         {
             _headerBar.RemoveCssClass("flat");
-            _filesLabel.SetLabel(_n("There is {0} file in the folder.", "There are {0} files in the folder.", Directory.GetFiles(_controller.FolderPath, "*", SearchOption.TopDirectoryOnly).Length));
+            _filesLabel.SetLabel(_n("There is {0} file in the folder.", "There are {0} files in the folder.", _controller.FilesCount);
         }
         else
         {

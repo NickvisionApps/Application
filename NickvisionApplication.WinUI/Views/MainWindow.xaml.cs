@@ -17,6 +17,7 @@ using Windows.Graphics;
 using Windows.Storage.Pickers;
 using WinRT.Interop;
 using static NickvisionApplication.Shared.Helpers.Gettext;
+using System.IO;
 
 namespace NickvisionApplication.WinUI.Views;
 
@@ -89,6 +90,8 @@ public sealed partial class MainWindow : Window
         HomeGettingStartedTitle.Text = _("Getting Started");
         HomeGettingStartedDescription.Text = _("Open a folder (or drag one into the app) to get started.");
         HomeOpenFolderButtonLabel.Text = _("Open Folder");
+        FolderCloseFolderButton.Label = _("Close Folder");
+        FolderSettingsButton.Label = _("Settings");
     }
 
     /// <summary>
@@ -283,6 +286,7 @@ public sealed partial class MainWindow : Window
         {
             StatusIcon.Glyph = "\xE8B7";
             StatusLabel.Text = _controller.FolderPath;
+            FilesLabel.Text = _n("There is {0} file in the folder.", "There are {0} files in the folder.", _controller.FilesCount);
         }
     }
 

@@ -154,16 +154,33 @@
                                         </Button>
                                     </StackPanel>
                                 </Border>
-                                
-
                             </Grid>
                         </ScrollViewer>
                     </nickvision:ViewStackPage>
 
                     <nickvision:ViewStackPage PageName="Folder">
-                        <Grid>
-                            
-                        </Grid>
+                        <ScrollViewer>
+                            <Grid Margin="6,0,6,0" RowSpacing="6">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Border Grid.Row="0" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="8">
+                                    <wct:DockPanel LastChildFill="False">
+                                        <CommandBar wct:DockPanel.Dock="Left" DefaultLabelPosition="Right">
+                                            <AppBarButton x:Name="FolderCloseFolderButton" Icon="UnSyncFolder" Click="CloseFolder"/>
+                                        </CommandBar>
+
+                                        <CommandBar wct:DockPanel.Dock="Right" DefaultLabelPosition="Right">
+                                            <AppBarButton x:Name="FolderSettingsButton" Icon="Setting" Click="Settings"/>
+                                        </CommandBar>
+                                    </wct:DockPanel>
+                                </Border>
+
+                                <TextBlock x:Name="FilesLabel" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                        </ScrollViewer>
                     </nickvision:ViewStackPage>
                 </nickvision:ViewStack.Pages>
             </nickvision:ViewStack>
