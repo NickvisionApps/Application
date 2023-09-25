@@ -28,7 +28,7 @@ public class MainWindowController
     /// <summary>
     /// Whether or not the folder is opened
     /// </summary>
-    public bool IsFolderOpened => !Directory.Exists(FolderPath);
+    public bool IsFolderOpened => Directory.Exists(FolderPath);
 
     /// <summary>
     /// Occurs when a notification is sent
