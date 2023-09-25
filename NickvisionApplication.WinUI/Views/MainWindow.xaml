@@ -128,9 +128,9 @@
                                         </Grid.ColumnDefinitions>
 
                                         <wct:DockPanel Grid.Column="0" LastChildFill="True">
-                                            <TextBlock x:Name="HomeBannerDescription" wct:DockPanel.Dock="Bottom"/>
+                                            <TextBlock x:Name="HomeBannerDescription" wct:DockPanel.Dock="Bottom" TextWrapping="WrapWholeWords"/>
 
-                                            <TextBlock x:Name="HomeBannerTitle" wct:DockPanel.Dock="Top" Style="{ThemeResource NavigationViewItemHeaderTextStyle}" FontSize="20"/>
+                                            <TextBlock x:Name="HomeBannerTitle" wct:DockPanel.Dock="Top" TextWrapping="WrapWholeWords" Style="{ThemeResource NavigationViewItemHeaderTextStyle}" FontSize="20"/>
                                         </wct:DockPanel>
 
                                         <Image Grid.Column="1" VerticalAlignment="Center" Width="128" Height="128" Source="../Resources/org.nickvision.application.ico"/>
@@ -139,11 +139,19 @@
 
                                 <Border Grid.Row="1" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="8">
                                     <StackPanel Margin="12,12,12,12" Orientation="Vertical" Spacing="12">
-                                        <TextBlock x:Name="HomeGettingStartedTitle" Style="{ThemeResource NavigationViewItemHeaderTextStyle}"/>
+                                        <TextBlock x:Name="HomeGettingStartedTitle" TextWrapping="WrapWholeWords" Style="{ThemeResource NavigationViewItemHeaderTextStyle}"/>
 
-                                        <TextBlock x:Name="HomeGettingStartedDescription"/>
+                                        <TextBlock x:Name="HomeGettingStartedDescription" TextWrapping="WrapWholeWords"/>
 
-                                        <Button x:Name="HomeOpenFolderButton" Height="40" Style="{ThemeResource AccentButtonStyle}" Click="OpenFolder"/>
+                                        <Button Height="40" Style="{ThemeResource AccentButtonStyle}" Click="OpenFolder">
+                                            <Button.Content>
+                                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" FontSize="16" Glyph="&#xE838;"/>
+
+                                                    <TextBlock x:Name="HomeOpenFolderButtonLabel" TextWrapping="WrapWholeWords"/>
+                                                </StackPanel>
+                                            </Button.Content>
+                                        </Button>
                                     </StackPanel>
                                 </Border>
                                 
