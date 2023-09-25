@@ -14,9 +14,9 @@ using System.Runtime.InteropServices;
 using Vanara.PInvoke;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Graphics;
+using Windows.Storage.Pickers;
 using WinRT.Interop;
 using static NickvisionApplication.Shared.Helpers.Gettext;
-using Windows.Storage.Pickers;
 
 namespace NickvisionApplication.WinUI.Views;
 
@@ -68,6 +68,12 @@ public sealed partial class MainWindow : Window
         //Window Sizing
         AppWindow.Resize(new SizeInt32(900, 700));
         User32.ShowWindow(_hwnd, ShowWindowCommand.SW_SHOWMAXIMIZED);
+        //Home
+        HomeBanner.Background = new AcrylicBrush()
+        {
+            TintOpacity = 0.9,
+            TintColor = MainGrid.ActualTheme == ElementTheme.Light ? ColorHelper.FromArgb(255, 28, 113, 216) : ColorHelper.FromArgb(255, 53, 132, 228)
+        };
         //Localize Strings
         MenuFile.Title = _("File");
         MenuOpenFolder.Text = _("Open Folder");
@@ -78,9 +84,11 @@ public sealed partial class MainWindow : Window
         MenuHelp.Title = _("Help");
         MenuAbout.Text = _("About {0}", _controller.AppInfo.ShortName);
         StatusLabel.Text = _("Ready");
-        PageHomeStatus.Title = _controller.Greeting;
-        PageHomeStatus.Description = _("Open a folder (or drag one into the app) to get started");
-        PageHomeBtnOpenFolder.Content = _("Open Folder");
+        HomeBannerTitle.Text = _controller.Greeting;
+        HomeBannerDescription.Text = $"{_controller.AppInfo.ShortName} - {_controller.AppInfo.Version}";
+        HomeGettingStartedTitle.Text = _("Getting Started");
+        HomeGettingStartedDescription.Text = _("Open a folder (or drag one into the app) to get started.");
+        HomeOpenFolderButton.Content = _("Open Folder");
     }
 
     /// <summary>
@@ -142,6 +150,11 @@ public sealed partial class MainWindow : Window
         MenuEdit.Foreground = (SolidColorBrush)Application.Current.Resources[_isActived ? "WindowCaptionForeground" : "WindowCaptionForegroundDisabled"];
         MenuHelp.Foreground = (SolidColorBrush)Application.Current.Resources[_isActived ? "WindowCaptionForeground" : "WindowCaptionForegroundDisabled"];
         AppWindow.TitleBar.ButtonForegroundColor = ((SolidColorBrush)Application.Current.Resources[_isActived ? "WindowCaptionForeground" : "WindowCaptionForegroundDisabled"]).Color;
+        HomeBanner.Background = HomeBanner.Background = new AcrylicBrush()
+        {
+            TintOpacity = 0.9,
+            TintColor = MainGrid.ActualTheme == ElementTheme.Light ? ColorHelper.FromArgb(255, 28, 113, 216) : ColorHelper.FromArgb(255, 53, 132, 228)
+        };
     }
 
     /// <summary>
@@ -282,6 +295,7 @@ public sealed partial class MainWindow : Window
     {
         var folderPicker = new FolderPicker();
         InitializeWithWindow(folderPicker);
+        folderPicker.FileTypeFilter.Add("*");
         var folder = await folderPicker.PickSingleFolderAsync();
         if(folder != null)
         {

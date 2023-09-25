@@ -51,7 +51,7 @@
 
                         <MenuFlyoutItem x:Name="MenuCloseFolder" Click="CloseFolder" IsEnabled="False">
                             <MenuFlyoutItem.Icon>
-                                <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE106;"/>
+                                <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE1DD;"/>
                             </MenuFlyoutItem.Icon>
 
                             <MenuFlyoutItem.KeyboardAccelerators>
@@ -102,7 +102,7 @@
         </Grid>
 
         <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <nickvision:ViewStack x:Name="ViewStack" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="6,0,6,0">
+            <nickvision:ViewStack x:Name="ViewStack" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <nickvision:ViewStack.Pages>
                     <nickvision:ViewStackPage PageName="Startup">
                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" Spacing="64">
@@ -113,13 +113,43 @@
                     </nickvision:ViewStackPage>
 
                     <nickvision:ViewStackPage PageName="Home">
-                        <nickvision:StatusPage x:Name="PageHomeStatus" HorizontalAlignment="Center" VerticalAlignment="Center" UseAppIcon="True">
-                            <nickvision:StatusPage.Child>
-                                <StackPanel HorizontalAlignment="Center" Margin="0,10,0,0" Orientation="Horizontal" Spacing="12">
-                                    <Button x:Name="PageHomeBtnOpenFolder" Height="40" Style="{ThemeResource AccentButtonStyle}" Click="OpenFolder"/>
-                                </StackPanel>
-                            </nickvision:StatusPage.Child>
-                        </nickvision:StatusPage>
+                        <ScrollViewer>
+                            <Grid Margin="12,0,12,0" RowSpacing="12">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="200"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                
+                                <Border x:Name="HomeBanner" Grid.Row="0" HorizontalAlignment="Stretch" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="8">
+                                    <Grid Margin="32,32,32,32">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <wct:DockPanel Grid.Column="0" LastChildFill="True">
+                                            <TextBlock x:Name="HomeBannerDescription" wct:DockPanel.Dock="Bottom"/>
+
+                                            <TextBlock x:Name="HomeBannerTitle" wct:DockPanel.Dock="Top" Style="{ThemeResource NavigationViewItemHeaderTextStyle}" FontSize="20"/>
+                                        </wct:DockPanel>
+
+                                        <Image Grid.Column="1" VerticalAlignment="Center" Width="128" Height="128" Source="../Resources/org.nickvision.application.ico"/>
+                                    </Grid>
+                                </Border>
+
+                                <Border Grid.Row="1" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="8">
+                                    <StackPanel Margin="12,12,12,12" Orientation="Vertical" Spacing="12">
+                                        <TextBlock x:Name="HomeGettingStartedTitle" Style="{ThemeResource NavigationViewItemHeaderTextStyle}"/>
+
+                                        <TextBlock x:Name="HomeGettingStartedDescription"/>
+
+                                        <Button x:Name="HomeOpenFolderButton" Height="40" Style="{ThemeResource AccentButtonStyle}" Click="OpenFolder"/>
+                                    </StackPanel>
+                                </Border>
+                                
+
+                            </Grid>
+                        </ScrollViewer>
                     </nickvision:ViewStackPage>
 
                     <nickvision:ViewStackPage PageName="Folder">
