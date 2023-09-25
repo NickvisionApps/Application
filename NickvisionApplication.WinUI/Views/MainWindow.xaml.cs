@@ -72,7 +72,7 @@ public sealed partial class MainWindow : Window
         HomeBanner.Background = new AcrylicBrush()
         {
             TintOpacity = 0.9,
-            TintColor = MainGrid.ActualTheme == ElementTheme.Light ? ColorHelper.FromArgb(255, 28, 113, 216) : ColorHelper.FromArgb(255, 53, 132, 228)
+            TintColor = MainGrid.ActualTheme == ElementTheme.Light ? ColorHelper.FromArgb(255, 19, 204, 202) : ColorHelper.FromArgb(255, 7, 127, 137)
         };
         //Localize Strings
         MenuFile.Title = _("File");
@@ -155,7 +155,7 @@ public sealed partial class MainWindow : Window
         HomeBanner.Background = HomeBanner.Background = new AcrylicBrush()
         {
             TintOpacity = 0.9,
-            TintColor = MainGrid.ActualTheme == ElementTheme.Light ? ColorHelper.FromArgb(255, 28, 113, 216) : ColorHelper.FromArgb(255, 53, 132, 228)
+            TintColor = MainGrid.ActualTheme == ElementTheme.Light ? ColorHelper.FromArgb(255, 19, 204, 202) : ColorHelper.FromArgb(255, 7, 127, 137)
         };
     }
 

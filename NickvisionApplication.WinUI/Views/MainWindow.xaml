@@ -127,11 +127,11 @@
                                             <ColumnDefinition Width="Auto"/>
                                         </Grid.ColumnDefinitions>
 
-                                        <wct:DockPanel Grid.Column="0" LastChildFill="True">
-                                            <TextBlock x:Name="HomeBannerDescription" wct:DockPanel.Dock="Bottom" TextWrapping="WrapWholeWords"/>
-
-                                            <TextBlock x:Name="HomeBannerTitle" wct:DockPanel.Dock="Top" TextWrapping="WrapWholeWords" Style="{ThemeResource NavigationViewItemHeaderTextStyle}" FontSize="20"/>
-                                        </wct:DockPanel>
+                                        <StackPanel Grid.Column="0" Orientation="Vertical" Spacing="12" VerticalAlignment="Center">
+                                            <TextBlock x:Name="HomeBannerTitle" TextWrapping="WrapWholeWords" Style="{ThemeResource NavigationViewItemHeaderTextStyle}" FontSize="22"/>
+                                            
+                                            <TextBlock x:Name="HomeBannerDescription" TextWrapping="WrapWholeWords"/>
+                                        </StackPanel>
 
                                         <Image Grid.Column="1" VerticalAlignment="Center" Width="128" Height="128" Source="../Resources/org.nickvision.application.ico"/>
                                     </Grid>
