@@ -32,12 +32,20 @@ SolidCompression=yes
 WizardStyle=modern
 
 [Code]
+procedure SetupDotnet();
+var
+  ResultCode: Integer;
+begin
+  if not Exec(ExpandConstant('{app}\deps\dotnet-runtime-7.0.11-win-x64-x64.exe'), '', '', SW_SHOWNORMAL, ewWaitUntilTerminated, ResultCode)
+  then
+    MsgBox('Unable to install .NET . Please try again', mbError, MB_OK);
+end;
+
 procedure SetupWinAppSDK();
 var
   ResultCode: Integer;
 begin
-  MsgBox('Installing Windows App SDK', mbInformation, MB_OK);
-  if not Exec(ExpandConstant('{app}\WindowsAppRuntimeInstall-x64.exe'), '', '', SW_SHOWNORMAL, ewWaitUntilTerminated, ResultCode)
+  if not Exec(ExpandConstant('{app}\deps\WindowsAppRuntimeInstall-x64.exe'), '', '', SW_SHOWNORMAL, ewWaitUntilTerminated, ResultCode)
   then
     MsgBox('Unable to install Windows App SDK. Please try again', mbError, MB_OK);
 end;
@@ -49,7 +57,8 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "..\..\..\WindowsAppRuntimeInstall-x64.exe"; DestDir: "{app}"; AfterInstall: SetupWinAppSDK  
+Source: "..\..\..\dotnet-runtime-7.0.11-win-x64.exe"; DestDir: "{app}\deps"; AfterInstall: SetupDotnet  
+Source: "..\..\..\WindowsAppRuntimeInstall-x64.exe"; DestDir: "{app}\deps"; AfterInstall: SetupWinAppSDK  
 Source: "..\bin\win10-x64\publish\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion 
 Source: "..\bin\win10-x64\publish\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
