@@ -22,7 +22,7 @@ public partial class App : Application
     {
         InitializeComponent();
         _controller = new MainWindowController(Array.Empty<string>());
-        _controller.AppInfo.Changelog = @"* Initial Release";
+        _controller.AppInfo.Changelog = @"- Initial Release";
         if(_controller.Theme != Theme.System)
         {
             RequestedTheme = _controller.Theme switch
