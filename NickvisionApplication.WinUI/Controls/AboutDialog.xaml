@@ -11,7 +11,7 @@
     mc:Ignorable="d" Style="{StaticResource DefaultContentDialogStyle}"
     DefaultButton="Close">
 
-    <ScrollViewer x:Name="ScrollViewer" VerticalScrollBarVisibility="Auto" MaxHeight="500" SizeChanged="ScrollViewer_SizeChanged">
+    <ScrollViewer x:Name="ScrollViewer" VerticalScrollBarVisibility="Auto" SizeChanged="ScrollViewer_SizeChanged">
         <StackPanel x:Name="StackPanel" Orientation="Vertical" Spacing="3">
             <StackPanel Orientation="Horizontal" Spacing="6">
                 <Image Width="128" Height="128" Source="../Resources/org.nickvision.application.ico"/>
@@ -29,57 +29,68 @@
                 </StackPanel>
             </StackPanel>
 
-            <InfoBar x:Name="InfoBar" Margin="0,6,0,0" Severity="Success"/>
+            <InfoBar x:Name="InfoBar" Severity="Success"/>
 
-            <wct:SettingsExpander x:Name="CardChangelog" Margin="0,9,0,0">
-                <wct:SettingsExpander.HeaderIcon>
-                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEC24;"/>
-                </wct:SettingsExpander.HeaderIcon>
+            <Grid ColumnSpacing="6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-                <wct:SettingsExpander.Items>
-                    <wct:SettingsCard x:Name="CardLblChangelog"/>
-                </wct:SettingsExpander.Items>
-            </wct:SettingsExpander>
+                <wct:SettingsCard x:Name="CardGitHubRepo" Grid.Column="0" IsClickEnabled="True" Click="GitHubRepo">
+                    <wct:SettingsCard.HeaderIcon>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8F1;"/>
+                    </wct:SettingsCard.HeaderIcon>
 
-            <wct:SettingsCard x:Name="CardGitHubRepo" IsClickEnabled="True" Click="GitHubRepo">
-                <wct:SettingsCard.HeaderIcon>
-                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8F1;"/>
-                </wct:SettingsCard.HeaderIcon>
+                    <wct:SettingsCard.ActionIcon>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8A7;"/>
+                    </wct:SettingsCard.ActionIcon>
+                </wct:SettingsCard>
 
-                <wct:SettingsCard.ActionIcon>
-                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8A7;"/>
-                </wct:SettingsCard.ActionIcon>
-            </wct:SettingsCard>
+                <wct:SettingsCard x:Name="CardReportABug" Grid.Column="1" IsClickEnabled="True" Click="ReportABug">
+                    <wct:SettingsCard.HeaderIcon>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEBE8;"/>
+                    </wct:SettingsCard.HeaderIcon>
 
-            <wct:SettingsCard x:Name="CardReportABug" IsClickEnabled="True" Click="ReportABug">
-                <wct:SettingsCard.HeaderIcon>
-                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEBE8;"/>
-                </wct:SettingsCard.HeaderIcon>
+                    <wct:SettingsCard.ActionIcon>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8A7;"/>
+                    </wct:SettingsCard.ActionIcon>
+                </wct:SettingsCard>
 
-                <wct:SettingsCard.ActionIcon>
-                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8A7;"/>
-                </wct:SettingsCard.ActionIcon>
-            </wct:SettingsCard>
+                <wct:SettingsCard x:Name="CardDiscussions" Grid.Column="2" IsClickEnabled="True" Click="Discussions">
+                    <wct:SettingsCard.HeaderIcon>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8F2;"/>
+                    </wct:SettingsCard.HeaderIcon>
 
-            <wct:SettingsCard x:Name="CardDiscussions" IsClickEnabled="True" Click="Discussions">
-                <wct:SettingsCard.HeaderIcon>
-                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8F2;"/>
-                </wct:SettingsCard.HeaderIcon>
+                    <wct:SettingsCard.ActionIcon>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8A7;"/>
+                    </wct:SettingsCard.ActionIcon>
+                </wct:SettingsCard>
+            </Grid>
 
-                <wct:SettingsCard.ActionIcon>
-                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8A7;"/>
-                </wct:SettingsCard.ActionIcon>
-            </wct:SettingsCard>
+            <Grid ColumnSpacing="6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-            <wct:SettingsExpander x:Name="CardCredits">
-                <wct:SettingsExpander.HeaderIcon>
-                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE125;"/>
-                </wct:SettingsExpander.HeaderIcon>
+                <Border Grid.Column="0" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="8">
+                    <StackPanel Margin="12,12,12,12" Orientation="Vertical" Spacing="6">
+                        <TextBlock x:Name="LblChangelogTitle" Style="{ThemeResource NavigationViewItemHeaderTextStyle}"/>
 
-                <wct:SettingsExpander.Items>
-                    <wct:SettingsCard x:Name="CardLblCredits"/>
-                </wct:SettingsExpander.Items>
-            </wct:SettingsExpander>
+                        <TextBlock x:Name="LblChangelog" TextWrapping="WrapWholeWords"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="1" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="8">
+                    <StackPanel Margin="12,12,12,12" Orientation="Vertical" Spacing="6">
+                        <TextBlock x:Name="LblCreditsTitle" Style="{ThemeResource NavigationViewItemHeaderTextStyle}"/>
+
+                        <TextBlock x:Name="LblCredits" TextWrapping="WrapWholeWords"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
         </StackPanel>
     </ScrollViewer>
 </ContentDialog>

@@ -26,22 +26,22 @@ public sealed partial class AboutDialog : ContentDialog
         //Localize Strings
         Title = _appInfo.ShortName;
         CloseButtonText = _("OK");
-        CardChangelog.Header = _("Changelog");
         CardGitHubRepo.Header = _("GitHub Repo");
         CardReportABug.Header = _("Report a Bug");
         CardDiscussions.Header = _("Discussions");
-        CardCredits.Header = _("Credits");
+        LblChangelogTitle.Text = _("Changelog");
+        LblCreditsTitle.Text = _("Credits");
         InfoBar.Message = _("Copied debug info to clipboard.");
         //Load AppInfo
         LblDescription.Text = _appInfo.Description;
         LblVersion.Text = _appInfo.Version;
-        CardLblChangelog.Header = _appInfo.Changelog;
+        LblChangelog.Text = _appInfo.Changelog;
         var credits = _("Developers:\n{0}\n\nDesigners:\n{1}\n\nArtists:\n{2}\n\nTranslators:\n{3}", string.Join("\n", _appInfo.Developers.Keys), string.Join("\n", _appInfo.Designers.Keys), string.Join("\n", _appInfo.Artists.Keys), _appInfo.TranslatorCredits == "translator-credits" ? "" : _appInfo.TranslatorCredits);
         if (_appInfo.TranslatorCredits == "translator-credits")
         {
             credits = credits.Remove(credits.TrimEnd().LastIndexOf('\n'));
         }
-        CardLblCredits.Header = credits;
+        LblCredits.Text = credits;
     }
 
     /// <summary>
