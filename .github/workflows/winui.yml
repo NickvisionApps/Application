@@ -45,4 +45,4 @@ jobs:
         uses: actions/upload-artifact@v3.1.2
         with:
           name: org.nickvision.application-winui-${{ matrix.platform }}
-          path: ${{ github.workspace }}\NickvisionSpotlight.WinUI\bin\Debug
+          path: ${{ github.workspace }}\NickvisionApplication.WinUI\bin\Debug
