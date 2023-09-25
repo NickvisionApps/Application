@@ -153,7 +153,7 @@ Powered by the C# bindings for GTK4/Libadwaita: [gir.core](https://github.com/gi
 - Helpers => Useful objects that are specific for GNOME platform version of the app
 - Blueprints => UI files written in [Blueprint markup language](https://jwestman.pages.gitlab.gnome.org/blueprint-compiler/)
 
-##### NickvisionApplication.GNOME
+##### NickvisionApplication.WinUI
 
 This project contains all of the code used for the Windows platform version of the app, including installer scripts.
 Powered by the [Windows App SDK](https://learn.microsoft.com/en-us/windows/apps/windows-app-sdk/)
