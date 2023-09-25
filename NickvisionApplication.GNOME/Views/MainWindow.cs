@@ -98,11 +98,11 @@ public partial class MainWindow : Adw.ApplicationWindow
     /// <summary>
     /// Starts the MainWindow
     /// </summary>
-    public void Start()
+    public async Task StartAsync()
     {
         _application.AddWindow(this);
         Present();
-        _controller.Startup();
+        await _controller.StartupAsync();
     }
 
     /// <summary>
