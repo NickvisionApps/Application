@@ -326,9 +326,13 @@ public sealed partial class MainWindow : Window
     /// </summary>
     /// <param name="sender">object</param>
     /// <param name="e">RoutedEventArgs</param>
-    private void Settings(object sender, RoutedEventArgs e)
+    private async void Settings(object sender, RoutedEventArgs e)
     {
-        NotificationSent(sender, new NotificationSentEventArgs("TODO", NotificationSeverity.Warning));
+        var settingsDialog = new SettingsDialog(_controller.CreatePreferencesViewController())
+        {
+            XamlRoot = MainGrid.XamlRoot
+        };
+        await settingsDialog.ShowAsync();
     }
 
     /// <summary>
