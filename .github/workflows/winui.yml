@@ -16,7 +16,7 @@ jobs:
         configuration: [Debug] #release doesn't work for some reason
         platform: [x64, arm64]
     env:
-      Solution_Name: NickvisionApplication.sln
+      Solution_Name: Application.sln
     steps:
       - uses: actions/checkout@v3.5.0
         with:
