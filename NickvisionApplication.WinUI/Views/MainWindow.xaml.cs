@@ -16,6 +16,7 @@ using Windows.ApplicationModel.DataTransfer;
 using Windows.Graphics;
 using WinRT.Interop;
 using static NickvisionApplication.Shared.Helpers.Gettext;
+using Windows.Storage.Pickers;
 
 namespace NickvisionApplication.WinUI.Views;
 
@@ -26,6 +27,7 @@ public sealed partial class MainWindow : Window
 {
     private readonly MainWindowController _controller;
     private readonly IntPtr _hwnd;
+    private bool _isOpened;
     private bool _isActived;
     private RoutedEventHandler? _notificationButtonClickEvent;
 
@@ -45,6 +47,7 @@ public sealed partial class MainWindow : Window
         InitializeComponent();
         _controller = controller;
         _hwnd = WindowNative.GetWindowHandle(this);
+        _isOpened = false;
         _isActived = true;
         //Register Events
         AppWindow.Closing += Window_Closing;
@@ -60,6 +63,8 @@ public sealed partial class MainWindow : Window
         TitlePreview.Text = _controller.AppInfo.IsDevVersion ? _("PREVIEW") : "";
         AppWindow.Title = TitleBarTitle.Text;
         AppWindow.SetIcon(@"Resources\org.nickvision.application.ico");
+        TitleBar.Loaded += (sender, e) => SetDragRegionForCustomTitleBar();
+        TitleBar.SizeChanged += (sender, e) => SetDragRegionForCustomTitleBar();
         //Window Sizing
         AppWindow.Resize(new SizeInt32(900, 700));
         User32.ShowWindow(_hwnd, ShowWindowCommand.SW_SHOWMAXIMIZED);
@@ -72,14 +77,10 @@ public sealed partial class MainWindow : Window
         MenuSettings.Text = _("Settings");
         MenuHelp.Title = _("Help");
         MenuAbout.Text = _("About {0}", _controller.AppInfo.ShortName);
-        LblStatus.Text = _("Ready");
+        StatusLabel.Text = _("Ready");
         PageHomeStatus.Title = _controller.Greeting;
         PageHomeStatus.Description = _("Open a folder (or drag one into the app) to get started");
-        PageHomeCmdOpenFolder.Label = _("Open Folder");
-        PageHomeCmdSettings.Label = _("Settings");
         PageHomeBtnOpenFolder.Content = _("Open Folder");
-        //View
-        ViewStack.ChangePage("Home");
     }
 
     /// <summary>
@@ -99,6 +100,23 @@ public sealed partial class MainWindow : Window
         //Update TitleBar
         TitleBarTitle.Foreground = (SolidColorBrush)Application.Current.Resources[_isActived ? "WindowCaptionForeground" : "WindowCaptionForegroundDisabled"];
         AppWindow.TitleBar.ButtonForegroundColor = ((SolidColorBrush)Application.Current.Resources[_isActived ? "WindowCaptionForeground" : "WindowCaptionForegroundDisabled"]).Color;
+    }
+
+    /// <summary>
+    /// Occurs when the window is loaded
+    /// </summary>
+    /// <param name="sender">object</param>
+    /// <param name="e">RoutedEventArgs</param>
+    private async void Window_Loaded(object sender, RoutedEventArgs e)
+    {
+        if(!_isOpened)
+        {
+            ViewStack.ChangePage("Startup");
+            await _controller.StartupAsync();
+            MainMenu.IsEnabled = true;
+            ViewStack.ChangePage("Home");
+            _isOpened = true;
+        }
     }
 
     /// <summary>
@@ -125,20 +143,6 @@ public sealed partial class MainWindow : Window
         MenuHelp.Foreground = (SolidColorBrush)Application.Current.Resources[_isActived ? "WindowCaptionForeground" : "WindowCaptionForegroundDisabled"];
         AppWindow.TitleBar.ButtonForegroundColor = ((SolidColorBrush)Application.Current.Resources[_isActived ? "WindowCaptionForeground" : "WindowCaptionForegroundDisabled"]).Color;
     }
-
-    /// <summary>
-    /// Occurs when the TitleBar is loaded
-    /// </summary>
-    /// <param name="sender">object</param>
-    /// <param name="e">RoutedEventArgs</param>
-    private void TitleBar_Loaded(object sender, RoutedEventArgs e) => SetDragRegionForCustomTitleBar();
-
-    /// <summary>
-    /// Occurs when the TitleBar's size is changed
-    /// </summary>
-    /// <param name="sender">object</param>
-    /// <param name="e">RoutedEventArgs</param>
-    private void TitleBar_SizeChanged(object sender, SizeChangedEventArgs e) => SetDragRegionForCustomTitleBar();
 
     /// <summary>
     /// Sets the drag region for the TitleBar
@@ -259,7 +263,14 @@ public sealed partial class MainWindow : Window
     /// <param name="e">EventArgs</param>
     private void FolderChanged(object? sender, EventArgs e)
     {
-        NotificationSent(sender, new NotificationSentEventArgs("TODO", NotificationSeverity.Warning));
+        ViewStack.ChangePage(_controller.IsFolderOpened ? "Folder" : "Home");
+        MenuCloseFolder.IsEnabled = _controller.IsFolderOpened;
+        StatusBar.Visibility = _controller.IsFolderOpened ? Visibility.Visible : Visibility.Collapsed;
+        if(_controller.IsFolderOpened)
+        {
+            StatusIcon.Glyph = "\xE8B7";
+            StatusLabel.Text = _controller.FolderPath;
+        }
     }
 
     /// <summary>
@@ -267,9 +278,15 @@ public sealed partial class MainWindow : Window
     /// </summary>
     /// <param name="sender">object</param>
     /// <param name="e">RoutedEventArgs</param>
-    private void OpenFolder(object sender, RoutedEventArgs e)
+    private async void OpenFolder(object sender, RoutedEventArgs e)
     {
-        NotificationSent(sender, new NotificationSentEventArgs("TODO", NotificationSeverity.Warning));
+        var folderPicker = new FolderPicker();
+        InitializeWithWindow(folderPicker);
+        var folder = await folderPicker.PickSingleFolderAsync();
+        if(folder != null)
+        {
+            _controller.OpenFolder(folder.Path);
+        }
     }
 
     /// <summary>
@@ -277,10 +294,7 @@ public sealed partial class MainWindow : Window
     /// </summary>
     /// <param name="sender">object</param>
     /// <param name="e">RoutedEventArgs</param>
-    private void CloseFolder(object sender, RoutedEventArgs e)
-    {
-        NotificationSent(sender, new NotificationSentEventArgs("TODO", NotificationSeverity.Warning));
-    }
+    private void CloseFolder(object sender, RoutedEventArgs e) => _controller.CloseFolder();
 
     /// <summary>
     /// Occurs when the exit menu item is clicked
