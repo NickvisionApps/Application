@@ -21,12 +21,12 @@ AppUpdatesURL={#MyAppURL}
 UsePreviousAppDir=no
 DefaultDirName={autopf}\{#MyAppName}
 DisableProgramGroupPage=yes
-LicenseFile=C:\Users\nlogo\OneDrive\Documents\Programming\Application\LICENSE
+LicenseFile=..\..\LICENSE
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
-OutputDir=C:\Users\nlogo\OneDrive\Documents\Programming\Application\NickvisionApplication.WinUI\Installer
+OutputDir=..\Installer
 OutputBaseFilename=NickvisionApplicationSetup
-SetupIconFile=C:\Users\nlogo\OneDrive\Documents\Programming\Application\NickvisionApplication.WinUI\Resources\org.nickvision.application.ico
+SetupIconFile=..\Resources\org.nickvision.application.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -49,9 +49,9 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "C:\Users\nlogo\OneDrive\Documents\Programming\WindowsAppRuntimeInstall-x64.exe"; DestDir: "{app}"; AfterInstall: SetupWinAppSDK  
-Source: "C:\Users\nlogo\OneDrive\Documents\Programming\Application\NickvisionApplication.WinUI\bin\win10-x64\publish\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion 
-Source: "C:\Users\nlogo\OneDrive\Documents\Programming\Application\NickvisionApplication.WinUI\bin\win10-x64\publish\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\..\..\WindowsAppRuntimeInstall-x64.exe"; DestDir: "{app}"; AfterInstall: SetupWinAppSDK  
+Source: "..\bin\win10-x64\publish\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion 
+Source: "..\bin\win10-x64\publish\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
