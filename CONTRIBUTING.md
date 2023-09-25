@@ -55,6 +55,7 @@ A good bug report shouldn't leave others needing to chase you up for more inform
   - Debug information provided by the application
 
     - GNOME: from main menu open About Application → Troubleshooting → Debugging Information, here you can copy information to clipboard or save to a file.
+    - WinUI: from Help menu open About Application and click on the button with version, debug information will be copied to clipboard.
   - Stack trace (Traceback)
     - Including any error messages thrown by the application
     - You may need to start the application via the terminal/console to receive an error message for a crash.
@@ -113,9 +114,9 @@ To start translating the app, fork the repository and clone it locally.
 
 Application uses [gettext](https://www.gnu.org/software/gettext/manual/gettext.html#PO-Files) for translations. In the `NickvisionApplication.Shared/Resources/po` you will find files that can be edited in your favourite `*.po` files editor or any text editor. If you want to create a new translation, copy `application.pot` file, name the new file `<lang_code>.po`, where `<lang_code>` is the language code for your translation (usually it's 2 letters, but it also can be a locale code to differentiate between different version of the same language, for example `pt` and `pt_BR`) and edit this file. Also add the language code to `LINGUAS` file (please keep codes sorted alphabetically there).
 
-To check your translation file, make sure your system is in the locale of the language you are translating and run the app. You should see your translated strings!
+To check your translation file, make sure your system is in the locale of the language you are translating and run the app following the instructions for your platform given in this file below. You should see your translated strings!
 
-In case you run the app in GNOME Builder, it will force the app to run in en_US locale. To run the app in your locale without exporting and installing it, follow this steps:
+On Linux, in case you run the app in GNOME Builder, it will force the app to run in en_US locale. To run the app in your locale without exporting and installing it, follow this steps:
 
 1. Build the application
 2. Press Ctrl+Alt+T to open a terminal inside the application environment
