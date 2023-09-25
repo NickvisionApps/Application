@@ -35,7 +35,7 @@
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
 
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent" Condition ="'$(GITHUB_ACTIONS)' == ''">
     <Exec Command="for /F &quot;tokens=*&quot; %%l in (..\NickvisionApplication.Shared\Resources\po\LINGUAS) do @mkdir $(OutDir)\%%l &amp; msgfmt ..\NickvisionApplication.Shared\Resources\po\%%l.po -o $(OutDir)\%%l\application.mo" />
   </Target>
   
