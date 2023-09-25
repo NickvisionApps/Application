@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-06 18:14-0400\n"
+"POT-Creation-Date: 2023-09-25 15:38-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -15,94 +15,211 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: ../../../Controllers/MainWindowController.cs:55
-#: NickvisionApplication.Shared/org.nickvision.application.desktop.in:4
-#: NickvisionApplication.Shared/org.nickvision.application.metainfo.xml.in:6
+#: ..\..\..\..\NickvisionApplication.WinUI\Views\MainWindow.xaml.cs:89
+#, csharp-format
+msgid "About {0}"
+msgstr ""
+
+#: ..\..\..\..\NickvisionApplication.WinUI\Views\SettingsDialog.xaml.cs:33
+msgid "An application restart is required to change the theme."
+msgstr ""
+
+#: ..\..\..\Controllers\MainWindowController.cs:60
+#: .\NickvisionApplication.Shared\org.nickvision.application.desktop.in:4
+#: .\NickvisionApplication.Shared\org.nickvision.application.metainfo.xml.in:6
 msgid "Application"
 msgstr "Application"
 
-#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:214
+#: ..\..\..\..\NickvisionApplication.WinUI\Views\SettingsDialog.xaml.cs:29
+msgid "Apply"
+msgstr ""
+
+#: ..\..\..\..\NickvisionApplication.GNOME\Views\MainWindow.cs:214
 msgid "Are you sure you want to close the folder?"
 msgstr "Вы уверены, что хотите закрыть папку?"
 
-#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:216
+#: ..\..\..\..\NickvisionApplication.GNOME\Views\MainWindow.cs:216
+#: ..\..\..\..\NickvisionApplication.WinUI\Views\SettingsDialog.xaml.cs:30
 msgid "Cancel"
 msgstr "Отмена"
 
-#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:118
-#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:219
+#: ..\..\..\..\NickvisionApplication.WinUI\Controls\AboutDialog.xaml.cs:27
+msgid "Changelog"
+msgstr ""
+
+#: ..\..\..\..\NickvisionApplication.GNOME\Views\MainWindow.cs:118
+#: ..\..\..\..\NickvisionApplication.GNOME\Views\MainWindow.cs:219
+#: ..\..\..\..\NickvisionApplication.WinUI\Views\MainWindow.xaml.cs:264
 msgid "Close"
 msgstr "Закрыть"
 
-#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:214
+#: ..\..\..\..\NickvisionApplication.WinUI\Views\MainWindow.xaml.cs:81
+#: ..\..\..\..\NickvisionApplication.WinUI\Views\MainWindow.xaml.cs:96
+msgid "Close Folder"
+msgstr "Закрыть папку"
+
+#: ..\..\..\..\NickvisionApplication.GNOME\Views\MainWindow.cs:214
 msgid "Close Folder?"
 msgstr "Закрыть папку?"
 
-#: ../../../Controllers/MainWindowController.cs:63
+#: ..\..\..\Controllers\MainWindowController.cs:67
 msgid "Contributors on GitHub ❤️"
 msgstr "Соавторы на GitHub ❤️"
 
-#: ../../../Controllers/MainWindowController.cs:55
-#: NickvisionApplication.Shared/org.nickvision.application.desktop.in:5
-#: NickvisionApplication.Shared/org.nickvision.application.metainfo.xml.in:8
+#: ..\..\..\..\NickvisionApplication.WinUI\Controls\AboutDialog.xaml.cs:29
+msgid "Copied debug info to clipboard."
+msgstr ""
+
+#: ..\..\..\Controllers\MainWindowController.cs:61
+#: .\NickvisionApplication.Shared\org.nickvision.application.desktop.in:5
+#: .\NickvisionApplication.Shared\org.nickvision.application.metainfo.xml.in:8
 msgid "Create new Nickvision applications"
 msgstr "Создавайте новые приложения Nickvision"
 
-#: ../../../Controllers/MainWindowController.cs:66
+#: ..\..\..\..\NickvisionApplication.WinUI\Controls\AboutDialog.xaml.cs:28
+msgid "Credits"
+msgstr ""
+
+#: ..\..\..\Controllers\MainWindowController.cs:70
 msgid "DaPigGuy"
 msgstr "DaPigGuy"
 
-#: ../../../Controllers/MainWindowController.cs:67
+#: ..\..\..\Controllers\MainWindowController.cs:71
 msgid "David Lapshin"
 msgstr "Давид Лапшин"
 
-#: ../../../Controllers/MainWindowController.cs:134
+#: ..\..\..\..\NickvisionApplication.WinUI\Controls\AboutDialog.xaml.cs:34
+#, csharp-format
+msgid ""
+"Developers:\n"
+"{0}\n"
+"\n"
+"Designers:\n"
+"{1}\n"
+"\n"
+"Artists:\n"
+"{2}\n"
+"\n"
+"Translators:\n"
+"{3}"
+msgstr ""
+
+#: ..\..\..\..\NickvisionApplication.WinUI\Views\MainWindow.xaml.cs:88
+msgid "Discussions"
+msgstr ""
+
+#: ..\..\..\..\NickvisionApplication.WinUI\Views\MainWindow.xaml.cs:230
+msgid "Drop here to open folder"
+msgstr ""
+
+#: ..\..\..\..\NickvisionApplication.WinUI\Views\MainWindow.xaml.cs:83
+msgid "Edit"
+msgstr ""
+
+#: ..\..\..\..\NickvisionApplication.WinUI\Views\MainWindow.xaml.cs:82
+msgid "Exit"
+msgstr ""
+
+#: ..\..\..\..\NickvisionApplication.WinUI\Views\MainWindow.xaml.cs:79
+msgid "File"
+msgstr ""
+
+#: ..\..\..\Controllers\MainWindowController.cs:139
 msgid "Folder closed."
 msgstr "Папка закрыта."
 
-#: ../../../Controllers/MainWindowController.cs:121
+#: ..\..\..\Controllers\MainWindowController.cs:126
 #, csharp-format
 msgid "Folder Opened: {0}"
 msgstr "Папка открыта: {0}"
 
-#: ../../../Controllers/MainWindowController.cs:65
+#: ..\..\..\Controllers\MainWindowController.cs:69
 msgid "Fyodor Sobolev"
 msgstr "Фёдор Соболев"
 
-#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:319
+#: ..\..\..\..\NickvisionApplication.WinUI\Views\MainWindow.xaml.cs:93
+msgid "Getting Started"
+msgstr ""
+
+#: ..\..\..\..\NickvisionApplication.GNOME\Views\MainWindow.cs:319
+#: ..\..\..\..\NickvisionApplication.WinUI\Views\MainWindow.xaml.cs:86
 msgid "GitHub Repo"
 msgstr "Репозиторий GitHub"
 
-#: ../../../Controllers/MainWindowController.cs:98
+#: ..\..\..\Controllers\MainWindowController.cs:90
 msgid "Good Afternoon!"
 msgstr "Добрый день!"
 
-#: ../../../Controllers/MainWindowController.cs:100
+#: ..\..\..\Controllers\MainWindowController.cs:92
 msgid "Good Day!"
 msgstr "Здравствуйте!"
 
-#: ../../../Controllers/MainWindowController.cs:99
+#: ..\..\..\Controllers\MainWindowController.cs:91
 msgid "Good Evening!"
 msgstr "Добрый вечер!"
 
-#: ../../../Controllers/MainWindowController.cs:61
+#: ..\..\..\..\NickvisionApplication.WinUI\Views\MainWindow.xaml.cs:85
+msgid "Help"
+msgstr ""
+
+#: ..\..\..\Controllers\MainWindowController.cs:65
 msgid "Matrix Chat"
 msgstr "Чат Matrix"
 
-#: ../../../Controllers/MainWindowController.cs:62
-#: ../../../Controllers/MainWindowController.cs:64
+#: ..\..\..\Controllers\MainWindowController.cs:66
+#: ..\..\..\Controllers\MainWindowController.cs:68
 msgid "Nicholas Logozzo"
 msgstr "Nicholas Logozzo"
 
-#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:200
-#: NickvisionApplication.GNOME/Blueprints/shortcuts_dialog.blp:17
+#: ..\..\..\..\NickvisionApplication.WinUI\Views\SettingsDialog.xaml.cs:64
+msgid "No"
+msgstr ""
+
+#: ..\..\..\..\NickvisionApplication.WinUI\Controls\AboutDialog.xaml.cs:26
+msgid "OK"
+msgstr ""
+
+#: ..\..\..\..\NickvisionApplication.WinUI\Views\MainWindow.xaml.cs:94
+msgid "Open a folder (or drag one into the app) to get started."
+msgstr "Откройте или перетащите папку, чтобы начать."
+
+#: ..\..\..\..\NickvisionApplication.GNOME\Views\MainWindow.cs:200
+#: ..\..\..\..\NickvisionApplication.WinUI\Views\MainWindow.xaml.cs:80
+#: ..\..\..\..\NickvisionApplication.WinUI\Views\MainWindow.xaml.cs:95
 msgid "Open Folder"
 msgstr "Открыть Папку"
 
-#: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:186
+#: ..\..\..\..\NickvisionApplication.WinUI\Views\MainWindow.xaml.cs:65
+msgid "PREVIEW"
+msgstr ""
+
+#: ..\..\..\..\NickvisionApplication.WinUI\Views\MainWindow.xaml.cs:90
+msgid "Ready"
+msgstr ""
+
+#: ..\..\..\..\NickvisionApplication.WinUI\Views\MainWindow.xaml.cs:87
+msgid "Report a Bug"
+msgstr ""
+
+#: ..\..\..\..\NickvisionApplication.WinUI\Views\SettingsDialog.xaml.cs:61
+msgid "Restart To Apply Theme?"
+msgstr ""
+
+#: ..\..\..\..\NickvisionApplication.WinUI\Views\MainWindow.xaml.cs:84
+#: ..\..\..\..\NickvisionApplication.WinUI\Views\MainWindow.xaml.cs:97
+#: ..\..\..\..\NickvisionApplication.WinUI\Views\SettingsDialog.xaml.cs:28
+msgid "Settings"
+msgstr ""
+
+#: ..\..\..\..\NickvisionApplication.WinUI\Views\SettingsDialog.xaml.cs:32
+msgid "Theme"
+msgstr "Тема"
+
+#: ..\..\..\..\NickvisionApplication.GNOME\Views\MainWindow.cs:186
+#: ..\..\..\..\NickvisionApplication.WinUI\Views\MainWindow.xaml.cs:292
 #, csharp-format
 msgid "There is {0} file in the folder."
 msgid_plural "There are {0} files in the folder."
@@ -110,121 +227,105 @@ msgstr[0] "В папке {0} файл."
 msgstr[1] "В папке {0} файла."
 msgstr[2] "В папке {0} файлов."
 
-#: ../../../Controllers/MainWindowController.cs:68
+#: ..\..\..\Controllers\MainWindowController.cs:72
 msgid "translator-credits"
 msgstr "Фёдор Соболев https://github.com/fsobolev"
 
-#: ../../../Controllers/MainWindowController.cs:97
+#: ..\..\..\..\NickvisionApplication.WinUI\Views\SettingsDialog.xaml.cs:31
+msgid "User Interface"
+msgstr "Интерфейс"
+
+#: ..\..\..\..\NickvisionApplication.WinUI\Views\SettingsDialog.xaml.cs:62
+#, csharp-format
+msgid ""
+"Would you like to restart {0} to apply the new theme?\n"
+"Any unsaved work will be lost."
+msgstr ""
+
+#: ..\..\..\..\NickvisionApplication.WinUI\Views\SettingsDialog.xaml.cs:63
+msgid "Yes"
+msgstr ""
+
+#: ..\..\..\Controllers\MainWindowController.cs:89
 msgctxt "Morning"
 msgid "Good Morning!"
 msgstr "Доброе утро!"
 
-#: ../../../Controllers/MainWindowController.cs:96
+#: ..\..\..\Controllers\MainWindowController.cs:88
 msgctxt "Night"
 msgid "Good Morning!"
 msgstr "Доброй ночи!"
 
-#: NickvisionApplication.GNOME/Blueprints/preferences_dialog.blp:11
-#: NickvisionApplication.GNOME/Blueprints/shortcuts_dialog.blp:31
-#: NickvisionApplication.GNOME/Blueprints/window.blp:5
-msgid "Preferences"
-msgstr "Параметры"
-
-#: NickvisionApplication.GNOME/Blueprints/preferences_dialog.blp:15
-msgid "User Interface"
-msgstr "Интерфейс"
-
-#: NickvisionApplication.GNOME/Blueprints/preferences_dialog.blp:18
-msgid "Theme"
-msgstr "Тема"
-
-#: NickvisionApplication.GNOME/Blueprints/preferences_dialog.blp:20
-msgctxt "Theme"
-msgid "Light"
-msgstr "Светлая"
-
-#: NickvisionApplication.GNOME/Blueprints/preferences_dialog.blp:20
+#: ..\..\..\..\NickvisionApplication.WinUI\Views\SettingsDialog.xaml.cs:35
 msgctxt "Theme"
 msgid "Dark"
 msgstr "Тёмная"
 
-#: NickvisionApplication.GNOME/Blueprints/preferences_dialog.blp:20
+#: ..\..\..\..\NickvisionApplication.WinUI\Views\SettingsDialog.xaml.cs:34
+msgctxt "Theme"
+msgid "Light"
+msgstr "Светлая"
+
+#: ..\..\..\..\NickvisionApplication.WinUI\Views\SettingsDialog.xaml.cs:36
 msgctxt "Theme"
 msgid "System"
 msgstr "Системная"
 
-#: NickvisionApplication.GNOME/Blueprints/shortcuts_dialog.blp:14
-msgctxt "Shortcut"
-msgid "Folder"
-msgstr "Папка"
-
-#: NickvisionApplication.GNOME/Blueprints/shortcuts_dialog.blp:22
-msgid "Close Folder"
-msgstr "Закрыть папку"
-
-#: NickvisionApplication.GNOME/Blueprints/shortcuts_dialog.blp:28
-msgctxt "Shortcut"
-msgid "Application"
-msgstr "Приложение"
-
-#: NickvisionApplication.GNOME/Blueprints/shortcuts_dialog.blp:36
-#: NickvisionApplication.GNOME/Blueprints/window.blp:6
-msgid "Keyboard Shortcuts"
-msgstr "Комбинации клавиш"
-
-#: NickvisionApplication.GNOME/Blueprints/shortcuts_dialog.blp:41
-#: NickvisionApplication.GNOME/Blueprints/window.blp:7
-msgid "About Application"
-msgstr "О приложении"
-
-#: NickvisionApplication.GNOME/Blueprints/shortcuts_dialog.blp:46
-msgid "Quit"
-msgstr "Выход"
-
-#: NickvisionApplication.GNOME/Blueprints/window.blp:22
-msgid "Open Folder (Ctrl+O)"
-msgstr "Открыть папку (Ctrl+O)"
-
-#: NickvisionApplication.GNOME/Blueprints/window.blp:27
-#: NickvisionApplication.GNOME/Blueprints/window.blp:62
-msgid "Open"
-msgstr "Открыть"
-
-#: NickvisionApplication.GNOME/Blueprints/window.blp:35
-msgid "Close Folder (Ctrl+W)"
-msgstr "Закрыть папку (Ctrl+W)"
-
-#: NickvisionApplication.GNOME/Blueprints/window.blp:44
-msgid "Main Menu"
-msgstr "Главное меню"
-
-#: NickvisionApplication.GNOME/Blueprints/window.blp:60
-msgid "Open a folder (or drag one into the app) to get started."
-msgstr "Откройте или перетащите папку, чтобы начать."
-
-#: NickvisionApplication.Shared/org.nickvision.application.desktop.in:11
+#: .\NickvisionApplication.Shared\org.nickvision.application.desktop.in:11
 msgid "Template;Nickvision;"
 msgstr "Заготовка;Nickvision"
 
-#: NickvisionApplication.Shared/org.nickvision.application.metainfo.xml.in:10
+#: .\NickvisionApplication.Shared\org.nickvision.application.metainfo.xml.in:10
 msgid "Recipe for the Ultimate Power:"
 msgstr "Рецепт Безграничной Мощи:"
 
-#: NickvisionApplication.Shared/org.nickvision.application.metainfo.xml.in:11
+#: .\NickvisionApplication.Shared\org.nickvision.application.metainfo.xml.in:11
 msgid "— C#"
 msgstr "— C#"
 
-#: NickvisionApplication.Shared/org.nickvision.application.metainfo.xml.in:12
+#: .\NickvisionApplication.Shared\org.nickvision.application.metainfo.xml.in:12
 msgid "— gir.core"
 msgstr "— gir.core"
 
-#: NickvisionApplication.Shared/org.nickvision.application.metainfo.xml.in:13
+#: .\NickvisionApplication.Shared\org.nickvision.application.metainfo.xml.in:13
 msgid "— Avalonia"
 msgstr "— Avalonia"
 
-#: NickvisionApplication.Shared/org.nickvision.application.metainfo.xml.in:14
+#: .\NickvisionApplication.Shared\org.nickvision.application.metainfo.xml.in:14
 msgid "— Shaken, not stirred"
 msgstr "— Смешать, но не взбалтывать"
+
+#~ msgid "Preferences"
+#~ msgstr "Параметры"
+
+#~ msgctxt "Shortcut"
+#~ msgid "Folder"
+#~ msgstr "Папка"
+
+#~ msgctxt "Shortcut"
+#~ msgid "Application"
+#~ msgstr "Приложение"
+
+#~ msgid "Keyboard Shortcuts"
+#~ msgstr "Комбинации клавиш"
+
+#~ msgid "About Application"
+#~ msgstr "О приложении"
+
+#~ msgid "Quit"
+#~ msgstr "Выход"
+
+#~ msgid "Open Folder (Ctrl+O)"
+#~ msgstr "Открыть папку (Ctrl+O)"
+
+#~ msgid "Open"
+#~ msgstr "Открыть"
+
+#~ msgid "Close Folder (Ctrl+W)"
+#~ msgstr "Закрыть папку (Ctrl+W)"
+
+#~ msgid "Main Menu"
+#~ msgstr "Главное меню"
 
 #~ msgid ""
 #~ "Nicholas Logozzo {0}\n"

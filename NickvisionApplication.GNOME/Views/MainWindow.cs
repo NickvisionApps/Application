@@ -98,11 +98,11 @@ public partial class MainWindow : Adw.ApplicationWindow
     /// <summary>
     /// Starts the MainWindow
     /// </summary>
-    public void Start()
+    public async Task StartAsync()
     {
         _application.AddWindow(this);
         Present();
-        _controller.Startup();
+        await _controller.StartupAsync();
     }
 
     /// <summary>
@@ -183,7 +183,7 @@ public partial class MainWindow : Adw.ApplicationWindow
         if(_controller.IsFolderOpened)
         {
             _headerBar.RemoveCssClass("flat");
-            _filesLabel.SetLabel(_n("There is {0} file in the folder.", "There are {0} files in the folder.", Directory.GetFiles(_controller.FolderPath, "*", SearchOption.TopDirectoryOnly).Length));
+            _filesLabel.SetLabel(_n("There is {0} file in the folder.", "There are {0} files in the folder.", _controller.FilesCount));
         }
         else
         {

@@ -3,6 +3,7 @@ using NickvisionApplication.Shared.Events;
 using NickvisionApplication.Shared.Models;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using static NickvisionApplication.Shared.Helpers.Gettext;
 
 namespace NickvisionApplication.Shared.Controllers;
@@ -27,7 +28,12 @@ public class MainWindowController
     /// <summary>
     /// Whether or not the folder is opened
     /// </summary>
-    public bool IsFolderOpened => !string.IsNullOrEmpty(FolderPath);
+    public bool IsFolderOpened => Directory.Exists(FolderPath);
+    /// <summary>
+    /// The number of files in an opened folder
+    /// </summary>
+    /// <remarks>If no folder opened, value will be -1</remarks>
+    public int FilesCount => IsFolderOpened ? Directory.GetFiles(FolderPath, "*", SearchOption.TopDirectoryOnly).Length : -1;
 
     /// <summary>
     /// Occurs when a notification is sent
@@ -66,19 +72,7 @@ public class MainWindowController
         AppInfo.TranslatorCredits = _("translator-credits");
         if (args.Length > 0)
         {
-            OpenFolder(args[0]);
-        }
-    }
-
-    /// <summary>
-    /// Open the folder (if exists) at startup
-    /// </summary>
-    /// <remarks>Expected to be called after the main window started</remarks>
-    public void Startup()
-    {
-        if(Directory.Exists(FolderPath))
-        {
-            OpenFolder(FolderPath);
+            FolderPath = args[0];
         }
     }
 
@@ -105,6 +99,19 @@ public class MainWindowController
     /// </summary>
     /// <returns>The PreferencesViewController</returns>
     public PreferencesViewController CreatePreferencesViewController() => new PreferencesViewController();
+
+    /// <summary>
+    /// Starts the application
+    /// </summary>
+    /// <remarks>Expected to be called after the main window started</remarks>
+    public async Task StartupAsync()
+    {
+        await Task.Delay(1000);
+        if (Directory.Exists(FolderPath))
+        {
+            OpenFolder(FolderPath);
+        }
+    }
 
     /// <summary>
     /// Opens a folder
