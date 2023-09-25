@@ -85,7 +85,7 @@ public sealed partial class MainWindow : Window
         MenuAbout.Text = _("About {0}", _controller.AppInfo.ShortName);
         StatusLabel.Text = _("Ready");
         HomeBannerTitle.Text = _controller.Greeting;
-        HomeBannerDescription.Text = $"{_controller.AppInfo.ShortName} - {_controller.AppInfo.Version}";
+        HomeBannerDescription.Text = _controller.AppInfo.Description;
         HomeGettingStartedTitle.Text = _("Getting Started");
         HomeGettingStartedDescription.Text = _("Open a folder (or drag one into the app) to get started.");
         HomeOpenFolderButton.Content = _("Open Folder");
