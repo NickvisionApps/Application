@@ -1,11 +1,11 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.Windows.AppLifecycle;
 using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.Shared.Models;
-using System.Threading.Tasks;
 using System;
+using System.Threading.Tasks;
 using static NickvisionApplication.Shared.Helpers.Gettext;
-using Microsoft.Windows.AppLifecycle;
 
 namespace NickvisionApplication.WinUI.Views;
 
