@@ -16,7 +16,7 @@ jobs:
         configuration: [Debug] #release doesn't work for some reason
         platform: [x64, arm64]
     env:
-      Solution_Name: Application.sln
+      Project_Path: NickvisionApplication.WinUI/NickvisionApplication.WinUI.csproj
     steps:
       - uses: actions/checkout@v3.5.0
         with:
@@ -31,12 +31,12 @@ jobs:
         uses: microsoft/setup-msbuild@v1.3.1
       # Restore the application to populate the obj folder with RuntimeIdentifiers
       - name: Restore the application
-        run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
+        run: msbuild $env:Project_Path /t:Restore /p:Configuration=$env:Configuration
         env:
           Configuration: ${{ matrix.configuration }}
-      # Create the app package by building and packaging the project
-      - name: Create the app package
-        run: msbuild $env:Solution_Name /p:Configuration=$env:Configuration /p:Platform=$env:Platform
+      # Build the app
+      - name: Build the application
+        run: msbuild $env:Project_Path /p:Configuration=$env:Configuration /p:Platform=$env:Platform
         env:
           Configuration: ${{ matrix.configuration }}
           Platform: ${{ matrix.platform }}
