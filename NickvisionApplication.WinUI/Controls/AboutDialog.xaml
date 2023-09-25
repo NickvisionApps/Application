@@ -35,44 +35,6 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-
-                <wct:SettingsCard x:Name="CardGitHubRepo" Grid.Column="0" IsClickEnabled="True" Click="GitHubRepo">
-                    <wct:SettingsCard.HeaderIcon>
-                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8F1;"/>
-                    </wct:SettingsCard.HeaderIcon>
-
-                    <wct:SettingsCard.ActionIcon>
-                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8A7;"/>
-                    </wct:SettingsCard.ActionIcon>
-                </wct:SettingsCard>
-
-                <wct:SettingsCard x:Name="CardReportABug" Grid.Column="1" IsClickEnabled="True" Click="ReportABug">
-                    <wct:SettingsCard.HeaderIcon>
-                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEBE8;"/>
-                    </wct:SettingsCard.HeaderIcon>
-
-                    <wct:SettingsCard.ActionIcon>
-                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8A7;"/>
-                    </wct:SettingsCard.ActionIcon>
-                </wct:SettingsCard>
-
-                <wct:SettingsCard x:Name="CardDiscussions" Grid.Column="2" IsClickEnabled="True" Click="Discussions">
-                    <wct:SettingsCard.HeaderIcon>
-                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8F2;"/>
-                    </wct:SettingsCard.HeaderIcon>
-
-                    <wct:SettingsCard.ActionIcon>
-                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8A7;"/>
-                    </wct:SettingsCard.ActionIcon>
-                </wct:SettingsCard>
-            </Grid>
-
-            <Grid ColumnSpacing="6">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
                 <Border Grid.Column="0" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="8">

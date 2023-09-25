@@ -18,6 +18,7 @@ using Windows.Storage.Pickers;
 using WinRT.Interop;
 using static NickvisionApplication.Shared.Helpers.Gettext;
 using System.IO;
+using Windows.System;
 
 namespace NickvisionApplication.WinUI.Views;
 
@@ -82,6 +83,9 @@ public sealed partial class MainWindow : Window
         MenuEdit.Title = _("Edit");
         MenuSettings.Text = _("Settings");
         MenuHelp.Title = _("Help");
+        MenuGitHubRepo.Text = _("GitHub Repo");
+        MenuReportABug.Text = _("Report a Bug");
+        MenuDiscussions.Text = _("Discussions");
         MenuAbout.Text = _("About {0}", _controller.AppInfo.ShortName);
         StatusLabel.Text = _("Ready");
         HomeBannerTitle.Text = _controller.Greeting;
@@ -333,6 +337,27 @@ public sealed partial class MainWindow : Window
         };
         await settingsDialog.ShowAsync();
     }
+
+    /// <summary>
+    /// Occurs when the github repo button is clicked
+    /// </summary>
+    /// <param name="sender">object</param>
+    /// <param name="e">RoutedEventArgs</param>
+    private async void GitHubRepo(object sender, RoutedEventArgs e) => await Launcher.LaunchUriAsync(_controller.AppInfo.SourceRepo);
+
+    /// <summary>
+    /// Occurs when the report a bug button is clicked
+    /// </summary>
+    /// <param name="sender">object</param>
+    /// <param name="e">RoutedEventArgs</param>
+    private async void ReportABug(object sender, RoutedEventArgs e) => await Launcher.LaunchUriAsync(_controller.AppInfo.IssueTracker);
+
+    /// <summary>
+    /// Occurs when the discussions button is clicked
+    /// </summary>
+    /// <param name="sender">object</param>
+    /// <param name="e">RoutedEventArgs</param>
+    private async void Discussions(object sender, RoutedEventArgs e) => await Launcher.LaunchUriAsync(_controller.AppInfo.SupportUrl);
 
     /// <summary>
     /// Occurs when the about menu item is clicked

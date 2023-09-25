@@ -1,10 +1,8 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Nickvision.Aura;
-using System;
 using System.Globalization;
 using Windows.ApplicationModel.DataTransfer;
-using Windows.System;
 using static NickvisionApplication.Shared.Helpers.Gettext;
 
 namespace NickvisionApplication.WinUI.Controls;
@@ -26,9 +24,6 @@ public sealed partial class AboutDialog : ContentDialog
         //Localize Strings
         Title = _appInfo.ShortName;
         CloseButtonText = _("OK");
-        CardGitHubRepo.Header = _("GitHub Repo");
-        CardReportABug.Header = _("Report a Bug");
-        CardDiscussions.Header = _("Discussions");
         LblChangelogTitle.Text = _("Changelog");
         LblCreditsTitle.Text = _("Credits");
         InfoBar.Message = _("Copied debug info to clipboard.");
@@ -63,25 +58,4 @@ public sealed partial class AboutDialog : ContentDialog
         Clipboard.SetContent(dataPackage);
         InfoBar.IsOpen = true;
     }
-
-    /// <summary>
-    /// Occurs when the github repo button is clicked
-    /// </summary>
-    /// <param name="sender">object</param>
-    /// <param name="e">RoutedEventArgs</param>
-    private async void GitHubRepo(object sender, RoutedEventArgs e) => await Launcher.LaunchUriAsync(_appInfo.SourceRepo);
-
-    /// <summary>
-    /// Occurs when the report a bug button is clicked
-    /// </summary>
-    /// <param name="sender">object</param>
-    /// <param name="e">RoutedEventArgs</param>
-    private async void ReportABug(object sender, RoutedEventArgs e) => await Launcher.LaunchUriAsync(_appInfo.IssueTracker);
-
-    /// <summary>
-    /// Occurs when the discussions button is clicked
-    /// </summary>
-    /// <param name="sender">object</param>
-    /// <param name="e">RoutedEventArgs</param>
-    private async void Discussions(object sender, RoutedEventArgs e) => await Launcher.LaunchUriAsync(_appInfo.SupportUrl);
 }
