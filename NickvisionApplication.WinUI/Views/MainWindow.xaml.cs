@@ -68,7 +68,6 @@ public sealed partial class MainWindow : Window
         TitleBar.SizeChanged += (sender, e) => SetDragRegionForCustomTitleBar();
         //Window Sizing
         AppWindow.Resize(new SizeInt32(900, 700));
-        User32.ShowWindow(_hwnd, ShowWindowCommand.SW_SHOWMAXIMIZED);
         //Home
         HomeBanner.Background = new AcrylicBrush()
         {
