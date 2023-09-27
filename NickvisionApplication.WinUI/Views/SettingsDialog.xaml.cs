@@ -34,8 +34,12 @@ public sealed partial class SettingsDialog : ContentDialog
         CmbTheme.Items.Add(_p("Theme", "Light"));
         CmbTheme.Items.Add(_p("Theme", "Dark"));
         CmbTheme.Items.Add(_p("Theme", "System"));
+        CardAutomaticallyCheckForUpdates.Header = _("Automatically Check for Updates");
+        TglAutomaticallyCheckForUpdates.OnContent = _("On");
+        TglAutomaticallyCheckForUpdates.OffContent = _("Off");
         //Load Config
         CmbTheme.SelectedIndex = (int)_controller.Theme;
+        TglAutomaticallyCheckForUpdates.IsOn = _controller.AutomaticallyCheckForUpdates;
     }
 
     /// <summary>
@@ -53,6 +57,7 @@ public sealed partial class SettingsDialog : ContentDialog
                 _controller.Theme = (Theme)CmbTheme.SelectedIndex;
                 needsRestart = true;
             }
+            _controller.AutomaticallyCheckForUpdates = TglAutomaticallyCheckForUpdates.IsOn;
             _controller.SaveConfiguration();
             if (needsRestart)
             {

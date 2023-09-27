@@ -110,7 +110,7 @@ public class MainWindowController
     /// <remarks>Expected to be called after the main window started</remarks>
     public async Task StartupAsync()
     {
-        if(RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        if(RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && Configuration.Current.AutomaticallyCheckForUpdates)
         {
             await CheckForUpdatesAsync(); 
         }

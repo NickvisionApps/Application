@@ -1,4 +1,5 @@
 ﻿using Nickvision.Aura;
+using System.Runtime.InteropServices;
 
 namespace NickvisionApplication.Shared.Models;
 
@@ -11,6 +12,10 @@ public class Configuration : ConfigurationBase
     /// The preferred theme for the application
     /// </summary>
     public Theme Theme { get; set; }
+    /// <summary>
+    /// Whether or not to automatically check for updates
+    /// </summary>
+    public bool AutomaticallyCheckForUpdates { get; set; }
 
     /// <summary>
     /// Constructs a Configuration
@@ -18,6 +23,7 @@ public class Configuration : ConfigurationBase
     public Configuration()
     {
         Theme = Theme.System;
+        AutomaticallyCheckForUpdates = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
     }
 
     /// <summary>

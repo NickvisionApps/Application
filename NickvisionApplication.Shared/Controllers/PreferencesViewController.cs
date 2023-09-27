@@ -32,6 +32,16 @@ public class PreferencesViewController
     }
 
     /// <summary>
+    /// Whether or not to automatically check for updates
+    /// </summary>
+    public bool AutomaticallyCheckForUpdates
+    {
+        get => Configuration.Current.AutomaticallyCheckForUpdates;
+
+        set => Configuration.Current.AutomaticallyCheckForUpdates = value;
+    }
+
+    /// <summary>
     /// Saves the configuration to disk
     /// </summary>
     public void SaveConfiguration() => Aura.Active.SaveConfig("config");
