@@ -11,6 +11,8 @@ public sealed partial class ViewStack : Frame
 {
     public static DependencyProperty PagesProperty = DependencyProperty.Register("Pages", typeof(ObservableCollection<ViewStackPage>), typeof(ViewStack), new PropertyMetadata(new ObservableCollection<ViewStackPage>()));
 
+    private string _currentPageName;
+
     /// <summary>
     /// The pages of the ViewStack
     /// </summary>
@@ -22,24 +24,33 @@ public sealed partial class ViewStack : Frame
     public ViewStack()
     {
         InitializeComponent();
+        _currentPageName = "";
         SetValue(PagesProperty, new ObservableCollection<ViewStackPage>());
     }
 
     /// <summary>
-    /// Changes the page of the ViewStack
+    /// The name of the current page;
     /// </summary>
-    /// <param name="pageName">The name of the page to change to</param>
-    /// <returns>True if successful, else false</returns>
-    public bool ChangePage(string pageName)
+    public string CurrentPageName
     {
-        foreach (var page in Pages)
+        get => _currentPageName;
+
+        set
         {
-            if (page.PageName == pageName)
+            var changed = false;
+            foreach (var page in Pages)
             {
-                Content = page;
-                return true;
+                if (page.PageName == value)
+                {
+                    Content = page;
+                    changed = true;
+                    break;
+                }
+            }
+            if(changed)
+            {
+                _currentPageName = value;
             }
         }
-        return false;
     }
 }

@@ -11,14 +11,12 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using Vanara.PInvoke;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Graphics;
 using Windows.Storage.Pickers;
+using Windows.System;
 using WinRT.Interop;
 using static NickvisionApplication.Shared.Helpers.Gettext;
-using System.IO;
-using Windows.System;
 
 namespace NickvisionApplication.WinUI.Views;
 
@@ -83,6 +81,7 @@ public sealed partial class MainWindow : Window
         MenuEdit.Title = _("Edit");
         MenuSettings.Text = _("Settings");
         MenuHelp.Title = _("Help");
+        MenuCheckForUpdates.Text = _("Check for Updates");
         MenuGitHubRepo.Text = _("GitHub Repo");
         MenuReportABug.Text = _("Report a Bug");
         MenuDiscussions.Text = _("Discussions");
@@ -125,10 +124,10 @@ public sealed partial class MainWindow : Window
     {
         if(!_isOpened)
         {
-            ViewStack.ChangePage("Startup");
+            ViewStack.CurrentPageName = "Startup";
             await _controller.StartupAsync();
             MainMenu.IsEnabled = true;
-            ViewStack.ChangePage("Home");
+            ViewStack.CurrentPageName = "Home";
             _isOpened = true;
         }
     }
@@ -264,6 +263,12 @@ public sealed partial class MainWindow : Window
             BtnInfoBar.Content = _("Close");
             BtnInfoBar.Click += _notificationButtonClickEvent;
         }
+        else if(e.Action == "update")
+        {
+            _notificationButtonClickEvent = WindowsUpdate;
+            BtnInfoBar.Content = _("Update");
+            BtnInfoBar.Click += _notificationButtonClickEvent;
+        }
         BtnInfoBar.Visibility = !string.IsNullOrEmpty(e.Action) ? Visibility.Visible : Visibility.Collapsed;
         InfoBar.IsOpen = true;
     }
@@ -282,7 +287,7 @@ public sealed partial class MainWindow : Window
     /// <param name="e">EventArgs</param>
     private void FolderChanged(object? sender, EventArgs e)
     {
-        ViewStack.ChangePage(_controller.IsFolderOpened ? "Folder" : "Home");
+        ViewStack.CurrentPageName = _controller.IsFolderOpened ? "Folder" : "Home";
         MenuCloseFolder.IsEnabled = _controller.IsFolderOpened;
         StatusBar.Visibility = _controller.IsFolderOpened ? Visibility.Visible : Visibility.Collapsed;
         if(_controller.IsFolderOpened)
@@ -339,21 +344,43 @@ public sealed partial class MainWindow : Window
     }
 
     /// <summary>
-    /// Occurs when the github repo button is clicked
+    /// Occurs when the check for updates menu item is clicked
+    /// </summary>
+    /// <param name="sender">object</param>
+    /// <param name="e">RoutedEventArgs</param>
+    private async void CheckForUpdates(object sender, RoutedEventArgs e) => await _controller.CheckForUpdatesAsync();
+
+    /// <summary>
+    /// Occurs when the windows update button is clicked
+    /// </summary>
+    /// <param name="sender">object</param>
+    /// <param name="e">RoutedEventArgs</param>
+    private async void WindowsUpdate(object sender, RoutedEventArgs e)
+    {
+        var page = ViewStack.CurrentPageName;
+        ViewStack.CurrentPageName = "Startup";
+        if(!(await _controller.WindowsUpdateAsync()))
+        {
+            ViewStack.CurrentPageName = page;
+        }
+    }
+
+    /// <summary>
+    /// Occurs when the github repo menu item is clicked
     /// </summary>
     /// <param name="sender">object</param>
     /// <param name="e">RoutedEventArgs</param>
     private async void GitHubRepo(object sender, RoutedEventArgs e) => await Launcher.LaunchUriAsync(_controller.AppInfo.SourceRepo);
 
     /// <summary>
-    /// Occurs when the report a bug button is clicked
+    /// Occurs when the report a bug menu item is clicked
     /// </summary>
     /// <param name="sender">object</param>
     /// <param name="e">RoutedEventArgs</param>
     private async void ReportABug(object sender, RoutedEventArgs e) => await Launcher.LaunchUriAsync(_controller.AppInfo.IssueTracker);
 
     /// <summary>
-    /// Occurs when the discussions button is clicked
+    /// Occurs when the discussions menu item is clicked
     /// </summary>
     /// <param name="sender">object</param>
     /// <param name="e">RoutedEventArgs</param>
