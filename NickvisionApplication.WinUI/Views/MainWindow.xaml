@@ -85,6 +85,14 @@
                     </MenuBarItem>
 
                     <MenuBarItem x:Name="MenuHelp">
+                        <MenuFlyoutItem x:Name="MenuCheckForUpdates" Click="CheckForUpdates">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE117;"/>
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+
+                        <MenuFlyoutSeparator />
+
                         <MenuFlyoutItem x:Name="MenuGitHubRepo" Click="GitHubRepo">
                             <MenuFlyoutItem.Icon>
                                 <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8F1;"/>

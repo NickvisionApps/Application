@@ -1,8 +1,10 @@
 ﻿using Nickvision.Aura;
+using Nickvision.Aura.Update;
 using NickvisionApplication.Shared.Events;
 using NickvisionApplication.Shared.Models;
 using System;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using static NickvisionApplication.Shared.Helpers.Gettext;
 
@@ -13,6 +15,8 @@ namespace NickvisionApplication.Shared.Controllers;
 /// </summary>
 public class MainWindowController
 {
+    private Updater? _updater;
+
     /// <summary>
     /// Gets the AppInfo object
     /// </summary>
@@ -106,11 +110,52 @@ public class MainWindowController
     /// <remarks>Expected to be called after the main window started</remarks>
     public async Task StartupAsync()
     {
-        await Task.Delay(1000);
+        if(RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            await CheckForUpdatesAsync(); 
+        }
         if (Directory.Exists(FolderPath))
         {
             OpenFolder(FolderPath);
         }
+    }
+
+    /// <summary>
+    /// Checks for an application update and notifies the user if one is available
+    /// </summary>
+    public async Task CheckForUpdatesAsync()
+    {
+        if(!AppInfo.IsDevVersion)
+        {
+            if (_updater == null)
+            {
+                _updater = await Updater.NewAsync();
+            }
+            var version = await _updater!.GetCurrentStableVersionAsync();
+            if (version != null && version > new Version(AppInfo.Version))
+            {
+                NotificationSent?.Invoke(this, new NotificationSentEventArgs(_("New update available."), NotificationSeverity.Success, "update"));
+            }
+        }
+    }
+
+    /// <summary>
+    /// Downloads and installs the latest application update for Windows systems
+    /// </summary>
+    /// <returns>True if successful, else false</returns>
+    /// <remarks>CheckForUpdatesAsync must be called before this method</remarks>
+    public async Task<bool> WindowsUpdateAsync()
+    {
+        if(RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && _updater != null)
+        {
+            var res = await _updater.WindowsUpdateAsync(VersionType.Stable);
+            if (!res)
+            {
+                NotificationSent?.Invoke(this, new NotificationSentEventArgs(_("Unable to download and install update."), NotificationSeverity.Error));
+            }
+            return res;
+        }
+        return false;
     }
 
     /// <summary>
