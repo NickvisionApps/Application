@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-26 22:17-0400\n"
+"POT-Creation-Date: 2023-09-27 13:15-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,6 +39,10 @@ msgstr ""
 
 #: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:214
 msgid "Are you sure you want to close the folder?"
+msgstr ""
+
+#: ../../../../NickvisionApplication.WinUI/Views/SettingsDialog.xaml.cs:37
+msgid "Automatically Check for Updates"
 msgstr ""
 
 #: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:216
@@ -183,12 +187,20 @@ msgstr ""
 msgid "Nicholas Logozzo"
 msgstr ""
 
-#: ../../../../NickvisionApplication.WinUI/Views/SettingsDialog.xaml.cs:64
+#: ../../../../NickvisionApplication.WinUI/Views/SettingsDialog.xaml.cs:69
 msgid "No"
+msgstr ""
+
+#: ../../../../NickvisionApplication.WinUI/Views/SettingsDialog.xaml.cs:39
+msgid "Off"
 msgstr ""
 
 #: ../../../../NickvisionApplication.WinUI/Controls/AboutDialog.xaml.cs:26
 msgid "OK"
+msgstr ""
+
+#: ../../../../NickvisionApplication.WinUI/Views/SettingsDialog.xaml.cs:38
+msgid "On"
 msgstr ""
 
 #: ../../../../NickvisionApplication.WinUI/Views/MainWindow.xaml.cs:93
@@ -215,7 +227,7 @@ msgstr ""
 msgid "Report a Bug"
 msgstr ""
 
-#: ../../../../NickvisionApplication.WinUI/Views/SettingsDialog.xaml.cs:61
+#: ../../../../NickvisionApplication.WinUI/Views/SettingsDialog.xaml.cs:66
 msgid "Restart To Apply Theme?"
 msgstr ""
 
@@ -255,14 +267,14 @@ msgstr ""
 msgid "User Interface"
 msgstr ""
 
-#: ../../../../NickvisionApplication.WinUI/Views/SettingsDialog.xaml.cs:62
+#: ../../../../NickvisionApplication.WinUI/Views/SettingsDialog.xaml.cs:67
 #, csharp-format
 msgid ""
 "Would you like to restart {0} to apply the new theme?\n"
 "Any unsaved work will be lost."
 msgstr ""
 
-#: ../../../../NickvisionApplication.WinUI/Views/SettingsDialog.xaml.cs:63
+#: ../../../../NickvisionApplication.WinUI/Views/SettingsDialog.xaml.cs:68
 msgid "Yes"
 msgstr ""
 
