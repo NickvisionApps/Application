@@ -22,6 +22,14 @@
 
                 <ComboBox x:Name="CmbTheme"/>
             </wct:SettingsCard>
+
+            <wct:SettingsCard x:Name="CardAutomaticallyCheckForUpdates">
+                <wct:SettingsCard.HeaderIcon>
+                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE117;"/>
+                </wct:SettingsCard.HeaderIcon>
+
+                <ToggleSwitch x:Name="TglAutomaticallyCheckForUpdates"/>
+            </wct:SettingsCard>
         </StackPanel>
     </ScrollViewer>
 </ContentDialog>
