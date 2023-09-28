@@ -2,6 +2,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Nickvision.Aura;
 using System.Globalization;
+using System.Linq;
 using Windows.ApplicationModel.DataTransfer;
 using static NickvisionApplication.Shared.Helpers.Gettext;
 
@@ -31,12 +32,7 @@ public sealed partial class AboutDialog : ContentDialog
         LblDescription.Text = _appInfo.Description;
         LblVersion.Text = _appInfo.Version;
         LblChangelog.Text = _appInfo.Changelog;
-        var credits = _("Developers:\n{0}\n\nDesigners:\n{1}\n\nArtists:\n{2}\n\nTranslators:\n{3}", string.Join("\n", _appInfo.Developers.Keys), string.Join("\n", _appInfo.Designers.Keys), string.Join("\n", _appInfo.Artists.Keys), _appInfo.TranslatorCredits == "translator-credits" ? "" : _appInfo.TranslatorCredits);
-        if (_appInfo.TranslatorCredits == "translator-credits")
-        {
-            credits = credits.Remove(credits.TrimEnd().LastIndexOf('\n'));
-        }
-        LblCredits.Text = credits;
+        LblCredits.Text = _("Developers:\n{0}\n\nDesigners:\n{1}\n\nArtists:\n{2}\n\nTranslators:\n{3}", string.Join("\n", _appInfo.Developers.Keys), string.Join("\n", _appInfo.Designers.Keys), string.Join("\n", _appInfo.Artists.Keys), string.Join("\n", _appInfo.TranslatorNames.Where(x => x != "translator-credits")));
     }
 
     /// <summary>
