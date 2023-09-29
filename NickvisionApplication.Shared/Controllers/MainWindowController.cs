@@ -1,4 +1,6 @@
 ﻿using Nickvision.Aura;
+using Nickvision.Aura.Keyring;
+using Nickvision.Aura.Taskbar;
 using Nickvision.Aura.Update;
 using NickvisionApplication.Shared.Events;
 using NickvisionApplication.Shared.Models;
@@ -13,18 +15,21 @@ namespace NickvisionApplication.Shared.Controllers;
 /// <summary>
 /// A controller for a MainWindow
 /// </summary>
-public class MainWindowController
+public class MainWindowController : IDisposable
 {
+    private bool _disposed;
+    private TaskbarItem? _taskbarItem;
     private Updater? _updater;
+
+    /// <summary>
+    /// The path of the folder opened
+    /// </summary>
+    public string FolderPath { get; private set; }
 
     /// <summary>
     /// Gets the AppInfo object
     /// </summary>
     public AppInfo AppInfo => Aura.Active.AppInfo;
-    /// <summary>
-    /// The path of the folder opened
-    /// </summary>
-    public string FolderPath { get; private set; }
     /// <summary>
     /// The preferred theme of the application
     /// </summary>
@@ -58,6 +63,7 @@ public class MainWindowController
     /// <param name="args">Command-line arguments</param>
     public MainWindowController(string[] args)
     {
+        _disposed = false;
         Aura.Init("org.nickvision.application", "Nickvision Application");
         Aura.Active.SetConfig<Configuration>("config");
         AppInfo.Version = "2023.9.0-next";
@@ -74,9 +80,26 @@ public class MainWindowController
         AppInfo.Designers[_("DaPigGuy")] = new Uri("https://github.com/DaPigGuy");
         AppInfo.Artists[_("David Lapshin")] = new Uri("https://github.com/daudix-UFO");
         AppInfo.TranslatorCredits = _("translator-credits");
-        if (args.Length > 0)
+        FolderPath = args.Length > 0 ? args[0] : "";
+    }
+
+    /// <summary>
+    /// Finalizes the MainWindowController
+    /// </summary>
+    ~MainWindowController() => Dispose(false);
+
+    /// <summary>
+    /// The TaskbarItem
+    /// </summary>
+    public TaskbarItem? TaskbarItem
+    {
+        set
         {
-            FolderPath = args[0];
+            if (value == null)
+            {
+                return;
+            }
+            _taskbarItem = value;
         }
     }
 
@@ -96,6 +119,28 @@ public class MainWindowController
                 _ => _("Good Day!")
             };
         }
+    }
+
+    /// <summary>
+    /// Frees resources used by the MainWindowController object
+    /// </summary>
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    /// <summary>
+    /// Frees resources used by the MainWindowController object
+    /// </summary>
+    protected virtual void Dispose(bool disposing)
+    {
+        if (_disposed)
+        {
+            return;
+        }
+        _taskbarItem?.Dispose();
+        _disposed = true;
     }
 
     /// <summary>

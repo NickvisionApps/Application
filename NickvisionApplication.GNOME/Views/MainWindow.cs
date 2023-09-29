@@ -1,4 +1,5 @@
-﻿using NickvisionApplication.GNOME.Helpers;
+﻿using Nickvision.Aura.Taskbar;
+using NickvisionApplication.GNOME.Helpers;
 using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.Shared.Events;
 using System;
@@ -47,6 +48,7 @@ public partial class MainWindow : Adw.ApplicationWindow
         _title.SetTitle(_controller.AppInfo.ShortName);
         _greeting.SetTitle(_controller.Greeting);
         //Register Events 
+        OnCloseRequest += OnCloseRequested;
         _controller.NotificationSent += NotificationSent;
         _controller.ShellNotificationSent += ShellNotificationSent;
         _controller.FolderChanged += FolderChanged;
@@ -103,6 +105,7 @@ public partial class MainWindow : Adw.ApplicationWindow
         _application.AddWindow(this);
         Present();
         await _controller.StartupAsync();
+        _controller.TaskbarItem = await TaskbarItem.ConnectLinuxAsync($"{_controller.AppInfo.ID}.desktop");
     }
 
     /// <summary>
@@ -147,6 +150,18 @@ public partial class MainWindow : Adw.ApplicationWindow
             notification.SetIcon(fileIcon);
         }
         _application.SendNotification(_controller.AppInfo.ID, notification);
+    }
+
+    /// <summary>
+    /// Occurs when the window tries to close
+    /// </summary>
+    /// <param name="sender">Gtk.Window</param>
+    /// <param name="e">EventArgs</param>
+    /// <returns>True to stop close, else false</returns>
+    private bool OnCloseRequested(Gtk.Window sender, EventArgs e)
+    {
+        _controller.Dispose();
+        return false;
     }
 
     /// <summary>
@@ -259,7 +274,13 @@ public partial class MainWindow : Adw.ApplicationWindow
     /// </summary>
     /// <param name="sender">Gio.SimpleAction</param>
     /// <param name="e">EventArgs</param>
-    private void Quit(Gio.SimpleAction sender, EventArgs e) => _application.Quit();
+    private void Quit(Gio.SimpleAction sender, EventArgs e)
+    {
+        if (!OnCloseRequested(this, EventArgs.Empty))
+        {
+            _application.Quit();
+        }
+    }
 
     /// <summary>
     /// Occurs when the about action is triggered

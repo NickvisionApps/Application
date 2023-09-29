@@ -17,6 +17,7 @@ using Windows.Storage.Pickers;
 using Windows.System;
 using WinRT.Interop;
 using static NickvisionApplication.Shared.Helpers.Gettext;
+using Nickvision.Aura.Taskbar;
 
 namespace NickvisionApplication.WinUI.Views;
 
@@ -126,6 +127,7 @@ public sealed partial class MainWindow : Window
         {
             ViewStack.CurrentPageName = "Startup";
             await _controller.StartupAsync();
+            _controller.TaskbarItem = TaskbarItem.ConnectWindows(_hwnd);
             MainMenu.IsEnabled = true;
             ViewStack.CurrentPageName = "Home";
             _isOpened = true;
@@ -139,7 +141,7 @@ public sealed partial class MainWindow : Window
     /// <param name="e">AppWindowClosingEventArgs</param>
     private void Window_Closing(AppWindow sender, AppWindowClosingEventArgs e)
     {
-        //_controller.Dispose();
+        _controller.Dispose();
     }
 
     /// <summary>
