@@ -257,11 +257,7 @@ public sealed partial class MainWindow : Window
         }
         if (e.Action == "close")
         {
-            _notificationButtonClickEvent = (sender, e) =>
-            {
-                InfoBar.IsOpen = false;
-                CloseFolder(sender, e);
-            };
+            _notificationButtonClickEvent = CloseFolder;
             BtnInfoBar.Content = _("Close");
             BtnInfoBar.Click += _notificationButtonClickEvent;
         }
@@ -322,7 +318,11 @@ public sealed partial class MainWindow : Window
     /// </summary>
     /// <param name="sender">object</param>
     /// <param name="e">RoutedEventArgs</param>
-    private void CloseFolder(object sender, RoutedEventArgs e) => _controller.CloseFolder();
+    private void CloseFolder(object sender, RoutedEventArgs e)
+    {
+        InfoBar.IsOpen = false;
+        _controller.CloseFolder();
+    }
 
     /// <summary>
     /// Occurs when the exit menu item is clicked
@@ -359,6 +359,7 @@ public sealed partial class MainWindow : Window
     /// <param name="e">RoutedEventArgs</param>
     private async void WindowsUpdate(object sender, RoutedEventArgs e)
     {
+        InfoBar.IsOpen = false;
         var page = ViewStack.CurrentPageName;
         ViewStack.CurrentPageName = "Startup";
         if(!(await _controller.WindowsUpdateAsync()))
