@@ -31,6 +31,7 @@ Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
 PrivilegesRequired=admin
+DirExistsWarning=no
 
 [Code]
 procedure SetupDotnet();
