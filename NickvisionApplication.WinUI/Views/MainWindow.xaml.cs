@@ -4,6 +4,7 @@ using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
+using Nickvision.Aura.Taskbar;
 using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.Shared.Events;
 using NickvisionApplication.WinUI.Controls;
@@ -17,7 +18,6 @@ using Windows.Storage.Pickers;
 using Windows.System;
 using WinRT.Interop;
 using static NickvisionApplication.Shared.Helpers.Gettext;
-using Nickvision.Aura.Taskbar;
 
 namespace NickvisionApplication.WinUI.Views;
 
