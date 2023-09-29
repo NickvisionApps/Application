@@ -127,7 +127,8 @@ public sealed partial class MainWindow : Window
         {
             ViewStack.CurrentPageName = "Startup";
             await _controller.StartupAsync();
-            _controller.TaskbarItem = TaskbarItem.ConnectWindows(_hwnd);
+            var accent = (SolidColorBrush)Application.Current.Resources["AccentFillColorDefaultBrush"];
+            _controller.TaskbarItem = TaskbarItem.ConnectWindows(_hwnd, new System.Drawing.SolidBrush(System.Drawing.Color.FromArgb(accent.Color.A, accent.Color.R, accent.Color.G, accent.Color.B)), System.Drawing.Brushes.Black);
             MainMenu.IsEnabled = true;
             ViewStack.CurrentPageName = "Home";
             _isOpened = true;

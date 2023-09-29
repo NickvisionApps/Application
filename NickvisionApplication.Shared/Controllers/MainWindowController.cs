@@ -218,7 +218,7 @@ public class MainWindowController : IDisposable
             if (_taskbarItem != null)
             {
                 _taskbarItem.Count = FilesCount;
-            }
+            } 
             return true;
         }
         return false;
@@ -234,7 +234,7 @@ public class MainWindowController : IDisposable
         FolderChanged?.Invoke(this, EventArgs.Empty);
         if(_taskbarItem != null)
         {
-            _taskbarItem.CountVisible = false;
+            _taskbarItem.Count = -1;
         }
     }
 }
