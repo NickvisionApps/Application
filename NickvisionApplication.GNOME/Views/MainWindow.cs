@@ -104,8 +104,8 @@ public partial class MainWindow : Adw.ApplicationWindow
     {
         _application.AddWindow(this);
         Present();
-        await _controller.StartupAsync();
         _controller.TaskbarItem = await TaskbarItem.ConnectLinuxAsync($"{_controller.AppInfo.ID}.desktop");
+        await _controller.StartupAsync();
     }
 
     /// <summary>
