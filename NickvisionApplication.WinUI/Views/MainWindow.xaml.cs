@@ -4,6 +4,7 @@ using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
+using Nickvision.Aura.Taskbar;
 using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.Shared.Events;
 using NickvisionApplication.WinUI.Controls;
@@ -126,6 +127,8 @@ public sealed partial class MainWindow : Window
         {
             ViewStack.CurrentPageName = "Startup";
             await _controller.StartupAsync();
+            var accent = (SolidColorBrush)Application.Current.Resources["AccentFillColorDefaultBrush"];
+            _controller.TaskbarItem = TaskbarItem.ConnectWindows(_hwnd, new System.Drawing.SolidBrush(System.Drawing.Color.FromArgb(accent.Color.A, accent.Color.R, accent.Color.G, accent.Color.B)), System.Drawing.Brushes.Black);
             MainMenu.IsEnabled = true;
             ViewStack.CurrentPageName = "Home";
             _isOpened = true;
@@ -139,7 +142,7 @@ public sealed partial class MainWindow : Window
     /// <param name="e">AppWindowClosingEventArgs</param>
     private void Window_Closing(AppWindow sender, AppWindowClosingEventArgs e)
     {
-        //_controller.Dispose();
+        _controller.Dispose();
     }
 
     /// <summary>
@@ -255,11 +258,7 @@ public sealed partial class MainWindow : Window
         }
         if (e.Action == "close")
         {
-            _notificationButtonClickEvent = (sender, e) =>
-            {
-                InfoBar.IsOpen = false;
-                CloseFolder(sender, e);
-            };
+            _notificationButtonClickEvent = CloseFolder;
             BtnInfoBar.Content = _("Close");
             BtnInfoBar.Click += _notificationButtonClickEvent;
         }
@@ -320,7 +319,11 @@ public sealed partial class MainWindow : Window
     /// </summary>
     /// <param name="sender">object</param>
     /// <param name="e">RoutedEventArgs</param>
-    private void CloseFolder(object sender, RoutedEventArgs e) => _controller.CloseFolder();
+    private void CloseFolder(object sender, RoutedEventArgs e)
+    {
+        InfoBar.IsOpen = false;
+        _controller.CloseFolder();
+    }
 
     /// <summary>
     /// Occurs when the exit menu item is clicked
@@ -357,6 +360,7 @@ public sealed partial class MainWindow : Window
     /// <param name="e">RoutedEventArgs</param>
     private async void WindowsUpdate(object sender, RoutedEventArgs e)
     {
+        InfoBar.IsOpen = false;
         var page = ViewStack.CurrentPageName;
         ViewStack.CurrentPageName = "Startup";
         if(!(await _controller.WindowsUpdateAsync()))
