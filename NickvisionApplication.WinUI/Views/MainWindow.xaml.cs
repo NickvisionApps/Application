@@ -256,16 +256,16 @@ public sealed partial class MainWindow : Window
         {
             BtnInfoBar.Click -= _notificationButtonClickEvent;
         }
-        if (e.Action == "close")
-        {
-            _notificationButtonClickEvent = CloseFolder;
-            BtnInfoBar.Content = _("Close");
-            BtnInfoBar.Click += _notificationButtonClickEvent;
-        }
-        else if(e.Action == "update")
+        if (e.Action == "update")
         {
             _notificationButtonClickEvent = WindowsUpdate;
             BtnInfoBar.Content = _("Update");
+            BtnInfoBar.Click += _notificationButtonClickEvent;
+        }
+        else if (e.Action == "close")
+        {
+            _notificationButtonClickEvent = CloseFolder;
+            BtnInfoBar.Content = _("Close");
             BtnInfoBar.Click += _notificationButtonClickEvent;
         }
         BtnInfoBar.Visibility = !string.IsNullOrEmpty(e.Action) ? Visibility.Visible : Visibility.Collapsed;
