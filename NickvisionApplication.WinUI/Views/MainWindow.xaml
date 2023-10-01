@@ -141,7 +141,7 @@
                     </nickvision:ViewStackPage>
 
                     <nickvision:ViewStackPage PageName="Home">
-                        <ScrollViewer>
+                        <ScrollView>
                             <Grid Margin="12,0,12,0" RowSpacing="12">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="200"/>
@@ -183,11 +183,11 @@
                                     </StackPanel>
                                 </Border>
                             </Grid>
-                        </ScrollViewer>
+                        </ScrollView>
                     </nickvision:ViewStackPage>
 
                     <nickvision:ViewStackPage PageName="Folder">
-                        <ScrollViewer>
+                        <ScrollView>
                             <Grid Margin="6,0,6,0" RowSpacing="6">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -208,7 +208,7 @@
 
                                 <TextBlock x:Name="FilesLabel" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </Grid>
-                        </ScrollViewer>
+                        </ScrollView>
                     </nickvision:ViewStackPage>
                 </nickvision:ViewStack.Pages>
             </nickvision:ViewStack>
