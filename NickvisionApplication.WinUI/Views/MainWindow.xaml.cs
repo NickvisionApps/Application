@@ -52,7 +52,7 @@ public sealed partial class MainWindow : Window
         _isActived = true;
         //Register Events
         AppWindow.Closing += Window_Closing;
-        _controller.NotificationSent += NotificationSent;
+        _controller.NotificationSent +=  (sender, e) => DispatcherQueue.TryEnqueue(() => NotificationSent(sender, e));
         _controller.ShellNotificationSent += ShellNotificationSent;
         _controller.FolderChanged += FolderChanged;
         //Set TitleBar
