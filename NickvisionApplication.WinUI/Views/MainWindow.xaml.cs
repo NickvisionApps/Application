@@ -66,8 +66,6 @@ public sealed partial class MainWindow : Window
         AppWindow.SetIcon(@"Resources\org.nickvision.application.ico");
         TitleBar.Loaded += (sender, e) => SetDragRegionForCustomTitleBar();
         TitleBar.SizeChanged += (sender, e) => SetDragRegionForCustomTitleBar();
-        //Window Sizing
-        AppWindow.Resize(new SizeInt32(900, 700));
         //Home
         HomeBanner.Background = new AcrylicBrush()
         {
@@ -93,6 +91,10 @@ public sealed partial class MainWindow : Window
         HomeGettingStartedTitle.Text = _("Getting Started");
         HomeGettingStartedDescription.Text = _("Open a folder (or drag one into the app) to get started.");
         HomeOpenFolderButtonLabel.Text = _("Open Folder");
+        HomeReportABugTitle.Text = _("Report a Bug");
+        HomeReportABugDescription.Text = _("Let us fix whatever issue you are having.");
+        HomeDiscussionsTitle.Text = _("Discussions");
+        HomeDiscussionsDescription.Text = _("Start a conversation with us.");
         FolderCloseFolderButton.Label = _("Close Folder");
         FolderSettingsButton.Label = _("Settings");
     }
