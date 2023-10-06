@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using static NickvisionApplication.Shared.Helpers.Gettext;
 
 namespace NickvisionApplication.GNOME;
 

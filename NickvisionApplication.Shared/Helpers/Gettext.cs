@@ -7,7 +7,7 @@ namespace NickvisionApplication.Shared.Helpers;
 public static class Gettext
 {
     private static readonly ICatalog _catalog = new Catalog("application", Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
-    
+
     public static string _(string text)
     {
         return _catalog.GetString(text);

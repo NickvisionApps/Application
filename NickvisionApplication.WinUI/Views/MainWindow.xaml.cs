@@ -1,6 +1,6 @@
 using CommunityToolkit.WinUI.Notifications;
-using Microsoft.UI.Windowing;
 using Microsoft.UI;
+using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
@@ -9,8 +9,8 @@ using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.Shared.Events;
 using NickvisionApplication.WinUI.Controls;
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Graphics;
@@ -52,7 +52,7 @@ public sealed partial class MainWindow : Window
         _isActived = true;
         //Register Events
         AppWindow.Closing += Window_Closing;
-        _controller.NotificationSent +=  (sender, e) => DispatcherQueue.TryEnqueue(() => NotificationSent(sender, e));
+        _controller.NotificationSent += (sender, e) => DispatcherQueue.TryEnqueue(() => NotificationSent(sender, e));
         _controller.ShellNotificationSent += ShellNotificationSent;
         _controller.FolderChanged += FolderChanged;
         //Set TitleBar
@@ -125,7 +125,7 @@ public sealed partial class MainWindow : Window
     /// <param name="e">RoutedEventArgs</param>
     private async void Window_Loaded(object sender, RoutedEventArgs e)
     {
-        if(!_isOpened)
+        if (!_isOpened)
         {
             ViewStack.CurrentPageName = "Startup";
             var accent = (SolidColorBrush)Application.Current.Resources["AccentFillColorDefaultBrush"];
@@ -213,10 +213,10 @@ public sealed partial class MainWindow : Window
     /// <param name="e">DragEventArgs</param>
     private async void OnDrop(object sender, DragEventArgs e)
     {
-        if(e.DataView.Contains(StandardDataFormats.StorageItems))
+        if (e.DataView.Contains(StandardDataFormats.StorageItems))
         {
             var first = (await e.DataView.GetStorageItemsAsync()).FirstOrDefault();
-            if(first != null)
+            if (first != null)
             {
                 _controller.OpenFolder(first.Path);
             }
@@ -291,7 +291,7 @@ public sealed partial class MainWindow : Window
         ViewStack.CurrentPageName = _controller.IsFolderOpened ? "Folder" : "Home";
         MenuCloseFolder.IsEnabled = _controller.IsFolderOpened;
         StatusBar.Visibility = _controller.IsFolderOpened ? Visibility.Visible : Visibility.Collapsed;
-        if(_controller.IsFolderOpened)
+        if (_controller.IsFolderOpened)
         {
             StatusIcon.Glyph = "\xE8B7";
             StatusLabel.Text = _controller.FolderPath;
@@ -310,7 +310,7 @@ public sealed partial class MainWindow : Window
         InitializeWithWindow(folderPicker);
         folderPicker.FileTypeFilter.Add("*");
         var folder = await folderPicker.PickSingleFolderAsync();
-        if(folder != null)
+        if (folder != null)
         {
             _controller.OpenFolder(folder.Path);
         }
@@ -365,7 +365,7 @@ public sealed partial class MainWindow : Window
         InfoBar.IsOpen = false;
         var page = ViewStack.CurrentPageName;
         ViewStack.CurrentPageName = "Startup";
-        if(!(await _controller.WindowsUpdateAsync()))
+        if (!(await _controller.WindowsUpdateAsync()))
         {
             ViewStack.CurrentPageName = page;
         }

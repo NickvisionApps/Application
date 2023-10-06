@@ -1,5 +1,4 @@
 ﻿using Nickvision.Aura;
-using Nickvision.Aura.Keyring;
 using Nickvision.Aura.Taskbar;
 using Nickvision.Aura.Update;
 using NickvisionApplication.Shared.Events;
@@ -155,9 +154,9 @@ public class MainWindowController : IDisposable
     /// <remarks>Expected to be called after the main window started</remarks>
     public async Task StartupAsync()
     {
-        if(RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && Configuration.Current.AutomaticallyCheckForUpdates)
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && Configuration.Current.AutomaticallyCheckForUpdates)
         {
-            await CheckForUpdatesAsync(); 
+            await CheckForUpdatesAsync();
         }
         if (Directory.Exists(FolderPath))
         {
@@ -170,7 +169,7 @@ public class MainWindowController : IDisposable
     /// </summary>
     public async Task CheckForUpdatesAsync()
     {
-        if(!AppInfo.IsDevVersion)
+        if (!AppInfo.IsDevVersion)
         {
             if (_updater == null)
             {
@@ -191,7 +190,7 @@ public class MainWindowController : IDisposable
     /// <remarks>CheckForUpdatesAsync must be called before this method</remarks>
     public async Task<bool> WindowsUpdateAsync()
     {
-        if(RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && _updater != null)
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && _updater != null)
         {
             var res = await _updater.WindowsUpdateAsync(VersionType.Stable);
             if (!res)
@@ -218,7 +217,7 @@ public class MainWindowController : IDisposable
             if (_taskbarItem != null)
             {
                 _taskbarItem.Count = FilesCount;
-            } 
+            }
             return true;
         }
         return false;
@@ -232,7 +231,7 @@ public class MainWindowController : IDisposable
         FolderPath = "";
         NotificationSent?.Invoke(this, new NotificationSentEventArgs(_("Folder closed."), NotificationSeverity.Warning));
         FolderChanged?.Invoke(this, EventArgs.Empty);
-        if(_taskbarItem != null)
+        if (_taskbarItem != null)
         {
             _taskbarItem.Count = -1;
         }
