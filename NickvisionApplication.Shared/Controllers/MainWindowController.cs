@@ -64,10 +64,10 @@ public class MainWindowController : IDisposable
     {
         _disposed = false;
         Aura.Init("org.nickvision.application", "Nickvision Application");
+        AppInfo.EnglishShortName = "Application";
         Aura.Active.SetConfig<Configuration>("config");
         AppInfo.Version = "2023.9.0-next";
         AppInfo.ShortName = _("Application");
-        AppInfo.EnglishShortName = "Application";
         AppInfo.Description = _("Create new Nickvision applications");
         AppInfo.SourceRepo = new Uri("https://github.com/NickvisionApps/Application");
         AppInfo.IssueTracker = new Uri("https://github.com/NickvisionApps/Application/issues/new");
