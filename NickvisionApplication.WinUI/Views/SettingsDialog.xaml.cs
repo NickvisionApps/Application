@@ -5,7 +5,7 @@ using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.Shared.Models;
 using System;
 using System.Threading.Tasks;
-using static NickvisionApplication.Shared.Helpers.Gettext;
+using static Nickvision.Aura.Localization.Gettext;
 
 namespace NickvisionApplication.WinUI.Views;
 

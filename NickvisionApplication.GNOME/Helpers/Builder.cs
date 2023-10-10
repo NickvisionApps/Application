@@ -1,7 +1,7 @@
 using System.IO;
 using System.Reflection;
 using System.Xml;
-using static NickvisionApplication.Shared.Helpers.Gettext;
+using static Nickvision.Aura.Localization.Gettext;
 
 namespace NickvisionApplication.GNOME.Helpers;
 

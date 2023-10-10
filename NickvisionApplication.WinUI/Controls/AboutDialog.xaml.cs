@@ -4,7 +4,7 @@ using Nickvision.Aura;
 using System.Globalization;
 using System.Linq;
 using Windows.ApplicationModel.DataTransfer;
-using static NickvisionApplication.Shared.Helpers.Gettext;
+using static Nickvision.Aura.Localization.Gettext;
 
 namespace NickvisionApplication.WinUI.Controls;
 

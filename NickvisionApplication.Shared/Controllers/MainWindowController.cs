@@ -7,7 +7,7 @@ using System;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-using static NickvisionApplication.Shared.Helpers.Gettext;
+using static Nickvision.Aura.Localization.Gettext;
 
 namespace NickvisionApplication.Shared.Controllers;
 
@@ -67,6 +67,7 @@ public class MainWindowController : IDisposable
         Aura.Active.SetConfig<Configuration>("config");
         AppInfo.Version = "2023.9.0-next";
         AppInfo.ShortName = _("Application");
+        AppInfo.EnglishShortName = "Application";
         AppInfo.Description = _("Create new Nickvision applications");
         AppInfo.SourceRepo = new Uri("https://github.com/NickvisionApps/Application");
         AppInfo.IssueTracker = new Uri("https://github.com/NickvisionApps/Application/issues/new");

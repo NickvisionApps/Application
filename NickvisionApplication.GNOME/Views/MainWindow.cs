@@ -8,8 +8,8 @@ using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using static Nickvision.Aura.Localization.Gettext;
 using static Nickvision.GirExt.GtkExt;
-using static NickvisionApplication.Shared.Helpers.Gettext;
 
 namespace NickvisionApplication.GNOME.Views;
 

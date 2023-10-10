@@ -17,7 +17,7 @@ using Windows.Graphics;
 using Windows.Storage.Pickers;
 using Windows.System;
 using WinRT.Interop;
-using static NickvisionApplication.Shared.Helpers.Gettext;
+using static Nickvision.Aura.Localization.Gettext;
 
 namespace NickvisionApplication.WinUI.Views;
 
