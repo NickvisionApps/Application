@@ -66,12 +66,6 @@ public sealed partial class MainWindow : Window
         AppWindow.SetIcon(@"Resources\org.nickvision.application.ico");
         TitleBar.Loaded += (sender, e) => SetDragRegionForCustomTitleBar();
         TitleBar.SizeChanged += (sender, e) => SetDragRegionForCustomTitleBar();
-        //Home
-        HomeBanner.Background = new AcrylicBrush()
-        {
-            TintOpacity = 0.9,
-            TintColor = MainGrid.ActualTheme == ElementTheme.Light ? ColorHelper.FromArgb(255, 19, 204, 202) : ColorHelper.FromArgb(255, 7, 127, 137)
-        };
         //Localize Strings
         MenuFile.Title = _("File");
         MenuOpenFolder.Text = _("Open Folder");
@@ -85,16 +79,10 @@ public sealed partial class MainWindow : Window
         MenuReportABug.Text = _("Report a Bug");
         MenuDiscussions.Text = _("Discussions");
         MenuAbout.Text = _("About {0}", _controller.AppInfo.ShortName);
+        StatusPageHome.Title = _controller.Greeting;
+        StatusPageHome.Description = _("Open a folder (or drag one into the app) to get started.");
         StatusLabel.Text = _("Ready");
-        HomeBannerTitle.Text = _controller.Greeting;
-        HomeBannerDescription.Text = _controller.AppInfo.Description;
-        HomeGettingStartedTitle.Text = _("Getting Started");
-        HomeGettingStartedDescription.Text = _("Open a folder (or drag one into the app) to get started.");
         HomeOpenFolderButtonLabel.Text = _("Open Folder");
-        HomeReportABugTitle.Text = _("Report a Bug");
-        HomeReportABugDescription.Text = _("Let us fix whatever issue you are having.");
-        HomeDiscussionsTitle.Text = _("Discussions");
-        HomeDiscussionsDescription.Text = _("Start a conversation with us.");
         FolderCloseFolderButton.Label = _("Close Folder");
         FolderSettingsButton.Label = _("Settings");
     }
@@ -160,11 +148,6 @@ public sealed partial class MainWindow : Window
         MenuEdit.Foreground = (SolidColorBrush)Application.Current.Resources[_isActived ? "WindowCaptionForeground" : "WindowCaptionForegroundDisabled"];
         MenuHelp.Foreground = (SolidColorBrush)Application.Current.Resources[_isActived ? "WindowCaptionForeground" : "WindowCaptionForegroundDisabled"];
         AppWindow.TitleBar.ButtonForegroundColor = ((SolidColorBrush)Application.Current.Resources[_isActived ? "WindowCaptionForeground" : "WindowCaptionForegroundDisabled"]).Color;
-        HomeBanner.Background = HomeBanner.Background = new AcrylicBrush()
-        {
-            TintOpacity = 0.9,
-            TintColor = MainGrid.ActualTheme == ElementTheme.Light ? ColorHelper.FromArgb(255, 19, 204, 202) : ColorHelper.FromArgb(255, 7, 127, 137)
-        };
     }
 
     /// <summary>
