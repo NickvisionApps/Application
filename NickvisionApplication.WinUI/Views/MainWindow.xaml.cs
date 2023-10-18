@@ -295,7 +295,7 @@ public sealed partial class MainWindow : Window
         {
             StatusIcon.Glyph = "\xE8B7";
             StatusLabel.Text = _controller.FolderPath;
-            FilesLabel.Text = _n("There is {0} file in the folder.", "There are {0} files in the folder.", _controller.FilesCount);
+            StatusPageFiles.Description = _n("There is {0} file in the folder.", "There are {0} files in the folder.", _controller.FilesCount);
         }
     }
 

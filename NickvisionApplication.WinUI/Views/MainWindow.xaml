@@ -253,7 +253,7 @@
                                     </wct:DockPanel>
                                 </Border>
 
-                                <TextBlock x:Name="FilesLabel" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <nickvision:StatusPage x:Name="StatusPageFiles" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" IsCompact="True" Glyph="&#xE130;"/>
                             </Grid>
                         </ScrollView>
                     </nickvision:ViewStackPage>
