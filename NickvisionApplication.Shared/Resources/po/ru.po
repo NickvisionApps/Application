@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-18 11:15-0400\n"
+"POT-Creation-Date: 2023-10-18 11:29-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -201,8 +201,8 @@ msgid "On"
 msgstr "Открыть"
 
 #: ../../../../NickvisionApplication.WinUI/Views/MainWindow.xaml.cs:83
-#: NickvisionApplication.GNOME/Blueprints/window.blp:60
-msgid "Open a folder (or drag one into the app) to get started."
+#, fuzzy
+msgid "Open a folder (or drag one into the app) to get started"
 msgstr "Откройте или перетащите папку, чтобы начать."
 
 #: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:215
@@ -350,6 +350,10 @@ msgstr "Закрыть папку (Ctrl+W)"
 #: NickvisionApplication.GNOME/Blueprints/window.blp:44
 msgid "Main Menu"
 msgstr "Главное меню"
+
+#: NickvisionApplication.GNOME/Blueprints/window.blp:60
+msgid "Open a folder (or drag one into the app) to get started."
+msgstr "Откройте или перетащите папку, чтобы начать."
 
 #: NickvisionApplication.Shared/org.nickvision.application.desktop.in:11
 msgid "Template;Nickvision;"

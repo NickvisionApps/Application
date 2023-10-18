@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-18 11:15-0400\n"
+"POT-Creation-Date: 2023-10-18 11:29-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -200,8 +200,7 @@ msgid "On"
 msgstr ""
 
 #: ../../../../NickvisionApplication.WinUI/Views/MainWindow.xaml.cs:83
-#: NickvisionApplication.GNOME/Blueprints/window.blp:60
-msgid "Open a folder (or drag one into the app) to get started."
+msgid "Open a folder (or drag one into the app) to get started"
 msgstr ""
 
 #: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:215
@@ -347,6 +346,10 @@ msgstr ""
 
 #: NickvisionApplication.GNOME/Blueprints/window.blp:44
 msgid "Main Menu"
+msgstr ""
+
+#: NickvisionApplication.GNOME/Blueprints/window.blp:60
+msgid "Open a folder (or drag one into the app) to get started."
 msgstr ""
 
 #: NickvisionApplication.Shared/org.nickvision.application.desktop.in:11

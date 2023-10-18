@@ -80,7 +80,7 @@ public sealed partial class MainWindow : Window
         MenuDiscussions.Text = _("Discussions");
         MenuAbout.Text = _("About {0}", _controller.AppInfo.ShortName);
         StatusPageHome.Title = _controller.Greeting;
-        StatusPageHome.Description = _("Open a folder (or drag one into the app) to get started.");
+        StatusPageHome.Description = _("Open a folder (or drag one into the app) to get started");
         StatusLabel.Text = _("Ready");
         HomeOpenFolderButtonLabel.Text = _("Open Folder");
         FolderCloseFolderButton.Label = _("Close Folder");
