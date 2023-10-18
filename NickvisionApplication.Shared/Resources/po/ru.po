@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-18 11:29-0400\n"
+"POT-Creation-Date: 2023-10-18 16:47-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -32,6 +32,10 @@ msgstr ""
 #: NickvisionApplication.Shared/org.nickvision.application.metainfo.xml.in:6
 msgid "Application"
 msgstr "Application"
+
+#: ../../../../NickvisionApplication.WinUI/Views/MainWindow.xaml.cs:85
+msgid "Application's support channels are accessible via the Help menu."
+msgstr ""
 
 #: ../../../../NickvisionApplication.WinUI/Views/SettingsDialog.xaml.cs:29
 msgid "Apply"
@@ -60,12 +64,12 @@ msgstr ""
 
 #: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:121
 #: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:234
-#: ../../../../NickvisionApplication.WinUI/Views/MainWindow.xaml.cs:253
+#: ../../../../NickvisionApplication.WinUI/Views/MainWindow.xaml.cs:254
 msgid "Close"
 msgstr "Закрыть"
 
 #: ../../../../NickvisionApplication.WinUI/Views/MainWindow.xaml.cs:72
-#: ../../../../NickvisionApplication.WinUI/Views/MainWindow.xaml.cs:86
+#: ../../../../NickvisionApplication.WinUI/Views/MainWindow.xaml.cs:87
 #: NickvisionApplication.GNOME/Blueprints/shortcuts_dialog.blp:21
 msgid "Close Folder"
 msgstr "Закрыть папку"
@@ -120,7 +124,7 @@ msgstr ""
 msgid "Discussions"
 msgstr ""
 
-#: ../../../../NickvisionApplication.WinUI/Views/MainWindow.xaml.cs:217
+#: ../../../../NickvisionApplication.WinUI/Views/MainWindow.xaml.cs:218
 msgid "Drop here to open folder"
 msgstr ""
 
@@ -200,14 +204,14 @@ msgstr ""
 msgid "On"
 msgstr "Открыть"
 
-#: ../../../../NickvisionApplication.WinUI/Views/MainWindow.xaml.cs:83
+#: ../../../../NickvisionApplication.WinUI/Views/MainWindow.xaml.cs:84
 #, fuzzy
 msgid "Open a folder (or drag one into the app) to get started"
 msgstr "Откройте или перетащите папку, чтобы начать."
 
 #: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:215
 #: ../../../../NickvisionApplication.WinUI/Views/MainWindow.xaml.cs:71
-#: ../../../../NickvisionApplication.WinUI/Views/MainWindow.xaml.cs:85
+#: ../../../../NickvisionApplication.WinUI/Views/MainWindow.xaml.cs:86
 #: NickvisionApplication.GNOME/Blueprints/shortcuts_dialog.blp:16
 msgid "Open Folder"
 msgstr "Открыть Папку"
@@ -216,7 +220,7 @@ msgstr "Открыть Папку"
 msgid "PREVIEW"
 msgstr ""
 
-#: ../../../../NickvisionApplication.WinUI/Views/MainWindow.xaml.cs:84
+#: ../../../../NickvisionApplication.WinUI/Views/MainWindow.xaml.cs:82
 msgid "Ready"
 msgstr ""
 
@@ -229,7 +233,7 @@ msgid "Restart To Apply Theme?"
 msgstr ""
 
 #: ../../../../NickvisionApplication.WinUI/Views/MainWindow.xaml.cs:75
-#: ../../../../NickvisionApplication.WinUI/Views/MainWindow.xaml.cs:87
+#: ../../../../NickvisionApplication.WinUI/Views/MainWindow.xaml.cs:88
 #: ../../../../NickvisionApplication.WinUI/Views/SettingsDialog.xaml.cs:28
 msgid "Settings"
 msgstr ""
@@ -240,7 +244,7 @@ msgid "Theme"
 msgstr "Тема"
 
 #: ../../../../NickvisionApplication.GNOME/Views/MainWindow.cs:201
-#: ../../../../NickvisionApplication.WinUI/Views/MainWindow.xaml.cs:281
+#: ../../../../NickvisionApplication.WinUI/Views/MainWindow.xaml.cs:282
 #, csharp-format
 msgid "There is {0} file in the folder."
 msgid_plural "There are {0} files in the folder."
@@ -256,7 +260,7 @@ msgstr "Фёдор Соболев https://github.com/fsobolev"
 msgid "Unable to download and install update."
 msgstr ""
 
-#: ../../../../NickvisionApplication.WinUI/Views/MainWindow.xaml.cs:247
+#: ../../../../NickvisionApplication.WinUI/Views/MainWindow.xaml.cs:248
 msgid "Update"
 msgstr ""
 
