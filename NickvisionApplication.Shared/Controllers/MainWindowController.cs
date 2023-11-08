@@ -66,7 +66,7 @@ public class MainWindowController : IDisposable
         Aura.Init("org.nickvision.application", "Nickvision Application");
         AppInfo.EnglishShortName = "Application";
         Aura.Active.SetConfig<Configuration>("config");
-        AppInfo.Version = "2023.9.0-next";
+        AppInfo.Version = "2023.11.0-next";
         AppInfo.ShortName = _("Application");
         AppInfo.Description = _("Create new Nickvision applications");
         AppInfo.SourceRepo = new Uri("https://github.com/NickvisionApps/Application");
@@ -170,17 +170,14 @@ public class MainWindowController : IDisposable
     /// </summary>
     public async Task CheckForUpdatesAsync()
     {
-        if (!AppInfo.IsDevVersion)
+        if (_updater == null)
         {
-            if (_updater == null)
-            {
-                _updater = await Updater.NewAsync();
-            }
-            var version = await _updater!.GetCurrentStableVersionAsync();
-            if (version != null && version > new Version(AppInfo.Version))
-            {
-                NotificationSent?.Invoke(this, new NotificationSentEventArgs(_("New update available."), NotificationSeverity.Success, "update"));
-            }
+            _updater = await Updater.NewAsync();
+        }
+        var version = await _updater!.GetCurrentStableVersionAsync();
+        if (version != null && (!AppInfo.IsDevVersion ? version > new Version(AppInfo.Version) : version >= new Version(AppInfo.Version.Remove(AppInfo.Version.IndexOf('-')))))
+        {
+            NotificationSent?.Invoke(this, new NotificationSentEventArgs(_("New update available."), NotificationSeverity.Success, "update"));
         }
     }
 

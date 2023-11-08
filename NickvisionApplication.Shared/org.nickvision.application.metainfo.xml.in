@@ -31,7 +31,7 @@
     <binary>org.nickvision.application</binary>
   </provides>
   <releases>
-    <release version="2023.8.0-next" date="2023-08-01">
+    <release version="2023.11.0-next" date="2023-11-01">
       <description translatable="no">
         <p>- Initial Release</p>
       </description>
