@@ -9,7 +9,6 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using static Nickvision.Aura.Localization.Gettext;
-using static Nickvision.GirExt.GtkExt;
 
 namespace NickvisionApplication.GNOME.Views;
 
@@ -22,14 +21,13 @@ public partial class MainWindow : Adw.ApplicationWindow
     private readonly Adw.Application _application;
     private readonly Gtk.DropTarget _dropTarget;
 
-    [Gtk.Connect] private readonly Adw.HeaderBar _headerBar;
     [Gtk.Connect] private readonly Adw.WindowTitle _title;
     [Gtk.Connect] private readonly Gtk.Button _openFolderButton;
     [Gtk.Connect] private readonly Gtk.Button _closeFolderButton;
     [Gtk.Connect] private readonly Adw.ToastOverlay _toastOverlay;
     [Gtk.Connect] private readonly Adw.ViewStack _viewStack;
     [Gtk.Connect] private readonly Adw.StatusPage _greeting;
-    [Gtk.Connect] private readonly Gtk.Label _filesLabel;
+    [Gtk.Connect] private readonly Adw.StatusPage _files;
 
     private MainWindow(Gtk.Builder builder, MainWindowController controller, Adw.Application application) : base(builder.GetPointer("_root"), false)
     {
@@ -197,12 +195,7 @@ public partial class MainWindow : Adw.ApplicationWindow
         _viewStack.SetVisibleChildName(_controller.IsFolderOpened ? "Folder" : "NoFolder");
         if (_controller.IsFolderOpened)
         {
-            _headerBar.RemoveCssClass("flat");
-            _filesLabel.SetLabel(_n("There is {0} file in the folder.", "There are {0} files in the folder.", _controller.FilesCount));
-        }
-        else
-        {
-            _headerBar.AddCssClass("flat");
+            _files.SetDescription(_n("There is {0} file in the folder.", "There are {0} files in the folder.", _controller.FilesCount));
         }
     }
 

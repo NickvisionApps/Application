@@ -11,9 +11,8 @@ Adw.ApplicationWindow _root {
   default-width: 800;
   default-height: 600;
 
-  Gtk.Box {
-    orientation: vertical;
-
+  Adw.ToolbarView _toolbarView {
+    [top]
     Adw.HeaderBar _headerBar {
       title-widget: Adw.WindowTitle _title {};
       
@@ -44,11 +43,9 @@ Adw.ApplicationWindow _root {
         tooltip-text: _("Main Menu");
         primary: true;
       }
-
-      styles ["flat"]
     }
-    
-    Adw.ToastOverlay _toastOverlay {
+
+    content: Adw.ToastOverlay _toastOverlay {
       hexpand: true;
       vexpand: true;
       
@@ -71,16 +68,13 @@ Adw.ApplicationWindow _root {
 
         Adw.ViewStackPage {
           name: "Folder";
-          child: Gtk.Box {
-            orientation: vertical;
+          child: Adw.StatusPage _files {
+            icon-name: "folder-documents-symbolic";
 
-            Gtk.Label _filesLabel {
-              hexpand: true;
-              vexpand: true;
-            }
+            styles ["compact"]
           };
         }
       }
-    }
+    };
   }
 }
