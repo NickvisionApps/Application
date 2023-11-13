@@ -9,7 +9,6 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using static Nickvision.Aura.Localization.Gettext;
-using static Nickvision.GirExt.GtkExt;
 
 namespace NickvisionApplication.GNOME.Views;
 
