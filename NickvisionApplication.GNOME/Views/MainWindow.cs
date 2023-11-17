@@ -1,7 +1,7 @@
-﻿using Nickvision.Aura.Taskbar;
+﻿using Nickvision.Aura.Events;
+using Nickvision.Aura.Taskbar;
 using NickvisionApplication.GNOME.Helpers;
 using NickvisionApplication.Shared.Controllers;
-using NickvisionApplication.Shared.Events;
 using System;
 using System.Diagnostics;
 using System.Globalization;
