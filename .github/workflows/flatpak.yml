@@ -31,4 +31,4 @@ jobs:
           manifest-path: flatpak/org.nickvision.application.json
           cache-key: flatpak-builder-${{ github.sha }}
           arch: ${{ matrix.arch }}
-          restore-cache: false
+          restore-cache: true
