@@ -10,6 +10,8 @@ if [ -d "nuget-sources" ]
 then
     mv flatpak/NuGet.config ./
 fi
+
+dotnet workload update
 dotnet tool restore
 dotnet cake --target=Publish --prefix=/app --ui=$1 --self-contained
 
