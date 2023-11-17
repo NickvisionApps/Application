@@ -174,7 +174,7 @@ Recommended IDEs:
 You may also make your changes via any code editor and use [`flatpak-builder`](https://docs.flatpak.org/en/latest/flatpak-builder.html) to run the application locally through flatpak.
 
 You may also build the app manually without using flatpak. List of dependencies:
-- dotnet >=7.0
+- dotnet >=8.0
 - GTK >=4.12
 - libadwaita >=1.4
 - [cake](https://cakebuild.net/) (build only)
