@@ -4,6 +4,7 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>MIT</project_license>
   <name>Application</name>
+  <project_group>Nickvision</project_group>
   <developer_name>Nickvision</developer_name>
   <summary>Create new Nickvision applications</summary>
   <description>
@@ -26,7 +27,6 @@
   <url type="bugtracker">https://github.com/NickvisionApps/Application/issues</url>
   <url type="donation">https://github.com/sponsors/nlogozzo</url>
   <url type="translate">https://github.com/NickvisionApps/Application/blob/master/CONTRIBUTING.md#providing-translations</url>
-  <project_group>Nickvision</project_group>
   <provides>
     <binary>org.nickvision.application</binary>
   </provides>
@@ -38,4 +38,16 @@
     </release>
   </releases>
   <content_rating type="oars-1.1" />
+  <supports>
+    <control>pointing</control>
+    <control>keyboard</control>
+    <control>touch</control>
+  </supports>
+  <requires>
+    <display_length compare="ge">360</display_length>
+  </requires>
+  <custom>
+    <value key="Purism::form_factor">workstation</value>
+    <value key="Purism::form_factor">mobile</value>
+  </custom>
 </component>
