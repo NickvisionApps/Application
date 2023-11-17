@@ -1,7 +1,7 @@
 ﻿using Nickvision.Aura;
+using Nickvision.Aura.Events;
 using Nickvision.Aura.Taskbar;
 using Nickvision.Aura.Update;
-using NickvisionApplication.Shared.Events;
 using NickvisionApplication.Shared.Models;
 using System;
 using System.IO;
