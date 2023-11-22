@@ -44,5 +44,5 @@ public class PreferencesViewController
     /// <summary>
     /// Saves the configuration to disk
     /// </summary>
-    public void SaveConfiguration() => Aura.Active.SaveConfig("config");
+    public void SaveConfiguration() => Configuration.Current.Save();
 }
