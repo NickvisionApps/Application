@@ -161,30 +161,58 @@
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal" Spacing="6">
                                                 <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" FontSize="16" Glyph="&#xE838;"/>
+                                                
                                                 <TextBlock x:Name="HomeOpenFolderButtonLabel" TextWrapping="WrapWholeWords"/>
                                             </StackPanel>
                                         </Button.Content>
+
+                                        <Button.KeyboardAccelerators>
+                                            <KeyboardAccelerator Modifiers="Control" Key="O"/>
+                                        </Button.KeyboardAccelerators>
                                     </Button>
                                 </nickvision:StatusPage.Child>
                             </nickvision:StatusPage>
                         </nickvision:ViewStackPage>
 
                         <nickvision:ViewStackPage PageName="Folder">
-                            <Grid Margin="12,12,12,12" RowSpacing="6">
+                            <Grid>
                                 <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
 
-                                <Border Grid.Row="0" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="8">
-                                    <wct:DockPanel LastChildFill="False">
-                                        <CommandBar wct:DockPanel.Dock="Left" DefaultLabelPosition="Right">
-                                            <AppBarButton x:Name="FolderCloseFolderButton" Icon="UnSyncFolder" Click="CloseFolder"/>
-                                        </CommandBar>
-                                    </wct:DockPanel>
-                                </Border>
-                                
-                                <nickvision:StatusPage x:Name="StatusPageFiles" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" IsCompact="True" Glyph="&#xE130;"/>
+                                <wct:DockPanel Grid.Row="0" LastChildFill="False">
+                                    <CommandBar wct:DockPanel.Dock="Left" DefaultLabelPosition="Right">
+                                        <AppBarButton x:Name="FolderOpenFolderButton" Icon="OpenLocal" Click="OpenFolder">
+                                            <AppBarButton.KeyboardAccelerators>
+                                                <KeyboardAccelerator Modifiers="Control" Key="O"/>
+                                            </AppBarButton.KeyboardAccelerators>
+                                        </AppBarButton>
+
+                                        <AppBarButton x:Name="FolderCloseFolderButton" Icon="UnSyncFolder" Click="CloseFolder">
+                                            <AppBarButton.KeyboardAccelerators>
+                                                <KeyboardAccelerator Modifiers="Control" Key="W"/>
+                                            </AppBarButton.KeyboardAccelerators>
+                                        </AppBarButton>
+                                    </CommandBar>
+                                </wct:DockPanel>
+
+                                <MenuFlyoutSeparator Grid.Row="1"/>
+
+                                <Grid Grid.Row="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="360"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <ListView x:Name="ListFiles" Grid.Column="0" SelectionMode="Extended"/>
+
+                                    <AppBarSeparator Grid.Column="1" Margin="0,-6,0,-6"/>
+
+                                    <nickvision:StatusPage x:Name="StatusPageFiles" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" IsCompact="True" Glyph="&#xE130;"/>
+                                </Grid>
                             </Grid>
                         </nickvision:ViewStackPage>
 

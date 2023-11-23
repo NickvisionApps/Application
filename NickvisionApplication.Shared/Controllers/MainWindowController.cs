@@ -4,7 +4,9 @@ using Nickvision.Aura.Taskbar;
 using Nickvision.Aura.Update;
 using NickvisionApplication.Shared.Models;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using static Nickvision.Aura.Localization.Gettext;
@@ -24,6 +26,10 @@ public class MainWindowController : IDisposable
     /// The path of the folder opened
     /// </summary>
     public string FolderPath { get; private set; }
+    /// <summary>
+    /// The list of files in the folder
+    /// </summary>
+    public string[] Files { get; private set; }
 
     /// <summary>
     /// Gets the AppInfo object
@@ -41,7 +47,7 @@ public class MainWindowController : IDisposable
     /// The number of files in an opened folder
     /// </summary>
     /// <remarks>If no folder opened, value will be -1</remarks>
-    public int FilesCount => IsFolderOpened ? Directory.GetFiles(FolderPath, "*", SearchOption.TopDirectoryOnly).Length : -1;
+    public int FilesCount => Files.Length;
 
     /// <summary>
     /// Occurs when a notification is sent
@@ -80,6 +86,7 @@ public class MainWindowController : IDisposable
         AppInfo.Artists[_("David Lapshin")] = new Uri("https://github.com/daudix-UFO");
         AppInfo.TranslatorCredits = _("translator-credits");
         FolderPath = args.Length > 0 ? args[0] : "";
+        Files = Array.Empty<string>();
     }
 
     /// <summary>
@@ -209,6 +216,7 @@ public class MainWindowController : IDisposable
         if (Directory.Exists(folderPath))
         {
             FolderPath = folderPath;
+            Files = Directory.GetFiles(FolderPath, "*", SearchOption.TopDirectoryOnly);
             NotificationSent?.Invoke(this, new NotificationSentEventArgs(_("Folder Opened: {0}", FolderPath), NotificationSeverity.Success, "close"));
             FolderChanged?.Invoke(this, EventArgs.Empty);
             if (_taskbarItem != null)
@@ -226,6 +234,7 @@ public class MainWindowController : IDisposable
     public void CloseFolder()
     {
         FolderPath = "";
+        Files = Array.Empty<string>();
         NotificationSent?.Invoke(this, new NotificationSentEventArgs(_("Folder closed."), NotificationSeverity.Warning));
         FolderChanged?.Invoke(this, EventArgs.Empty);
         if (_taskbarItem != null)

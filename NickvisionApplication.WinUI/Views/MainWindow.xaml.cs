@@ -1,3 +1,4 @@
+using CommunityToolkit.WinUI.Controls;
 using CommunityToolkit.WinUI.Notifications;
 using Microsoft.UI;
 using Microsoft.UI.Input;
@@ -12,6 +13,7 @@ using Nickvision.Aura.Taskbar;
 using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.WinUI.Controls;
 using System;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using Windows.ApplicationModel.DataTransfer;
@@ -82,7 +84,8 @@ public sealed partial class MainWindow : Window
         StatusPageHome.Title = _controller.Greeting;
         StatusPageHome.Description = _("Open a folder (or drag one into the app) to get started");
         HomeOpenFolderButtonLabel.Text = _("Open Folder");
-        FolderCloseFolderButton.Label = _("Close Folder");
+        FolderOpenFolderButton.Label = _("Open");
+        ToolTipService.SetToolTip(FolderCloseFolderButton, _("Close (Ctrl+W)"));
     }
 
     /// <summary>
@@ -259,9 +262,24 @@ public sealed partial class MainWindow : Window
         NavViewHome.IsSelected = !_controller.IsFolderOpened;
         NavViewFolder.IsEnabled = _controller.IsFolderOpened;
         NavViewFolder.IsSelected = _controller.IsFolderOpened;
+        ListFiles.Items.Clear();
         if (_controller.IsFolderOpened)
         {
             StatusPageFiles.Description = _n("There is {0} file in the folder.", "There are {0} files in the folder.", _controller.FilesCount);
+            foreach(var file in _controller.Files)
+            {
+                ListFiles.Items.Add(new StackPanel()
+                {
+                    Margin = new Thickness(6, 6, 6, 6),
+                    Orientation = Orientation.Vertical,
+                    Spacing = 6,
+                    Children =
+                    {
+                        new TextBlock() { Text = Path.GetFileName(file) },
+                        new TextBlock() { Text = file, Foreground = new SolidColorBrush(Colors.Gray) }
+                    }
+                });
+            }
         }
     }
 
