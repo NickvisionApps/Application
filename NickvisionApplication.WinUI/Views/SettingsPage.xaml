@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+    x:Class="NickvisionApplication.WinUI.Views.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:NickvisionApplication.WinUI.Views"
+    xmlns:nickvision="using:NickvisionApplication.WinUI.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:wct="using:CommunityToolkit.WinUI.Controls"
+    mc:Ignorable="d">
+
+    <ScrollViewer x:Name="ScrollViewer" VerticalScrollBarVisibility="Auto">
+        <StackPanel x:Name="StackPanel" Margin="24,24,24,24" Orientation="Vertical" Spacing="6">
+            <TextBlock x:Name="LblTitle" Margin="0,0,0,24" Style="{ThemeResource NavigationViewItemHeaderTextStyle}" FontSize="22"/>
+
+            <TextBlock x:Name="LblUserInterface" Style="{StaticResource NavigationViewItemHeaderTextStyle}"/>
+
+            <wct:SettingsCard x:Name="CardTheme">
+                <wct:SettingsCard.HeaderIcon>
+                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE790;"/>
+                </wct:SettingsCard.HeaderIcon>
+
+                <ComboBox x:Name="CmbTheme" SelectionChanged="CmbTheme_SelectionChanged"/>
+            </wct:SettingsCard>
+
+            <wct:SettingsCard x:Name="CardAutomaticallyCheckForUpdates">
+                <wct:SettingsCard.HeaderIcon>
+                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE117;"/>
+                </wct:SettingsCard.HeaderIcon>
+
+                <ToggleSwitch x:Name="TglAutomaticallyCheckForUpdates" Toggled="TglAutomaticallyCheckForUpdates_Toggled"/>
+            </wct:SettingsCard>
+
+            <TextBlock x:Name="LblAbout" Style="{StaticResource NavigationViewItemHeaderTextStyle}"/>
+
+            <wct:SettingsExpander x:Name="CardAbout" IsExpanded="True">
+                <wct:SettingsExpander.HeaderIcon>
+                    <ImageIcon Width="128" Height="128" Source="../Resources/org.nickvision.application.ico"/>
+                </wct:SettingsExpander.HeaderIcon>
+
+                <StackPanel Orientation="Horizontal" Spacing="12">
+                    <TextBlock x:Name="LblVersion" VerticalAlignment="Center"/>
+
+                    <Button x:Name="BtnCopyDebugInformation" Style="{ThemeResource AccentButtonStyle}" Click="CopyDebugInformation"/>
+                </StackPanel>
+                
+                <wct:SettingsExpander.Items>
+                    <wct:SettingsCard x:Name="CardChangelog">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE7BC;"/>
+                        </wct:SettingsCard.HeaderIcon>
+                    </wct:SettingsCard>
+
+                    <wct:SettingsCard x:Name="CardCredits">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE716;"/>
+                        </wct:SettingsCard.HeaderIcon>
+                    </wct:SettingsCard>
+                </wct:SettingsExpander.Items>
+            </wct:SettingsExpander>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

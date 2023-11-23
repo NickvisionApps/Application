@@ -196,6 +196,7 @@ public sealed partial class MainWindow : Window
         else if(tag == "Settings")
         {
             ViewStack.CurrentPageName = "Custom";
+            FrameCustom.Content = new SettingsPage(_controller.CreatePreferencesViewController());
         }
         TitleBarSearchBox.Visibility = tag == "Folder" ? Visibility.Visible : Visibility.Collapsed;
         (NavViewHome.Content as ViewStack)!.CurrentPageName = tag == "Home" ? "Selected" : "Unselected";
