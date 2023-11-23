@@ -1,18 +1,21 @@
 using CommunityToolkit.WinUI.Notifications;
 using Microsoft.UI;
+using Microsoft.UI.Input;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls.Primitives;
+using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Nickvision.Aura.Events;
 using Nickvision.Aura.Taskbar;
 using NickvisionApplication.Shared.Controllers;
 using NickvisionApplication.WinUI.Controls;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using Windows.ApplicationModel.DataTransfer;
+using Windows.Foundation;
 using Windows.Graphics;
 using Windows.Storage.Pickers;
 using Windows.System;
@@ -61,31 +64,25 @@ public sealed partial class MainWindow : Window
         AppWindow.TitleBar.PreferredHeightOption = TitleBarHeightOption.Tall;
         AppWindow.TitleBar.ButtonBackgroundColor = Colors.Transparent;
         AppWindow.TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
-        TitlePreview.Text = _controller.AppInfo.IsDevVersion ? _("PREVIEW") : "";
         AppWindow.Title = TitleBarTitle.Text;
         AppWindow.SetIcon(@"Resources\org.nickvision.application.ico");
         TitleBar.Loaded += (sender, e) => SetDragRegionForCustomTitleBar();
         TitleBar.SizeChanged += (sender, e) => SetDragRegionForCustomTitleBar();
         //Localize Strings
-        MenuFile.Title = _("File");
-        MenuOpenFolder.Text = _("Open Folder");
-        MenuCloseFolder.Text = _("Close Folder");
-        MenuExit.Text = _("Exit");
-        MenuEdit.Title = _("Edit");
-        MenuSettings.Text = _("Settings");
-        MenuHelp.Title = _("Help");
+        TitleBarSearchBox.PlaceholderText = _("Search for files");
+        TitleBarPreview.Text = _controller.AppInfo.IsDevVersion ? _("PREVIEW") : "";
+        NavViewHomeLabel.Text = _("Home");
+        NavViewFolderLabel.Text = _("Folder");
+        NavViewHelpLabel.Text = _("Help");
         MenuCheckForUpdates.Text = _("Check for Updates");
         MenuGitHubRepo.Text = _("GitHub Repo");
         MenuReportABug.Text = _("Report a Bug");
         MenuDiscussions.Text = _("Discussions");
-        MenuAbout.Text = _("About {0}", _controller.AppInfo.ShortName);
-        StatusLabel.Text = _("Ready");
+        NavViewSettingsLabel.Text = _("Settings");
         StatusPageHome.Title = _controller.Greeting;
         StatusPageHome.Description = _("Open a folder (or drag one into the app) to get started");
-        LblHomeHelp.Text = _("Application's support channels are accessible via the Help menu.");
         HomeOpenFolderButtonLabel.Text = _("Open Folder");
         FolderCloseFolderButton.Label = _("Close Folder");
-        FolderSettingsButton.Label = _("Settings");
     }
 
     /// <summary>
@@ -116,12 +113,13 @@ public sealed partial class MainWindow : Window
     {
         if (!_isOpened)
         {
-            ViewStack.CurrentPageName = "Startup";
+            NavView.IsEnabled = false;
+            ViewStack.CurrentPageName = "Spinner";
             var accent = (SolidColorBrush)Application.Current.Resources["AccentFillColorDefaultBrush"];
             _controller.TaskbarItem = TaskbarItem.ConnectWindows(_hwnd, new System.Drawing.SolidBrush(System.Drawing.Color.FromArgb(accent.Color.A, accent.Color.R, accent.Color.G, accent.Color.B)), MainGrid.ActualTheme == ElementTheme.Dark ? System.Drawing.Brushes.Black : System.Drawing.Brushes.White);
             await _controller.StartupAsync();
-            MainMenu.IsEnabled = true;
-            ViewStack.CurrentPageName = "Home";
+            NavView.IsEnabled = true;
+            NavViewHome.IsSelected = true;
             _isOpened = true;
         }
     }
@@ -145,49 +143,7 @@ public sealed partial class MainWindow : Window
     {
         //Update TitleBar
         TitleBarTitle.Foreground = (SolidColorBrush)Application.Current.Resources[_isActived ? "WindowCaptionForeground" : "WindowCaptionForegroundDisabled"];
-        MenuFile.Foreground = (SolidColorBrush)Application.Current.Resources[_isActived ? "WindowCaptionForeground" : "WindowCaptionForegroundDisabled"];
-        MenuEdit.Foreground = (SolidColorBrush)Application.Current.Resources[_isActived ? "WindowCaptionForeground" : "WindowCaptionForegroundDisabled"];
-        MenuHelp.Foreground = (SolidColorBrush)Application.Current.Resources[_isActived ? "WindowCaptionForeground" : "WindowCaptionForegroundDisabled"];
         AppWindow.TitleBar.ButtonForegroundColor = ((SolidColorBrush)Application.Current.Resources[_isActived ? "WindowCaptionForeground" : "WindowCaptionForegroundDisabled"]).Color;
-    }
-
-    /// <summary>
-    /// Sets the drag region for the TitleBar
-    /// </summary>
-    /// <exception cref="Exception"></exception>
-    private void SetDragRegionForCustomTitleBar()
-    {
-        var hMonitor = Win32Interop.GetMonitorFromDisplayId(DisplayArea.GetFromWindowId(Win32Interop.GetWindowIdFromWindow(_hwnd), DisplayAreaFallback.Primary).DisplayId);
-        var result = GetDpiForMonitor(hMonitor, Monitor_DPI_Type.MDT_Default, out uint dpiX, out uint _);
-        if (result != 0)
-        {
-            throw new Exception("Could not get DPI for monitor.");
-        }
-        var scaleFactorPercent = (uint)(((long)dpiX * 100 + (96 >> 1)) / 96);
-        var scaleAdjustment = scaleFactorPercent / 100.0;
-        RightPaddingColumn.Width = new GridLength(AppWindow.TitleBar.RightInset / scaleAdjustment);
-        LeftPaddingColumn.Width = new GridLength(AppWindow.TitleBar.LeftInset / scaleAdjustment);
-        var dragRectsList = new List<RectInt32>();
-        RectInt32 dragRectL;
-        dragRectL.X = (int)((LeftPaddingColumn.ActualWidth) * scaleAdjustment);
-        dragRectL.Y = 0;
-        dragRectL.Height = (int)(TitleBar.ActualHeight * scaleAdjustment);
-        dragRectL.Width = (int)((IconColumn.ActualWidth
-                                + TitleColumn.ActualWidth
-                                + LeftDragColumn.ActualWidth) * scaleAdjustment);
-        dragRectsList.Add(dragRectL);
-        RectInt32 dragRectR;
-        dragRectR.X = (int)((LeftPaddingColumn.ActualWidth
-                            + IconColumn.ActualWidth
-                            + TitleBarTitle.ActualWidth
-                            + LeftDragColumn.ActualWidth
-                            + MainMenu.ActualWidth) * scaleAdjustment);
-        dragRectR.Y = 0;
-        dragRectR.Height = (int)(TitleBar.ActualHeight * scaleAdjustment);
-        dragRectR.Width = (int)(RightDragColumn.ActualWidth * scaleAdjustment);
-        dragRectsList.Add(dragRectR);
-        RectInt32[] dragRects = dragRectsList.ToArray();
-        AppWindow.TitleBar.SetDragRectangles(dragRects);
     }
 
     /// <summary>
@@ -219,6 +175,33 @@ public sealed partial class MainWindow : Window
         e.DragUIOverride.IsGlyphVisible = true;
         e.DragUIOverride.IsContentVisible = true;
         e.DragUIOverride.IsCaptionVisible = true;
+    }
+
+    /// <summary>
+    /// Occurs when the NavView's selection has changed
+    /// </summary>
+    /// <param name="sender">NavigationView</param>
+    /// <param name="args">NavigationViewSelectionChangedEventArgs</param>
+    private void NavView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+    {
+        var tag = (NavView.SelectedItem as NavigationViewItem)!.Tag as string;
+        if(tag == "Home")
+        {
+            ViewStack.CurrentPageName = "Home";
+        }
+        else if (tag == "Folder")
+        {
+            ViewStack.CurrentPageName = "Folder";
+        }
+        else if(tag == "Settings")
+        {
+            ViewStack.CurrentPageName = "Custom";
+        }
+        TitleBarSearchBox.Visibility = tag == "Folder" ? Visibility.Visible : Visibility.Collapsed;
+        (NavViewHome.Content as ViewStack)!.CurrentPageName = tag == "Home" ? "Selected" : "Unselected";
+        (NavViewFolder.Content as ViewStack)!.CurrentPageName = tag == "Folder" ? "Selected" : "Unselected";
+        (NavViewSettings.Content as ViewStack)!.CurrentPageName = tag == "Settings" ? "Selected" : "Unselected";
+        SetDragRegionForCustomTitleBar();
     }
 
     /// <summary>
@@ -272,13 +255,11 @@ public sealed partial class MainWindow : Window
     /// <param name="e">EventArgs</param>
     private void FolderChanged(object? sender, EventArgs e)
     {
-        ViewStack.CurrentPageName = _controller.IsFolderOpened ? "Folder" : "Home";
-        MenuCloseFolder.IsEnabled = _controller.IsFolderOpened;
-        StatusBar.Visibility = _controller.IsFolderOpened ? Visibility.Visible : Visibility.Collapsed;
+        NavViewHome.IsSelected = !_controller.IsFolderOpened;
+        NavViewFolder.IsEnabled = _controller.IsFolderOpened;
+        NavViewFolder.IsSelected = _controller.IsFolderOpened;
         if (_controller.IsFolderOpened)
         {
-            StatusIcon.Glyph = "\xE8B7";
-            StatusLabel.Text = _controller.FolderPath;
             StatusPageFiles.Description = _n("There is {0} file in the folder.", "There are {0} files in the folder.", _controller.FilesCount);
         }
     }
@@ -312,25 +293,11 @@ public sealed partial class MainWindow : Window
     }
 
     /// <summary>
-    /// Occurs when the exit menu item is clicked
+    /// Occurs when the NavViewHelp item is tapped
     /// </summary>
     /// <param name="sender">object</param>
-    /// <param name="e">RoutedEventArgs</param>
-    private void Exit(object sender, RoutedEventArgs e) => Close();
-
-    /// <summary>
-    /// Occurs when the settings menu item is clicked
-    /// </summary>
-    /// <param name="sender">object</param>
-    /// <param name="e">RoutedEventArgs</param>
-    private async void Settings(object sender, RoutedEventArgs e)
-    {
-        var settingsDialog = new SettingsDialog(_controller.CreatePreferencesViewController())
-        {
-            XamlRoot = MainGrid.XamlRoot
-        };
-        await settingsDialog.ShowAsync();
-    }
+    /// <param name="e">TappedRoutedEventArgs</param>
+    private void NavViewHelp_Tapped(object sender, TappedRoutedEventArgs e) => FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
 
     /// <summary>
     /// Occurs when the check for updates menu item is clicked
@@ -346,13 +313,18 @@ public sealed partial class MainWindow : Window
     /// <param name="e">RoutedEventArgs</param>
     private async void WindowsUpdate(object sender, RoutedEventArgs e)
     {
-        MainMenu.IsEnabled = false;
-        InfoBar.IsOpen = false;
+        NavView.IsEnabled = false;
+        var searchVisibility = TitleBarSearchBox.Visibility;
         var page = ViewStack.CurrentPageName;
-        ViewStack.CurrentPageName = "Startup";
+        TitleBarSearchBox.Visibility = Visibility.Collapsed;
+        ViewStack.CurrentPageName = "Spinner";
+        SetDragRegionForCustomTitleBar();
         if (!(await _controller.WindowsUpdateAsync()))
         {
+            NavView.IsEnabled = true;
+            TitleBarSearchBox.Visibility = searchVisibility;
             ViewStack.CurrentPageName = page;
+            SetDragRegionForCustomTitleBar();
         }
     }
 
@@ -378,16 +350,21 @@ public sealed partial class MainWindow : Window
     private async void Discussions(object sender, RoutedEventArgs e) => await Launcher.LaunchUriAsync(_controller.AppInfo.SupportUrl);
 
     /// <summary>
-    /// Occurs when the about menu item is clicked
+    /// Sets the drag region for the TitleBar
     /// </summary>
-    /// <param name="sender">object</param>
-    /// <param name="e">RoutedEventArgs</param>
-    private async void About(object sender, RoutedEventArgs e)
+    private void SetDragRegionForCustomTitleBar()
     {
-        var aboutDialog = new AboutDialog(_controller.AppInfo)
-        {
-            XamlRoot = MainGrid.XamlRoot
-        };
-        await aboutDialog.ShowAsync();
+        double scaleAdjustment = TitleBar.XamlRoot.RasterizationScale;
+        RightPaddingColumn.Width = new GridLength(AppWindow.TitleBar.RightInset / scaleAdjustment);
+        LeftPaddingColumn.Width = new GridLength(AppWindow.TitleBar.LeftInset / scaleAdjustment);
+        var transform = TitleBarSearchBox.TransformToVisual(null);
+        var bounds = transform.TransformBounds(new Rect(0, 0, TitleBarSearchBox.ActualWidth, TitleBarSearchBox.ActualHeight));
+        var searchBoxRect = new RectInt32((int)Math.Round(bounds.X * scaleAdjustment), (int)Math.Round(bounds.Y * scaleAdjustment), (int)Math.Round(bounds.Width * scaleAdjustment), (int)Math.Round(bounds.Height * scaleAdjustment));
+        transform = TitleBarPreview.TransformToVisual(null);
+        bounds = transform.TransformBounds(new Rect(0, 0, TitleBarPreview.ActualWidth, TitleBarPreview.ActualHeight));
+        var previewRect = new RectInt32((int)Math.Round(bounds.X * scaleAdjustment), (int)Math.Round(bounds.Y * scaleAdjustment), (int)Math.Round(bounds.Width * scaleAdjustment), (int)Math.Round(bounds.Height * scaleAdjustment));
+        var rectArray = new RectInt32[] { searchBoxRect, previewRect };
+        var nonClientInputSrc = InputNonClientPointerSource.GetForWindowId(AppWindow.Id);
+        nonClientInputSrc.SetRegionRects(NonClientRegionKind.Passthrough, rectArray);
     }
 }
