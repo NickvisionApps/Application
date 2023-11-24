@@ -1,4 +1,3 @@
-using CommunityToolkit.WinUI.Controls;
 using CommunityToolkit.WinUI.Notifications;
 using Microsoft.UI;
 using Microsoft.UI.Input;
@@ -188,7 +187,7 @@ public sealed partial class MainWindow : Window
     private void NavView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
     {
         var tag = (NavView.SelectedItem as NavigationViewItem)!.Tag as string;
-        if(tag == "Home")
+        if (tag == "Home")
         {
             ViewStack.CurrentPageName = "Home";
         }
@@ -196,7 +195,7 @@ public sealed partial class MainWindow : Window
         {
             ViewStack.CurrentPageName = "Folder";
         }
-        else if(tag == "Settings")
+        else if (tag == "Settings")
         {
             ViewStack.CurrentPageName = "Custom";
             FrameCustom.Content = new SettingsPage(_controller.CreatePreferencesViewController());
@@ -263,7 +262,7 @@ public sealed partial class MainWindow : Window
         if (_controller.IsFolderOpened)
         {
             StatusPageFiles.Description = _n("There is {0} file in the folder.", "There are {0} files in the folder.", _controller.FilesCount);
-            foreach(var file in _controller.Files)
+            foreach (var file in _controller.Files)
             {
                 ListFiles.Items.Add(new StackPanel()
                 {

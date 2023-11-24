@@ -61,7 +61,7 @@ public sealed partial class SettingsPage : UserControl
     /// </summary>
     private async Task ApplyChangesAsync()
     {
-        if(_constructing)
+        if (_constructing)
         {
             return;
         }

@@ -23,9 +23,9 @@ public sealed partial class StoreNavigationView : NavigationView
     /// <param name="args">NavigationViewSelectionChangedEventArgs</param>
     private void StoreNavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
     {
-        foreach(var i in MenuItems)
+        foreach (var i in MenuItems)
         {
-            if(i is StoreNavigationViewItem item)
+            if (i is StoreNavigationViewItem item)
             {
                 item.IsSelected = ReferenceEquals(i, SelectedItem);
             }
