@@ -8,9 +8,7 @@
     <Application.Resources>
         <controls:XamlControlsResources>
             <controls:XamlControlsResources.MergedDictionaries>
-                <ResourceDictionary>
-                    <x:Double x:Key="ContentDialogMaxWidth">700</x:Double>
-                </ResourceDictionary>
+
             </controls:XamlControlsResources.MergedDictionaries>
         </controls:XamlControlsResources>
     </Application.Resources>

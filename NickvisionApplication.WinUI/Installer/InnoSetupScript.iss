@@ -3,7 +3,7 @@
 
 #define MyAppName "Nickvision Application"
 #define MyAppShortName "Application"
-#define MyAppVersion "2023.9.0"
+#define MyAppVersion "2023.11.0"
 #define MyAppPublisher "Nickvision"
 #define MyAppURL "https://nickvision.org"
 #define MyAppExeName "NickvisionApplication.WinUI.exe"

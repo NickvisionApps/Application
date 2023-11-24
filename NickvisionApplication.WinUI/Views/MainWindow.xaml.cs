@@ -73,14 +73,14 @@ public sealed partial class MainWindow : Window
         //Localize Strings
         TitleBarSearchBox.PlaceholderText = _("Search for files");
         TitleBarPreview.Text = _controller.AppInfo.IsDevVersion ? _("PREVIEW") : "";
-        NavViewHomeLabel.Text = _("Home");
-        NavViewFolderLabel.Text = _("Folder");
-        NavViewHelpLabel.Text = _("Help");
+        NavViewHome.PageName = _("Home");
+        NavViewFolder.PageName = _("Folder");
+        NavViewHelp.PageName = _("Help");
         MenuCheckForUpdates.Text = _("Check for Updates");
         MenuGitHubRepo.Text = _("GitHub Repo");
         MenuReportABug.Text = _("Report a Bug");
         MenuDiscussions.Text = _("Discussions");
-        NavViewSettingsLabel.Text = _("Settings");
+        NavViewSettings.PageName = _("Settings");
         StatusPageHome.Title = _controller.Greeting;
         StatusPageHome.Description = _("Open a folder (or drag one into the app) to get started");
         HomeOpenFolderButtonLabel.Text = _("Open Folder");
@@ -202,9 +202,6 @@ public sealed partial class MainWindow : Window
             FrameCustom.Content = new SettingsPage(_controller.CreatePreferencesViewController());
         }
         TitleBarSearchBox.Visibility = tag == "Folder" ? Visibility.Visible : Visibility.Collapsed;
-        (NavViewHome.Content as ViewStack)!.CurrentPageName = tag == "Home" ? "Selected" : "Unselected";
-        (NavViewFolder.Content as ViewStack)!.CurrentPageName = tag == "Folder" ? "Selected" : "Unselected";
-        (NavViewSettings.Content as ViewStack)!.CurrentPageName = tag == "Settings" ? "Selected" : "Unselected";
         SetDragRegionForCustomTitleBar();
     }
 
