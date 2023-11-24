@@ -6,10 +6,10 @@
     xmlns:local="using:NickvisionApplication.WinUI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+    mc:Ignorable="d" Height="64" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
 
     <NavigationViewItem.Content>
-        <local:ViewStack x:Name="ViewStack" Margin="0,12,-6,12" Height="44">
+        <local:ViewStack x:Name="ViewStack" Margin="-6,0,-12,0">
             <local:ViewStack.Pages>
                 <local:ViewStackPage PageName="Unselected">
                     <StackPanel Orientation="Vertical" Spacing="6">

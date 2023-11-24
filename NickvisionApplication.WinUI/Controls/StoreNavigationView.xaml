@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" 
     IsBackButtonVisible="Collapsed" IsPaneToggleButtonVisible="False" IsSettingsVisible="False" 
-    PaneDisplayMode="Left" OpenPaneLength="76">
+    PaneDisplayMode="Left" OpenPaneLength="80">
 
     
 </NavigationView>

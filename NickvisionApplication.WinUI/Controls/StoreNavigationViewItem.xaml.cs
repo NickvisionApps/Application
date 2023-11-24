@@ -71,6 +71,7 @@ public sealed partial class StoreNavigationViewItem : NavigationViewItem, INotif
         set
         {
             SetValue(PageNameProperty, value);
+            ToolTipService.SetToolTip(this, value);
             NotifyPropertyChanged();
         }
     }
