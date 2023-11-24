@@ -4,8 +4,6 @@ using Microsoft.UI.Input;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Nickvision.Aura.Events;
 using Nickvision.Aura.Taskbar;
@@ -306,13 +304,6 @@ public sealed partial class MainWindow : Window
         InfoBar.IsOpen = false;
         _controller.CloseFolder();
     }
-
-    /// <summary>
-    /// Occurs when the NavViewHelp item is tapped
-    /// </summary>
-    /// <param name="sender">object</param>
-    /// <param name="e">TappedRoutedEventArgs</param>
-    private void NavViewHelp_Tapped(object sender, TappedRoutedEventArgs e) => FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
 
     /// <summary>
     /// Occurs when the check for updates menu item is clicked

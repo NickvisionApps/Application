@@ -49,7 +49,7 @@
             </nickvision:StoreNavigationView.MenuItems>
 
             <nickvision:StoreNavigationView.FooterMenuItems>
-                <nickvision:StoreNavigationViewItem x:Name="NavViewHelp" Icon="&#xE897;" SelectsOnInvoked="False" Tapped="NavViewHelp_Tapped">
+                <nickvision:StoreNavigationViewItem x:Name="NavViewHelp" Icon="&#xE897;" FlyoutMode="True">
                     <FlyoutBase.AttachedFlyout>
                         <MenuFlyout>
                             <MenuFlyoutItem x:Name="MenuCheckForUpdates" Click="CheckForUpdates">
