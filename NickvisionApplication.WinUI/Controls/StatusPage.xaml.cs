@@ -11,7 +11,7 @@ namespace NickvisionApplication.WinUI.Controls;
 public sealed partial class StatusPage : UserControl, INotifyPropertyChanged
 {
     public static DependencyProperty GlyphProperty { get; } = DependencyProperty.Register("Glyph", typeof(string), typeof(StatusPage), new PropertyMetadata("", (sender, e) => (sender as StatusPage)?.NotifyPropertyChanged(nameof(Glyph))));
-    public static DependencyProperty UseAppIconProperty { get; } = DependencyProperty.Register("UseAppIcon", typeof(bool), typeof(StatusPage), new PropertyMetadata("", (sender, e) => (sender as StatusPage)?.NotifyPropertyChanged(nameof(UseAppIcon))));
+    public static DependencyProperty UseAppIconProperty { get; } = DependencyProperty.Register("UseAppIcon", typeof(bool), typeof(StatusPage), new PropertyMetadata(false, (sender, e) => (sender as StatusPage)?.NotifyPropertyChanged(nameof(UseAppIcon))));
     public static DependencyProperty TitleProperty { get; } = DependencyProperty.Register("Title", typeof(string), typeof(StatusPage), new PropertyMetadata("", (sender, e) => (sender as StatusPage)?.NotifyPropertyChanged(nameof(Title))));
     public static DependencyProperty DescriptionProperty { get; } = DependencyProperty.Register("Description", typeof(string), typeof(StatusPage), new PropertyMetadata("", (sender, e) => (sender as StatusPage)?.NotifyPropertyChanged(nameof(Description))));
     public static DependencyProperty ChildProperty { get; } = DependencyProperty.Register("Child", typeof(UIElement), typeof(StatusPage), new PropertyMetadata(null, (sender, e) => (sender as StatusPage)?.NotifyPropertyChanged(nameof(Child))));
