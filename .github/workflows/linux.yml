@@ -43,7 +43,7 @@ jobs:
         uses: johnwason/vcpkg-action@v5
         id: vcpkg
         with:
-          pkgs: libnick
+          pkgs: libnick libxmlpp
           triplet: x64-linux
           cache-key: ${{ matrix.config.os }}
           revision: a1a1cbc975abf909a6c8985a6a2b8fe20bbd9bd6
