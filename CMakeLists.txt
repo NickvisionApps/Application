@@ -14,7 +14,8 @@ if (POLICY CMP0141)
 	set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
 endif()
 
-project("application" LANGUAGES C CXX VERSION 2024.1.0 DESCRIPTION "Create new Nickvision applications.")
+project("org.nickvision.application" LANGUAGES C CXX VERSION 2024.1.0 DESCRIPTION "Create new Nickvision applications.")
+set(SHORT_NAME "application")
 include(GNUInstallDirs)
 
 find_program(GETTEXT_XGETTEXT_EXECUTABLE xgettext)
@@ -22,7 +23,7 @@ find_program(GETTEXT_MSGMERGE_EXECUTABLE msgmerge)
 find_program(GETTEXT_MSGFMT_EXECUTABLE msgfmt)
 file(STRINGS "${CMAKE_SOURCE_DIR}/resources/po/POTFILES" TRANSLATE_FILES)
 file(STRINGS "${CMAKE_SOURCE_DIR}/resources/po/LINGUAS" LINGUAS)
-set(POT_FILE "${CMAKE_SOURCE_DIR}/resources/po/${PROJECT_NAME}.pot")
+set(POT_FILE "${CMAKE_SOURCE_DIR}/resources/po/${SHORT_NAME}.pot")
 set(HAS_GETTEXT GETTEXT_XGETTEXT_EXECUTABLE AND GETTEXT_MSGMERGE_EXECUTABLE and GETTEXT_MSGFMT_EXECUTABLE)
 
 add_subdirectory("libapplication")
