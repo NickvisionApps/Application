@@ -36,7 +36,7 @@ jobs:
           mkdir build
           sudo apt-get install xdg-user-dirs -y
           xdg-user-dirs-update
-          sudo apt-get install gettext tzdata locales libglib2.0-dev blueprint-compiler -y
+          sudo apt-get install gettext tzdata locales libglib2.0-dev blueprint-compiler libgtk-4-dev libadwaita-1-dev -y
           sudo locale-gen en_US.UTF-8
           sudo update-locale LANG=en_US.UTF-8
       - name: "Vcpkg"
