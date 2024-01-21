@@ -97,7 +97,7 @@ Enhancement suggestions are tracked as [GitHub issues](https://github.com/Nickvi
 
 - Use a **clear and descriptive title** for the issue to identify the suggestion.
 - Provide a **step-by-step description of the suggested enhancement** in as many details as possible.
-    - For enhancements to existing functionallity, **describe the current behavior** and **explain which behavior you expected to see instead** and why. At this point you can also tell which alternatives do not work for you.
+    - For enhancements to existing functionality, **describe the current behavior** and **explain which behavior you expected to see instead** and why. At this point you can also tell which alternatives do not work for you.
     - For completely new features, **describe what you would like to see from this new feature** in terms of **both functionality and design**. Providing mockups, even if in sketch format, greatly help the team envision what you would like to see.
 - **Explain why this enhancement would be useful** to most Application users. You may also want to point out similar projects of other platforms and their solutions to serve as inspiration.
 
