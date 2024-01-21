@@ -1,0 +1,376 @@
+# Russian translation for Nickvision Application
+# Copyright (C) 2023 Nicholas Logozzo
+# This file is distributed under the same license as the Nickvision Application package.
+# Fyodor Sobolev, 2023
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-19 22:58-0600\n"
+"PO-Revision-Date: 2023-05-23 06:33+0300\n"
+"Last-Translator: Fyodor Sobolev\n"
+"Language-Team: Russian\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+
+#: libapplication/src/controllers/mainwindowcontroller.cpp:26
+msgid "Application"
+msgstr "Application"
+
+#: libapplication/src/controllers/mainwindowcontroller.cpp:27
+msgid "Create new Nickvision applications"
+msgstr "Создавайте новые приложения Nickvision"
+
+#: libapplication/src/controllers/mainwindowcontroller.cpp:31
+msgid "Matrix Chat"
+msgstr "Чат Matrix"
+
+#: libapplication/src/controllers/mainwindowcontroller.cpp:33
+#, fuzzy
+msgid "Contributors on GitHub"
+msgstr "Соавторы на GitHub ❤️"
+
+#: libapplication/src/controllers/mainwindowcontroller.cpp:35
+msgid "Fyodor Sobolev"
+msgstr "Фёдор Соболев"
+
+#: libapplication/src/controllers/mainwindowcontroller.cpp:37
+msgid "David Lapshin"
+msgstr "Давид Лапшин"
+
+#: libapplication/src/controllers/mainwindowcontroller.cpp:38
+msgid "translator-credits"
+msgstr "Фёдор Соболев https://github.com/fsobolev"
+
+#: libapplication/src/controllers/mainwindowcontroller.cpp:114
+msgctxt "Night"
+msgid "Good Morning!"
+msgstr "Доброй ночи!"
+
+#: libapplication/src/controllers/mainwindowcontroller.cpp:118
+msgctxt "Morning"
+msgid "Good Morning!"
+msgstr "Доброе утро!"
+
+#: libapplication/src/controllers/mainwindowcontroller.cpp:122
+msgid "Good Afternoon!"
+msgstr "Добрый день!"
+
+#: libapplication/src/controllers/mainwindowcontroller.cpp:126
+msgid "Good Evening!"
+msgstr "Добрый вечер!"
+
+#: libapplication/src/controllers/mainwindowcontroller.cpp:128
+msgid "Good Day!"
+msgstr "Здравствуйте!"
+
+#: libapplication/src/controllers/mainwindowcontroller.cpp:161
+msgid "New update available"
+msgstr ""
+
+#: libapplication/src/controllers/mainwindowcontroller.cpp:176
+msgid "Unable to download and install update"
+msgstr ""
+
+#: libapplication/src/controllers/mainwindowcontroller.cpp:199
+#, fuzzy
+msgid "Folder Opened: {}"
+msgstr "Папка открыта: {0}"
+
+#: libapplication/src/controllers/mainwindowcontroller.cpp:211
+#, fuzzy
+msgid "Folder closed"
+msgstr "Папка закрыта."
+
+#: org.nickvision.application.gnome/blueprints/main_window.blp:5
+#: org.nickvision.application.gnome/blueprints/preferences_dialog.blp:10
+#: org.nickvision.application.gnome/blueprints/shortcuts_dialog.blp:30
+msgid "Preferences"
+msgstr "Параметры"
+
+#: org.nickvision.application.gnome/blueprints/main_window.blp:6
+#: org.nickvision.application.gnome/blueprints/shortcuts_dialog.blp:35
+msgid "Keyboard Shortcuts"
+msgstr "Комбинации клавиш"
+
+#: org.nickvision.application.gnome/blueprints/main_window.blp:7
+#: org.nickvision.application.gnome/blueprints/shortcuts_dialog.blp:40
+msgid "About Application"
+msgstr "О приложении"
+
+#: org.nickvision.application.gnome/blueprints/main_window.blp:21
+msgid "Open Folder (Ctrl+O)"
+msgstr "Открыть папку (Ctrl+O)"
+
+#: org.nickvision.application.gnome/blueprints/main_window.blp:26
+#: org.nickvision.application.gnome/blueprints/main_window.blp:59
+#: org.nickvision.application.gnome/src/views/mainwindow.cpp:99
+#: org.nickvision.application.winui/MainWindow.xaml.cpp:75
+msgid "Open"
+msgstr "Открыть"
+
+#: org.nickvision.application.gnome/blueprints/main_window.blp:34
+msgid "Close Folder (Ctrl+W)"
+msgstr "Закрыть папку (Ctrl+W)"
+
+#: org.nickvision.application.gnome/blueprints/main_window.blp:43
+msgid "Main Menu"
+msgstr "Главное меню"
+
+#: org.nickvision.application.gnome/blueprints/main_window.blp:57
+msgid "Open a folder (or drag one into the app) to get started."
+msgstr "Откройте или перетащите папку, чтобы начать."
+
+#: org.nickvision.application.gnome/blueprints/preferences_dialog.blp:14
+#: org.nickvision.application.winui/SettingsPage.xaml.cpp:21
+msgid "User Interface"
+msgstr "Интерфейс"
+
+#: org.nickvision.application.gnome/blueprints/preferences_dialog.blp:17
+#: org.nickvision.application.winui/SettingsPage.xaml.cpp:22
+msgid "Theme"
+msgstr "Тема"
+
+#: org.nickvision.application.gnome/blueprints/preferences_dialog.blp:19
+#: org.nickvision.application.winui/SettingsPage.xaml.cpp:24
+msgctxt "Theme"
+msgid "Light"
+msgstr "Светлая"
+
+#: org.nickvision.application.gnome/blueprints/preferences_dialog.blp:19
+#: org.nickvision.application.winui/SettingsPage.xaml.cpp:25
+msgctxt "Theme"
+msgid "Dark"
+msgstr "Тёмная"
+
+#: org.nickvision.application.gnome/blueprints/preferences_dialog.blp:19
+#: org.nickvision.application.winui/SettingsPage.xaml.cpp:26
+msgctxt "Theme"
+msgid "System"
+msgstr "Системная"
+
+#: org.nickvision.application.gnome/blueprints/shortcuts_dialog.blp:13
+msgctxt "Shortcut"
+msgid "Folder"
+msgstr "Папка"
+
+#: org.nickvision.application.gnome/blueprints/shortcuts_dialog.blp:16
+#: org.nickvision.application.gnome/src/views/mainwindow.cpp:122
+#: org.nickvision.application.winui/MainWindow.xaml.cpp:74
+msgid "Open Folder"
+msgstr "Открыть Папку"
+
+#: org.nickvision.application.gnome/blueprints/shortcuts_dialog.blp:21
+msgid "Close Folder"
+msgstr "Закрыть папку"
+
+#: org.nickvision.application.gnome/blueprints/shortcuts_dialog.blp:27
+msgctxt "Shortcut"
+msgid "Application"
+msgstr "Приложение"
+
+#: org.nickvision.application.gnome/blueprints/shortcuts_dialog.blp:45
+msgid "Quit"
+msgstr "Выход"
+
+#: org.nickvision.application.gnome/src/views/mainwindow.cpp:91
+#: org.nickvision.application.winui/MainWindow.xaml.cpp:202
+msgid "Close"
+msgstr "Закрыть"
+
+#: org.nickvision.application.gnome/src/views/mainwindow.cpp:108
+#: org.nickvision.application.winui/MainWindow.xaml.cpp:250
+#, fuzzy
+msgid "There is {} file in the folder."
+msgid_plural "There are {} files in the folder."
+msgstr[0] "В папке {0} файл."
+msgstr[1] "В папке {0} файла."
+msgstr[2] "В папке {0} файлов."
+
+#: org.nickvision.application.gnome/src/views/mainwindow.cpp:185
+#: org.nickvision.application.winui/MainWindow.xaml.cpp:68
+msgid "GitHub Repo"
+msgstr "Репозиторий GitHub"
+
+#. Localize Strings
+#: org.nickvision.application.winui/MainWindow.xaml.cpp:61
+msgid "Search for Files"
+msgstr ""
+
+#: org.nickvision.application.winui/MainWindow.xaml.cpp:62
+msgid "Home"
+msgstr ""
+
+#: org.nickvision.application.winui/MainWindow.xaml.cpp:63
+#, fuzzy
+msgid "Folder"
+msgstr "Папка"
+
+#: org.nickvision.application.winui/MainWindow.xaml.cpp:64
+msgid "Help"
+msgstr ""
+
+#: org.nickvision.application.winui/MainWindow.xaml.cpp:65
+msgid "Check for Updates"
+msgstr ""
+
+#: org.nickvision.application.winui/MainWindow.xaml.cpp:66
+msgid "Copy Debug Information"
+msgstr ""
+
+#: org.nickvision.application.winui/MainWindow.xaml.cpp:67
+msgid "Changelog"
+msgstr ""
+
+#: org.nickvision.application.winui/MainWindow.xaml.cpp:69
+msgid "Report a Bug"
+msgstr ""
+
+#: org.nickvision.application.winui/MainWindow.xaml.cpp:70
+msgid "Discussions"
+msgstr ""
+
+#: org.nickvision.application.winui/MainWindow.xaml.cpp:71
+msgid "Credits"
+msgstr ""
+
+#. Localize Strings
+#: org.nickvision.application.winui/MainWindow.xaml.cpp:72
+#: org.nickvision.application.winui/SettingsPage.xaml.cpp:20
+msgid "Settings"
+msgstr ""
+
+#: org.nickvision.application.winui/MainWindow.xaml.cpp:73
+#, fuzzy
+msgid "Open a folder (or drag one into the app) to get started"
+msgstr "Откройте или перетащите папку, чтобы начать."
+
+#: org.nickvision.application.winui/MainWindow.xaml.cpp:76
+#, fuzzy
+msgid "Close (Ctrl+W)"
+msgstr "Закрыть папку (Ctrl+W)"
+
+#. Localize Strings
+#: org.nickvision.application.winui/MainWindow.xaml.cpp:88
+msgid "PREVIEW"
+msgstr ""
+
+#: org.nickvision.application.winui/MainWindow.xaml.cpp:95
+msgid ""
+"Developers:\n"
+"{}\n"
+"Designers:\n"
+"{}\n"
+"Artists:\n"
+"{}"
+msgstr ""
+
+#: org.nickvision.application.winui/MainWindow.xaml.cpp:99
+msgid ""
+"Developers:\n"
+"{}\n"
+"Designers:\n"
+"{}\n"
+"Artists:\n"
+"{}\n"
+"Translators:\n"
+"{}"
+msgstr ""
+
+#: org.nickvision.application.winui/MainWindow.xaml.cpp:141
+msgid "Drop here to open folder"
+msgstr ""
+
+#: org.nickvision.application.winui/MainWindow.xaml.cpp:197
+msgid "Update"
+msgstr ""
+
+#: org.nickvision.application.winui/MainWindow.xaml.cpp:309
+msgid "Debug information copied to clipboard."
+msgstr ""
+
+#: org.nickvision.application.winui/SettingsPage.xaml.cpp:23
+msgid "An application restart is required to change the theme."
+msgstr ""
+
+#: org.nickvision.application.winui/SettingsPage.xaml.cpp:27
+msgid "Automatically Check for Updates"
+msgstr ""
+
+#: org.nickvision.application.winui/SettingsPage.xaml.cpp:28
+#, fuzzy
+msgid "On"
+msgstr "Открыть"
+
+#: org.nickvision.application.winui/SettingsPage.xaml.cpp:29
+msgid "Off"
+msgstr ""
+
+#: org.nickvision.application.winui/SettingsPage.xaml.cpp:67
+msgid "Restart To Apply Theme?"
+msgstr ""
+
+#: org.nickvision.application.winui/SettingsPage.xaml.cpp:68
+msgid ""
+"Would you like to restart the app to apply the new theme?\n"
+"Any unsaved work will be lost."
+msgstr ""
+
+#: org.nickvision.application.winui/SettingsPage.xaml.cpp:69
+msgid "Yes"
+msgstr ""
+
+#: org.nickvision.application.winui/SettingsPage.xaml.cpp:70
+msgid "No"
+msgstr ""
+
+#~ msgid "Are you sure you want to close the folder?"
+#~ msgstr "Вы уверены, что хотите закрыть папку?"
+
+#~ msgid "Cancel"
+#~ msgstr "Отмена"
+
+#~ msgid "Close Folder?"
+#~ msgstr "Закрыть папку?"
+
+#~ msgid "DaPigGuy"
+#~ msgstr "DaPigGuy"
+
+#~ msgid "Nicholas Logozzo"
+#~ msgstr "Nicholas Logozzo"
+
+#~ msgid "Template;Nickvision;"
+#~ msgstr "Заготовка;Nickvision"
+
+#~ msgid "Recipe for the Ultimate Power:"
+#~ msgstr "Рецепт Безграничной Мощи:"
+
+#~ msgid "— C#"
+#~ msgstr "— C#"
+
+#~ msgid "— gir.core"
+#~ msgstr "— gir.core"
+
+#~ msgid "— Avalonia"
+#~ msgstr "— Avalonia"
+
+#~ msgid "— Shaken, not stirred"
+#~ msgstr "— Смешать, но не взбалтывать"
+
+#~ msgid ""
+#~ "Nicholas Logozzo {0}\n"
+#~ "Fyodor Sobolev {1}"
+#~ msgstr ""
+#~ "Nicholas Logozzo {0}\n"
+#~ "Фёдор Соболев {1}"
+
+#~ msgid "No Folder Opened"
+#~ msgstr "Папка не открыта"
+
+#~ msgid "Customize the application's user interface."
+#~ msgstr "Настройте интерфейс приложения."

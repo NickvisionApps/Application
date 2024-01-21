@@ -1,0 +1,51 @@
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+    types: [ "review_requested", "ready_for_review" ]
+  workflow_dispatch:
+name: Windows
+permissions:
+  id-token: write
+  contents: read
+env:
+  BUILD_TYPE: Release
+  GITHUB_ACTIONS: true
+  VCPKG_ROOT: ${{github.workspace}}/vcpkg
+jobs:
+  build:
+    name: ${{ matrix.config.name }}
+    runs-on: ${{ matrix.config.os }}
+    strategy:
+      matrix:
+        config:
+        - name: "Build on x64"
+          os: windows-latest
+      fail-fast: false
+    steps:
+      - name: "Checkout"  
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: "Setup Environment"
+        run: mkdir build
+      - name: "Vcpkg"
+        uses: johnwason/vcpkg-action@v5
+        id: vcpkg
+        with:
+          pkgs: libnick
+          triplet: x64-windows
+          cache-key: ${{ matrix.config.os }}
+          revision: a1a1cbc975abf909a6c8985a6a2b8fe20bbd9bd6
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: "Build"
+        working-directory: ${{github.workspace}}/build
+        run: |
+          cmake -G "Visual Studio 17 2022" ..
+          cmake --build . --config ${{env.BUILD_TYPE}}
+      - name: Upload
+        uses: actions/upload-artifact@v3
+        with:
+          path: ${{github.workspace}}/build/org.nickvision.application.winui/Release
+          name: Windows-x64-${{env.BUILD_TYPE}}

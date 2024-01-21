@@ -1,0 +1,63 @@
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+    types: [ "review_requested", "ready_for_review" ]
+  workflow_dispatch:
+name: Linux
+permissions:
+  id-token: write
+  contents: read
+env:
+  BUILD_TYPE: Release
+  GITHUB_ACTIONS: true
+  VCPKG_ROOT: ${{github.workspace}}/vcpkg
+jobs:
+  build:
+    name: ${{ matrix.config.name }}
+    runs-on: ${{ matrix.config.os }}
+    strategy:
+      matrix:
+        config:
+        - name: "Build on x64"
+          os: ubuntu-latest
+          env:
+            CC: gcc
+            CXX: g++
+      fail-fast: false
+    steps:
+      - name: "Checkout"  
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: "Setup Environment"
+        run: |
+          mkdir build
+          sudo apt-get install xdg-user-dirs -y
+          xdg-user-dirs-update
+          sudo apt-get install gettext tzdata locales libglib2.0-dev blueprint-compiler -y
+          sudo locale-gen en_US.UTF-8
+          sudo update-locale LANG=en_US.UTF-8
+      - name: "Vcpkg"
+        uses: johnwason/vcpkg-action@v5
+        id: vcpkg
+        with:
+          pkgs: libnick
+          triplet: x64-linux
+          cache-key: ${{ matrix.config.os }}
+          revision: a1a1cbc975abf909a6c8985a6a2b8fe20bbd9bd6
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: "Build"
+        working-directory: ${{github.workspace}}/build
+        run: |
+          cmake .. -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+          cmake --build .
+      - name: "Install"
+        working-directory: ${{github.workspace}}/build
+        run: cmake --install . --prefix "${{github.workspace}}/install"
+      - name: Upload
+        uses: actions/upload-artifact@v3
+        with:
+          path: ${{github.workspace}}/install
+          name: Linux-x64-${{env.BUILD_TYPE}}
