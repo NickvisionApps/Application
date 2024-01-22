@@ -35,11 +35,10 @@
             "buildsystem": "simple",
             "build-commands": [
                 "export VCPKG_ROOT=${PWD}/vcpkg-linux",
-                "mkdir build",
-                "cd build",
-                "cmake .. -DCMAKE_BUILD_TYPE=Release",
-                "cmake --build .",
-                "cmake --install . --prefix /app"
+                "mkdir out-linux",
+                "cd out-linux; cmake .. -DCMAKE_BUILD_TYPE=Release",
+                "cd out-linux; cmake --build .",
+                "cd out-linux; cmake --install . --prefix /app"
             ],
             "sources": [
                 {
