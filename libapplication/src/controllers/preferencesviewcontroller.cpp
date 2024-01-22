@@ -12,28 +12,28 @@ namespace Nickvision::Application::Shared::Controllers
         return Aura::Aura::getActive().getAppInfo().getId();
     }
 
-	Theme PreferencesViewController::getTheme() const noexcept
-	{
-		return Configuration::current().getTheme();
-	}
+    Theme PreferencesViewController::getTheme() const noexcept
+    {
+        return Configuration::current().getTheme();
+    }
 
-	void PreferencesViewController::setTheme(Theme theme) noexcept
-	{
-		Configuration::current().setTheme(theme);
-	}
+    void PreferencesViewController::setTheme(Theme theme) noexcept
+    {
+        Configuration::current().setTheme(theme);
+    }
 
-	bool PreferencesViewController::getAutomaticallyCheckForUpdates() const noexcept
-	{
-		return Configuration::current().getAutomaticallyCheckForUpdates();
-	}
+    bool PreferencesViewController::getAutomaticallyCheckForUpdates() const noexcept
+    {
+        return Configuration::current().getAutomaticallyCheckForUpdates();
+    }
 
-	void PreferencesViewController::setAutomaticallyCheckForUpdates(bool check) noexcept
-	{
-		Configuration::current().setAutomaticallyCheckForUpdates(check);
-	}
+    void PreferencesViewController::setAutomaticallyCheckForUpdates(bool check) noexcept
+    {
+        Configuration::current().setAutomaticallyCheckForUpdates(check);
+    }
 
-	void PreferencesViewController::saveConfiguration() noexcept
-	{
-		Configuration::current().save();
-	}
+    void PreferencesViewController::saveConfiguration() noexcept
+    {
+        Configuration::current().save();
+    }
 }
