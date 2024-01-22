@@ -31,20 +31,32 @@
             ]
         },
         {
-            "name": "org.nickvision.application",
+            "name": "vcpkg",
             "buildsystem": "simple",
             "build-commands": [
-                "mv ./flatpak/build.sh ./build.sh",
-                "chmod +x ./build.sh",
-                "./build.sh"
+                "mv ./vcpkg-linux.tar.xz ./vcpkg.tar.xz",
+                "tar -xf ./vcpkg.tar.xz",
+                "export VCPKG_ROOT=${PWD}/vcpkg"
             ],
             "sources": [
                 {
                     "type": "archive",
                     "url": "https://github.com/NickvisionApps/vcpkg-store/releases/download/2024.01.22/vcpkg-linux.tar.xz",
                     "sha256": "1869cf2b791e1ca0015c440218609bae667c66baca0aa55c15043be8a6ec8902"
-
-                },
+                }
+            ]
+        },
+        {
+            "name": "org.nickvision.application",
+            "buildsystem": "simple",
+            "build-commands": [
+                "mkdir build",
+                "cd build",
+                "cmake .. -DCMAKE_BUILD_TYPE=Release",
+                "cmake --build .",
+                "cmake --install . --prefix /app"
+            ],
+            "sources": [
                 {
                     "type": "dir",
                     "path": ".."
