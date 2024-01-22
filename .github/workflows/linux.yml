@@ -40,7 +40,7 @@ jobs:
           xdg-user-dirs-update
           sudo locale-gen en_US.UTF-8
           sudo update-locale LANG=en_US.UTF-8
-          sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-13 100 --slave
+          sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-13 100 --slave /usr/bin/g++ g++ /usr/bin/g++-13 --slave /usr/bin/gcov gcov /usr/bin/gcov-13
       - name: "Vcpkg"
         uses: johnwason/vcpkg-action@v5
         id: vcpkg
