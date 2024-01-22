@@ -1,4 +1,4 @@
-export VCPKG_ROOT=${PWD}/vcpkg
+export VCPKG_ROOT=${PWD}
 ls -a
 mkdir out-linux
 cd out-linux
