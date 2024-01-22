@@ -34,11 +34,9 @@
             "name": "org.nickvision.application",
             "buildsystem": "simple",
             "build-commands": [
-                "export VCPKG_ROOT=${PWD}/vcpkg-linux",
-                "mkdir out-linux",
-                "cd out-linux; cmake .. -DCMAKE_BUILD_TYPE=Release",
-                "cd out-linux; cmake --build .",
-                "cd out-linux; cmake --install . --prefix /app"
+                "mv ./flatpak/build.sh ./build.sh",
+                "chmod +x ./build.sh",
+                "./build.sh"
             ],
             "sources": [
                 {
