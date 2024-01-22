@@ -1,0 +1,54 @@
+{
+    "app-id" : "org.nickvision.application",
+    "runtime" : "org.gnome.Platform",
+    "runtime-version" : "45",
+    "sdk" : "org.gnome.Sdk",
+    "command" : "org.nickvision.application",
+    "finish-args":[
+        "--socket=fallback-x11",
+        "--socket=wayland",
+        "--device=dri",
+        "--share=ipc"
+    ],
+    "cleanup":[
+        "/include",
+        "/lib/pkgconfig",
+        "*.a"
+    ],
+    "modules" : [
+        {
+            "name": "blueprint-compiler",
+            "buildsystem": "meson",
+            "cleanup": [
+                "*"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://gitlab.gnome.org/jwestman/blueprint-compiler",
+                    "tag": "v0.10.0"
+                }
+            ]
+        },
+        {
+            "name": "org.nickvision.application",
+            "buildsystem": "simple",
+            "build-commands": [
+                "chmod +x ./flatpak/build.sh",
+                "./flatpak/build.sh"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/NickvisionApps/vcpkg-store/releases/download/2024.01.22/vcpkg-linux.tar.xz",
+                    "sha256": "1869cf2b791e1ca0015c440218609bae667c66baca0aa55c15043be8a6ec8902"
+
+                },
+                {
+                    "type": "dir",
+                    "path": ".."
+                }
+            ]
+        }
+    ]
+}
