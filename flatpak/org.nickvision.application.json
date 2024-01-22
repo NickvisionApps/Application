@@ -34,8 +34,9 @@
             "name": "org.nickvision.application",
             "buildsystem": "simple",
             "build-commands": [
-                "chmod +x ./flatpak/build.sh",
-                "./flatpak/build.sh"
+                "mv ./flatpak/build.sh ./build.sh",
+                "chmod +x ./build.sh",
+                "./build.sh"
             ],
             "sources": [
                 {
