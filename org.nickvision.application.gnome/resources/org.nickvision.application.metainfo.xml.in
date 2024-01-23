@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-  <id>@PROJCET_NAME@</id>
+  <id>@PROJECT_NAME@</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>MIT</project_license>
   <name>Application</name>
@@ -10,13 +10,13 @@
   <description>
     <p>A template for creating cross-platform Nickvision applications</p>
   </description>
-  <launchable type="desktop-id">@PROJCET_NAME@.desktop</launchable>
+  <launchable type="desktop-id">@PROJECT_NAME@.desktop</launchable>
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/NickvisionApps/Application/main/@PROJCET_NAME@.gnome/resources/light.png</image>
+      <image>https://raw.githubusercontent.com/NickvisionApps/Application/main/@PROJECT_NAME@.gnome/resources/light.png</image>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/NickvisionApps/Application/main/@PROJCET_NAME@.gnome/resources/dark.png</image>
+      <image>https://raw.githubusercontent.com/NickvisionApps/Application/main/@PROJECT_NAME@.gnome/resources/dark.png</image>
     </screenshot>
   </screenshots>
   <url type="homepage">https://github.com/NickvisionApps/Application</url>
@@ -24,7 +24,7 @@
   <url type="donation">https://github.com/sponsors/nlogozzo</url>
   <url type="translate">https://github.com/NickvisionApps/Application/blob/master/CONTRIBUTING.md#providing-translations</url>
   <provides>
-    <binary>@PROJCET_NAME@</binary>
+    <binary>@PROJECT_NAME@</binary>
   </provides>
   <releases>
     <release version="2024.1.0-next" date="2024-01-01">

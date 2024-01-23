@@ -40,6 +40,8 @@
 
 # Directories
 out/
+out-linux/
+out-windows/
 build/
 bin/
 .vs/
