@@ -27,7 +27,7 @@ jobs:
           mkdir build
           sudo dnf upgrade -y
           sudo dnf groupinstall "Development Tools" -y
-          sudo dnf install git cmake gcc gcc-c++ curl zip unzip tar xdg-user-dirs gettext gettext-devel intltool glib2-devel gtk4 gtk4-devel libadwaita libadwaita-devel blueprint-compiler -y
+          sudo dnf install git cmake gcc gcc-c++ curl zip unzip tar xdg-user-dirs gettext gettext-devel intltool glib2-devel gtk4 gtk4-devel libadwaita libadwaita-devel blueprint-compiler perl-IPC-Cmd kernel-devel -y
           xdg-user-dirs-update
       - name: "Vcpkg"
         run: |
