@@ -26,7 +26,8 @@ jobs:
         run: |
           mkdir build
           sudo dnf upgrade -y
-          sudo dnf install cmake gcc gcc-c++ xdg-user-dirs gettext glib2-devel gtk4 gtk4-devel libadwaita libadwaita-devel  -y
+          sudo dnf groupinstall "Development Tools"
+          sudo dnf install cmake gcc gcc-c++ curl zip unzip tar xdg-user-dirs gettext gettext-devel intltool glib2-devel gtk4 gtk4-devel libadwaita libadwaita-devel blueprint-compiler -y
           xdg-user-dirs-update
       - name: "Vcpkg"
         uses: johnwason/vcpkg-action@v5
