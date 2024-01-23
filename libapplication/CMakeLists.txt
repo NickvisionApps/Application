@@ -14,8 +14,9 @@ else()
 	target_compile_options(libapplication PRIVATE -Wall -Wextra -Wpedantic)
 endif()
 
+find_package(pcre2 CONFIG REQUIRED)
 find_package(libnick CONFIG REQUIRED)
-target_link_libraries(libapplication PUBLIC libnick::libnick)
+target_link_libraries(libapplication PUBLIC PCRE2::8BIT PCRE2::16BIT PCRE2::32BIT PCRE2::POSIX libnick::libnick)
 
 if(HAS_GETTEXT)
     add_custom_command(TARGET libapplication PRE_BUILD COMMAND "${GETTEXT_XGETTEXT_EXECUTABLE}" --from-code=utf-8 --add-comments --c++ --force-po --output="${POT_FILE}" --keyword=_ --keyword=_n:1,2 --keyword=_p:1c,2 --keyword=_pn:1c,2,3 --keyword=C_:1c,2 --width=80 ${TRANSLATE_FILES} WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}")
