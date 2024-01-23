@@ -19,6 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     container: 
       image: fedora:latest
+      options: --privileged
     steps:
       - name: "Checkout"  
         uses: actions/checkout@v4
