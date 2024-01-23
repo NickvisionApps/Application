@@ -12,7 +12,6 @@ permissions:
 env:
   BUILD_TYPE: Release
   GITHUB_ACTIONS: true
-  VCPKG_ROOT: ${{github.workspace}}/vcpkg
 jobs:
   build:
     name: "Build on x64"
@@ -28,25 +27,24 @@ jobs:
           mkdir build
           sudo dnf upgrade -y
           sudo dnf groupinstall "Development Tools" -y
-          sudo dnf install cmake gcc gcc-c++ curl zip unzip tar xdg-user-dirs gettext gettext-devel intltool glib2-devel gtk4 gtk4-devel libadwaita libadwaita-devel blueprint-compiler -y
+          sudo dnf install git cmake gcc gcc-c++ curl zip unzip tar xdg-user-dirs gettext gettext-devel intltool glib2-devel gtk4 gtk4-devel libadwaita libadwaita-devel blueprint-compiler -y
           xdg-user-dirs-update
       - name: "Vcpkg"
-        uses: johnwason/vcpkg-action@v5
-        id: vcpkg
-        with:
-          pkgs: libnick libxmlpp
-          triplet: x64-linux
-          cache-key: ubuntu-latest
-          revision: ef0e853deaab56247a1033d7850bafb495a4fbd5
-          token: ${{ secrets.GITHUB_TOKEN }}
-      - name: "Build"
-        working-directory: ${{github.workspace}}/build
         run: |
+          git clone https://github.com/microsoft/vcpkg
+          cd vcpkg
+          ./bootstrap-vcpkg.sh
+          ./vcpkg install libnick libxmlpp
+      - name: "Build"
+        run: |
+          export VCPKG_ROOT=$(pwd)/vcpkg
+          cd build
           cmake .. -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
           cmake --build .
       - name: "Install"
-        working-directory: ${{github.workspace}}/build
-        run: cmake --install . --prefix "${{github.workspace}}/install"
+        run: |
+          cd build
+          cmake --install . --prefix "${{github.workspace}}/install"
       - name: Upload
         uses: actions/upload-artifact@v3
         with:
