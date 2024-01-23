@@ -45,8 +45,8 @@
                 },
                 {
                     "type": "archive",
-                    "url": "https://github.com/NickvisionApps/vcpkg-store/releases/download/2024.01.22/vcpkg-linux.tar.xz",
-                    "sha256": "1869cf2b791e1ca0015c440218609bae667c66baca0aa55c15043be8a6ec8902"
+                    "url": "https://github.com/NickvisionApps/vcpkg-store/releases/download/2024.01.23/vcpkg-linux.tar.xz",
+                    "sha256": "ea152da7fe6f8313f43615f2a72cf43366ed13fa12ace73f077fb141f84c9228"
                 }
             ]
         }
