@@ -37,7 +37,7 @@ jobs:
           pkgs: libnick libxmlpp
           triplet: x64-linux
           cache-key: ubuntu-latest
-          revision: a1a1cbc975abf909a6c8985a6a2b8fe20bbd9bd6
+          revision: ef0e853deaab56247a1033d7850bafb495a4fbd5
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: "Build"
         working-directory: ${{github.workspace}}/build
