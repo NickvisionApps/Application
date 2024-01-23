@@ -15,14 +15,8 @@ env:
   VCPKG_ROOT: ${{github.workspace}}/vcpkg
 jobs:
   build:
-    name: ${{ matrix.config.name }}
-    runs-on: ${{ matrix.config.os }}
-    strategy:
-      matrix:
-        config:
-        - name: "Build on x64"
-          os: windows-latest
-      fail-fast: false
+    name: "Build on x64"
+    runs-on: windows-latest
     steps:
       - name: "Checkout"  
         uses: actions/checkout@v4
@@ -36,7 +30,7 @@ jobs:
         with:
           pkgs: libnick
           triplet: x64-windows
-          cache-key: ${{ matrix.config.os }}
+          cache-key: windows-latest
           revision: a1a1cbc975abf909a6c8985a6a2b8fe20bbd9bd6
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: "Build"

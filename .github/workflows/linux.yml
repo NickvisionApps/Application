@@ -15,17 +15,8 @@ env:
   VCPKG_ROOT: ${{github.workspace}}/vcpkg
 jobs:
   build:
-    name: ${{ matrix.config.name }}
-    runs-on: ${{ matrix.config.os }}
-    strategy:
-      matrix:
-        config:
-        - name: "Build on x64"
-          os: ubuntu-latest
-          env:
-            CC: gcc
-            CXX: g++
-      fail-fast: false
+    name: "Build on x64"
+    runs-on: ubuntu-latest
     steps:
       - name: "Checkout"  
         uses: actions/checkout@v4
@@ -47,7 +38,7 @@ jobs:
         with:
           pkgs: libnick libxmlpp
           triplet: x64-linux
-          cache-key: ${{ matrix.config.os }}
+          cache-key: ubuntu-latest
           revision: a1a1cbc975abf909a6c8985a6a2b8fe20bbd9bd6
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: "Build"
