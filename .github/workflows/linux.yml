@@ -17,24 +17,24 @@ jobs:
   build:
     name: "Build on x64"
     runs-on: ubuntu-latest
-    container: 
-      image: fedora:latest
-      options: --privileged
     steps:
       - name: "Checkout"  
         uses: actions/checkout@v4
       - name: "Setup Environment"
         run: |
           mkdir build
-          sudo dnf upgrade -y
-          sudo dnf groupinstall "Development Tools" -y
-          sudo dnf install cmake gcc gcc-c++ curl zip unzip tar xdg-user-dirs gettext gettext-devel intltool glib2-devel gtk4 gtk4-devel libadwaita libadwaita-devel blueprint-compiler -y
+          sudo add-apt-repository ppa:ubuntu-toolchain-r/ppa -y
+          sudo apt-get update
+          sudo apt-get install g++-13 gcc-13 xdg-user-dirs gettext tzdata locales libglib2.0-dev blueprint-compiler libgtk-4-dev libadwaita-1-dev -y
           xdg-user-dirs-update
+          sudo locale-gen en_US.UTF-8
+          sudo update-locale LANG=en_US.UTF-8
+          sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-13 100 --slave /usr/bin/g++ g++ /usr/bin/g++-13 --slave /usr/bin/gcov gcov /usr/bin/gcov-13
       - name: "Vcpkg"
         uses: johnwason/vcpkg-action@v5
         id: vcpkg
         with:
-          pkgs: libnick libxmlpp
+          pkgs: gtk libadwaita libnick libxmlpp
           triplet: x64-linux
           cache-key: ubuntu-latest
           revision: a1a1cbc975abf909a6c8985a6a2b8fe20bbd9bd6
