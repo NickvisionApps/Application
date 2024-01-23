@@ -22,8 +22,6 @@ jobs:
     steps:
       - name: "Checkout"  
         uses: actions/checkout@v4
-        with:
-          submodules: recursive
       - name: "Setup Environment"
         run: |
           mkdir build
