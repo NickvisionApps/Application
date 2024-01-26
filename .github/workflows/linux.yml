@@ -26,19 +26,13 @@ jobs:
         run: |
           mkdir build
           zypper ref -b && zypper dup -y
-          zypper in -y curl zip unzip tar gtk4-devel libadwaita libadwaita-devel xdg-desktop-portal-gnome webp-pixbuf-loader gettext flatpak-xdg-utils xdg-utils xdg-user-dirs xdg-user-dirs-gtk git libjack meson cmake cpp gcc gcc-c++ autoconf automake perl perl-FindBin-Real
+          zypper in -y curl zip unzip tar wget blueprint-compiler gtk4-devel libadwaita libadwaita-devel xdg-desktop-portal-gnome webp-pixbuf-loader gettext flatpak-xdg-utils xdg-utils xdg-user-dirs xdg-user-dirs-gtk git libjack meson cmake cpp gcc gcc-c++ autoconf automake perl perl-FindBin-Real
           xdg-user-dirs-update
           xdg-user-dirs-gtk-update
-          git clone https://gitlab.gnome.org/jwestman/blueprint-compiler
-          meson "blueprint-compiler" build
-          meson compile -C build
-          meson install -C build --destdir /
       - name: "Vcpkg"
         run: |
-          git clone https://github.com/microsoft/vcpkg
-          cd vcpkg
-          ./bootstrap-vcpkg.sh
-          ./vcpkg install libnick libxmlpp
+          wget https://github.com/NickvisionApps/vcpkg-store/releases/download/2024.01.23/vcpkg-linux.tar.xz
+          tar -xf vcpkg-linux.tar.xz
       - name: "Build"
         run: |
           export VCPKG_ROOT=$(pwd)/vcpkg
