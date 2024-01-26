@@ -28,6 +28,8 @@ jobs:
           xdg-user-dirs-gtk-update
       - name: "Flatpak"
         run: |
+          flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+          flatpak install flathub org.freedesktop.Sdk/x86_64/23.08 org.gnome.Platform//45 org.gnome.Sdk//45
           flatpak-builder --repo=repo --force-clean build flatpak/org.nickvision.application.json
           flatpak build-bundle repo org.nickvision.application-x64.flatpak org.nickvision.application
       - name: Upload
