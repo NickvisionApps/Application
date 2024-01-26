@@ -16,6 +16,7 @@ jobs:
   build:
     name: "Build on x64"
     runs-on: ubuntu-latest
+    if: ${{ github.event.pull_request.user.login != 'weblate' }}
     container: 
       image: opensuse/tumbleweed:latest
       options: --privileged
