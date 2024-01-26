@@ -25,14 +25,14 @@ jobs:
       - name: "Setup Environment"
         run: |
           mkdir build
-          sudo zypper ref -b && sudo zypper dup -y
-          sudo zypper install gtk4-devel libadwaita libadwaita-devel xdg-desktop-portal-gnome webp-pixbuf-loader gettext flatpak-xdg-utils xdg-utils xdg-user-dirs xdg-user-dirs-gtk git libjack meson cmake cpp gcc gcc-c++ autoconf automake perl perl-FindBin perl-IPC-Cmd
+          zypper ref -b && zypper dup -y
+          zypper install gtk4-devel libadwaita libadwaita-devel xdg-desktop-portal-gnome webp-pixbuf-loader gettext flatpak-xdg-utils xdg-utils xdg-user-dirs xdg-user-dirs-gtk git libjack meson cmake cpp gcc gcc-c++ autoconf automake perl perl-FindBin perl-IPC-Cmd -y
           xdg-user-dirs-update
           xdg-user-dirs-gtk-update
           git clone https://gitlab.gnome.org/jwestman/blueprint-compiler
           meson "blueprint-compiler" build
           meson compile -C build
-          sudo meson install -C build --destdir /
+          meson install -C build --destdir /
       - name: "Vcpkg"
         run: |
           git clone https://github.com/microsoft/vcpkg
