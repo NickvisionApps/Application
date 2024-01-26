@@ -23,7 +23,7 @@ jobs:
           mkdir build
           mkdir repo
           zypper ref -b && zypper dup -y
-          zypper in -y curl zip unzip tar wget blueprint-compiler gtk4-devel libadwaita libadwaita-devel xdg-desktop-portal-gnome webp-pixbuf-loader gettext flatpak flatpak-builder flatpak-xdg-utils xdg-utils xdg-user-dirs xdg-user-dirs-gtk git cmake cpp gcc gcc-c++ autoconf automake
+          zypper in -y curl zip unzip tar wget blueprint-compiler gtk4-devel libadwaita libadwaita-devel xdg-desktop-portal-gnome webp-pixbuf-loader gettext flatpak flatpak-builder flatpak-xdg-utils xdg-utils xdg-user-dirs xdg-user-dirs-gtk git cmake cpp gcc gcc-c++ autoconf automake AppStream-compose
           xdg-user-dirs-update
           xdg-user-dirs-gtk-update
       - name: "Configure Flatpak"
