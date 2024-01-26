@@ -1,0 +1,50 @@
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+    types: [ "review_requested", "ready_for_review" ]
+  workflow_dispatch:
+name: Linux
+permissions:
+  id-token: write
+  contents: read
+env:
+  BUILD_TYPE: Release
+  GITHUB_ACTIONS: true
+jobs:
+  build:
+    name: "Build on x64"
+    runs-on: ubuntu-latest
+    container: 
+      image: opensuse/tumbleweed:latest
+      options: --privileged
+    steps:
+      - name: "Checkout"  
+        uses: actions/checkout@v4
+      - name: "Setup Environment"
+        run: |
+          mkdir build
+          zypper ref -b && zypper dup -y
+          zypper in -y curl zip unzip tar wget blueprint-compiler gtk4-devel libadwaita libadwaita-devel xdg-desktop-portal-gnome webp-pixbuf-loader gettext flatpak-xdg-utils xdg-utils xdg-user-dirs xdg-user-dirs-gtk git libjack meson cmake cpp gcc gcc-c++ autoconf automake perl perl-FindBin-Real
+          xdg-user-dirs-update
+          xdg-user-dirs-gtk-update
+      - name: "Vcpkg"
+        run: |
+          wget https://github.com/NickvisionApps/vcpkg-store/releases/download/2024.01.23/vcpkg-linux.tar.xz
+          tar -xf vcpkg-linux.tar.xz
+      - name: "Build"
+        run: |
+          export VCPKG_ROOT=$(pwd)/vcpkg
+          cd build
+          cmake .. -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_INSTALL_PREFIX:PATH=$GITHUB_WORKSPACE/install
+          cmake --build .
+      - name: "Install"
+        run: |
+          cd build
+          cmake --install .
+      - name: Upload
+        uses: actions/upload-artifact@v3
+        with:
+          path: $GITHUB_WORKSPACE/install
+          name: Linux-x64-${{env.BUILD_TYPE}}

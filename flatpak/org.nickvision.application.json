@@ -3,21 +3,12 @@
     "runtime" : "org.gnome.Platform",
     "runtime-version" : "45",
     "sdk" : "org.gnome.Sdk",
-    "sdk-extensions": [
-        "org.freedesktop.Sdk.Extension.dotnet8"
-    ],
-    "build-options": {
-        "append-path": "/usr/lib/sdk/dotnet8/bin",
-        "append-ld-library-path": "/usr/lib/sdk/dotnet8/lib",
-        "append-pkg-config-path": "/usr/lib/sdk/dotnet8/lib/pkgconfig"
-    },
     "command" : "org.nickvision.application",
     "finish-args":[
         "--socket=fallback-x11",
         "--socket=wayland",
         "--device=dri",
-        "--share=ipc",
-        "--filesystem=home"
+        "--share=ipc"
     ],
     "cleanup":[
         "/include",
@@ -43,15 +34,20 @@
             "name": "org.nickvision.application",
             "buildsystem": "simple",
             "build-commands": [
-                "chmod +x ./flatpak/build.sh",
-                "./flatpak/build.sh gnome"
+                "mv ./flatpak/build.sh ./build.sh",
+                "chmod +x ./build.sh",
+                "./build.sh"
             ],
             "sources": [
                 {
                     "type": "dir",
                     "path": ".."
                 },
-                "../NickvisionApplication.GNOME/nuget-sources.json"
+                {
+                    "type": "archive",
+                    "url": "https://github.com/NickvisionApps/vcpkg-store/releases/download/2024.01.23/vcpkg-linux.tar.xz",
+                    "sha256": "ea152da7fe6f8313f43615f2a72cf43366ed13fa12ace73f077fb141f84c9228"
+                }
             ]
         }
     ]

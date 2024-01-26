@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/org/nickvision/application/icons/scalable/apps/">
+    <file alias="org.nickvision.application.svg" preprocess="xml-stripblanks">../../resources/org.nickvision.application.svg</file>
+    <file alias="org.nickvision.application-devel.svg" preprocess="xml-stripblanks">../../resources/org.nickvision.application-devel.svg</file>
+  </gresource>
+  <gresource prefix="/org/nickvision/application/icons/symbolic/apps/">
+    <file alias="org.nickvision.application-symbolic.svg" preprocess="xml-stripblanks">../../resources/org.nickvision.application-symbolic.svg</file>
+  </gresource>
+  <gresource prefix="/org/nickvision/application/icons/scalable/status/">
+    <file preprocess="xml-stripblanks">dark-mode-symbolic.svg</file>
+  </gresource>
+</gresources>
