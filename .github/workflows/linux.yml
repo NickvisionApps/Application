@@ -17,7 +17,7 @@ jobs:
     name: "Build on x64"
     runs-on: ubuntu-latest
     container: 
-      image: fedora:latest
+      image: opensuse/tumbleweed:latest
       options: --privileged
     steps:
       - name: "Checkout"  
@@ -25,10 +25,14 @@ jobs:
       - name: "Setup Environment"
         run: |
           mkdir build
-          sudo dnf upgrade -y
-          sudo dnf groupinstall "Development Tools" -y
-          sudo dnf install git cmake gcc gcc-c++ curl zip unzip tar xdg-user-dirs gettext gettext-devel intltool glib2-devel gtk4 gtk4-devel libadwaita libadwaita-devel blueprint-compiler perl perl-FindBin perl-IPC-Cmd kernel-devel -y
+          sudo zypper ref -b && sudo zypper dup -y
+          sudo zypper install gtk4-devel libadwaita libadwaita-devel xdg-desktop-portal-gnome webp-pixbuf-loader gettext flatpak-xdg-utils xdg-utils xdg-user-dirs xdg-user-dirs-gtk git libjack meson cmake cpp gcc gcc-c++ autoconf automake perl perl-FindBin perl-IPC-Cmd
           xdg-user-dirs-update
+          xdg-user-dirs-gtk-update
+          git clone https://gitlab.gnome.org/jwestman/blueprint-compiler
+          meson "blueprint-compiler" build
+          meson compile -C build
+          sudo meson install -C build --destdir /
       - name: "Vcpkg"
         run: |
           git clone https://github.com/microsoft/vcpkg
@@ -39,14 +43,14 @@ jobs:
         run: |
           export VCPKG_ROOT=$(pwd)/vcpkg
           cd build
-          cmake .. -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+          cmake .. -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_INSTALL_PREFIX:PATH=$GITHUB_WORKSPACE/install
           cmake --build .
       - name: "Install"
         run: |
           cd build
-          cmake --install . --prefix "${{github.workspace}}/install"
+          cmake --install .
       - name: Upload
         uses: actions/upload-artifact@v3
         with:
-          path: ${{github.workspace}}/install
+          path: $GITHUB_WORKSPACE/install
           name: Linux-x64-${{env.BUILD_TYPE}}
