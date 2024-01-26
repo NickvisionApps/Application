@@ -26,7 +26,7 @@ jobs:
         run: |
           mkdir build
           zypper ref -b && zypper dup -y
-          zypper install gtk4-devel libadwaita libadwaita-devel xdg-desktop-portal-gnome webp-pixbuf-loader gettext flatpak-xdg-utils xdg-utils xdg-user-dirs xdg-user-dirs-gtk git libjack meson cmake cpp gcc gcc-c++ autoconf automake perl perl-FindBin perl-IPC-Cmd -y
+          zypper in -y gtk4-devel libadwaita libadwaita-devel xdg-desktop-portal-gnome webp-pixbuf-loader gettext flatpak-xdg-utils xdg-utils xdg-user-dirs xdg-user-dirs-gtk git libjack meson cmake cpp gcc gcc-c++ autoconf automake perl perl-FindBin-Real
           xdg-user-dirs-update
           xdg-user-dirs-gtk-update
           git clone https://gitlab.gnome.org/jwestman/blueprint-compiler
