@@ -1,6 +1,0 @@
-export VCPKG_ROOT=${PWD}
-mkdir out-linux
-cd out-linux
-cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/app
-cmake --build .
-cmake --install .
