@@ -29,7 +29,7 @@ if(LINUX)
     if(HAS_GETTEXT)
         foreach(LINGUA IN ITEMS ${LINGUAS})
             add_custom_command(TARGET org.nickvision.application.gnome PRE_BUILD COMMAND "${CMAKE_COMMAND}" -E make_directory "${CMAKE_CURRENT_BINARY_DIR}/${LINGUA}")
-            add_custom_command(TARGET org.nickvision.application.gnome PRE_BUILD COMMAND "${GETTEXT_MSGFMT_EXECUTABLE}" "${CMAKE_SOURCE_DIR}/resources/po/${LINGUA}.po" --output-file="${CMAKE_CURRENT_BINARY_DIR}/${LINGUA}/${PROJECT_NAME}.mo")
+            add_custom_command(TARGET org.nickvision.application.gnome PRE_BUILD COMMAND "${GETTEXT_MSGFMT_EXECUTABLE}" "${CMAKE_SOURCE_DIR}/resources/po/${LINGUA}.po" --output-file="${CMAKE_CURRENT_BINARY_DIR}/${LINGUA}/${SHORT_NAME}.mo")
         endforeach()
     endif()
 
