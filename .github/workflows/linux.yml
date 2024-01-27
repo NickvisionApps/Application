@@ -38,7 +38,7 @@ jobs:
         run: |
           export VCPKG_ROOT=$(pwd)/vcpkg
           cd build
-          cmake .. -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_INSTALL_PREFIX:PATH=$GITHUB_WORKSPACE/install
+          cmake .. -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/install
           cmake --build .
       - name: "Install"
         run: |
