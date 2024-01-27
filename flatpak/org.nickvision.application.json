@@ -79,6 +79,10 @@
                     "type": "git",
                     "url": "https://github.com/nickvisionapps/libnick",
                     "tag": "2024.1.7"
+                },
+                {
+                    "type": "patch",
+                    "path": "libnick.patch"
                 }
             ]
         },

@@ -1,0 +1,19 @@
+--- CMakeLists.txt	Sat Jan 27 16:21:20 2024
++++ CMakeLists.txt	Sat Jan 27 16:21:21 2024
+@@ -17,6 +17,7 @@
+ 	cmake_policy(SET CMP0141 NEW)
+ 	set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
+ endif()
++set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake")
+ 
+ #libnick Definition
+ project ("libnick" LANGUAGES C CXX VERSION 2024.1.7 DESCRIPTION "A cross-platform base for native Nickvision applications.")
+@@ -80,7 +81,7 @@
+     find_package(unofficial-maddy CONFIG REQUIRED)
+     target_link_libraries(${PROJECT_NAME} PUBLIC unofficial::maddy::maddy)
+ else()
+-    target_link_libraries(${PROJECT_NAME} PUBLIC maddy)
++    target_link_libraries(${PROJECT_NAME} PUBLIC maddy::maddy)
+ endif()
+ if(WIN32)
+ 	target_link_libraries(${PROJECT_NAME} PUBLIC Advapi32 Dwmapi Gdiplus Shell32)
