@@ -57,3 +57,6 @@ CMakeUserPresets.json
 
 # UI Files
 *.ui
+
+# Setup Files
+inno/*.exe
