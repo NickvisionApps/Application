@@ -20,7 +20,7 @@
             "name": "boost",
             "buildsystem": "simple",
             "build-commands": [
-                "./bootstrap.sh --prefix=/app --with-libraries=system",
+                "./bootstrap.sh --prefix=/app --with-libraries=system,locale",
                 "./b2 -j $FLATPAK_BUILDER_N_JOBS install"
             ],
             "sources": [
@@ -35,6 +35,9 @@
             "name": "jsoncpp",
             "buildsystem": "cmake-ninja",
             "builddir": true,
+            "config-opts": [
+                "-DCMAKE_BUILD_TYPE=Release"
+            ],
             "sources": [
                 {
                     "type": "git",
@@ -47,11 +50,19 @@
             "name": "maddy",
             "buildsystem": "cmake-ninja",
             "builddir": true,
+            "config-opts": [
+                "-DCMAKE_BUILD_TYPE=Release"
+            ],
             "sources": [
                 {
                     "type": "git",
                     "url": "https://github.com/progsource/maddy",
                     "tag": "1.3.0"
+                },
+                {
+                    "type": "file",
+                    "path": "maddy_CMakeLists.txt",
+                    "dest-filename": "CMakeLists.txt"
                 }
             ]
         },
