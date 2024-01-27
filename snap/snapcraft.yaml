@@ -1,0 +1,115 @@
+name: application 
+base: core22
+adopt-info: application
+grade: stable
+confinement: strict
+compression: lzo
+
+package-repositories:
+ - type: apt
+   ppa: ubuntu-toolchain-r/test
+   priority: always
+
+lint:
+  ignore:
+    - classic
+    - library
+
+parts:
+  build-deps:
+    plugin: nil
+    build-packages:
+      - g++-13
+      - gcc-13
+      - libjsoncpp-dev 
+    override-build: |
+      cp -r ${CRAFT_PART_SRC}/ ${CRAFT_STAGE}/
+      update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-13 100 --slave /usr/bin/g++ g++ /usr/bin/g++-13 --slave /usr/bin/gcov gcov /usr/bin/gcov-13
+
+  libxmlplusplus:
+    after: [build-deps]
+    source: https://github.com/libxmlplusplus/libxmlplusplus.git
+    source-tag: '5.2.0'
+    source-depth: 1
+    plugin: meson
+    meson-parameters:
+      - --prefix=/usr
+      - -Dmaintainer-mode=false
+    prime:
+      - usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/libxml++-5.0*.so*
+
+  libnick:
+    after: [maddy, build-deps]
+    source: https://github.com/nickvisionapps/libnick.git
+    source-tag: '2024.1.11'
+    source-depth: 1
+    plugin: cmake
+    cmake-parameters:
+      - -DCMAKE_INSTALL_PREFIX=/usr
+      - -DBUILD_TESTING=OFF
+      - -DCMAKE_BUILD_TYPE=Release
+    build-environment:
+      - CPLUS_INCLUDE_PATH: ${CRAFT_STAGE}/include
+    build-packages:
+      - libboost-all-dev
+      - libssl-dev
+      - uuid-dev
+    override-prime: ''
+
+  maddy:
+    after: [build-deps]
+    source: https://github.com/progsource/maddy.git
+    source-tag: '1.3.0'
+    plugin: dump
+    source-depth: 1
+    override-prime: '' 
+
+  application:
+    after: [build-deps, maddy, libnick, libxmlplusplus]
+    plugin: cmake
+    source: https://github.com/NickvisionApps/Application.git
+    source-depth: 1
+    build-snaps:
+      - cmake
+      - blueprint-compiler
+    cmake-parameters:
+      - -DCMAKE_INSTALL_PREFIX=/snap/application/current/usr
+      - -DCMAKE_BUILD_TYPE=Release
+    stage-packages:
+      - libstdc++6
+    build-environment:
+      - CMAKE_PREFIX_PATH: ${CRAFT_STAGE}/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/cmake${CMAKE_PREFIX_PATH:+:$CMAKE_PREFIX_PATH}
+    parse-info: [usr/share/metainfo/org.nickvision.application.metainfo.xml]
+    override-prime: |
+      craftctl default
+      chmod 777 usr/lib/org.nickvision.application/org.nickvision.application.gnome
+    organize:
+      snap/application/current: .
+
+  deps:
+    after: [build-deps]
+    plugin: nil
+    stage-packages:
+      - libjsoncpp25
+      - libboost-locale1.74.0
+      - libstdc++6
+    prime:
+      - usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/libstdc++*.so*
+      - usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/libjsoncpp*
+      - usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/libboost_locale.so.1.74.0
+      - usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/libboost_thread.so.1.74.0
+
+slots:
+  application:
+    interface: dbus
+    bus: session
+    name: org.nickvision.application
+
+apps:
+  application:
+    command: usr/lib/org.nickvision.application/org.nickvision.application.gnome
+    desktop: usr/share/applications/org.nickvision.application.desktop
+    common-id: org.nickvision.application
+    extensions: [gnome]
+    plugs:
+      - network

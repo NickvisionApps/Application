@@ -1,0 +1,25 @@
+name: Snap
+on:
+  push:
+    branches:
+      - main
+    tags-ignore:
+      - '**'
+permissions:
+  id-token: write
+  contents: read
+jobs:
+  build-snap:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Git repository
+        uses: actions/checkout@v4
+      - name: Build Test Application Snap
+        uses: snapcore/action-build@v1
+        id: snapcraft-build
+        with:
+          snapcraft-args: "-v"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: application-snap
+          path: ${{ steps.snapcraft-build.outputs.snap }}    
