@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-28 13:19-0500\n"
+"POT-Creation-Date: 2024-01-28 18:00-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,19 +68,19 @@ msgstr ""
 msgid "Good Day!"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:158
+#: libapplication/src/controllers/mainwindowcontroller.cpp:165
 msgid "New update available"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:176
+#: libapplication/src/controllers/mainwindowcontroller.cpp:183
 msgid "Unable to download and install update"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:200
+#: libapplication/src/controllers/mainwindowcontroller.cpp:207
 msgid "Folder Opened: {}"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:212
+#: libapplication/src/controllers/mainwindowcontroller.cpp:219
 msgid "Folder closed"
 msgstr ""
 
@@ -187,7 +187,7 @@ msgid_plural "There are {} files in the folder."
 msgstr[0] ""
 msgstr[1] ""
 
-#: org.nickvision.application.gnome/src/views/mainwindow.cpp:193
+#: org.nickvision.application.gnome/src/views/mainwindow.cpp:192
 #: org.nickvision.application.winui/MainWindow.xaml.cpp:68
 msgid "GitHub Repo"
 msgstr ""

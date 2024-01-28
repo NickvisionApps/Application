@@ -134,7 +134,14 @@ namespace Nickvision::Application::Shared::Controllers
         if (!started)
         {
 #ifdef _WIN32
-            m_updater = std::make_shared<Updater>();
+            try
+            {
+                m_updater = std::make_shared<Updater>();
+            }
+            catch(...)
+            {
+                m_updater = nullptr;
+            }
             if (Configuration::current().getAutomaticallyCheckForUpdates())
             {
                 checkForUpdates();
