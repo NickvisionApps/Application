@@ -20,7 +20,7 @@ namespace Nickvision::Application::Shared::Controllers
     MainWindowController::MainWindowController()
         : m_updater{ "https://github.com/NickvisionApps/Application" }
     {
-        Aura::Aura::init("org.nickvision.application", "Nickvision Application", "Application");
+        Aura::Aura::getActive().init("org.nickvision.application", "Nickvision Application", "Application");
         AppInfo& appInfo{ Aura::Aura::getActive().getAppInfo() };
         appInfo.setVersion({ "2024.1.0-next" });
         appInfo.setShortName(_("Application"));
@@ -86,7 +86,7 @@ namespace Nickvision::Application::Shared::Controllers
         return m_folderPath;
     }
 
-    const std::vector<std::filesystem::path> MainWindowController::getFiles() const
+    const std::vector<std::filesystem::path>& MainWindowController::getFiles() const
     {
         return m_files;
     }

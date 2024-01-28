@@ -35,7 +35,7 @@ namespace Nickvision::Application::Shared::Controllers
          * @brief Gets the AppInfo object for the application
          * @return The current AppInfo object
          */
-        Nickvision::Aura::AppInfo &getAppInfo() const;
+        Nickvision::Aura::AppInfo& getAppInfo() const;
         /**
          * @brief Gets whether or not the specified version is a development (preview) version.
          * @return True for preview version, else false
@@ -71,7 +71,7 @@ namespace Nickvision::Application::Shared::Controllers
          * @brief Gets the list of paths of files in the open folder.
          * @return The list of file paths in the open folder
          */
-        const std::vector<std::filesystem::path> getFiles() const;
+        const std::vector<std::filesystem::path>& getFiles() const;
         /**
          * @brief Gets whether or not a folder is opened.
          * @return True if folder is opened, else false
