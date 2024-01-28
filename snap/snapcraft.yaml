@@ -80,9 +80,6 @@ parts:
     build-environment:
       - CMAKE_PREFIX_PATH: ${CRAFT_STAGE}/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/cmake${CMAKE_PREFIX_PATH:+:$CMAKE_PREFIX_PATH}
     parse-info: [usr/share/metainfo/org.nickvision.application.metainfo.xml]
-    override-prime: |
-      craftctl default
-      chmod 777 usr/lib/org.nickvision.application/org.nickvision.application.gnome
     organize:
       snap/application/current: .
 

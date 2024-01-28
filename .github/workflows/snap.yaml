@@ -1,15 +1,18 @@
-name: Snap
 on:
   push:
-    branches:
-      - main
-    tags-ignore:
-      - '**'
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+    types: [ "review_requested", "ready_for_review" ]
+  workflow_dispatch:
+
+name: Snap
 permissions:
   id-token: write
   contents: read
 jobs:
-  build-snap:
+  gnome-snap:
+    name: "Gnome on Snap"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Git repository
