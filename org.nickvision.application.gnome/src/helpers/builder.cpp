@@ -8,7 +8,7 @@ namespace Nickvision::Application::GNOME
 {
     GtkBuilder* BuilderHelpers::fromBlueprint(const std::string& blueprint)
     {
-        std::filesystem::path path{ Aura::Aura::getExecutableDirectory() / "ui" / (blueprint + ".ui") };
+        std::filesystem::path path{ Aura::Aura::getActive().getExecutableDirectory() / "ui" / (blueprint + ".ui") };
         if(!std::filesystem::exists(path))
         {
             return nullptr;

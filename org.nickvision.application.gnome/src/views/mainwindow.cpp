@@ -159,7 +159,7 @@ namespace Nickvision::Application::GNOME::Views
         {
             extraDebug += "Running under Flatpak.\n";
         }
-        else if(!Aura::Aura::getEnvVar("SNAP").empty())
+        else if(!Aura::Aura::getActive().getEnvVar("SNAP").empty())
         {
             extraDebug += "Running under Snap.\n";
         }
