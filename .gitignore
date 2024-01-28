@@ -51,6 +51,7 @@ bin/
 .flatpak-builder/
 .flatpak/
 _nickbuild/
+*.snap
 
 # CMake
 CMakeUserPresets.json
