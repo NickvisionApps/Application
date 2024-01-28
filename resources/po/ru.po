@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-27 19:34-0500\n"
+"POT-Creation-Date: 2024-01-28 12:46-0500\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -15,74 +15,74 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:26
+#: libapplication/src/controllers/mainwindowcontroller.cpp:25
 msgid "Application"
 msgstr "Application"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:27
+#: libapplication/src/controllers/mainwindowcontroller.cpp:26
 msgid "Create new Nickvision applications"
 msgstr "Создавайте новые приложения Nickvision"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:31
+#: libapplication/src/controllers/mainwindowcontroller.cpp:30
 msgid "Matrix Chat"
 msgstr "Чат Matrix"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:33
+#: libapplication/src/controllers/mainwindowcontroller.cpp:32
 #, fuzzy
 msgid "Contributors on GitHub"
 msgstr "Соавторы на GitHub ❤️"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:35
+#: libapplication/src/controllers/mainwindowcontroller.cpp:34
 msgid "Fyodor Sobolev"
 msgstr "Фёдор Соболев"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:37
+#: libapplication/src/controllers/mainwindowcontroller.cpp:36
 msgid "David Lapshin"
 msgstr "Давид Лапшин"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:38
+#: libapplication/src/controllers/mainwindowcontroller.cpp:37
 msgid "translator-credits"
 msgstr "Фёдор Соболев https://github.com/fsobolev"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:110
+#: libapplication/src/controllers/mainwindowcontroller.cpp:109
 msgctxt "Night"
 msgid "Good Morning!"
 msgstr "Доброй ночи!"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:114
+#: libapplication/src/controllers/mainwindowcontroller.cpp:113
 msgctxt "Morning"
 msgid "Good Morning!"
 msgstr "Доброе утро!"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:118
+#: libapplication/src/controllers/mainwindowcontroller.cpp:117
 msgid "Good Afternoon!"
 msgstr "Добрый день!"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:122
+#: libapplication/src/controllers/mainwindowcontroller.cpp:121
 msgid "Good Evening!"
 msgstr "Добрый вечер!"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:124
+#: libapplication/src/controllers/mainwindowcontroller.cpp:123
 msgid "Good Day!"
 msgstr "Здравствуйте!"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:157
+#: libapplication/src/controllers/mainwindowcontroller.cpp:158
 msgid "New update available"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:172
+#: libapplication/src/controllers/mainwindowcontroller.cpp:176
 msgid "Unable to download and install update"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:195
+#: libapplication/src/controllers/mainwindowcontroller.cpp:200
 #, fuzzy
 msgid "Folder Opened: {}"
 msgstr "Папка открыта: {0}"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:207
+#: libapplication/src/controllers/mainwindowcontroller.cpp:212
 #, fuzzy
 msgid "Folder closed"
 msgstr "Папка закрыта."
@@ -109,7 +109,7 @@ msgstr "Открыть папку (Ctrl+O)"
 
 #: org.nickvision.application.gnome/blueprints/main_window.blp:26
 #: org.nickvision.application.gnome/blueprints/main_window.blp:59
-#: org.nickvision.application.gnome/src/views/mainwindow.cpp:99
+#: org.nickvision.application.gnome/src/views/mainwindow.cpp:106
 #: org.nickvision.application.winui/MainWindow.xaml.cpp:75
 msgid "Open"
 msgstr "Открыть"
@@ -160,7 +160,7 @@ msgid "Folder"
 msgstr "Папка"
 
 #: org.nickvision.application.gnome/blueprints/shortcuts_dialog.blp:16
-#: org.nickvision.application.gnome/src/views/mainwindow.cpp:122
+#: org.nickvision.application.gnome/src/views/mainwindow.cpp:129
 #: org.nickvision.application.winui/MainWindow.xaml.cpp:74
 msgid "Open Folder"
 msgstr "Открыть Папку"
@@ -178,12 +178,12 @@ msgstr "Приложение"
 msgid "Quit"
 msgstr "Выход"
 
-#: org.nickvision.application.gnome/src/views/mainwindow.cpp:91
+#: org.nickvision.application.gnome/src/views/mainwindow.cpp:98
 #: org.nickvision.application.winui/MainWindow.xaml.cpp:202
 msgid "Close"
 msgstr "Закрыть"
 
-#: org.nickvision.application.gnome/src/views/mainwindow.cpp:108
+#: org.nickvision.application.gnome/src/views/mainwindow.cpp:115
 #: org.nickvision.application.winui/MainWindow.xaml.cpp:250
 #, fuzzy
 msgid "There is {} file in the folder."
@@ -192,7 +192,7 @@ msgstr[0] "В папке {0} файл."
 msgstr[1] "В папке {0} файла."
 msgstr[2] "В папке {0} файлов."
 
-#: org.nickvision.application.gnome/src/views/mainwindow.cpp:185
+#: org.nickvision.application.gnome/src/views/mainwindow.cpp:192
 #: org.nickvision.application.winui/MainWindow.xaml.cpp:68
 msgid "GitHub Repo"
 msgstr "Репозиторий GitHub"

@@ -5,7 +5,6 @@
 #include <vector>
 #include <adwaita.h>
 #include "controllers/mainwindowcontroller.h"
-#include "views/mainwindow.h"
 
 namespace Nickvision::Application::GNOME
 {
@@ -37,7 +36,6 @@ namespace Nickvision::Application::GNOME
         std::vector<char*> m_args;
         std::shared_ptr<Shared::Controllers::MainWindowController> m_controller;
         AdwApplication* m_adw;
-        std::shared_ptr<Views::MainWindow> m_mainWindow;
     };
 }
 

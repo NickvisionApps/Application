@@ -18,7 +18,6 @@ using namespace Nickvision::Update;
 namespace Nickvision::Application::Shared::Controllers
 {
     MainWindowController::MainWindowController()
-        : m_updater{ "https://github.com/NickvisionApps/Application" }
     {
         Aura::Aura::getActive().init("org.nickvision.application", "Nickvision Application", "Application");
         AppInfo& appInfo{ Aura::Aura::getActive().getAppInfo() };
@@ -135,44 +134,50 @@ namespace Nickvision::Application::Shared::Controllers
         if (!started)
         {
 #ifdef _WIN32
+            m_updater = std::make_shared<Updater>();
             if (Configuration::current().getAutomaticallyCheckForUpdates())
             {
                 checkForUpdates();
             }
 #endif
-            loadFiles();
             started = true;
         }
     }
 
     void MainWindowController::checkForUpdates()
     {
-        std::thread worker{ [&]()
+        if(m_updater)
         {
-            Version latest{ m_updater.fetchCurrentStableVersion() };
-            if (!latest.empty())
+            std::thread worker{ [&]()
             {
-                if (latest > Aura::Aura::getActive().getAppInfo().getVersion())
+                Version latest{ m_updater->fetchCurrentStableVersion() };
+                if (!latest.empty())
                 {
-                    m_notificationSent.invoke({ _("New update available"), NotificationSeverity::Success, "update" });
+                    if (latest > Aura::Aura::getActive().getAppInfo().getVersion())
+                    {
+                        m_notificationSent.invoke({ _("New update available"), NotificationSeverity::Success, "update" });
+                    }
                 }
-            }
-        } };
-        worker.detach();
+            } };
+            worker.detach();
+        }
     }
 
 #ifdef _WIN32
     void MainWindowController::windowsUpdate()
     {
-        std::thread worker{ [&]()
+        if(m_updater)
         {
-            bool res{ m_updater.windowsUpdate(VersionType::Stable) };
-            if (!res)
+            std::thread worker{ [&]()
             {
-                m_notificationSent.invoke({ _("Unable to download and install update"), NotificationSeverity::Error, "error" });
-            }
-        } };
-        worker.detach();
+                bool res{ m_updater->windowsUpdate(VersionType::Stable) };
+                if (!res)
+                {
+                    m_notificationSent.invoke({ _("Unable to download and install update"), NotificationSeverity::Error, "error" });
+                }
+            } };
+            worker.detach();
+        }
     }
 
     bool MainWindowController::connectTaskbar(HWND hwnd)
