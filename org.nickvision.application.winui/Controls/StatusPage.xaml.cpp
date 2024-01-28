@@ -26,12 +26,12 @@ namespace winrt::Nickvision::Application::WinUI::Controls::implementation
         IsCompact(false);
     }
     
-    winrt::hstring StatusPage::Glyph() const noexcept
+    winrt::hstring StatusPage::Glyph() const
     {
         return winrt::unbox_value<winrt::hstring>(GetValue(m_glyphProperty));
     }
 
-    void StatusPage::Glyph(const winrt::hstring& glyph) noexcept
+    void StatusPage::Glyph(const winrt::hstring& glyph)
     {
         SetValue(m_glyphProperty, winrt::box_value(glyph));
         if(!glyph.empty())
@@ -42,12 +42,12 @@ namespace winrt::Nickvision::Application::WinUI::Controls::implementation
         m_propertyChanged(*this, PropertyChangedEventArgs{ L"Glyph" });
     }
     
-    bool StatusPage::UseAppIcon() const noexcept
+    bool StatusPage::UseAppIcon() const
     {
         return winrt::unbox_value<bool>(GetValue(m_useAppIconProperty));
     }
 
-    void StatusPage::UseAppIcon(bool useAppIcon) noexcept
+    void StatusPage::UseAppIcon(bool useAppIcon)
     {
         SetValue(m_useAppIconProperty, winrt::box_value(useAppIcon));
         if(useAppIcon)
@@ -58,48 +58,48 @@ namespace winrt::Nickvision::Application::WinUI::Controls::implementation
         m_propertyChanged(*this, PropertyChangedEventArgs{ L"UseAppIcon" });
     }
 
-    winrt::hstring StatusPage::Title() const noexcept
+    winrt::hstring StatusPage::Title() const
     {
         return winrt::unbox_value<winrt::hstring>(GetValue(m_titleProperty));
     }
 
-    void StatusPage::Title(const winrt::hstring& title) noexcept
+    void StatusPage::Title(const winrt::hstring& title)
     {
         SetValue(m_titleProperty, winrt::box_value(title));
         LblTitle().Visibility(!title.empty() ? Visibility::Visible : Visibility::Collapsed);
         m_propertyChanged(*this, PropertyChangedEventArgs{ L"Title" });
     }
 
-    winrt::hstring StatusPage::Description() const noexcept
+    winrt::hstring StatusPage::Description() const
     {
         return winrt::unbox_value<winrt::hstring>(GetValue(m_descriptionProperty));
     }
 
-    void StatusPage::Description(const winrt::hstring& description) noexcept
+    void StatusPage::Description(const winrt::hstring& description)
     {
         SetValue(m_descriptionProperty, winrt::box_value(description));
         LblDescription().Visibility(!description.empty() ? Visibility::Visible : Visibility::Collapsed);
         m_propertyChanged(*this, PropertyChangedEventArgs{ L"Description" });
     }
 
-    IInspectable StatusPage::Child() const noexcept
+    IInspectable StatusPage::Child() const
     {
         return GetValue(m_childProperty);
     }
 
-    void StatusPage::Child(const IInspectable& child) noexcept
+    void StatusPage::Child(const IInspectable& child)
     {
         SetValue(m_childProperty, child);
         FrameChild().Visibility(child ? Visibility::Visible : Visibility::Collapsed);
         m_propertyChanged(*this, PropertyChangedEventArgs{ L"Child" });
     }
 
-    bool StatusPage::IsCompact() const noexcept
+    bool StatusPage::IsCompact() const
     {
         return winrt::unbox_value<bool>(GetValue(m_isCompactProperty));
     }
 
-    void StatusPage::IsCompact(bool isCompact) noexcept
+    void StatusPage::IsCompact(bool isCompact)
     {
         SetValue(m_isCompactProperty, winrt::box_value(isCompact));
         if(isCompact)
@@ -121,42 +121,42 @@ namespace winrt::Nickvision::Application::WinUI::Controls::implementation
         m_propertyChanged(*this, PropertyChangedEventArgs{ L"IsCompact" });
     }
 
-    winrt::event_token StatusPage::PropertyChanged(const PropertyChangedEventHandler& handler) noexcept
+    winrt::event_token StatusPage::PropertyChanged(const PropertyChangedEventHandler& handler)
     {
         return m_propertyChanged.add(handler);
     }
 
-    void StatusPage::PropertyChanged(const winrt::event_token& token) noexcept
+    void StatusPage::PropertyChanged(const winrt::event_token& token)
     {
         m_propertyChanged.remove(token);
     }
 
-    const DependencyProperty& StatusPage::GlyphProperty() noexcept
+    const DependencyProperty& StatusPage::GlyphProperty()
     {
         return m_glyphProperty;
     }
 
-    const DependencyProperty& StatusPage::UseAppIconProperty() noexcept
+    const DependencyProperty& StatusPage::UseAppIconProperty()
     {
         return m_useAppIconProperty;
     }
 
-    const DependencyProperty& StatusPage::TitleProperty() noexcept
+    const DependencyProperty& StatusPage::TitleProperty()
     {
         return m_titleProperty;
     }
 
-    const DependencyProperty& StatusPage::DescriptionProperty() noexcept
+    const DependencyProperty& StatusPage::DescriptionProperty()
     {
         return m_descriptionProperty;
     }
 
-    const DependencyProperty& StatusPage::ChildProperty() noexcept
+    const DependencyProperty& StatusPage::ChildProperty()
     {
         return m_childProperty;
     }
 
-    const DependencyProperty& StatusPage::IsCompactProperty() noexcept
+    const DependencyProperty& StatusPage::IsCompactProperty()
     {
         return m_isCompactProperty;
     }

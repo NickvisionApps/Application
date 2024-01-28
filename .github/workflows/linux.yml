@@ -32,8 +32,10 @@ jobs:
           xdg-user-dirs-gtk-update
       - name: "Vcpkg"
         run: |
-          wget https://github.com/NickvisionApps/vcpkg-store/releases/download/2024.01.23/vcpkg-linux.tar.xz
-          tar -xf vcpkg-linux.tar.xz
+          git clone https://github.com/microsoft/vcpkg
+          cd vcpkg
+          ./bootstrap-vcpkg.sh
+          ./vcpkg install libnick libxmlpp
       - name: "Build"
         run: |
           export VCPKG_ROOT=$(pwd)/vcpkg

@@ -17,27 +17,27 @@ namespace Nickvision::Application::Shared::Models
          * @brief Constructs a Configuration.
          * @param key The key to pass to the ConfigurationBase
          */
-        Configuration(const std::string& key) noexcept;
+        Configuration(const std::string& key);
         /**
          * @brief Gets the preferred theme for the application.
          * @return The preferred theme
          */
-        Theme getTheme() const noexcept;
+        Theme getTheme() const;
         /**
          * @brief Sets the preferred theme for the application.
          * @param theme The new preferred theme
          */
-        void setTheme(Theme theme) noexcept;
+        void setTheme(Theme theme);
         /**
          * @brief Gets whether or not to automatically check for application updates.
          * @return True to automatically check for updates, else false
          */
-        bool getAutomaticallyCheckForUpdates() const noexcept;
+        bool getAutomaticallyCheckForUpdates() const;
         /**
          * @brief Sets whether or not to automatically check for application updates.
          * @param check Whether or not to automatically check for updates
          */
-        void setAutomaticallyCheckForUpdates(bool check) noexcept;
+        void setAutomaticallyCheckForUpdates(bool check);
 
     public:
         /**

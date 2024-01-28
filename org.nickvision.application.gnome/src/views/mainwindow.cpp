@@ -15,7 +15,7 @@ using namespace Nickvision::Notifications;
 
 namespace Nickvision::Application::GNOME::Views
 {
-    MainWindow::MainWindow(const std::shared_ptr<MainWindowController>& controller, GtkApplication* app) noexcept
+    MainWindow::MainWindow(const std::shared_ptr<MainWindowController>& controller, GtkApplication* app)
         : m_controller{ controller },
         m_app{ app },
         m_builder{ BuilderHelpers::fromBlueprint("main_window") },
@@ -68,22 +68,22 @@ namespace Nickvision::Application::GNOME::Views
         SET_ACCEL_FOR_ACTION(m_app, "win.about", "F1");
     }
 
-    GObject* MainWindow::gobj() const noexcept
+    GObject* MainWindow::gobj() const
     {
         return G_OBJECT(m_window);
     }
 
-    void MainWindow::show() noexcept
+    void MainWindow::show()
     {
         gtk_window_present(GTK_WINDOW(m_window));
     }
 
-    bool MainWindow::onCloseRequested() noexcept
+    bool MainWindow::onCloseRequested()
     {
         return false;
     }
 
-    void MainWindow::onNotificationSent(const NotificationSentEventArgs& args) noexcept
+    void MainWindow::onNotificationSent(const NotificationSentEventArgs& args)
     {
         AdwToast* toast{ adw_toast_new(args.getMessage().c_str()) };
         if(args.getAction() == "close")
@@ -94,12 +94,12 @@ namespace Nickvision::Application::GNOME::Views
         adw_toast_overlay_add_toast(ADW_TOAST_OVERLAY(gtk_builder_get_object(m_builder, "toastOverlay")), toast);
     }
 
-    void MainWindow::onShellNotificationSent(const ShellNotificationSentEventArgs& args) noexcept
+    void MainWindow::onShellNotificationSent(const ShellNotificationSentEventArgs& args)
     {
         ShellNotification::send(args, _("Open"));
     }
 
-    void MainWindow::onFolderChanged(const EventArgs& args) noexcept
+    void MainWindow::onFolderChanged(const EventArgs& args)
     {
         adw_window_title_set_subtitle(ADW_WINDOW_TITLE(gtk_builder_get_object(m_builder, "title")), m_controller->isFolderOpened() ? m_controller->getFolderPath().c_str() : "");
         gtk_widget_set_visible(GTK_WIDGET(gtk_builder_get_object(m_builder, "btnOpenFolder")), m_controller->isFolderOpened());
@@ -108,7 +108,7 @@ namespace Nickvision::Application::GNOME::Views
         adw_status_page_set_description(ADW_STATUS_PAGE(gtk_builder_get_object(m_builder, "pageFiles")), std::vformat(_n("There is {} file in the folder.", "There are {} files in the folder.", m_controller->getFiles().size()), std::make_format_args(m_controller->getFiles().size())).c_str());
     }
 
-    void MainWindow::quit() noexcept
+    void MainWindow::quit()
     {
         if(!onCloseRequested())
         {
@@ -116,7 +116,7 @@ namespace Nickvision::Application::GNOME::Views
         }
     }
 
-    void MainWindow::openFolder() noexcept
+    void MainWindow::openFolder()
     {
         GtkFileDialog* folderDialog{ gtk_file_dialog_new() };
         gtk_file_dialog_set_title(folderDialog, _("Open Folder"));
@@ -130,18 +130,18 @@ namespace Nickvision::Application::GNOME::Views
         }), this);
     }
 
-    void MainWindow::closeFolder() noexcept
+    void MainWindow::closeFolder()
     {
         m_controller->closeFolder();
     }
 
-    void MainWindow::preferences() noexcept
+    void MainWindow::preferences()
     {
         PreferencesDialog preferences{ m_controller->createPreferencesViewController(), GTK_WINDOW(m_window) };
         preferences.run();
     }
 
-    void MainWindow::keyboardShortcuts() noexcept
+    void MainWindow::keyboardShortcuts()
     {
         GtkBuilder* builderHelp{ BuilderHelpers::fromBlueprint("shortcuts_dialog") };
         GtkShortcutsWindow* shortcuts{ GTK_SHORTCUTS_WINDOW(gtk_builder_get_object(builderHelp, "root")) };
@@ -150,7 +150,7 @@ namespace Nickvision::Application::GNOME::Views
         gtk_window_present(GTK_WINDOW(shortcuts));
     }
 
-    void MainWindow::about() noexcept
+    void MainWindow::about()
     {
         std::string extraDebug;
         extraDebug += "GTK: " + std::to_string(gtk_get_major_version()) + "." + std::to_string(gtk_get_minor_version()) + "." + std::to_string(gtk_get_micro_version()) + "\n";

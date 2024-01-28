@@ -7,32 +7,32 @@ using namespace Nickvision::Aura;
 
 namespace Nickvision::Application::Shared::Controllers
 {
-    const std::string& PreferencesViewController::getId() const noexcept
+    const std::string& PreferencesViewController::getId() const
     {
         return Aura::Aura::getActive().getAppInfo().getId();
     }
 
-    Theme PreferencesViewController::getTheme() const noexcept
+    Theme PreferencesViewController::getTheme() const
     {
         return Configuration::current().getTheme();
     }
 
-    void PreferencesViewController::setTheme(Theme theme) noexcept
+    void PreferencesViewController::setTheme(Theme theme)
     {
         Configuration::current().setTheme(theme);
     }
 
-    bool PreferencesViewController::getAutomaticallyCheckForUpdates() const noexcept
+    bool PreferencesViewController::getAutomaticallyCheckForUpdates() const
     {
         return Configuration::current().getAutomaticallyCheckForUpdates();
     }
 
-    void PreferencesViewController::setAutomaticallyCheckForUpdates(bool check) noexcept
+    void PreferencesViewController::setAutomaticallyCheckForUpdates(bool check)
     {
         Configuration::current().setAutomaticallyCheckForUpdates(check);
     }
 
-    void PreferencesViewController::saveConfiguration() noexcept
+    void PreferencesViewController::saveConfiguration()
     {
         Configuration::current().save();
     }

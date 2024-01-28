@@ -29,7 +29,7 @@ namespace winrt::Nickvision::Application::WinUI::implementation
         TglAutomaticallyCheckForUpdates().OffContent(winrt::box_value(winrt::to_hstring(_("Off"))));
     }
 
-    void SettingsPage::SetController(const std::shared_ptr<PreferencesViewController>& controller) noexcept
+    void SettingsPage::SetController(const std::shared_ptr<PreferencesViewController>& controller)
     {
         m_controller = controller;
         //Load

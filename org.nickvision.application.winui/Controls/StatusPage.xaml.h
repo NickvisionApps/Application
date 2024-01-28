@@ -21,74 +21,74 @@ namespace winrt::Nickvision::Application::WinUI::Controls::implementation
          * @brief This will be used when UseAppIcon is set to false.
          * @return The page icon glyph
          */
-        winrt::hstring Glyph() const noexcept;
+        winrt::hstring Glyph() const;
         /**
          * @brief Sets the icon glyph for the page. 
          * @brief To be used when UseAppIcon is set to false.
          * @param glyph The new icon glyph
          */
-        void Glyph(const winrt::hstring& glyph) noexcept;
+        void Glyph(const winrt::hstring& glyph);
         /**
          * @brief Gets whether or not the page is displaying the application's icon.
          * @brief If false, the Glyph icon is being used instead.
          * @return True if displaying app icon, else false  
          */
-        bool UseAppIcon() const noexcept;
+        bool UseAppIcon() const;
         /**
          * @brief Sets whether or not the page should display the application's icon.
          * @param useAppIcon True to display app icon. False to use the Glyph icon 
          */
-        void UseAppIcon(bool useAppIcon) noexcept;
+        void UseAppIcon(bool useAppIcon);
         /**
          * @brief Gets the status title for the page.
          * @returns The status title 
          */
-        winrt::hstring Title() const noexcept;
+        winrt::hstring Title() const;
         /**
          * @brief Sets the status title for the page.
          * @param title The new status title
          */
-        void Title(const winrt::hstring& title) noexcept;
+        void Title(const winrt::hstring& title);
         /**
          * @brief Gets the status description for the page.
          * @returns The status description 
          */
-        winrt::hstring Description() const noexcept;
+        winrt::hstring Description() const;
         /**
          * @brief Sets the status title for the page.
          * @param title The new status title
          */
-        void Description(const winrt::hstring& description) noexcept;
+        void Description(const winrt::hstring& description);
         /**
          * @brief Gets the extra child for the page.
          * @returns The extra child
          */
-        IInspectable Child() const noexcept;
+        IInspectable Child() const;
         /**
          * @brief Sets the extra child for the page.
          * @param title The new extra child
          */
-        void Child(const IInspectable& child) noexcept;
+        void Child(const IInspectable& child);
         /**
          * @brief Gets whether or not the page is displayed using compact spacing.
          * @return True for compact spacing, else false 
          */
-        bool IsCompact() const noexcept;
+        bool IsCompact() const;
         /**
          * @brief Sets whether or not the page should use compact spacing.
          * @param isCompact True for compact spacing, else false
          */
-        void IsCompact(bool isCompact) noexcept;
+        void IsCompact(bool isCompact);
 /**
          * @brief Subscribes a handler to the property changed event.
          * @return The token for the newly subscribed handler.
          */
-        winrt::event_token PropertyChanged(const Microsoft::UI::Xaml::Data::PropertyChangedEventHandler& handler) noexcept;
+        winrt::event_token PropertyChanged(const Microsoft::UI::Xaml::Data::PropertyChangedEventHandler& handler);
         /**
          * @brief Unsubscribes a handler from the property changed event.
          * @param token The token of the handler to unsubscribe. 
          */
-        void PropertyChanged(const winrt::event_token& token) noexcept;
+        void PropertyChanged(const winrt::event_token& token);
 
     private:
         winrt::event<Microsoft::UI::Xaml::Data::PropertyChangedEventHandler> m_propertyChanged;
@@ -98,32 +98,32 @@ namespace winrt::Nickvision::Application::WinUI::Controls::implementation
          * @brief Gets the page's glyph dependency property.
          * @return The glyph dependency property 
          */
-        static const Microsoft::UI::Xaml::DependencyProperty& GlyphProperty() noexcept;
+        static const Microsoft::UI::Xaml::DependencyProperty& GlyphProperty();
         /**
          * @brief Gets the page's use app icon dependency property.
          * @return The use app icon dependency property 
          */
-        static const Microsoft::UI::Xaml::DependencyProperty& UseAppIconProperty() noexcept;
+        static const Microsoft::UI::Xaml::DependencyProperty& UseAppIconProperty();
         /**
          * @brief Gets the page's title dependency property.
          * @return The title dependency property 
          */
-        static const Microsoft::UI::Xaml::DependencyProperty& TitleProperty() noexcept;
+        static const Microsoft::UI::Xaml::DependencyProperty& TitleProperty();
         /**
          * @brief Gets the page's description dependency property.
          * @return The description dependency property 
          */
-        static const Microsoft::UI::Xaml::DependencyProperty& DescriptionProperty() noexcept;
+        static const Microsoft::UI::Xaml::DependencyProperty& DescriptionProperty();
         /**
          * @brief Gets the page's child dependency property.
          * @return The child dependency property 
          */
-        static const Microsoft::UI::Xaml::DependencyProperty& ChildProperty() noexcept;
+        static const Microsoft::UI::Xaml::DependencyProperty& ChildProperty();
         /**
          * @brief Gets the page's is compact dependency property.
          * @return The is compact dependency property 
          */
-        static const Microsoft::UI::Xaml::DependencyProperty& IsCompactProperty() noexcept;
+        static const Microsoft::UI::Xaml::DependencyProperty& IsCompactProperty();
         /**
          * @brief Handles when a property of the row is changed.
          * @param d Microsoft::UI::Xaml::DependencyObject

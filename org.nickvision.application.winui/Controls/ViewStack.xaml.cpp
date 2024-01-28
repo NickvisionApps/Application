@@ -15,12 +15,12 @@ namespace winrt::Nickvision::Application::WinUI::Controls::implementation
         InitializeComponent();
     }
 
-    winrt::hstring ViewStack::CurrentPage() const noexcept
+    winrt::hstring ViewStack::CurrentPage() const
     {
         return m_currentPage;
     }
 
-    void ViewStack::CurrentPage(const winrt::hstring& pageName) noexcept
+    void ViewStack::CurrentPage(const winrt::hstring& pageName)
     {
         for(const IInspectable& obj : Pages())
         {
@@ -37,7 +37,7 @@ namespace winrt::Nickvision::Application::WinUI::Controls::implementation
         }
     }
 
-    IObservableVector<IInspectable> ViewStack::Pages() const noexcept
+    IObservableVector<IInspectable> ViewStack::Pages() const
     {
         return winrt::unbox_value<IObservableVector<IInspectable>>(GetValue(m_pagesProperty));
     }
@@ -47,12 +47,12 @@ namespace winrt::Nickvision::Application::WinUI::Controls::implementation
         return m_pageChangedEvent.add(handler);
     }
 
-    void ViewStack::PageChanged(const winrt::event_token& token) noexcept
+    void ViewStack::PageChanged(const winrt::event_token& token)
     {
         m_pageChangedEvent.remove(token);
     }
 
-    const DependencyProperty& ViewStack::PagesProperty() noexcept
+    const DependencyProperty& ViewStack::PagesProperty()
     {
         return m_pagesProperty;
     }

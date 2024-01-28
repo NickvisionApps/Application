@@ -17,7 +17,7 @@ using namespace Nickvision::Update;
 
 namespace Nickvision::Application::Shared::Controllers
 {
-    MainWindowController::MainWindowController(const std::vector<std::string>& args) noexcept
+    MainWindowController::MainWindowController()
         : m_updater{ "https://github.com/NickvisionApps/Application" }
     {
         Aura::Aura::init("org.nickvision.application", "Nickvision Application", "Application");
@@ -36,38 +36,34 @@ namespace Nickvision::Application::Shared::Controllers
         appInfo.getDesigners()["DaPigGuy"] = "https://github.com/DaPigGuy";
         appInfo.getArtists()[_("David Lapshin")] = "https://github.com/daudix";
         appInfo.setTranslatorCredits(_("translator-credits"));
-        if (args.size() > 0 && std::filesystem::exists(args[0]) && std::filesystem::is_directory(args[0]))
-        {
-            m_folderPath = args[0];
-        }
     }
 
-    AppInfo& MainWindowController::getAppInfo() const noexcept
+    AppInfo& MainWindowController::getAppInfo() const
     {
         return Aura::Aura::getActive().getAppInfo();
     }
 
-    bool MainWindowController::isDevVersion() const noexcept
+    bool MainWindowController::isDevVersion() const
     {
         return Aura::Aura::getActive().getAppInfo().getVersion().getVersionType() == VersionType::Preview;
     }
 
-    Theme MainWindowController::getTheme() const noexcept
+    Theme MainWindowController::getTheme() const
     {
         return Configuration::current().getTheme();
     }
 
-    Event<NotificationSentEventArgs>& MainWindowController::notificationSent() noexcept
+    Event<NotificationSentEventArgs>& MainWindowController::notificationSent()
     {
         return m_notificationSent;
     }
 
-    Event<ShellNotificationSentEventArgs>& MainWindowController::shellNotificationSent() noexcept
+    Event<ShellNotificationSentEventArgs>& MainWindowController::shellNotificationSent()
     {
         return m_shellNotificationSent;
     }
 
-    std::string MainWindowController::getDebugInformation(const std::string& extraInformation) const noexcept
+    std::string MainWindowController::getDebugInformation(const std::string& extraInformation) const
     {
         std::stringstream builder;
         builder << Aura::Aura::getActive().getAppInfo().getId();
@@ -85,27 +81,27 @@ namespace Nickvision::Application::Shared::Controllers
         return builder.str();
     }
 
-    const std::filesystem::path& MainWindowController::getFolderPath() const noexcept
+    const std::filesystem::path& MainWindowController::getFolderPath() const
     {
         return m_folderPath;
     }
 
-    const std::vector<std::filesystem::path> MainWindowController::getFiles() const noexcept
+    const std::vector<std::filesystem::path> MainWindowController::getFiles() const
     {
         return m_files;
     }
 
-    bool MainWindowController::isFolderOpened() const noexcept
+    bool MainWindowController::isFolderOpened() const
     {
         return std::filesystem::exists(m_folderPath) && std::filesystem::is_directory(m_folderPath);
     }
 
-    Event<EventArgs>& MainWindowController::folderChanged() noexcept
+    Event<EventArgs>& MainWindowController::folderChanged()
     {
         return m_folderChanged;
     }
 
-    std::string MainWindowController::getGreeting() const noexcept
+    std::string MainWindowController::getGreeting() const
     {
         std::time_t now{ std::time(nullptr) };
         std::tm* cal{ std::localtime(&now) };
@@ -128,12 +124,12 @@ namespace Nickvision::Application::Shared::Controllers
         return _("Good Day!");
     }
 
-    std::shared_ptr<PreferencesViewController> MainWindowController::createPreferencesViewController() const noexcept
+    std::shared_ptr<PreferencesViewController> MainWindowController::createPreferencesViewController() const
     {
         return std::make_shared<PreferencesViewController>();
     }
 
-    void MainWindowController::startup() noexcept
+    void MainWindowController::startup()
     {
         static bool started{ false };
         if (!started)
@@ -149,7 +145,7 @@ namespace Nickvision::Application::Shared::Controllers
         }
     }
 
-    void MainWindowController::checkForUpdates() noexcept
+    void MainWindowController::checkForUpdates()
     {
         std::thread worker{ [&]()
         {
@@ -166,7 +162,7 @@ namespace Nickvision::Application::Shared::Controllers
     }
 
 #ifdef _WIN32
-    void MainWindowController::windowsUpdate() noexcept
+    void MainWindowController::windowsUpdate()
     {
         std::thread worker{ [&]()
         {
@@ -179,18 +175,18 @@ namespace Nickvision::Application::Shared::Controllers
         worker.detach();
     }
 
-    bool MainWindowController::connectTaskbar(HWND hwnd) noexcept
+    bool MainWindowController::connectTaskbar(HWND hwnd)
     {
         return m_taskbar.connect(hwnd);
     }
 #elif defined(__linux__)
-    bool MainWindowController::connectTaskbar(const std::string& desktopFile) noexcept
+    bool MainWindowController::connectTaskbar(const std::string& desktopFile)
     {
         return m_taskbar.connect(desktopFile);
     }
 #endif
 
-    bool MainWindowController::openFolder(const std::filesystem::path& path) noexcept
+    bool MainWindowController::openFolder(const std::filesystem::path& path)
     {
         if (std::filesystem::exists(path) && std::filesystem::is_directory(path))
         {
@@ -204,7 +200,7 @@ namespace Nickvision::Application::Shared::Controllers
         return false;
     }
 
-    void MainWindowController::closeFolder() noexcept
+    void MainWindowController::closeFolder()
     {
         m_folderPath = std::filesystem::path();
         m_files.clear();
@@ -213,7 +209,7 @@ namespace Nickvision::Application::Shared::Controllers
         m_taskbar.setCount(-1L);
     }
 
-    void MainWindowController::loadFiles() noexcept
+    void MainWindowController::loadFiles()
     {
         m_files.clear();
         if (std::filesystem::exists(m_folderPath))

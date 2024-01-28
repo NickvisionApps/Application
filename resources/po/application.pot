@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-27 13:31-0500\n"
+"POT-Creation-Date: 2024-01-27 20:03-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,41 +46,41 @@ msgstr ""
 msgid "translator-credits"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:114
+#: libapplication/src/controllers/mainwindowcontroller.cpp:110
 msgctxt "Night"
 msgid "Good Morning!"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:118
+#: libapplication/src/controllers/mainwindowcontroller.cpp:114
 msgctxt "Morning"
 msgid "Good Morning!"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:122
+#: libapplication/src/controllers/mainwindowcontroller.cpp:118
 msgid "Good Afternoon!"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:126
+#: libapplication/src/controllers/mainwindowcontroller.cpp:122
 msgid "Good Evening!"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:128
+#: libapplication/src/controllers/mainwindowcontroller.cpp:124
 msgid "Good Day!"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:161
+#: libapplication/src/controllers/mainwindowcontroller.cpp:157
 msgid "New update available"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:176
+#: libapplication/src/controllers/mainwindowcontroller.cpp:172
 msgid "Unable to download and install update"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:199
+#: libapplication/src/controllers/mainwindowcontroller.cpp:195
 msgid "Folder Opened: {}"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:211
+#: libapplication/src/controllers/mainwindowcontroller.cpp:207
 msgid "Folder closed"
 msgstr ""
 

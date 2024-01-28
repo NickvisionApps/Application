@@ -14,17 +14,17 @@ namespace winrt::Nickvision::Application::WinUI::Controls::implementation
         InitializeComponent();
     }
 
-    winrt::hstring ViewStackPage::PageName() const noexcept
+    winrt::hstring ViewStackPage::PageName() const
     {
         return winrt::unbox_value<winrt::hstring>(GetValue(m_pageNameProperty));
     }
 
-    void ViewStackPage::PageName(const winrt::hstring& pageName) noexcept
+    void ViewStackPage::PageName(const winrt::hstring& pageName)
     {
         SetValue(m_pageNameProperty, winrt::box_value(pageName));
     }
 
-    const DependencyProperty& ViewStackPage::PageNameProperty() noexcept
+    const DependencyProperty& ViewStackPage::PageNameProperty()
     {
         return m_pageNameProperty;
     }

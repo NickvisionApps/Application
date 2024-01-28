@@ -23,60 +23,60 @@ namespace Nickvision::Application::GNOME::Views
          * @param controller The MainWindowController
          * @param app The GtkApplication object of the running app 
          */
-        MainWindow(const std::shared_ptr<Shared::Controllers::MainWindowController>& controller, GtkApplication* app) noexcept;
+        MainWindow(const std::shared_ptr<Shared::Controllers::MainWindowController>& controller, GtkApplication* app);
         /**
          * @brief Gets the GObject object for the main window.
          * @return The GObject for the main window 
          */
-        GObject* gobj() const noexcept;
+        GObject* gobj() const;
         /**
          * @brief Shows the main window. 
          */
-        void show() noexcept;
+        void show();
         /**
          * @brief Handles when the window requests to close.
          * @return True to prevent closing, else false 
          */
-        bool onCloseRequested() noexcept;
+        bool onCloseRequested();
         /**
          * @brief Handles when a notification is sent to the window.
          * @param args Nickvision::Notifications::NotificationSentEventArgs 
          */
-        void onNotificationSent(const Nickvision::Notifications::NotificationSentEventArgs& args) noexcept;
+        void onNotificationSent(const Nickvision::Notifications::NotificationSentEventArgs& args);
         /**
          * @brief Handles when a shell notification is sent to the window.
          * @param args Nickvision::Notifications::ShellNotificationSentEventArgs
          */
-        void onShellNotificationSent(const Nickvision::Notifications::ShellNotificationSentEventArgs& args) noexcept;
+        void onShellNotificationSent(const Nickvision::Notifications::ShellNotificationSentEventArgs& args);
         /**
          * @brief Handles when the open folder is changed (including closed).
          * @param args Nickvision::Events::EventArgs 
          */
-        void onFolderChanged(const Nickvision::Events::EventArgs& args) noexcept;
+        void onFolderChanged(const Nickvision::Events::EventArgs& args);
         /**
          * @brief Quits the application. 
          */
-        void quit() noexcept;
+        void quit();
         /**
          * @brief Opens a folder. 
          */
-        void openFolder() noexcept;
+        void openFolder();
         /**
          * @brief Closes the folder if one is open. 
          */
-        void closeFolder() noexcept;
+        void closeFolder();
         /**
          * @brief Opens the application's preferences dialog. 
          */
-        void preferences() noexcept;
+        void preferences();
         /**
          * @brief Opens the application's keyboard shortcut dialog.
          */
-        void keyboardShortcuts() noexcept;
+        void keyboardShortcuts();
         /**
          * @brief Opens the application's about dialog. 
          */
-        void about() noexcept;
+        void about();
 
     private:
         std::shared_ptr<Shared::Controllers::MainWindowController> m_controller;

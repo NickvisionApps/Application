@@ -12,7 +12,7 @@ namespace Nickvision::Application::GNOME::BuilderHelpers
      * @param blueprint The name of the blueprint ui file
      * @return The GtkBiilder object for the blueprint file or nullptr on error
      */
-    GtkBuilder* fromBlueprint(const std::string& blueprint) noexcept;
+    GtkBuilder* fromBlueprint(const std::string& blueprint);
 }
 
 #endif //BUILDER_H

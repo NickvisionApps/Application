@@ -1,18 +1,19 @@
 #include "helpers/builder.h"
 #include <filesystem>
+#include <libnick/aura/aura.h>
 #include <libnick/localization/gettext.h>
 #include <libxml++/libxml++.h>
 
 namespace Nickvision::Application::GNOME
 {
-    GtkBuilder* BuilderHelpers::fromBlueprint(const std::string& blueprint) noexcept
+    GtkBuilder* BuilderHelpers::fromBlueprint(const std::string& blueprint)
     {
-        std::string path{ "ui/" + blueprint + ".ui" };
+        std::filesystem::path path{ Aura::Aura::getExecutableDirectory() / "ui" / (blueprint + ".ui") };
         if(!std::filesystem::exists(path))
         {
             return nullptr;
         }
-        xmlpp::DomParser xml{ path };
+        xmlpp::DomParser xml{ path.string() };
         xmlpp::Element* root{ xml.get_document()->get_root_node() };
         for(xmlpp::Node* node : root->find("//text()"))
         {

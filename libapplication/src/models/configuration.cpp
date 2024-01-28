@@ -3,22 +3,22 @@
 
 namespace Nickvision::Application::Shared::Models
 {
-    Configuration::Configuration(const std::string& key) noexcept
+    Configuration::Configuration(const std::string& key)
         : ConfigurationBase{ key }
     {
     }
 
-    Theme Configuration::getTheme() const noexcept
+    Theme Configuration::getTheme() const
     {
         return static_cast<Theme>(m_json.get("Theme", 0).asInt());
     }
 
-    void Configuration::setTheme(Theme theme) noexcept
+    void Configuration::setTheme(Theme theme)
     {
         m_json["Theme"] = static_cast<int>(theme);
     }
 
-    bool Configuration::getAutomaticallyCheckForUpdates() const noexcept
+    bool Configuration::getAutomaticallyCheckForUpdates() const
     {
 #ifdef _WIN32
         bool def{ true };
@@ -28,7 +28,7 @@ namespace Nickvision::Application::Shared::Models
         return m_json.get("AutomaticallyCheckForUpdates", def).asBool();
     }
 
-    void Configuration::setAutomaticallyCheckForUpdates(bool check) noexcept
+    void Configuration::setAutomaticallyCheckForUpdates(bool check)
     {
         m_json["AutomaticallyCheckForUpdates"] = check;
     }

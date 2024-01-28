@@ -2,7 +2,7 @@
 	set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 endif()
 
-add_library(libapplication STATIC
+add_library(libapplication
 	"src/controllers/mainwindowcontroller.cpp"
 	"src/controllers/preferencesviewcontroller.cpp"
 	"src/models/configuration.cpp")

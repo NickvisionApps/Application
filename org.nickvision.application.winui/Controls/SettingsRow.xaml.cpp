@@ -21,79 +21,79 @@ namespace winrt::Nickvision::Application::WinUI::Controls::implementation
         Description(L"");
     }
     
-    winrt::hstring SettingsRow::Glyph() const noexcept
+    winrt::hstring SettingsRow::Glyph() const
     {
         return winrt::unbox_value<winrt::hstring>(GetValue(m_glyphProperty));
     }
 
-    void SettingsRow::Glyph(const winrt::hstring& glyph) noexcept
+    void SettingsRow::Glyph(const winrt::hstring& glyph)
     {
         SetValue(m_glyphProperty, winrt::box_value(glyph));
         Icon().Visibility(!glyph.empty() ? Visibility::Visible : Visibility::Collapsed);
         m_propertyChanged(*this, PropertyChangedEventArgs{ L"Glyph" });
     }
 
-    winrt::hstring SettingsRow::Title() const noexcept
+    winrt::hstring SettingsRow::Title() const
     {
         return winrt::unbox_value<winrt::hstring>(GetValue(m_titleProperty));
     }
 
-    void SettingsRow::Title(const winrt::hstring& title) noexcept
+    void SettingsRow::Title(const winrt::hstring& title)
     {
         SetValue(m_titleProperty, winrt::box_value(title));
         LblTitle().Visibility(!title.empty() ? Visibility::Visible : Visibility::Collapsed);
         m_propertyChanged(*this, PropertyChangedEventArgs{ L"Title" });
     }
 
-    winrt::hstring SettingsRow::Description() const noexcept
+    winrt::hstring SettingsRow::Description() const
     {
         return winrt::unbox_value<winrt::hstring>(GetValue(m_descriptionProperty));
     }
 
-    void SettingsRow::Description(const winrt::hstring& description) noexcept
+    void SettingsRow::Description(const winrt::hstring& description)
     {
         SetValue(m_descriptionProperty, winrt::box_value(description));
         LblDescription().Visibility(!description.empty() ? Visibility::Visible : Visibility::Collapsed);
         m_propertyChanged(*this, PropertyChangedEventArgs{ L"Description" });
     }
 
-    IInspectable SettingsRow::Child() const noexcept
+    IInspectable SettingsRow::Child() const
     {
         return GetValue(m_childProperty);
     }
 
-    void SettingsRow::Child(const IInspectable& child) noexcept
+    void SettingsRow::Child(const IInspectable& child)
     {
         SetValue(m_childProperty, child);
         m_propertyChanged(*this, PropertyChangedEventArgs{ L"Child" });
     }
 
-    winrt::event_token SettingsRow::PropertyChanged(const PropertyChangedEventHandler& handler) noexcept
+    winrt::event_token SettingsRow::PropertyChanged(const PropertyChangedEventHandler& handler)
     {
         return m_propertyChanged.add(handler);
     }
 
-    void SettingsRow::PropertyChanged(const winrt::event_token& token) noexcept
+    void SettingsRow::PropertyChanged(const winrt::event_token& token)
     {
         m_propertyChanged.remove(token);
     }
 
-    const DependencyProperty& SettingsRow::GlyphProperty() noexcept
+    const DependencyProperty& SettingsRow::GlyphProperty()
     {
         return m_glyphProperty;
     }
 
-    const DependencyProperty& SettingsRow::TitleProperty() noexcept
+    const DependencyProperty& SettingsRow::TitleProperty()
     {
         return m_titleProperty;
     }
 
-    const DependencyProperty& SettingsRow::DescriptionProperty() noexcept
+    const DependencyProperty& SettingsRow::DescriptionProperty()
     {
         return m_descriptionProperty;
     }
 
-    const DependencyProperty& SettingsRow::ChildProperty() noexcept
+    const DependencyProperty& SettingsRow::ChildProperty()
     {
         return m_childProperty;
     }

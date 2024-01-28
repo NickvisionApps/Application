@@ -25,7 +25,7 @@ namespace winrt::Nickvision::Application::WinUI::implementation
          * @brief Sets the controller for the main window.
          * @param controller The MainWindowController 
          */
-        void SetController(const std::shared_ptr<::Nickvision::Application::Shared::Controllers::MainWindowController>& controller) noexcept;
+        void SetController(const std::shared_ptr<::Nickvision::Application::Shared::Controllers::MainWindowController>& controller);
         /**
          * @brief Handles when the main window is activated.
          * @param sender IInspectable

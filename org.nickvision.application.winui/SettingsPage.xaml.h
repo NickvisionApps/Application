@@ -23,7 +23,7 @@ namespace winrt::Nickvision::Application::WinUI::implementation
          * @brief Sets the controller for the page.
          * @param controller The PreferencesViewController 
          */
-        void SetController(const std::shared_ptr<::Nickvision::Application::Shared::Controllers::PreferencesViewController>& controller) noexcept;
+        void SetController(const std::shared_ptr<::Nickvision::Application::Shared::Controllers::PreferencesViewController>& controller);
         /**
          * @brief Handles when the theme preference is changed. 
          */

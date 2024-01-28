@@ -20,17 +20,17 @@ namespace winrt::Nickvision::Application::WinUI::Controls::implementation
          * @brief Gets the name of the current page being shown.
          * @return The name of the currently shown page 
          */
-        winrt::hstring CurrentPage() const noexcept;
+        winrt::hstring CurrentPage() const;
         /**
          * @brief Sets the name of the new page to show.
          * @param currentPage The name of the new page to show
          */
-        void CurrentPage(const winrt::hstring& currentPage) noexcept;
+        void CurrentPage(const winrt::hstring& currentPage);
         /**
          * @brief Gets the list of pages being stored in the view stack.
          * @return The list of stored page objects 
          */
-        Windows::Foundation::Collections::IObservableVector<IInspectable> Pages() const noexcept;
+        Windows::Foundation::Collections::IObservableVector<IInspectable> Pages() const;
         /**
          * @brief Subscribes a handler to the page changed event.
          * @return The token for the newly subscribed handler.
@@ -40,7 +40,7 @@ namespace winrt::Nickvision::Application::WinUI::Controls::implementation
          * @brief Unsubscribes a handler from the page changed event.
          * @param token The token of the handler to unsubscribe. 
          */
-        void PageChanged(const winrt::event_token& token) noexcept;
+        void PageChanged(const winrt::event_token& token);
 
     private:
         winrt::event<Windows::Foundation::EventHandler<winrt::hstring>> m_pageChangedEvent;
@@ -51,7 +51,7 @@ namespace winrt::Nickvision::Application::WinUI::Controls::implementation
          * @brief Gets the view stack's pages dependency property.
          * @return The pages dependency property 
          */
-        static const Microsoft::UI::Xaml::DependencyProperty& PagesProperty() noexcept;
+        static const Microsoft::UI::Xaml::DependencyProperty& PagesProperty();
 
     private:
         static Microsoft::UI::Xaml::DependencyProperty m_pagesProperty;

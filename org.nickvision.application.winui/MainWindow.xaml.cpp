@@ -76,7 +76,7 @@ namespace winrt::Nickvision::Application::WinUI::implementation
         ToolTipService::SetToolTip(FolderCloseFolderButton(), winrt::box_value(winrt::to_hstring(_("Close (Ctrl+W)"))));
     }
 
-    void MainWindow::SetController(const std::shared_ptr<MainWindowController>& controller) noexcept
+    void MainWindow::SetController(const std::shared_ptr<MainWindowController>& controller)
     {
         m_controller = controller;
         //Register Events

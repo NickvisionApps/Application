@@ -36,7 +36,7 @@ namespace winrt::Nickvision::Application::WinUI::implementation
 		}
 	}
 
-	void App::OnLaunched(const LaunchActivatedEventArgs& args) noexcept
+	void App::OnLaunched(const LaunchActivatedEventArgs& args)
 	{
         static Window window{ winrt::make<MainWindow>() };
 		window.as<MainWindow>()->SetController(m_controller);
