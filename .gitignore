@@ -52,7 +52,7 @@ bin/
 .flatpak/
 _nickbuild/
 *.snap
-*.txt
+application*.txt
 
 # CMake
 CMakeUserPresets.json
