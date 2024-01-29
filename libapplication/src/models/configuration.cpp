@@ -10,7 +10,7 @@ namespace Nickvision::Application::Shared::Models
 
     Theme Configuration::getTheme() const
     {
-        return static_cast<Theme>(m_json.get("Theme", 0).asInt());
+        return static_cast<Theme>(m_json.get("Theme", static_cast<int>(Theme::System)).asInt());
     }
 
     void Configuration::setTheme(Theme theme)
