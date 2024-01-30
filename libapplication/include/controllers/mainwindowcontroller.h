@@ -9,7 +9,7 @@
 #include <memory>
 #include <string>
 #include <vector>
-#include <libnick/aura/appinfo.h>
+#include <libnick/app/appinfo.h>
 #include <libnick/events/event.h>
 #include <libnick/notifications/notificationsenteventargs.h>
 #include <libnick/notifications/shellnotificationsenteventargs.h>
@@ -35,7 +35,7 @@ namespace Nickvision::Application::Shared::Controllers
          * @brief Gets the AppInfo object for the application
          * @return The current AppInfo object
          */
-        Nickvision::Aura::AppInfo& getAppInfo() const;
+        Nickvision::App::AppInfo& getAppInfo() const;
         /**
          * @brief Gets whether or not the specified version is a development (preview) version.
          * @return True for preview version, else false

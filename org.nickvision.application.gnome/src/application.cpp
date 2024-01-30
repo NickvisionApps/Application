@@ -1,7 +1,8 @@
 #include "application.h"
-#include <libnick/aura/aura.h>
+#include <libnick/app/aura.h>
 #include "views/mainwindow.h"
 
+using namespace Nickvision::App;
 using namespace Nickvision::Application::Shared::Controllers;
 using namespace Nickvision::Application::Shared::Models;
 
@@ -17,7 +18,7 @@ namespace Nickvision::Application::GNOME
             m_args.push_back(argv[i]);
         }
         m_controller->getAppInfo().setChangelog("- Initial Release");
-        std::filesystem::path resources{ Aura::Aura::getActive().getExecutableDirectory() / (m_controller->getAppInfo().getId() + ".gresource") };
+        std::filesystem::path resources{ Aura::getActive().getExecutableDirectory() / (m_controller->getAppInfo().getId() + ".gresource") };
         g_resources_register(g_resource_load(resources.string().c_str(), nullptr));
         g_signal_connect(m_adw, "activate", G_CALLBACK(+[](GtkApplication* app, gpointer data){ reinterpret_cast<Application*>(data)->onActivate(app); }), this);
     }

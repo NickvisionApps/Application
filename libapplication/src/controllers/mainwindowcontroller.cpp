@@ -4,13 +4,13 @@
 #include <sstream>
 #include <thread>
 #include <boost/locale.hpp>
-#include <libnick/aura/aura.h>
+#include <libnick/app/aura.h>
 #include <libnick/helpers/stringhelpers.h>
 #include <libnick/localization/gettext.h>
 #include "models/configuration.h"
 
 using namespace Nickvision::Application::Shared::Models;
-using namespace Nickvision::Aura;
+using namespace Nickvision::App;
 using namespace Nickvision::Events;
 using namespace Nickvision::Notifications;
 using namespace Nickvision::Update;
@@ -19,9 +19,9 @@ namespace Nickvision::Application::Shared::Controllers
 {
     MainWindowController::MainWindowController()
     {
-        Aura::Aura::getActive().init("org.nickvision.application", "Nickvision Application", "Application");
-        AppInfo& appInfo{ Aura::Aura::getActive().getAppInfo() };
-        appInfo.setVersion({ "2024.1.0-next" });
+        Aura::getActive().init("org.nickvision.application", "Nickvision Application", "Application");
+        AppInfo& appInfo{ Aura::getActive().getAppInfo() };
+        appInfo.setVersion({ "2024.2.0-next" });
         appInfo.setShortName(_("Application"));
         appInfo.setDescription(_("Create new Nickvision applications"));
         appInfo.setSourceRepo("https://github.com/NickvisionApps/Application");
@@ -39,17 +39,17 @@ namespace Nickvision::Application::Shared::Controllers
 
     AppInfo& MainWindowController::getAppInfo() const
     {
-        return Aura::Aura::getActive().getAppInfo();
+        return Aura::getActive().getAppInfo();
     }
 
     bool MainWindowController::isDevVersion() const
     {
-        return Aura::Aura::getActive().getAppInfo().getVersion().getVersionType() == VersionType::Preview;
+        return Aura::getActive().getAppInfo().getVersion().getVersionType() == VersionType::Preview;
     }
 
     Theme MainWindowController::getTheme() const
     {
-        return Configuration::current().getTheme();
+        return Aura::getActive().getConfig<Configuration>("config").getTheme();
     }
 
     Event<NotificationSentEventArgs>& MainWindowController::notificationSent()
@@ -65,13 +65,25 @@ namespace Nickvision::Application::Shared::Controllers
     std::string MainWindowController::getDebugInformation(const std::string& extraInformation) const
     {
         std::stringstream builder;
-        builder << Aura::Aura::getActive().getAppInfo().getId();
+        builder << Aura::getActive().getAppInfo().getId();
 #ifdef _WIN32
         builder << ".winui" << std::endl;
 #elif defined(__linux__)
         builder << ".gnome" << std::endl;
 #endif
-        builder << Aura::Aura::getActive().getAppInfo().getVersion().toString() << std::endl << std::endl;
+        builder << Aura::getActive().getAppInfo().getVersion().toString() << std::endl << std::endl;
+        if(Aura::getActive().isRunningViaFlatpak())
+        {
+            builder << "Running under Flatpak" << std::endl;
+        }
+        else if(Aura::getActive().isRunningViaSnap())
+        {
+            builder << "Running under Snap" << std::endl;
+        }
+        else
+        {
+            builder << "Running locally" << std::endl;
+        }
         builder << StringHelpers::split(boost::locale::util::get_system_locale(), ".")[0] << std::endl;
         if (!extraInformation.empty())
         {
@@ -136,13 +148,13 @@ namespace Nickvision::Application::Shared::Controllers
 #ifdef _WIN32
             try
             {
-                m_updater = std::make_shared<Updater>();
+                m_updater = std::make_shared<Updater>(Aura::getActive().getAppInfo().getSourceRepo());
             }
             catch(...)
             {
                 m_updater = nullptr;
             }
-            if (Configuration::current().getAutomaticallyCheckForUpdates())
+            if (Aura::getActive().getConfig<Configuration>("config").getAutomaticallyCheckForUpdates())
             {
                 checkForUpdates();
             }
@@ -160,7 +172,7 @@ namespace Nickvision::Application::Shared::Controllers
                 Version latest{ m_updater->fetchCurrentStableVersion() };
                 if (!latest.empty())
                 {
-                    if (latest > Aura::Aura::getActive().getAppInfo().getVersion())
+                    if (latest > Aura::getActive().getAppInfo().getVersion())
                     {
                         m_notificationSent.invoke({ _("New update available"), NotificationSeverity::Success, "update" });
                     }
@@ -207,6 +219,7 @@ namespace Nickvision::Application::Shared::Controllers
             m_notificationSent.invoke({ std::vformat(_("Folder Opened: {}"), std::make_format_args(m_folderPath.string())), NotificationSeverity::Success, "close" });
             m_folderChanged.invoke({});
             m_taskbar.setCount(static_cast<long>(m_files.size()));
+            m_taskbar.setCountVisible(true);
             return true;
         }
         return false;
@@ -218,7 +231,7 @@ namespace Nickvision::Application::Shared::Controllers
         m_files.clear();
         m_notificationSent.invoke({ _("Folder closed"), NotificationSeverity::Warning });
         m_folderChanged.invoke({});
-        m_taskbar.setCount(-1L);
+        m_taskbar.setCountVisible(false);
     }
 
     void MainWindowController::loadFiles()

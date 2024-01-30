@@ -1,15 +1,14 @@
 #include "views/mainwindow.h"
 #include <filesystem>
 #include <format>
-#include <libnick/aura/aura.h>
-#include <libnick/aura/appinfo.h>
+#include <libnick/app/appinfo.h>
 #include <libnick/notifications/shellnotification.h>
 #include <libnick/localization/gettext.h>
 #include "helpers/builder.h"
 #include "views/preferencesdialog.h"
 
 using namespace Nickvision::Application::Shared::Controllers;
-using namespace Nickvision::Aura;
+using namespace Nickvision::App;
 using namespace Nickvision::Events;
 using namespace Nickvision::Notifications;
 
@@ -160,20 +159,8 @@ namespace Nickvision::Application::GNOME::Views
     void MainWindow::about()
     {
         std::string extraDebug;
-        extraDebug += "GTK: " + std::to_string(gtk_get_major_version()) + "." + std::to_string(gtk_get_minor_version()) + "." + std::to_string(gtk_get_micro_version()) + "\n";
-        extraDebug += "libadwaita: " + std::to_string(adw_get_major_version()) + "." + std::to_string(adw_get_minor_version()) + "." + std::to_string(adw_get_micro_version()) + "\n";
-        if(std::filesystem::exists("/.flatpak-info"))
-        {
-            extraDebug += "Running under Flatpak.\n";
-        }
-        else if(!Aura::Aura::getActive().getEnvVar("SNAP").empty())
-        {
-            extraDebug += "Running under Snap.\n";
-        }
-        else
-        {
-            extraDebug += "Running locally.\n";
-        }
+        extraDebug += "GTK " + std::to_string(gtk_get_major_version()) + "." + std::to_string(gtk_get_minor_version()) + "." + std::to_string(gtk_get_micro_version()) + "\n";
+        extraDebug += "libadwaita " + std::to_string(adw_get_major_version()) + "." + std::to_string(adw_get_minor_version()) + "." + std::to_string(adw_get_micro_version());
         AdwAboutWindow* dialog{ ADW_ABOUT_WINDOW(adw_about_window_new()) };
         gtk_window_set_transient_for(GTK_WINDOW(dialog), GTK_WINDOW(m_window));
         gtk_window_set_icon_name(GTK_WINDOW(dialog), m_controller->getAppInfo().getId().c_str());

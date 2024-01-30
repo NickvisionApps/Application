@@ -1,5 +1,4 @@
 #include "models/configuration.h"
-#include <libnick/aura/aura.h>
 
 namespace Nickvision::Application::Shared::Models
 {
@@ -31,10 +30,5 @@ namespace Nickvision::Application::Shared::Models
     void Configuration::setAutomaticallyCheckForUpdates(bool check)
     {
         m_json["AutomaticallyCheckForUpdates"] = check;
-    }
-
-    Configuration& Configuration::current()
-    {
-        return Aura::Aura::getActive().getConfig<Configuration>("config");
     }
 }

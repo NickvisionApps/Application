@@ -2,7 +2,7 @@
 #define CONFIGURATION_H
 
 #include <string>
-#include <libnick/aura/configurationbase.h>
+#include <libnick/app/configurationbase.h>
 #include "theme.h"
 
 namespace Nickvision::Application::Shared::Models
@@ -10,7 +10,7 @@ namespace Nickvision::Application::Shared::Models
     /**
      * @brief A model for the configuration of the application.
      */
-    class Configuration : public Nickvision::Aura::ConfigurationBase
+    class Configuration : public Nickvision::App::ConfigurationBase
     {
     public:
         /**
@@ -38,14 +38,6 @@ namespace Nickvision::Application::Shared::Models
          * @param check Whether or not to automatically check for updates
          */
         void setAutomaticallyCheckForUpdates(bool check);
-
-    public:
-        /**
-         * @brief Gets the configuration object for the running application.
-         * @throw std::logic_error Thrown if Aura::init() was not yet called
-         * @return The current Configuration instance
-         */
-        static Configuration& current();
     };
 }
 
