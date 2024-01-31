@@ -14,9 +14,8 @@ jobs:
     name: "GNOME on Snap"
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Git repository
-        uses: actions/checkout@v4
-      - name: Build Test Application Snap
+      - uses: actions/checkout@v4
+      - name: Build
         uses: snapcore/action-build@v1
         id: snapcraft-build
         with:
