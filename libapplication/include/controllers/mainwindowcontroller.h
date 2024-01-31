@@ -47,6 +47,11 @@ namespace Nickvision::Application::Shared::Controllers
          */
         Models::Theme getTheme() const;
         /**
+         * @brief Gets the Saved event for the application's configuration.
+         * @return The configuration Saved event
+         */
+        Nickvision::Events::Event<Nickvision::Events::EventArgs>& configurationSaved();
+        /**
          * @brief Gets the event for when a notification is sent.
          * @return The notification sent event
          */

@@ -24,14 +24,9 @@ namespace winrt::Nickvision::Application::WinUI::implementation
         /**
          * @brief Sets the controller for the main window.
          * @param controller The MainWindowController 
+         * @param systemTheme The ElementTheme of the system
          */
-        void SetController(const std::shared_ptr<::Nickvision::Application::Shared::Controllers::MainWindowController>& controller);
-        /**
-         * @brief Handles when the main window is activated.
-         * @param sender IInspectable
-         * @param args Microsoft::UI::Xaml::WindowActivatedEventArgs
-         */
-        void OnActivated(const IInspectable& sender, const Microsoft::UI::Xaml::WindowActivatedEventArgs& args);
+        void SetController(const std::shared_ptr<::Nickvision::Application::Shared::Controllers::MainWindowController>& controller, Microsoft::UI::Xaml::ElementTheme systemTheme);
         /**
          * @brief Handles when the main window is loaded.
          * @param sender IInspectable
@@ -44,6 +39,12 @@ namespace winrt::Nickvision::Application::WinUI::implementation
          * @param args Microsoft::UI::Windowing::AppWindowClosingEventArgs
          */
         void OnClosing(const Microsoft::UI::Windowing::AppWindow& sender, const Microsoft::UI::Windowing::AppWindowClosingEventArgs& args);
+        /**
+         * @brief Handles when the main window is activated.
+         * @param sender IInspectable
+         * @param args Microsoft::UI::Xaml::WindowActivatedEventArgs
+         */
+        void OnActivated(const IInspectable& sender, const Microsoft::UI::Xaml::WindowActivatedEventArgs& args);
         /**
          * @brief Handles when the main window's theme is changed.
          * @param sender Microsoft::UI::Xaml::FrameworkElement
@@ -62,6 +63,11 @@ namespace winrt::Nickvision::Application::WinUI::implementation
          * @param args IInspectable
          */
         Windows::Foundation::IAsyncAction OnDrop(const IInspectable& sender, const Microsoft::UI::Xaml::DragEventArgs& args);
+        /**
+         * @brief Handles when the application's configuration is saved to disk.
+         * @param args Nickvision::Events::EventArgs 
+         */
+        void OnConfigurationSaved(const ::Nickvision::Events::EventArgs& args);
         /**
          * @brief Handles when a notification is sent to the window.
          * @param args Nickvision::Notifications::NotificationSentEventArgs 
@@ -84,23 +90,6 @@ namespace winrt::Nickvision::Application::WinUI::implementation
          * @param args Microsoft::UI::Xaml::Input::TappedRoutedEventArgs
          */
         void OnNavViewItemTapped(const IInspectable& sender, const Microsoft::UI::Xaml::Input::TappedRoutedEventArgs& args);
-        /**
-         * @brief Handles when the open folder is changed (including closed).
-         * @param args Nickvision::Events::EventArgs 
-         */
-        void OnFolderChanged(const ::Nickvision::Events::EventArgs& args);
-        /**
-         * @brief Opens a folder. 
-         * @param sender IInspectable
-         * @param args Microsoft::UI::Xaml::RoutedEventArgs
-         */
-        Windows::Foundation::IAsyncAction OpenFolder(const IInspectable& sender, const Microsoft::UI::Xaml::RoutedEventArgs& args);
-        /**
-         * @brief Closes the folder if one is open.
-         * @param sender IInspectable
-         * @param args Microsoft::UI::Xaml::RoutedEventArgs
-         */
-        void CloseFolder(const IInspectable& sender, const Microsoft::UI::Xaml::RoutedEventArgs& args);
         /**
          * @brief Checks for an update to the application.
          * @param sender IInspectable
@@ -137,6 +126,23 @@ namespace winrt::Nickvision::Application::WinUI::implementation
          * @param args Microsoft::UI::Xaml::RoutedEventArgs
          */
         Windows::Foundation::IAsyncAction Discussions(const IInspectable& sender, const Microsoft::UI::Xaml::RoutedEventArgs& args);
+        /**
+         * @brief Handles when the open folder is changed (including closed).
+         * @param args Nickvision::Events::EventArgs 
+         */
+        void OnFolderChanged(const ::Nickvision::Events::EventArgs& args);
+        /**
+         * @brief Opens a folder. 
+         * @param sender IInspectable
+         * @param args Microsoft::UI::Xaml::RoutedEventArgs
+         */
+        Windows::Foundation::IAsyncAction OpenFolder(const IInspectable& sender, const Microsoft::UI::Xaml::RoutedEventArgs& args);
+        /**
+         * @brief Closes the folder if one is open.
+         * @param sender IInspectable
+         * @param args Microsoft::UI::Xaml::RoutedEventArgs
+         */
+        void CloseFolder(const IInspectable& sender, const Microsoft::UI::Xaml::RoutedEventArgs& args);
 
     private:
         /**
@@ -146,6 +152,7 @@ namespace winrt::Nickvision::Application::WinUI::implementation
         std::shared_ptr<::Nickvision::Application::Shared::Controllers::MainWindowController> m_controller;
         bool m_isActivated;
         HWND m_hwnd;
+        Microsoft::UI::Xaml::ElementTheme m_systemTheme;
     };
 }
 

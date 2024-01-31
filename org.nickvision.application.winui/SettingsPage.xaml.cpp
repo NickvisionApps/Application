@@ -8,7 +8,6 @@ using namespace ::Nickvision::Application::Shared::Controllers;
 using namespace ::Nickvision::Application::Shared::Models;
 using namespace winrt::Microsoft::UI::Xaml;
 using namespace winrt::Microsoft::UI::Xaml::Controls;
-using namespace winrt::Microsoft::Windows::AppLifecycle;
 
 namespace winrt::Nickvision::Application::WinUI::implementation 
 {
@@ -39,43 +38,26 @@ namespace winrt::Nickvision::Application::WinUI::implementation
         m_constructing = false;
     }
 
-    Windows::Foundation::IAsyncAction SettingsPage::OnThemeChanged(const IInspectable& sender, const SelectionChangedEventArgs& args)
+    void SettingsPage::OnThemeChanged(const IInspectable& sender, const SelectionChangedEventArgs& args)
     {
-        co_await ApplyChangesAsync();
+        ApplyChanges();
     }
 
-    Windows::Foundation::IAsyncAction SettingsPage::OnUpdatesToggled(const IInspectable& sender, const RoutedEventArgs& args)
+    void SettingsPage::OnUpdatesToggled(const IInspectable& sender, const RoutedEventArgs& args)
     {
-        co_await ApplyChangesAsync();
+        ApplyChanges();
     }
 
-    Windows::Foundation::IAsyncAction SettingsPage::ApplyChangesAsync()
+    void SettingsPage::ApplyChanges()
     {
         if(!m_constructing)
         {
-            bool needsRestart{ false };
             if(m_controller->getTheme() != static_cast<Theme>(CmbTheme().SelectedIndex()))
             {
                 m_controller->setTheme(static_cast<Theme>(CmbTheme().SelectedIndex()));
-                needsRestart = true;
             }
             m_controller->setAutomaticallyCheckForUpdates(TglAutomaticallyCheckForUpdates().IsOn());
             m_controller->saveConfiguration();
-            if(needsRestart)
-            {
-                ContentDialog restartDialog;
-                restartDialog.Title(winrt::box_value(winrt::to_hstring(_("Restart To Apply Theme?"))));
-                restartDialog.Content(winrt::box_value(winrt::to_hstring(_("Would you like to restart the app to apply the new theme?\nAny unsaved work will be lost."))));
-                restartDialog.PrimaryButtonText(winrt::to_hstring(_("Yes")));
-                restartDialog.CloseButtonText(winrt::to_hstring(_("No")));
-                restartDialog.DefaultButton(ContentDialogButton::Primary);
-                restartDialog.XamlRoot(XamlRoot());
-                ContentDialogResult res{ co_await restartDialog.ShowAsync() };
-                if(res == ContentDialogResult::Primary)
-                {
-                    AppInstance::Restart(L"Apply new theme");
-                }
-            }
         }
     }
 }

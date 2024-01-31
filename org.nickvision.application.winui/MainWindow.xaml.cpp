@@ -14,6 +14,7 @@ using namespace ::Nickvision;
 using namespace ::Nickvision::Events;
 using namespace ::Nickvision::Notifications;
 using namespace ::Nickvision::Application::Shared::Controllers;
+using namespace ::Nickvision::Application::Shared::Models;
 using namespace winrt::Microsoft::UI;
 using namespace winrt::Microsoft::UI::Dispatching;
 using namespace winrt::Microsoft::UI::Input;
@@ -76,11 +77,13 @@ namespace winrt::Nickvision::Application::WinUI::implementation
         ToolTipService::SetToolTip(FolderCloseFolderButton(), winrt::box_value(winrt::to_hstring(_("Close (Ctrl+W)"))));
     }
 
-    void MainWindow::SetController(const std::shared_ptr<MainWindowController>& controller)
+    void MainWindow::SetController(const std::shared_ptr<MainWindowController>& controller, ElementTheme systemTheme)
     {
         m_controller = controller;
+        m_systemTheme = systemTheme;
         //Register Events
         AppWindow().Closing({ this, &MainWindow::OnClosing });
+        m_controller->configurationSaved() += [&](const EventArgs& args) { OnConfigurationSaved(args); };
         m_controller->notificationSent() += [&](const NotificationSentEventArgs& args) { OnNotificationSent(args); };
         m_controller->shellNotificationSent() += [&](const ShellNotificationSentEventArgs& args) { OnShellNotificationSent(args); };
         m_controller->folderChanged() += [&](const EventArgs& args) { OnFolderChanged(args); };
@@ -101,13 +104,6 @@ namespace winrt::Nickvision::Application::WinUI::implementation
         StatusPageHome().Title(winrt::to_hstring(m_controller->getGreeting()));
     }
 
-    void MainWindow::OnActivated(const IInspectable& sender, const WindowActivatedEventArgs& args)
-    {
-        m_isActivated = args.WindowActivationState() != WindowActivationState::Deactivated;
-        TitleBarTitle().Foreground(Helpers::WinUI::LookupAppResource<SolidColorBrush>(m_isActivated ? L"WindowCaptionForeground" : L"WindowCaptionForegroundDisabled"));
-        AppWindow().TitleBar().ButtonForegroundColor(Helpers::WinUI::LookupAppResource<SolidColorBrush>(m_isActivated ? L"WindowCaptionForeground" : L"WindowCaptionForegroundDisabled").Color());
-    }
-
     void MainWindow::OnLoaded(const IInspectable& sender, const RoutedEventArgs& args)
     {
         static bool opened{ false };
@@ -126,13 +122,40 @@ namespace winrt::Nickvision::Application::WinUI::implementation
 
     void MainWindow::OnClosing(const Microsoft::UI::Windowing::AppWindow& sender, const AppWindowClosingEventArgs& args)
     {
+        //args.Cancel(true);
+    }
 
+    void MainWindow::OnActivated(const IInspectable& sender, const WindowActivatedEventArgs& args)
+    {
+        m_isActivated = args.WindowActivationState() != WindowActivationState::Deactivated;
+        if(m_isActivated)
+        {
+            OnThemeChanged(MainGrid(), sender);
+        }
+        else
+        {
+            TitleBarTitle().Foreground(SolidColorBrush(Colors::Gray()));
+            AppWindow().TitleBar().ButtonForegroundColor(Colors::Gray());
+        }
     }
 
     void MainWindow::OnThemeChanged(const FrameworkElement& sender, const IInspectable& args)
     {
-        TitleBarTitle().Foreground(Helpers::WinUI::LookupAppResource<SolidColorBrush>(m_isActivated ? L"WindowCaptionForeground" : L"WindowCaptionForegroundDisabled"));
-        AppWindow().TitleBar().ButtonForegroundColor(Helpers::WinUI::LookupAppResource<SolidColorBrush>(m_isActivated ? L"WindowCaptionForeground" : L"WindowCaptionForegroundDisabled").Color());
+        switch(MainGrid().ActualTheme())
+        {
+        case ElementTheme::Light:
+            TitleBarTitle().Foreground(SolidColorBrush(Colors::Black()));
+            AppWindow().TitleBar().ButtonForegroundColor(Colors::Black());
+            AppWindow().TitleBar().ButtonInactiveForegroundColor(Colors::Black());
+            break;
+        case ElementTheme::Dark:
+            TitleBarTitle().Foreground(SolidColorBrush(Colors::White()));
+            AppWindow().TitleBar().ButtonForegroundColor(Colors::White());
+            AppWindow().TitleBar().ButtonInactiveForegroundColor(Colors::White());
+            break;
+        default:
+            break;
+        }
     }
 
     void MainWindow::OnDragOver(const IInspectable& sender, const DragEventArgs& args)
@@ -153,6 +176,22 @@ namespace winrt::Nickvision::Application::WinUI::implementation
             {
                 m_controller->openFolder(winrt::to_string(items.GetAt(0).Path()));
             }
+        }
+    }
+
+    void MainWindow::OnConfigurationSaved(const EventArgs& args)
+    {
+        switch (m_controller->getTheme())
+        {
+        case Theme::Light:
+            MainGrid().RequestedTheme(ElementTheme::Light);
+            break;
+        case Theme::Dark:
+            MainGrid().RequestedTheme(ElementTheme::Dark);
+            break;
+        default:
+            MainGrid().RequestedTheme(m_systemTheme);
+            break;
         }
     }
 
@@ -239,6 +278,46 @@ namespace winrt::Nickvision::Application::WinUI::implementation
         FlyoutBase::ShowAttachedFlyout(sender.as<FrameworkElement>());
     }
 
+    void MainWindow::CheckForUpdates(const IInspectable& sender, const RoutedEventArgs& args)
+    {
+        FlyoutBase::GetAttachedFlyout(NavViewHelp().as<FrameworkElement>()).Hide();
+        m_controller->checkForUpdates();
+    }
+
+    void MainWindow::WindowsUpdate(const IInspectable& sender, const RoutedEventArgs& args)
+    {
+        InfoBar().IsOpen(false);
+        NavView().IsEnabled(false);
+        TitleBarSearchBox().Visibility(Visibility::Collapsed);
+        ViewStack().CurrentPage(L"Spinner");
+        SetDragRegionForCustomTitleBar();
+        m_controller->windowsUpdate();
+    }
+
+    void MainWindow::CopyDebugInformation(const IInspectable& sender, const RoutedEventArgs& args)
+    {
+        FlyoutBase::GetAttachedFlyout(NavViewHelp().as<FrameworkElement>()).Hide();
+        DataPackage dataPackage;
+        dataPackage.SetText(winrt::to_hstring(m_controller->getDebugInformation()));
+        Clipboard::SetContent(dataPackage);
+        OnNotificationSent({ _("Debug information copied to clipboard."), NotificationSeverity::Success });
+    }
+
+    Windows::Foundation::IAsyncAction MainWindow::GitHubRepo(const IInspectable& sender, const RoutedEventArgs& args)
+    {
+        co_await Launcher::LaunchUriAsync(Windows::Foundation::Uri{ winrt::to_hstring(m_controller->getAppInfo().getSourceRepo()) });
+    }
+
+    Windows::Foundation::IAsyncAction MainWindow::ReportABug(const IInspectable& sender, const RoutedEventArgs& args)
+    {
+        co_await Launcher::LaunchUriAsync(Windows::Foundation::Uri{ winrt::to_hstring(m_controller->getAppInfo().getIssueTracker()) });
+    }
+
+    Windows::Foundation::IAsyncAction MainWindow::Discussions(const IInspectable& sender, const RoutedEventArgs& args)
+    {
+        co_await Launcher::LaunchUriAsync(Windows::Foundation::Uri{ winrt::to_hstring(m_controller->getAppInfo().getSupportUrl()) });
+    }
+
     void MainWindow::OnFolderChanged(const EventArgs& args)
     {
         NavViewHome().IsSelected(!m_controller->isFolderOpened());
@@ -282,46 +361,6 @@ namespace winrt::Nickvision::Application::WinUI::implementation
     {
         InfoBar().IsOpen(false);
         m_controller->closeFolder();
-    }
-
-    void MainWindow::CheckForUpdates(const IInspectable& sender, const RoutedEventArgs& args)
-    {
-        FlyoutBase::GetAttachedFlyout(NavViewHelp().as<FrameworkElement>()).Hide();
-        m_controller->checkForUpdates();
-    }
-
-    void MainWindow::WindowsUpdate(const IInspectable& sender, const RoutedEventArgs& args)
-    {
-        InfoBar().IsOpen(false);
-        NavView().IsEnabled(false);
-        TitleBarSearchBox().Visibility(Visibility::Collapsed);
-        ViewStack().CurrentPage(L"Spinner");
-        SetDragRegionForCustomTitleBar();
-        m_controller->windowsUpdate();
-    }
-
-    void MainWindow::CopyDebugInformation(const IInspectable& sender, const RoutedEventArgs& args)
-    {
-        FlyoutBase::GetAttachedFlyout(NavViewHelp().as<FrameworkElement>()).Hide();
-        DataPackage dataPackage;
-        dataPackage.SetText(winrt::to_hstring(m_controller->getDebugInformation()));
-        Clipboard::SetContent(dataPackage);
-        OnNotificationSent({ _("Debug information copied to clipboard."), NotificationSeverity::Success });
-    }
-
-    Windows::Foundation::IAsyncAction MainWindow::GitHubRepo(const IInspectable& sender, const RoutedEventArgs& args)
-    {
-        co_await Launcher::LaunchUriAsync(Windows::Foundation::Uri{ winrt::to_hstring(m_controller->getAppInfo().getSourceRepo()) });
-    }
-
-    Windows::Foundation::IAsyncAction MainWindow::ReportABug(const IInspectable& sender, const RoutedEventArgs& args)
-    {
-        co_await Launcher::LaunchUriAsync(Windows::Foundation::Uri{ winrt::to_hstring(m_controller->getAppInfo().getIssueTracker()) });
-    }
-
-    Windows::Foundation::IAsyncAction MainWindow::Discussions(const IInspectable& sender, const RoutedEventArgs& args)
-    {
-        co_await Launcher::LaunchUriAsync(Windows::Foundation::Uri{ winrt::to_hstring(m_controller->getAppInfo().getSupportUrl()) });
     }
 
     void MainWindow::SetDragRegionForCustomTitleBar()

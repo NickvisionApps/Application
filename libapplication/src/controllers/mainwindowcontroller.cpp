@@ -52,6 +52,11 @@ namespace Nickvision::Application::Shared::Controllers
         return Aura::getActive().getConfig<Configuration>("config").getTheme();
     }
 
+    Event<EventArgs>& MainWindowController::configurationSaved()
+    {
+        return Aura::getActive().getConfig<Configuration>("config").saved();
+    }
+
     Event<NotificationSentEventArgs>& MainWindowController::notificationSent()
     {
         return m_notificationSent;

@@ -11,22 +11,23 @@ namespace winrt::Nickvision::Application::WinUI::implementation
     /**
      * @brief The main WinUI application point.
      */
-	class App : public AppT<App>
-	{
-	public:
+    class App : public AppT<App>
+    {
+    public:
         /**
          * @brief Constructs an app. 
          */
-		App();
+        App();
         /**
          * @brief Handles when the application is launched.
          * @param args Microsoft::UI::Xaml::LaunchActivatedEventArgs
          */
-		void OnLaunched(const Microsoft::UI::Xaml::LaunchActivatedEventArgs& args);
+        void OnLaunched(const Microsoft::UI::Xaml::LaunchActivatedEventArgs& args);
 
-	private:
-		std::shared_ptr<::Nickvision::Application::Shared::Controllers::MainWindowController> m_controller;
-	};
+    private:
+        std::shared_ptr<::Nickvision::Application::Shared::Controllers::MainWindowController> m_controller;
+        Microsoft::UI::Xaml::ElementTheme m_systemTheme;
+    };
 }
 
 #endif //APP_H
