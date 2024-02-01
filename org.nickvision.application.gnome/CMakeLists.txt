@@ -14,22 +14,18 @@ if(LINUX)
 
     find_program(GLIB_COMPULE_RESOURCES_EXECUTABLE glib-compile-resources)
     if(GLIB_COMPULE_RESOURCES_EXECUTABLE)
-        add_custom_command(TARGET org.nickvision.application.gnome PRE_BUILD COMMAND "${GLIB_COMPULE_RESOURCES_EXECUTABLE}" --sourcedir "${CMAKE_CURRENT_SOURCE_DIR}/resources" "${CMAKE_CURRENT_SOURCE_DIR}/resources/org.nickvision.application.gresource.xml" --target="${CMAKE_CURRENT_BINARY_DIR}/org.nickvision.application.gresource")
+        add_custom_command(TARGET org.nickvision.application.gnome POST_BUILD COMMAND "${GLIB_COMPULE_RESOURCES_EXECUTABLE}" --sourcedir "${CMAKE_CURRENT_SOURCE_DIR}/resources" "${CMAKE_CURRENT_SOURCE_DIR}/resources/org.nickvision.application.gresource.xml" --target="${CMAKE_CURRENT_BINARY_DIR}/org.nickvision.application.gresource")
     endif()
 
     find_program(BLUEPRINT_COMPILER_EXECUTABLE blueprint-compiler)
     if(BLUEPRINT_COMPILER_EXECUTABLE)
-        set(BLUEPRINTS
-            "blueprints/preferences_dialog.blp"
-            "blueprints/shortcuts_dialog.blp"
-            "window.blp")
-        add_custom_command(TARGET org.nickvision.application.gnome PRE_BUILD COMMAND "${BLUEPRINT_COMPILER_EXECUTABLE}" batch-compile "${CMAKE_CURRENT_BINARY_DIR}/ui" "${CMAKE_CURRENT_SOURCE_DIR}/blueprints" "${CMAKE_CURRENT_SOURCE_DIR}/blueprints/*.blp")
+        add_custom_command(TARGET org.nickvision.application.gnome POST_BUILD COMMAND "${BLUEPRINT_COMPILER_EXECUTABLE}" batch-compile "${CMAKE_CURRENT_BINARY_DIR}/ui" "${CMAKE_CURRENT_SOURCE_DIR}/blueprints" "${CMAKE_CURRENT_SOURCE_DIR}/blueprints/*.blp")
     endif()
 
     if(HAS_GETTEXT)
         foreach(LINGUA IN ITEMS ${LINGUAS})
-            add_custom_command(TARGET org.nickvision.application.gnome PRE_BUILD COMMAND "${CMAKE_COMMAND}" -E make_directory "${CMAKE_CURRENT_BINARY_DIR}/${LINGUA}")
-            add_custom_command(TARGET org.nickvision.application.gnome PRE_BUILD COMMAND "${GETTEXT_MSGFMT_EXECUTABLE}" "${CMAKE_SOURCE_DIR}/resources/po/${LINGUA}.po" --output-file="${CMAKE_CURRENT_BINARY_DIR}/${LINGUA}/${SHORT_NAME}.mo")
+            add_custom_command(TARGET org.nickvision.application.gnome POST_BUILD COMMAND "${CMAKE_COMMAND}" -E make_directory "${CMAKE_CURRENT_BINARY_DIR}/${LINGUA}")
+            add_custom_command(TARGET org.nickvision.application.gnome POST_BUILD COMMAND "${GETTEXT_MSGFMT_EXECUTABLE}" "${CMAKE_SOURCE_DIR}/resources/po/${LINGUA}.po" --output-file="${CMAKE_CURRENT_BINARY_DIR}/${LINGUA}/${SHORT_NAME}.mo")
         endforeach()
     endif()
 
