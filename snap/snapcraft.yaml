@@ -80,8 +80,7 @@ parts:
   application:
     after: [build-deps, maddy, libnick, libxmlplusplus]
     plugin: cmake
-    source: https://github.com/NickvisionApps/Application.git
-    source-depth: 1
+    source: .
     build-snaps:
       - cmake
       - blueprint-compiler
