@@ -26,6 +26,7 @@ namespace winrt::Nickvision::Application::WinUI::implementation
 
     private:
         std::shared_ptr<::Nickvision::Application::Shared::Controllers::MainWindowController> m_controller;
+        Microsoft::UI::Xaml::Window m_mainWindow;
         Microsoft::UI::Xaml::ElementTheme m_systemTheme;
     };
 }

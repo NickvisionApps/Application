@@ -74,14 +74,9 @@ namespace Nickvision::Application::GNOME::Views
 
     void MainWindow::show()
     {
-        static bool opened{ false };
         gtk_window_present(GTK_WINDOW(m_window));
-        if(!opened)
-        {
-            m_controller->connectTaskbar(m_controller->getAppInfo().getId() + ".desktop");
-            m_controller->startup();
-            opened = true;
-        }
+        m_controller->connectTaskbar(m_controller->getAppInfo().getId() + ".desktop");
+        m_controller->startup();
     }
 
     bool MainWindow::onCloseRequested()

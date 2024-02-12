@@ -145,6 +145,7 @@ namespace Nickvision::Application::Shared::Controllers
          * @brief Other sub-directory paths are not added to the files list.
          */
         void loadFiles();
+        bool m_started;
         std::shared_ptr<Nickvision::Update::Updater> m_updater;
         Nickvision::Taskbar::TaskbarItem m_taskbar;
         Nickvision::Events::Event<Nickvision::Notifications::NotificationSentEventArgs> m_notificationSent;
