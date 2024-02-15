@@ -3,15 +3,15 @@
 endif()
 
 add_library(libapplication
-	"src/controllers/mainwindowcontroller.cpp"
-	"src/controllers/preferencesviewcontroller.cpp"
-	"src/models/configuration.cpp")
+    "src/controllers/mainwindowcontroller.cpp"
+    "src/controllers/preferencesviewcontroller.cpp"
+    "src/models/configuration.cpp")
 target_include_directories(libapplication PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
 set_target_properties(libapplication PROPERTIES VERSION "${PROJECT_VERSION}" SOVERSION "${PROJECT_VERSION}")
 if(MSVC)
-	target_compile_options(libapplication PRIVATE /W4)
+    target_compile_options(libapplication PRIVATE /W4)
 else()
-	target_compile_options(libapplication PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(libapplication PRIVATE -Wall -Wextra -Wpedantic)
 endif()
 
 find_package(libnick CONFIG REQUIRED)
