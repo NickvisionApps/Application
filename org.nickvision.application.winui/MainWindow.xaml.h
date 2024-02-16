@@ -155,7 +155,6 @@ namespace winrt::Nickvision::Application::WinUI::implementation
         HWND m_hwnd;
         Microsoft::UI::Xaml::ElementTheme m_systemTheme;
         winrt::event_token m_notificationClickToken;
-        Microsoft::UI::Xaml::Controls::UserControl m_settingsPage;
     };
 }
 
