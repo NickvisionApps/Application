@@ -19,7 +19,6 @@ namespace winrt::Nickvision::Application::WinUI::implementation
         LblTitle().Text(winrt::to_hstring(_("Settings")));
         LblUserInterface().Text(winrt::to_hstring(_("User Interface")));
         RowTheme().Title(winrt::to_hstring(_("Theme")));
-        RowTheme().Description(winrt::to_hstring(_("An application restart is required to change the theme.")));
         CmbTheme().Items().Append(winrt::box_value(winrt::to_hstring(_p("Theme", "Light"))));
         CmbTheme().Items().Append(winrt::box_value(winrt::to_hstring(_p("Theme", "Dark"))));
         CmbTheme().Items().Append(winrt::box_value(winrt::to_hstring(_p("Theme", "System"))));

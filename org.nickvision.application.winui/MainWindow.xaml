@@ -140,7 +140,7 @@
                         </nickvision:ViewStackPage>
 
                         <nickvision:ViewStackPage PageName="Home">
-                            <nickvision:StatusPage x:Name="StatusPageHome" Grid.Column="0" UseAppIcon="True">
+                            <nickvision:StatusPage x:Name="StatusPageHome" UseAppIcon="True">
                                 <nickvision:StatusPage.Child>
                                     <Button HorizontalAlignment="Center" Style="{ThemeResource AccentButtonStyle}" Click="OpenFolder">
                                         <Button.Content>
