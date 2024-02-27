@@ -37,12 +37,12 @@ namespace winrt::Nickvision::Application::WinUI::implementation
         m_constructing = false;
     }
 
-    void SettingsPage::OnThemeChanged(const IInspectable& sender, const SelectionChangedEventArgs& args)
+    void SettingsPage::OnCmbChanged(const IInspectable& sender, const SelectionChangedEventArgs& args)
     {
         ApplyChanges();
     }
 
-    void SettingsPage::OnUpdatesToggled(const IInspectable& sender, const RoutedEventArgs& args)
+    void SettingsPage::OnSwitchToggled(const IInspectable& sender, const RoutedEventArgs& args)
     {
         ApplyChanges();
     }

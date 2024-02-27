@@ -13,15 +13,15 @@
 
             <TextBlock x:Name="LblUserInterface" Style="{StaticResource NavigationViewItemHeaderTextStyle}"/>
 
-            <nickvision:SettingsRow x:Name="RowTheme" Glyph="&#xE790;">
+            <nickvision:SettingsRow x:Name="RowTheme" Glyph="&#xE793;">
                 <nickvision:SettingsRow.Child>
-                    <ComboBox x:Name="CmbTheme" SelectionChanged="OnThemeChanged"/>
+                    <ComboBox x:Name="CmbTheme" SelectionChanged="OnCmbChanged"/>
                 </nickvision:SettingsRow.Child>
             </nickvision:SettingsRow>
 
             <nickvision:SettingsRow x:Name="RowAutomaticallyCheckForUpdates" Glyph="&#xE117;">
                 <nickvision:SettingsRow.Child>
-                    <ToggleSwitch x:Name="TglAutomaticallyCheckForUpdates" Toggled="OnUpdatesToggled"/>
+                    <ToggleSwitch x:Name="TglAutomaticallyCheckForUpdates" Toggled="OnSwitchToggled"/>
                 </nickvision:SettingsRow.Child>
             </nickvision:SettingsRow>
         </StackPanel>
