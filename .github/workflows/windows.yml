@@ -27,7 +27,7 @@ jobs:
         uses: johnwason/vcpkg-action@v5
         id: vcpkg
         with:
-          pkgs: gettext libnick
+          pkgs: libnick
           triplet: x64-windows
           cache-key: windows-latest
           revision: 2ac6ba173be85207a7bac4f0f02f5486f9fd4c0f
