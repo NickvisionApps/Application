@@ -27,12 +27,12 @@ namespace Nickvision::Application::GNOME::Views
          * @brief Shows the PreferencesDialog and waits for it to close. 
          */
         void run();
+
+    private:
         /**
          * @brief Handles when the theme preference is changed. 
          */
         void onThemeChanged();
-
-    private:
         std::shared_ptr<Shared::Controllers::PreferencesViewController> m_controller;
         GtkBuilder* m_builder;
         AdwPreferencesWindow* m_dialog;

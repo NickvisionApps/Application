@@ -2,13 +2,11 @@
 #if __has_include("MainWindow.g.cpp")
 #include "MainWindow.g.cpp"
 #endif
-#include <cmath>
 #include <format>
 #include <libnick/helpers/stringhelpers.h>
 #include <libnick/notifications/shellnotification.h>
 #include <libnick/localization/gettext.h>
 #include "SettingsPage.xaml.h"
-#include "Helpers/WinUI.h"
 
 using namespace ::Nickvision;
 using namespace ::Nickvision::Events;

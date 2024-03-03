@@ -25,7 +25,7 @@ namespace Nickvision::Application::Shared::Controllers
     {
         Aura::getActive().init("org.nickvision.application", "Nickvision Application", "Application");
         AppInfo& appInfo{ Aura::getActive().getAppInfo() };
-        appInfo.setVersion({ "2024.2.0-next" });
+        appInfo.setVersion({ "2024.3.0-next" });
         appInfo.setShortName(_("Application"));
         appInfo.setDescription(_("Create new Nickvision applications"));
         appInfo.setSourceRepo("https://github.com/NickvisionApps/Application");

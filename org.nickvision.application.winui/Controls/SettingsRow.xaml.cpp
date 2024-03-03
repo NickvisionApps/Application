@@ -19,6 +19,7 @@ namespace winrt::Nickvision::Application::WinUI::Controls::implementation
         InitializeComponent();
         Title(L"");
         Description(L"");
+        Glyph(L"");
     }
     
     winrt::hstring SettingsRow::Glyph() const
