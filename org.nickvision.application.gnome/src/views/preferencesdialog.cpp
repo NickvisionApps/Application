@@ -11,11 +11,13 @@ namespace Nickvision::Application::GNOME::Views
         m_builder{ BuilderHelpers::fromBlueprint("preferences_dialog") },
         m_dialog{ ADW_PREFERENCES_WINDOW(gtk_builder_get_object(m_builder, "root")) }
     {
+        //Build UI
         gtk_window_set_transient_for(GTK_WINDOW(m_dialog), parent);
         gtk_window_set_icon_name(GTK_WINDOW(m_dialog), m_controller->getId().c_str());
-        g_signal_connect(gtk_builder_get_object(m_builder, "themeRow"), "notify::selected-item", G_CALLBACK(+[](GObject*, GParamSpec* pspec, gpointer data){ reinterpret_cast<PreferencesDialog*>(data)->onThemeChanged(); }), this);
         //Load
         adw_combo_row_set_selected(ADW_COMBO_ROW(gtk_builder_get_object(m_builder, "themeRow")), static_cast<unsigned int>(m_controller->getTheme()));
+        //Signals
+        g_signal_connect(gtk_builder_get_object(m_builder, "themeRow"), "notify::selected-item", G_CALLBACK(+[](GObject*, GParamSpec* pspec, gpointer data){ reinterpret_cast<PreferencesDialog*>(data)->onThemeChanged(); }), this);
     }
 
     PreferencesDialog::~PreferencesDialog()
