@@ -67,6 +67,12 @@ namespace Nickvision::Application::GNOME::Views
         SET_ACCEL_FOR_ACTION(m_app, "win.about", "F1");
     }
 
+    MainWindow::~MainWindow()
+    {
+        gtk_window_destroy(GTK_WINDOW(m_window));
+        g_object_unref(m_builder);
+    }
+
     GObject* MainWindow::gobj() const
     {
         return G_OBJECT(m_window);

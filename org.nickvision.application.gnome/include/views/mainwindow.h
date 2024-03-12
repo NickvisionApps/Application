@@ -25,6 +25,10 @@ namespace Nickvision::Application::GNOME::Views
          */
         MainWindow(const std::shared_ptr<Shared::Controllers::MainWindowController>& controller, GtkApplication* app);
         /**
+         * @brief Destructs the MainWindow. 
+         */
+        ~MainWindow();
+        /**
          * @brief Gets the GObject object for the main window.
          * @return The GObject for the main window 
          */

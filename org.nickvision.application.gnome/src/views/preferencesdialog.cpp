@@ -23,6 +23,7 @@ namespace Nickvision::Application::GNOME::Views
     PreferencesDialog::~PreferencesDialog()
     {
         gtk_window_destroy(GTK_WINDOW(m_dialog));
+        g_object_unref(m_builder);
     }
 
     void PreferencesDialog::run()
