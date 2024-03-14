@@ -35,6 +35,10 @@ namespace Nickvision::Application::GNOME::Views
         m_controller->notificationSent() += [&](const NotificationSentEventArgs& args) { onNotificationSent(args); };
         m_controller->shellNotificationSent() += [&](const ShellNotificationSentEventArgs& args) { onShellNotificationSent(args); };
         m_controller->folderChanged() += [&](const EventArgs& args) { onFolderChanged(args); };
+        //Drop Target
+        GtkDropTarget* dropTarget{ gtk_drop_target_new(G_TYPE_FILE, GDK_ACTION_COPY) };
+        g_signal_connect(dropTarget, "drop", G_CALLBACK(+[](GtkDropTarget*, const GValue* value, double, double, gpointer data) -> bool { return reinterpret_cast<MainWindow*>(data)->onDrop(value); }), this);
+        gtk_widget_add_controller(GTK_WIDGET(m_window), GTK_EVENT_CONTROLLER(dropTarget));
         //Quit Action
         GSimpleAction* actQuit{ g_simple_action_new("quit", nullptr) };
         g_signal_connect(actQuit, "activate", G_CALLBACK(+[](GSimpleAction*, GVariant*, gpointer data){ reinterpret_cast<MainWindow*>(data)->quit(); }), this);
@@ -87,6 +91,16 @@ namespace Nickvision::Application::GNOME::Views
 
     bool MainWindow::onCloseRequested()
     {
+        return false;
+    }
+
+    bool MainWindow::onDrop(const GValue* value)
+    {
+        if(G_VALUE_HOLDS(value, G_TYPE_FILE))
+        {
+            m_controller->openFolder(g_file_get_path(G_FILE(g_value_get_object(value))));
+            return true;
+        }
         return false;
     }
 

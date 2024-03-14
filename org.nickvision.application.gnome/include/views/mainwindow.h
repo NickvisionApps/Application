@@ -43,6 +43,12 @@ namespace Nickvision::Application::GNOME::Views
          */
         bool onCloseRequested();
         /**
+         * @brief Handles when a file is dropped on the window.
+         * @param value The GValue dropped on the window
+         * @return True if drop was accepted, else false
+         */
+        bool onDrop(const GValue* value);
+        /**
          * @brief Handles when a notification is sent to the window.
          * @param args Nickvision::Notifications::NotificationSentEventArgs 
          */
