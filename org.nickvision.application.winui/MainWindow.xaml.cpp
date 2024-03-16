@@ -262,7 +262,7 @@ namespace winrt::Nickvision::Application::WinUI::implementation
         }
         else if(tag == L"Settings")
         {
-            UserControl page{ winrt::make<SettingsPage>() };
+            WinUI::SettingsPage page{ winrt::make<SettingsPage>() };
             page.as<SettingsPage>()->SetController(m_controller->createPreferencesViewController());
             ViewStack().CurrentPage(L"Custom");
             FrameCustom().Content(winrt::box_value(page));
