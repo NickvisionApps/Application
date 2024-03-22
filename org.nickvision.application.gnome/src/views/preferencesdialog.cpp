@@ -9,11 +9,9 @@ namespace Nickvision::Application::GNOME::Views
     PreferencesDialog::PreferencesDialog(const std::shared_ptr<PreferencesViewController>& controller, GtkWindow* parent)
         : m_controller{ controller },
         m_builder{ BuilderHelpers::fromBlueprint("preferences_dialog") },
-        m_dialog{ ADW_PREFERENCES_WINDOW(gtk_builder_get_object(m_builder, "root")) }
+        m_parent{ parent },
+        m_dialog{ ADW_PREFERENCES_DIALOG(gtk_builder_get_object(m_builder, "root")) }
     {
-        //Build UI
-        gtk_window_set_transient_for(GTK_WINDOW(m_dialog), parent);
-        gtk_window_set_icon_name(GTK_WINDOW(m_dialog), m_controller->getId().c_str());
         //Load
         adw_combo_row_set_selected(ADW_COMBO_ROW(gtk_builder_get_object(m_builder, "themeRow")), static_cast<unsigned int>(m_controller->getTheme()));
         //Signals
@@ -22,13 +20,13 @@ namespace Nickvision::Application::GNOME::Views
 
     PreferencesDialog::~PreferencesDialog()
     {
-        gtk_window_destroy(GTK_WINDOW(m_dialog));
+        adw_dialog_force_close(ADW_DIALOG(m_dialog));
         g_object_unref(m_builder);
     }
 
     void PreferencesDialog::run()
     {
-        gtk_window_present(GTK_WINDOW(m_dialog));
+        adw_dialog_present(ADW_DIALOG(m_dialog), GTK_WIDGET(m_parent));
         while(gtk_widget_is_visible(GTK_WIDGET(m_dialog)))
         {
             g_main_context_iteration(g_main_context_default(), false);

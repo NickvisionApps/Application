@@ -35,7 +35,8 @@ namespace Nickvision::Application::GNOME::Views
         void onThemeChanged();
         std::shared_ptr<Shared::Controllers::PreferencesViewController> m_controller;
         GtkBuilder* m_builder;
-        AdwPreferencesWindow* m_dialog;
+        GtkWindow* m_parent;
+        AdwPreferencesDialog* m_dialog;
     };
 }
 
