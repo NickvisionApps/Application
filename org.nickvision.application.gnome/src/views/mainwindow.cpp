@@ -177,8 +177,6 @@ namespace Nickvision::Application::GNOME::Views
         extraDebug += "GTK " + std::to_string(gtk_get_major_version()) + "." + std::to_string(gtk_get_minor_version()) + "." + std::to_string(gtk_get_micro_version()) + "\n";
         extraDebug += "libadwaita " + std::to_string(adw_get_major_version()) + "." + std::to_string(adw_get_minor_version()) + "." + std::to_string(adw_get_micro_version());
         AdwAboutDialog* dialog{ ADW_ABOUT_DIALOG(adw_about_dialog_new()) };
-        gtk_window_set_transient_for(GTK_WINDOW(dialog), GTK_WINDOW(m_window));
-        gtk_window_set_icon_name(GTK_WINDOW(dialog), m_controller->getAppInfo().getId().c_str());
         adw_about_dialog_set_application_name(dialog, m_controller->getAppInfo().getShortName().c_str());
         adw_about_dialog_set_application_icon(dialog, std::string(m_controller->getAppInfo().getId() + (m_controller->isDevVersion() ? "-devel" : "")).c_str());
         adw_about_dialog_set_developer_name(dialog, "Nickvision");
