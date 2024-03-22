@@ -29,7 +29,7 @@ namespace Nickvision::Application::GNOME::Views
         g_object_unref(m_builder);
     }
 
-    PreferencesDialog::onClosed()
+    void PreferencesDialog::onClosed()
     {
         m_controller->saveConfiguration();
         delete this;
