@@ -18,7 +18,7 @@ namespace Nickvision::Application::GNOME::Views
          * @param controller The PreferencesViewController
          * @return PreferencesDialog* (The caller is NOT responsible for deleting the returned pointer)
          */
-        static PreferencesDialog* create(const std::shared_ptr<Shared::Controllers::PreferencesViewController>& controller);
+        static const PreferencesDialog& create(const std::shared_ptr<Shared::Controllers::PreferencesViewController>& controller);
         /**
          * @brief Destructs a PreferencesDialog.
          */
@@ -27,7 +27,7 @@ namespace Nickvision::Application::GNOME::Views
          * @brief Presents the PreferencesDialog.
          * @param parent The GtkWindow object of the parent window
          */
-        void present(GtkWindow* parent);
+        void present(GtkWindow* parent) const;
 
     private:
         /**

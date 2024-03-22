@@ -1,5 +1,6 @@
 #include "views/preferencesdialog.h"
 #include "helpers/builder.h"
+#include <iostream>
 
 using namespace Nickvision::Application::Shared::Controllers;
 using namespace Nickvision::Application::Shared::Models;
@@ -18,9 +19,9 @@ namespace Nickvision::Application::GNOME::Views
         g_signal_connect(gtk_builder_get_object(m_builder, "themeRow"), "notify::selected-item", G_CALLBACK(+[](GObject*, GParamSpec* pspec, gpointer data){ reinterpret_cast<PreferencesDialog*>(data)->onThemeChanged(); }), this);
     }
 
-    PreferencesDialog* PreferencesDialog::create(const std::shared_ptr<PreferencesViewController>& controller)
+    const PreferencesDialog& PreferencesDialog::create(const std::shared_ptr<PreferencesViewController>& controller)
     {
-        return new PreferencesDialog(controller);
+        return *(new PreferencesDialog(controller));
     }
 
     PreferencesDialog::~PreferencesDialog()
@@ -29,15 +30,16 @@ namespace Nickvision::Application::GNOME::Views
         g_object_unref(m_builder);
     }
 
+    void PreferencesDialog::present(GtkWindow* parent) const
+    {
+        adw_dialog_present(ADW_DIALOG(m_dialog), GTK_WIDGET(parent));
+    }
+
     void PreferencesDialog::onClosed()
     {
         m_controller->saveConfiguration();
+        std::cout << "closed" << std::endl;
         delete this;
-    }
-
-    void PreferencesDialog::present(GtkWindow* parent)
-    {
-        adw_dialog_present(ADW_DIALOG(m_dialog), GTK_WIDGET(parent));
     }
 
     void PreferencesDialog::onThemeChanged()
