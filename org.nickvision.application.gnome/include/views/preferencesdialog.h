@@ -14,28 +14,38 @@ namespace Nickvision::Application::GNOME::Views
     {
     public:
         /**
-         * @brief Constructs a PreferencesDialog.
+         * @brief Creates a new PreferencesDialog.
          * @param controller The PreferencesViewController
-         * @param parent The GtkWindow object of the parent window
+         * @return PreferencesDialog* (The caller is NOT responsible for deleting the returned pointer)
          */
-        PreferencesDialog(const std::shared_ptr<Shared::Controllers::PreferencesViewController>& controller, GtkWindow* parent);
+        static PreferencesDialog* create(const std::shared_ptr<Shared::Controllers::PreferencesViewController>& controller);
         /**
          * @brief Destructs a PreferencesDialog.
          */
         ~PreferencesDialog();
         /**
-         * @brief Shows the PreferencesDialog and waits for it to close. 
+         * @brief Presents the PreferencesDialog.
+         * @param parent The GtkWindow object of the parent window
          */
-        void run();
+        void present(GtkWindow* parent) const;
 
     private:
+        /**
+         * @brief Constructs a PreferencesDialog.
+         * @param controller The PreferencesViewController
+         */
+        PreferencesDialog(const std::shared_ptr<Shared::Controllers::PreferencesViewController>& controller);
+        /**
+         * @brief Handles when the dialog is closed. 
+         */
+        void onClosed();
         /**
          * @brief Handles when the theme preference is changed. 
          */
         void onThemeChanged();
         std::shared_ptr<Shared::Controllers::PreferencesViewController> m_controller;
         GtkBuilder* m_builder;
-        AdwPreferencesWindow* m_dialog;
+        AdwPreferencesDialog* m_dialog;
     };
 }
 

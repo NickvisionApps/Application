@@ -6,34 +6,38 @@ using namespace Nickvision::Application::Shared::Models;
 
 namespace Nickvision::Application::GNOME::Views
 {
-    PreferencesDialog::PreferencesDialog(const std::shared_ptr<PreferencesViewController>& controller, GtkWindow* parent)
+    PreferencesDialog::PreferencesDialog(const std::shared_ptr<PreferencesViewController>& controller)
         : m_controller{ controller },
         m_builder{ BuilderHelpers::fromBlueprint("preferences_dialog") },
-        m_dialog{ ADW_PREFERENCES_WINDOW(gtk_builder_get_object(m_builder, "root")) }
+        m_dialog{ ADW_PREFERENCES_DIALOG(gtk_builder_get_object(m_builder, "root")) }
     {
-        //Build UI
-        gtk_window_set_transient_for(GTK_WINDOW(m_dialog), parent);
-        gtk_window_set_icon_name(GTK_WINDOW(m_dialog), m_controller->getId().c_str());
         //Load
         adw_combo_row_set_selected(ADW_COMBO_ROW(gtk_builder_get_object(m_builder, "themeRow")), static_cast<unsigned int>(m_controller->getTheme()));
         //Signals
+        g_signal_connect(m_dialog, "closed", G_CALLBACK(+[](AdwDialog*, gpointer data){ reinterpret_cast<PreferencesDialog*>(data)->onClosed(); }), this);
         g_signal_connect(gtk_builder_get_object(m_builder, "themeRow"), "notify::selected-item", G_CALLBACK(+[](GObject*, GParamSpec* pspec, gpointer data){ reinterpret_cast<PreferencesDialog*>(data)->onThemeChanged(); }), this);
+    }
+
+    PreferencesDialog* PreferencesDialog::create(const std::shared_ptr<PreferencesViewController>& controller)
+    {
+        return new PreferencesDialog(controller);
     }
 
     PreferencesDialog::~PreferencesDialog()
     {
-        gtk_window_destroy(GTK_WINDOW(m_dialog));
+        adw_dialog_force_close(ADW_DIALOG(m_dialog));
         g_object_unref(m_builder);
     }
 
-    void PreferencesDialog::run()
+    void PreferencesDialog::present(GtkWindow* parent) const
     {
-        gtk_window_present(GTK_WINDOW(m_dialog));
-        while(gtk_widget_is_visible(GTK_WIDGET(m_dialog)))
-        {
-            g_main_context_iteration(g_main_context_default(), false);
-        }
+        adw_dialog_present(ADW_DIALOG(m_dialog), GTK_WIDGET(parent));
+    }
+
+    void PreferencesDialog::onClosed()
+    {
         m_controller->saveConfiguration();
+        delete this;
     }
 
     void PreferencesDialog::onThemeChanged()
