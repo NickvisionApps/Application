@@ -1,6 +1,5 @@
 #include "views/preferencesdialog.h"
 #include "helpers/builder.h"
-#include <iostream>
 
 using namespace Nickvision::Application::Shared::Controllers;
 using namespace Nickvision::Application::Shared::Models;
@@ -38,7 +37,6 @@ namespace Nickvision::Application::GNOME::Views
     void PreferencesDialog::onClosed()
     {
         m_controller->saveConfiguration();
-        std::cout << "closed" << std::endl;
         delete this;
     }
 
