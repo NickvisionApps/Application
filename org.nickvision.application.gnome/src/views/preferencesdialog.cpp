@@ -6,16 +6,21 @@ using namespace Nickvision::Application::Shared::Models;
 
 namespace Nickvision::Application::GNOME::Views
 {
-    PreferencesDialog::PreferencesDialog(const std::shared_ptr<PreferencesViewController>& controller, GtkWindow* parent)
+    PreferencesDialog::PreferencesDialog(const std::shared_ptr<PreferencesViewController>& controller)
         : m_controller{ controller },
         m_builder{ BuilderHelpers::fromBlueprint("preferences_dialog") },
-        m_parent{ parent },
         m_dialog{ ADW_PREFERENCES_DIALOG(gtk_builder_get_object(m_builder, "root")) }
     {
         //Load
         adw_combo_row_set_selected(ADW_COMBO_ROW(gtk_builder_get_object(m_builder, "themeRow")), static_cast<unsigned int>(m_controller->getTheme()));
         //Signals
+        g_signal_connect(m_dialog, "closed", G_CALLBACK(+[](AdwDialog*, gpointer data){ reinterpret_cast<PreferencesDialog*>(data)->onClosed(); }), this);
         g_signal_connect(gtk_builder_get_object(m_builder, "themeRow"), "notify::selected-item", G_CALLBACK(+[](GObject*, GParamSpec* pspec, gpointer data){ reinterpret_cast<PreferencesDialog*>(data)->onThemeChanged(); }), this);
+    }
+
+    PreferencesDialog* PreferencesDialog::create(const std::shared_ptr<PreferencesViewController>& controller)
+    {
+        return new PreferencesDialog(controller);
     }
 
     PreferencesDialog::~PreferencesDialog()
@@ -24,14 +29,15 @@ namespace Nickvision::Application::GNOME::Views
         g_object_unref(m_builder);
     }
 
-    void PreferencesDialog::run()
+    PreferencesDialog::onClosed()
     {
-        adw_dialog_present(ADW_DIALOG(m_dialog), GTK_WIDGET(m_parent));
-        while(gtk_widget_is_visible(GTK_WIDGET(m_dialog)))
-        {
-            g_main_context_iteration(g_main_context_default(), false);
-        }
         m_controller->saveConfiguration();
+        delete this;
+    }
+
+    void PreferencesDialog::present(GtkWindow* parent)
+    {
+        adw_dialog_present(ADW_DIALOG(m_dialog), GTK_WIDGET(parent));
     }
 
     void PreferencesDialog::onThemeChanged()

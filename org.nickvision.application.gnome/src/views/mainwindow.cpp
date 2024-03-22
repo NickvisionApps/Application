@@ -158,8 +158,8 @@ namespace Nickvision::Application::GNOME::Views
 
     void MainWindow::preferences()
     {
-        PreferencesDialog preferences{ m_controller->createPreferencesViewController(), GTK_WINDOW(m_window) };
-        preferences.run();
+        PreferencesDialog* preferences{ PreferencesDialog::create(m_controller->createPreferencesViewController()) };
+        preferences->present(GTK_WINDOW(m_window));
     }
 
     void MainWindow::keyboardShortcuts()
