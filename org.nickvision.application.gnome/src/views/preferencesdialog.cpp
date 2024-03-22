@@ -18,9 +18,9 @@ namespace Nickvision::Application::GNOME::Views
         g_signal_connect(gtk_builder_get_object(m_builder, "themeRow"), "notify::selected-item", G_CALLBACK(+[](GObject*, GParamSpec* pspec, gpointer data){ reinterpret_cast<PreferencesDialog*>(data)->onThemeChanged(); }), this);
     }
 
-    const PreferencesDialog& PreferencesDialog::create(const std::shared_ptr<PreferencesViewController>& controller)
+    PreferencesDialog* PreferencesDialog::create(const std::shared_ptr<PreferencesViewController>& controller)
     {
-        return *(new PreferencesDialog(controller));
+        return new PreferencesDialog(controller);
     }
 
     PreferencesDialog::~PreferencesDialog()
