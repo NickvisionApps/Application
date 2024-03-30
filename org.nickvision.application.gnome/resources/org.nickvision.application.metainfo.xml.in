@@ -28,7 +28,7 @@
   </provides>
   <releases>
     <release version="2024.3.0-next" date="2024-03-01">
-      <description translatable="no">
+      <description translate="no">
         <p>- Initial Release</p>
       </description>
     </release>
