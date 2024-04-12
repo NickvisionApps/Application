@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-15 22:30-0400\n"
+"POT-Creation-Date: 2024-04-10 11:25-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -77,6 +77,7 @@ msgid "Unable to download and install update"
 msgstr ""
 
 #: libapplication/src/controllers/mainwindowcontroller.cpp:236
+#, c++-format
 msgid "Folder Opened: {}"
 msgstr ""
 
@@ -85,7 +86,7 @@ msgid "Folder closed"
 msgstr ""
 
 #: org.nickvision.application.gnome/blueprints/main_window.blp:5
-#: org.nickvision.application.gnome/blueprints/preferences_dialog.blp:10
+#: org.nickvision.application.gnome/blueprints/preferences_dialog.blp:8
 #: org.nickvision.application.gnome/blueprints/shortcuts_dialog.blp:30
 msgid "Preferences"
 msgstr ""
@@ -100,52 +101,52 @@ msgstr ""
 msgid "About Application"
 msgstr ""
 
-#: org.nickvision.application.gnome/blueprints/main_window.blp:21
+#: org.nickvision.application.gnome/blueprints/main_window.blp:23
 msgid "Open Folder (Ctrl+O)"
 msgstr ""
 
-#: org.nickvision.application.gnome/blueprints/main_window.blp:26
-#: org.nickvision.application.gnome/blueprints/main_window.blp:59
+#: org.nickvision.application.gnome/blueprints/main_window.blp:28
+#: org.nickvision.application.gnome/blueprints/main_window.blp:61
 #: org.nickvision.application.gnome/src/views/mainwindow.cpp:120
 #: org.nickvision.application.winui/MainWindow.xaml.cpp:76
 msgid "Open"
 msgstr ""
 
-#: org.nickvision.application.gnome/blueprints/main_window.blp:34
+#: org.nickvision.application.gnome/blueprints/main_window.blp:36
 msgid "Close Folder (Ctrl+W)"
 msgstr ""
 
-#: org.nickvision.application.gnome/blueprints/main_window.blp:43
+#: org.nickvision.application.gnome/blueprints/main_window.blp:45
 msgid "Main Menu"
 msgstr ""
 
-#: org.nickvision.application.gnome/blueprints/main_window.blp:57
+#: org.nickvision.application.gnome/blueprints/main_window.blp:59
 msgid "Open a folder (or drag one into the app) to get started."
 msgstr ""
 
-#: org.nickvision.application.gnome/blueprints/preferences_dialog.blp:14
+#: org.nickvision.application.gnome/blueprints/preferences_dialog.blp:12
 #: org.nickvision.application.winui/SettingsPage.xaml.cpp:20
 msgid "User Interface"
 msgstr ""
 
-#: org.nickvision.application.gnome/blueprints/preferences_dialog.blp:17
+#: org.nickvision.application.gnome/blueprints/preferences_dialog.blp:15
 #: org.nickvision.application.winui/SettingsPage.xaml.cpp:21
 msgid "Theme"
 msgstr ""
 
-#: org.nickvision.application.gnome/blueprints/preferences_dialog.blp:19
+#: org.nickvision.application.gnome/blueprints/preferences_dialog.blp:17
 #: org.nickvision.application.winui/SettingsPage.xaml.cpp:22
 msgctxt "Theme"
 msgid "Light"
 msgstr ""
 
-#: org.nickvision.application.gnome/blueprints/preferences_dialog.blp:19
+#: org.nickvision.application.gnome/blueprints/preferences_dialog.blp:17
 #: org.nickvision.application.winui/SettingsPage.xaml.cpp:23
 msgctxt "Theme"
 msgid "Dark"
 msgstr ""
 
-#: org.nickvision.application.gnome/blueprints/preferences_dialog.blp:19
+#: org.nickvision.application.gnome/blueprints/preferences_dialog.blp:17
 #: org.nickvision.application.winui/SettingsPage.xaml.cpp:24
 msgctxt "Theme"
 msgid "System"
@@ -182,12 +183,13 @@ msgstr ""
 
 #: org.nickvision.application.gnome/src/views/mainwindow.cpp:129
 #: org.nickvision.application.winui/MainWindow.xaml.cpp:327
+#, c++-format
 msgid "There is {} file in the folder."
 msgid_plural "There are {} files in the folder."
 msgstr[0] ""
 msgstr[1] ""
 
-#: org.nickvision.application.gnome/src/views/mainwindow.cpp:194
+#: org.nickvision.application.gnome/src/views/mainwindow.cpp:192
 #: org.nickvision.application.winui/MainWindow.xaml.cpp:69
 msgid "GitHub Repo"
 msgstr ""
@@ -253,6 +255,7 @@ msgid "PREVIEW"
 msgstr ""
 
 #: org.nickvision.application.winui/MainWindow.xaml.cpp:98
+#, c++-format
 msgid ""
 "Developers:\n"
 "{}\n"
@@ -263,6 +266,7 @@ msgid ""
 msgstr ""
 
 #: org.nickvision.application.winui/MainWindow.xaml.cpp:102
+#, c++-format
 msgid ""
 "Developers:\n"
 "{}\n"

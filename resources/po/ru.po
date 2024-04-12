@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-15 22:19-0400\n"
+"POT-Creation-Date: 2024-04-01 21:09-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -15,8 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 #: libapplication/src/controllers/mainwindowcontroller.cpp:29
 msgid "Application"
@@ -78,7 +78,7 @@ msgid "Unable to download and install update"
 msgstr ""
 
 #: libapplication/src/controllers/mainwindowcontroller.cpp:236
-#, fuzzy
+#, fuzzy, c++-format
 msgid "Folder Opened: {}"
 msgstr "Папка открыта: {0}"
 
@@ -88,7 +88,7 @@ msgid "Folder closed"
 msgstr "Папка закрыта."
 
 #: org.nickvision.application.gnome/blueprints/main_window.blp:5
-#: org.nickvision.application.gnome/blueprints/preferences_dialog.blp:10
+#: org.nickvision.application.gnome/blueprints/preferences_dialog.blp:8
 #: org.nickvision.application.gnome/blueprints/shortcuts_dialog.blp:30
 msgid "Preferences"
 msgstr "Параметры"
@@ -103,52 +103,52 @@ msgstr "Комбинации клавиш"
 msgid "About Application"
 msgstr "О приложении"
 
-#: org.nickvision.application.gnome/blueprints/main_window.blp:21
+#: org.nickvision.application.gnome/blueprints/main_window.blp:23
 msgid "Open Folder (Ctrl+O)"
 msgstr "Открыть папку (Ctrl+O)"
 
-#: org.nickvision.application.gnome/blueprints/main_window.blp:26
-#: org.nickvision.application.gnome/blueprints/main_window.blp:59
+#: org.nickvision.application.gnome/blueprints/main_window.blp:28
+#: org.nickvision.application.gnome/blueprints/main_window.blp:61
 #: org.nickvision.application.gnome/src/views/mainwindow.cpp:120
 #: org.nickvision.application.winui/MainWindow.xaml.cpp:76
 msgid "Open"
 msgstr "Открыть"
 
-#: org.nickvision.application.gnome/blueprints/main_window.blp:34
+#: org.nickvision.application.gnome/blueprints/main_window.blp:36
 msgid "Close Folder (Ctrl+W)"
 msgstr "Закрыть папку (Ctrl+W)"
 
-#: org.nickvision.application.gnome/blueprints/main_window.blp:43
+#: org.nickvision.application.gnome/blueprints/main_window.blp:45
 msgid "Main Menu"
 msgstr "Главное меню"
 
-#: org.nickvision.application.gnome/blueprints/main_window.blp:57
+#: org.nickvision.application.gnome/blueprints/main_window.blp:59
 msgid "Open a folder (or drag one into the app) to get started."
 msgstr "Откройте или перетащите папку, чтобы начать."
 
-#: org.nickvision.application.gnome/blueprints/preferences_dialog.blp:14
+#: org.nickvision.application.gnome/blueprints/preferences_dialog.blp:12
 #: org.nickvision.application.winui/SettingsPage.xaml.cpp:20
 msgid "User Interface"
 msgstr "Интерфейс"
 
-#: org.nickvision.application.gnome/blueprints/preferences_dialog.blp:17
+#: org.nickvision.application.gnome/blueprints/preferences_dialog.blp:15
 #: org.nickvision.application.winui/SettingsPage.xaml.cpp:21
 msgid "Theme"
 msgstr "Тема"
 
-#: org.nickvision.application.gnome/blueprints/preferences_dialog.blp:19
+#: org.nickvision.application.gnome/blueprints/preferences_dialog.blp:17
 #: org.nickvision.application.winui/SettingsPage.xaml.cpp:22
 msgctxt "Theme"
 msgid "Light"
 msgstr "Светлая"
 
-#: org.nickvision.application.gnome/blueprints/preferences_dialog.blp:19
+#: org.nickvision.application.gnome/blueprints/preferences_dialog.blp:17
 #: org.nickvision.application.winui/SettingsPage.xaml.cpp:23
 msgctxt "Theme"
 msgid "Dark"
 msgstr "Тёмная"
 
-#: org.nickvision.application.gnome/blueprints/preferences_dialog.blp:19
+#: org.nickvision.application.gnome/blueprints/preferences_dialog.blp:17
 #: org.nickvision.application.winui/SettingsPage.xaml.cpp:24
 msgctxt "Theme"
 msgid "System"
@@ -185,14 +185,14 @@ msgstr "Закрыть"
 
 #: org.nickvision.application.gnome/src/views/mainwindow.cpp:129
 #: org.nickvision.application.winui/MainWindow.xaml.cpp:327
-#, fuzzy
+#, fuzzy, c++-format
 msgid "There is {} file in the folder."
 msgid_plural "There are {} files in the folder."
 msgstr[0] "В папке {0} файл."
 msgstr[1] "В папке {0} файла."
 msgstr[2] "В папке {0} файлов."
 
-#: org.nickvision.application.gnome/src/views/mainwindow.cpp:194
+#: org.nickvision.application.gnome/src/views/mainwindow.cpp:192
 #: org.nickvision.application.winui/MainWindow.xaml.cpp:69
 msgid "GitHub Repo"
 msgstr "Репозиторий GitHub"
@@ -261,6 +261,7 @@ msgid "PREVIEW"
 msgstr ""
 
 #: org.nickvision.application.winui/MainWindow.xaml.cpp:98
+#, c++-format
 msgid ""
 "Developers:\n"
 "{}\n"
@@ -271,6 +272,7 @@ msgid ""
 msgstr ""
 
 #: org.nickvision.application.winui/MainWindow.xaml.cpp:102
+#, c++-format
 msgid ""
 "Developers:\n"
 "{}\n"
