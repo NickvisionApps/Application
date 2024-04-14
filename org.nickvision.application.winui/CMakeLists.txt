@@ -1,5 +1,13 @@
 if(WIN32)
     cmake_policy(SET CMP0091 NEW)
+    
+    set(CMAKE_VS_GLOBALS
+        "AppxPackage=false"
+        "RuntimeIdentifier=win10-x64"
+        "RuntimeIdentifiers=win10-x64"
+        "BaseNuGetRuntimeIdentifier=win10"
+        "AssetTargetFallback=$(AssetTargetFallback);native"
+    )
 
     configure_file("${CMAKE_CURRENT_SOURCE_DIR}/Directory.Build.props" "${CMAKE_CURRENT_BINARY_DIR}/Directory.Build.props" COPYONLY)
     configure_file("${CMAKE_CURRENT_SOURCE_DIR}/Directory.Build.targets" "${CMAKE_CURRENT_BINARY_DIR}/Directory.Build.targets" COPYONLY)
@@ -17,8 +25,8 @@ if(WIN32)
         "SettingsPage.xaml.cpp" "SettingsPage.xaml.h" "SettingsPage.xaml" "SettingsPage.idl")
     set_property(SOURCE "App.xaml" PROPERTY VS_XAML_TYPE "ApplicationDefinition")
     set_property(TARGET org.nickvision.application.winui PROPERTY VS_PACKAGE_REFERENCES
-        "Microsoft.Windows.CppWinRT_2.0.240111.5"
-        "Microsoft.WindowsAppSDK_1.5.240311000"
+        "Microsoft.Windows.CppWinRT_2.0.240405.15"
+        "Microsoft.WindowsAppSDK_1.5.240404000"
         "Microsoft.Windows.SDK.BuildTools_10.0.22621.3233"
         "Microsoft.Windows.ImplementationLibrary_1.0.240122.1"
     )
