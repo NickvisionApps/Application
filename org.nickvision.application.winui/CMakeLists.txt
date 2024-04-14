@@ -70,7 +70,7 @@ if(WIN32)
     endforeach()
 
     add_custom_target(winui_commands ALL DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/__winui.h")
-    add_custom_command(OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/__winui.h" "${CMAKE_CURRENT_BINARY_DIR}/winui.h" COMMAND "copy" "NUL" "${CMAKE_CURRENT_BINARY_DIR}/winui.h")
+    add_custom_command(OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/__winui.h" "${CMAKE_CURRENT_BINARY_DIR}/winui.h" COMMAND "${CMAKE_COMMAND}" -E touch "${CMAKE_CURRENT_BINARY_DIR}/winui.h")
     add_custom_command(TARGET winui_commands PRE_BUILD COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${CMAKE_SOURCE_DIR}/resources/org.nickvision.application.ico" "${CMAKE_CURRENT_BINARY_DIR}/$<CONFIG>/resources/org.nickvision.application.ico")
     if(HAS_GETTEXT)
         foreach(LINGUA IN ITEMS ${LINGUAS})
