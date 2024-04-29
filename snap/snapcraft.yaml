@@ -76,6 +76,7 @@ parts:
       - cmake
       - blueprint-compiler
       - gnome-46-2404-sdk/latest/edge
+      - gnome-46-2404/latest/edge
     cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=/snap/application/current/usr
       - -DCMAKE_BUILD_TYPE=Release
