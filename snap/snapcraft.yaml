@@ -11,6 +11,15 @@ lint:
     - library
 
 parts:
+  blueprint-compiler:
+    source-depth: 1
+    source: https://gitlab.gnome.org/jwestman/blueprint-compiler.git
+    source-tag: "v0.12.0"
+    plugin: meson
+    meson-parameters:
+      - --prefix=/usr
+    override-prime: ""
+
   build-deps:
     plugin: nil
     build-packages:
@@ -69,12 +78,11 @@ parts:
       - usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/libxml++-5.0*.so*
 
   application:
-    after: [build-deps, maddy, libnick, libxmlplusplus]
+    after: [build-deps, maddy, libnick, libxmlplusplus, blueprint-compiler]
     plugin: cmake
     source: .
     build-snaps:
       - cmake
-      - blueprint-compiler
       - gnome-46-2404-sdk/latest/edge
       - gnome-46-2404/latest/edge
     cmake-parameters:
