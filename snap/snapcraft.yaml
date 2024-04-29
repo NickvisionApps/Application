@@ -94,6 +94,7 @@ parts:
       - libstdc++6
     build-environment:
       - CMAKE_PREFIX_PATH: ${CRAFT_STAGE}/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/cmake${CMAKE_PREFIX_PATH:+:$CMAKE_PREFIX_PATH}
+      - PYTHONPATH: $CRAFT_STAGE/usr/lib/python3/dist-packages:$PYTHONPATH
     parse-info: [usr/share/metainfo/org.nickvision.application.metainfo.xml]
     organize:
       snap/application/current: .
