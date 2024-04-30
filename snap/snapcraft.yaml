@@ -19,6 +19,18 @@ parts:
     source: https://gitlab.gnome.org/jwestman/blueprint-compiler.git
     source-tag: "v0.12.0"
     plugin: meson
+    build-environment:
+      - *id001
+      - *id002
+      - *id003
+      - *id004
+      - *id005
+      - *id006
+      - *id007
+      - *id008
+      - *id009
+      - *id010
+      - *id011
     meson-parameters:
       - --prefix=/usr
     override-prime: ""
