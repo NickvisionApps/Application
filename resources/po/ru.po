@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-01 21:09-0400\n"
+"POT-Creation-Date: 2024-04-29 22:42-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -18,71 +18,71 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:29
+#: libapplication/src/controllers/mainwindowcontroller.cpp:30
 msgid "Application"
 msgstr "Application"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:30
+#: libapplication/src/controllers/mainwindowcontroller.cpp:31
 msgid "Create new Nickvision applications"
 msgstr "Создавайте новые приложения Nickvision"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:34
+#: libapplication/src/controllers/mainwindowcontroller.cpp:35
 msgid "Matrix Chat"
 msgstr "Чат Matrix"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:36
+#: libapplication/src/controllers/mainwindowcontroller.cpp:37
 #, fuzzy
 msgid "Contributors on GitHub"
 msgstr "Соавторы на GitHub ❤️"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:38
+#: libapplication/src/controllers/mainwindowcontroller.cpp:39
 msgid "Fyodor Sobolev"
 msgstr "Фёдор Соболев"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:40
+#: libapplication/src/controllers/mainwindowcontroller.cpp:41
 msgid "David Lapshin"
 msgstr "Давид Лапшин"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:41
+#: libapplication/src/controllers/mainwindowcontroller.cpp:42
 msgid "translator-credits"
 msgstr "Фёдор Соболев https://github.com/fsobolev"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:139
+#: libapplication/src/controllers/mainwindowcontroller.cpp:140
 msgctxt "Night"
 msgid "Good Morning!"
 msgstr "Доброй ночи!"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:143
+#: libapplication/src/controllers/mainwindowcontroller.cpp:144
 msgctxt "Morning"
 msgid "Good Morning!"
 msgstr "Доброе утро!"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:147
+#: libapplication/src/controllers/mainwindowcontroller.cpp:148
 msgid "Good Afternoon!"
 msgstr "Добрый день!"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:151
+#: libapplication/src/controllers/mainwindowcontroller.cpp:152
 msgid "Good Evening!"
 msgstr "Добрый вечер!"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:153
+#: libapplication/src/controllers/mainwindowcontroller.cpp:154
 msgid "Good Day!"
 msgstr "Здравствуйте!"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:194
+#: libapplication/src/controllers/mainwindowcontroller.cpp:195
 msgid "New update available"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:212
+#: libapplication/src/controllers/mainwindowcontroller.cpp:213
 msgid "Unable to download and install update"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:236
+#: libapplication/src/controllers/mainwindowcontroller.cpp:237
 #, fuzzy, c++-format
 msgid "Folder Opened: {}"
 msgstr "Папка открыта: {0}"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:249
+#: libapplication/src/controllers/mainwindowcontroller.cpp:250
 #, fuzzy
 msgid "Folder closed"
 msgstr "Папка закрыта."

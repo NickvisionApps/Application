@@ -1,9 +1,9 @@
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
-    types: [ "review_requested", "ready_for_review" ]
+    branches: ["main"]
+    types: ["review_requested", "ready_for_review"]
   workflow_dispatch:
 name: Snap
 permissions:
@@ -13,6 +13,8 @@ jobs:
   gnome-snap:
     name: "GNOME on Snap"
     runs-on: ubuntu-latest
+    env:
+      SNAPCRAFT_ENABLE_EXPERIMENTAL_EXTENSIONS: 1
     steps:
       - uses: actions/checkout@v4
       - name: Build
@@ -23,4 +25,4 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: application-snap
-          path: ${{ steps.snapcraft-build.outputs.snap }}    
+          path: ${{ steps.snapcraft-build.outputs.snap }}
