@@ -326,7 +326,7 @@ namespace winrt::Nickvision::Application::WinUI::implementation
         ListFiles().Items().Clear();
         if(m_controller->isFolderOpened())
         {
-            StatusPageFiles().Description(winrt::to_hstring(std::vformat(_n("There is {} file in the folder.", "There are {} files in the folder.", m_controller->getFiles().size()), std::make_format_args(CodeHelpers::unmove(m_controller->getFiles().size()))));
+            StatusPageFiles().Description(winrt::to_hstring(std::vformat(_n("There is {} file in the folder.", "There are {} files in the folder.", m_controller->getFiles().size()), std::make_format_args(CodeHelpers::unmove(m_controller->getFiles().size())))));
             for(const std::filesystem::path& file : m_controller->getFiles())
             {
                 StackPanel fileRow;
