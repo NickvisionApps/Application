@@ -90,8 +90,10 @@ parts:
       - -DCMAKE_BUILD_TYPE=Release
     build-packages:
       - libvulkan-dev
+      - libxkbcommon-dev
     stage-packages:
       - libstdc++6
+      - libxkbcommon0
     build-environment:
       - CMAKE_PREFIX_PATH: ${CRAFT_STAGE}/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/cmake${CMAKE_PREFIX_PATH:+:$CMAKE_PREFIX_PATH}
       - PYTHONPATH: $CRAFT_STAGE/usr/lib/python3/dist-packages:$PYTHONPATH
