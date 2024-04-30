@@ -5,6 +5,7 @@
 #include <sstream>
 #include <thread>
 #include <libnick/app/aura.h>
+#include <libnick/helpers/codehelpers.h>
 #include <libnick/helpers/stringhelpers.h>
 #include <libnick/localization/gettext.h>
 #include "models/configuration.h"
@@ -233,7 +234,7 @@ namespace Nickvision::Application::Shared::Controllers
         {
             m_folderPath = path;
             loadFiles();
-            m_notificationSent.invoke({ std::vformat(_("Folder Opened: {}"), std::make_format_args(m_folderPath.string())), NotificationSeverity::Success, "close" });
+            m_notificationSent.invoke({ std::vformat(_("Folder Opened: {}"), std::make_format_args(CodeHelpers::unmove(m_folderPath.string()))), NotificationSeverity::Success, "close" });
             m_folderChanged.invoke({});
             m_taskbar.setCount(static_cast<long>(m_files.size()));
             m_taskbar.setCountVisible(true);
