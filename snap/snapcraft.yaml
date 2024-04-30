@@ -11,6 +11,9 @@ lint:
     - library
 
 parts:
+  gnome/sdk:
+    source: /snap/snapcraft/current/share/snapcraft/extensions/desktop/command-chain
+    plugin: make
   blueprint-compiler:
     source-depth: 1
     source: https://gitlab.gnome.org/jwestman/blueprint-compiler.git
