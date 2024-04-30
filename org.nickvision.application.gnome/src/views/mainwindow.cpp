@@ -2,6 +2,7 @@
 #include <filesystem>
 #include <format>
 #include <libnick/app/appinfo.h>
+#include <libnick/helpers/codehelpers.h>
 #include <libnick/notifications/shellnotification.h>
 #include <libnick/localization/gettext.h>
 #include "helpers/builder.h"
@@ -126,7 +127,7 @@ namespace Nickvision::Application::GNOME::Views
         gtk_widget_set_visible(GTK_WIDGET(gtk_builder_get_object(m_builder, "btnOpenFolder")), m_controller->isFolderOpened());
         gtk_widget_set_visible(GTK_WIDGET(gtk_builder_get_object(m_builder, "btnCloseFolder")), m_controller->isFolderOpened());
         adw_view_stack_set_visible_child_name(ADW_VIEW_STACK(gtk_builder_get_object(m_builder, "viewStack")), m_controller->isFolderOpened() ? "Folder" : "NoFolder");
-        adw_status_page_set_description(ADW_STATUS_PAGE(gtk_builder_get_object(m_builder, "pageFiles")), std::vformat(_n("There is {} file in the folder.", "There are {} files in the folder.", m_controller->getFiles().size()), std::make_format_args(m_controller->getFiles().size())).c_str());
+        adw_status_page_set_description(ADW_STATUS_PAGE(gtk_builder_get_object(m_builder, "pageFiles")), std::vformat(_n("There is {} file in the folder.", "There are {} files in the folder.", m_controller->getFiles().size()), std::make_format_args(CodeHelpers::unmove(m_controller->getFiles().size()))).c_str());
     }
 
     void MainWindow::quit()
