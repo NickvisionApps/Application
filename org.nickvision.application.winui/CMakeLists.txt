@@ -26,7 +26,7 @@ if(WIN32)
     set_property(SOURCE "App.xaml" PROPERTY VS_XAML_TYPE "ApplicationDefinition")
     set_property(TARGET org.nickvision.application.winui PROPERTY VS_PACKAGE_REFERENCES
         "Microsoft.Windows.CppWinRT_2.0.240405.15"
-        "Microsoft.WindowsAppSDK_1.5.240404000"
+        "Microsoft.WindowsAppSDK_1.5.240428000"
         "Microsoft.Windows.SDK.BuildTools_10.0.22621.3233"
         "Microsoft.Windows.ImplementationLibrary_1.0.240122.1"
     )
