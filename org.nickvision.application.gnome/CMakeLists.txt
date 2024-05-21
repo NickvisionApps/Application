@@ -1,6 +1,7 @@
 if(LINUX)
     add_executable(org.nickvision.application.gnome
         "src/helpers/builder.cpp"
+        "src/helpers/dialogbase.cpp"
         "src/views/mainwindow.cpp"
         "src/views/preferencesdialog.cpp"
         "src/application.cpp"

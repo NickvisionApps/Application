@@ -6,10 +6,12 @@
 #include <libnick/notifications/shellnotification.h>
 #include <libnick/localization/gettext.h>
 #include "helpers/builder.h"
+#include "helpers/dialogptr.h"
 #include "views/preferencesdialog.h"
 
-using namespace Nickvision::Application::Shared::Controllers;
 using namespace Nickvision::App;
+using namespace Nickvision::Application::Shared::Controllers;
+using namespace Nickvision::Application::GNOME::Helpers;
 using namespace Nickvision::Events;
 using namespace Nickvision::Notifications;
 
@@ -159,8 +161,8 @@ namespace Nickvision::Application::GNOME::Views
 
     void MainWindow::preferences()
     {
-        PreferencesDialog* dialog{ PreferencesDialog::create(m_controller->createPreferencesViewController()) };
-        dialog->present(GTK_WINDOW(m_window));
+        DialogPtr<PreferencesDialog> dialog{ m_controller->createPreferencesViewController(), GTK_WINDOW(m_window) };
+        dialog->present();
     }
 
     void MainWindow::keyboardShortcuts()
@@ -169,6 +171,7 @@ namespace Nickvision::Application::GNOME::Views
         GtkShortcutsWindow* shortcuts{ GTK_SHORTCUTS_WINDOW(gtk_builder_get_object(builderHelp, "root")) };
         gtk_window_set_transient_for(GTK_WINDOW(shortcuts), GTK_WINDOW(m_window));
         gtk_window_set_icon_name(GTK_WINDOW(shortcuts), m_controller->getAppInfo().getId().c_str());
+        g_signal_connect(shortcuts, "close-request", G_CALLBACK(+[](GtkWindow*, gpointer data){ g_object_unref(reinterpret_cast<GtkBuilder*>(data)); }), builderHelp);
         gtk_window_present(GTK_WINDOW(shortcuts));
     }
 
