@@ -37,6 +37,8 @@ namespace Nickvision::Application::GNOME::Views
          * @brief Shows the main window. 
          */
         void show();
+
+    private:
         /**
          * @brief Handles when the window requests to close.
          * @return True to prevent closing, else false 
@@ -87,8 +89,6 @@ namespace Nickvision::Application::GNOME::Views
          * @brief Opens the application's about dialog. 
          */
         void about();
-
-    private:
         std::shared_ptr<Shared::Controllers::MainWindowController> m_controller;
         GtkApplication* m_app;
         GtkBuilder* m_builder;
