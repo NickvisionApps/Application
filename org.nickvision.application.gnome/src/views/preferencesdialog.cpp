@@ -2,6 +2,7 @@
 
 using namespace Nickvision::Application::Shared::Controllers;
 using namespace Nickvision::Application::Shared::Models;
+using namespace Nickvision::Events;
 
 namespace Nickvision::Application::GNOME::Views
 {
@@ -12,6 +13,7 @@ namespace Nickvision::Application::GNOME::Views
         //Load
         adw_combo_row_set_selected(ADW_COMBO_ROW(gtk_builder_get_object(m_builder, "themeRow")), static_cast<unsigned int>(m_controller->getTheme()));
         //Signals
+        m_closed += [&](const EventArgs&){ m_controller->saveConfiguration(); };
         g_signal_connect(gtk_builder_get_object(m_builder, "themeRow"), "notify::selected-item", G_CALLBACK(+[](GObject*, GParamSpec* pspec, gpointer data){ reinterpret_cast<PreferencesDialog*>(data)->onThemeChanged(); }), this);
     }
 
@@ -30,6 +32,5 @@ namespace Nickvision::Application::GNOME::Views
             adw_style_manager_set_color_scheme(adw_style_manager_get_default(), ADW_COLOR_SCHEME_DEFAULT);
             break;
         }
-        m_controller->saveConfiguration();
     }
 }
