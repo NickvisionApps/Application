@@ -34,6 +34,7 @@ namespace Nickvision::Application::Shared::Controllers
 
     void PreferencesViewController::saveConfiguration()
     {
+        Aura::getActive().getLogger().log(Logging::LogLevel::Debug, "Config saved.");
         Aura::getActive().getConfig<Configuration>("config").save();
     }
 }

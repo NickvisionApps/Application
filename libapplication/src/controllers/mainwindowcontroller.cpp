@@ -24,7 +24,11 @@ namespace Nickvision::Application::Shared::Controllers
     MainWindowController::MainWindowController()
         : m_started{ false }
     {
-        Aura::getActive().init("org.nickvision.application", "Nickvision Application", "Application");
+#ifdef DEBUG
+        Aura::getActive().init("org.nickvision.application", "Nickvision Application", "Application", Logging::LogLevel::Debug);
+#else
+        Aura::getActive().init("org.nickvision.application", "Nickvision Application", "Application", Logging::LogLevel::Info);
+#endif
         AppInfo& appInfo{ Aura::getActive().getAppInfo() };
         appInfo.setVersion({ "2024.5.0-next" });
         appInfo.setShortName(_("Application"));
@@ -102,7 +106,14 @@ namespace Nickvision::Application::Shared::Controllers
             builder << StringHelpers::toString(name) << std::endl;
         }
 #elif defined(__linux__)
-        builder << std::locale("").name() << std::endl;
+        try
+        {
+            builder << std::locale("").name() << std::endl;
+        }
+        catch(...)
+        {
+            builder << "Locale not set" << std::endl;
+        }
 #endif
         if (!extraInformation.empty())
         {
@@ -178,6 +189,7 @@ namespace Nickvision::Application::Shared::Controllers
             }
 #endif
             m_started = true;
+            Aura::getActive().getLogger().log(Logging::LogLevel::Debug, "MainWindow started.");
         }
     }
 
@@ -185,6 +197,7 @@ namespace Nickvision::Application::Shared::Controllers
     {
         if(m_updater)
         {
+            Aura::getActive().getLogger().log(Logging::LogLevel::Debug, "Checking for updates...");
             std::thread worker{ [&]()
             {
                 Version latest{ m_updater->fetchCurrentStableVersion() };
@@ -192,8 +205,17 @@ namespace Nickvision::Application::Shared::Controllers
                 {
                     if (latest > Aura::getActive().getAppInfo().getVersion())
                     {
+                        Aura::getActive().getLogger().log(Logging::LogLevel::Debug, "Update found: " + latest.toString());
                         m_notificationSent.invoke({ _("New update available"), NotificationSeverity::Success, "update" });
                     }
+                    else
+                    {
+                        Aura::getActive().getLogger().log(Logging::LogLevel::Debug, "No updates found.");
+                    }
+                }
+                else
+                {
+                    Aura::getActive().getLogger().log(Logging::LogLevel::Warning, "Unable to fetch latest app version.");
                 }
             } };
             worker.detach();
@@ -205,11 +227,13 @@ namespace Nickvision::Application::Shared::Controllers
     {
         if(m_updater)
         {
+            Aura::getActive().getLogger().log(Logging::LogLevel::Debug, "Fetching Windows app update...");
             std::thread worker{ [&]()
             {
                 bool res{ m_updater->windowsUpdate(VersionType::Stable) };
                 if (!res)
                 {
+                    Aura::getActive().getLogger().log(Logging::LogLevel::Error, "Unbale to fetch Windows app update.");
                     m_notificationSent.invoke({ _("Unable to download and install update"), NotificationSeverity::Error, "error" });
                 }
             } };
@@ -217,14 +241,28 @@ namespace Nickvision::Application::Shared::Controllers
         }
     }
 
-    bool MainWindowController::connectTaskbar(HWND hwnd)
+    void MainWindowController::connectTaskbar(HWND hwnd)
     {
-        return m_taskbar.connect(hwnd);
+        if(m_taskbar.connect(hwnd))
+        {
+            Aura::getActive().getLogger().log(Logging::LogLevel::Debug, "Connected to Windows taskbar.");
+        }
+        else
+        {
+            Aura::getActive().getLogger().log(Logging::LogLevel::Error, "Unable to connect to Windows taskbar.");
+        }
     }
 #elif defined(__linux__)
-    bool MainWindowController::connectTaskbar(const std::string& desktopFile)
+    void MainWindowController::connectTaskbar(const std::string& desktopFile)
     {
-        return m_taskbar.connect(desktopFile);
+        if(m_taskbar.connect(desktopFile))
+        {
+            Aura::getActive().getLogger().log(Logging::LogLevel::Debug, "Connected to Linux taskbar.");
+        }
+        else
+        {
+            Aura::getActive().getLogger().log(Logging::LogLevel::Error, "Unable to connect to Linux taskbar.");
+        }
     }
 #endif
 
@@ -238,6 +276,7 @@ namespace Nickvision::Application::Shared::Controllers
             m_folderChanged.invoke({});
             m_taskbar.setCount(static_cast<long>(m_files.size()));
             m_taskbar.setCountVisible(true);
+            Aura::getActive().getLogger().log(Logging::LogLevel::Info, "Folder opened. (" + m_folderPath.string() + ")");
             return true;
         }
         return false;
@@ -245,6 +284,7 @@ namespace Nickvision::Application::Shared::Controllers
 
     void MainWindowController::closeFolder()
     {
+        Aura::getActive().getLogger().log(Logging::LogLevel::Info, "Folder closed. (" + m_folderPath.string() + ")");
         m_folderPath = std::filesystem::path();
         m_files.clear();
         m_notificationSent.invoke({ _("Folder closed"), NotificationSeverity::Warning });
@@ -265,5 +305,6 @@ namespace Nickvision::Application::Shared::Controllers
                 }
             }
         }
+        Aura::getActive().getLogger().log(Logging::LogLevel::Info, "Loaded " + std::to_string(m_files.size()) + " file(s). (" + m_folderPath.string() + ")");
     }
 }

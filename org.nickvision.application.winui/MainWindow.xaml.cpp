@@ -3,6 +3,7 @@
 #include "MainWindow.g.cpp"
 #endif
 #include <format>
+#include <libnick/app/aura.h>
 #include <libnick/helpers/codehelpers.h>
 #include <libnick/helpers/stringhelpers.h>
 #include <libnick/notifications/shellnotification.h>
@@ -10,6 +11,7 @@
 #include "SettingsPage.xaml.h"
 
 using namespace ::Nickvision;
+using namespace ::Nickvision::App;
 using namespace ::Nickvision::Events;
 using namespace ::Nickvision::Notifications;
 using namespace ::Nickvision::Application::Shared::Controllers;
@@ -248,6 +250,7 @@ namespace winrt::Nickvision::Application::WinUI::implementation
 
     void MainWindow::OnShellNotificationSent(const ShellNotificationSentEventArgs& args)
     {
+        Aura::getActive().getLogger().log(Logging::LogLevel::Debug, "ShellNotification sent. (" + args.getMessage() + ")");
         ShellNotification::send(args, m_hwnd);
     }
 
