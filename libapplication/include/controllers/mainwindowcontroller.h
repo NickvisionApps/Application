@@ -116,14 +116,12 @@ namespace Nickvision::Application::Shared::Controllers
         /**
          * @brief Connects the main window to the taskbar interface.
          * @param hwnd The main window handle
-         * @return True if connection successful, else false
          */
         void connectTaskbar(HWND hwnd);
 #elif defined(__linux__)
         /**
          * @brief Connects the application to the taskbar interface.
          * @param desktopFile The desktop file name (with the extension) of the running application
-         * @return True if connection successful, else false
          */
         void connectTaskbar(const std::string& desktopFile);
 #endif
