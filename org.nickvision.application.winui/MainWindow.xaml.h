@@ -3,6 +3,7 @@
 
 #include "includes.h"
 #include <memory>
+#include "Controls/TitleBar.g.h"
 #include "Controls/StatusPage.g.h"
 #include "Controls/ViewStack.g.h"
 #include "Controls/ViewStackPage.g.h"
@@ -45,12 +46,6 @@ namespace winrt::Nickvision::Application::WinUI::implementation
          * @param args Microsoft::UI::Xaml::WindowActivatedEventArgs
          */
         void OnActivated(const IInspectable& sender, const Microsoft::UI::Xaml::WindowActivatedEventArgs& args);
-        /**
-         * @brief Handles when the main window's theme is changed.
-         * @param sender Microsoft::UI::Xaml::FrameworkElement
-         * @param args IInspectable
-         */
-        void OnThemeChanged(const Microsoft::UI::Xaml::FrameworkElement& sender, const IInspectable& args);
         /**
          * @brief Handles when the main window's receives something dragged over.
          * @param sender IInspectable
@@ -103,6 +98,12 @@ namespace winrt::Nickvision::Application::WinUI::implementation
          */
         void WindowsUpdate(const IInspectable& sender, const Microsoft::UI::Xaml::RoutedEventArgs& args);
         /**
+         * @brief Opens the application's credits dialog.
+         * @param sender IInspectable
+         * @param args Microsoft::UI::Xaml::RoutedEventArgs
+         */
+        Windows::Foundation::IAsyncAction Credits(const IInspectable& sender, const Microsoft::UI::Xaml::RoutedEventArgs& args);
+        /**
          * @brief Copies debugging information about the application to the clipboard.
          * @param sender IInspectable
          * @param args Microsoft::UI::Xaml::RoutedEventArgs
@@ -145,13 +146,8 @@ namespace winrt::Nickvision::Application::WinUI::implementation
         void CloseFolder(const IInspectable& sender, const Microsoft::UI::Xaml::RoutedEventArgs& args);
 
     private:
-        /**
-         * @brief Establishes drag regions for the main window's title bar. 
-         */
-        void SetDragRegionForCustomTitleBar();
         std::shared_ptr<::Nickvision::Application::Shared::Controllers::MainWindowController> m_controller;
         bool m_opened;
-        bool m_isActivated;
         HWND m_hwnd;
         Microsoft::UI::Xaml::ElementTheme m_systemTheme;
         winrt::event_token m_notificationClickToken;

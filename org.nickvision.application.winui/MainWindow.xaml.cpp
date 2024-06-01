@@ -18,7 +18,6 @@ using namespace ::Nickvision::Application::Shared::Controllers;
 using namespace ::Nickvision::Application::Shared::Models;
 using namespace winrt::Microsoft::UI;
 using namespace winrt::Microsoft::UI::Dispatching;
-using namespace winrt::Microsoft::UI::Input;
 using namespace winrt::Microsoft::UI::Xaml;
 using namespace winrt::Microsoft::UI::Xaml::Controls;
 using namespace winrt::Microsoft::UI::Xaml::Controls::Primitives;
@@ -27,7 +26,6 @@ using namespace winrt::Microsoft::UI::Xaml::Media;
 using namespace winrt::Microsoft::UI::Windowing;
 using namespace winrt::Windows::ApplicationModel::DataTransfer;
 using namespace winrt::Windows::Foundation::Collections;
-using namespace winrt::Windows::Graphics;
 using namespace winrt::Windows::Storage;
 using namespace winrt::Windows::Storage::Pickers;
 using namespace winrt::Windows::System;
@@ -46,33 +44,23 @@ namespace winrt::Nickvision::Application::WinUI::implementation
 
     MainWindow::MainWindow()
         : m_opened{ false },
-        m_isActivated{ true },
         m_notificationClickToken{ 0 }
     {
         InitializeComponent();
         this->m_inner.as<::IWindowNative>()->get_WindowHandle(&m_hwnd);
         //Set TitleBar
-        TitleBarTitle().Text(winrt::to_hstring(m_controller->getAppInfo().getShortName()));
-        AppWindow().TitleBar().ExtendsContentIntoTitleBar(true);
-        AppWindow().TitleBar().PreferredHeightOption(TitleBarHeightOption::Tall);
-        AppWindow().TitleBar().ButtonBackgroundColor(Colors::Transparent());
-        AppWindow().TitleBar().ButtonInactiveBackgroundColor(Colors::Transparent());
-        AppWindow().Title(TitleBarTitle().Text());
-        AppWindow().SetIcon(L"resources\\org.nickvision.application.ico");
-        TitleBar().Loaded([&](const IInspectable sender, const RoutedEventArgs& args) { SetDragRegionForCustomTitleBar(); });
-        TitleBar().SizeChanged([&](const IInspectable sender, const SizeChangedEventArgs& args) { SetDragRegionForCustomTitleBar(); });
+        TitleBar().AppWindow(AppWindow());
         //Localize Strings
-        TitleBarSearchBox().PlaceholderText(winrt::to_hstring(_("Search for Files")));
         NavViewHome().Content(winrt::box_value(winrt::to_hstring(_("Home"))));
         NavViewFolder().Content(winrt::box_value(winrt::to_hstring(_("Folder"))));
         NavViewHelp().Content(winrt::box_value(winrt::to_hstring(_("Help"))));
         ToolTipService::SetToolTip(BtnCheckForUpdates(), winrt::box_value(winrt::to_hstring(_("Check for Updates"))));
+        ToolTipService::SetToolTip(BtnCredits(), winrt::box_value(winrt::to_hstring(_("Credits"))));
         ToolTipService::SetToolTip(BtnCopyDebugInfo(), winrt::box_value(winrt::to_hstring(_("Copy Debug Information"))));
         LblChangelog().Text(winrt::to_hstring(_("Changelog")));
         BtnGitHubRepo().Content(winrt::box_value(winrt::to_hstring(_("GitHub Repo"))));
         BtnReportABug().Content(winrt::box_value(winrt::to_hstring(_("Report a Bug"))));
         BtnDiscussions().Content(winrt::box_value(winrt::to_hstring(_("Discussions"))));
-        LblCredits().Text(winrt::to_hstring(_("Credits")));
         NavViewSettings().Content(winrt::box_value(winrt::to_hstring(_("Settings"))));
         StatusPageHome().Description(winrt::to_hstring(_("Open a folder (or drag one into the app) to get started")));
         HomeOpenFolderButtonLabel().Text(winrt::to_hstring(_("Open Folder")));
@@ -91,73 +79,56 @@ namespace winrt::Nickvision::Application::WinUI::implementation
         m_controller->shellNotificationSent() += [&](const ShellNotificationSentEventArgs& args) { OnShellNotificationSent(args); };
         m_controller->folderChanged() += [&](const EventArgs& args) { OnFolderChanged(args); };
         //Localize Strings
+        TitleBar().Title(winrt::to_hstring(m_controller->getAppInfo().getShortName()));
         NavView().PaneTitle(m_controller->isDevVersion() ? winrt::to_hstring(_("PREVIEW")) : L"");
         LblAppName().Text(winrt::to_hstring(m_controller->getAppInfo().getShortName()));
         LblAppDescription().Text(winrt::to_hstring(m_controller->getAppInfo().getDescription()));
         LblAppVersion().Text(winrt::to_hstring(m_controller->getAppInfo().getVersion().toString()));
         LblAppChangelog().Text(winrt::to_hstring(m_controller->getAppInfo().getChangelog()));
-        if(m_controller->getAppInfo().getTranslatorNames().size() == 1 && m_controller->getAppInfo().getTranslatorNames()[0] == "translator-credits")
-        {
-            LblAppCredits().Text(winrt::to_hstring(std::vformat(_("Developers:\n{}\nDesigners:\n{}\nArtists:\n{}"), std::make_format_args(CodeHelpers::unmove(StringHelpers::join(keys(m_controller->getAppInfo().getDevelopers()), "\n")), CodeHelpers::unmove(StringHelpers::join(keys(m_controller->getAppInfo().getDesigners()), "\n")), CodeHelpers::unmove(StringHelpers::join(keys(m_controller->getAppInfo().getArtists()), "\n", false))))));
-
-        }
-        else
-        {
-            LblAppCredits().Text(winrt::to_hstring(std::vformat(_("Developers:\n{}\nDesigners:\n{}\nArtists:\n{}\nTranslators:\n{}"), std::make_format_args(CodeHelpers::unmove(StringHelpers::join(keys(m_controller->getAppInfo().getDevelopers()), "\n")), CodeHelpers::unmove(StringHelpers::join(keys(m_controller->getAppInfo().getDesigners()), "\n")), CodeHelpers::unmove(StringHelpers::join(keys(m_controller->getAppInfo().getArtists()), "\n")), CodeHelpers::unmove(StringHelpers::join(m_controller->getAppInfo().getTranslatorNames(), "\n", false))))));
-        }
         StatusPageHome().Title(winrt::to_hstring(m_controller->getGreeting()));
     }
 
     void MainWindow::OnLoaded(const IInspectable& sender, const RoutedEventArgs& args)
     {
-        if (!m_opened)
+        if (!m_controller)
         {
-            if (!m_controller)
-            {
-                throw std::logic_error("MainWindow::SetController() must be called before using the window.");
-            }
-            m_controller->connectTaskbar(m_hwnd);
-            m_controller->startup();
-            NavViewHome().IsSelected(true);
-            m_opened = true;
+            throw std::logic_error("MainWindow::SetController() must be called before using the window.");
         }
+        if (m_opened)
+        {
+            return;
+        }
+        m_controller->connectTaskbar(m_hwnd);
+        m_controller->startup();
+        NavViewHome().IsSelected(true);
+        m_opened = true;
     }
 
     void MainWindow::OnClosing(const Microsoft::UI::Windowing::AppWindow& sender, const AppWindowClosingEventArgs& args)
     {
-        //args.Cancel(true);
+        bool cancel{ false };
+        args.Cancel(cancel);
     }
 
     void MainWindow::OnActivated(const IInspectable& sender, const WindowActivatedEventArgs& args)
     {
-        m_isActivated = args.WindowActivationState() != WindowActivationState::Deactivated;
-        if(m_isActivated)
+        if(args.WindowActivationState() != WindowActivationState::Deactivated)
         {
-            OnThemeChanged(MainGrid(), sender);
+            switch(MainGrid().ActualTheme())
+            {
+            case ElementTheme::Light:
+                TitleBar().TitleForeground(SolidColorBrush(Colors::Black()));
+                break;
+            case ElementTheme::Dark:
+                TitleBar().TitleForeground(SolidColorBrush(Colors::White()));
+                break;
+            default:
+                break;
+            }
         }
         else
         {
-            TitleBarTitle().Foreground(SolidColorBrush(Colors::Gray()));
-            AppWindow().TitleBar().ButtonForegroundColor(Colors::Gray());
-        }
-    }
-
-    void MainWindow::OnThemeChanged(const FrameworkElement& sender, const IInspectable& args)
-    {
-        switch(MainGrid().ActualTheme())
-        {
-        case ElementTheme::Light:
-            TitleBarTitle().Foreground(SolidColorBrush(Colors::Black()));
-            AppWindow().TitleBar().ButtonForegroundColor(Colors::Black());
-            AppWindow().TitleBar().ButtonInactiveForegroundColor(Colors::Black());
-            break;
-        case ElementTheme::Dark:
-            TitleBarTitle().Foreground(SolidColorBrush(Colors::White()));
-            AppWindow().TitleBar().ButtonForegroundColor(Colors::White());
-            AppWindow().TitleBar().ButtonInactiveForegroundColor(Colors::White());
-            break;
-        default:
-            break;
+            TitleBar().TitleForeground(SolidColorBrush(Colors::Gray()));
         }
     }
 
@@ -257,23 +228,18 @@ namespace winrt::Nickvision::Application::WinUI::implementation
     void MainWindow::OnNavSelectionChanged(const NavigationView& sender, const NavigationViewSelectionChangedEventArgs& args)
     {
         winrt::hstring tag{ NavView().SelectedItem().as<NavigationViewItem>().Tag().as<winrt::hstring>() };
-        if(tag == L"Home")
-        {
-            ViewStack().CurrentPage(L"Home");
-        }
-        else if(tag == L"Folder")
-        {
-            ViewStack().CurrentPage(L"Folder");
-        }
-        else if(tag == L"Settings")
+        if(tag == L"Settings")
         {
             WinUI::SettingsPage page{ winrt::make<SettingsPage>() };
             page.as<SettingsPage>()->SetController(m_controller->createPreferencesViewController());
             ViewStack().CurrentPage(L"Custom");
             FrameCustom().Content(winrt::box_value(page));
         }
-        TitleBarSearchBox().Visibility(tag == L"Folder" ? Visibility::Visible : Visibility::Collapsed);
-        SetDragRegionForCustomTitleBar();
+        else
+        {
+            ViewStack().CurrentPage(tag);
+        }
+        TitleBar().SearchVisibility(tag == L"Folder" ? Visibility::Visible : Visibility::Collapsed);
     }
 
     void MainWindow::OnNavViewItemTapped(const IInspectable& sender, const TappedRoutedEventArgs& args)
@@ -289,11 +255,10 @@ namespace winrt::Nickvision::Application::WinUI::implementation
 
     void MainWindow::WindowsUpdate(const IInspectable& sender, const RoutedEventArgs& args)
     {
+        TitleBar().SearchVisibility(Visibility::Collapsed);
         InfoBar().IsOpen(false);
         NavView().IsEnabled(false);
-        TitleBarSearchBox().Visibility(Visibility::Collapsed);
         ViewStack().CurrentPage(L"Spinner");
-        SetDragRegionForCustomTitleBar();
         m_controller->windowsUpdate();
     }
 
@@ -319,6 +284,26 @@ namespace winrt::Nickvision::Application::WinUI::implementation
     Windows::Foundation::IAsyncAction MainWindow::Discussions(const IInspectable& sender, const RoutedEventArgs& args)
     {
         co_await Launcher::LaunchUriAsync(Windows::Foundation::Uri{ winrt::to_hstring(m_controller->getAppInfo().getSupportUrl()) });
+    }
+
+    Windows::Foundation::IAsyncAction MainWindow::Credits(const IInspectable& sender, const RoutedEventArgs& args)
+    {
+        FlyoutBase::GetAttachedFlyout(NavViewHelp().as<FrameworkElement>()).Hide();
+        ContentDialog dialog;
+        dialog.Title(winrt::box_value(winrt::to_hstring(_("Credits"))));
+        if(m_controller->getAppInfo().getTranslatorNames().size() == 1 && m_controller->getAppInfo().getTranslatorNames()[0] == "translator-credits")
+        {
+            dialog.Content(winrt::box_value(winrt::to_hstring(std::vformat(_("Developers:\n{}\nDesigners:\n{}\nArtists:\n{}"), std::make_format_args(CodeHelpers::unmove(StringHelpers::join(keys(m_controller->getAppInfo().getDevelopers()), "\n")), CodeHelpers::unmove(StringHelpers::join(keys(m_controller->getAppInfo().getDesigners()), "\n")), CodeHelpers::unmove(StringHelpers::join(keys(m_controller->getAppInfo().getArtists()), "\n", false)))))));
+        }
+        else
+        {
+            dialog.Content(winrt::box_value(winrt::to_hstring(std::vformat(_("Developers:\n{}\nDesigners:\n{}\nArtists:\n{}\nTranslators:\n{}"), std::make_format_args(CodeHelpers::unmove(StringHelpers::join(keys(m_controller->getAppInfo().getDevelopers()), "\n")), CodeHelpers::unmove(StringHelpers::join(keys(m_controller->getAppInfo().getDesigners()), "\n")), CodeHelpers::unmove(StringHelpers::join(keys(m_controller->getAppInfo().getArtists()), "\n")), CodeHelpers::unmove(StringHelpers::join(m_controller->getAppInfo().getTranslatorNames(), "\n", false)))))));
+        }
+        dialog.CloseButtonText(winrt::to_hstring(_("Close")));
+        dialog.DefaultButton(ContentDialogButton::Close);
+        dialog.RequestedTheme(MainGrid().ActualTheme());
+        dialog.XamlRoot(MainGrid().XamlRoot());
+        co_await dialog.ShowAsync();
     }
 
     void MainWindow::OnFolderChanged(const EventArgs& args)
@@ -364,18 +349,5 @@ namespace winrt::Nickvision::Application::WinUI::implementation
     {
         InfoBar().IsOpen(false);
         m_controller->closeFolder();
-    }
-
-    void MainWindow::SetDragRegionForCustomTitleBar()
-    {
-        double scaleAdjustment{ TitleBar().XamlRoot().RasterizationScale() };
-        RightPaddingColumn().Width({ AppWindow().TitleBar().RightInset() / scaleAdjustment });
-        LeftPaddingColumn().Width({ AppWindow().TitleBar().LeftInset() / scaleAdjustment });
-        GeneralTransform transformSearch{ TitleBarSearchBox().TransformToVisual(nullptr) };
-        Windows::Foundation::Rect boundsSearch{ transformSearch.TransformBounds({ 0, 0, static_cast<float>(TitleBarSearchBox().ActualWidth()), static_cast<float>(TitleBarSearchBox().ActualHeight()) }) };
-        RectInt32 searchBoxRect{ static_cast<int>(std::round(boundsSearch.X * scaleAdjustment)), static_cast<int>(std::round(boundsSearch.Y * scaleAdjustment)), static_cast<int>(std::round(boundsSearch.Width * scaleAdjustment)), static_cast<int>(std::round(boundsSearch.Height * scaleAdjustment)) };
-        RectInt32 rectArray[1]{ searchBoxRect };
-        InputNonClientPointerSource nonClientInputSrc{ InputNonClientPointerSource::GetForWindowId(AppWindow().Id()) };
-        nonClientInputSrc.SetRegionRects(NonClientRegionKind::Passthrough, rectArray);
     }
 }

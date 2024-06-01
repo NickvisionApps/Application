@@ -6,8 +6,7 @@ if(WIN32)
         "RuntimeIdentifier=win10-x64"
         "RuntimeIdentifiers=win10-x64"
         "BaseNuGetRuntimeIdentifier=win10"
-        "AssetTargetFallback=$(AssetTargetFallback);native"
-    )
+        "AssetTargetFallback=$(AssetTargetFallback);native")
 
     configure_file("${CMAKE_CURRENT_SOURCE_DIR}/Directory.Build.props" "${CMAKE_CURRENT_BINARY_DIR}/Directory.Build.props" COPYONLY)
     configure_file("${CMAKE_CURRENT_SOURCE_DIR}/Directory.Build.targets" "${CMAKE_CURRENT_BINARY_DIR}/Directory.Build.targets" COPYONLY)
@@ -18,18 +17,18 @@ if(WIN32)
         "Controls/ClickableSettingsRow.xaml.cpp" "Controls/ClickableSettingsRow.xaml.h" "Controls/ClickableSettingsRow.xaml" "Controls/ClickableSettingsRow.idl"
         "Controls/SettingsRow.xaml.cpp" "Controls/SettingsRow.xaml.h" "Controls/SettingsRow.xaml" "Controls/SettingsRow.idl"
         "Controls/StatusPage.xaml.cpp" "Controls/StatusPage.xaml.h" "Controls/StatusPage.xaml" "Controls/StatusPage.idl"
+        "Controls/TitleBar.xaml.cpp" "Controls/TitleBar.xaml.h" "Controls/TitleBar.xaml" "Controls/TitleBar.idl"
         "Controls/ViewStack.xaml.cpp" "Controls/ViewStack.xaml.h" "Controls/ViewStack.xaml" "Controls/ViewStack.idl"
         "Controls/ViewStackPage.xaml.cpp" "Controls/ViewStackPage.xaml.h" "Controls/ViewStackPage.xaml" "Controls/ViewStackPage.idl"
-        "Helpers/WinUI.cpp" "Helpers/WinUI.h"
+        "Helpers/WinUI.h"
         "MainWindow.xaml.cpp" "MainWindow.xaml.h" "MainWindow.xaml" "MainWindow.idl"
         "SettingsPage.xaml.cpp" "SettingsPage.xaml.h" "SettingsPage.xaml" "SettingsPage.idl")
     set_property(SOURCE "App.xaml" PROPERTY VS_XAML_TYPE "ApplicationDefinition")
     set_property(TARGET org.nickvision.application.winui PROPERTY VS_PACKAGE_REFERENCES
         "Microsoft.Windows.CppWinRT_2.0.240405.15"
         "Microsoft.WindowsAppSDK_1.5.240428000"
-        "Microsoft.Windows.SDK.BuildTools_10.0.22621.3233"
-        "Microsoft.Windows.ImplementationLibrary_1.0.240122.1"
-    )
+        "Microsoft.Windows.SDK.BuildTools_10.0.26100.1"
+        "Microsoft.Windows.ImplementationLibrary_1.0.240122.1")
     target_include_directories(org.nickvision.application.winui PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}")
     target_precompile_headers(org.nickvision.application.winui PRIVATE "pch.h")
     set_target_properties(org.nickvision.application.winui PROPERTIES

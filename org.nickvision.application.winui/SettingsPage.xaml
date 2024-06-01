@@ -7,23 +7,25 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <ScrollViewer x:Name="ScrollViewer" VerticalScrollBarVisibility="Auto">
-        <StackPanel x:Name="StackPanel" Margin="40,24,40,24" Orientation="Vertical" Spacing="6">
-            <TextBlock x:Name="LblTitle" Margin="0,0,0,24" Style="{ThemeResource NavigationViewItemHeaderTextStyle}" FontSize="26"/>
+    <StackPanel Orientation="Vertical">
+        <TextBlock x:Name="LblTitle" Margin="40,24,40,24" Style="{ThemeResource NavigationViewItemHeaderTextStyle}" FontSize="26"/>
 
-            <TextBlock x:Name="LblUserInterface" Style="{StaticResource NavigationViewItemHeaderTextStyle}"/>
+        <ScrollView VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="40,0,40,0" Orientation="Vertical" Spacing="6">
+                <TextBlock x:Name="LblAppearanceBehavior" Margin="0,12,0,0" Style="{StaticResource NavigationViewItemHeaderTextStyle}"/>
 
-            <nickvision:SettingsRow x:Name="RowTheme" Glyph="&#xE793;">
-                <nickvision:SettingsRow.Child>
-                    <ComboBox x:Name="CmbTheme" SelectionChanged="OnCmbChanged"/>
-                </nickvision:SettingsRow.Child>
-            </nickvision:SettingsRow>
+                <nickvision:SettingsRow x:Name="RowTheme" Glyph="&#xE793;">
+                    <nickvision:SettingsRow.Child>
+                        <ComboBox x:Name="CmbTheme" SelectionChanged="OnCmbChanged"/>
+                    </nickvision:SettingsRow.Child>
+                </nickvision:SettingsRow>
 
-            <nickvision:SettingsRow x:Name="RowAutomaticallyCheckForUpdates" Glyph="&#xE117;">
-                <nickvision:SettingsRow.Child>
-                    <ToggleSwitch x:Name="TglAutomaticallyCheckForUpdates" Toggled="OnSwitchToggled"/>
-                </nickvision:SettingsRow.Child>
-            </nickvision:SettingsRow>
-        </StackPanel>
-    </ScrollViewer>
+                <nickvision:SettingsRow x:Name="RowAutomaticallyCheckForUpdates" Glyph="&#xE117;">
+                    <nickvision:SettingsRow.Child>
+                        <ToggleSwitch x:Name="TglAutomaticallyCheckForUpdates" Toggled="OnSwitchToggled"/>
+                    </nickvision:SettingsRow.Child>
+                </nickvision:SettingsRow>
+            </StackPanel>
+        </ScrollView>
+    </StackPanel>
 </UserControl>
