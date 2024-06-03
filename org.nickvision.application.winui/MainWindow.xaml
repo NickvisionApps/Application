@@ -43,7 +43,7 @@
                     <FlyoutBase.AttachedFlyout>
                         <Flyout>
                             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                <StackPanel Width="340" Orientation="Vertical" Spacing="12">
+                                <StackPanel Orientation="Vertical" Spacing="12">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto"/>
