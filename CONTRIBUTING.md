@@ -20,8 +20,6 @@ All types of contributions are encouraged and valued. See the [Table of Contents
     - [Via Weblate](#via-weblate)
     - [Manually](#manually)
   - [Your First Code Contribution](#your-first-code-contribution)
-    - [Developing on Linux](#developing-on-linux)
-    - [Developing on Windows](#developing-on-windows)
 - [Styleguides](#styleguides)
 - [Join The Project Team](#join-the-project-team)
 
@@ -130,13 +128,13 @@ Once all changes to your translated file are made, commit these changes and crea
 Application is built using C++20 and platform-native user interface libraries. With these technologies, Application is built for both GNOME (Linux) and Windows.
 
 The project is split up into the following sub-projects:
- - [libapplication](#libapplcation)
+ - [libapplication](#libapplication)
  - [org.nickvision.application.gnome](#org.nickvision.application.gnome)
  - [org.nickvision.application.winui](org.nickvision.application.winui)
 
 The whole project utilizes the [MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) pattern for separating data models and UI views.
 
-##### libapplcation
+##### libapplication
 
 This project contains all of the code used by all platforms of the app:
 - `controllers` => The objects used by UI views to receive and manipulate data from the models.
@@ -192,7 +190,7 @@ Application uses the following coding styles:
 - Brackets `{}` should be placed on individual new lines and never inline. 
     - This applies for any type of structure (`if`, `switch`, `class`, etc...) that requires brackets.
     - *Single-line if statements should also be wrapped by brackets.*
-- Proper indentation using tab spacing.
+- Proper indentation using spacing with spaces and not tabs.
 
 
 ## Join The Project Team
