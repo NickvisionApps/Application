@@ -43,6 +43,8 @@ out/
 out-linux/
 out-windows/
 build/
+build-linux/
+build-windows/
 bin/
 .cache/
 .vs/

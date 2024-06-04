@@ -88,13 +88,23 @@ namespace Nickvision::Application::GNOME::Views
 
     void MainWindow::show()
     {
-        gtk_window_present(GTK_WINDOW(m_window));
-        m_controller->connectTaskbar(m_controller->getAppInfo().getId() + ".desktop");
         m_controller->startup();
+        m_controller->connectTaskbar(m_controller->getAppInfo().getId() + ".desktop");
+        WindowGeometry geometry{ m_controller->getWindowGeometry() };
+        gtk_window_set_default_size(GTK_WINDOW(m_window), static_cast<int>(geometry.getWidth()), static_cast<int>(geometry.getHeight()));
+        if(geometry.isMaximized())
+        {
+            gtk_window_maximize(GTK_WINDOW(m_window));
+        }
+        gtk_window_present(GTK_WINDOW(m_window));
     }
 
     bool MainWindow::onCloseRequested()
     {
+        int width;
+        int height;
+        gtk_window_get_default_size(GTK_WINDOW(m_window), &width, &height);
+        m_controller->shutdown({ width, height, gtk_window_is_maximized(GTK_WINDOW(m_window)) });
         return false;
     }
 

@@ -3,6 +3,7 @@
 
 #include <string>
 #include <libnick/app/configurationbase.h>
+#include <libnick/app/windowgeometry.h>
 #include "theme.h"
 
 namespace Nickvision::Application::Shared::Models
@@ -28,6 +29,16 @@ namespace Nickvision::Application::Shared::Models
          * @param theme The new preferred theme
          */
         void setTheme(Theme theme);
+        /**
+         * @brief Gets the window geometry for the application.
+         * @return The window geometry
+         */
+        App::WindowGeometry getWindowGeometry() const;
+        /**
+         * @brief Sets the window geometry for the application.
+         * @param geometry The new window geometry
+         */
+        void setWindowGeometry(const App::WindowGeometry& geometry);
         /**
          * @brief Gets whether or not to automatically check for application updates.
          * @return True to automatically check for updates, else false

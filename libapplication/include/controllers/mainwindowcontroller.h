@@ -10,6 +10,7 @@
 #include <string>
 #include <vector>
 #include <libnick/app/appinfo.h>
+#include <libnick/app/windowgeometry.h>
 #include <libnick/events/event.h>
 #include <libnick/notifications/notificationsenteventargs.h>
 #include <libnick/notifications/shellnotificationsenteventargs.h>
@@ -47,6 +48,11 @@ namespace Nickvision::Application::Shared::Controllers
          */
         Models::Theme getTheme() const;
         /**
+         * @brief Gets the window geometry for the application.
+         * @return The window geometry
+         */
+        Nickvision::App::WindowGeometry getWindowGeometry() const;
+        /**
          * @brief Gets the Saved event for the application's configuration.
          * @return The configuration Saved event
          */
@@ -68,26 +74,6 @@ namespace Nickvision::Application::Shared::Controllers
          */
         std::string getDebugInformation(const std::string& extraInformation = "") const;
         /**
-         * @brief Gets the path of the current open folder.
-         * @return The open folder path. Empty if no folder is open
-         */
-        const std::filesystem::path& getFolderPath() const;
-        /**
-         * @brief Gets the list of paths of files in the open folder.
-         * @return The list of file paths in the open folder
-         */
-        const std::vector<std::filesystem::path>& getFiles() const;
-        /**
-         * @brief Gets whether or not a folder is opened.
-         * @return True if folder is opened, else false
-         */
-        bool isFolderOpened() const;
-        /**
-         * @brief Gets the event for when the folder is changed (opened or closed).
-         * @return The folder changed event
-         */
-        Nickvision::Events::Event<Nickvision::Events::EventArgs>& folderChanged();
-        /**
          * @brief Gets the string for greeting on the home page.
          * @return The greeting string
          */
@@ -102,6 +88,11 @@ namespace Nickvision::Application::Shared::Controllers
          * @brief Will only have an effect on the first time called.
          */
         void startup();
+        /**
+         * @brief Shuts down the application.
+         * @param geometry The window geometry to save
+         */
+        void shutdown(const Nickvision::App::WindowGeometry& geometry);
         /**
          * @brief Checks for an application update and sends a notification if one is available.
          */
@@ -125,6 +116,26 @@ namespace Nickvision::Application::Shared::Controllers
          */
         void connectTaskbar(const std::string& desktopFile);
 #endif
+        /**
+         * @brief Gets the path of the current open folder.
+         * @return The open folder path. Empty if no folder is open
+         */
+        const std::filesystem::path& getFolderPath() const;
+        /**
+         * @brief Gets the list of paths of files in the open folder.
+         * @return The list of file paths in the open folder
+         */
+        const std::vector<std::filesystem::path>& getFiles() const;
+        /**
+         * @brief Gets whether or not a folder is opened.
+         * @return True if folder is opened, else false
+         */
+        bool isFolderOpened() const;
+        /**
+         * @brief Gets the event for when the folder is changed (opened or closed).
+         * @return The folder changed event
+         */
+        Nickvision::Events::Event<Nickvision::Events::EventArgs>& folderChanged();
         /**
          * @brief Opens a folder.
          * @param path The path of the file to open

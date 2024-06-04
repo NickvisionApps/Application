@@ -13,8 +13,8 @@
 #include <windows.h>
 #endif
 
-using namespace Nickvision::Application::Shared::Models;
 using namespace Nickvision::App;
+using namespace Nickvision::Application::Shared::Models;
 using namespace Nickvision::Events;
 using namespace Nickvision::Notifications;
 using namespace Nickvision::Update;
@@ -30,7 +30,7 @@ namespace Nickvision::Application::Shared::Controllers
         Aura::getActive().init("org.nickvision.application", "Nickvision Application", "Application", Logging::LogLevel::Info);
 #endif
         AppInfo& appInfo{ Aura::getActive().getAppInfo() };
-        appInfo.setVersion({ "2024.5.0-next" });
+        appInfo.setVersion({ "2024.6.0-next" });
         appInfo.setShortName(_("Application"));
         appInfo.setDescription(_("Create new Nickvision applications"));
         appInfo.setSourceRepo("https://github.com/NickvisionApps/Application");
@@ -59,6 +59,11 @@ namespace Nickvision::Application::Shared::Controllers
     Theme MainWindowController::getTheme() const
     {
         return Aura::getActive().getConfig<Configuration>("config").getTheme();
+    }
+
+    WindowGeometry MainWindowController::getWindowGeometry() const
+    {
+        return Aura::getActive().getConfig<Configuration>("config").getWindowGeometry();
     }
 
     Event<EventArgs>& MainWindowController::configurationSaved()
@@ -122,26 +127,6 @@ namespace Nickvision::Application::Shared::Controllers
         return builder.str();
     }
 
-    const std::filesystem::path& MainWindowController::getFolderPath() const
-    {
-        return m_folderPath;
-    }
-
-    const std::vector<std::filesystem::path>& MainWindowController::getFiles() const
-    {
-        return m_files;
-    }
-
-    bool MainWindowController::isFolderOpened() const
-    {
-        return std::filesystem::exists(m_folderPath) && std::filesystem::is_directory(m_folderPath);
-    }
-
-    Event<EventArgs>& MainWindowController::folderChanged()
-    {
-        return m_folderChanged;
-    }
-
     std::string MainWindowController::getGreeting() const
     {
         std::time_t now{ std::time(nullptr) };
@@ -194,6 +179,14 @@ namespace Nickvision::Application::Shared::Controllers
         Aura::getActive().getLogger().log(Logging::LogLevel::Debug, "MainWindow started.");
     }
 
+    void MainWindowController::shutdown(const WindowGeometry& geometry)
+    {
+        Configuration& config{ Aura::getActive().getConfig<Configuration>("config") };
+        config.setWindowGeometry(geometry);
+        config.save();
+        Aura::getActive().getLogger().log(Logging::LogLevel::Debug, "MainWindow shutdown.");
+    }
+
     void MainWindowController::checkForUpdates()
     {
         if(!m_updater)
@@ -201,7 +194,7 @@ namespace Nickvision::Application::Shared::Controllers
             return;
         }
         Aura::getActive().getLogger().log(Logging::LogLevel::Debug, "Checking for updates...");
-        std::thread worker{ [&]()
+        std::thread worker{ [this]()
         {
             Version latest{ m_updater->fetchCurrentStableVersion() };
             if (!latest.empty())
@@ -232,7 +225,7 @@ namespace Nickvision::Application::Shared::Controllers
             return;
         }
         Aura::getActive().getLogger().log(Logging::LogLevel::Debug, "Fetching Windows app update...");
-        std::thread worker{ [&]()
+        std::thread worker{ [this]()
         {
             bool res{ m_updater->windowsUpdate(VersionType::Stable) };
             if (!res)
@@ -268,6 +261,26 @@ namespace Nickvision::Application::Shared::Controllers
         }
     }
 #endif
+
+    const std::filesystem::path& MainWindowController::getFolderPath() const
+    {
+        return m_folderPath;
+    }
+
+    const std::vector<std::filesystem::path>& MainWindowController::getFiles() const
+    {
+        return m_files;
+    }
+
+    bool MainWindowController::isFolderOpened() const
+    {
+        return std::filesystem::exists(m_folderPath) && std::filesystem::is_directory(m_folderPath);
+    }
+
+    Event<EventArgs>& MainWindowController::folderChanged()
+    {
+        return m_folderChanged;
+    }
 
     bool MainWindowController::openFolder(const std::filesystem::path& path)
     {
