@@ -195,6 +195,7 @@ namespace winrt::Nickvision::Application::WinUI::implementation
             }
             if(args.getAction() == "error")
             {
+                NavView().SelectedItem(nullptr);
                 if(m_controller->isFolderOpened())
                 {
                     NavViewFolder().IsSelected(true);

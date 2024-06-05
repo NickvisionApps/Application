@@ -33,7 +33,7 @@ SolidCompression=yes
 WizardStyle=modern
 PrivilegesRequired=admin
 DirExistsWarning=no
-CloseApplications=force
+CloseApplications=yes
 
 [Code]
 procedure SetupVC();

@@ -30,7 +30,7 @@ jobs:
           pkgs: libnick
           triplet: x64-windows
           cache-key: windows-latest
-          revision: 9760ce6194ef51aa4faf77b6321e1280daa4545c
+          revision: 8bd948dcac327b53c7ef0b194b649abc4ceb2644
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: "Build"
         working-directory: ${{github.workspace}}/build

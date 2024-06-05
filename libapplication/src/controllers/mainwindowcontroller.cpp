@@ -196,12 +196,13 @@ namespace Nickvision::Application::Shared::Controllers
         Aura::getActive().getLogger().log(Logging::LogLevel::Debug, "Checking for updates...");
         std::thread worker{ [this]()
         {
-            Version latest{ m_updater->fetchCurrentStableVersion() };
+            Version current{ Aura::getActive().getAppInfo().getVersion() };
+            Version latest{ m_updater->fetchCurrentVersion(current.getVersionType()) };
             if (!latest.empty())
             {
-                if (latest > Aura::getActive().getAppInfo().getVersion())
+                if (latest > current)
                 {
-                    Aura::getActive().getLogger().log(Logging::LogLevel::Debug, "Update found: " + latest.toString());
+                    Aura::getActive().getLogger().log(Logging::LogLevel::Info, "Update found: " + latest.toString());
                     m_notificationSent.invoke({ _("New update available"), NotificationSeverity::Success, "update" });
                 }
                 else
@@ -227,8 +228,12 @@ namespace Nickvision::Application::Shared::Controllers
         Aura::getActive().getLogger().log(Logging::LogLevel::Debug, "Fetching Windows app update...");
         std::thread worker{ [this]()
         {
-            bool res{ m_updater->windowsUpdate(VersionType::Stable) };
-            if (!res)
+            bool res{ m_updater->windowsUpdate(Aura::getActive().getAppInfo().getVersion().getVersionType()) };
+            if (res)
+            {
+                Aura::getActive().getLogger().log(Logging::LogLevel::Info, "Windows app update started.");
+            }
+            else
             {
                 Aura::getActive().getLogger().log(Logging::LogLevel::Error, "Unable to fetch Windows app update.");
                 m_notificationSent.invoke({ _("Unable to download and install update"), NotificationSeverity::Error, "error" });
