@@ -196,11 +196,10 @@ namespace Nickvision::Application::Shared::Controllers
         Aura::getActive().getLogger().log(Logging::LogLevel::Debug, "Checking for updates...");
         std::thread worker{ [this]()
         {
-            Version current{ Aura::getActive().getAppInfo().getVersion() };
-            Version latest{ m_updater->fetchCurrentVersion(current.getVersionType()) };
+            Version latest{ m_updater->fetchCurrentVersion(VersionType::Stable) };
             if (!latest.empty())
             {
-                if (latest > current)
+                if (latest > Aura::getActive().getAppInfo().getVersion())
                 {
                     Aura::getActive().getLogger().log(Logging::LogLevel::Info, "Update found: " + latest.toString());
                     m_notificationSent.invoke({ _("New update available"), NotificationSeverity::Success, "update" });
@@ -228,7 +227,7 @@ namespace Nickvision::Application::Shared::Controllers
         Aura::getActive().getLogger().log(Logging::LogLevel::Debug, "Fetching Windows app update...");
         std::thread worker{ [this]()
         {
-            bool res{ m_updater->windowsUpdate(Aura::getActive().getAppInfo().getVersion().getVersionType()) };
+            bool res{ m_updater->windowsUpdate(VersionType::Stable) };
             if (res)
             {
                 Aura::getActive().getLogger().log(Logging::LogLevel::Info, "Windows app update started.");
