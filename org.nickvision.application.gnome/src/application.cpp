@@ -9,15 +9,10 @@ using namespace Nickvision::Application::Shared::Models;
 namespace Nickvision::Application::GNOME
 {
     Application::Application(int argc, char* argv[])
-        : m_controller{ std::make_shared<MainWindowController>() },
+        : m_controller{ std::make_shared<MainWindowController>(std::vector<std::string>(argv, argv + argc)) },
         m_adw{ adw_application_new(m_controller->getAppInfo().getId().c_str(), G_APPLICATION_DEFAULT_FLAGS) },
         m_mainWindow{ nullptr }
     {
-        m_args.reserve(static_cast<size_t>(argc));
-        for(int i = 0; i < argc; i++)
-        {
-            m_args.push_back(argv[i]);
-        }
         m_controller->getAppInfo().setChangelog("- Initial Release");
         std::filesystem::path resources{ Aura::getActive().getExecutableDirectory() / (m_controller->getAppInfo().getId() + ".gresource") };
         GError* resourceLoadError{ nullptr };
@@ -34,7 +29,7 @@ namespace Nickvision::Application::GNOME
     int Application::run()
     {
         Aura::getActive().getLogger().log(Logging::LogLevel::Debug, "Started GTK application.");
-        return g_application_run(G_APPLICATION(m_adw), static_cast<int>(m_args.size()), &m_args[0]);
+        return g_application_run(G_APPLICATION(m_adw), 0, nullptr);
     }
 
     void Application::onActivate(GtkApplication* app)

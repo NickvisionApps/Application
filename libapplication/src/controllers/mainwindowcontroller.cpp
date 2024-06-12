@@ -1,4 +1,5 @@
 ﻿#include "controllers/mainwindowcontroller.h"
+#include <algorithm>
 #include <ctime>
 #include <format>
 #include <locale>
@@ -22,14 +23,12 @@ using namespace Nickvision::Update;
 
 namespace Nickvision::Application::Shared::Controllers
 {
-    MainWindowController::MainWindowController()
-        : m_started{ false }
+    MainWindowController::MainWindowController(const std::vector<std::string>& args)
+        : m_started{ false },
+        m_args{ args }
     {
-#ifdef DEBUG
-        Aura::getActive().init("org.nickvision.application", "Nickvision Application", "Application", Logging::LogLevel::Debug);
-#else
-        Aura::getActive().init("org.nickvision.application", "Nickvision Application", "Application", Logging::LogLevel::Info);
-#endif
+        Logging::LogLevel logLevel{ std::find(m_args.begin(), m_args.end(), "--debug") != m_args.end() ? Logging::LogLevel::Debug : Logging::LogLevel::Info };
+        Aura::getActive().init("org.nickvision.application", "Nickvision Application", "Application", logLevel);
         AppInfo& appInfo{ Aura::getActive().getAppInfo() };
         appInfo.setVersion({ "2024.6.0-next" });
         appInfo.setShortName(_("Application"));
@@ -228,8 +227,7 @@ namespace Nickvision::Application::Shared::Controllers
         Aura::getActive().getLogger().log(Logging::LogLevel::Debug, "Fetching Windows app update...");
         std::thread worker{ [this]()
         {
-            bool res{ m_updater->windowsUpdate(VersionType::Stable) };
-            if (res)
+            if (m_updater->windowsUpdate(VersionType::Stable))
             {
                 Aura::getActive().getLogger().log(Logging::LogLevel::Info, "Windows app update started.");
             }

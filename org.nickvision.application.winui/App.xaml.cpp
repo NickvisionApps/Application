@@ -1,14 +1,16 @@
 #include "App.xaml.h"
+#include <libnick/helpers/stringhelpers.h>
 #include "MainWindow.xaml.h"
 
 using namespace ::Nickvision::Application::Shared::Controllers;
 using namespace ::Nickvision::Application::Shared::Models;
+using namespace ::Nickvision::Helpers;
 using namespace winrt::Microsoft::UI::Xaml;
 
 namespace winrt::Nickvision::Application::WinUI::implementation 
 {
     App::App()
-        : m_controller{ std::make_shared<MainWindowController>() },
+        : m_controller{ std::make_shared<MainWindowController>(StringHelpers::split(GetCommandLineA(), " ")) },
         m_mainWindow{ nullptr }
     {
         InitializeComponent();

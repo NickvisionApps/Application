@@ -34,7 +34,6 @@ namespace Nickvision::Application::GNOME
          * @param app The GtkApplication for the running app 
          */
         void onActivate(GtkApplication* app);
-        std::vector<char*> m_args;
         std::shared_ptr<Shared::Controllers::MainWindowController> m_controller;
         AdwApplication* m_adw;
         std::shared_ptr<Views::MainWindow> m_mainWindow;

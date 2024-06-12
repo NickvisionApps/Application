@@ -31,7 +31,7 @@ namespace Nickvision::Application::Shared::Controllers
          * @brief Constructs a MainWindowController.
          * @param args A list of argument strings for the application
          */
-        MainWindowController();
+        MainWindowController(const std::vector<std::string>& args);
         /**
          * @brief Gets the AppInfo object for the application
          * @return The current AppInfo object
@@ -155,6 +155,7 @@ namespace Nickvision::Application::Shared::Controllers
          */
         void loadFiles();
         bool m_started;
+        std::vector<std::string> m_args;
         std::shared_ptr<Nickvision::Update::Updater> m_updater;
         Nickvision::Taskbar::TaskbarItem m_taskbar;
         Nickvision::Events::Event<Nickvision::Notifications::NotificationSentEventArgs> m_notificationSent;
