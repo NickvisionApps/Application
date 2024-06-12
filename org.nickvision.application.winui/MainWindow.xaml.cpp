@@ -13,6 +13,7 @@
 using namespace ::Nickvision;
 using namespace ::Nickvision::App;
 using namespace ::Nickvision::Events;
+using namespace ::Nickvision::Helpers;
 using namespace ::Nickvision::Notifications;
 using namespace ::Nickvision::Application::Shared::Controllers;
 using namespace ::Nickvision::Application::Shared::Models;
@@ -83,7 +84,7 @@ namespace winrt::Nickvision::Application::WinUI::implementation
         NavView().PaneTitle(m_controller->isDevVersion() ? winrt::to_hstring(_("PREVIEW")) : L"");
         LblAppName().Text(winrt::to_hstring(m_controller->getAppInfo().getShortName()));
         LblAppDescription().Text(winrt::to_hstring(m_controller->getAppInfo().getDescription()));
-        LblAppVersion().Text(winrt::to_hstring(m_controller->getAppInfo().getVersion().toString()));
+        LblAppVersion().Text(winrt::to_hstring(m_controller->getAppInfo().getVersion().str()));
         LblAppChangelog().Text(winrt::to_hstring(m_controller->getAppInfo().getChangelog()));
         StatusPageHome().Title(winrt::to_hstring(m_controller->getGreeting()));
     }

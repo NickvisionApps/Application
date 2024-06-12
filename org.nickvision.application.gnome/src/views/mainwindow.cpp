@@ -14,6 +14,7 @@ using namespace Nickvision::App;
 using namespace Nickvision::Application::Shared::Controllers;
 using namespace Nickvision::Application::GNOME::Helpers;
 using namespace Nickvision::Events;
+using namespace Nickvision::Helpers;
 using namespace Nickvision::Notifications;
 
 namespace Nickvision::Application::GNOME::Views
@@ -104,7 +105,7 @@ namespace Nickvision::Application::GNOME::Views
         int width;
         int height;
         gtk_window_get_default_size(GTK_WINDOW(m_window), &width, &height);
-        m_controller->shutdown({ width, height, gtk_window_is_maximized(GTK_WINDOW(m_window)) });
+        m_controller->shutdown({ width, height, static_cast<bool>(gtk_window_is_maximized(GTK_WINDOW(m_window))) });
         return false;
     }
 
@@ -196,7 +197,7 @@ namespace Nickvision::Application::GNOME::Views
         adw_about_dialog_set_application_name(dialog, m_controller->getAppInfo().getShortName().c_str());
         adw_about_dialog_set_application_icon(dialog, std::string(m_controller->getAppInfo().getId() + (m_controller->isDevVersion() ? "-devel" : "")).c_str());
         adw_about_dialog_set_developer_name(dialog, "Nickvision");
-        adw_about_dialog_set_version(dialog, m_controller->getAppInfo().getVersion().toString().c_str());
+        adw_about_dialog_set_version(dialog, m_controller->getAppInfo().getVersion().str().c_str());
         adw_about_dialog_set_release_notes(dialog, m_controller->getAppInfo().getHtmlChangelog().c_str());
         adw_about_dialog_set_debug_info(dialog, m_controller->getDebugInformation(extraDebug).c_str());
         adw_about_dialog_set_comments(dialog, m_controller->getAppInfo().getDescription().c_str());

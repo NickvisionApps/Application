@@ -10,7 +10,6 @@ permissions:
   id-token: write
   contents: read
 env:
-  BUILD_TYPE: Release
   GITHUB_ACTIONS: true
   VCPKG_ROOT: ${{github.workspace}}/vcpkg
 jobs:
@@ -21,24 +20,26 @@ jobs:
     steps:
       - name: "Checkout"  
         uses: actions/checkout@v4
+        with:
+          submodules: recursive
       - name: "Setup Environment"
         run: mkdir build
       - name: "Vcpkg"
-        uses: johnwason/vcpkg-action@v5
+        uses: johnwason/vcpkg-action@v6
         id: vcpkg
         with:
           pkgs: libnick
           triplet: x64-windows
-          cache-key: windows-latest
-          revision: 8bd948dcac327b53c7ef0b194b649abc4ceb2644
+          revision: 39abbc55692e1a370e1302b121db622ed3740e1d
           token: ${{ secrets.GITHUB_TOKEN }}
+          github-binarycache: true
       - name: "Build"
         working-directory: ${{github.workspace}}/build
         run: |
           cmake -G "Visual Studio 17 2022" ..
-          cmake --build . --config ${{env.BUILD_TYPE}}
+          cmake --build . --config Release
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
           path: ${{github.workspace}}/build/org.nickvision.application.winui/Release
-          name: Windows-x64-${{env.BUILD_TYPE}}
+          name: Windows-x64-Release

@@ -16,6 +16,7 @@
 using namespace Nickvision::App;
 using namespace Nickvision::Application::Shared::Models;
 using namespace Nickvision::Events;
+using namespace Nickvision::Helpers;
 using namespace Nickvision::Notifications;
 using namespace Nickvision::Update;
 
@@ -90,7 +91,7 @@ namespace Nickvision::Application::Shared::Controllers
 #elif defined(__linux__)
         builder << ".gnome" << std::endl;
 #endif
-        builder << Aura::getActive().getAppInfo().getVersion().toString() << std::endl << std::endl;
+        builder << Aura::getActive().getAppInfo().getVersion().str() << std::endl << std::endl;
         if(Aura::getActive().isRunningViaFlatpak())
         {
             builder << "Running under Flatpak" << std::endl;
@@ -108,7 +109,7 @@ namespace Nickvision::Application::Shared::Controllers
         wchar_t name[LOCALE_NAME_MAX_LENGTH];
         if(LCIDToLocaleName(lcid, name, LOCALE_NAME_MAX_LENGTH, 0) > 0)
         {
-            builder << StringHelpers::toString(name) << std::endl;
+            builder << StringHelpers::str(name) << std::endl;
         }
 #elif defined(__linux__)
         try
@@ -201,7 +202,7 @@ namespace Nickvision::Application::Shared::Controllers
             {
                 if (latest > Aura::getActive().getAppInfo().getVersion())
                 {
-                    Aura::getActive().getLogger().log(Logging::LogLevel::Info, "Update found: " + latest.toString());
+                    Aura::getActive().getLogger().log(Logging::LogLevel::Info, "Update found: " + latest.str());
                     m_notificationSent.invoke({ _("New update available"), NotificationSeverity::Success, "update" });
                 }
                 else
