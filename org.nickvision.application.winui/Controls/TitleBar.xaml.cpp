@@ -17,6 +17,7 @@ using namespace winrt::Windows::Graphics;
 namespace winrt::Nickvision::Application::WinUI::Controls::implementation 
 {
     DependencyProperty TitleBar::m_titleProperty = DependencyProperty::Register(L"Title", winrt::xaml_typename<winrt::hstring>(), winrt::xaml_typename<Nickvision::Application::WinUI::Controls::TitleBar>(), PropertyMetadata{ winrt::box_value(L""), PropertyChangedCallback{ &TitleBar::OnPropertyChanged } });
+    DependencyProperty TitleBar::m_subtitleProperty = DependencyProperty::Register(L"Subtitle", winrt::xaml_typename<winrt::hstring>(), winrt::xaml_typename<Nickvision::Application::WinUI::Controls::TitleBar>(), PropertyMetadata{ winrt::box_value(L""), PropertyChangedCallback{ &TitleBar::OnPropertyChanged } });
     DependencyProperty TitleBar::m_titleForegroundProperty = DependencyProperty::Register(L"TitleForeground", winrt::xaml_typename<Microsoft::UI::Xaml::Media::Brush>(), winrt::xaml_typename<Nickvision::Application::WinUI::Controls::TitleBar>(), PropertyMetadata{ winrt::box_value(Microsoft::UI::Xaml::Media::Brush(nullptr)), PropertyChangedCallback{ &TitleBar::OnPropertyChanged } });
     DependencyProperty TitleBar::m_searchVisibilityProperty = DependencyProperty::Register(L"SearchVisibility", winrt::xaml_typename<Microsoft::UI::Xaml::Visibility>(), winrt::xaml_typename<Nickvision::Application::WinUI::Controls::TitleBar>(), PropertyMetadata{ winrt::box_value(Visibility::Collapsed), PropertyChangedCallback{ &TitleBar::OnPropertyChanged } });
     
@@ -40,6 +41,17 @@ namespace winrt::Nickvision::Application::WinUI::Controls::implementation
         {
             m_appWindow.Title(title);
         }
+    }
+
+    winrt::hstring TitleBar::Subtitle() const
+    {
+        return winrt::unbox_value<winrt::hstring>(GetValue(m_subtitleProperty));
+    }
+
+    void TitleBar::Subtitle(const winrt::hstring& subtitle)
+    {
+        SetValue(m_subtitleProperty, winrt::box_value(subtitle));
+        m_propertyChangedEvent(*this, PropertyChangedEventArgs{ L"Subtitle" });
     }
 
     Microsoft::UI::Xaml::Media::Brush TitleBar::TitleForeground() const
@@ -172,6 +184,11 @@ namespace winrt::Nickvision::Application::WinUI::Controls::implementation
         return m_titleProperty;
     }
 
+    const DependencyProperty& TitleBar::SubtitleProperty()
+    {
+        return m_subtitleProperty;
+    }
+
     const DependencyProperty& TitleBar::TitleForegroundProperty()
     {
         return m_titleForegroundProperty;
@@ -190,6 +207,10 @@ namespace winrt::Nickvision::Application::WinUI::Controls::implementation
             if(args.Property() == m_titleProperty)
             {
                 ptr->m_propertyChangedEvent(*ptr, PropertyChangedEventArgs{ L"Title" });
+            }
+            else if(args.Property() == m_subtitleProperty)
+            {
+                ptr->m_propertyChangedEvent(*ptr, PropertyChangedEventArgs{ L"Subtitle" });
             }
             else if(args.Property() == m_titleForegroundProperty)
             {

@@ -81,7 +81,7 @@ namespace winrt::Nickvision::Application::WinUI::implementation
         m_controller->folderChanged() += [&](const EventArgs& args) { OnFolderChanged(args); };
         //Localize Strings
         TitleBar().Title(winrt::to_hstring(m_controller->getAppInfo().getShortName()));
-        NavView().PaneTitle(m_controller->isDevVersion() ? winrt::to_hstring(_("PREVIEW")) : L"");
+        TitleBar().Subtitle(m_controller->isDevVersion() ? winrt::to_hstring(_("Preview")) : L"");
         LblAppName().Text(winrt::to_hstring(m_controller->getAppInfo().getShortName()));
         LblAppDescription().Text(winrt::to_hstring(m_controller->getAppInfo().getDescription()));
         LblAppVersion().Text(winrt::to_hstring(m_controller->getAppInfo().getVersion().str()));

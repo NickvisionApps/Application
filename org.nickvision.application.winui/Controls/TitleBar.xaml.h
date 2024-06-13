@@ -27,6 +27,16 @@ namespace winrt::Nickvision::Application::WinUI::Controls::implementation
          */
         void Title(const winrt::hstring& title);
         /**
+         * @brief Gets the subtitle for the titlebar.
+         * @return The titlebar subtitle 
+         */
+        winrt::hstring Subtitle() const;
+        /**
+         * @brief Sets the subtitle for the titlebar.
+         * @param title The new subtitle 
+         */
+        void Subtitle(const winrt::hstring& subtitle);
+        /**
          * @brief Gets the foreground brush for the titlebar.
          * @return The titlebar foreground brush
          */
@@ -118,6 +128,11 @@ namespace winrt::Nickvision::Application::WinUI::Controls::implementation
          */
         static const Microsoft::UI::Xaml::DependencyProperty& TitleProperty();
         /**
+         * @brief Gets the titlebar's subtitle dependency property.
+         * @return The subtitle dependency property
+         */
+        static const Microsoft::UI::Xaml::DependencyProperty& SubtitleProperty();
+        /**
          * @brief Gets the titlebar's foreground dependency property.
          * @return The foreground dependency property
          */
@@ -136,6 +151,7 @@ namespace winrt::Nickvision::Application::WinUI::Controls::implementation
 
     private:
         static Microsoft::UI::Xaml::DependencyProperty m_titleProperty;
+        static Microsoft::UI::Xaml::DependencyProperty m_subtitleProperty;
         static Microsoft::UI::Xaml::DependencyProperty m_titleForegroundProperty;
         static Microsoft::UI::Xaml::DependencyProperty m_searchVisibilityProperty;
     };

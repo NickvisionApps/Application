@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-11 23:04-0400\n"
+"POT-Creation-Date: 2024-06-13 17:48-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -77,7 +77,6 @@ msgid "Unable to download and install update"
 msgstr ""
 
 #: libapplication/src/controllers/mainwindowcontroller.cpp:294
-#, c++-format
 msgid "Folder Opened: {}"
 msgstr ""
 
@@ -184,7 +183,6 @@ msgstr ""
 
 #: org.nickvision.application.gnome/src/views/mainwindow.cpp:145
 #: org.nickvision.application.winui/MainWindow.xaml.cpp:319
-#, c++-format
 msgid "There is {} file in the folder."
 msgid_plural "There are {} files in the folder."
 msgstr[0] ""
@@ -195,7 +193,7 @@ msgstr[1] ""
 msgid "GitHub Repo"
 msgstr ""
 
-#: org.nickvision.application.winui/Controls/TitleBar.xaml.cpp:120
+#: org.nickvision.application.winui/Controls/TitleBar.xaml.cpp:132
 msgid "Search"
 msgstr ""
 
@@ -248,7 +246,7 @@ msgid "Close (Ctrl+W)"
 msgstr ""
 
 #: org.nickvision.application.winui/MainWindow.xaml.cpp:84
-msgid "PREVIEW"
+msgid "Preview"
 msgstr ""
 
 #: org.nickvision.application.winui/MainWindow.xaml.cpp:139
@@ -264,7 +262,6 @@ msgid "Debug information copied to clipboard."
 msgstr ""
 
 #: org.nickvision.application.winui/MainWindow.xaml.cpp:298
-#, c++-format
 msgid ""
 "Developers:\n"
 "{}\n"
@@ -275,7 +272,6 @@ msgid ""
 msgstr ""
 
 #: org.nickvision.application.winui/MainWindow.xaml.cpp:302
-#, c++-format
 msgid ""
 "Developers:\n"
 "{}\n"
