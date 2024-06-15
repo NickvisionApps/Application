@@ -30,7 +30,7 @@ jobs:
         with:
           pkgs: libnick
           triplet: x64-windows
-          revision: 39abbc55692e1a370e1302b121db622ed3740e1d
+          revision: 104d435187f499323cf9aab78e3f10fced5635d1
           token: ${{ secrets.GITHUB_TOKEN }}
           github-binarycache: true
       - name: "Build"
