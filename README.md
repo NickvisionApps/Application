@@ -11,6 +11,10 @@
 ## Chat
 <a href='https://matrix.to/#/#nickvision:matrix.org'><img width='140' alt='Join our room' src='https://user-images.githubusercontent.com/17648453/196094077-c896527d-af6d-4b43-a5d8-e34a00ffd8f6.png'/></a>
 
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for details on how can you help the project and how to provide information so we can help you in case of troubles with the app.
+
 ## Building Manually
 Application uses `vcpkg` to manage its dependencies and `cmake` as its build system.
 
@@ -39,10 +43,6 @@ A C++20 compiler is also required to build Application.
 1. From the `build` folder, run `cmake .. -DCMAKE_BUILD_TYPE=Release`.
 1. From the `build` folder, run `cmake --build .`.
 1. After these commands complete, Application will be successfully built and its binaries can be found in the `org.nickvision.application.gnome` folder of the `build` folder.
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for details on how can you help the project and how to provide information so we can help you in case of troubles with the app.
 
 ## Code of Conduct
 
