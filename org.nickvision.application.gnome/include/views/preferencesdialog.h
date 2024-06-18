@@ -23,6 +23,10 @@ namespace Nickvision::Application::GNOME::Views
 
     private:
         /**
+         * @brief Handles when the dialog is closed.
+         */
+        void onClosed();
+        /**
          * @brief Handles when the theme preference is changed.
          */
         void onThemeChanged();

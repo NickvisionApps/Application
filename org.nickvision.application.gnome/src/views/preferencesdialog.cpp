@@ -13,8 +13,13 @@ namespace Nickvision::Application::GNOME::Views
         //Load
         adw_combo_row_set_selected(ADW_COMBO_ROW(gtk_builder_get_object(m_builder, "themeRow")), static_cast<unsigned int>(m_controller->getTheme()));
         //Signals
-        m_closed += [&](const EventArgs&){ m_controller->saveConfiguration(); };
+        m_closed += [&](const EventArgs&){ onClosed(); };
         g_signal_connect(gtk_builder_get_object(m_builder, "themeRow"), "notify::selected-item", G_CALLBACK(+[](GObject*, GParamSpec* pspec, gpointer data){ reinterpret_cast<PreferencesDialog*>(data)->onThemeChanged(); }), this);
+    }
+    
+    void PreferencesDialog::onClosed()
+    {
+        m_controller->saveConfiguration();
     }
 
     void PreferencesDialog::onThemeChanged()
