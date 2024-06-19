@@ -6,7 +6,7 @@ using namespace Nickvision::Application::Shared::Controllers;
 namespace Nickvision::Application::OSX::Views
 {
     MainWindow::MainWindow(const std::shared_ptr<MainWindowController>& controller)
-        : wxFrame{ nullptr, wxID_ANY, controller->getAppInfo().getName() },
+        : wxFrame{ nullptr, wxID_ANY, controller->getAppInfo().getShortName() },
         m_controller{ controller }
     {
         
