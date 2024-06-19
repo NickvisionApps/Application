@@ -40,7 +40,7 @@ namespace Nickvision::Application::Shared::Models
     {
 #ifdef _WIN32
         bool def{ true };
-#elif defined(__linux__)
+#else
         bool def{ false };
 #endif
         return m_json.get("AutomaticallyCheckForUpdates", def).asBool();

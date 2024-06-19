@@ -5,7 +5,7 @@ on:
     branches: [ "main" ]
     types: [ "review_requested", "ready_for_review" ]
   workflow_dispatch:
-name: Windows
+name: macOS
 permissions:
   id-token: write
   contents: read
@@ -14,32 +14,33 @@ env:
   VCPKG_ROOT: ${{github.workspace}}/vcpkg
 jobs:
   build:
-    name: "Build on x64"
-    runs-on: windows-latest
-    if: ${{ github.event.pull_request.user.login != 'weblate' }}
+    name: "Build on arm64"
+    runs-on: macos-latest
     steps:
       - name: "Checkout"  
         uses: actions/checkout@v4
         with:
           submodules: recursive
       - name: "Setup Environment"
-        run: mkdir build
+        run: |
+          mkdir build
+          brew install python-setuptools gettext yelp-tools
       - name: "Vcpkg"
         uses: johnwason/vcpkg-action@v6
         id: vcpkg
         with:
-          pkgs: libnick
-          triplet: x64-windows
+          pkgs: libnick wxwidgets
+          triplet: arm64-osx
           revision: e36532d3130abf79ef8898cf6439b7629ed0e5ae
           token: ${{ secrets.GITHUB_TOKEN }}
           github-binarycache: true
       - name: "Build"
         working-directory: ${{github.workspace}}/build
         run: |
-          cmake -G "Visual Studio 17 2022" ..
-          cmake --build . --config Release
+          cmake .. -DCMAKE_BUILD_TYPE=Release
+          cmake --build .
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
-          path: ${{github.workspace}}/build/org.nickvision.application.winui/Release
-          name: Windows-x64-Release
+          path: ${{github.workspace}}/build/org.nickvision.application.osx
+          name: macOS-arm64-Release

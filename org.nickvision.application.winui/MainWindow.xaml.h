@@ -3,8 +3,8 @@
 
 #include "includes.h"
 #include <memory>
-#include "Controls/TitleBar.g.h"
 #include "Controls/StatusPage.g.h"
+#include "Controls/TitleBar.g.h"
 #include "Controls/ViewStack.g.h"
 #include "Controls/ViewStackPage.g.h"
 #include "MainWindow.g.h"

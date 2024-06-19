@@ -89,6 +89,8 @@ namespace Nickvision::Application::Shared::Controllers
         builder << ".winui" << std::endl;
 #elif defined(__linux__)
         builder << ".gnome" << std::endl;
+#elif defined(__APPLE__)
+        builder << ".osx" << std::endl;
 #endif
         builder << Aura::getActive().getAppInfo().getVersion().str() << std::endl << std::endl;
         if(Aura::getActive().isRunningViaFlatpak())
@@ -110,7 +112,7 @@ namespace Nickvision::Application::Shared::Controllers
         {
             builder << StringHelpers::str(name) << std::endl;
         }
-#elif defined(__linux__)
+#else
         try
         {
             builder << std::locale("").name() << std::endl;
