@@ -30,6 +30,12 @@ A C++20 compiler is also required to build Application.
 #### Linux
 1. Set the `VCPKG_DEFAULT_TRIPLET` environment variable to `x64-linux`
 1. Run `vcpkg install libnick libxmlpp`
+#### macOS (Intel)
+1. Set the `VCPKG_DEFAULT_TRIPLET` environment variable to `x64-osx`
+1. Run `vcpkg install libnick wxwidgets`
+#### macOS (Apple Silicon)
+1. Set the `VCPKG_DEFAULT_TRIPLET` environment variable to `arm64-osx`
+1. Run `vcpkg install libnick wxwidgets`
 
 ### Building
 1. First, clone/download the repo.
@@ -43,6 +49,10 @@ A C++20 compiler is also required to build Application.
 1. From the `build` folder, run `cmake .. -DCMAKE_BUILD_TYPE=Release`.
 1. From the `build` folder, run `cmake --build .`.
 1. After these commands complete, Application will be successfully built and its binaries can be found in the `org.nickvision.application.gnome` folder of the `build` folder.
+#### macOS
+1. From the `build` folder, run `cmake .. -DCMAKE_BUILD_TYPE=Release`.
+1. From the `build` folder, run `cmake --build .`.
+1. After these commands complete, Application will be successfully built and its binaries can be found in the `org.nickvision.application.osx` folder of the `build` folder.
 
 ## Code of Conduct
 
