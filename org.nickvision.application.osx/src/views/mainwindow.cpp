@@ -1,6 +1,7 @@
 #include "views/mainwindow.h"
 #include <libnick/localization/gettext.h>
 
+using namespace Nickvision::App;
 using namespace Nickvision::Application::Shared::Controllers;
 
 namespace Nickvision::Application::OSX::Views
@@ -9,6 +10,30 @@ namespace Nickvision::Application::OSX::Views
         : wxFrame{ nullptr, wxID_ANY, controller->getAppInfo().getShortName() },
         m_controller{ controller }
     {
-        
+        Bind(wxEVT_CLOSE_WINDOW, &MainWindow::onClose, this);
+    }
+
+    bool MainWindow::Show(bool show)
+    {
+        m_controller->startup();
+        WindowGeometry geometry{ m_controller->getWindowGeometry() };
+        SetSize(geometry.getWidth(), geometry.getHeight());
+        if(geometry.isMaximized())
+        {
+            Maximize();
+        }
+        return wxFrame::Show(show);
+    }
+
+    void MainWindow::onClose(wxCloseEvent& event)
+    {
+        if(event.CanVeto())
+        {
+            //event.Veto();
+            //return;
+        }
+        wxSize size{ GetSize() };
+        m_controller->shutdown({ size.GetWidth(), size.GetHeight(), IsMaximized() });
+        event.Skip();
     }
 }

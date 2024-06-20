@@ -1,8 +1,11 @@
 if(APPLE)
-    add_executable(org.nickvision.application.osx
+    add_executable(org.nickvision.application.osx MACOSX_BUNDLE
         "src/views/mainwindow.cpp"
         "src/application.cpp")
     target_include_directories(org.nickvision.application.osx PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
+    set_target_properties(org.nickvision.application.osx PROPERTIES
+        BUNDLE TRUE
+        MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_SOURCE_DIR}/resources/Info.plist.in")
     find_package(wxWidgets CONFIG REQUIRED)
     target_link_libraries(org.nickvision.application.osx PRIVATE libapplication wx::core wx::base)
     
