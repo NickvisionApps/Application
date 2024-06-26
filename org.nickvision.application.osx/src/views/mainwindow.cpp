@@ -15,8 +15,7 @@ namespace Nickvision::Application::OSX::Views
 
     bool MainWindow::Show(bool show)
     {
-        m_controller->startup();
-        WindowGeometry geometry{ m_controller->getWindowGeometry() };
+        WindowGeometry geometry{ m_controller->startup() };
         SetSize(geometry.getWidth(), geometry.getHeight());
         if(geometry.isMaximized())
         {
@@ -27,10 +26,10 @@ namespace Nickvision::Application::OSX::Views
 
     void MainWindow::onClose(wxCloseEvent& event)
     {
-        if(event.CanVeto())
+        if(event.CanVeto() && !m_controller->canShutdown())
         {
-            //event.Veto();
-            //return;
+            event.Veto();
+            return;
         }
         wxSize size{ GetSize() };
         m_controller->shutdown({ size.GetWidth(), size.GetHeight(), IsMaximized() });

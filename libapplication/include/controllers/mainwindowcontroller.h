@@ -10,8 +10,10 @@
 #include <string>
 #include <vector>
 #include <libnick/app/appinfo.h>
+#include <libnick/app/datafilemanager.h>
 #include <libnick/app/windowgeometry.h>
 #include <libnick/events/event.h>
+#include <libnick/logging/logger.h>
 #include <libnick/notifications/notificationsenteventargs.h>
 #include <libnick/notifications/shellnotificationsenteventargs.h>
 #include <libnick/taskbar/taskbaritem.h>
@@ -33,26 +35,6 @@ namespace Nickvision::Application::Shared::Controllers
          */
         MainWindowController(const std::vector<std::string>& args);
         /**
-         * @brief Gets the AppInfo object for the application
-         * @return The current AppInfo object
-         */
-        Nickvision::App::AppInfo& getAppInfo() const;
-        /**
-         * @brief Gets whether or not the specified version is a development (preview) version.
-         * @return True for preview version, else false
-         */
-        bool isDevVersion() const;
-        /**
-         * @brief Gets the preferred theme for the application.
-         * @return The preferred theme
-         */
-        Models::Theme getTheme() const;
-        /**
-         * @brief Gets the window geometry for the application.
-         * @return The window geometry
-         */
-        Nickvision::App::WindowGeometry getWindowGeometry() const;
-        /**
          * @brief Gets the Saved event for the application's configuration.
          * @return The configuration Saved event
          */
@@ -68,26 +50,43 @@ namespace Nickvision::Application::Shared::Controllers
          */
         Nickvision::Events::Event<Nickvision::Notifications::ShellNotificationSentEventArgs>& shellNotificationSent();
         /**
+         * @brief Gets the AppInfo object for the application
+         * @return The current AppInfo object
+         */
+        const Nickvision::App::AppInfo& getAppInfo() const;
+        /**
+         * @brief Gets the preferred theme for the application.
+         * @return The preferred theme
+         */
+        Models::Theme getTheme();
+        /**
          * @brief Gets the debugging information for the application.
          * @param extraInformation Extra, ui-specific, information to include in the debug info statement
          * @return The application's debug information
          */
         std::string getDebugInformation(const std::string& extraInformation = "") const;
         /**
-         * @brief Gets the string for greeting on the home page.
-         * @return The greeting string
+         * @brief Gets whether or not the application can be shut down.
+         * @return True if can shut down, else false
          */
-        std::string getGreeting() const;
+        bool canShutdown() const;
         /**
          * @brief Gets a PreferencesViewController.
          * @return The PreferencesViewController
          */
-        std::shared_ptr<PreferencesViewController> createPreferencesViewController() const;
+        std::shared_ptr<PreferencesViewController> createPreferencesViewController();
         /**
          * @brief Starts the application.
          * @brief Will only have an effect on the first time called.
+         * @return The WindowGeometry to use for the application window at startup
          */
-        void startup();
+#ifdef _WIN32
+        Nickvision::App::WindowGeometry startup(HWND hwnd);
+#elif defined(__linux__)
+        Nickvision::App::WindowGeometry startup(const std::string& desktopFile);
+#else     
+        Nickvision::App::WindowGeometry startup();
+#endif
         /**
          * @brief Shuts down the application.
          * @param geometry The window geometry to save
@@ -104,18 +103,19 @@ namespace Nickvision::Application::Shared::Controllers
          * @brief MainWindowController::checkForUpdates() must be called before this method.
          */
         void windowsUpdate();
-        /**
-         * @brief Connects the main window to the taskbar interface.
-         * @param hwnd The main window handle
-         */
-        void connectTaskbar(HWND hwnd);
-#elif defined(__linux__)
-        /**
-         * @brief Connects the application to the taskbar interface.
-         * @param desktopFile The desktop file name (with the extension) of the running application
-         */
-        void connectTaskbar(const std::string& desktopFile);
 #endif
+        /**
+         * @brief Logs a system message.
+         * @param level The severity level of the message
+         * @param message The message to log
+         * @param source The source location of the log message
+         */
+        void log(Logging::LogLevel level, const std::string& message, const std::source_location& source = std::source_location::current());
+        /**
+         * @brief Gets the string for greeting on the home page.
+         * @return The greeting string
+         */
+        std::string getGreeting() const;
         /**
          * @brief Gets the path of the current open folder.
          * @return The open folder path. Empty if no folder is open
@@ -156,6 +156,9 @@ namespace Nickvision::Application::Shared::Controllers
         void loadFiles();
         bool m_started;
         std::vector<std::string> m_args;
+        Nickvision::App::AppInfo m_appInfo;
+        Nickvision::App::DataFileManager m_dataFileManager;
+        Nickvision::Logging::Logger m_logger;
         std::shared_ptr<Nickvision::Update::Updater> m_updater;
         Nickvision::Taskbar::TaskbarItem m_taskbar;
         Nickvision::Events::Event<Nickvision::Notifications::NotificationSentEventArgs> m_notificationSent;

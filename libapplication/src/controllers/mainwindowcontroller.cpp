@@ -2,13 +2,12 @@
 #include <algorithm>
 #include <ctime>
 #include <format>
-#include <locale>
-#include <sstream>
 #include <thread>
-#include <libnick/app/aura.h>
+#include <libnick/filesystem/userdirectories.h>
 #include <libnick/helpers/codehelpers.h>
 #include <libnick/helpers/stringhelpers.h>
 #include <libnick/localization/gettext.h>
+#include <libnick/system/environment.h>
 #include "models/configuration.h"
 #ifdef _WIN32
 #include <windows.h>
@@ -17,58 +16,49 @@
 using namespace Nickvision::App;
 using namespace Nickvision::Application::Shared::Models;
 using namespace Nickvision::Events;
+using namespace Nickvision::Filesystem;
 using namespace Nickvision::Helpers;
 using namespace Nickvision::Notifications;
+using namespace Nickvision::System;
 using namespace Nickvision::Update;
 
 namespace Nickvision::Application::Shared::Controllers
 {
     MainWindowController::MainWindowController(const std::vector<std::string>& args)
         : m_started{ false },
-        m_args{ args }
+        m_args{ args },
+        m_appInfo{ "org.nickvision.application", "Nickvision Application", "Application" },
+        m_dataFileManager{ m_appInfo.getName() },
+        m_logger{ UserDirectories::get(UserDirectory::ApplicationLocalData, m_appInfo.getName()), std::find(m_args.begin(), m_args.end(), "--debug") != m_args.end() ? Logging::LogLevel::Debug : Logging::LogLevel::Info, false }
     {
-        Logging::LogLevel logLevel{ std::find(m_args.begin(), m_args.end(), "--debug") != m_args.end() ? Logging::LogLevel::Debug : Logging::LogLevel::Info };
-        Aura::getActive().init("org.nickvision.application", "Nickvision Application", "Application", logLevel);
-        AppInfo& appInfo{ Aura::getActive().getAppInfo() };
-        appInfo.setVersion({ "2024.6.0-next" });
-        appInfo.setShortName(_("Application"));
-        appInfo.setDescription(_("Create new Nickvision applications"));
-        appInfo.setSourceRepo("https://github.com/NickvisionApps/Application");
-        appInfo.setIssueTracker("https://github.com/NickvisionApps/Application/issues/new");
-        appInfo.setSupportUrl("https://github.com/NickvisionApps/Application/discussions");
-        appInfo.getExtraLinks()[_("Matrix Chat")] = "https://matrix.to/#/#nickvision:matrix.org";
-        appInfo.getDevelopers()["Nicholas Logozzo"] = "https://github.com/nlogozzo";
-        appInfo.getDevelopers()[_("Contributors on GitHub")] = "https://github.com/NickvisionApps/Application/graphs/contributors";
-        appInfo.getDesigners()["Nicholas Logozzo"] = "https://github.com/nlogozzo";
-        appInfo.getDesigners()[_("Fyodor Sobolev")] = "https://github.com/fsobolev";
-        appInfo.getDesigners()["DaPigGuy"] = "https://github.com/DaPigGuy";
-        appInfo.getArtists()[_("David Lapshin")] = "https://github.com/daudix";
-        appInfo.setTranslatorCredits(_("translator-credits"));
-    }
-
-    AppInfo& MainWindowController::getAppInfo() const
-    {
-        return Aura::getActive().getAppInfo();
-    }
-
-    bool MainWindowController::isDevVersion() const
-    {
-        return Aura::getActive().getAppInfo().getVersion().getVersionType() == VersionType::Preview;
-    }
-
-    Theme MainWindowController::getTheme() const
-    {
-        return Aura::getActive().getConfig<Configuration>("config").getTheme();
-    }
-
-    WindowGeometry MainWindowController::getWindowGeometry() const
-    {
-        return Aura::getActive().getConfig<Configuration>("config").getWindowGeometry();
+        m_appInfo.setVersion({ "2024.6.0-next" });
+        m_appInfo.setShortName(_("Application"));
+        m_appInfo.setDescription(_("Create new Nickvision applications"));
+        m_appInfo.setChangelog("- Initial Release");
+        m_appInfo.setSourceRepo("https://github.com/NickvisionApps/Application");
+        m_appInfo.setIssueTracker("https://github.com/NickvisionApps/Application/issues/new");
+        m_appInfo.setSupportUrl("https://github.com/NickvisionApps/Application/discussions");
+        m_appInfo.getExtraLinks()[_("Matrix Chat")] = "https://matrix.to/#/#nickvision:matrix.org";
+        m_appInfo.getDevelopers()["Nicholas Logozzo"] = "https://github.com/nlogozzo";
+        m_appInfo.getDevelopers()[_("Contributors on GitHub")] = "https://github.com/NickvisionApps/Application/graphs/contributors";
+        m_appInfo.getDesigners()["Nicholas Logozzo"] = "https://github.com/nlogozzo";
+        m_appInfo.getDesigners()[_("Fyodor Sobolev")] = "https://github.com/fsobolev";
+        m_appInfo.getDesigners()["DaPigGuy"] = "https://github.com/DaPigGuy";
+        m_appInfo.getArtists()[_("David Lapshin")] = "https://github.com/daudix";
+        m_appInfo.setTranslatorCredits(_("translator-credits"));
+        Localization::Gettext::init(m_appInfo.getEnglishShortName());
+#ifdef _WIN32
+        m_updater = std::make_shared<Updater>(m_appInfo.getSourceRepo());
+#endif
+        m_dataFileManager.get<Configuration>("config").saved() += [this](const EventArgs&)
+        {
+            m_logger.log(Logging::LogLevel::Debug, "Configuration saved.");
+        };
     }
 
     Event<EventArgs>& MainWindowController::configurationSaved()
     {
-        return Aura::getActive().getConfig<Configuration>("config").saved();
+        return m_dataFileManager.get<Configuration>("config").saved();
     }
 
     Event<NotificationSentEventArgs>& MainWindowController::notificationSent()
@@ -81,52 +71,136 @@ namespace Nickvision::Application::Shared::Controllers
         return m_shellNotificationSent;
     }
 
+    const AppInfo& MainWindowController::getAppInfo() const
+    {
+        return m_appInfo;
+    }
+
+    Theme MainWindowController::getTheme()
+    {
+        return m_dataFileManager.get<Configuration>("config").getTheme();
+    }
+
     std::string MainWindowController::getDebugInformation(const std::string& extraInformation) const
     {
-        std::stringstream builder;
-        builder << Aura::getActive().getAppInfo().getId();
+        return Environment::getDebugInformation(m_appInfo, extraInformation);
+    }
+
+    bool MainWindowController::canShutdown() const
+    {
+        return true;
+    }
+
+    std::shared_ptr<PreferencesViewController> MainWindowController::createPreferencesViewController()
+    {
+        return std::make_shared<PreferencesViewController>(m_dataFileManager.get<Configuration>("config"));
+    }
+
 #ifdef _WIN32
-        builder << ".winui" << std::endl;
+    Nickvision::App::WindowGeometry MainWindowController::startup(HWND hwnd)
 #elif defined(__linux__)
-        builder << ".gnome" << std::endl;
-#elif defined(__APPLE__)
-        builder << ".osx" << std::endl;
+    Nickvision::App::WindowGeometry MainWindowController::startup(const std::string& desktopFile)
+#else
+    Nickvision::App::WindowGeometry MainWindowController::startup()
 #endif
-        builder << Aura::getActive().getAppInfo().getVersion().str() << std::endl << std::endl;
-        if(Aura::getActive().isRunningViaFlatpak())
+    {
+        if (m_started)
         {
-            builder << "Running under Flatpak" << std::endl;
+            return m_dataFileManager.get<Configuration>("config").getWindowGeometry();
         }
-        else if(Aura::getActive().isRunningViaSnap())
+#ifdef _WIN32
+        if(m_taskbar.connect(hwnd))
         {
-            builder << "Running under Snap" << std::endl;
+            m_logger.log(Logging::LogLevel::Debug, "Connected to Windows taskbar.");
         }
         else
         {
-            builder << "Running locally" << std::endl;
+            m_logger.log(Logging::LogLevel::Error, "Unable to connect to Windows taskbar.");
         }
-#ifdef _WIN32
-        LCID lcid = GetThreadLocale();
-        wchar_t name[LOCALE_NAME_MAX_LENGTH];
-        if(LCIDToLocaleName(lcid, name, LOCALE_NAME_MAX_LENGTH, 0) > 0)
+        if (m_dataFileManager.get<Configuration>("config").getAutomaticallyCheckForUpdates())
         {
-            builder << StringHelpers::str(name) << std::endl;
+            checkForUpdates();
         }
-#else
-        try
+#elif defined(__linux__)
+        if(m_taskbar.connect(desktopFile))
         {
-            builder << std::locale("").name() << std::endl;
+            m_logger.log(Logging::LogLevel::Debug, "Connected to Linux taskbar.");
         }
-        catch(...)
+        else
         {
-            builder << "Locale not set" << std::endl;
+            m_logger.log(Logging::LogLevel::Error, "Unable to connect to Linux taskbar.");
         }
 #endif
-        if (!extraInformation.empty())
+        m_started = true;
+        m_logger.log(Logging::LogLevel::Debug, "MainWindow started.");
+        return m_dataFileManager.get<Configuration>("config").getWindowGeometry();
+    }
+
+    void MainWindowController::shutdown(const WindowGeometry& geometry)
+    {
+        Configuration& config{ m_dataFileManager.get<Configuration>("config") };
+        config.setWindowGeometry(geometry);
+        config.save();
+        m_logger.log(Logging::LogLevel::Debug, "MainWindow shutdown.");
+    }
+
+    void MainWindowController::checkForUpdates()
+    {
+        if(!m_updater)
         {
-            builder << extraInformation << std::endl;
+            return;
         }
-        return builder.str();
+        m_logger.log(Logging::LogLevel::Debug, "Checking for updates...");
+        std::thread worker{ [this]()
+        {
+            Version latest{ m_updater->fetchCurrentVersion(VersionType::Stable) };
+            if (!latest.empty())
+            {
+                if (latest > m_appInfo.getVersion())
+                {
+                    m_logger.log(Logging::LogLevel::Info, "Update found: " + latest.str());
+                    m_notificationSent.invoke({ _("New update available"), NotificationSeverity::Success, "update" });
+                }
+                else
+                {
+                    m_logger.log(Logging::LogLevel::Debug, "No updates found.");
+                }
+            }
+            else
+            {
+                m_logger.log(Logging::LogLevel::Warning, "Unable to fetch latest app version.");
+            }
+        } };
+        worker.detach();
+    }
+
+#ifdef _WIN32
+    void MainWindowController::windowsUpdate()
+    {
+        if(m_updater)
+        {
+            return;
+        }
+        m_logger.log(Logging::LogLevel::Debug, "Fetching Windows app update...");
+        std::thread worker{ [this]()
+        {
+            if (m_updater->windowsUpdate(VersionType::Stable))
+            {
+                m_logger.log(Logging::LogLevel::Info, "Windows app update started.");
+            }
+            else
+            {
+                m_logger.log(Logging::LogLevel::Error, "Unable to fetch Windows app update.");
+                m_notificationSent.invoke({ _("Unable to download and install update"), NotificationSeverity::Error, "error" });
+            }
+        } };
+        worker.detach();
+    }
+#endif
+
+    void MainWindowController::log(Logging::LogLevel level, const std::string& message, const std::source_location& source)
+    {
+        m_logger.log(level, message, source);
     }
 
     std::string MainWindowController::getGreeting() const
@@ -151,121 +225,6 @@ namespace Nickvision::Application::Shared::Controllers
         }
         return _("Good Day!");
     }
-
-    std::shared_ptr<PreferencesViewController> MainWindowController::createPreferencesViewController() const
-    {
-        return std::make_shared<PreferencesViewController>();
-    }
-
-    void MainWindowController::startup()
-    {
-        if (m_started)
-        {
-            return;
-        }
-#ifdef _WIN32
-        try
-        {
-            m_updater = std::make_shared<Updater>(Aura::getActive().getAppInfo().getSourceRepo());
-        }
-        catch(...)
-        {
-            m_updater = nullptr;
-        }
-        if (Aura::getActive().getConfig<Configuration>("config").getAutomaticallyCheckForUpdates())
-        {
-            checkForUpdates();
-        }
-#endif
-        m_started = true;
-        Aura::getActive().getLogger().log(Logging::LogLevel::Debug, "MainWindow started.");
-    }
-
-    void MainWindowController::shutdown(const WindowGeometry& geometry)
-    {
-        Configuration& config{ Aura::getActive().getConfig<Configuration>("config") };
-        config.setWindowGeometry(geometry);
-        config.save();
-        Aura::getActive().getLogger().log(Logging::LogLevel::Debug, "MainWindow shutdown.");
-    }
-
-    void MainWindowController::checkForUpdates()
-    {
-        if(!m_updater)
-        {
-            return;
-        }
-        Aura::getActive().getLogger().log(Logging::LogLevel::Debug, "Checking for updates...");
-        std::thread worker{ [this]()
-        {
-            Version latest{ m_updater->fetchCurrentVersion(VersionType::Stable) };
-            if (!latest.empty())
-            {
-                if (latest > Aura::getActive().getAppInfo().getVersion())
-                {
-                    Aura::getActive().getLogger().log(Logging::LogLevel::Info, "Update found: " + latest.str());
-                    m_notificationSent.invoke({ _("New update available"), NotificationSeverity::Success, "update" });
-                }
-                else
-                {
-                    Aura::getActive().getLogger().log(Logging::LogLevel::Debug, "No updates found.");
-                }
-            }
-            else
-            {
-                Aura::getActive().getLogger().log(Logging::LogLevel::Warning, "Unable to fetch latest app version.");
-            }
-        } };
-        worker.detach();
-    }
-
-#ifdef _WIN32
-    void MainWindowController::windowsUpdate()
-    {
-        if(m_updater)
-        {
-            return;
-        }
-        Aura::getActive().getLogger().log(Logging::LogLevel::Debug, "Fetching Windows app update...");
-        std::thread worker{ [this]()
-        {
-            if (m_updater->windowsUpdate(VersionType::Stable))
-            {
-                Aura::getActive().getLogger().log(Logging::LogLevel::Info, "Windows app update started.");
-            }
-            else
-            {
-                Aura::getActive().getLogger().log(Logging::LogLevel::Error, "Unable to fetch Windows app update.");
-                m_notificationSent.invoke({ _("Unable to download and install update"), NotificationSeverity::Error, "error" });
-            }
-        } };
-        worker.detach();
-    }
-
-    void MainWindowController::connectTaskbar(HWND hwnd)
-    {
-        if(m_taskbar.connect(hwnd))
-        {
-            Aura::getActive().getLogger().log(Logging::LogLevel::Debug, "Connected to Windows taskbar.");
-        }
-        else
-        {
-            Aura::getActive().getLogger().log(Logging::LogLevel::Error, "Unable to connect to Windows taskbar.");
-        }
-    }
-#elif defined(__linux__)
-    void MainWindowController::connectTaskbar(const std::string& desktopFile)
-    {
-        if(m_taskbar.connect(desktopFile))
-        {
-            Aura::getActive().getLogger().log(Logging::LogLevel::Debug, "Connected to Linux taskbar.");
-        }
-        else
-        {
-            Aura::getActive().getLogger().log(Logging::LogLevel::Error, "Unable to connect to Linux taskbar.");
-        }
-    }
-#endif
 
     const std::filesystem::path& MainWindowController::getFolderPath() const
     {
@@ -297,7 +256,7 @@ namespace Nickvision::Application::Shared::Controllers
             m_folderChanged.invoke({});
             m_taskbar.setCount(static_cast<long>(m_files.size()));
             m_taskbar.setCountVisible(true);
-            Aura::getActive().getLogger().log(Logging::LogLevel::Info, "Folder opened. (" + m_folderPath.string() + ")");
+            m_logger.log(Logging::LogLevel::Info, "Folder opened. (" + m_folderPath.string() + ")");
             return true;
         }
         return false;
@@ -305,7 +264,7 @@ namespace Nickvision::Application::Shared::Controllers
 
     void MainWindowController::closeFolder()
     {
-        Aura::getActive().getLogger().log(Logging::LogLevel::Info, "Folder closed. (" + m_folderPath.string() + ")");
+        m_logger.log(Logging::LogLevel::Info, "Folder closed. (" + m_folderPath.string() + ")");
         m_folderPath = std::filesystem::path();
         m_files.clear();
         m_notificationSent.invoke({ _("Folder closed"), NotificationSeverity::Warning });
@@ -326,6 +285,6 @@ namespace Nickvision::Application::Shared::Controllers
                 }
             }
         }
-        Aura::getActive().getLogger().log(Logging::LogLevel::Info, "Loaded " + std::to_string(m_files.size()) + " file(s). (" + m_folderPath.string() + ")");
+        m_logger.log(Logging::LogLevel::Info, "Loaded " + std::to_string(m_files.size()) + " file(s). (" + m_folderPath.string() + ")");
     }
 }

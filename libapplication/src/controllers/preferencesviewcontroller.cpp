@@ -1,40 +1,37 @@
 #include "controllers/preferencesviewcontroller.h"
-#include <libnick/app/aura.h>
-#include "models/configuration.h"
 
 using namespace Nickvision::Application::Shared::Models;
-using namespace Nickvision::App;
 
 namespace Nickvision::Application::Shared::Controllers
 {
-    const std::string& PreferencesViewController::getId() const
+    PreferencesViewController::PreferencesViewController(Configuration& configuration)
+        : m_configuration{ configuration }
     {
-        return Aura::getActive().getAppInfo().getId();
-    }
 
+    }
+    
     Theme PreferencesViewController::getTheme() const
     {
-        return Aura::getActive().getConfig<Configuration>("config").getTheme();
+        return m_configuration.getTheme();
     }
 
     void PreferencesViewController::setTheme(Theme theme)
     {
-        Aura::getActive().getConfig<Configuration>("config").setTheme(theme);
+        m_configuration.setTheme(theme);
     }
 
     bool PreferencesViewController::getAutomaticallyCheckForUpdates() const
     {
-        return Aura::getActive().getConfig<Configuration>("config").getAutomaticallyCheckForUpdates();
+        return m_configuration.getAutomaticallyCheckForUpdates();
     }
 
     void PreferencesViewController::setAutomaticallyCheckForUpdates(bool check)
     {
-        Aura::getActive().getConfig<Configuration>("config").setAutomaticallyCheckForUpdates(check);
+        m_configuration.setAutomaticallyCheckForUpdates(check);
     }
 
     void PreferencesViewController::saveConfiguration()
     {
-        Aura::getActive().getLogger().log(Logging::LogLevel::Debug, "Config saved.");
-        Aura::getActive().getConfig<Configuration>("config").save();
+        m_configuration.save();
     }
 }
