@@ -24,7 +24,7 @@ jobs:
       - name: "Setup Environment"
         run: |
           mkdir build
-          brew install python-setuptools gettext yelp-tools
+          brew install python-setuptools gettext yelp-tools llvm@15
       - name: "Vcpkg"
         uses: johnwason/vcpkg-action@v6
         id: vcpkg
@@ -37,6 +37,8 @@ jobs:
       - name: "Build"
         working-directory: ${{github.workspace}}/build
         run: |
+          export CC=$(brew --prefix llvm@15)/bin/clang
+          export CXX=$(brew --prefix llvm@15)/bin/clang++
           cmake .. -DCMAKE_BUILD_TYPE=Release
           cmake --build .
       - name: Upload
