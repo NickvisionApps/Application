@@ -38,8 +38,17 @@ jobs:
         run: |
           cmake -G "Visual Studio 17 2022" ..
           cmake --build . --config Release
+      - name: "Download Installer Dependencies"
+        run: |
+          choco install wget
+          wget https://aka.ms/vs/17/release/vc_redist.x64.exe -O ${{github.workspace}}/VC_redist.x64.exe
+          wget https://aka.ms/windowsappsdk/1.5/1.5.240607001/windowsappruntimeinstall-x64.exe -O ${{github.workspace}}/WindowsAppRuntimeInstall-x64.exe
+      - name: "Create Installer"
+        uses: Minionguyjpro/Inno-Setup-Action@v1.2.4
+        with:
+          path: ${{github.workspace}}/inno/setup.iss
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
-          path: ${{github.workspace}}/build/org.nickvision.application.winui/Release
+          path: ${{github.workspace}}/inno/NickvisionApplicationSetup.exe
           name: Windows-x64-Release
