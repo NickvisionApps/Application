@@ -39,11 +39,13 @@ jobs:
           cmake -G "Visual Studio 17 2022" ..
           cmake --build . --config Release
       - name: "Download Installer Dependencies"
+        working-directory: ${{github.workspace}}
         run: |
           choco install wget
-          wget https://aka.ms/vs/17/release/vc_redist.x64.exe -O ${{github.workspace}}/VC_redist.x64.exe
-          wget https://aka.ms/windowsappsdk/1.5/1.5.240607001/windowsappruntimeinstall-x64.exe -O ${{github.workspace}}/WindowsAppRuntimeInstall-x64.exe
+          wget https://aka.ms/vs/17/release/vc_redist.x64.exe -O vc_redist.x64.exe
+          wget https://aka.ms/windowsappsdk/1.5/1.5.240607001/windowsappruntimeinstall-x64.exe -O windowsappruntimeinstall-x64.exe
       - name: "Create Installer"
+        working-directory: ${{github.workspace}}/inno
         uses: Minionguyjpro/Inno-Setup-Action@v1.2.4
         with:
           path: ${{github.workspace}}/inno/setup.iss
