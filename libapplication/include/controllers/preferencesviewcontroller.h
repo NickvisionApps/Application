@@ -14,6 +14,7 @@ namespace Nickvision::Application::Shared::Controllers
     public:
         /**
          * @brief Constructs a PreferencesViewController.
+         * @param configuration The reference to the configuration to use
          */
         PreferencesViewController(Models::Configuration& configuration);
         /**
