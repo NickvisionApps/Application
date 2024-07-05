@@ -24,21 +24,19 @@ jobs:
       - name: "Setup Environment"
         run: |
           mkdir build
-          brew install python-setuptools gettext yelp-tools llvm@15
+          brew install python-setuptools gettext yelp-tools
       - name: "Vcpkg"
         uses: johnwason/vcpkg-action@v6
         id: vcpkg
         with:
           pkgs: libnick wxwidgets
           triplet: arm64-osx
-          revision: 90ff15472a7c9f858717667b66403344e73cfb9c
+          revision: efd5cdaf1eaf2b3490d2c333d962a33078fba54b
           token: ${{ secrets.GITHUB_TOKEN }}
           github-binarycache: true
       - name: "Build"
         working-directory: ${{github.workspace}}/build
         run: |
-          export CC=$(brew --prefix llvm@15)/bin/clang
-          export CXX=$(brew --prefix llvm@15)/bin/clang++
           cmake .. -DCMAKE_BUILD_TYPE=Release
           cmake --build .
       - name: Upload
