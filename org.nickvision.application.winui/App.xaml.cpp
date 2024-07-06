@@ -5,6 +5,7 @@
 using namespace ::Nickvision::Application::Shared::Controllers;
 using namespace ::Nickvision::Application::Shared::Models;
 using namespace ::Nickvision::Helpers;
+using namespace ::Nickvision::Logging;
 using namespace winrt::Microsoft::UI::Xaml;
 
 namespace winrt::Nickvision::Application::WinUI::implementation 
@@ -46,7 +47,7 @@ namespace winrt::Nickvision::Application::WinUI::implementation
             m_mainWindow = winrt::make<MainWindow>();
             m_mainWindow.as<MainWindow>()->SetController(m_controller, m_systemTheme);
         }
-        m_controller->log(Logging::LogLevel::Debug, "Started WinUI application.");
+        m_controller->log(LogLevel::Debug, "Started WinUI application.");
         m_mainWindow.Activate();
     }
 }
