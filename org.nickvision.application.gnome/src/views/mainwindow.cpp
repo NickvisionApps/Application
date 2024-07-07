@@ -89,13 +89,13 @@ namespace Nickvision::Application::GNOME::Views
 
     void MainWindow::show()
     {
+        gtk_window_present(GTK_WINDOW(m_window));
         WindowGeometry geometry{ m_controller->startup(m_controller->getAppInfo().getId() + ".desktop") };
         gtk_window_set_default_size(GTK_WINDOW(m_window), static_cast<int>(geometry.getWidth()), static_cast<int>(geometry.getHeight()));
         if(geometry.isMaximized())
         {
             gtk_window_maximize(GTK_WINDOW(m_window));
         }
-        gtk_window_present(GTK_WINDOW(m_window));
     }
 
     bool MainWindow::onCloseRequested()
