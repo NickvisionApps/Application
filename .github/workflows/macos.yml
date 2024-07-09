@@ -31,7 +31,7 @@ jobs:
         with:
           pkgs: libnick wxwidgets
           triplet: arm64-osx
-          revision: efd5cdaf1eaf2b3490d2c333d962a33078fba54b
+          revision: 5f502b165027bbede86ff2c5316334e3398bc519
           token: ${{ secrets.GITHUB_TOKEN }}
           github-binarycache: true
       - name: "Build"
