@@ -225,7 +225,7 @@ namespace winrt::Nickvision::Application::WinUI::implementation
 
     void MainWindow::OnShellNotificationSent(const ShellNotificationSentEventArgs& args)
     {
-        m_controller->log(Logging::LogLevel::Debug, "ShellNotification sent. (" + args.getMessage() + ")");
+        m_controller->log(Logging::LogLevel::Info, "ShellNotification sent. (" + args.getMessage() + ")");
         ShellNotification::send(args, m_hwnd);
     }
 

@@ -1,5 +1,4 @@
 ﻿#include "controllers/mainwindowcontroller.h"
-#include <algorithm>
 #include <ctime>
 #include <format>
 #include <thread>
@@ -29,7 +28,7 @@ namespace Nickvision::Application::Shared::Controllers
         m_args{ args },
         m_appInfo{ "org.nickvision.application", "Nickvision Application", "Application" },
         m_dataFileManager{ m_appInfo.getName() },
-        m_logger{ UserDirectories::get(ApplicationUserDirectory::LocalData, m_appInfo.getName()) / "log.txt", std::find(m_args.begin(), m_args.end(), "--debug") != m_args.end() ? Logging::LogLevel::Debug : Logging::LogLevel::Info, false }
+        m_logger{ UserDirectories::get(ApplicationUserDirectory::LocalData, m_appInfo.getName()) / "log.txt", Logging::LogLevel::Info, false }
     {
         m_appInfo.setVersion({ "2024.7.0-next" });
         m_appInfo.setShortName(_("Application"));
@@ -52,7 +51,7 @@ namespace Nickvision::Application::Shared::Controllers
 #endif
         m_dataFileManager.get<Configuration>("config").saved() += [this](const EventArgs&)
         {
-            m_logger.log(Logging::LogLevel::Debug, "Configuration saved.");
+            m_logger.log(Logging::LogLevel::Info, "Configuration saved.");
         };
     }
 
@@ -111,7 +110,7 @@ namespace Nickvision::Application::Shared::Controllers
 #ifdef _WIN32
         if(m_taskbar.connect(hwnd))
         {
-            m_logger.log(Logging::LogLevel::Debug, "Connected to Windows taskbar.");
+            m_logger.log(Logging::LogLevel::Info, "Connected to Windows taskbar.");
         }
         else
         {
@@ -124,7 +123,7 @@ namespace Nickvision::Application::Shared::Controllers
 #elif defined(__linux__)
         if(m_taskbar.connect(desktopFile))
         {
-            m_logger.log(Logging::LogLevel::Debug, "Connected to Linux taskbar.");
+            m_logger.log(Logging::LogLevel::Info, "Connected to Linux taskbar.");
         }
         else
         {
@@ -132,7 +131,6 @@ namespace Nickvision::Application::Shared::Controllers
         }
 #endif
         m_started = true;
-        m_logger.log(Logging::LogLevel::Debug, "MainWindow started.");
         return m_dataFileManager.get<Configuration>("config").getWindowGeometry();
     }
 
@@ -141,7 +139,6 @@ namespace Nickvision::Application::Shared::Controllers
         Configuration& config{ m_dataFileManager.get<Configuration>("config") };
         config.setWindowGeometry(geometry);
         config.save();
-        m_logger.log(Logging::LogLevel::Debug, "MainWindow shutdown.");
     }
 
     void MainWindowController::checkForUpdates()
@@ -150,7 +147,7 @@ namespace Nickvision::Application::Shared::Controllers
         {
             return;
         }
-        m_logger.log(Logging::LogLevel::Debug, "Checking for updates...");
+        m_logger.log(Logging::LogLevel::Info, "Checking for updates...");
         std::thread worker{ [this]()
         {
             Version latest{ m_updater->fetchCurrentVersion(VersionType::Stable) };
@@ -163,7 +160,7 @@ namespace Nickvision::Application::Shared::Controllers
                 }
                 else
                 {
-                    m_logger.log(Logging::LogLevel::Debug, "No updates found.");
+                    m_logger.log(Logging::LogLevel::Info, "No updates found.");
                 }
             }
             else
@@ -181,7 +178,7 @@ namespace Nickvision::Application::Shared::Controllers
         {
             return;
         }
-        m_logger.log(Logging::LogLevel::Debug, "Fetching Windows app update...");
+        m_logger.log(Logging::LogLevel::Info, "Fetching Windows app update...");
         std::thread worker{ [this]()
         {
             if (m_updater->windowsUpdate(VersionType::Stable))

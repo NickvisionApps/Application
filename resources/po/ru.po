@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-26 14:25-0400\n"
+"POT-Creation-Date: 2024-07-12 11:53-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -15,8 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 #: libapplication/src/controllers/mainwindowcontroller.cpp:35
 msgid "Application"
@@ -47,42 +47,42 @@ msgstr "Давид Лапшин"
 msgid "translator-credits"
 msgstr "Фёдор Соболев https://github.com/fsobolev"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:162
+#: libapplication/src/controllers/mainwindowcontroller.cpp:160
 msgid "New update available"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:194
+#: libapplication/src/controllers/mainwindowcontroller.cpp:192
 msgid "Unable to download and install update"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:212
+#: libapplication/src/controllers/mainwindowcontroller.cpp:210
 msgctxt "Night"
 msgid "Good Morning!"
 msgstr "Доброй ночи!"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:216
+#: libapplication/src/controllers/mainwindowcontroller.cpp:214
 msgctxt "Morning"
 msgid "Good Morning!"
 msgstr "Доброе утро!"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:220
+#: libapplication/src/controllers/mainwindowcontroller.cpp:218
 msgid "Good Afternoon!"
 msgstr "Добрый день!"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:224
+#: libapplication/src/controllers/mainwindowcontroller.cpp:222
 msgid "Good Evening!"
 msgstr "Добрый вечер!"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:226
+#: libapplication/src/controllers/mainwindowcontroller.cpp:224
 msgid "Good Day!"
 msgstr "Здравствуйте!"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:255
-#, fuzzy, c++-format
+#: libapplication/src/controllers/mainwindowcontroller.cpp:253
+#, fuzzy
 msgid "Folder Opened: {}"
 msgstr "Папка открыта: {0}"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:270
+#: libapplication/src/controllers/mainwindowcontroller.cpp:268
 #, fuzzy
 msgid "Folder closed"
 msgstr "Папка закрыта."
@@ -187,7 +187,7 @@ msgstr "Закрыть"
 
 #: org.nickvision.application.gnome/src/views/mainwindow.cpp:147
 #: org.nickvision.application.winui/MainWindow.xaml.cpp:321
-#, fuzzy, c++-format
+#, fuzzy
 msgid "There is {} file in the folder."
 msgid_plural "There are {} files in the folder."
 msgstr[0] "В папке {0} файл."
@@ -270,7 +270,6 @@ msgid "Debug information copied to clipboard."
 msgstr ""
 
 #: org.nickvision.application.winui/MainWindow.xaml.cpp:300
-#, c++-format
 msgid ""
 "Developers:\n"
 "{}\n"
@@ -281,7 +280,6 @@ msgid ""
 msgstr ""
 
 #: org.nickvision.application.winui/MainWindow.xaml.cpp:304
-#, c++-format
 msgid ""
 "Developers:\n"
 "{}\n"
