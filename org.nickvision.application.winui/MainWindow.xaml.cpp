@@ -63,9 +63,10 @@ namespace winrt::Nickvision::Application::WinUI::implementation
         BtnDiscussions().Content(winrt::box_value(winrt::to_hstring(_("Discussions"))));
         NavViewSettings().Content(winrt::box_value(winrt::to_hstring(_("Settings"))));
         StatusPageHome().Description(winrt::to_hstring(_("Open a folder (or drag one into the app) to get started")));
-        HomeOpenFolderButtonLabel().Text(winrt::to_hstring(_("Open Folder")));
-        FolderOpenFolderButton().Label(winrt::to_hstring(_("Open")));
-        ToolTipService::SetToolTip(FolderCloseFolderButton(), winrt::box_value(winrt::to_hstring(_("Close (Ctrl+W)"))));
+        LblBtnHomeOpenFolder().Text(winrt::to_hstring(_("Open Folder")));
+        BtnFolderOpenFolder().Label(winrt::to_hstring(_("Open")));
+        ToolTipService::SetToolTip(BtnFolderCloseFolder(), winrt::box_value(winrt::to_hstring(_("Close (Ctrl+W)"))));
+        StatusPageNoFiles().Title(winrt::to_hstring(_("No files in folder")));
     }
 
     void MainWindow::SetController(const std::shared_ptr<MainWindowController>& controller, ElementTheme systemTheme)
@@ -243,7 +244,6 @@ namespace winrt::Nickvision::Application::WinUI::implementation
         {
             ViewStack().CurrentPage(tag);
         }
-        TitleBar().SearchVisibility(tag == L"Folder" ? Visibility::Visible : Visibility::Collapsed);
     }
 
     void MainWindow::OnNavViewItemTapped(const IInspectable& sender, const TappedRoutedEventArgs& args)
@@ -259,7 +259,6 @@ namespace winrt::Nickvision::Application::WinUI::implementation
 
     void MainWindow::WindowsUpdate(const IInspectable& sender, const RoutedEventArgs& args)
     {
-        TitleBar().SearchVisibility(Visibility::Collapsed);
         InfoBar().IsOpen(false);
         NavView().IsEnabled(false);
         ViewStack().CurrentPage(L"Spinner");
@@ -318,21 +317,29 @@ namespace winrt::Nickvision::Application::WinUI::implementation
         ListFiles().Items().Clear();
         if(m_controller->isFolderOpened())
         {
-            StatusPageFiles().Description(winrt::to_hstring(std::vformat(_n("There is {} file in the folder.", "There are {} files in the folder.", m_controller->getFiles().size()), std::make_format_args(CodeHelpers::unmove(m_controller->getFiles().size())))));
-            for(const std::filesystem::path& file : m_controller->getFiles())
+            if(m_controller->getFiles().empty())
             {
-                StackPanel fileRow;
-                fileRow.Margin({ 6, 6, 6, 6 });
-                fileRow.Orientation(Orientation::Vertical);
-                fileRow.Spacing(6);
-                TextBlock lblFilename;
-                lblFilename.Text(winrt::to_hstring(file.filename().string()));
-                TextBlock lblPath;
-                lblPath.Text(winrt::to_hstring(file.string()));
-                lblPath.Foreground(SolidColorBrush(Colors::Gray()));
-                fileRow.Children().Append(lblFilename);
-                fileRow.Children().Append(lblPath);
-                ListFiles().Items().Append(fileRow);
+                ViewStackFolder().CurrentPage(L"NoFiles");
+            }
+            else
+            {
+                ViewStackFolder().CurrentPage(L"Files");
+                StatusPageFiles().Description(winrt::to_hstring(std::vformat(_n("There is {} file in the folder.", "There are {} files in the folder.", m_controller->getFiles().size()), std::make_format_args(CodeHelpers::unmove(m_controller->getFiles().size())))));
+                for(const std::filesystem::path& file : m_controller->getFiles())
+                {
+                    StackPanel fileRow;
+                    fileRow.Margin({ 6, 6, 6, 6 });
+                    fileRow.Orientation(Orientation::Vertical);
+                    fileRow.Spacing(6);
+                    TextBlock lblFilename;
+                    lblFilename.Text(winrt::to_hstring(file.filename().string()));
+                    TextBlock lblPath;
+                    lblPath.Text(winrt::to_hstring(file.string()));
+                    lblPath.Foreground(SolidColorBrush(Colors::Gray()));
+                    fileRow.Children().Append(lblFilename);
+                    fileRow.Children().Append(lblPath);
+                    ListFiles().Items().Append(fileRow);
+                }
             }
         }
     }

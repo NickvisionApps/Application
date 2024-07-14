@@ -131,7 +131,7 @@
                                             <StackPanel Orientation="Horizontal" Spacing="6">
                                                 <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" FontSize="16" Glyph="&#xE838;"/>
 
-                                                <TextBlock x:Name="HomeOpenFolderButtonLabel" TextWrapping="WrapWholeWords"/>
+                                                <TextBlock x:Name="LblBtnHomeOpenFolder" TextWrapping="WrapWholeWords"/>
                                             </StackPanel>
                                         </Button.Content>
 
@@ -159,13 +159,13 @@
                                     </Grid.ColumnDefinitions>
 
                                     <CommandBar Grid.Column="0" DefaultLabelPosition="Right">
-                                        <AppBarButton x:Name="FolderOpenFolderButton" Icon="OpenLocal" Click="OpenFolder">
+                                        <AppBarButton x:Name="BtnFolderOpenFolder" Icon="OpenLocal" Click="OpenFolder">
                                             <AppBarButton.KeyboardAccelerators>
                                                 <KeyboardAccelerator Modifiers="Control" Key="O"/>
                                             </AppBarButton.KeyboardAccelerators>
                                         </AppBarButton>
 
-                                        <AppBarButton x:Name="FolderCloseFolderButton" Icon="UnSyncFolder" Click="CloseFolder">
+                                        <AppBarButton x:Name="BtnFolderCloseFolder" Icon="UnSyncFolder" Click="CloseFolder">
                                             <AppBarButton.KeyboardAccelerators>
                                                 <KeyboardAccelerator Modifiers="Control" Key="W"/>
                                             </AppBarButton.KeyboardAccelerators>
@@ -175,19 +175,29 @@
 
                                 <MenuFlyoutSeparator Grid.Row="1"/>
 
-                                <Grid Grid.Row="2">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="360"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
+                                <nickvision:ViewStack x:Name="ViewStackFolder" Grid.Row="2">
+                                    <nickvision:ViewStack.Pages>
+                                        <nickvision:ViewStackPage PageName="NoFiles">
+                                            <nickvision:StatusPage x:Name="StatusPageNoFiles" Glyph="&#xE8A5;"/>
+                                        </nickvision:ViewStackPage>
 
-                                    <ListView x:Name="ListFiles" Grid.Column="0" SelectionMode="Extended"/>
+                                        <nickvision:ViewStackPage PageName="Files">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="360"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
 
-                                    <AppBarSeparator Grid.Column="1" Margin="0,-6,0,-6"/>
+                                                <ListView x:Name="ListFiles" Grid.Column="0" SelectionMode="Extended"/>
 
-                                    <nickvision:StatusPage x:Name="StatusPageFiles" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" IsCompact="True" Glyph="&#xE130;"/>
-                                </Grid>
+                                                <AppBarSeparator Grid.Column="1" Margin="0,-6,0,-6"/>
+
+                                                <nickvision:StatusPage x:Name="StatusPageFiles" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" IsCompact="True" Glyph="&#xE130;"/>
+                                            </Grid>
+                                        </nickvision:ViewStackPage>
+                                    </nickvision:ViewStack.Pages>
+                                </nickvision:ViewStack>
                             </Grid>
                         </nickvision:ViewStackPage>
                     </nickvision:ViewStack.Pages>
