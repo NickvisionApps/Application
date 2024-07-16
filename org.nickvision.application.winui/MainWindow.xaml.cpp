@@ -76,7 +76,7 @@ namespace winrt::Nickvision::Application::WinUI::implementation
         //Register Events
         AppWindow().Closing({ this, &MainWindow::OnClosing });
         m_controller->configurationSaved() += [&](const EventArgs& args) { OnConfigurationSaved(args); };
-        m_controller->notificationSent() += [&](const NotificationSentEventArgs& args) { OnNotificationSent(args); };
+        m_controller->notificationSent() += [&](const NotificationSentEventArgs& args) { DispatcherQueue().TryEnqueue([this, args](){ OnNotificationSent(args); }); };
         m_controller->shellNotificationSent() += [&](const ShellNotificationSentEventArgs& args) { OnShellNotificationSent(args); };
         m_controller->folderChanged() += [&](const EventArgs& args) { OnFolderChanged(args); };
         //Localize Strings
@@ -175,53 +175,50 @@ namespace winrt::Nickvision::Application::WinUI::implementation
 
     void MainWindow::OnNotificationSent(const NotificationSentEventArgs& args)
     {
-        DispatcherQueue().TryEnqueue([this, args]()
+        InfoBar().Message(winrt::to_hstring(args.getMessage()));
+        switch(args.getSeverity())
         {
-            InfoBar().Message(winrt::to_hstring(args.getMessage()));
-            switch(args.getSeverity())
+        case NotificationSeverity::Success:
+            InfoBar().Severity(InfoBarSeverity::Success);
+            break;
+        case NotificationSeverity::Warning:
+            InfoBar().Severity(InfoBarSeverity::Warning);
+            break;
+        case NotificationSeverity::Error:
+            InfoBar().Severity(InfoBarSeverity::Error);
+            break;
+        default:
+            InfoBar().Severity(InfoBarSeverity::Informational);
+            break;
+        }
+        if(m_notificationClickToken)
+        {
+            BtnInfoBar().Click(m_notificationClickToken);
+        }
+        if(args.getAction() == "error")
+        {
+            NavView().SelectedItem(nullptr);
+            if(m_controller->isFolderOpened())
             {
-            case NotificationSeverity::Success:
-                InfoBar().Severity(InfoBarSeverity::Success);
-                break;
-            case NotificationSeverity::Warning:
-                InfoBar().Severity(InfoBarSeverity::Warning);
-                break;
-            case NotificationSeverity::Error:
-                InfoBar().Severity(InfoBarSeverity::Error);
-                break;
-            default:
-                InfoBar().Severity(InfoBarSeverity::Informational);
-                break;
+                NavViewFolder().IsSelected(true);
             }
-            if(m_notificationClickToken)
+            else
             {
-                BtnInfoBar().Click(m_notificationClickToken);
+                NavViewHome().IsSelected(true);
             }
-            if(args.getAction() == "error")
-            {
-                NavView().SelectedItem(nullptr);
-                if(m_controller->isFolderOpened())
-                {
-                    NavViewFolder().IsSelected(true);
-                }
-                else
-                {
-                    NavViewHome().IsSelected(true);
-                }
-            }
-            else if(args.getAction() == "update")
-            {
-                BtnInfoBar().Content(winrt::box_value(winrt::to_hstring(_("Update"))));
-                m_notificationClickToken = BtnInfoBar().Click({ this, &MainWindow::WindowsUpdate });
-            }
-            else if(args.getAction() == "close")
-            {
-                BtnInfoBar().Content(winrt::box_value(winrt::to_hstring(_("Close"))));
-                m_notificationClickToken = BtnInfoBar().Click({ this, &MainWindow::CloseFolder });
-            }
-            BtnInfoBar().Visibility(!args.getAction().empty() ? Visibility::Visible : Visibility::Collapsed);
-            InfoBar().IsOpen(true);
-        });
+        }
+        else if(args.getAction() == "update")
+        {
+            BtnInfoBar().Content(winrt::box_value(winrt::to_hstring(_("Update"))));
+            m_notificationClickToken = BtnInfoBar().Click({ this, &MainWindow::WindowsUpdate });
+        }
+        else if(args.getAction() == "close")
+        {
+            BtnInfoBar().Content(winrt::box_value(winrt::to_hstring(_("Close"))));
+            m_notificationClickToken = BtnInfoBar().Click({ this, &MainWindow::CloseFolder });
+        }
+        BtnInfoBar().Visibility(!args.getAction().empty() ? Visibility::Visible : Visibility::Collapsed);
+        InfoBar().IsOpen(true);
     }
 
     void MainWindow::OnShellNotificationSent(const ShellNotificationSentEventArgs& args)

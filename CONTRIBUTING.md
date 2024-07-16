@@ -130,7 +130,6 @@ Application is built using C++20 and platform-native user interface libraries. W
 The project is split up into the following sub-projects:
  - [libapplication](#libapplication)
  - [org.nickvision.application.gnome](#org.nickvision.application.gnome)
- - [org.nickvision.application.osx](org.nickvision.application.osx)
  - [org.nickvision.application.winui](org.nickvision.application.winui)
 
 The whole project utilizes the [MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) pattern for separating data models and UI views.
@@ -161,13 +160,6 @@ Powered by the [Windows App SDK](https://learn.microsoft.com/en-us/windows/apps/
 - `helpers` => Useful objects and functions specific for the WinUI platform version of the app.
 - `views` => The views (pages, windows, dialogs, etc...) of the app.
 - `installer` => Inno installer scripts.
-
-##### org.nickvision.application.osx
-
-This project contains all of the code used for the macOS platform (OSX) version of the app.
-- `controls` => Generic controls for the app.
-    - These UI objects are separate from views in that they should not be backed by a controller and should be easily ported to any other app.
-- `views` => The views (pages, windows, dialogs, etc...) of the app.
 
 #### Developing and Testing
 
