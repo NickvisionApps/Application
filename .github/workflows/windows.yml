@@ -39,13 +39,13 @@ jobs:
           cmake -G "Visual Studio 17 2022" ..
           cmake --build . --config Release
       - name: "Create Installer"
-        working-directory: ${{github.workspace}}
+        working-directory: ${{github.workspace}}/inno
         run: |
           choco install wget
           choco install innosetup
           wget https://aka.ms/vs/17/release/vc_redist.x64.exe -O vc_redist.x64.exe
           wget https://aka.ms/windowsappsdk/1.5/1.5.240627000/windowsappruntimeinstall-x64.exe -O windowsappruntimeinstall-x64.exe
-          iscc inno/setup.iss
+          iscc setup.iss
       - name: Upload
         uses: actions/upload-artifact@v4
         with:

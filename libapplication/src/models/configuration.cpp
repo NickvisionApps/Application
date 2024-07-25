@@ -23,8 +23,8 @@ namespace Nickvision::Application::Shared::Models
     {
         WindowGeometry geometry;
         const Json::Value json{ m_json["WindowGeometry"] };
-        geometry.setWidth(json.get("Width", 900).asInt64());
-        geometry.setHeight(json.get("Height", 700).asInt64());
+        geometry.setWidth(static_cast<long>(json.get("Width", 900).asInt64()));
+        geometry.setHeight(static_cast<long>(json.get("Height", 700).asInt64()));
         geometry.setIsMaximized(json.get("IsMaximized", false).asBool());
         return geometry;
     }
