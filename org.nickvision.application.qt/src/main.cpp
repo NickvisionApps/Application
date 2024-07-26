@@ -1,12 +1,9 @@
-#include <QApplication>
-#include "views/mainwindow.h"
+#include "application.h"
 
-using namespace Nickvision::Application::QT::Views;
+using namespace Nickvision::Application::QT;
 
 int main(int argc, char *argv[]) 
 {
-    QApplication app(argc, argv);
-    MainWindow window;
-    window.show();
+    Application app{ argc, argv };
     return app.exec();
 }
