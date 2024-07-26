@@ -2,7 +2,6 @@
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
 if(DEFINED ENV{VCPKG_ROOT})
     file(TO_CMAKE_PATH $ENV{VCPKG_ROOT} VCPKG_ROOT)
     if(EXISTS "${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake")
@@ -35,7 +34,7 @@ endif()
 
 add_subdirectory("libapplication")
 if(WIN32)
-    add_subdirectory("org.nickvision.application.winui")
+    add_subdirectory("org.nickvision.application.qt")
 elseif(LINUX)
     add_subdirectory("org.nickvision.application.gnome")
 endif()
