@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="icons">
+    <file>../../../resources/org.nickvision.application.ico</file>
     <file>../../../resources/org.nickvision.application.svg</file>
   </qresource>
 </RCC>

@@ -7,10 +7,13 @@ qt_standard_project_setup()
 
 qt_add_executable(org.nickvision.application.qt
     "include/views/mainwindow.h"
+    "include/views/settingsdialog.h"
     "include/application.h"
     "src/views/mainwindow.qrc"
     "src/views/mainwindow.ui"
     "src/views/mainwindow.cpp"
+    "src/views/settingsdialog.ui"
+    "src/views/settingsdialog.cpp"
     "src/application.cpp"
     "src/main.cpp")
 target_include_directories(org.nickvision.application.qt PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")

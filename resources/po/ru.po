@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-25 23:33-0400\n"
+"POT-Creation-Date: 2024-07-26 01:12-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -19,7 +19,7 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 #: libapplication/src/controllers/mainwindowcontroller.cpp:34
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:16
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:18
 msgid "Application"
 msgstr "Application"
 
@@ -101,7 +101,7 @@ msgstr "Комбинации клавиш"
 
 #: org.nickvision.application.gnome/blueprints/main_window.blp:7
 #: org.nickvision.application.gnome/blueprints/shortcuts_dialog.blp:40
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:29
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:31
 msgid "About Application"
 msgstr "О приложении"
 
@@ -109,9 +109,11 @@ msgstr "О приложении"
 msgid "Open Folder (Ctrl+O)"
 msgstr "Открыть папку (Ctrl+O)"
 
+#. Localize Folder Page
 #: org.nickvision.application.gnome/blueprints/main_window.blp:26
 #: org.nickvision.application.gnome/blueprints/main_window.blp:59
 #: org.nickvision.application.gnome/src/views/mainwindow.cpp:140
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:37
 msgid "Open"
 msgstr "Открыть"
 
@@ -124,7 +126,7 @@ msgid "Main Menu"
 msgstr "Главное меню"
 
 #: org.nickvision.application.gnome/blueprints/main_window.blp:57
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:32
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:34
 #, fuzzy
 msgid "Open a folder (or drag one into the app) to get started"
 msgstr "Откройте или перетащите папку, чтобы начать."
@@ -159,13 +161,13 @@ msgstr "Папка"
 
 #: org.nickvision.application.gnome/blueprints/shortcuts_dialog.blp:16
 #: org.nickvision.application.gnome/src/views/mainwindow.cpp:163
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:19
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:33
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:21
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:35
 msgid "Open Folder"
 msgstr "Открыть Папку"
 
 #: org.nickvision.application.gnome/blueprints/shortcuts_dialog.blp:21
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:20
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:22
 msgid "Close Folder"
 msgstr "Закрыть папку"
 
@@ -191,46 +193,56 @@ msgstr[1] "В папке {0} файла."
 msgstr[2] "В папке {0} файлов."
 
 #: org.nickvision.application.gnome/src/views/mainwindow.cpp:214
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:26
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:28
 msgid "GitHub Repo"
 msgstr "Репозиторий GitHub"
 
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:16
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:18
 #, fuzzy
 msgid "Application (Preview)"
 msgstr "Application"
 
 #. Localize Menu Strings
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:18
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:20
 msgid "File"
 msgstr ""
 
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:21
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:23
 msgid "Exit"
 msgstr ""
 
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:22
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:24
 msgid "Edit"
 msgstr ""
 
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:23
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:25
+#: org.nickvision.application.qt/src/views/settingsdialog.cpp:16
 msgid "Settings"
 msgstr ""
 
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:24
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:26
 msgid "Help"
 msgstr ""
 
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:25
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:27
 msgid "Check for Updates"
 msgstr ""
 
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:27
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:29
 msgid "Report a Bug"
 msgstr ""
 
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:28
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:30
 msgid "Discussions"
+msgstr ""
+
+#. Localize Strings
+#: org.nickvision.application.qt/src/views/settingsdialog.cpp:18
+msgid "Appearance and Behavior"
+msgstr ""
+
+#: org.nickvision.application.qt/src/views/settingsdialog.cpp:19
+msgid "Automatically Check for Updates"
 msgstr ""
 
 #, fuzzy
