@@ -15,8 +15,8 @@ namespace Nickvision::Application::QT::Views
         m_ui->setupUi(this);
         setWindowTitle(_("Settings"));
         //Localize Strings
-        m_ui->listPages->addItem(_("Appearance and Behavior"));
-        m_ui->lblUpdates->setText(_("Automatically Check for Updates"));
+        m_ui->listPages->addItem(_("User Interface"));
+        m_ui->chkUpdates->setText(_("Automatically Check for Updates"));
         //Load Settings
         m_ui->listPages->setCurrentRow(0);
         m_ui->chkUpdates->setChecked(m_controller->getAutomaticallyCheckForUpdates());

@@ -1,10 +1,12 @@
 #include "views/mainwindow.h"
 #include "ui_mainwindow.h"
 #include <libnick/localization/gettext.h>
+#include "controls/aboutdialog.h"
 #include "views/settingsdialog.h"
 
 using namespace Nickvision::App;
 using namespace Nickvision::Application::Shared::Controllers;
+using namespace Nickvision::Application::QT::Controls;
 using namespace Nickvision::Update;
 
 namespace Nickvision::Application::QT::Views
@@ -36,7 +38,9 @@ namespace Nickvision::Application::QT::Views
         //Localize Folder Page
         m_ui->btnFolderOpenFolder->setText(_("Open"));
         //Signals
+        connect(m_ui->actionExit, &QAction::triggered, this, &MainWindow::exit);
         connect(m_ui->actionSettings, &QAction::triggered, this, &MainWindow::settings);
+        connect(m_ui->actionAbout, &QAction::triggered, this, &MainWindow::about);
     }
 
     MainWindow::~MainWindow()
@@ -75,9 +79,20 @@ namespace Nickvision::Application::QT::Views
         event->accept();
     }
 
+    void MainWindow::exit()
+    {
+        close();
+    }
+
     void MainWindow::settings()
     {
         SettingsDialog dialog{ m_controller->createPreferencesViewController(), this };
+        dialog.exec();
+    }
+
+    void MainWindow::about()
+    {
+        AboutDialog dialog{ m_controller->getAppInfo(), m_controller->getDebugInformation(), this };
         dialog.exec();
     }
 }

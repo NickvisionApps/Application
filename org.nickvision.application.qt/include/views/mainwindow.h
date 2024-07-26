@@ -42,9 +42,17 @@ namespace Nickvision::Application::QT::Views
 
     private slots:
         /**
+         * @brief Exits the application.
+         */
+        void exit();
+        /**
          * @brief Displays the settings dialog.
          */
         void settings();
+        /**
+         * @brief Displays the about dialog.
+         */
+        void about();
 
     private:
         Ui::MainWindow* m_ui;

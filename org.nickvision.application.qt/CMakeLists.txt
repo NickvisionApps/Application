@@ -6,9 +6,12 @@ find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets)
 qt_standard_project_setup()
 
 qt_add_executable(org.nickvision.application.qt
+    "include/controls/aboutdialog.h"
     "include/views/mainwindow.h"
     "include/views/settingsdialog.h"
     "include/application.h"
+    "src/controls/aboutdialog.ui"
+    "src/controls/aboutdialog.cpp"
     "src/views/mainwindow.qrc"
     "src/views/mainwindow.ui"
     "src/views/mainwindow.cpp"
