@@ -1,5 +1,9 @@
 #include "views/mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QDesktopServices>
+#include <QFileDialog>
+#include <QMessageBox>
+#include <libnick/helpers/codehelpers.h>
 #include <libnick/localization/gettext.h>
 #include "controls/aboutdialog.h"
 #include "views/settingsdialog.h"
@@ -7,6 +11,9 @@
 using namespace Nickvision::App;
 using namespace Nickvision::Application::Shared::Controllers;
 using namespace Nickvision::Application::QT::Controls;
+using namespace Nickvision::Events;
+using namespace Nickvision::Helpers;
+using namespace Nickvision::Notifications;
 using namespace Nickvision::Update;
 
 namespace Nickvision::Application::QT::Views
@@ -38,9 +45,21 @@ namespace Nickvision::Application::QT::Views
         //Localize Folder Page
         m_ui->btnFolderOpenFolder->setText(_("Open"));
         //Signals
+        connect(m_ui->actionOpenFolder, &QAction::triggered, this, &MainWindow::openFolder);
+        connect(m_ui->actionCloseFolder, &QAction::triggered, this, &MainWindow::closeFolder);
         connect(m_ui->actionExit, &QAction::triggered, this, &MainWindow::exit);
         connect(m_ui->actionSettings, &QAction::triggered, this, &MainWindow::settings);
+        connect(m_ui->actionCheckForUpdates, &QAction::triggered, this, &MainWindow::checkForUpdates);
+        connect(m_ui->actionGitHubRepo, &QAction::triggered, this, &MainWindow::gitHubRepo);
+        connect(m_ui->actionReportABug, &QAction::triggered, this, &MainWindow::reportABug);
+        connect(m_ui->actionDiscussions, &QAction::triggered, this, &MainWindow::discussions);
         connect(m_ui->actionAbout, &QAction::triggered, this, &MainWindow::about);
+        connect(m_ui->btnHomeOpenFolder, &QPushButton::clicked, this, &MainWindow::openFolder);
+        connect(m_ui->btnFolderOpenFolder, &QPushButton::clicked, this, &MainWindow::openFolder);
+        connect(m_ui->btnFolderCloseFolder, &QPushButton::clicked, this, &MainWindow::closeFolder);
+        m_controller->notificationSent() += [&](const NotificationSentEventArgs& args) { onNotificationSent(args); };
+        m_controller->shellNotificationSent() += [&](const ShellNotificationSentEventArgs& args) { onShellNotificationSent(args); };
+        m_controller->folderChanged() += [&](const EventArgs& args) { onFolderChanged(args); };
     }
 
     MainWindow::~MainWindow()
@@ -79,6 +98,17 @@ namespace Nickvision::Application::QT::Views
         event->accept();
     }
 
+    void MainWindow::openFolder()
+    {
+        QString path{ QFileDialog::getExistingDirectory(this, _("Open Folder"), {}, QFileDialog::ShowDirsOnly) };
+        m_controller->openFolder(path.toStdString());
+    }
+
+    void MainWindow::closeFolder()
+    {
+        m_controller->closeFolder();
+    }
+
     void MainWindow::exit()
     {
         close();
@@ -90,9 +120,64 @@ namespace Nickvision::Application::QT::Views
         dialog.exec();
     }
 
+    void MainWindow::checkForUpdates()
+    {
+        
+    }
+
+    void MainWindow::gitHubRepo()
+    {
+        QDesktopServices::openUrl(QString::fromStdString(m_controller->getAppInfo().getSourceRepo()));
+    }
+
+    void MainWindow::reportABug()
+    {
+        QDesktopServices::openUrl(QString::fromStdString(m_controller->getAppInfo().getIssueTracker()));
+    }
+
+    void MainWindow::discussions()
+    {
+        QDesktopServices::openUrl(QString::fromStdString(m_controller->getAppInfo().getSupportUrl()));
+    }
+
     void MainWindow::about()
     {
         AboutDialog dialog{ m_controller->getAppInfo(), m_controller->getDebugInformation(), this };
         dialog.exec();
+    }
+
+    void MainWindow::onNotificationSent(const NotificationSentEventArgs& args)
+    {
+        QMessageBox::Icon icon{ QMessageBox::Icon::NoIcon };
+        switch(args.getSeverity())
+        {
+        case NotificationSeverity::Informational:
+        case NotificationSeverity::Success:
+            icon = QMessageBox::Icon::Information;
+            break;
+        case NotificationSeverity::Warning:
+            icon = QMessageBox::Icon::Warning;
+            break;
+        case NotificationSeverity::Error:
+            icon = QMessageBox::Icon::Critical;
+            break;
+        }
+        QMessageBox msgBox{ icon, QString::fromStdString(m_controller->getAppInfo().getShortName()), QString::fromStdString(args.getMessage()), QMessageBox::StandardButton::Ok, this };
+        msgBox.exec();
+    }
+
+    void MainWindow::onShellNotificationSent(const ShellNotificationSentEventArgs& args)
+    {
+
+    }
+
+    void MainWindow::onFolderChanged(const EventArgs& args)
+    {
+        m_ui->viewStack->setCurrentIndex(m_controller->isFolderOpened() ? 1 : 0);
+        m_ui->lblFiles->setText(QString::fromStdString(std::vformat(_n("There is {} file in the folder.", "There are {} files in the folder.", m_controller->getFiles().size()), std::make_format_args(CodeHelpers::unmove(m_controller->getFiles().size())))));
+        for(const std::filesystem::path& file : m_controller->getFiles())
+        {
+            m_ui->listFiles->addItem(QString::fromStdString(file.filename().string()));
+        }
     }
 }

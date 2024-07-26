@@ -42,6 +42,14 @@ namespace Nickvision::Application::QT::Views
 
     private slots:
         /**
+         * @brief Prompts the user to open a folder.
+         */
+        void openFolder();
+        /**
+         * @brief Closes the folder if one is open.
+         */
+        void closeFolder();
+        /**
          * @brief Exits the application.
          */
         void exit();
@@ -50,11 +58,30 @@ namespace Nickvision::Application::QT::Views
          */
         void settings();
         /**
+         * @brief Checks for application updates.
+         */
+        void checkForUpdates();
+        /**
+         * @brief Opens the application's GitHub repo in the browser.
+         */
+        void gitHubRepo();
+        /**
+         * @brief Opens the application's issue tracker in the browser.
+         */
+        void reportABug();
+        /**
+         * @brief Opens the application's discussions page in the browser.
+         */
+        void discussions();
+        /**
          * @brief Displays the about dialog.
          */
         void about();
 
     private:
+        void onNotificationSent(const Notifications::NotificationSentEventArgs& args);
+        void onShellNotificationSent(const Notifications::ShellNotificationSentEventArgs& args);
+        void onFolderChanged(const Events::EventArgs& args);
         Ui::MainWindow* m_ui;
         std::shared_ptr<Shared::Controllers::MainWindowController> m_controller;
     };

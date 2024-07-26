@@ -16,6 +16,18 @@
   </property>
   <widget class="QWidget" name="mainGrid">
    <layout class="QHBoxLayout" name="horizontalLayout">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
     <item>
      <widget class="QStackedWidget" name="viewStack">
       <property name="currentIndex">
@@ -128,6 +140,9 @@
       </widget>
       <widget class="QWidget" name="folderPage">
        <layout class="QVBoxLayout" name="verticalLayout_2">
+        <property name="spacing">
+         <number>12</number>
+        </property>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
@@ -252,21 +267,33 @@
    <property name="icon">
     <iconset theme="help-faq"/>
    </property>
+   <property name="shortcut">
+    <string>F1</string>
+   </property>
   </action>
   <action name="actionSettings"/>
   <action name="actionOpenFolder">
    <property name="icon">
     <iconset theme="folder-open"/>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
   </action>
   <action name="actionCloseFolder">
    <property name="icon">
     <iconset theme="list-remove"/>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+W</string>
+   </property>
   </action>
   <action name="actionExit">
    <property name="icon">
     <iconset theme="edit-clear"/>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
    </property>
   </action>
  </widget>

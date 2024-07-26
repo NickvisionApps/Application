@@ -18,7 +18,8 @@ qt_add_executable(org.nickvision.application.qt
     "src/views/settingsdialog.ui"
     "src/views/settingsdialog.cpp"
     "src/application.cpp"
-    "src/main.cpp")
+    "src/main.cpp"
+    "resources.rc")
 target_include_directories(org.nickvision.application.qt PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
 target_link_libraries(org.nickvision.application.qt PRIVATE libapplication Qt6::Core Qt6::Gui Qt6::Widgets)
 set_target_properties(org.nickvision.application.qt PROPERTIES
