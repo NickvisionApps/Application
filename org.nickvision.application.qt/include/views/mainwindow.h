@@ -3,6 +3,8 @@
 
 #include <memory>
 #include <QCloseEvent>
+#include <QDragEnterEvent>
+#include <QDropEvent>
 #include <QMainWindow>
 #include "controllers/mainwindowcontroller.h"
 
@@ -39,6 +41,16 @@ namespace Nickvision::Application::QT::Views
          * @param event QCloseEvent
          */
         void closeEvent(QCloseEvent* event) override;
+        /**
+         * @brief Handles when a file is dragged into the window.
+         * @param event QDragEnterEvent
+         */
+        void dragEnterEvent(QDragEnterEvent* event) override;
+        /**
+         * @brief Handles when a file is dropped into the window.
+         * @param event QDropEvent
+         */
+        void dropEvent(QDropEvent* event) override;
 
     private slots:
         /**

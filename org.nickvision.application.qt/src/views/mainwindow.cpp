@@ -3,6 +3,7 @@
 #include <QDesktopServices>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QMimeData>
 #include <libnick/helpers/codehelpers.h>
 #include <libnick/localization/gettext.h>
 #include "controls/aboutdialog.h"
@@ -25,6 +26,7 @@ namespace Nickvision::Application::QT::Views
     {
         m_ui->setupUi(this);
         setWindowTitle(m_controller->getAppInfo().getVersion().getVersionType() == VersionType::Stable ? _("Application") : _("Application (Preview)"));
+        setAcceptDrops(true);
         //Localize Menu Strings
         m_ui->menuFile->setTitle(_("File"));
         m_ui->actionOpenFolder->setText(_("Open Folder"));
@@ -96,6 +98,22 @@ namespace Nickvision::Application::QT::Views
         }
         m_controller->shutdown({ geometry().width(), geometry().height(), isMaximized() });
         event->accept();
+    }
+
+    void MainWindow::dragEnterEvent(QDragEnterEvent* event)
+    {
+        if(event->mimeData()->hasUrls())
+        {
+            event->acceptProposedAction();
+        }
+    }
+
+    void MainWindow::dropEvent(QDropEvent* event)
+    {
+        if(event->mimeData()->hasUrls())
+        {
+            m_controller->openFolder(event->mimeData()->urls()[0].toLocalFile().toStdString());
+        }
     }
 
     void MainWindow::openFolder()
