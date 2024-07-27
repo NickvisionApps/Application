@@ -6,6 +6,7 @@
 #include <QMimeData>
 #include <libnick/helpers/codehelpers.h>
 #include <libnick/localization/gettext.h>
+#include <libnick/notifications/shellnotification.h>
 #include "controls/aboutdialog.h"
 #include "views/settingsdialog.h"
 
@@ -59,7 +60,7 @@ namespace Nickvision::Application::QT::Views
         connect(m_ui->btnHomeOpenFolder, &QPushButton::clicked, this, &MainWindow::openFolder);
         connect(m_ui->btnFolderOpenFolder, &QPushButton::clicked, this, &MainWindow::openFolder);
         connect(m_ui->btnFolderCloseFolder, &QPushButton::clicked, this, &MainWindow::closeFolder);
-        m_controller->notificationSent() += [&](const NotificationSentEventArgs& args) { onNotificationSent(args); };
+        m_controller->notificationSent() += [&](const NotificationSentEventArgs& args) { QMetaObject::invokeMethod(this, [this, args]() { onNotificationSent(args); }, Qt::QueuedConnection); };
         m_controller->shellNotificationSent() += [&](const ShellNotificationSentEventArgs& args) { onShellNotificationSent(args); };
         m_controller->folderChanged() += [&](const EventArgs& args) { onFolderChanged(args); };
     }
@@ -72,7 +73,7 @@ namespace Nickvision::Application::QT::Views
     void MainWindow::show()
     {
         QMainWindow::show();
-        m_ui->viewStack->setCurrentIndex(0);
+        m_ui->viewStack->setCurrentIndex(1);
 #ifdef _WIN32
         WindowGeometry geometry{ m_controller->startup(reinterpret_cast<HWND>(winId())) };
 #elif defined(__linux__)
@@ -140,8 +141,16 @@ namespace Nickvision::Application::QT::Views
 
     void MainWindow::checkForUpdates()
     {
-        
+        m_controller->checkForUpdates();
     }
+
+#ifdef _WIN32
+    void MainWindow::windowsUpdate()
+    {
+        m_ui->viewStack->setCurrentIndex(0);
+        m_controller->windowsUpdate();
+    }
+#endif
 
     void MainWindow::gitHubRepo()
     {
@@ -181,17 +190,32 @@ namespace Nickvision::Application::QT::Views
             break;
         }
         QMessageBox msgBox{ icon, QString::fromStdString(m_controller->getAppInfo().getShortName()), QString::fromStdString(args.getMessage()), QMessageBox::StandardButton::Ok, this };
+        if(args.getAction() == "update")
+        {
+            QPushButton* updateButton{ msgBox.addButton(_("Update"), QMessageBox::ButtonRole::ActionRole) };
+            connect(updateButton, &QPushButton::clicked, this, &MainWindow::checkForUpdates);
+        }
+        else if(args.getAction() == "close")
+        {
+            QPushButton* closeButton{ msgBox.addButton(_("Close"), QMessageBox::ButtonRole::ActionRole) };
+            connect(closeButton, &QPushButton::clicked, this, &MainWindow::closeFolder);
+        }
         msgBox.exec();
     }
 
     void MainWindow::onShellNotificationSent(const ShellNotificationSentEventArgs& args)
     {
-
+        m_controller->log(Logging::LogLevel::Info, "ShellNotification sent. (" + args.getMessage() + ")");
+#ifdef _WIN32
+        ShellNotification::send(args, reinterpret_cast<HWND>(winId()));
+#elif defined(__linux__)
+        ShellNotification::send(args, m_controller->getAppInfo().getId(), _("Open"));
+#endif
     }
 
     void MainWindow::onFolderChanged(const EventArgs& args)
     {
-        m_ui->viewStack->setCurrentIndex(m_controller->isFolderOpened() ? 1 : 0);
+        m_ui->viewStack->setCurrentIndex(m_controller->isFolderOpened() ? 2 : 1);
         m_ui->lblFiles->setText(QString::fromStdString(std::vformat(_n("There is {} file in the folder.", "There are {} files in the folder.", m_controller->getFiles().size()), std::make_format_args(CodeHelpers::unmove(m_controller->getFiles().size())))));
         for(const std::filesystem::path& file : m_controller->getFiles())
         {

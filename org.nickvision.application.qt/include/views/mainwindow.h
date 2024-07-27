@@ -73,6 +73,12 @@ namespace Nickvision::Application::QT::Views
          * @brief Checks for application updates.
          */
         void checkForUpdates();
+#ifdef _WIN32
+        /**
+         * @brief Downloads and installs the latest application update in the background.
+         */
+        void windowsUpdate();
+#endif
         /**
          * @brief Opens the application's GitHub repo in the browser.
          */
