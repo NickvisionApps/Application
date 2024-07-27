@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-27 08:29-0400\n"
+"POT-Creation-Date: 2024-07-27 09:34-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -98,7 +98,7 @@ msgstr ""
 
 #: org.nickvision.application.gnome/blueprints/main_window.blp:7
 #: org.nickvision.application.gnome/blueprints/shortcuts_dialog.blp:40
-#: org.nickvision.application.qt/src/controls/aboutdialog.cpp:29
+#: org.nickvision.application.qt/src/controls/aboutdialog.cpp:31
 #: org.nickvision.application.qt/src/views/mainwindow.cpp:43
 msgid "About Application"
 msgstr ""
@@ -198,15 +198,15 @@ msgstr[1] ""
 msgid "GitHub Repo"
 msgstr ""
 
-#: org.nickvision.application.qt/src/controls/aboutdialog.cpp:34
+#: org.nickvision.application.qt/src/controls/aboutdialog.cpp:37
 msgid "Copy Debug Information"
 msgstr ""
 
-#: org.nickvision.application.qt/src/controls/aboutdialog.cpp:35
+#: org.nickvision.application.qt/src/controls/aboutdialog.cpp:38
 msgid "Changelog:"
 msgstr ""
 
-#: org.nickvision.application.qt/src/controls/aboutdialog.cpp:36
+#: org.nickvision.application.qt/src/controls/aboutdialog.cpp:39
 msgid ""
 "Developers:\n"
 "{}\n"

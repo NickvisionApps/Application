@@ -12,14 +12,14 @@ qt_add_executable(org.nickvision.application.qt
     "include/application.h"
     "src/controls/aboutdialog.ui"
     "src/controls/aboutdialog.cpp"
-    "src/views/mainwindow.qrc"
     "src/views/mainwindow.ui"
     "src/views/mainwindow.cpp"
     "src/views/settingsdialog.ui"
     "src/views/settingsdialog.cpp"
     "src/application.cpp"
     "src/main.cpp"
-    "resources.rc")
+    "resources/org.nickvision.application.qt.qrc"
+    "org.nickvision.application.qt.rc")
 target_include_directories(org.nickvision.application.qt PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
 target_link_libraries(org.nickvision.application.qt PRIVATE libapplication Qt6::Core Qt6::Gui Qt6::Widgets)
 set_target_properties(org.nickvision.application.qt PROPERTIES

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-27 08:29-0400\n"
+"POT-Creation-Date: 2024-07-27 09:26-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -101,7 +101,7 @@ msgstr "Комбинации клавиш"
 
 #: org.nickvision.application.gnome/blueprints/main_window.blp:7
 #: org.nickvision.application.gnome/blueprints/shortcuts_dialog.blp:40
-#: org.nickvision.application.qt/src/controls/aboutdialog.cpp:29
+#: org.nickvision.application.qt/src/controls/aboutdialog.cpp:31
 #: org.nickvision.application.qt/src/views/mainwindow.cpp:43
 msgid "About Application"
 msgstr "О приложении"
@@ -204,15 +204,15 @@ msgstr[2] "В папке {0} файлов."
 msgid "GitHub Repo"
 msgstr "Репозиторий GitHub"
 
-#: org.nickvision.application.qt/src/controls/aboutdialog.cpp:34
+#: org.nickvision.application.qt/src/controls/aboutdialog.cpp:37
 msgid "Copy Debug Information"
 msgstr ""
 
-#: org.nickvision.application.qt/src/controls/aboutdialog.cpp:35
+#: org.nickvision.application.qt/src/controls/aboutdialog.cpp:38
 msgid "Changelog:"
 msgstr ""
 
-#: org.nickvision.application.qt/src/controls/aboutdialog.cpp:36
+#: org.nickvision.application.qt/src/controls/aboutdialog.cpp:39
 msgid ""
 "Developers:\n"
 "{}\n"

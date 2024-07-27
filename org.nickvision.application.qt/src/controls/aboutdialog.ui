@@ -33,7 +33,7 @@
            </size>
           </property>
           <property name="pixmap">
-           <pixmap resource="../views/mainwindow.qrc">:/icons/resources/org.nickvision.application.svg</pixmap>
+           <pixmap resource="../../resources/org.nickvision.application.qt.qrc">:/icons/org.nickvision.application.svg</pixmap>
           </property>
           <property name="scaledContents">
            <bool>true</bool>
@@ -136,7 +136,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../views/mainwindow.qrc"/>
+  <include location="../../resources/org.nickvision.application.qt.qrc"/>
  </resources>
  <connections/>
 </ui>

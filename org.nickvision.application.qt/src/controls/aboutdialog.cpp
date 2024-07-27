@@ -2,12 +2,14 @@
 #include "ui_aboutdialog.h"
 #include <format>
 #include <QClipboard>
+#include <QPixmap>
 #include <libnick/helpers/codehelpers.h>
 #include <libnick/helpers/stringhelpers.h>
 #include <libnick/localization/gettext.h>
 
 using namespace Nickvision::App;
 using namespace Nickvision::Helpers;
+using namespace Nickvision::Update;
 
 namespace Nickvision::Application::QT::Controls
 {
@@ -28,6 +30,7 @@ namespace Nickvision::Application::QT::Controls
         m_ui->setupUi(this);
         setWindowTitle(_("About Application"));
         //Load
+        m_ui->lblIcon->setPixmap({ appInfo.getVersion().getVersionType() == VersionType::Stable ? ":/icons/org.nickvision.application.svg" : ":/icons/org.nickvision.application-devel.svg" });
         m_ui->lblAppName->setText(QString::fromStdString(appInfo.getShortName()));
         m_ui->lblAppDescription->setText(QString::fromStdString(appInfo.getDescription()));
         m_ui->btnAppVersion->setText(QString::fromStdString(appInfo.getVersion().str()));
