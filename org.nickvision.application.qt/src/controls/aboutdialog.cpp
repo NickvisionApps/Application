@@ -30,7 +30,7 @@ namespace Nickvision::Application::QT::Controls
         m_ui->setupUi(this);
         setWindowTitle(_("About Application"));
         //Load
-        m_ui->lblIcon->setPixmap({ appInfo.getVersion().getVersionType() == VersionType::Stable ? ":/icons/org.nickvision.application.svg" : ":/icons/org.nickvision.application-devel.svg" });
+        m_ui->lblIcon->setPixmap({ appInfo.getVersion().getVersionType() == VersionType::Stable ? ":/resources/org.nickvision.application.svg" : ":/resources/org.nickvision.application-devel.svg" });
         m_ui->lblAppName->setText(QString::fromStdString(appInfo.getShortName()));
         m_ui->lblAppDescription->setText(QString::fromStdString(appInfo.getDescription()));
         m_ui->btnAppVersion->setText(QString::fromStdString(appInfo.getVersion().str()));

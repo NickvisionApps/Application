@@ -18,7 +18,7 @@ qt_add_executable(org.nickvision.application.qt
     "src/views/settingsdialog.cpp"
     "src/application.cpp"
     "src/main.cpp"
-    "resources/org.nickvision.application.qt.qrc"
+    "org.nickvision.application.qt.qrc"
     "org.nickvision.application.qt.rc")
 target_include_directories(org.nickvision.application.qt PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
 target_link_libraries(org.nickvision.application.qt PRIVATE libapplication Qt6::Core Qt6::Gui Qt6::Widgets)

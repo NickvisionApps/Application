@@ -32,9 +32,6 @@
             <height>128</height>
            </size>
           </property>
-          <property name="pixmap">
-           <pixmap resource="../../resources/org.nickvision.application.qt.qrc">:/icons/org.nickvision.application.svg</pixmap>
-          </property>
           <property name="scaledContents">
            <bool>true</bool>
           </property>
@@ -136,7 +133,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../../resources/org.nickvision.application.qt.qrc"/>
+  <include location="../../org.nickvision.application.qt.qrc"/>
  </resources>
  <connections/>
 </ui>

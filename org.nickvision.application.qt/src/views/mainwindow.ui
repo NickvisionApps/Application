@@ -11,8 +11,8 @@
    </rect>
   </property>
   <property name="windowIcon">
-   <iconset resource="../../resources/org.nickvision.application.qt.qrc">
-    <normaloff>:/icons/org.nickvision.application.ico</normaloff>:/icons/org.nickvision.application.ico</iconset>
+   <iconset>
+    <normaloff>:/resources/org.nickvision.application.ico</normaloff>:/resources/org.nickvision.application.ico</iconset>
   </property>
   <widget class="QWidget" name="mainGrid">
    <layout class="QHBoxLayout" name="horizontalLayout">
@@ -83,7 +83,7 @@
           <item>
            <widget class="QLabel" name="lblHomeAppIcon">
             <property name="pixmap">
-             <pixmap resource="../../resources/org.nickvision.application.qt.qrc">:/icons/org.nickvision.application.svg</pixmap>
+             <pixmap resource="../../org.nickvision.application.qt.qrc">:/resources/org.nickvision.application.svg</pixmap>
             </property>
             <property name="scaledContents">
              <bool>false</bool>
@@ -312,7 +312,7 @@
   </action>
  </widget>
  <resources>
-  <include location="../../resources/org.nickvision.application.qt.qrc"/>
+  <include location="../../org.nickvision.application.qt.qrc"/>
  </resources>
  <connections/>
 </ui>
