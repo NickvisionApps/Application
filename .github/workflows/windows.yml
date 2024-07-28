@@ -23,10 +23,12 @@ jobs:
         with:
           submodules: recursive
       - name: "Setup Environment"
+        shell: powershell
         run: |
           mkdir build
           choco install wget
           choco install innosetup
+          refreshenv
           wget https://github.com/mlocati/gettext-iconv-windows/releases/download/v0.21-v1.16/gettext0.21-iconv1.16-shared-64.exe -o gettext.exe
           ./gettext.exe /VERYSILENT /ALLUSERS
       - name: "Vcpkg"
