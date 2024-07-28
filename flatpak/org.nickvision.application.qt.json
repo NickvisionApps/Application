@@ -35,7 +35,12 @@
         {
             "name": "libsecret",
             "buildsystem": "meson",
-            "builddir": true,
+            "config-opts": [
+                "-Dmanpage=false",
+                "-Dvapi=false",
+                "-Dgtk_doc=false",
+                "-Dintrospection=false"
+            ],
             "sources": [
                 {
                     "type": "git",
