@@ -188,7 +188,7 @@ namespace Nickvision::Application::Shared::Controllers
             else
             {
                 m_logger.log(Logging::LogLevel::Error, "Unable to fetch Windows app update.");
-                m_notificationSent.invoke({ _("Unable to download and install update"), NotificationSeverity::Error, "error" });
+                m_notificationSent.invoke({ _("Unable to download and install update"), NotificationSeverity::Error });
             }
         } };
         worker.detach();
