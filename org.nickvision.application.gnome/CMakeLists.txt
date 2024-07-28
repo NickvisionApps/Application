@@ -27,8 +27,8 @@ endif()
 
 if(HAS_GETTEXT)
     foreach(LINGUA IN ITEMS ${LINGUAS})
-        add_custom_command(TARGET gnome_commands PRE_BUILD COMMAND "${CMAKE_COMMAND}" -E make_directory "${CMAKE_CURRENT_BINARY_DIR}/${LINGUA}")
-        add_custom_command(TARGET gnome_commands PRE_BUILD COMMAND "${GETTEXT_MSGFMT_EXECUTABLE}" "${CMAKE_SOURCE_DIR}/resources/po/${LINGUA}.po" --output-file="${CMAKE_CURRENT_BINARY_DIR}/${LINGUA}/${SHORT_NAME}.mo")
+        add_custom_command(TARGET gnome_commands PRE_BUILD COMMAND "${CMAKE_COMMAND}" -E make_directory "${CMAKE_CURRENT_BINARY_DIR}/${LINGUA}/LC_MESSAGES")
+        add_custom_command(TARGET gnome_commands PRE_BUILD COMMAND "${GETTEXT_MSGFMT_EXECUTABLE}" "${CMAKE_SOURCE_DIR}/resources/po/${LINGUA}.po" --output-file="${CMAKE_CURRENT_BINARY_DIR}/${LINGUA}/LC_MESSAGES/${SHORT_NAME}.mo"
     endforeach()
 endif()
 
