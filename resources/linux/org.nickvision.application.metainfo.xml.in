@@ -13,10 +13,10 @@
   <launchable type="desktop-id">@PROJECT_NAME@.desktop</launchable>
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/NickvisionApps/Application/main/@PROJECT_NAME@.gnome/resources/screenshots/light.png</image>
+      <image>https://raw.githubusercontent.com/NickvisionApps/Application/main/@OUTPUT_NAME@/resources/screenshots/light.png</image>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/NickvisionApps/Application/main/@PROJECT_NAME@.gnome/resources/screenshots/dark.png</image>
+      <image>https://raw.githubusercontent.com/NickvisionApps/Application/main/@OUTPUT_NAME@/resources/screenshots/dark.png</image>
     </screenshot>
   </screenshots>
   <url type="homepage">https://github.com/NickvisionApps/@SHORT_NAME@</url>

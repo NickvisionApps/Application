@@ -2,7 +2,7 @@
 Version=1.0
 Name=Application
 Comment=Create new Nickvision applications
-Exec=@CMAKE_INSTALL_FULL_LIBDIR@/@PROJECT_NAME@/@PROJECT_NAME@.gnome
+Exec=@CMAKE_INSTALL_FULL_LIBDIR@/@PROJECT_NAME@/@OUTPUT_NAME@
 Icon=@PROJECT_NAME@
 Terminal=false
 Type=Application

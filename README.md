@@ -5,8 +5,8 @@
 
 ## Features
 - A template for creating cross-platform desktop apps in C++
-    - GNOME (Linux) support through gtk4 and libadwaita
-    - Windows support through WindowsAppSDK
+    - GNOME (Linux) support through GTK4/libadwaita
+    - Universal (Windows, Linux) support through QT
 
 ## Chat
 <a href='https://matrix.to/#/#nickvision:matrix.org'><img width='140' alt='Join our room' src='https://user-images.githubusercontent.com/17648453/196094077-c896527d-af6d-4b43-a5d8-e34a00ffd8f6.png'/></a>
