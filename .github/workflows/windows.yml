@@ -27,14 +27,16 @@ jobs:
           mkdir build
           choco install wget
           choco install innosetup
-          refreshenv
+      - name: "Gettext"
+        shell: powershell
+        run: |
           wget https://github.com/mlocati/gettext-iconv-windows/releases/download/v0.21-v1.16/gettext0.21-iconv1.16-shared-64.exe -o gettext.exe
-          gettext.exe /VERYSILENT /ALLUSERS
+          ./gettext.exe /VERYSILENT /ALLUSERS
       - name: "Vcpkg"
         uses: johnwason/vcpkg-action@v6
         id: vcpkg
         with:
-          pkgs: libnick qtbase qtcharts qtmultimedia
+          pkgs: libnick qtbase qtcharts qtmultimedia qttools
           triplet: x64-windows
           revision: 02d93df47bb4c9b062921b26c77a251490127151
           token: ${{ secrets.GITHUB_TOKEN }}
