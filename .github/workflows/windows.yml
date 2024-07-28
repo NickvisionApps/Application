@@ -33,7 +33,6 @@ jobs:
           Import-Module $env:ChocolateyInstall\helpers\chocolateyProfile.psm1
           wget https://github.com/mlocati/gettext-iconv-windows/releases/download/v0.21-v1.16/gettext0.21-iconv1.16-shared-64.exe -o gettext.exe
           Start-Process -FilePath gettext.exe -ArgumentList '/VERYSILENT /ALLUSERS' -Wait
-          Update-SessionEnvironment
       - name: "Vcpkg"
         uses: johnwason/vcpkg-action@v6
         id: vcpkg

@@ -5,7 +5,7 @@ set(CMAKE_AUTORCC ON)
 set(STARTUP_NOTIFY false)
 add_definitions(-DQT_NO_KEYWORDS)
 
-find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets)
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets Svg)
 qt_standard_project_setup()
 
 qt_add_executable(${OUTPUT_NAME}
@@ -24,7 +24,7 @@ qt_add_executable(${OUTPUT_NAME}
     "org.nickvision.application.qt.qrc"
     "org.nickvision.application.qt.rc")
 target_include_directories(${OUTPUT_NAME} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
-target_link_libraries(${OUTPUT_NAME} PRIVATE libapplication Qt6::Core Qt6::Gui Qt6::Widgets)
+target_link_libraries(${OUTPUT_NAME} PRIVATE libapplication Qt6::Core Qt6::Gui Qt6::Widgets Qt6::Svg)
 if(WIN32)
     set_target_properties(${OUTPUT_NAME} PROPERTIES WIN32_EXECUTABLE ON)
 endif()
