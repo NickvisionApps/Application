@@ -31,8 +31,8 @@ jobs:
         shell: powershell
         run: |
           wget https://github.com/mlocati/gettext-iconv-windows/releases/download/v0.21-v1.16/gettext0.21-iconv1.16-shared-64.exe -o gettext.exe
-          ./gettext.exe /VERYSILENT /ALLUSERS /DIR=C:\gettext
-          [System.Environment]::SetEnvironmentVariable('PATH', $env:PATH + ';C:\gettext\bin', 'Machine')
+          Start-Process -FilePath gettext.exe -ArgumentList '/VERYSILENT /ALLUSERS' -Wait
+          [System.Environment]::SetEnvironmentVariable('PATH', $env:PATH + ';C:\Program Files\gettext-iconv\bin', 'User')
       - name: "Vcpkg"
         uses: johnwason/vcpkg-action@v6
         id: vcpkg
