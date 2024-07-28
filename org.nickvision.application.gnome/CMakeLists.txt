@@ -1,5 +1,7 @@
 if(LINUX)
     set(OUTPUT_NAME "${PROJECT_NAME}.gnome")
+    set(STARTUP_NOTIFY true)
+    
     add_executable(${OUTPUT_NAME}
         "src/helpers/builder.cpp"
         "src/helpers/dialogbase.cpp"

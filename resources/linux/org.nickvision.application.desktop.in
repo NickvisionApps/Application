@@ -9,6 +9,6 @@ Type=Application
 Categories=Utility;
 Keywords=Template;Nickvision;
 X-GNOME-UsesNotifications=true
-StartupNotify=true
+StartupNotify=@STARTUP_NOTIFY@
 # Translators: Do NOT translate or transliterate this text (these are enum types)!
 X-Purism-FormFactor=Workstation;Mobile;

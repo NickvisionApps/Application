@@ -2,6 +2,7 @@ set(OUTPUT_NAME "${PROJECT_NAME}.qt")
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
+set(STARTUP_NOTIFY false)
 add_definitions(-DQT_NO_KEYWORDS)
 
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets)
