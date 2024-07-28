@@ -1,6 +1,7 @@
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
+add_definitions(-DQT_NO_KEYWORDS)
 
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets)
 qt_standard_project_setup()
@@ -27,7 +28,9 @@ set_target_properties(org.nickvision.application.qt PROPERTIES
 
 add_custom_target(qt_commands ALL DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/__qt.h")
 add_custom_command(OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/__qt.h" "${CMAKE_CURRENT_BINARY_DIR}/qt.h" COMMAND "${CMAKE_COMMAND}" -E touch "${CMAKE_CURRENT_BINARY_DIR}/qt.h")
-add_custom_command(TARGET qt_commands POST_BUILD COMMAND Qt6::windeployqt ARGS $<TARGET_FILE:org.nickvision.application.qt>)
+if(WIN32)
+    add_custom_command(TARGET qt_commands POST_BUILD COMMAND Qt6::windeployqt ARGS $<TARGET_FILE:org.nickvision.application.qt>)
+endif()
 if(HAS_GETTEXT)
     foreach(LINGUA IN ITEMS ${LINGUAS})
         add_custom_command(TARGET qt_commands PRE_BUILD COMMAND "${CMAKE_COMMAND}" -E make_directory "${CMAKE_CURRENT_BINARY_DIR}/$<CONFIG>/${LINGUA}")

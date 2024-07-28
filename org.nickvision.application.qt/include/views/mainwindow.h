@@ -52,7 +52,7 @@ namespace Nickvision::Application::QT::Views
          */
         void dropEvent(QDropEvent* event) override;
 
-    private slots:
+    private Q_SLOTS:
         /**
          * @brief Prompts the user to open a folder.
          */

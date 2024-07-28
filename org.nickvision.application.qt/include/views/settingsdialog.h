@@ -36,7 +36,7 @@ namespace Nickvision::Application::QT::Views
          */
         void closeEvent(QCloseEvent* event) override;
 
-    private slots:
+    private Q_SLOTS:
         /**
          * @brief Handles when the page is changed.
          * @param index The index of the new page
