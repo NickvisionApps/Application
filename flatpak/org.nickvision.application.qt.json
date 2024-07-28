@@ -33,6 +33,18 @@
             ]
         },
         {
+            "name": "libsecret",
+            "buildsystem": "meson",
+            "builddir": true,
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://gitlab.gnome.org/GNOME/libsecret",
+                    "tag": "0.21.4"
+                }
+            ]
+        },
+        {
             "name": "maddy",
             "buildsystem": "simple",
             "build-commands": [
