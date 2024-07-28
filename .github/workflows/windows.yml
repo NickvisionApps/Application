@@ -27,19 +27,16 @@ jobs:
           mkdir build
           choco install wget
           choco install innosetup
-      - name: "Gettext"
-        shell: powershell
-        run: |
-          Import-Module $env:ChocolateyInstall\helpers\chocolateyProfile.psm1
-          wget https://github.com/mlocati/gettext-iconv-windows/releases/download/v0.21-v1.16/gettext0.21-iconv1.16-shared-64.exe -o gettext.exe
-          Start-Process -FilePath gettext.exe -ArgumentList '/VERYSILENT /ALLUSERS' -Wait
+          wget https://github.com/mlocati/gettext-iconv-windows/releases/download/v0.21-v1.16/gettext0.21-iconv1.16-shared-64.zip -o gettext.zip
+          powershell -command "Expand-Archive -Force 'gettext.zip'"
+          move gettext\bin\* C:\Windows\System32
       - name: "Vcpkg"
         uses: johnwason/vcpkg-action@v6
         id: vcpkg
         with:
-          pkgs: libnick qtbase qtcharts qtmultimedia qttools
+          pkgs: libnick qtbase qtcharts qtmultimedia qtsvg qttools
           triplet: x64-windows
-          revision: 02d93df47bb4c9b062921b26c77a251490127151
+          revision: cacf5994341f27e9a14a7b8724b0634b138ecb30
           token: ${{ secrets.GITHUB_TOKEN }}
           github-binarycache: true
       - name: "Build"
