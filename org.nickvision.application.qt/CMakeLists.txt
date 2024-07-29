@@ -21,8 +21,8 @@ qt_add_executable(${OUTPUT_NAME}
     "src/views/settingsdialog.cpp"
     "src/application.cpp"
     "src/main.cpp"
-    "org.nickvision.application.qt.qrc"
-    "org.nickvision.application.qt.rc")
+    "${OUTPUT_NAME}.qrc"
+    "${OUTPUT_NAME}.rc")
 target_include_directories(${OUTPUT_NAME} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
 target_link_libraries(${OUTPUT_NAME} PRIVATE libapplication Qt6::Core Qt6::Gui Qt6::Widgets Qt6::Svg)
 if(WIN32)

@@ -4,6 +4,7 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QMimeData>
+#include <QPushButton>
 #include <libnick/helpers/codehelpers.h>
 #include <libnick/localization/gettext.h>
 #include <libnick/notifications/shellnotification.h>
