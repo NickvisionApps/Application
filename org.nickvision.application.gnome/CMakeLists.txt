@@ -21,7 +21,7 @@ if(LINUX)
 
     find_program(GLIB_COMPULE_RESOURCES_EXECUTABLE glib-compile-resources)
     if(GLIB_COMPULE_RESOURCES_EXECUTABLE)
-        add_custom_command(TARGET gnome_commands PRE_BUILD COMMAND "${GLIB_COMPULE_RESOURCES_EXECUTABLE}" --sourcedir "${CMAKE_CURRENT_SOURCE_DIR}/resources" "${CMAKE_CURRENT_SOURCE_DIR}/resources/org.nickvision.application.gresource.xml" --target="${CMAKE_CURRENT_BINARY_DIR}/org.nickvision.application.gresource")
+        add_custom_command(TARGET gnome_commands PRE_BUILD COMMAND "${GLIB_COMPULE_RESOURCES_EXECUTABLE}" --sourcedir "${CMAKE_CURRENT_SOURCE_DIR}/resources" "${CMAKE_CURRENT_SOURCE_DIR}/resources/${PROJECT_NAME}.gresource.xml" --target="${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.gresource")
     endif()
 
     find_program(BLUEPRINT_COMPILER_EXECUTABLE blueprint-compiler)

@@ -97,7 +97,7 @@
             "builddir": true,
             "config-opts": [
                 "-DCMAKE_BUILD_TYPE=Release",
-                "_DUI_PLATFORM=gnome"
+                "-DUI_PLATFORM=gnome"
             ],
             "sources": [
                 {
