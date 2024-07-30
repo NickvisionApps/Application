@@ -74,7 +74,7 @@ namespace Nickvision::Application::QT::Views
     void MainWindow::show()
     {
         QMainWindow::show();
-        m_ui->viewStack->setCurrentIndex(1);
+        m_ui->viewStack->setCurrentIndex(0);
 #ifdef _WIN32
         WindowGeometry geometry{ m_controller->startup(reinterpret_cast<HWND>(winId())) };
 #elif defined(__linux__)
@@ -148,7 +148,6 @@ namespace Nickvision::Application::QT::Views
 #ifdef _WIN32
     void MainWindow::windowsUpdate()
     {
-        m_ui->viewStack->setCurrentIndex(0);
         m_controller->windowsUpdate();
     }
 #endif
@@ -216,7 +215,7 @@ namespace Nickvision::Application::QT::Views
 
     void MainWindow::onFolderChanged(const EventArgs& args)
     {
-        m_ui->viewStack->setCurrentIndex(m_controller->isFolderOpened() ? 2 : 1);
+        m_ui->viewStack->setCurrentIndex(m_controller->isFolderOpened() ? 1 : 0);
         m_ui->lblFiles->setText(QString::fromStdString(std::vformat(_n("There is {} file in the folder.", "There are {} files in the folder.", m_controller->getFiles().size()), std::make_format_args(CodeHelpers::unmove(m_controller->getFiles().size())))));
         for(const std::filesystem::path& file : m_controller->getFiles())
         {
