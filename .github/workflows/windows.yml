@@ -35,7 +35,7 @@ jobs:
         with:
           pkgs: libnick qtbase qtsvg qttools
           triplet: x64-windows
-          revision: b8ac6696e3af59f4f0666ab81a48ae589cde00a8
+          revision: 59335331913cd7d67bcf453ff7e60e82f9c8f66f
           token: ${{ secrets.GITHUB_TOKEN }}
           github-binarycache: true
       - name: "Build"

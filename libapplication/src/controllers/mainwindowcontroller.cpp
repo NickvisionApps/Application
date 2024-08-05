@@ -30,7 +30,7 @@ namespace Nickvision::Application::Shared::Controllers
         m_dataFileManager{ m_appInfo.getName() },
         m_logger{ UserDirectories::get(ApplicationUserDirectory::LocalData, m_appInfo.getName()) / "log.txt", Logging::LogLevel::Info, false }
     {
-        m_appInfo.setVersion({ "2024.7.0-next" });
+        m_appInfo.setVersion({ "2024.8.0-next" });
         m_appInfo.setShortName(_("Application"));
         m_appInfo.setDescription(_("Create new Nickvision applications"));
         m_appInfo.setChangelog("- Initial Release");
