@@ -32,6 +32,7 @@ namespace Nickvision::Application::QT::Views
     void SettingsDialog::closeEvent(QCloseEvent* event)
     {
         m_controller->setAutomaticallyCheckForUpdates(m_ui->chkUpdates->isChecked());
+        m_controller->saveConfiguration();
         event->accept();
     }
 
