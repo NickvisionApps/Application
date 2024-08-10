@@ -41,7 +41,7 @@ namespace Nickvision::Application::GNOME::Helpers
             return m_control;
         }
         
-    private:
+    protected:
         GtkBuilder* m_builder;
         T* m_control;
     };
