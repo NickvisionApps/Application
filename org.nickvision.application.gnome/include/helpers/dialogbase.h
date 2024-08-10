@@ -24,7 +24,7 @@ namespace Nickvision::Application::GNOME::Helpers
         /**
          * @brief Destructs a DialogBase.
          */
-        ~DialogBase();
+        virtual ~DialogBase();
         /**
          * @brief Gets the underlying AdwDialog pointer.
          * @return AdwDialog*
