@@ -63,7 +63,7 @@ namespace Nickvision::Application::QT::Views
         connect(m_ui->btnHomeOpenFolder, &QPushButton::clicked, this, &MainWindow::openFolder);
         connect(m_ui->btnFolderOpenFolder, &QPushButton::clicked, this, &MainWindow::openFolder);
         connect(m_ui->btnFolderCloseFolder, &QPushButton::clicked, this, &MainWindow::closeFolder);
-        m_controller->notificationSent() += [&](const NotificationSentEventArgs& args) { QTHelpers::dispatchToMainThread([this, args]() { onNotificationSent(args); }; };
+        m_controller->notificationSent() += [&](const NotificationSentEventArgs& args) { QTHelpers::dispatchToMainThread([this, args]() { onNotificationSent(args); }); };
         m_controller->shellNotificationSent() += [&](const ShellNotificationSentEventArgs& args) { onShellNotificationSent(args); };
         m_controller->folderChanged() += [&](const EventArgs& args) { onFolderChanged(args); };
     }
