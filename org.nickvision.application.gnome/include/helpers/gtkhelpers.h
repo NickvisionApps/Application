@@ -2,6 +2,8 @@
 #define GTKHELPERS_H
 
 #include <functional>
+#include <string>
+#include <vector>
 #include <adwaita.h>
 
 namespace Nickvision::Application::GNOME::Helpers::GtkHelpers
