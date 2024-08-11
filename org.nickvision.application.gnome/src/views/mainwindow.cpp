@@ -6,13 +6,13 @@
 #include <libnick/notifications/shellnotification.h>
 #include <libnick/localization/gettext.h>
 #include <libnick/system/environment.h>
-#include "helpers/builder.h"
 #include "helpers/dialogptr.h"
+#include "helpers/gtkhelpers.h"
 #include "views/preferencesdialog.h"
 
 using namespace Nickvision::App;
-using namespace Nickvision::Application::Shared::Controllers;
 using namespace Nickvision::Application::GNOME::Helpers;
+using namespace Nickvision::Application::Shared::Controllers;
 using namespace Nickvision::Events;
 using namespace Nickvision::Helpers;
 using namespace Nickvision::Notifications;
@@ -24,8 +24,8 @@ namespace Nickvision::Application::GNOME::Views
     MainWindow::MainWindow(const std::shared_ptr<MainWindowController>& controller, GtkApplication* app)
         : m_controller{ controller },
         m_app{ app },
-        m_builder{ BuilderHelpers::fromBlueprint("main_window") },
-        m_window{ ADW_APPLICATION_WINDOW(gtk_builder_get_object(m_builder, "root")) }
+        m_builder{ "main_window" },
+        m_window{ m_builder.get<AdwApplicationWindow>("root") }
     {
         //Setup Window
         gtk_application_add_window(GTK_APPLICATION(app), GTK_WINDOW(m_window));
@@ -35,11 +35,11 @@ namespace Nickvision::Application::GNOME::Views
         {
             gtk_widget_add_css_class(GTK_WIDGET(m_window), "devel");
         }
-        adw_window_title_set_title(ADW_WINDOW_TITLE(gtk_builder_get_object(m_builder, "title")), m_controller->getAppInfo().getShortName().c_str());
-        adw_status_page_set_title(ADW_STATUS_PAGE(gtk_builder_get_object(m_builder, "pageGreeting")), m_controller->getGreeting().c_str());
+        adw_window_title_set_title(m_builder.get<AdwWindowTitle>("title"), m_controller->getAppInfo().getShortName().c_str());
+        adw_status_page_set_title(m_builder.get<AdwStatusPage>("pageGreeting"), m_controller->getGreeting().c_str());
         //Register Events
         g_signal_connect(m_window, "close_request", G_CALLBACK(+[](GtkWindow*, gpointer data) -> bool { return reinterpret_cast<MainWindow*>(data)->onCloseRequested(); }), this);
-        m_controller->notificationSent() += [&](const NotificationSentEventArgs& args) { onNotificationSent(args); };
+        m_controller->notificationSent() += [&](const NotificationSentEventArgs& args) { GtkHelpers::dispatchToMainThread([this, args]() { onNotificationSent(args); }); };
         m_controller->shellNotificationSent() += [&](const ShellNotificationSentEventArgs& args) { onShellNotificationSent(args); };
         m_controller->folderChanged() += [&](const EventArgs& args) { onFolderChanged(args); };
         //Drop Target
@@ -50,43 +50,37 @@ namespace Nickvision::Application::GNOME::Views
         GSimpleAction* actQuit{ g_simple_action_new("quit", nullptr) };
         g_signal_connect(actQuit, "activate", G_CALLBACK(+[](GSimpleAction*, GVariant*, gpointer data){ reinterpret_cast<MainWindow*>(data)->quit(); }), this);
         g_action_map_add_action(G_ACTION_MAP(m_window), G_ACTION(actQuit));
-        SET_ACCEL_FOR_ACTION(m_app, "win.quit", "<Ctrl>Q");
+        GtkHelpers::setAccelForAction(m_app, "win.quit", "<Ctrl>Q");
         //Open Folder Action
         GSimpleAction* actOpenFolder{ g_simple_action_new("openFolder", nullptr) };
         g_signal_connect(actOpenFolder, "activate", G_CALLBACK(+[](GSimpleAction*, GVariant*, gpointer data){ reinterpret_cast<MainWindow*>(data)->openFolder(); }), this);
         g_action_map_add_action(G_ACTION_MAP(m_window), G_ACTION(actOpenFolder));
-        SET_ACCEL_FOR_ACTION(m_app, "win.openFolder", "<Ctrl>O");
+        GtkHelpers::setAccelForAction(m_app, "win.openFolder", "<Ctrl>O");
         //Close Folder Action
         GSimpleAction* actCloseFolder{ g_simple_action_new("closeFolder", nullptr) };
         g_signal_connect(actCloseFolder, "activate", G_CALLBACK(+[](GSimpleAction*, GVariant*, gpointer data){ reinterpret_cast<MainWindow*>(data)->closeFolder(); }), this);
         g_action_map_add_action(G_ACTION_MAP(m_window), G_ACTION(actCloseFolder));
-        SET_ACCEL_FOR_ACTION(m_app, "win.closeFolder", "<Ctrl>W");
+        GtkHelpers::setAccelForAction(m_app, "win.closeFolder", "<Ctrl>W");
         //Preferences Action
         GSimpleAction* actPreferences{ g_simple_action_new("preferences", nullptr) };
         g_signal_connect(actPreferences, "activate", G_CALLBACK(+[](GSimpleAction*, GVariant*, gpointer data){ reinterpret_cast<MainWindow*>(data)->preferences(); }), this);
         g_action_map_add_action(G_ACTION_MAP(m_window), G_ACTION(actPreferences));
-        SET_ACCEL_FOR_ACTION(m_app, "win.preferences", "<Ctrl>comma");
+        GtkHelpers::setAccelForAction(m_app, "win.preferences", "<Ctrl>comma");
         //Keyboard Shortcuts Action
         GSimpleAction* actKeyboardShortcuts{ g_simple_action_new("keyboardShortcuts", nullptr) };
         g_signal_connect(actKeyboardShortcuts, "activate", G_CALLBACK(+[](GSimpleAction*, GVariant*, gpointer data){ reinterpret_cast<MainWindow*>(data)->keyboardShortcuts(); }), this);
         g_action_map_add_action(G_ACTION_MAP(m_window), G_ACTION(actKeyboardShortcuts));
-        SET_ACCEL_FOR_ACTION(m_app, "win.keyboardShortcuts", "<Ctrl>question");
+        GtkHelpers::setAccelForAction(m_app, "win.keyboardShortcuts", "<Ctrl>question");
         //About Action
         GSimpleAction* actAbout{ g_simple_action_new("about", nullptr) };
         g_signal_connect(actAbout, "activate", G_CALLBACK(+[](GSimpleAction*, GVariant*, gpointer data){ reinterpret_cast<MainWindow*>(data)->about(); }), this);
         g_action_map_add_action(G_ACTION_MAP(m_window), G_ACTION(actAbout));
-        SET_ACCEL_FOR_ACTION(m_app, "win.about", "F1");
+        GtkHelpers::setAccelForAction(m_app, "win.about", "F1");
     }
 
     MainWindow::~MainWindow()
     {
         gtk_window_destroy(GTK_WINDOW(m_window));
-        g_object_unref(m_builder);
-    }
-
-    GObject* MainWindow::gobj() const
-    {
-        return G_OBJECT(m_window);
     }
 
     void MainWindow::show()
@@ -131,7 +125,7 @@ namespace Nickvision::Application::GNOME::Views
             adw_toast_set_button_label(toast, _("Close"));
             g_signal_connect(toast, "button-clicked", G_CALLBACK(+[](AdwToast*, gpointer data){ reinterpret_cast<MainWindow*>(data)->closeFolder(); }), this);
         }
-        adw_toast_overlay_add_toast(ADW_TOAST_OVERLAY(gtk_builder_get_object(m_builder, "toastOverlay")), toast);
+        adw_toast_overlay_add_toast(m_builder.get<AdwToastOverlay>("toastOverlay"), toast);
     }
 
     void MainWindow::onShellNotificationSent(const ShellNotificationSentEventArgs& args)
@@ -142,11 +136,11 @@ namespace Nickvision::Application::GNOME::Views
 
     void MainWindow::onFolderChanged(const EventArgs& args)
     {
-        adw_window_title_set_subtitle(ADW_WINDOW_TITLE(gtk_builder_get_object(m_builder, "title")), m_controller->isFolderOpened() ? m_controller->getFolderPath().c_str() : "");
-        gtk_widget_set_visible(GTK_WIDGET(gtk_builder_get_object(m_builder, "btnOpenFolder")), m_controller->isFolderOpened());
-        gtk_widget_set_visible(GTK_WIDGET(gtk_builder_get_object(m_builder, "btnCloseFolder")), m_controller->isFolderOpened());
-        adw_view_stack_set_visible_child_name(ADW_VIEW_STACK(gtk_builder_get_object(m_builder, "viewStack")), m_controller->isFolderOpened() ? "Folder" : "NoFolder");
-        adw_status_page_set_description(ADW_STATUS_PAGE(gtk_builder_get_object(m_builder, "pageFiles")), std::vformat(_n("There is {} file in the folder.", "There are {} files in the folder.", m_controller->getFiles().size()), std::make_format_args(CodeHelpers::unmove(m_controller->getFiles().size()))).c_str());
+        adw_window_title_set_subtitle(m_builder.get<AdwWindowTitle>("title"), m_controller->isFolderOpened() ? m_controller->getFolderPath().c_str() : "");
+        gtk_widget_set_visible(m_builder.get<GtkWidget>("btnOpenFolder"), m_controller->isFolderOpened());
+        gtk_widget_set_visible(m_builder.get<GtkWidget>("btnCloseFolder"), m_controller->isFolderOpened());
+        adw_view_stack_set_visible_child_name(m_builder.get<AdwViewStack>("viewStack"), m_controller->isFolderOpened() ? "Folder" : "NoFolder");
+        adw_status_page_set_description(m_builder.get<AdwStatusPage>("pageFiles"), std::vformat(_n("There is {} file in the folder.", "There are {} files in the folder.", m_controller->getFiles().size()), std::make_format_args(CodeHelpers::unmove(m_controller->getFiles().size()))).c_str());
     }
 
     void MainWindow::quit()
@@ -184,11 +178,10 @@ namespace Nickvision::Application::GNOME::Views
 
     void MainWindow::keyboardShortcuts()
     {
-        GtkBuilder* builderHelp{ BuilderHelpers::fromBlueprint("shortcuts_dialog") };
-        GtkShortcutsWindow* shortcuts{ GTK_SHORTCUTS_WINDOW(gtk_builder_get_object(builderHelp, "root")) };
+        Builder builderHelp{ "shortcuts_dialog" };
+        GtkShortcutsWindow* shortcuts{ builderHelp.get<GtkShortcutsWindow>("root") };
         gtk_window_set_transient_for(GTK_WINDOW(shortcuts), GTK_WINDOW(m_window));
         gtk_window_set_icon_name(GTK_WINDOW(shortcuts), m_controller->getAppInfo().getId().c_str());
-        g_signal_connect(shortcuts, "close-request", G_CALLBACK(+[](GtkWindow*, gpointer data){ g_object_unref(reinterpret_cast<GtkBuilder*>(data)); }), builderHelp);
         gtk_window_present(GTK_WINDOW(shortcuts));
     }
 

@@ -13,4 +13,10 @@ namespace Nickvision::Application::GNOME::Helpers
             return false;
         }, new std::function<void()>(func));
     }
+
+    void GtkHelpers::setAccelForAction(GtkApplication* app, const char* action, const char* accel)
+    {
+        const char* accels[2] { accel, nullptr };
+        gtk_application_set_accels_for_action(app, action, accels);
+    }
 }

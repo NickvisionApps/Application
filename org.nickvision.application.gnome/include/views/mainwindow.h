@@ -4,11 +4,7 @@
 #include <memory>
 #include <adwaita.h>
 #include "controllers/mainwindowcontroller.h"
-
-#define SET_ACCEL_FOR_ACTION(App, Action, Accel) { \
-const char* accels[2] { Accel, nullptr }; \
-gtk_application_set_accels_for_action(App, Action, accels); \
-}
+#include "helpers/builder.h"
 
 namespace Nickvision::Application::GNOME::Views
 {
@@ -28,11 +24,6 @@ namespace Nickvision::Application::GNOME::Views
          * @brief Destructs the MainWindow. 
          */
         ~MainWindow();
-        /**
-         * @brief Gets the GObject object for the main window.
-         * @return The GObject for the main window 
-         */
-        GObject* gobj() const;
         /**
          * @brief Shows the main window. 
          */
@@ -91,7 +82,7 @@ namespace Nickvision::Application::GNOME::Views
         void about();
         std::shared_ptr<Shared::Controllers::MainWindowController> m_controller;
         GtkApplication* m_app;
-        GtkBuilder* m_builder;
+        Helpers::Builder m_builder;
         AdwApplicationWindow* m_window;
     };
 }
