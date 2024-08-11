@@ -16,6 +16,14 @@ namespace Nickvision::Application::GNOME::Helpers
     public:
         /**
          * @brief Constructs a ControlPtr.
+         */
+        ControlPtr()
+            : m_ptr{ nullptr }
+        {
+
+        }
+        /**
+         * @brief Constructs a ControlPtr.
          * @param args the arguments to pass to T's constructor.
          */
         template<typename... Args>
@@ -39,7 +47,7 @@ namespace Nickvision::Application::GNOME::Helpers
          * @param other The ControlPtr to copy
          */
         ControlPtr(const ControlPtr& other)
-            : m_ptr{ other.m_ptr}
+            : m_ptr{ other.m_ptr }
         {
 
         }
@@ -51,6 +59,14 @@ namespace Nickvision::Application::GNOME::Helpers
             : m_ptr{ other.m_ptr }
         {
 
+        }
+        /**
+         * @brief Gets whether or not the ControlPtr is valid.
+         * @return True if valid, else false
+         */
+        bool isValid() const
+        {
+            return m_ptr != nullptr;
         }
         /**
          * @brief Returns the underlying pointer.
@@ -79,6 +95,14 @@ namespace Nickvision::Application::GNOME::Helpers
         {
             m_ptr = other.m_ptr;
             return *this;
+        }
+        /**
+         * @brief Gets whether or not the ControlPtr is valid.
+         * @return True if valid, else false
+         */
+        operator bool() const
+        {
+            return isValid();
         }
 
     private:

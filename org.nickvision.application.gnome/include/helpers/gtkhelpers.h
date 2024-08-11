@@ -18,6 +18,12 @@ namespace Nickvision::Application::GNOME::Helpers::GtkHelpers
      * @param accel The accelerator
      */
     void setAccelForAction(GtkApplication* app, const char* action, const char* accel);
+    /**
+     * @brief Sets the model for a combo row.
+     * @param row The combo row
+     * @param strs The strings to set
+     */
+    void setComboRowModel(AdwComboRow* row, const std::vector<std::string>& strs);
 }
 
 #endif //GTKHELPERS_H
