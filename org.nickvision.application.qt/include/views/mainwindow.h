@@ -97,8 +97,20 @@ namespace Nickvision::Application::QT::Views
         void about();
 
     private:
+        /**
+         * @brief Handles when a notification is sent.
+         * @param args The NotificationSentEventArgs
+         */
         void onNotificationSent(const Notifications::NotificationSentEventArgs& args);
+        /**
+         * @brief Handles when a shell notification is sent.
+         * @param args The ShellNotificationSentEventArgs
+         */
         void onShellNotificationSent(const Notifications::ShellNotificationSentEventArgs& args);
+        /**
+         * @brief Handles when the folder is changed.
+         * @param args The EventArgs
+         */
         void onFolderChanged(const Events::EventArgs& args);
         Ui::MainWindow* m_ui;
         std::shared_ptr<Shared::Controllers::MainWindowController> m_controller;
