@@ -47,7 +47,7 @@ parts:
 
   libxmlplusplus:
     source: https://github.com/libxmlplusplus/libxmlplusplus.git
-    source-tag: '5.2.0'
+    source-tag: '5.4.0'
     source-depth: 1
     plugin: meson
     build-packages:
