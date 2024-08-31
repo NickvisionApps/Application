@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-11 11:31-0400\n"
+"POT-Creation-Date: 2024-08-29 22:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -78,7 +78,6 @@ msgid "Good Day!"
 msgstr ""
 
 #: libapplication/src/controllers/mainwindowcontroller.cpp:252
-#, c++-format
 msgid "Folder Opened: {}"
 msgstr ""
 
@@ -156,7 +155,6 @@ msgid "System"
 msgstr ""
 
 #: org.nickvision.application.gnome/blueprints/shortcuts_dialog.blp:13
-msgctxt "Shortcut"
 msgid "Folder"
 msgstr ""
 
@@ -189,7 +187,6 @@ msgstr ""
 
 #: org.nickvision.application.gnome/src/views/mainwindow.cpp:143
 #: org.nickvision.application.qt/src/views/mainwindow.cpp:221
-#, c++-format
 msgid "There is {} file in the folder."
 msgid_plural "There are {} files in the folder."
 msgstr[0] ""
@@ -209,7 +206,6 @@ msgid "Changelog:"
 msgstr ""
 
 #: org.nickvision.application.qt/src/controls/aboutdialog.cpp:39
-#, c++-format
 msgid ""
 "Developers:\n"
 "{}\n"
