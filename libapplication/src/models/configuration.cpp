@@ -12,12 +12,7 @@ namespace Nickvision::Application::Shared::Models
 
     Theme Configuration::getTheme() const
     {
-        const boost::json::value& theme{ m_json["Theme"] };
-        if(!theme.is_int64())
-        {
-            return Theme::System;
-        }
-        return static_cast<Theme>(theme.as_int64());
+        return m_json["Theme"].is_int64() ? static_cast<Theme>(m_json["Theme"].as_int64()) : Theme::System;
     }
 
     void Configuration::setTheme(Theme theme)
@@ -53,16 +48,12 @@ namespace Nickvision::Application::Shared::Models
 
     bool Configuration::getAutomaticallyCheckForUpdates() const
     {
-        const boost::json::value& value{ m_json["AutomaticallyCheckForUpdates"] };
-        if(!value.is_bool())
-        {
 #ifdef _WIN32
-            return true;
+        bool def{ true };
 #else
-            return false;
+        bool def{ false };
 #endif
-        }
-        return value.as_bool();
+        return m_json["AutomaticallyCheckForUpdates"].is_bool() ? m_json["AutomaticallyCheckForUpdates"].as_bool() : def;
     }
 
     void Configuration::setAutomaticallyCheckForUpdates(bool check)
