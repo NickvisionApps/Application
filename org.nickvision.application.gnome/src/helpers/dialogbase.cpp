@@ -12,12 +12,6 @@ namespace Nickvision::Application::GNOME::Helpers
 
     }
 
-    DialogBase::~DialogBase()
-    {
-        m_closed.invoke({});
-        adw_dialog_force_close(m_dialog);
-    }
-
     AdwDialog* DialogBase::gobj()
     {
         return m_dialog;
