@@ -18,6 +18,10 @@ project("org.nickvision.application" LANGUAGES C CXX VERSION 2024.9.0 DESCRIPTIO
 set(SHORT_NAME "application")
 include(GNUInstallDirs)
 
+file(STRINGS "${CMAKE_SOURCE_DIR}/resources/po/POTFILES" TRANSLATE_FILES)
+file(STRINGS "${CMAKE_SOURCE_DIR}/resources/po/LINGUAS" LINGUAS)
+set(POT_FILE "${CMAKE_SOURCE_DIR}/resources/po/${SHORT_NAME}.pot")
+
 find_program(GETTEXT_XGETTEXT_EXECUTABLE xgettext)
 find_program(GETTEXT_MSGMERGE_EXECUTABLE msgmerge)
 find_program(GETTEXT_MSGFMT_EXECUTABLE msgfmt)
