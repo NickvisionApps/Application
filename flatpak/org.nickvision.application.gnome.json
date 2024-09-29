@@ -1,7 +1,7 @@
 {
     "app-id" : "org.nickvision.application",
     "runtime" : "org.gnome.Platform",
-    "runtime-version" : "46",
+    "runtime-version" : "47",
     "sdk" : "org.gnome.Sdk",
     "command" : "org.nickvision.application",
     "finish-args":[
@@ -73,7 +73,7 @@
                 {
                     "type": "git",
                     "url": "https://gitlab.gnome.org/jwestman/blueprint-compiler",
-                    "tag": "v0.12.0"
+                    "tag": "v0.14.0"
                 }
             ]
         },

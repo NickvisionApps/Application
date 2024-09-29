@@ -53,4 +53,4 @@ A C++20 compiler is also required to build Application.
 
 ## Code of Conduct
 
-This project follows the [GNOME Code of Conduct](https://wiki.gnome.org/Foundation/CodeOfConduct).
+This project follows the [GNOME Code of Conduct](https://conduct.gnome.org/).
