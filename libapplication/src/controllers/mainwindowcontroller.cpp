@@ -1,6 +1,7 @@
 ﻿#include "controllers/mainwindowcontroller.h"
 #include <ctime>
 #include <format>
+#include <sstream>
 #include <thread>
 #include <libnick/filesystem/userdirectories.h>
 #include <libnick/helpers/codehelpers.h>
@@ -30,7 +31,7 @@ namespace Nickvision::Application::Shared::Controllers
         m_dataFileManager{ m_appInfo.getName() },
         m_logger{ UserDirectories::get(ApplicationUserDirectory::LocalData, m_appInfo.getName()) / "log.txt", Logging::LogLevel::Info, false }
     {
-        m_appInfo.setVersion({ "2024.9.0-next" });
+        m_appInfo.setVersion({ "2024.10.0-next" });
         m_appInfo.setShortName(_("Application"));
         m_appInfo.setDescription(_("Create new Nickvision applications"));
         m_appInfo.setChangelog("- Initial Release");
@@ -82,7 +83,16 @@ namespace Nickvision::Application::Shared::Controllers
 
     std::string MainWindowController::getDebugInformation(const std::string& extraInformation) const
     {
-        return Environment::getDebugInformation(m_appInfo, extraInformation);
+        std::stringstream builder;
+        //Extra
+        if(!extraInformation.empty())
+        {
+            builder << extraInformation << std::endl;
+#ifdef __linux__
+            builder << Environment::exec("locale");
+#endif
+        }
+        return Environment::getDebugInformation(m_appInfo, builder.str());
     }
 
     bool MainWindowController::canShutdown() const

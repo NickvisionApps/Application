@@ -171,7 +171,9 @@ namespace Nickvision::Application::QT::Views
 
     void MainWindow::about()
     {
-        AboutDialog dialog{ m_controller->getAppInfo(), m_controller->getDebugInformation(), this };
+        std::string extraDebug;
+        extraDebug += "Qt " + std::string(qVersion()) + "\n";
+        AboutDialog dialog{ m_controller->getAppInfo(), m_controller->getDebugInformation(extraDebug), this };
         dialog.exec();
     }
 

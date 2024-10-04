@@ -27,7 +27,7 @@
     <binary>@PROJECT_NAME@</binary>
   </provides>
   <releases>
-    <release version="2024.9.0-next" date="2024-09-01">
+    <release version="2024.10.0-next" date="2024-10-01">
       <description translate="no">
         <p>- Initial Release</p>
       </description>
