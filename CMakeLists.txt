@@ -16,6 +16,7 @@ endif()
 
 project("org.nickvision.application" LANGUAGES C CXX VERSION 2024.9.0 DESCRIPTION "Create new Nickvision applications.")
 set(SHORT_NAME "application")
+set(DISPLAY_NAME "Application")
 include(GNUInstallDirs)
 
 file(STRINGS "${CMAKE_SOURCE_DIR}/resources/po/POTFILES" TRANSLATE_FILES)

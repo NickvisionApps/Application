@@ -1,6 +1,6 @@
 [Desktop Entry]
 Version=1.0
-Name=Application
+Name=@DISPLAY_NAME@
 Comment=Create new Nickvision applications
 Exec=@CMAKE_INSTALL_FULL_LIBDIR@/@PROJECT_NAME@/@OUTPUT_NAME@
 Icon=@PROJECT_NAME@
