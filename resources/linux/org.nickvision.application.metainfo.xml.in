@@ -5,34 +5,41 @@
   <project_license>MIT</project_license>
   <name>@Name=@DISPLAY_NAME@</name>
   <project_group>Nickvision</project_group>
-  <developer_name>Nickvision</developer_name>
+  <developer id="org.nickvision">
+    <name>Nickvision</name>
+  </developer>
   <summary>Create new Nickvision applications</summary>
+  <!-- The description field supports markup list syntax (`<ul><li>[…]</li></ul>`) -->
   <description>
     <p>A template for creating cross-platform Nickvision applications</p>
   </description>
   <launchable type="desktop-id">@PROJECT_NAME@.desktop</launchable>
   <screenshots>
     <screenshot type="default">
+      <!-- Translators: Screenshot caption -->
+      <caption>Light mode</caption>
       <image>https://raw.githubusercontent.com/NickvisionApps/Application/main/@OUTPUT_NAME@/resources/screenshots/light.png</image>
     </screenshot>
     <screenshot>
+      <!-- Translators: Screenshot caption -->
+      <caption>Dark mode</caption>
       <image>https://raw.githubusercontent.com/NickvisionApps/Application/main/@OUTPUT_NAME@/resources/screenshots/dark.png</image>
     </screenshot>
   </screenshots>
-  <url type="homepage">https://github.com/NickvisionApps/@SHORT_NAME@</url>
+  <branding>
+    <color type="primary" scheme_preference="light">#FFFFFF</color>
+    <color type="primary" scheme_preference="dark">#000000</color>
+  </branding>
+  <url type="homepage">https://nickvision.org/@SHORT_NAME@.html</url>
   <url type="bugtracker">https://github.com/NickvisionApps/@SHORT_NAME@/issues</url>
   <url type="donation">https://github.com/sponsors/nlogozzo</url>
   <url type="translate">https://github.com/NickvisionApps/@SHORT_NAME@/blob/master/CONTRIBUTING.md#providing-translations</url>
+  <url type="contribute">https://github.com/NickvisionApps/@SHORT_NAME@/blob/main/CONTRIBUTING.md</url>
+  <url type="contact">https://matrix.to/#/#nickvision:matrix.org</url>
+  <url type="vcs-browser">https://github.com/NickvisionApps/@SHORT_NAME@</url>
   <provides>
     <binary>@PROJECT_NAME@</binary>
   </provides>
-  <releases>
-    <release version="2024.10.0-next" date="2024-10-01">
-      <description translate="no">
-        <p>- Initial Release</p>
-      </description>
-    </release>
-  </releases>
   <content_rating type="oars-1.1" />
   <supports>
     <control>pointing</control>
@@ -42,7 +49,12 @@
   <requires>
     <display_length compare="ge">360</display_length>
   </requires>
-  <custom>
-    <value key="Purism::form_factor">mobile</value>
-  </custom>
+  <!-- The release description fields support markup list syntax (`<ul><li>[…]</li></ul>`) -->
+  <releases>
+    <release version="2024.10.0-next" date="2024-10-01">
+      <description translate="no">
+        <p>Initial Release.</p>
+      </description>
+    </release>
+  </releases>
 </component>
