@@ -1,6 +1,8 @@
 #include "models/configuration.h"
+#include <libnick/system/environment.h>
 
 using namespace Nickvision::App;
+using namespace Nickvision::System;
 
 namespace Nickvision::Application::Shared::Models
 {
@@ -48,12 +50,7 @@ namespace Nickvision::Application::Shared::Models
 
     bool Configuration::getAutomaticallyCheckForUpdates() const
     {
-#ifdef _WIN32
-        bool def{ true };
-#else
-        bool def{ false };
-#endif
-        return m_json["AutomaticallyCheckForUpdates"].is_bool() ? m_json["AutomaticallyCheckForUpdates"].as_bool() : def;
+        return m_json["AutomaticallyCheckForUpdates"].is_bool() ? m_json["AutomaticallyCheckForUpdates"].as_bool() : Environment::getOperatingSystem() == OperatingSystem::Windows;
     }
 
     void Configuration::setAutomaticallyCheckForUpdates(bool check)
