@@ -194,16 +194,18 @@ namespace Nickvision::Application::QT::Views
             break;
         }
         QMessageBox msgBox{ icon, QString::fromStdString(m_controller->getAppInfo().getShortName()), QString::fromStdString(args.getMessage()), QMessageBox::StandardButton::Ok, this };
-        if(args.getAction() == "update")
-        {
-            QPushButton* updateButton{ msgBox.addButton(_("Update"), QMessageBox::ButtonRole::ActionRole) };
-            connect(updateButton, &QPushButton::clicked, this, &MainWindow::checkForUpdates);
-        }
-        else if(args.getAction() == "close")
+        if(args.getAction() == "close")
         {
             QPushButton* closeButton{ msgBox.addButton(_("Close"), QMessageBox::ButtonRole::ActionRole) };
             connect(closeButton, &QPushButton::clicked, this, &MainWindow::closeFolder);
         }
+#ifdef _WIN32
+        else if(args.getAction() == "update")
+        {
+            QPushButton* updateButton{ msgBox.addButton(_("Update"), QMessageBox::ButtonRole::ActionRole) };
+            connect(updateButton, &QPushButton::clicked, this, &MainWindow::windowsUpdate);
+        }
+#endif
         msgBox.exec();
     }
 

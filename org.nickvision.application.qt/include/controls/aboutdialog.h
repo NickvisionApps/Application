@@ -34,4 +34,4 @@ namespace Nickvision::Application::QT::Controls
     };
 }
 
-#endif // ABOUTDIALOG_H
+#endif //ABOUTDIALOG_H
