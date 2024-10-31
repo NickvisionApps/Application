@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-06 10:26-0400\n"
+"POT-Creation-Date: 2024-10-31 12:43-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -113,7 +113,7 @@ msgstr ""
 #: org.nickvision.application.gnome/blueprints/main_window.blp:59
 #: org.nickvision.application.gnome/src/views/mainwindow.cpp:132
 #: org.nickvision.application.qt/src/views/mainwindow.cpp:52
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:216
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:218
 msgid "Open"
 msgstr ""
 
@@ -182,12 +182,12 @@ msgid "Quit"
 msgstr ""
 
 #: org.nickvision.application.gnome/src/views/mainwindow.cpp:123
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:204
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:199
 msgid "Close"
 msgstr ""
 
 #: org.nickvision.application.gnome/src/views/mainwindow.cpp:141
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:223
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:225
 #, c++-format
 msgid "There is {} file in the folder."
 msgid_plural "There are {} files in the folder."
@@ -256,7 +256,7 @@ msgstr ""
 msgid "Discussions"
 msgstr ""
 
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:199
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:205
 msgid "Update"
 msgstr ""
 
