@@ -84,7 +84,11 @@ namespace Nickvision::Application::GNOME::Views
     void MainWindow::show()
     {
         gtk_window_present(GTK_WINDOW(m_window));
+#ifdef __linux__
         WindowGeometry geometry{ m_controller->startup(m_controller->getAppInfo().getId() + ".desktop") };
+#else
+        WindowGeometry geometry{ m_controller->startup() };
+#endif
         gtk_window_set_default_size(GTK_WINDOW(m_window), static_cast<int>(geometry.getWidth()), static_cast<int>(geometry.getHeight()));
         if(geometry.isMaximized())
         {
@@ -129,7 +133,11 @@ namespace Nickvision::Application::GNOME::Views
     void MainWindow::onShellNotificationSent(const ShellNotificationSentEventArgs& args)
     {
         m_controller->log(Logging::LogLevel::Info, "ShellNotification sent. (" + args.getMessage() + ")");
+#ifdef __linux__
         ShellNotification::send(args, m_controller->getAppInfo().getId(), _("Open"));
+#else
+        ShellNotification::send(args);
+#endif
     }
 
     void MainWindow::onFolderChanged(const EventArgs& args)
