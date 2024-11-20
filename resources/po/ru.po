@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-31 12:43-0400\n"
+"POT-Creation-Date: 2024-11-20 10:50-0500\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -15,11 +15,11 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 #: libapplication/src/controllers/mainwindowcontroller.cpp:35
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:32
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:34
 msgid "Application"
 msgstr "Application"
 
@@ -79,7 +79,7 @@ msgid "Good Day!"
 msgstr "Здравствуйте!"
 
 #: libapplication/src/controllers/mainwindowcontroller.cpp:262
-#, fuzzy, c++-format
+#, fuzzy
 msgid "Folder Opened: {}"
 msgstr "Папка открыта: {0}"
 
@@ -102,7 +102,6 @@ msgstr "Комбинации клавиш"
 #: org.nickvision.application.gnome/blueprints/main_window.blp:7
 #: org.nickvision.application.gnome/blueprints/shortcuts_dialog.blp:39
 #: org.nickvision.application.qt/src/controls/aboutdialog.cpp:31
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:46
 msgid "About Application"
 msgstr "О приложении"
 
@@ -110,12 +109,12 @@ msgstr "О приложении"
 msgid "Open Folder (Ctrl+O)"
 msgstr "Открыть папку (Ctrl+O)"
 
-#. Localize Folder Page
+#. Folder Page
 #: org.nickvision.application.gnome/blueprints/main_window.blp:26
 #: org.nickvision.application.gnome/blueprints/main_window.blp:59
-#: org.nickvision.application.gnome/src/views/mainwindow.cpp:132
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:52
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:218
+#: org.nickvision.application.gnome/src/views/mainwindow.cpp:137
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:45
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:220
 msgid "Open"
 msgstr "Открыть"
 
@@ -128,7 +127,7 @@ msgid "Main Menu"
 msgstr "Главное меню"
 
 #: org.nickvision.application.gnome/blueprints/main_window.blp:57
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:49
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:42
 #, fuzzy
 msgid "Open a folder (or drag one into the app) to get started"
 msgstr "Откройте или перетащите папку, чтобы начать."
@@ -159,20 +158,19 @@ msgid "System"
 msgstr "Системная"
 
 #: org.nickvision.application.gnome/blueprints/shortcuts_dialog.blp:12
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:38
 #, fuzzy
 msgid "Folder"
 msgstr "Папка"
 
 #: org.nickvision.application.gnome/blueprints/shortcuts_dialog.blp:15
-#: org.nickvision.application.gnome/src/views/mainwindow.cpp:155
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:36
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:50
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:125
+#: org.nickvision.application.gnome/src/views/mainwindow.cpp:163
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:43
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:127
 msgid "Open Folder"
 msgstr "Открыть Папку"
 
 #: org.nickvision.application.gnome/blueprints/shortcuts_dialog.blp:20
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:37
 msgid "Close Folder"
 msgstr "Закрыть папку"
 
@@ -185,22 +183,21 @@ msgstr "Приложение"
 msgid "Quit"
 msgstr "Выход"
 
-#: org.nickvision.application.gnome/src/views/mainwindow.cpp:123
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:199
+#: org.nickvision.application.gnome/src/views/mainwindow.cpp:127
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:201
 msgid "Close"
 msgstr "Закрыть"
 
-#: org.nickvision.application.gnome/src/views/mainwindow.cpp:141
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:225
-#, fuzzy, c++-format
+#: org.nickvision.application.gnome/src/views/mainwindow.cpp:149
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:231
+#, fuzzy
 msgid "There is {} file in the folder."
 msgid_plural "There are {} files in the folder."
 msgstr[0] "В папке {0} файл."
 msgstr[1] "В папке {0} файла."
 msgstr[2] "В папке {0} файлов."
 
-#: org.nickvision.application.gnome/src/views/mainwindow.cpp:204
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:43
+#: org.nickvision.application.gnome/src/views/mainwindow.cpp:212
 msgid "GitHub Repo"
 msgstr "Репозиторий GitHub"
 
@@ -213,7 +210,6 @@ msgid "Changelog:"
 msgstr ""
 
 #: org.nickvision.application.qt/src/controls/aboutdialog.cpp:39
-#, c++-format
 msgid ""
 "Developers:\n"
 "{}\n"
@@ -223,46 +219,22 @@ msgid ""
 "{}"
 msgstr ""
 
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:32
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:34
 #, fuzzy
 msgid "Application (Preview)"
 msgstr "Application"
 
-#. Localize Menu Strings
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:35
-msgid "File"
-msgstr ""
-
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:38
-msgid "Exit"
+#. Navigation Bar
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:37
+msgid "Home"
 msgstr ""
 
 #: org.nickvision.application.qt/src/views/mainwindow.cpp:39
-msgid "Edit"
-msgstr ""
-
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:40
 #: org.nickvision.application.qt/src/views/settingsdialog.cpp:16
 msgid "Settings"
 msgstr ""
 
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:41
-msgid "Help"
-msgstr ""
-
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:42
-msgid "Check for Updates"
-msgstr ""
-
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:44
-msgid "Report a Bug"
-msgstr ""
-
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:45
-msgid "Discussions"
-msgstr ""
-
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:205
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:207
 msgid "Update"
 msgstr ""
 

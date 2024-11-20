@@ -7,6 +7,7 @@
 #include <QDropEvent>
 #include <QMainWindow>
 #include "controllers/mainwindowcontroller.h"
+#include "controls/navigationbar.h"
 
 namespace Ui { class MainWindow; }
 
@@ -53,6 +54,10 @@ namespace Nickvision::Application::QT::Views
         void dropEvent(QDropEvent* event) override;
 
     private Q_SLOTS:
+        /**
+         * @brief Handles when a navigation item is selected.
+         */
+        void onNavigationItemSelected(const QString& id);
         /**
          * @brief Prompts the user to open a folder.
          */
@@ -113,6 +118,7 @@ namespace Nickvision::Application::QT::Views
          */
         void onFolderChanged(const Events::EventArgs& args);
         Ui::MainWindow* m_ui;
+        Controls::NavigationBar* m_navigationBar;
         std::shared_ptr<Shared::Controllers::MainWindowController> m_controller;
     };
 }
