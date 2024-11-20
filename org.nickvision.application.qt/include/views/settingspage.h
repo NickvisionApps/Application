@@ -1,33 +1,33 @@
-#ifndef SETTINGSDIALOG_H
-#define SETTINGSDIALOG_H
+#ifndef SETTINGSPAGE_H
+#define SETTINGSPAGE_H
 
 #include <memory>
 #include <QCloseEvent>
-#include <QDialog>
+#include <QWidget>
 #include "controllers/preferencesviewcontroller.h"
 
-namespace Ui { class SettingsDialog; }
+namespace Ui { class SettingsPage; }
 
 namespace Nickvision::Application::QT::Views
 {
     /**
-     * @brief The settings dialog for the application.
+     * @brief The settings page for the application.
      */
-    class SettingsDialog : public QDialog
+    class SettingsPage : public QWidget
     {
     Q_OBJECT
 
     public:
         /**
-         * @brief Constructs a SettingsDialog.
+         * @brief Constructs a SettingsPage.
          * @param controller The PreferencesViewController
          * @param parent The parent widget
          */
-        SettingsDialog(const std::shared_ptr<Shared::Controllers::PreferencesViewController>& controller, QWidget* parent = nullptr);
+        SettingsPage(const std::shared_ptr<Shared::Controllers::PreferencesViewController>& controller, QWidget* parent = nullptr);
         /**
-         * @brief Destructs a SettingsDialog.
+         * @brief Destructs a SettingsPage.
          */
-        ~SettingsDialog();
+        ~SettingsPage();
 
     protected:
        /**
@@ -44,9 +44,9 @@ namespace Nickvision::Application::QT::Views
         void onPageChanged(int index);
 
     private:
-        Ui::SettingsDialog* m_ui;
+        Ui::SettingsPage* m_ui;
         std::shared_ptr<Shared::Controllers::PreferencesViewController> m_controller;
     };
 }
 
-#endif //SETTINGSDIALOG_H
+#endif //SETTINGSPAGE_H

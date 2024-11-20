@@ -10,7 +10,7 @@
 #include <libnick/notifications/shellnotification.h>
 #include "controls/aboutdialog.h"
 #include "helpers/qthelpers.h"
-#include "views/settingsdialog.h"
+#include "views/settingspage.h"
 
 using namespace Nickvision::App;
 using namespace Nickvision::Application::QT::Controls;
@@ -23,6 +23,13 @@ using namespace Nickvision::Update;
 
 namespace Nickvision::Application::QT::Views
 {
+    enum Page
+    {
+        Home = 0,
+        Folder = 1,
+        Settings = 2
+    };
+
     MainWindow::MainWindow(const std::shared_ptr<MainWindowController>& controller, QWidget* parent) 
         : QMainWindow{ parent },
         m_ui{ new Ui::MainWindow() },
@@ -35,10 +42,8 @@ namespace Nickvision::Application::QT::Views
         setAcceptDrops(true);
         //Navigation Bar
         QMenu* helpMenu{ new QMenu(this) };
-#ifdef _WIN32
         helpMenu->addAction(_("Check for Updates"), this, &MainWindow::checkForUpdates);
         helpMenu->addSeparator();
-#endif
         helpMenu->addAction(_("GitHub Repo"), this, &MainWindow::gitHubRepo);
         helpMenu->addAction(_("Report a Bug"), this, &MainWindow::reportABug);
         helpMenu->addAction(_("Discussions"), this, &MainWindow::discussions);
@@ -119,17 +124,27 @@ namespace Nickvision::Application::QT::Views
 
     void MainWindow::onNavigationItemSelected(const QString& id)
     {
+        //Cleanup and save settings
+        if(m_ui->viewStack->widget(Page::Settings))
+        {
+            SettingsPage* oldSettings{ qobject_cast<SettingsPage*>(m_ui->viewStack->widget(2)) };
+            oldSettings->close();
+            m_ui->viewStack->removeWidget(oldSettings);
+            delete oldSettings;
+        }
+        //Navigate to new page
         if(id == "home")
         {
-            m_ui->viewStack->setCurrentIndex(0);
+            m_ui->viewStack->setCurrentIndex(Page::Home);
         }
         else if(id == "folder")
         {
-            m_ui->viewStack->setCurrentIndex(1);
+            m_ui->viewStack->setCurrentIndex(Page::Folder);
         }
         else if(id == "settings")
         {
-            m_ui->viewStack->setCurrentIndex(2);
+            m_ui->viewStack->addWidget(new SettingsPage(m_controller->createPreferencesViewController(), this));
+            m_ui->viewStack->setCurrentIndex(Page::Settings);
         }
     }
 
@@ -142,12 +157,6 @@ namespace Nickvision::Application::QT::Views
     void MainWindow::closeFolder()
     {
         m_controller->closeFolder();
-    }
-
-    void MainWindow::settings()
-    {
-        SettingsDialog dialog{ m_controller->createPreferencesViewController(), this };
-        dialog.exec();
     }
 
     void MainWindow::checkForUpdates()

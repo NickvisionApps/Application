@@ -10,7 +10,7 @@ namespace Nickvision::Application::QT::Controls
         m_bottomLayout{ new QVBoxLayout() },
         m_line{ new QFrame(parent) }
     {
-        setContentsMargins({ 6, 6, 6, 6 });
+        setContentsMargins({ 6, 6, 0, 6 });
         //Make Vertical Line
         m_line->setFrameShape(QFrame::VLine);
         m_line->setFrameShadow(QFrame::Sunken);
@@ -49,7 +49,6 @@ namespace Nickvision::Application::QT::Controls
         button->setMenu(menu);
         m_buttons[id] = button;
         m_topLayout->addWidget(button);
-        connect(button, &QCommandLinkButton::clicked, this, &NavigationBar::onItemClicked);
         return true;
     }
 
@@ -80,7 +79,6 @@ namespace Nickvision::Application::QT::Controls
         button->setMenu(menu);
         m_buttons[id] = button;
         m_bottomLayout->addWidget(button);
-        connect(button, &QCommandLinkButton::clicked, this, &NavigationBar::onItemClicked);
         return true;
     }
 

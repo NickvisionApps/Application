@@ -1,5 +1,5 @@
-#include "views/settingsdialog.h"
-#include "ui_settingsdialog.h"
+#include "views/settingspage.h"
+#include "ui_settingspage.h"
 #include <libnick/localization/gettext.h>
 
 using namespace Nickvision::Application::Shared::Controllers;
@@ -7,9 +7,9 @@ using namespace Nickvision::Application::Shared::Models;
 
 namespace Nickvision::Application::QT::Views
 {
-    SettingsDialog::SettingsDialog(const std::shared_ptr<PreferencesViewController>& controller, QWidget* parent)
-        : QDialog{ parent },
-        m_ui{ new Ui::SettingsDialog() },
+    SettingsPage::SettingsPage(const std::shared_ptr<PreferencesViewController>& controller, QWidget* parent)
+        : QWidget{ parent },
+        m_ui{ new Ui::SettingsPage() },
         m_controller{ controller }
     {
         m_ui->setupUi(this);
@@ -21,22 +21,22 @@ namespace Nickvision::Application::QT::Views
         m_ui->listPages->setCurrentRow(0);
         m_ui->chkUpdates->setChecked(m_controller->getAutomaticallyCheckForUpdates());
         //Signals
-        connect(m_ui->listPages, &QListWidget::currentRowChanged, this, &SettingsDialog::onPageChanged);
+        connect(m_ui->listPages, &QListWidget::currentRowChanged, this, &SettingsPage::onPageChanged);
     }
     
-    SettingsDialog::~SettingsDialog()
+    SettingsPage::~SettingsPage()
     {
         delete m_ui;
     }
 
-    void SettingsDialog::closeEvent(QCloseEvent* event)
+    void SettingsPage::closeEvent(QCloseEvent* event)
     {
         m_controller->setAutomaticallyCheckForUpdates(m_ui->chkUpdates->isChecked());
         m_controller->saveConfiguration();
         event->accept();
     }
 
-    void SettingsDialog::onPageChanged(int index)
+    void SettingsPage::onPageChanged(int index)
     {
         m_ui->viewStack->setCurrentIndex(index);
     }

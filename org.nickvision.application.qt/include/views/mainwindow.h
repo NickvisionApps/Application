@@ -67,10 +67,6 @@ namespace Nickvision::Application::QT::Views
          */
         void closeFolder();
         /**
-         * @brief Displays the settings dialog.
-         */
-        void settings();
-        /**
          * @brief Checks for application updates.
          */
         void checkForUpdates();

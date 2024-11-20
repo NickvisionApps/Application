@@ -33,7 +33,7 @@
       <item>
        <widget class="QStackedWidget" name="viewStack">
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="homePage">
          <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -202,7 +202,6 @@
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="settingsPage"/>
        </widget>
       </item>
      </layout>
