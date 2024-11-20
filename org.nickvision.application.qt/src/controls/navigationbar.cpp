@@ -38,6 +38,21 @@ namespace Nickvision::Application::QT::Controls
         return true;
     }
 
+    bool NavigationBar::addTopItem(const QString& id, const QString& text, const QIcon& icon, QMenu* menu)
+    {
+        if(m_buttons.contains(id))
+        {
+            return false;
+        }
+        QCommandLinkButton* button{ new QCommandLinkButton(text, m_parent) };
+        button->setIcon(icon);
+        button->setMenu(menu);
+        m_buttons[id] = button;
+        m_topLayout->addWidget(button);
+        connect(button, &QCommandLinkButton::clicked, this, &NavigationBar::onItemClicked);
+        return true;
+    }
+
     bool NavigationBar::addBottomItem(const QString& id, const QString& text, const QIcon& icon)
     {
         if(m_buttons.contains(id))
@@ -48,6 +63,21 @@ namespace Nickvision::Application::QT::Controls
         button->setIcon(icon);
         button->setCheckable(true);
         button->setChecked(false);
+        m_buttons[id] = button;
+        m_bottomLayout->addWidget(button);
+        connect(button, &QCommandLinkButton::clicked, this, &NavigationBar::onItemClicked);
+        return true;
+    }
+
+    bool NavigationBar::addBottomItem(const QString& id, const QString& text, const QIcon& icon, QMenu* menu)
+    {
+        if(m_buttons.contains(id))
+        {
+            return false;
+        }
+        QCommandLinkButton* button{ new QCommandLinkButton(text, m_parent) };
+        button->setIcon(icon);
+        button->setMenu(menu);
         m_buttons[id] = button;
         m_bottomLayout->addWidget(button);
         connect(button, &QCommandLinkButton::clicked, this, &NavigationBar::onItemClicked);
@@ -76,6 +106,10 @@ namespace Nickvision::Application::QT::Controls
         }
         for(const std::pair<const QString, QCommandLinkButton*>& pair : m_buttons)
         {
+            if(pair.second->menu())
+            {
+                continue;
+            }
             if(pair.first == id)
             {
                 pair.second->setChecked(true);
@@ -96,6 +130,10 @@ namespace Nickvision::Application::QT::Controls
         {
             for(const std::pair<const QString, QCommandLinkButton*>& pair : m_buttons)
             {
+                if(pair.second->menu())
+                {
+                    continue;
+                }
                 if(pair.second == button)
                 {
                     pair.second->setChecked(true);

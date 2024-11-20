@@ -67,10 +67,6 @@ namespace Nickvision::Application::QT::Views
          */
         void closeFolder();
         /**
-         * @brief Exits the application.
-         */
-        void exit();
-        /**
          * @brief Displays the settings dialog.
          */
         void settings();

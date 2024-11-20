@@ -99,12 +99,6 @@
             </item>
             <item>
              <widget class="QPushButton" name="btnHomeOpenFolder">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>32</height>
-               </size>
-              </property>
               <property name="icon">
                <iconset theme="folder-open"/>
               </property>

@@ -34,8 +34,19 @@ namespace Nickvision::Application::QT::Views
         setWindowTitle(m_controller->getAppInfo().getVersion().getVersionType() == VersionType::Stable ? _("Application") : _("Application (Preview)"));
         setAcceptDrops(true);
         //Navigation Bar
+        QMenu* helpMenu{ new QMenu(this) };
+#ifdef _WIN32
+        helpMenu->addAction(_("Check for Updates"), this, &MainWindow::checkForUpdates);
+        helpMenu->addSeparator();
+#endif
+        helpMenu->addAction(_("GitHub Repo"), this, &MainWindow::gitHubRepo);
+        helpMenu->addAction(_("Report a Bug"), this, &MainWindow::reportABug);
+        helpMenu->addAction(_("Discussions"), this, &MainWindow::discussions);
+        helpMenu->addSeparator();
+        helpMenu->addAction(_("About"), this, &MainWindow::about);
         m_navigationBar->addTopItem("home", _("Home"), QIcon::fromTheme(QIcon::ThemeIcon::GoHome));
         m_navigationBar->addTopItem("folder", _("Folder"), QIcon::fromTheme(QIcon::ThemeIcon::FolderNew));
+        m_navigationBar->addBottomItem("help", _("Help"), QIcon::fromTheme(QIcon::ThemeIcon::HelpAbout), helpMenu);
         m_navigationBar->addBottomItem("settings", _("Settings"), QIcon::fromTheme("document-properties"));
         //Home Page
         m_ui->lblHomeGreeting->setText(QString::fromStdString(m_controller->getGreeting()));
@@ -131,11 +142,6 @@ namespace Nickvision::Application::QT::Views
     void MainWindow::closeFolder()
     {
         m_controller->closeFolder();
-    }
-
-    void MainWindow::exit()
-    {
-        close();
     }
 
     void MainWindow::settings()

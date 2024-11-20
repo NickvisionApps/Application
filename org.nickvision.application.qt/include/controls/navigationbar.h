@@ -6,6 +6,7 @@
 #include <QFrame>
 #include <QHBoxLayout>
 #include <QIcon>
+#include <QMenu>
 #include <QSpacerItem>
 #include <QString>
 #include <QVBoxLayout>
@@ -33,12 +34,30 @@ namespace Nickvision::Application::QT::Controls
          */
         bool addTopItem(const QString& id, const QString& text, const QIcon& icon);
         /**
+         * @brief Adds an item to the top of the list.
+         * @brief This item will not be selectable and will show the menu popup when clicked.
+         * @param id The id of the item
+         * @param text The text of the item
+         * @param icon The icon of the item
+         * @param menu The menu of the item
+         */
+        bool addTopItem(const QString& id, const QString& text, const QIcon& icon, QMenu* menu);
+        /**
          * @brief Adds an item to the bottom of the list.
          * @param id The id of the item
          * @param text The text of the item
          * @param icon The icon of the item
          */
         bool addBottomItem(const QString& id, const QString& text, const QIcon& icon);
+        /**
+         * @brief Adds an item to the bottom of the list.
+         * @brief This item will not be selectable and will show the menu popup when clicked.
+         * @param id The id of the item
+         * @param text The text of the item
+         * @param icon The icon of the item
+         * @param menu The menu of the item
+         */
+        bool addBottomItem(const QString& id, const QString& text, const QIcon& icon, QMenu* menu);
         /**
          * @brief Removes an item from the list.
          * @param id The id of the item
