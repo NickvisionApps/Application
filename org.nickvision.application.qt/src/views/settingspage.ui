@@ -16,6 +16,9 @@
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
     <widget class="QTabWidget" name="tabs">
+     <property name="documentMode">
+      <bool>true</bool>
+     </property>
      <widget class="QWidget" name="tabUserInterface">
       <attribute name="title">
        <string/>
