@@ -30,6 +30,9 @@
     </property>
     <item>
      <layout class="QHBoxLayout" name="mainLayout">
+      <property name="spacing">
+       <number>0</number>
+      </property>
       <item>
        <widget class="QStackedWidget" name="viewStack">
         <property name="currentIndex">
@@ -136,9 +139,6 @@
         </widget>
         <widget class="QWidget" name="folderPage">
          <layout class="QVBoxLayout" name="verticalLayout_2">
-          <property name="spacing">
-           <number>12</number>
-          </property>
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_3">
             <item>

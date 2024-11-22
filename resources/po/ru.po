@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-20 14:04-0500\n"
+"POT-Creation-Date: 2024-11-22 13:12-0500\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -134,7 +134,7 @@ msgstr "Откройте или перетащите папку, чтобы на
 
 #. Localize Strings
 #: org.nickvision.application.gnome/blueprints/preferences_dialog.blp:12
-#: org.nickvision.application.qt/src/views/settingspage.cpp:18
+#: org.nickvision.application.qt/src/views/settingspage.cpp:17
 msgid "User Interface"
 msgstr "Интерфейс"
 
@@ -250,7 +250,6 @@ msgid "Help"
 msgstr ""
 
 #: org.nickvision.application.qt/src/views/mainwindow.cpp:55
-#: org.nickvision.application.qt/src/views/settingspage.cpp:16
 msgid "Settings"
 msgstr ""
 
@@ -258,7 +257,7 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
-#: org.nickvision.application.qt/src/views/settingspage.cpp:19
+#: org.nickvision.application.qt/src/views/settingspage.cpp:18
 msgid "Automatically Check for Updates"
 msgstr ""
 

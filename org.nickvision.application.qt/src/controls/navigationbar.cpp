@@ -11,6 +11,7 @@ namespace Nickvision::Application::QT::Controls
         m_line{ new QFrame(parent) }
     {
         setContentsMargins({ 6, 6, 0, 6 });
+        setSpacing(6);
         //Make Vertical Line
         m_line->setFrameShape(QFrame::VLine);
         m_line->setFrameShadow(QFrame::Sunken);

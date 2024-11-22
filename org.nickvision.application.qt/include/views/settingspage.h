@@ -36,13 +36,6 @@ namespace Nickvision::Application::QT::Views
          */
         void closeEvent(QCloseEvent* event) override;
 
-    private Q_SLOTS:
-        /**
-         * @brief Handles when the page is changed.
-         * @param index The index of the new page
-         */
-        void onPageChanged(int index);
-
     private:
         Ui::SettingsPage* m_ui;
         std::shared_ptr<Shared::Controllers::PreferencesViewController> m_controller;
