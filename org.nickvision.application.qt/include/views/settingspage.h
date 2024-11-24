@@ -36,6 +36,12 @@ namespace Nickvision::Application::QT::Views
          */
         void closeEvent(QCloseEvent* event) override;
 
+    private Q_SLOT:
+        /**
+         * @brief Handles when the theme is changed.
+         */
+        void onThemeChanged(int index);
+
     private:
         Ui::SettingsPage* m_ui;
         std::shared_ptr<Shared::Controllers::PreferencesViewController> m_controller;

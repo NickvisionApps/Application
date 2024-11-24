@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-22 13:12-0500\n"
+"POT-Creation-Date: 2024-11-24 17:00-0500\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -134,11 +134,12 @@ msgstr "Откройте или перетащите папку, чтобы на
 
 #. Localize Strings
 #: org.nickvision.application.gnome/blueprints/preferences_dialog.blp:12
-#: org.nickvision.application.qt/src/views/settingspage.cpp:17
+#: org.nickvision.application.qt/src/views/settingspage.cpp:19
 msgid "User Interface"
 msgstr "Интерфейс"
 
 #: org.nickvision.application.gnome/blueprints/preferences_dialog.blp:15
+#: org.nickvision.application.qt/src/views/settingspage.cpp:20
 msgid "Theme"
 msgstr "Тема"
 
@@ -257,7 +258,22 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
-#: org.nickvision.application.qt/src/views/settingspage.cpp:18
+#: org.nickvision.application.qt/src/views/settingspage.cpp:21
+#, fuzzy
+msgid "Light"
+msgstr "Светлая"
+
+#: org.nickvision.application.qt/src/views/settingspage.cpp:22
+#, fuzzy
+msgid "Dark"
+msgstr "Тёмная"
+
+#: org.nickvision.application.qt/src/views/settingspage.cpp:23
+#, fuzzy
+msgid "System"
+msgstr "Системная"
+
+#: org.nickvision.application.qt/src/views/settingspage.cpp:24
 msgid "Automatically Check for Updates"
 msgstr ""
 
