@@ -10,7 +10,7 @@
 #include <libnick/notifications/shellnotification.h>
 #include "controls/aboutdialog.h"
 #include "helpers/qthelpers.h"
-#include "views/settingsdialog.h"
+#include "views/settingspage.h"
 
 using namespace Nickvision::App;
 using namespace Nickvision::Application::QT::Controls;
@@ -23,43 +23,44 @@ using namespace Nickvision::Update;
 
 namespace Nickvision::Application::QT::Views
 {
+    enum Page
+    {
+        Home = 0,
+        Folder = 1,
+        Settings = 2
+    };
+
     MainWindow::MainWindow(const std::shared_ptr<MainWindowController>& controller, QWidget* parent) 
         : QMainWindow{ parent },
         m_ui{ new Ui::MainWindow() },
+        m_navigationBar{ new NavigationBar(this) },
         m_controller{ controller }
     {
         m_ui->setupUi(this);
+        m_ui->mainLayout->insertLayout(0, m_navigationBar);
         setWindowTitle(m_controller->getAppInfo().getVersion().getVersionType() == VersionType::Stable ? _("Application") : _("Application (Preview)"));
         setAcceptDrops(true);
-        //Localize Menu Strings
-        m_ui->menuFile->setTitle(_("File"));
-        m_ui->actionOpenFolder->setText(_("Open Folder"));
-        m_ui->actionCloseFolder->setText(_("Close Folder"));
-        m_ui->actionExit->setText(_("Exit"));
-        m_ui->menuEdit->setTitle(_("Edit"));
-        m_ui->actionSettings->setText(_("Settings"));
-        m_ui->menuHelp->setTitle(_("Help"));
-        m_ui->actionCheckForUpdates->setText(_("Check for Updates"));
-        m_ui->actionGitHubRepo->setText(_("GitHub Repo"));
-        m_ui->actionReportABug->setText(_("Report a Bug"));
-        m_ui->actionDiscussions->setText(_("Discussions"));
-        m_ui->actionAbout->setText(_("About Application"));
-        //Localize Home Page
+        //Navigation Bar
+        QMenu* helpMenu{ new QMenu(this) };
+        helpMenu->addAction(_("Check for Updates"), this, &MainWindow::checkForUpdates);
+        helpMenu->addSeparator();
+        helpMenu->addAction(_("GitHub Repo"), this, &MainWindow::gitHubRepo);
+        helpMenu->addAction(_("Report a Bug"), this, &MainWindow::reportABug);
+        helpMenu->addAction(_("Discussions"), this, &MainWindow::discussions);
+        helpMenu->addSeparator();
+        helpMenu->addAction(_("About"), this, &MainWindow::about);
+        m_navigationBar->addTopItem("home", _("Home"), QIcon::fromTheme(QIcon::ThemeIcon::GoHome));
+        m_navigationBar->addTopItem("folder", _("Folder"), QIcon::fromTheme(QIcon::ThemeIcon::FolderNew));
+        m_navigationBar->addBottomItem("help", _("Help"), QIcon::fromTheme(QIcon::ThemeIcon::HelpAbout), helpMenu);
+        m_navigationBar->addBottomItem("settings", _("Settings"), QIcon::fromTheme("document-properties"));
+        //Home Page
         m_ui->lblHomeGreeting->setText(QString::fromStdString(m_controller->getGreeting()));
         m_ui->lblHomeDescription->setText(_("Open a folder (or drag one into the app) to get started"));
         m_ui->btnHomeOpenFolder->setText(_("Open Folder"));
-        //Localize Folder Page
+        //Folder Page
         m_ui->btnFolderOpenFolder->setText(_("Open"));
         //Signals
-        connect(m_ui->actionOpenFolder, &QAction::triggered, this, &MainWindow::openFolder);
-        connect(m_ui->actionCloseFolder, &QAction::triggered, this, &MainWindow::closeFolder);
-        connect(m_ui->actionExit, &QAction::triggered, this, &MainWindow::exit);
-        connect(m_ui->actionSettings, &QAction::triggered, this, &MainWindow::settings);
-        connect(m_ui->actionCheckForUpdates, &QAction::triggered, this, &MainWindow::checkForUpdates);
-        connect(m_ui->actionGitHubRepo, &QAction::triggered, this, &MainWindow::gitHubRepo);
-        connect(m_ui->actionReportABug, &QAction::triggered, this, &MainWindow::reportABug);
-        connect(m_ui->actionDiscussions, &QAction::triggered, this, &MainWindow::discussions);
-        connect(m_ui->actionAbout, &QAction::triggered, this, &MainWindow::about);
+        connect(m_navigationBar, &NavigationBar::itemSelected, this, &MainWindow::onNavigationItemSelected);
         connect(m_ui->btnHomeOpenFolder, &QPushButton::clicked, this, &MainWindow::openFolder);
         connect(m_ui->btnFolderOpenFolder, &QPushButton::clicked, this, &MainWindow::openFolder);
         connect(m_ui->btnFolderCloseFolder, &QPushButton::clicked, this, &MainWindow::closeFolder);
@@ -92,6 +93,7 @@ namespace Nickvision::Application::QT::Views
         {
             setGeometry(QWidget::geometry().x(), QWidget::geometry().y(), geometry.getWidth(), geometry.getHeight());
         }
+        m_navigationBar->selectItem("home");
     }
 
     void MainWindow::closeEvent(QCloseEvent* event)
@@ -120,6 +122,32 @@ namespace Nickvision::Application::QT::Views
         }
     }
 
+    void MainWindow::onNavigationItemSelected(const QString& id)
+    {
+        //Cleanup and save settings
+        if(m_ui->viewStack->widget(Page::Settings))
+        {
+            SettingsPage* oldSettings{ qobject_cast<SettingsPage*>(m_ui->viewStack->widget(2)) };
+            oldSettings->close();
+            m_ui->viewStack->removeWidget(oldSettings);
+            delete oldSettings;
+        }
+        //Navigate to new page
+        if(id == "home")
+        {
+            m_ui->viewStack->setCurrentIndex(Page::Home);
+        }
+        else if(id == "folder")
+        {
+            m_ui->viewStack->setCurrentIndex(Page::Folder);
+        }
+        else if(id == "settings")
+        {
+            m_ui->viewStack->addWidget(new SettingsPage(m_controller->createPreferencesViewController(), this));
+            m_ui->viewStack->setCurrentIndex(Page::Settings);
+        }
+    }
+
     void MainWindow::openFolder()
     {
         QString path{ QFileDialog::getExistingDirectory(this, _("Open Folder"), {}, QFileDialog::ShowDirsOnly) };
@@ -129,17 +157,6 @@ namespace Nickvision::Application::QT::Views
     void MainWindow::closeFolder()
     {
         m_controller->closeFolder();
-    }
-
-    void MainWindow::exit()
-    {
-        close();
-    }
-
-    void MainWindow::settings()
-    {
-        SettingsDialog dialog{ m_controller->createPreferencesViewController(), this };
-        dialog.exec();
     }
 
     void MainWindow::checkForUpdates()
@@ -223,11 +240,19 @@ namespace Nickvision::Application::QT::Views
 
     void MainWindow::onFolderChanged(const EventArgs& args)
     {
-        m_ui->viewStack->setCurrentIndex(m_controller->isFolderOpened() ? 1 : 0);
-        m_ui->lblFiles->setText(QString::fromStdString(std::vformat(_n("There is {} file in the folder.", "There are {} files in the folder.", m_controller->getFiles().size()), std::make_format_args(CodeHelpers::unmove(m_controller->getFiles().size())))));
-        for(const std::filesystem::path& file : m_controller->getFiles())
+        if(m_controller->isFolderOpened())
         {
-            m_ui->listFiles->addItem(QString::fromStdString(file.filename().string()));
+            m_navigationBar->selectItem("folder");
+            m_ui->lblFiles->setText(QString::fromStdString(std::vformat(_n("There is {} file in the folder.", "There are {} files in the folder.", m_controller->getFiles().size()), std::make_format_args(CodeHelpers::unmove(m_controller->getFiles().size())))));
+            for(const std::filesystem::path& file : m_controller->getFiles())
+            {
+                m_ui->listFiles->addItem(QString::fromStdString(file.filename().string()));
+            }
+        }
+        else
+        {
+            m_navigationBar->selectItem("home");
+            m_ui->listFiles->clear();
         }
     }
 }

@@ -1,6 +1,8 @@
 #include "application.h"
+#include <QStyleHints>
 
 using namespace Nickvision::Application::Shared::Controllers;
+using namespace Nickvision::Application::Shared::Models;
 
 namespace Nickvision::Application::QT
 {
@@ -9,12 +11,28 @@ namespace Nickvision::Application::QT
         m_controller{ std::make_shared<MainWindowController>(std::vector<std::string>(argv, argv + argc)) },
         m_mainWindow{ nullptr }
     {
-    
+        //Set Fusion style on Windows 10 for dark mode support
+        if (QSysInfo::productType() == "windows" && QSysInfo::productVersion() == "10")
+        {
+            QApplication::setStyle("Fusion");
+        }
     }
 
     int Application::exec()
     {
         m_controller->log(Logging::LogLevel::Info, "Started QT application.");
+        switch (m_controller->getTheme())
+        {
+        case Theme::Light:
+            QApplication::styleHints()->setColorScheme(Qt::ColorScheme::Light);
+            break;
+        case Theme::Dark:
+            QApplication::styleHints()->setColorScheme(Qt::ColorScheme::Dark);
+            break;
+        default:
+            QApplication::styleHints()->setColorScheme(Qt::ColorScheme::Unknown);
+            break;
+        }
         m_mainWindow = std::make_shared<Views::MainWindow>(m_controller);
         m_mainWindow->show();
         return QApplication::exec();

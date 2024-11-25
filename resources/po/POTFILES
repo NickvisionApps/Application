@@ -5,4 +5,4 @@ org.nickvision.application.gnome/blueprints/shortcuts_dialog.blp
 org.nickvision.application.gnome/src/views/mainwindow.cpp
 org.nickvision.application.qt/src/controls/aboutdialog.cpp
 org.nickvision.application.qt/src/views/mainwindow.cpp
-org.nickvision.application.qt/src/views/settingsdialog.cpp
+org.nickvision.application.qt/src/views/settingspage.cpp
