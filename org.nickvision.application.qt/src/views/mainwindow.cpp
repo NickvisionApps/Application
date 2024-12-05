@@ -26,8 +26,8 @@ namespace Nickvision::Application::QT::Views
     enum Page
     {
         Home = 0,
-        Folder = 1,
-        Settings = 2
+        Folder,
+        Settings
     };
 
     MainWindow::MainWindow(const std::shared_ptr<MainWindowController>& controller, QWidget* parent) 
@@ -77,7 +77,6 @@ namespace Nickvision::Application::QT::Views
     void MainWindow::show()
     {
         QMainWindow::show();
-        m_ui->viewStack->setCurrentIndex(0);
 #ifdef _WIN32
         WindowGeometry geometry{ m_controller->startup(reinterpret_cast<HWND>(winId())) };
 #elif defined(__linux__)
@@ -127,7 +126,7 @@ namespace Nickvision::Application::QT::Views
         //Cleanup and save settings
         if(m_ui->viewStack->widget(Page::Settings))
         {
-            SettingsPage* oldSettings{ qobject_cast<SettingsPage*>(m_ui->viewStack->widget(2)) };
+            SettingsPage* oldSettings{ qobject_cast<SettingsPage*>(m_ui->viewStack->widget(Page::Settings)) };
             oldSettings->close();
             m_ui->viewStack->removeWidget(oldSettings);
             delete oldSettings;
