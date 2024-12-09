@@ -52,7 +52,11 @@ namespace Nickvision::Application::QT::Views
         m_navigationBar->addTopItem("home", _("Home"), QIcon::fromTheme(QIcon::ThemeIcon::GoHome));
         m_navigationBar->addTopItem("folder", _("Folder"), QIcon::fromTheme(QIcon::ThemeIcon::FolderNew));
         m_navigationBar->addBottomItem("help", _("Help"), QIcon::fromTheme(QIcon::ThemeIcon::HelpAbout), helpMenu);
+#ifdef _WIN32
         m_navigationBar->addBottomItem("settings", _("Settings"), QIcon::fromTheme("document-properties"));
+#else
+        m_navigationBar->addBottomItem("settings", _("Settings"), QIcon::fromTheme(QIcon::ThemeIcon::DocumentProperties));
+#endif
         //Home Page
         m_ui->lblHomeGreeting->setText(QString::fromStdString(m_controller->getGreeting()));
         m_ui->lblHomeDescription->setText(_("Open a folder (or drag one into the app) to get started"));
@@ -123,7 +127,7 @@ namespace Nickvision::Application::QT::Views
 
     void MainWindow::onNavigationItemSelected(const QString& id)
     {
-        //Cleanup and save settings
+        //Save and ensure new SettingsPage
         if(m_ui->viewStack->widget(Page::Settings))
         {
             SettingsPage* oldSettings{ qobject_cast<SettingsPage*>(m_ui->viewStack->widget(Page::Settings)) };
@@ -131,6 +135,7 @@ namespace Nickvision::Application::QT::Views
             m_ui->viewStack->removeWidget(oldSettings);
             delete oldSettings;
         }
+        m_ui->viewStack->insertWidget(Page::Settings, new SettingsPage(m_controller->createPreferencesViewController(), this));
         //Navigate to new page
         if(id == "home")
         {
@@ -142,7 +147,6 @@ namespace Nickvision::Application::QT::Views
         }
         else if(id == "settings")
         {
-            m_ui->viewStack->addWidget(new SettingsPage(m_controller->createPreferencesViewController(), this));
             m_ui->viewStack->setCurrentIndex(Page::Settings);
         }
     }
