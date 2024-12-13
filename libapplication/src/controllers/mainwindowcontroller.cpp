@@ -106,16 +106,18 @@ namespace Nickvision::Application::Shared::Controllers
     }
 
 #ifdef _WIN32
-    Nickvision::App::WindowGeometry MainWindowController::startup(HWND hwnd)
+    StartupInformation MainWindowController::startup(HWND hwnd)
 #elif defined(__linux__)
-    Nickvision::App::WindowGeometry MainWindowController::startup(const std::string& desktopFile)
+    StartupInformation MainWindowController::startup(const std::string& desktopFile)
 #else
-    Nickvision::App::WindowGeometry MainWindowController::startup()
+    StartupInformation MainWindowController::startup()
 #endif
     {
+        StartupInformation info;
+        info.setWindowGeometry(m_dataFileManager.get<Configuration>("config").getWindowGeometry());
         if (m_started)
         {
-            return m_dataFileManager.get<Configuration>("config").getWindowGeometry();
+            return info;
         }
 #ifdef _WIN32
         if(m_taskbar.connect(hwnd))
@@ -141,7 +143,7 @@ namespace Nickvision::Application::Shared::Controllers
         }
 #endif
         m_started = true;
-        return m_dataFileManager.get<Configuration>("config").getWindowGeometry();
+        return info;
     }
 
     void MainWindowController::shutdown(const WindowGeometry& geometry)

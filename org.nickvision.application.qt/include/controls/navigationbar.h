@@ -27,6 +27,11 @@ namespace Nickvision::Application::QT::Controls
          */
         NavigationBar(QWidget* parent = nullptr);
         /**
+         * @brief Gets the id of the selected item.
+         * @return The id of the selected item
+         */
+        const QString& getSelectedItem() const;
+        /**
          * @brief Adds an item to the top of the list.
          * @param id The id of the item
          * @param text The text of the item
@@ -68,6 +73,18 @@ namespace Nickvision::Application::QT::Controls
          * @param id The id of the item
          */
         bool selectItem(const QString& id);
+        /**
+         * @brief Changes the text of an item.
+         * @param id The id of the item
+         * @param text The new text of the item
+         */
+        bool changeItemText(const QString& id, const QString& text);
+        /**
+         * @brief Changes the icon of an item.
+         * @param id The id of the item
+         * @param icon The new icon of the item
+         */
+        bool changeItemIcon(const QString& id, const QIcon& icon);
 
     Q_SIGNALS:
         /**

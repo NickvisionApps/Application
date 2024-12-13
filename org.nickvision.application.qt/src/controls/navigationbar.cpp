@@ -23,6 +23,19 @@ namespace Nickvision::Application::QT::Controls
         addWidget(m_line);
     }
 
+    const QString& NavigationBar::getSelectedItem() const
+    {
+        for(const std::pair<const QString, QCommandLinkButton*>& pair : m_buttons)
+        {
+            if(pair.second->isChecked())
+            {
+                return pair.first;
+            }
+        }
+        static QString empty;
+        return empty;
+    }
+
     bool NavigationBar::addTopItem(const QString& id, const QString& text, const QIcon& icon)
     {
         if(m_buttons.contains(id))
@@ -119,6 +132,26 @@ namespace Nickvision::Application::QT::Controls
                 pair.second->setChecked(false);
             }
         }
+        return true;
+    }
+
+    bool NavigationBar::changeItemText(const QString& id, const QString& text)
+    {
+        if(!m_buttons.contains(id))
+        {
+            return false;
+        }
+        m_buttons[id]->setText(text);
+        return true;
+    }
+
+    bool NavigationBar::changeItemIcon(const QString& id, const QIcon& icon)
+    {
+        if(!m_buttons.contains(id))
+        {
+            return false;
+        }
+        m_buttons[id]->setIcon(icon);
         return true;
     }
 

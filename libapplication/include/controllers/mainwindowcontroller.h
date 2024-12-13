@@ -20,6 +20,7 @@
 #include <libnick/update/updater.h>
 #include "controllers/preferencesviewcontroller.h"
 #include "models/theme.h"
+#include "models/startupinformation.h"
 
 namespace Nickvision::Application::Shared::Controllers
 {
@@ -77,15 +78,15 @@ namespace Nickvision::Application::Shared::Controllers
         std::shared_ptr<PreferencesViewController> createPreferencesViewController();
         /**
          * @brief Starts the application.
-         * @brief Will only have an effect on the first time called.
-         * @return The WindowGeometry to use for the application window at startup
+         * @brief Will only have an effect the first time called.
+         * @return The StartupInformation for the application
          */
 #ifdef _WIN32
-        Nickvision::App::WindowGeometry startup(HWND hwnd);
+        Models::StartupInformation startup(HWND hwnd);
 #elif defined(__linux__)
-        Nickvision::App::WindowGeometry startup(const std::string& desktopFile);
+        Models::StartupInformation startup(const std::string& desktopFile);
 #else     
-        Nickvision::App::WindowGeometry startup();
+        Models::StartupInformation startup();
 #endif
         /**
          * @brief Shuts down the application.

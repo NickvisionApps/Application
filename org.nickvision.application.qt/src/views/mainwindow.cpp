@@ -16,6 +16,7 @@ using namespace Nickvision::App;
 using namespace Nickvision::Application::QT::Controls;
 using namespace Nickvision::Application::QT::Helpers;
 using namespace Nickvision::Application::Shared::Controllers;
+using namespace Nickvision::Application::Shared::Models;
 using namespace Nickvision::Events;
 using namespace Nickvision::Helpers;
 using namespace Nickvision::Notifications;
@@ -39,7 +40,6 @@ namespace Nickvision::Application::QT::Views
         m_ui->setupUi(this);
         m_ui->mainLayout->insertLayout(0, m_navigationBar);
         setWindowTitle(m_controller->getAppInfo().getVersion().getVersionType() == VersionType::Stable ? _("Application") : _("Application (Preview)"));
-        setAcceptDrops(true);
         //Navigation Bar
         QMenu* helpMenu{ new QMenu(this) };
         helpMenu->addAction(_("Check for Updates"), this, &MainWindow::checkForUpdates);
@@ -82,19 +82,19 @@ namespace Nickvision::Application::QT::Views
     {
         QMainWindow::show();
 #ifdef _WIN32
-        WindowGeometry geometry{ m_controller->startup(reinterpret_cast<HWND>(winId())) };
+        StartupInformation info{ m_controller->startup(reinterpret_cast<HWND>(winId())) };
 #elif defined(__linux__)
-        WindowGeometry geometry{ m_controller->startup(m_controller->getAppInfo().getId() + ".desktop") };
+        StartupInformation info{ m_controller->startup(m_controller->getAppInfo().getId() + ".desktop") };
 #else
-        WindowGeometry geometry{ m_controller->startup() };
+        StartupInformation info{ m_controller->startup() };
 #endif
-        if(geometry.isMaximized())
+        if(info.getWindowGeometry().isMaximized())
         {
             showMaximized();
         }
         else
         {
-            setGeometry(QWidget::geometry().x(), QWidget::geometry().y(), geometry.getWidth(), geometry.getHeight());
+            setGeometry(QWidget::geometry().x(), QWidget::geometry().y(), info.getWindowGeometry().getWidth(), info.getWindowGeometry().getHeight());
         }
         m_navigationBar->selectItem("home");
     }

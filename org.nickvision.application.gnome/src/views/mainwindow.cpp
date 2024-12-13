@@ -12,6 +12,7 @@
 using namespace Nickvision::App;
 using namespace Nickvision::Application::GNOME::Helpers;
 using namespace Nickvision::Application::Shared::Controllers;
+using namespace Nickvision::Application::Shared::Models;
 using namespace Nickvision::Events;
 using namespace Nickvision::Helpers;
 using namespace Nickvision::Notifications;
@@ -85,12 +86,12 @@ namespace Nickvision::Application::GNOME::Views
     {
         gtk_window_present(GTK_WINDOW(m_window));
 #ifdef __linux__
-        WindowGeometry geometry{ m_controller->startup(m_controller->getAppInfo().getId() + ".desktop") };
+        StartupInformation info{ m_controller->startup(m_controller->getAppInfo().getId() + ".desktop") };
 #else
-        WindowGeometry geometry{ m_controller->startup() };
+        StartupInformation info{ m_controller->startup() };
 #endif
-        gtk_window_set_default_size(GTK_WINDOW(m_window), static_cast<int>(geometry.getWidth()), static_cast<int>(geometry.getHeight()));
-        if(geometry.isMaximized())
+        gtk_window_set_default_size(GTK_WINDOW(m_window), static_cast<int>(info.getWindowGeometry().getWidth()), static_cast<int>(info.getWindowGeometry().getHeight()));
+        if(info.getWindowGeometry().isMaximized())
         {
             gtk_window_maximize(GTK_WINDOW(m_window));
         }
