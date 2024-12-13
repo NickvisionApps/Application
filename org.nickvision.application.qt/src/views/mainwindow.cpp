@@ -82,11 +82,11 @@ namespace Nickvision::Application::QT::Views
     {
         QMainWindow::show();
 #ifdef _WIN32
-        StartupInformation info{ m_controller->startup(reinterpret_cast<HWND>(winId())) };
+        const StartupInformation& info{ m_controller->startup(reinterpret_cast<HWND>(winId())) };
 #elif defined(__linux__)
-        StartupInformation info{ m_controller->startup(m_controller->getAppInfo().getId() + ".desktop") };
+        const StartupInformation& info{ m_controller->startup(m_controller->getAppInfo().getId() + ".desktop") };
 #else
-        StartupInformation info{ m_controller->startup() };
+        const StartupInformation& info{ m_controller->startup() };
 #endif
         if(info.getWindowGeometry().isMaximized())
         {

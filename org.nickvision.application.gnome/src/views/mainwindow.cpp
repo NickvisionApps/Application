@@ -86,9 +86,9 @@ namespace Nickvision::Application::GNOME::Views
     {
         gtk_window_present(GTK_WINDOW(m_window));
 #ifdef __linux__
-        StartupInformation info{ m_controller->startup(m_controller->getAppInfo().getId() + ".desktop") };
+        const StartupInformation& info{ m_controller->startup(m_controller->getAppInfo().getId() + ".desktop") };
 #else
-        StartupInformation info{ m_controller->startup() };
+        const StartupInformation& info{ m_controller->startup() };
 #endif
         gtk_window_set_default_size(GTK_WINDOW(m_window), static_cast<int>(info.getWindowGeometry().getWidth()), static_cast<int>(info.getWindowGeometry().getHeight()));
         if(info.getWindowGeometry().isMaximized())

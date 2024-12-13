@@ -19,8 +19,8 @@
 #include <libnick/taskbar/taskbaritem.h>
 #include <libnick/update/updater.h>
 #include "controllers/preferencesviewcontroller.h"
-#include "models/theme.h"
 #include "models/startupinformation.h"
+#include "models/theme.h"
 
 namespace Nickvision::Application::Shared::Controllers
 {
@@ -82,11 +82,11 @@ namespace Nickvision::Application::Shared::Controllers
          * @return The StartupInformation for the application
          */
 #ifdef _WIN32
-        Models::StartupInformation startup(HWND hwnd);
+        const Models::StartupInformation& startup(HWND hwnd);
 #elif defined(__linux__)
-        Models::StartupInformation startup(const std::string& desktopFile);
+        const Models::StartupInformation& startup(const std::string& desktopFile);
 #else     
-        Models::StartupInformation startup();
+        const Models::StartupInformation& startup();
 #endif
         /**
          * @brief Shuts down the application.

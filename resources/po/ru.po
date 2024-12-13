@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-13 10:32-0500\n"
+"POT-Creation-Date: 2024-12-13 10:46-0500\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -48,42 +48,42 @@ msgstr "Давид Лапшин"
 msgid "translator-credits"
 msgstr "Фёдор Соболев https://github.com/fsobolev"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:171
+#: libapplication/src/controllers/mainwindowcontroller.cpp:173
 msgid "New update available"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:203
+#: libapplication/src/controllers/mainwindowcontroller.cpp:205
 msgid "Unable to download and install update"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:221
+#: libapplication/src/controllers/mainwindowcontroller.cpp:223
 msgctxt "Night"
 msgid "Good Morning!"
 msgstr "Доброй ночи!"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:225
+#: libapplication/src/controllers/mainwindowcontroller.cpp:227
 msgctxt "Morning"
 msgid "Good Morning!"
 msgstr "Доброе утро!"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:229
+#: libapplication/src/controllers/mainwindowcontroller.cpp:231
 msgid "Good Afternoon!"
 msgstr "Добрый день!"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:233
+#: libapplication/src/controllers/mainwindowcontroller.cpp:235
 msgid "Good Evening!"
 msgstr "Добрый вечер!"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:235
+#: libapplication/src/controllers/mainwindowcontroller.cpp:237
 msgid "Good Day!"
 msgstr "Здравствуйте!"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:264
+#: libapplication/src/controllers/mainwindowcontroller.cpp:266
 #, fuzzy, c++-format
 msgid "Folder Opened: {}"
 msgstr "Папка открыта: {0}"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:279
+#: libapplication/src/controllers/mainwindowcontroller.cpp:281
 #, fuzzy
 msgid "Folder closed"
 msgstr "Папка закрыта."

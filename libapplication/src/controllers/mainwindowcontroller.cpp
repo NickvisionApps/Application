@@ -106,19 +106,21 @@ namespace Nickvision::Application::Shared::Controllers
     }
 
 #ifdef _WIN32
-    StartupInformation MainWindowController::startup(HWND hwnd)
+    const StartupInformation& MainWindowController::startup(HWND hwnd)
 #elif defined(__linux__)
-    StartupInformation MainWindowController::startup(const std::string& desktopFile)
+    const StartupInformation& MainWindowController::startup(const std::string& desktopFile)
 #else
-    StartupInformation MainWindowController::startup()
+    const StartupInformation& MainWindowController::startup()
 #endif
     {
-        StartupInformation info;
-        info.setWindowGeometry(m_dataFileManager.get<Configuration>("config").getWindowGeometry());
+        static StartupInformation info;
         if (m_started)
         {
             return info;
         }
+        //Load configuration
+        info.setWindowGeometry(m_dataFileManager.get<Configuration>("config").getWindowGeometry());
+        //Load taskbar item
 #ifdef _WIN32
         if(m_taskbar.connect(hwnd))
         {
