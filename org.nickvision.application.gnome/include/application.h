@@ -33,7 +33,7 @@ namespace Nickvision::Application::GNOME
          * @brief Handles starting the application.
          * @param app The GtkApplication for the running app 
          */
-        void onActivate(GtkApplication* app);
+        void onStartup(GtkApplication* app);
         std::shared_ptr<Shared::Controllers::MainWindowController> m_controller;
         AdwApplication* m_adw;
         std::shared_ptr<Views::MainWindow> m_mainWindow;

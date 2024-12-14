@@ -22,17 +22,17 @@ namespace Nickvision::Application::GNOME
             throw std::runtime_error(resourceLoadError->message);
         }
         g_resources_register(resource);
-        g_signal_connect(m_adw, "activate", G_CALLBACK(+[](GtkApplication* app, gpointer data){ reinterpret_cast<Application*>(data)->onActivate(app); }), this);
+        g_signal_connect(m_adw, "startup", G_CALLBACK(+[](GtkApplication* app, gpointer data){ reinterpret_cast<Application*>(data)->onStartup(app); }), this);
     }
 
     int Application::run()
     {
-        m_controller->log(Logging::LogLevel::Info, "Started GTK application.");
         return g_application_run(G_APPLICATION(m_adw), 0, nullptr);
     }
 
-    void Application::onActivate(GtkApplication* app)
+    void Application::onStartup(GtkApplication* app)
     {
+        m_controller->log(Logging::LogLevel::Info, "Started GTK application.");
         switch (m_controller->getTheme())
         {
         case Theme::Light:
