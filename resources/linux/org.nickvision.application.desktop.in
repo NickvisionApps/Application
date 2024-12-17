@@ -8,5 +8,5 @@ Terminal=false
 Type=Application
 Categories=Utility;
 Keywords=Template;Nickvision;
-X-GNOME-UsesNotifications=true
+X-GNOME-UsesNotifications=@GNOME_NOTIFICATIONS@
 StartupNotify=@STARTUP_NOTIFY@
