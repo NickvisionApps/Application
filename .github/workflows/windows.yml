@@ -23,10 +23,12 @@ jobs:
         with:
           submodules: recursive
       - name: "Setup Environment"
+        shell: pwsh
         run: |
+          $ProgressPreference = 'SilentlyContinue'
           mkdir build
-          powershell -command "Invoke-WebRequest https://github.com/mlocati/gettext-iconv-windows/releases/download/v0.21-v1.16/gettext0.21-iconv1.16-shared-64.zip -OutFile gettext.zip"
-          powershell -command "Expand-Archive -Force 'gettext.zip'"
+          Invoke-WebRequest https://github.com/mlocati/gettext-iconv-windows/releases/download/v0.21-v1.16/gettext0.21-iconv1.16-shared-64.zip -OutFile gettext.zip
+          Expand-Archive -Force 'gettext.zip'
           move gettext\bin\* C:\Windows\System32
           choco install innosetup
       - name: "Vcpkg"
@@ -45,8 +47,10 @@ jobs:
           cmake --build . --config Release
       - name: "Create Installer"
         working-directory: ${{github.workspace}}/inno
+        shell: pwsh
         run: |
-          powershell -command "Invoke-WebRequest https://aka.ms/vs/17/release/vc_redist.x64.exe -OutFile vc_redist.x64.exe"
+          $ProgressPreference = 'SilentlyContinue'
+          Invoke-WebRequest https://aka.ms/vs/17/release/vc_redist.x64.exe -OutFile vc_redist.x64.exe
           iscc setup.iss
       - name: Upload
         uses: actions/upload-artifact@v4
