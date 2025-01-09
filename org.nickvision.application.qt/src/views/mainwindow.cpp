@@ -13,8 +13,8 @@
 #include "views/settingspage.h"
 
 using namespace Nickvision::App;
-using namespace Nickvision::Application::QT::Controls;
-using namespace Nickvision::Application::QT::Helpers;
+using namespace Nickvision::Application::Qt::Controls;
+using namespace Nickvision::Application::Qt::Helpers;
 using namespace Nickvision::Application::Shared::Controllers;
 using namespace Nickvision::Application::Shared::Models;
 using namespace Nickvision::Events;
@@ -22,7 +22,7 @@ using namespace Nickvision::Helpers;
 using namespace Nickvision::Notifications;
 using namespace Nickvision::Update;
 
-namespace Nickvision::Application::QT::Views
+namespace Nickvision::Application::Qt::Views
 {
     enum Page
     {
@@ -68,7 +68,7 @@ namespace Nickvision::Application::QT::Views
         connect(m_ui->btnHomeOpenFolder, &QPushButton::clicked, this, &MainWindow::openFolder);
         connect(m_ui->btnFolderOpenFolder, &QPushButton::clicked, this, &MainWindow::openFolder);
         connect(m_ui->btnFolderCloseFolder, &QPushButton::clicked, this, &MainWindow::closeFolder);
-        m_controller->notificationSent() += [&](const NotificationSentEventArgs& args) { QTHelpers::dispatchToMainThread([this, args]() { onNotificationSent(args); }); };
+        m_controller->notificationSent() += [&](const NotificationSentEventArgs& args) { QtHelpers::dispatchToMainThread([this, args]() { onNotificationSent(args); }); };
         m_controller->shellNotificationSent() += [&](const ShellNotificationSentEventArgs& args) { onShellNotificationSent(args); };
         m_controller->folderChanged() += [&](const EventArgs& args) { onFolderChanged(args); };
     }

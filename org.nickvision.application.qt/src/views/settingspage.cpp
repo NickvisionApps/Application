@@ -7,7 +7,7 @@
 using namespace Nickvision::Application::Shared::Controllers;
 using namespace Nickvision::Application::Shared::Models;
 
-namespace Nickvision::Application::QT::Views
+namespace Nickvision::Application::Qt::Views
 {
     SettingsPage::SettingsPage(const std::shared_ptr<PreferencesViewController>& controller, QWidget* parent)
         : QWidget{ parent },
@@ -40,13 +40,13 @@ namespace Nickvision::Application::QT::Views
         switch (static_cast<Theme>(m_ui->cmbTheme->currentIndex()))
         {
         case Theme::Light:
-            QApplication::styleHints()->setColorScheme(Qt::ColorScheme::Light);
+            QApplication::styleHints()->setColorScheme(::Qt::ColorScheme::Light);
             break;
         case Theme::Dark:
-            QApplication::styleHints()->setColorScheme(Qt::ColorScheme::Dark);
+            QApplication::styleHints()->setColorScheme(::Qt::ColorScheme::Dark);
             break;
         default:
-            QApplication::styleHints()->setColorScheme(Qt::ColorScheme::Unknown);
+            QApplication::styleHints()->setColorScheme(::Qt::ColorScheme::Unknown);
             break;
         }
     }

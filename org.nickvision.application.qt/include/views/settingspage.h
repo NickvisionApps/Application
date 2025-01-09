@@ -8,7 +8,7 @@
 
 namespace Ui { class SettingsPage; }
 
-namespace Nickvision::Application::QT::Views
+namespace Nickvision::Application::Qt::Views
 {
     /**
      * @brief The settings page for the application.

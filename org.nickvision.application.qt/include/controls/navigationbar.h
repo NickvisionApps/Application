@@ -11,7 +11,7 @@
 #include <QString>
 #include <QVBoxLayout>
 
-namespace Nickvision::Application::QT::Controls
+namespace Nickvision::Application::Qt::Controls
 {
     /**
      * @brief A navigation side bar that can be used to display a list of items to navigate to.

@@ -1,6 +1,6 @@
 #include "application.h"
 
-using namespace Nickvision::Application::QT;
+using namespace Nickvision::Application::Qt;
 
 int main(int argc, char *argv[]) 
 {

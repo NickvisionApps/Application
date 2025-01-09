@@ -1,6 +1,6 @@
 #include "controls/navigationbar.h"
 
-namespace Nickvision::Application::QT::Controls
+namespace Nickvision::Application::Qt::Controls
 {
     NavigationBar::NavigationBar(QWidget* parent)
         : QHBoxLayout{ parent },

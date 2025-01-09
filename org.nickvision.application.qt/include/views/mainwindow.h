@@ -11,7 +11,7 @@
 
 namespace Ui { class MainWindow; }
 
-namespace Nickvision::Application::QT::Views
+namespace Nickvision::Application::Qt::Views
 {
     /**
      * @brief The main window for the application.

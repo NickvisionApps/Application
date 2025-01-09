@@ -53,7 +53,7 @@
   <releases>
     <release version="2025.1.0-next" date="2025-01-01">
       <description translate="no">
-        <p>Initial Release.</p>
+        <p>- Initial Release</p>
       </description>
     </release>
   </releases>
