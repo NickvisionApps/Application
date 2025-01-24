@@ -27,7 +27,7 @@ jobs:
         run: |
           $ProgressPreference = 'SilentlyContinue'
           mkdir build
-          Invoke-WebRequest https://github.com/mlocati/gettext-iconv-windows/releases/download/v0.21-v1.16/gettext0.21-iconv1.16-shared-64.zip -OutFile gettext.zip
+          Invoke-WebRequest https://github.com/mlocati/gettext-iconv-windows/releases/download/v0.23-v1.17/gettext0.23-iconv1.17-shared-64.zip -OutFile gettext.zip
           Expand-Archive -Force 'gettext.zip'
           move gettext\bin\* C:\Windows\System32
           choco install innosetup
@@ -37,7 +37,7 @@ jobs:
         with:
           pkgs: libnick qtbase qtsvg qttools
           triplet: x64-windows
-          revision: cf035d9916a0a23042b41fcae7ee0386d245af08
+          revision: 4a9af5e5efcb24d0c8fcdf82dacf3b2b780b99f8
           token: ${{ secrets.GITHUB_TOKEN }}
           github-binarycache: true
       - name: "Build"

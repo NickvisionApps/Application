@@ -31,7 +31,7 @@ jobs:
           arch: ${{ matrix.arch }}
           restore-cache: true
   qt-flatpak:
-    name: "QT on Flatpak"
+    name: "Qt on Flatpak"
     runs-on: ubuntu-latest
     if: ${{ github.event.pull_request.user.login != 'weblate' }}
     container:

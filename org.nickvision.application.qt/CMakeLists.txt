@@ -27,7 +27,7 @@ qt_add_executable(${OUTPUT_NAME}
     "src/application.cpp"
     "src/main.cpp"
     "${OUTPUT_NAME}.qrc"
-    "${OUTPUT_NAME}.rc")
+    "../resources/windows/${PROJECT_NAME}.rc")
 target_include_directories(${OUTPUT_NAME} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
 target_link_libraries(${OUTPUT_NAME} PRIVATE libapplication Qt6::Core Qt6::Gui Qt6::Widgets Qt6::Svg)
 if(WIN32)
