@@ -11,14 +11,15 @@ qt_standard_project_setup()
 
 qt_add_executable(${OUTPUT_NAME}
     "include/controls/aboutdialog.h"
-    "include/controls/navigationbar.h"
+    "include/controls/infobar.h"
     "include/helpers/qthelpers.h"
     "include/views/mainwindow.h"
     "include/views/settingspage.h"
     "include/application.h"
     "src/controls/aboutdialog.ui"
     "src/controls/aboutdialog.cpp"
-    "src/controls/navigationbar.cpp"
+    "src/controls/infobar.ui"
+    "src/controls/infobar.cpp"
     "src/helpers/qthelpers.cpp"
     "src/views/mainwindow.ui"
     "src/views/mainwindow.cpp"
