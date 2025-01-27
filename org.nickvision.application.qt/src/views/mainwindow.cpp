@@ -24,6 +24,12 @@ using namespace Nickvision::Update;
 
 namespace Nickvision::Application::Qt::Views
 {
+    enum MainWindowPage
+    {
+        Home = 0,
+        Folder
+    };
+
     MainWindow::MainWindow(const std::shared_ptr<MainWindowController>& controller, QWidget* parent) 
         : QMainWindow{ parent },
         m_ui{ new Ui::MainWindow() },
@@ -33,6 +39,19 @@ namespace Nickvision::Application::Qt::Views
         m_ui->setupUi(this);
         setWindowTitle(m_controller->getAppInfo().getVersion().getVersionType() == VersionType::Stable ? _("Application") : _("Application (Preview)"));
         addDockWidget(::Qt::TopDockWidgetArea, m_infoBar);
+        //MenuBar
+        m_ui->menuFile->setTitle(_("File"));
+        m_ui->actionOpenFolder->setText(_("Open Folder"));
+        m_ui->actionCloseFolder->setText(_("Close Folder"));
+        m_ui->actionExit->setText(_("Exit"));
+        m_ui->menuEdit->setTitle(_("Edit"));
+        m_ui->actionSettings->setText(_("Settings"));
+        m_ui->menuHelp->setTitle(_("Help"));
+        m_ui->actionCheckForUpdates->setText(_("Check for Updates"));
+        m_ui->actionGitHubRepo->setText(_("GitHub Repo"));
+        m_ui->actionReportABug->setText(_("Report a Bug"));
+        m_ui->actionDiscussions->setText(_("Discussions"));
+        m_ui->actionAbout->setText(_("About Application"));
         //Home Page
         m_ui->lblHomeGreeting->setText(QString::fromStdString(m_controller->getGreeting()));
         m_ui->lblHomeDescription->setText(_("Open a folder (or drag one into the app) to get started"));
@@ -40,6 +59,15 @@ namespace Nickvision::Application::Qt::Views
         //Folder Page
         m_ui->btnFolderOpenFolder->setText(_("Open"));
         //Signals
+        connect(m_ui->actionOpenFolder, &QAction::triggered, this, &MainWindow::openFolder);
+        connect(m_ui->actionCloseFolder, &QAction::triggered, this, &MainWindow::closeFolder);
+        connect(m_ui->actionExit, &QAction::triggered, this, &MainWindow::close);
+        connect(m_ui->actionSettings, &QAction::triggered, this, &MainWindow::settings);
+        connect(m_ui->actionCheckForUpdates, &QAction::triggered, this, &MainWindow::checkForUpdates);
+        connect(m_ui->actionGitHubRepo, &QAction::triggered, this, &MainWindow::gitHubRepo);
+        connect(m_ui->actionReportABug, &QAction::triggered, this, &MainWindow::reportABug);
+        connect(m_ui->actionDiscussions, &QAction::triggered, this, &MainWindow::discussions);
+        connect(m_ui->actionAbout, &QAction::triggered, this, &MainWindow::about);
         connect(m_ui->btnHomeOpenFolder, &QPushButton::clicked, this, &MainWindow::openFolder);
         connect(m_ui->btnFolderOpenFolder, &QPushButton::clicked, this, &MainWindow::openFolder);
         connect(m_ui->btnFolderCloseFolder, &QPushButton::clicked, this, &MainWindow::closeFolder);
@@ -108,6 +136,11 @@ namespace Nickvision::Application::Qt::Views
     void MainWindow::closeFolder()
     {
         m_controller->closeFolder();
+    }
+
+    void MainWindow::settings()
+    {
+
     }
 
     void MainWindow::checkForUpdates()
@@ -180,6 +213,7 @@ namespace Nickvision::Application::Qt::Views
     {
         if(m_controller->isFolderOpened())
         {
+            m_ui->viewStack->setCurrentIndex(MainWindowPage::Folder);
             m_ui->lblFiles->setText(QString::fromStdString(std::vformat(_n("There is {} file in the folder.", "There are {} files in the folder.", m_controller->getFiles().size()), std::make_format_args(CodeHelpers::unmove(m_controller->getFiles().size())))));
             for(const std::filesystem::path& file : m_controller->getFiles())
             {
@@ -188,6 +222,7 @@ namespace Nickvision::Application::Qt::Views
         }
         else
         {
+            m_ui->viewStack->setCurrentIndex(MainWindowPage::Home);
             m_ui->listFiles->clear();
         }
     }
