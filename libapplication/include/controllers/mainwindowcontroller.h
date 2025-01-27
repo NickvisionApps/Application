@@ -149,12 +149,6 @@ namespace Nickvision::Application::Shared::Controllers
         void closeFolder();
 
     private:
-        /**
-         * @brief Obtains the paths of files in an open folder for the files list.
-         * @brief This method only scans the top-level directory for files.
-         * @brief Other sub-directory paths are not added to the files list.
-         */
-        void loadFiles();
         bool m_started;
         std::vector<std::string> m_args;
         Nickvision::App::AppInfo m_appInfo;

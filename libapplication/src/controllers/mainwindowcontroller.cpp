@@ -259,32 +259,12 @@ namespace Nickvision::Application::Shared::Controllers
 
     bool MainWindowController::openFolder(const std::filesystem::path& path)
     {
-        if (std::filesystem::exists(path) && std::filesystem::is_directory(path))
+        m_folderPath = path;
+        if (!isFolderOpened())
         {
-            m_folderPath = path;
-            loadFiles();
-            m_notificationSent.invoke({ std::vformat(_("Folder Opened: {}"), std::make_format_args(CodeHelpers::unmove(m_folderPath.string()))), NotificationSeverity::Success, "close" });
-            m_folderChanged.invoke({});
-            m_taskbar.setCount(static_cast<long>(m_files.size()));
-            m_taskbar.setCountVisible(true);
-            m_logger.log(Logging::LogLevel::Info, "Folder opened. (" + m_folderPath.string() + ")");
-            return true;
+            return false;
         }
-        return false;
-    }
-
-    void MainWindowController::closeFolder()
-    {
-        m_logger.log(Logging::LogLevel::Info, "Folder closed. (" + m_folderPath.string() + ")");
-        m_folderPath = std::filesystem::path();
-        m_files.clear();
-        m_notificationSent.invoke({ _("Folder closed"), NotificationSeverity::Warning });
-        m_folderChanged.invoke({});
-        m_taskbar.setCountVisible(false);
-    }
-
-    void MainWindowController::loadFiles()
-    {
+        //Load Files
         m_files.clear();
         if (std::filesystem::exists(m_folderPath))
         {
@@ -297,5 +277,26 @@ namespace Nickvision::Application::Shared::Controllers
             }
         }
         m_logger.log(Logging::LogLevel::Info, "Loaded " + std::to_string(m_files.size()) + " file(s). (" + m_folderPath.string() + ")");
+        //UI
+        m_notificationSent.invoke({ std::vformat(_("Folder Opened: {}"), std::make_format_args(CodeHelpers::unmove(m_folderPath.string()))), NotificationSeverity::Success, "close" });
+        m_folderChanged.invoke({});
+        m_taskbar.setCount(static_cast<long>(m_files.size()));
+        m_taskbar.setCountVisible(true);
+        m_logger.log(Logging::LogLevel::Info, "Folder opened. (" + m_folderPath.string() + ")");
+        return true;
+    }
+
+    void MainWindowController::closeFolder()
+    {
+        if(!isFolderOpened())
+        {
+            return;
+        }
+        m_logger.log(Logging::LogLevel::Info, "Folder closed. (" + m_folderPath.string() + ")");
+        m_folderPath = std::filesystem::path();
+        m_files.clear();
+        m_notificationSent.invoke({ _("Folder closed"), NotificationSeverity::Warning });
+        m_folderChanged.invoke({});
+        m_taskbar.setCountVisible(false);
     }
 }
