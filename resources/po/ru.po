@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-26 22:59-0500\n"
+"POT-Creation-Date: 2025-01-31 15:00-0500\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -52,39 +52,44 @@ msgstr "Фёдор Соболев https://github.com/fsobolev"
 msgid "New update available"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:205
+#: libapplication/src/controllers/mainwindowcontroller.cpp:196
+msgid ""
+"The update is downloading in the background and will start once it finishes"
+msgstr ""
+
+#: libapplication/src/controllers/mainwindowcontroller.cpp:206
 msgid "Unable to download and install update"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:223
+#: libapplication/src/controllers/mainwindowcontroller.cpp:224
 msgctxt "Night"
 msgid "Good Morning!"
 msgstr "Доброй ночи!"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:227
+#: libapplication/src/controllers/mainwindowcontroller.cpp:228
 msgctxt "Morning"
 msgid "Good Morning!"
 msgstr "Доброе утро!"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:231
+#: libapplication/src/controllers/mainwindowcontroller.cpp:232
 msgid "Good Afternoon!"
 msgstr "Добрый день!"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:235
+#: libapplication/src/controllers/mainwindowcontroller.cpp:236
 msgid "Good Evening!"
 msgstr "Добрый вечер!"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:237
+#: libapplication/src/controllers/mainwindowcontroller.cpp:238
 msgid "Good Day!"
 msgstr "Здравствуйте!"
 
 #. UI
-#: libapplication/src/controllers/mainwindowcontroller.cpp:281
+#: libapplication/src/controllers/mainwindowcontroller.cpp:282
 #, fuzzy, c++-format
 msgid "Folder Opened: {}"
 msgstr "Папка открыта: {0}"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:298
+#: libapplication/src/controllers/mainwindowcontroller.cpp:299
 #, fuzzy
 msgid "Folder closed"
 msgstr "Папка закрыта."
@@ -102,7 +107,7 @@ msgstr "Комбинации клавиш"
 
 #: org.nickvision.application.gnome/blueprints/main_window.blp:7
 #: org.nickvision.application.gnome/blueprints/shortcuts_dialog.blp:39
-#: org.nickvision.application.qt/src/controls/aboutdialog.cpp:31
+#: org.nickvision.application.qt/src/controls/aboutdialog.cpp:32
 #: org.nickvision.application.qt/src/views/mainwindow.cpp:48
 msgid "About Application"
 msgstr "О приложении"
@@ -201,23 +206,37 @@ msgstr[2] "В папке {0} файлов."
 msgid "GitHub Repo"
 msgstr "Репозиторий GitHub"
 
+#. Load
+#: org.nickvision.application.qt/src/controls/aboutdialog.cpp:34
+msgid "About"
+msgstr ""
+
+#: org.nickvision.application.qt/src/controls/aboutdialog.cpp:35
+msgid "Changelog"
+msgstr ""
+
+#: org.nickvision.application.qt/src/controls/aboutdialog.cpp:36
+msgid "Credits"
+msgstr ""
+
 #: org.nickvision.application.qt/src/controls/aboutdialog.cpp:37
+msgid "Debugging"
+msgstr ""
+
+#: org.nickvision.application.qt/src/controls/aboutdialog.cpp:44
+msgid "Developers"
+msgstr ""
+
+#: org.nickvision.application.qt/src/controls/aboutdialog.cpp:46
+msgid "Designers"
+msgstr ""
+
+#: org.nickvision.application.qt/src/controls/aboutdialog.cpp:48
+msgid "Artists"
+msgstr ""
+
+#: org.nickvision.application.qt/src/controls/aboutdialog.cpp:50
 msgid "Copy Debug Information"
-msgstr ""
-
-#: org.nickvision.application.qt/src/controls/aboutdialog.cpp:38
-msgid "Changelog:"
-msgstr ""
-
-#: org.nickvision.application.qt/src/controls/aboutdialog.cpp:39
-#, c++-format
-msgid ""
-"Developers:\n"
-"{}\n"
-"Designers:\n"
-"{}\n"
-"Artists:\n"
-"{}"
 msgstr ""
 
 #: org.nickvision.application.qt/src/controls/infobar.cpp:14
