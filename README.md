@@ -22,6 +22,8 @@ Ensure both `vcpkg` and `cmake` are installed on your system before building.
 
 A C++20 compiler is also required to build Application.
 
+**If building the GNOME version, `blueprint-compiler` must be installed from your system package manager as it is not available on `vcpkg`.**
+
 ### Configuring vcpkg
 1. Set the `VCPKG_ROOT` environment variable to the path of your vcpkg installation's root directory.
 #### Windows
