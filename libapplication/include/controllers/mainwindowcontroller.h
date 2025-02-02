@@ -13,7 +13,6 @@
 #include <libnick/app/datafilemanager.h>
 #include <libnick/app/windowgeometry.h>
 #include <libnick/events/event.h>
-#include <libnick/logging/logger.h>
 #include <libnick/notifications/notificationsenteventargs.h>
 #include <libnick/notifications/shellnotificationsenteventargs.h>
 #include <libnick/taskbar/taskbaritem.h>
@@ -106,13 +105,6 @@ namespace Nickvision::Application::Shared::Controllers
         void windowsUpdate();
 #endif
         /**
-         * @brief Logs a system message.
-         * @param level The severity level of the message
-         * @param message The message to log
-         * @param source The source location of the log message
-         */
-        void log(Logging::LogLevel level, const std::string& message, const std::source_location& source = std::source_location::current());
-        /**
          * @brief Gets the string for greeting on the home page.
          * @return The greeting string
          */
@@ -149,17 +141,10 @@ namespace Nickvision::Application::Shared::Controllers
         void closeFolder();
 
     private:
-        /**
-         * @brief Obtains the paths of files in an open folder for the files list.
-         * @brief This method only scans the top-level directory for files.
-         * @brief Other sub-directory paths are not added to the files list.
-         */
-        void loadFiles();
         bool m_started;
         std::vector<std::string> m_args;
         Nickvision::App::AppInfo m_appInfo;
         Nickvision::App::DataFileManager m_dataFileManager;
-        Nickvision::Logging::Logger m_logger;
         std::shared_ptr<Nickvision::Update::Updater> m_updater;
         Nickvision::Taskbar::TaskbarItem m_taskbar;
         Nickvision::Events::Event<Nickvision::Notifications::NotificationSentEventArgs> m_notificationSent;

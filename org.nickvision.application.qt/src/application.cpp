@@ -20,7 +20,6 @@ namespace Nickvision::Application::Qt
 
     int Application::exec()
     {
-        m_controller->log(Logging::LogLevel::Info, "Started Qt application.");
         switch (m_controller->getTheme())
         {
         case Theme::Light:

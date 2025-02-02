@@ -10,7 +10,7 @@
 #include <libnick/notifications/shellnotification.h>
 #include "controls/aboutdialog.h"
 #include "helpers/qthelpers.h"
-#include "views/settingspage.h"
+#include "views/settingsdialog.h"
 
 using namespace Nickvision::App;
 using namespace Nickvision::Application::Qt::Controls;
@@ -24,50 +24,39 @@ using namespace Nickvision::Update;
 
 namespace Nickvision::Application::Qt::Views
 {
-    enum Page
-    {
-        Home = 0,
-        Folder,
-        Settings
-    };
-
     MainWindow::MainWindow(const std::shared_ptr<MainWindowController>& controller, QWidget* parent) 
         : QMainWindow{ parent },
         m_ui{ new Ui::MainWindow() },
-        m_navigationBar{ new NavigationBar(this) },
+        m_infoBar{ new InfoBar(this) },
         m_controller{ controller }
     {
         m_ui->setupUi(this);
-        m_ui->mainLayout->insertLayout(0, m_navigationBar);
         setWindowTitle(m_controller->getAppInfo().getVersion().getVersionType() == VersionType::Stable ? _("Application") : _("Application (Preview)"));
-        //Navigation Bar
-        QMenu* helpMenu{ new QMenu(this) };
-        helpMenu->addAction(_("Check for Updates"), this, &MainWindow::checkForUpdates);
-        helpMenu->addSeparator();
-        helpMenu->addAction(_("GitHub Repo"), this, &MainWindow::gitHubRepo);
-        helpMenu->addAction(_("Report a Bug"), this, &MainWindow::reportABug);
-        helpMenu->addAction(_("Discussions"), this, &MainWindow::discussions);
-        helpMenu->addSeparator();
-        helpMenu->addAction(_("About"), this, &MainWindow::about);
-        m_navigationBar->addTopItem("home", _("Home"), QIcon::fromTheme(QIcon::ThemeIcon::GoHome));
-        m_navigationBar->addTopItem("folder", _("Folder"), QIcon::fromTheme(QIcon::ThemeIcon::FolderNew));
-        m_navigationBar->addBottomItem("help", _("Help"), QIcon::fromTheme(QIcon::ThemeIcon::HelpAbout), helpMenu);
-#ifdef _WIN32
-        m_navigationBar->addBottomItem("settings", _("Settings"), QIcon::fromTheme("document-properties"));
-#else
-        m_navigationBar->addBottomItem("settings", _("Settings"), QIcon::fromTheme(QIcon::ThemeIcon::DocumentProperties));
-#endif
-        //Home Page
-        m_ui->lblHomeGreeting->setText(QString::fromStdString(m_controller->getGreeting()));
-        m_ui->lblHomeDescription->setText(_("Open a folder (or drag one into the app) to get started"));
-        m_ui->btnHomeOpenFolder->setText(_("Open Folder"));
-        //Folder Page
-        m_ui->btnFolderOpenFolder->setText(_("Open"));
+        addDockWidget(::Qt::BottomDockWidgetArea, m_infoBar);
+        //MenuBar
+        m_ui->menuFile->setTitle(_("File"));
+        m_ui->actionOpenFolder->setText(_("Open Folder"));
+        m_ui->actionCloseFolder->setText(_("Close Folder"));
+        m_ui->actionExit->setText(_("Exit"));
+        m_ui->menuEdit->setTitle(_("Edit"));
+        m_ui->actionSettings->setText(_("Settings"));
+        m_ui->menuHelp->setTitle(_("Help"));
+        m_ui->actionCheckForUpdates->setText(_("Check for Updates"));
+        m_ui->actionGitHubRepo->setText(_("GitHub Repo"));
+        m_ui->actionReportABug->setText(_("Report a Bug"));
+        m_ui->actionDiscussions->setText(_("Discussions"));
+        m_ui->actionAbout->setText(_("About Application"));
+        m_ui->lblFiles->setText(_("No Folder Opened"));
         //Signals
-        connect(m_navigationBar, &NavigationBar::itemSelected, this, &MainWindow::onNavigationItemSelected);
-        connect(m_ui->btnHomeOpenFolder, &QPushButton::clicked, this, &MainWindow::openFolder);
-        connect(m_ui->btnFolderOpenFolder, &QPushButton::clicked, this, &MainWindow::openFolder);
-        connect(m_ui->btnFolderCloseFolder, &QPushButton::clicked, this, &MainWindow::closeFolder);
+        connect(m_ui->actionOpenFolder, &QAction::triggered, this, &MainWindow::openFolder);
+        connect(m_ui->actionCloseFolder, &QAction::triggered, this, &MainWindow::closeFolder);
+        connect(m_ui->actionExit, &QAction::triggered, this, &MainWindow::close);
+        connect(m_ui->actionSettings, &QAction::triggered, this, &MainWindow::settings);
+        connect(m_ui->actionCheckForUpdates, &QAction::triggered, this, &MainWindow::checkForUpdates);
+        connect(m_ui->actionGitHubRepo, &QAction::triggered, this, &MainWindow::gitHubRepo);
+        connect(m_ui->actionReportABug, &QAction::triggered, this, &MainWindow::reportABug);
+        connect(m_ui->actionDiscussions, &QAction::triggered, this, &MainWindow::discussions);
+        connect(m_ui->actionAbout, &QAction::triggered, this, &MainWindow::about);
         m_controller->notificationSent() += [&](const NotificationSentEventArgs& args) { QtHelpers::dispatchToMainThread([this, args]() { onNotificationSent(args); }); };
         m_controller->shellNotificationSent() += [&](const ShellNotificationSentEventArgs& args) { onShellNotificationSent(args); };
         m_controller->folderChanged() += [&](const EventArgs& args) { onFolderChanged(args); };
@@ -96,7 +85,6 @@ namespace Nickvision::Application::Qt::Views
         {
             setGeometry(QWidget::geometry().x(), QWidget::geometry().y(), info.getWindowGeometry().getWidth(), info.getWindowGeometry().getHeight());
         }
-        m_navigationBar->selectItem("home");
     }
 
     void MainWindow::closeEvent(QCloseEvent* event)
@@ -125,32 +113,6 @@ namespace Nickvision::Application::Qt::Views
         }
     }
 
-    void MainWindow::onNavigationItemSelected(const QString& id)
-    {
-        //Save and ensure new SettingsPage
-        if(m_ui->viewStack->widget(Page::Settings))
-        {
-            SettingsPage* oldSettings{ qobject_cast<SettingsPage*>(m_ui->viewStack->widget(Page::Settings)) };
-            oldSettings->close();
-            m_ui->viewStack->removeWidget(oldSettings);
-            delete oldSettings;
-        }
-        m_ui->viewStack->insertWidget(Page::Settings, new SettingsPage(m_controller->createPreferencesViewController(), this));
-        //Navigate to new page
-        if(id == "home")
-        {
-            m_ui->viewStack->setCurrentIndex(Page::Home);
-        }
-        else if(id == "folder")
-        {
-            m_ui->viewStack->setCurrentIndex(Page::Folder);
-        }
-        else if(id == "settings")
-        {
-            m_ui->viewStack->setCurrentIndex(Page::Settings);
-        }
-    }
-
     void MainWindow::openFolder()
     {
         QString path{ QFileDialog::getExistingDirectory(this, _("Open Folder"), {}, QFileDialog::ShowDirsOnly) };
@@ -160,6 +122,12 @@ namespace Nickvision::Application::Qt::Views
     void MainWindow::closeFolder()
     {
         m_controller->closeFolder();
+    }
+
+    void MainWindow::settings()
+    {
+        SettingsDialog dialog{ m_controller->createPreferencesViewController(), this };
+        dialog.exec();
     }
 
     void MainWindow::checkForUpdates()
@@ -199,39 +167,25 @@ namespace Nickvision::Application::Qt::Views
 
     void MainWindow::onNotificationSent(const NotificationSentEventArgs& args)
     {
-        QMessageBox::Icon icon{ QMessageBox::Icon::NoIcon };
-        switch(args.getSeverity())
-        {
-        case NotificationSeverity::Informational:
-        case NotificationSeverity::Success:
-            icon = QMessageBox::Icon::Information;
-            break;
-        case NotificationSeverity::Warning:
-            icon = QMessageBox::Icon::Warning;
-            break;
-        case NotificationSeverity::Error:
-            icon = QMessageBox::Icon::Critical;
-            break;
-        }
-        QMessageBox msgBox{ icon, QString::fromStdString(m_controller->getAppInfo().getShortName()), QString::fromStdString(args.getMessage()), QMessageBox::StandardButton::Ok, this };
+        QString actionText;
+        std::function<void()> actionCallback;
         if(args.getAction() == "close")
         {
-            QPushButton* closeButton{ msgBox.addButton(_("Close"), QMessageBox::ButtonRole::ActionRole) };
-            connect(closeButton, &QPushButton::clicked, this, &MainWindow::closeFolder);
+            actionText = _("Close");
+            actionCallback = [this]() { closeFolder(); };
         }
 #ifdef _WIN32
         else if(args.getAction() == "update")
         {
-            QPushButton* updateButton{ msgBox.addButton(_("Update"), QMessageBox::ButtonRole::ActionRole) };
-            connect(updateButton, &QPushButton::clicked, this, &MainWindow::windowsUpdate);
+            actionText = _("Update");
+            actionCallback = [this]() { windowsUpdate(); };
         }
 #endif
-        msgBox.exec();
+        m_infoBar->show(args, actionText, actionCallback);
     }
 
     void MainWindow::onShellNotificationSent(const ShellNotificationSentEventArgs& args)
     {
-        m_controller->log(Logging::LogLevel::Info, "ShellNotification sent. (" + args.getMessage() + ")");
 #ifdef _WIN32
         ShellNotification::send(args, reinterpret_cast<HWND>(winId()));
 #elif defined(__linux__)
@@ -245,7 +199,6 @@ namespace Nickvision::Application::Qt::Views
     {
         if(m_controller->isFolderOpened())
         {
-            m_navigationBar->selectItem("folder");
             m_ui->lblFiles->setText(QString::fromStdString(std::vformat(_n("There is {} file in the folder.", "There are {} files in the folder.", m_controller->getFiles().size()), std::make_format_args(CodeHelpers::unmove(m_controller->getFiles().size())))));
             for(const std::filesystem::path& file : m_controller->getFiles())
             {
@@ -254,8 +207,8 @@ namespace Nickvision::Application::Qt::Views
         }
         else
         {
-            m_navigationBar->selectItem("home");
             m_ui->listFiles->clear();
+            m_ui->lblFiles->setText(_("No Folder Opened"));
         }
     }
 }

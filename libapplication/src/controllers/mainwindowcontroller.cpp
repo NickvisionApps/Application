@@ -28,8 +28,7 @@ namespace Nickvision::Application::Shared::Controllers
         : m_started{ false },
         m_args{ args },
         m_appInfo{ "org.nickvision.application", "Nickvision Application", "Application" },
-        m_dataFileManager{ m_appInfo.getName() },
-        m_logger{ UserDirectories::get(ApplicationUserDirectory::LocalData, m_appInfo.getName()) / "log.txt", Logging::LogLevel::Info, false }
+        m_dataFileManager{ m_appInfo.getName() }
     {
         m_appInfo.setVersion({ "2025.1.0-next" });
         m_appInfo.setShortName(_("Application"));
@@ -50,10 +49,6 @@ namespace Nickvision::Application::Shared::Controllers
 #ifdef _WIN32
         m_updater = std::make_shared<Updater>(m_appInfo.getSourceRepo());
 #endif
-        m_dataFileManager.get<Configuration>("config").saved() += [this](const EventArgs&)
-        {
-            m_logger.log(Logging::LogLevel::Info, "Configuration saved.");
-        };
     }
 
     Event<EventArgs>& MainWindowController::configurationSaved()
@@ -122,27 +117,13 @@ namespace Nickvision::Application::Shared::Controllers
         info.setWindowGeometry(m_dataFileManager.get<Configuration>("config").getWindowGeometry());
         //Load taskbar item
 #ifdef _WIN32
-        if(m_taskbar.connect(hwnd))
-        {
-            m_logger.log(Logging::LogLevel::Info, "Connected to Windows taskbar.");
-        }
-        else
-        {
-            m_logger.log(Logging::LogLevel::Error, "Unable to connect to Windows taskbar.");
-        }
+        m_taskbar.connect(hwnd);
         if (m_dataFileManager.get<Configuration>("config").getAutomaticallyCheckForUpdates())
         {
             checkForUpdates();
         }
 #elif defined(__linux__)
-        if(m_taskbar.connect(desktopFile))
-        {
-            m_logger.log(Logging::LogLevel::Info, "Connected to Linux taskbar.");
-        }
-        else
-        {
-            m_logger.log(Logging::LogLevel::Error, "Unable to connect to Linux taskbar.");
-        }
+        m_taskbar.connect(desktopFile);
 #endif
         m_started = true;
         return info;
@@ -161,25 +142,15 @@ namespace Nickvision::Application::Shared::Controllers
         {
             return;
         }
-        m_logger.log(Logging::LogLevel::Info, "Checking for updates...");
         std::thread worker{ [this]()
         {
             Version latest{ m_updater->fetchCurrentVersion(VersionType::Stable) };
-            if (!latest.empty())
+            if(!latest.empty())
             {
-                if (latest > m_appInfo.getVersion())
+                if(latest > m_appInfo.getVersion())
                 {
-                    m_logger.log(Logging::LogLevel::Info, "Update found: " + latest.str());
                     m_notificationSent.invoke({ _("New update available"), NotificationSeverity::Success, "update" });
                 }
-                else
-                {
-                    m_logger.log(Logging::LogLevel::Info, "No updates found.");
-                }
-            }
-            else
-            {
-                m_logger.log(Logging::LogLevel::Warning, "Unable to fetch latest app version.");
             }
         } };
         worker.detach();
@@ -192,27 +163,17 @@ namespace Nickvision::Application::Shared::Controllers
         {
             return;
         }
-        m_logger.log(Logging::LogLevel::Info, "Fetching Windows app update...");
+        m_notificationSent.invoke({ _("The update is downloading in the background and will start once it finishes"), NotificationSeverity::Informational });
         std::thread worker{ [this]()
         {
-            if (m_updater->windowsUpdate(VersionType::Stable))
+            if(!m_updater->windowsUpdate(VersionType::Stable))
             {
-                m_logger.log(Logging::LogLevel::Info, "Windows app update started.");
-            }
-            else
-            {
-                m_logger.log(Logging::LogLevel::Error, "Unable to fetch Windows app update.");
                 m_notificationSent.invoke({ _("Unable to download and install update"), NotificationSeverity::Error });
             }
         } };
         worker.detach();
     }
 #endif
-
-    void MainWindowController::log(Logging::LogLevel level, const std::string& message, const std::source_location& source)
-    {
-        m_logger.log(level, message, source);
-    }
 
     std::string MainWindowController::getGreeting() const
     {
@@ -259,32 +220,12 @@ namespace Nickvision::Application::Shared::Controllers
 
     bool MainWindowController::openFolder(const std::filesystem::path& path)
     {
-        if (std::filesystem::exists(path) && std::filesystem::is_directory(path))
+        m_folderPath = path;
+        if (!isFolderOpened())
         {
-            m_folderPath = path;
-            loadFiles();
-            m_notificationSent.invoke({ std::vformat(_("Folder Opened: {}"), std::make_format_args(CodeHelpers::unmove(m_folderPath.string()))), NotificationSeverity::Success, "close" });
-            m_folderChanged.invoke({});
-            m_taskbar.setCount(static_cast<long>(m_files.size()));
-            m_taskbar.setCountVisible(true);
-            m_logger.log(Logging::LogLevel::Info, "Folder opened. (" + m_folderPath.string() + ")");
-            return true;
+            return false;
         }
-        return false;
-    }
-
-    void MainWindowController::closeFolder()
-    {
-        m_logger.log(Logging::LogLevel::Info, "Folder closed. (" + m_folderPath.string() + ")");
-        m_folderPath = std::filesystem::path();
-        m_files.clear();
-        m_notificationSent.invoke({ _("Folder closed"), NotificationSeverity::Warning });
-        m_folderChanged.invoke({});
-        m_taskbar.setCountVisible(false);
-    }
-
-    void MainWindowController::loadFiles()
-    {
+        //Load Files
         m_files.clear();
         if (std::filesystem::exists(m_folderPath))
         {
@@ -296,6 +237,24 @@ namespace Nickvision::Application::Shared::Controllers
                 }
             }
         }
-        m_logger.log(Logging::LogLevel::Info, "Loaded " + std::to_string(m_files.size()) + " file(s). (" + m_folderPath.string() + ")");
+        //UI
+        m_notificationSent.invoke({ std::vformat(_("Folder Opened: {}"), std::make_format_args(CodeHelpers::unmove(m_folderPath.string()))), NotificationSeverity::Success, "close" });
+        m_folderChanged.invoke({});
+        m_taskbar.setCount(static_cast<long>(m_files.size()));
+        m_taskbar.setCountVisible(true);
+        return true;
+    }
+
+    void MainWindowController::closeFolder()
+    {
+        if(!isFolderOpened())
+        {
+            return;
+        }
+        m_folderPath = std::filesystem::path();
+        m_files.clear();
+        m_notificationSent.invoke({ _("Folder closed"), NotificationSeverity::Warning });
+        m_folderChanged.invoke({});
+        m_taskbar.setCountVisible(false);
     }
 }
