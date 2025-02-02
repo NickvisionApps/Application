@@ -46,6 +46,7 @@ namespace Nickvision::Application::Qt::Views
         m_ui->actionReportABug->setText(_("Report a Bug"));
         m_ui->actionDiscussions->setText(_("Discussions"));
         m_ui->actionAbout->setText(_("About Application"));
+        m_ui->lblFiles->setText(_("No Folder Opened"));
         //Signals
         connect(m_ui->actionOpenFolder, &QAction::triggered, this, &MainWindow::openFolder);
         connect(m_ui->actionCloseFolder, &QAction::triggered, this, &MainWindow::closeFolder);
@@ -198,15 +199,16 @@ namespace Nickvision::Application::Qt::Views
     {
         if(m_controller->isFolderOpened())
         {
-            //m_ui->lblFiles->setText(QString::fromStdString(std::vformat(_n("There is {} file in the folder.", "There are {} files in the folder.", m_controller->getFiles().size()), std::make_format_args(CodeHelpers::unmove(m_controller->getFiles().size())))));
+            m_ui->lblFiles->setText(QString::fromStdString(std::vformat(_n("There is {} file in the folder.", "There are {} files in the folder.", m_controller->getFiles().size()), std::make_format_args(CodeHelpers::unmove(m_controller->getFiles().size())))));
             for(const std::filesystem::path& file : m_controller->getFiles())
             {
-                //m_ui->listFiles->addItem(QString::fromStdString(file.filename().string()));
+                m_ui->listFiles->addItem(QString::fromStdString(file.filename().string()));
             }
         }
         else
         {
-            //m_ui->listFiles->clear();
+            m_ui->listFiles->clear();
+            m_ui->lblFiles->setText(_("No Folder Opened"));
         }
     }
 }
