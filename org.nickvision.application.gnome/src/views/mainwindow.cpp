@@ -133,7 +133,6 @@ namespace Nickvision::Application::GNOME::Views
 
     void MainWindow::onShellNotificationSent(const ShellNotificationSentEventArgs& args)
     {
-        m_controller->log(Logging::LogLevel::Info, "ShellNotification sent. (" + args.getMessage() + ")");
 #ifdef __linux__
         ShellNotification::send(args, m_controller->getAppInfo().getId(), _("Open"));
 #else
