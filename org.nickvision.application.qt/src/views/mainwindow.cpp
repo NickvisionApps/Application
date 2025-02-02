@@ -10,7 +10,7 @@
 #include <libnick/notifications/shellnotification.h>
 #include "controls/aboutdialog.h"
 #include "helpers/qthelpers.h"
-#include "views/settingspage.h"
+#include "views/settingsdialog.h"
 
 using namespace Nickvision::App;
 using namespace Nickvision::Application::Qt::Controls;
@@ -125,7 +125,8 @@ namespace Nickvision::Application::Qt::Views
 
     void MainWindow::settings()
     {
-
+        SettingsDialog dialog{ m_controller->createPreferencesViewController(), this };
+        dialog.exec();
     }
 
     void MainWindow::checkForUpdates()

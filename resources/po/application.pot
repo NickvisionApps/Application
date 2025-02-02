@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-31 15:01-0500\n"
+"POT-Creation-Date: 2025-02-02 15:30-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -117,7 +117,7 @@ msgstr ""
 #: org.nickvision.application.gnome/blueprints/main_window.blp:26
 #: org.nickvision.application.gnome/blueprints/main_window.blp:59
 #: org.nickvision.application.gnome/src/views/mainwindow.cpp:138
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:191
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:192
 msgid "Open"
 msgstr ""
 
@@ -133,14 +133,15 @@ msgstr ""
 msgid "Open a folder (or drag one into the app) to get started"
 msgstr ""
 
-#. Localize Strings
+#. Add Navigation Items
 #: org.nickvision.application.gnome/blueprints/preferences_dialog.blp:12
-#: org.nickvision.application.qt/src/views/settingspage.cpp:19
+#: org.nickvision.application.qt/src/views/settingsdialog.cpp:26
 msgid "User Interface"
 msgstr ""
 
+#. Localize Strings
 #: org.nickvision.application.gnome/blueprints/preferences_dialog.blp:15
-#: org.nickvision.application.qt/src/views/settingspage.cpp:20
+#: org.nickvision.application.qt/src/views/settingsdialog.cpp:20
 msgid "Theme"
 msgstr ""
 
@@ -185,7 +186,7 @@ msgid "Quit"
 msgstr ""
 
 #: org.nickvision.application.gnome/src/views/mainwindow.cpp:128
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:172
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:173
 msgid "Close"
 msgstr ""
 
@@ -256,6 +257,7 @@ msgid "Edit"
 msgstr ""
 
 #: org.nickvision.application.qt/src/views/mainwindow.cpp:42
+#: org.nickvision.application.qt/src/views/settingsdialog.cpp:18
 msgid "Settings"
 msgstr ""
 
@@ -275,22 +277,22 @@ msgstr ""
 msgid "Discussions"
 msgstr ""
 
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:178
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:179
 msgid "Update"
 msgstr ""
 
-#: org.nickvision.application.qt/src/views/settingspage.cpp:21
+#: org.nickvision.application.qt/src/views/settingsdialog.cpp:21
 msgid "Light"
 msgstr ""
 
-#: org.nickvision.application.qt/src/views/settingspage.cpp:22
+#: org.nickvision.application.qt/src/views/settingsdialog.cpp:22
 msgid "Dark"
 msgstr ""
 
-#: org.nickvision.application.qt/src/views/settingspage.cpp:23
+#: org.nickvision.application.qt/src/views/settingsdialog.cpp:23
 msgid "System"
 msgstr ""
 
-#: org.nickvision.application.qt/src/views/settingspage.cpp:24
+#: org.nickvision.application.qt/src/views/settingsdialog.cpp:24
 msgid "Automatically Check for Updates"
 msgstr ""
