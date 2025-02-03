@@ -64,6 +64,7 @@ namespace Nickvision::Application::Qt::Views
 
     MainWindow::~MainWindow()
     {
+        delete m_infoBar;
         delete m_ui;
     }
 
@@ -77,13 +78,10 @@ namespace Nickvision::Application::Qt::Views
 #else
         const StartupInformation& info{ m_controller->startup() };
 #endif
+        setGeometry(QWidget::geometry().x(), QWidget::geometry().y(), info.getWindowGeometry().getWidth(), info.getWindowGeometry().getHeight());
         if(info.getWindowGeometry().isMaximized())
         {
             showMaximized();
-        }
-        else
-        {
-            setGeometry(QWidget::geometry().x(), QWidget::geometry().y(), info.getWindowGeometry().getWidth(), info.getWindowGeometry().getHeight());
         }
     }
 
