@@ -14,6 +14,8 @@
     ],
     "cleanup":[
         "/include",
+        "/lib/cmake",
+        "/lib/debug",
         "/lib/pkgconfig",
         "*.a"
     ],
