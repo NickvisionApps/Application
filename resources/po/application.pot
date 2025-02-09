@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-02 17:49-0500\n"
+"POT-Creation-Date: 2025-02-03 14:45-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -117,7 +117,7 @@ msgstr ""
 #: org.nickvision.application.gnome/blueprints/main_window.blp:26
 #: org.nickvision.application.gnome/blueprints/main_window.blp:59
 #: org.nickvision.application.gnome/src/views/mainwindow.cpp:137
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:192
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:190
 msgid "Open"
 msgstr ""
 
@@ -167,7 +167,7 @@ msgstr ""
 #: org.nickvision.application.gnome/blueprints/shortcuts_dialog.blp:15
 #: org.nickvision.application.gnome/src/views/mainwindow.cpp:163
 #: org.nickvision.application.qt/src/views/mainwindow.cpp:38
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:118
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:116
 msgid "Open Folder"
 msgstr ""
 
@@ -186,12 +186,12 @@ msgid "Quit"
 msgstr ""
 
 #: org.nickvision.application.gnome/src/views/mainwindow.cpp:128
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:174
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:172
 msgid "Close"
 msgstr ""
 
 #: org.nickvision.application.gnome/src/views/mainwindow.cpp:149
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:202
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:200
 #, c++-format
 msgid "There is {} file in the folder."
 msgid_plural "There are {} files in the folder."
@@ -279,11 +279,11 @@ msgid "Discussions"
 msgstr ""
 
 #: org.nickvision.application.qt/src/views/mainwindow.cpp:49
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:211
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:209
 msgid "No Folder Opened"
 msgstr ""
 
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:180
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:178
 msgid "Update"
 msgstr ""
 
