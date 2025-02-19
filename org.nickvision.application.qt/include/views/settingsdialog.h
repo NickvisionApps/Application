@@ -4,6 +4,7 @@
 #include <memory>
 #include <QCloseEvent>
 #include <QDialog>
+#include <oclero/qlementine/style/ThemeManager.hpp>
 #include "controllers/preferencesviewcontroller.h"
 
 namespace Ui { class SettingsDialog; }
@@ -19,9 +20,10 @@ namespace Nickvision::Application::Qt::Views
         /**
          * @brief Constructs a SettingsDialog.
          * @param controller The PreferencesViewController
+         * @param themeManager The ThemeManager
          * @param parent The parent widget
          */
-        SettingsDialog(const std::shared_ptr<Shared::Controllers::PreferencesViewController>& controller, QWidget* parent = nullptr);
+        SettingsDialog(const std::shared_ptr<Shared::Controllers::PreferencesViewController>& controller, oclero::qlementine::ThemeManager* themeManager, QWidget* parent = nullptr);
         /**
          * @brief Destructs a SettingsDialog.
          */
@@ -47,6 +49,7 @@ namespace Nickvision::Application::Qt::Views
     private:
         Ui::SettingsDialog* m_ui;
         std::shared_ptr<Shared::Controllers::PreferencesViewController> m_controller;
+        oclero::qlementine::ThemeManager* m_themeManager;
     };
 }
 
