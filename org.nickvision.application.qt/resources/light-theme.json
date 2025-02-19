@@ -63,16 +63,16 @@
     "shadowColor1": "#00000020",
     "shadowColor2": "#00000040",
     "shadowColor3": "#00000060",
+
+    "statusColorForeground": "#ffffff",
+    "statusColorForegroundHovered": "#ffffff",
+    "statusColorForegroundPressed": "#ffffff",
+    "statusColorForegroundDisabled": "#ffffff99",
   
     "statusColorError": "#e96b72",
     "statusColorErrorHovered": "#f47c83",
     "statusColorErrorPressed": "#ff9197",
     "statusColorErrorDisabled": "#f9dadc",
-  
-    "statusColorForeground": "#ffffff",
-    "statusColorForegroundHovered": "#ffffff",
-    "statusColorForegroundPressed": "#ffffff",
-    "statusColorForegroundDisabled": "#ffffff99",
   
     "statusColorInfo": "#1ba8d5",
     "statusColorInfoHovered": "#1eb5e5",
