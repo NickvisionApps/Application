@@ -1,7 +1,0 @@
-<RCC>
-  <qresource>
-    <file>../resources/org.nickvision.application.ico</file>
-    <file>../resources/org.nickvision.application.svg</file>
-    <file>../resources/org.nickvision.application-devel.svg</file>
-  </qresource>
-</RCC>

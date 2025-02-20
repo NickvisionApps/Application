@@ -9,10 +9,11 @@ using namespace Nickvision::Application::Shared::Models;
 
 namespace Nickvision::Application::Qt::Views
 {
-    SettingsDialog::SettingsDialog(const std::shared_ptr<PreferencesViewController>& controller, QWidget* parent)
+    SettingsDialog::SettingsDialog(const std::shared_ptr<PreferencesViewController>& controller, oclero::qlementine::ThemeManager* themeManager, QWidget* parent)
         : QDialog{ parent },
         m_ui{ new Ui::SettingsDialog() },
-        m_controller{ controller }
+        m_controller{ controller },
+        m_themeManager{ themeManager }
     {
         m_ui->setupUi(this);
         setWindowTitle(_("Settings"));
@@ -58,12 +59,15 @@ namespace Nickvision::Application::Qt::Views
         {
         case Theme::Light:
             QApplication::styleHints()->setColorScheme(::Qt::ColorScheme::Light);
+            m_themeManager->setCurrentTheme("Light");
             break;
         case Theme::Dark:
             QApplication::styleHints()->setColorScheme(::Qt::ColorScheme::Dark);
+            m_themeManager->setCurrentTheme("Dark");
             break;
         default:
-            QApplication::styleHints()->setColorScheme(::Qt::ColorScheme::Unknown);
+            QApplication::styleHints()->unsetColorScheme();
+            m_themeManager->setCurrentTheme(QApplication::styleHints()->colorScheme() == ::Qt::ColorScheme::Light ? "Light" : "Dark");
             break;
         }
     }

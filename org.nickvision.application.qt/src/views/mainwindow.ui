@@ -45,7 +45,7 @@
          <x>0</x>
          <y>0</y>
          <width>298</width>
-         <height>633</height>
+         <height>628</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout">
@@ -71,7 +71,7 @@
      <x>0</x>
      <y>0</y>
      <width>1069</width>
-     <height>23</height>
+     <height>33</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -114,9 +114,6 @@
    </property>
    <property name="allowedAreas">
     <set>Qt::ToolBarArea::TopToolBarArea</set>
-   </property>
-   <property name="toolButtonStyle">
-    <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
    </property>
    <property name="floatable">
     <bool>false</bool>

@@ -6,6 +6,7 @@
 #include <QDragEnterEvent>
 #include <QDropEvent>
 #include <QMainWindow>
+#include <oclero/qlementine/style/ThemeManager.hpp>
 #include "controllers/mainwindowcontroller.h"
 #include "controls/infobar.h"
 
@@ -24,9 +25,10 @@ namespace Nickvision::Application::Qt::Views
         /**
          * @brief Constructs a MainWindow.
          * @param controller The MainWindowController
+         * @param themeManager The ThemeManager
          * @param parent The parent widget
          */
-        MainWindow(const std::shared_ptr<Shared::Controllers::MainWindowController>& controller, QWidget* parent = nullptr);
+        MainWindow(const std::shared_ptr<Shared::Controllers::MainWindowController>& controller, oclero::qlementine::ThemeManager* themeManager, QWidget* parent = nullptr);
         /**
          * @brief Destructs a MainWindow.
          */
@@ -112,6 +114,7 @@ namespace Nickvision::Application::Qt::Views
         Ui::MainWindow* m_ui;
         Controls::InfoBar* m_infoBar;
         std::shared_ptr<Shared::Controllers::MainWindowController> m_controller;
+        oclero::qlementine::ThemeManager* m_themeManager;
     };
 }
 

@@ -84,6 +84,22 @@
             ]
         },
         {
+            "name": "qlementine",
+            "buildsystem": "cmake-ninja",
+            "builddir": true,
+            "config-opts": [
+                "-DQLEMENTINE_SANDBOX=OFF",
+                "-DQLEMENTINE_SHOWCASE=OFF"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/oclero/qlementine",
+                    "tag": "v1.0.2"
+                }
+            ]
+        },
+        {
             "name": "org.nickvision.application",
             "buildsystem": "cmake-ninja",
             "builddir": true,

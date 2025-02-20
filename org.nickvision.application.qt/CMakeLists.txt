@@ -7,6 +7,7 @@ set(STARTUP_NOTIFY false)
 add_definitions(-DQT_NO_KEYWORDS)
 
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets Svg)
+find_package(qlementine CONFIG REQUIRED)
 qt_standard_project_setup()
 
 qt_add_executable(${OUTPUT_NAME}
@@ -27,10 +28,10 @@ qt_add_executable(${OUTPUT_NAME}
     "src/views/settingsdialog.cpp"
     "src/application.cpp"
     "src/main.cpp"
-    "${OUTPUT_NAME}.qrc"
+    "resources/${OUTPUT_NAME}.qrc"
     "../resources/windows/${PROJECT_NAME}.rc")
 target_include_directories(${OUTPUT_NAME} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
-target_link_libraries(${OUTPUT_NAME} PRIVATE libapplication Qt6::Core Qt6::Gui Qt6::Widgets Qt6::Svg)
+target_link_libraries(${OUTPUT_NAME} PRIVATE libapplication Qt6::Core Qt6::Gui Qt6::Widgets Qt6::Svg qlementine::qlementine)
 if(WIN32)
     set_target_properties(${OUTPUT_NAME} PROPERTIES WIN32_EXECUTABLE ON)
 endif()

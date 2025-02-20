@@ -24,11 +24,12 @@ using namespace Nickvision::Update;
 
 namespace Nickvision::Application::Qt::Views
 {
-    MainWindow::MainWindow(const std::shared_ptr<MainWindowController>& controller, QWidget* parent) 
+    MainWindow::MainWindow(const std::shared_ptr<MainWindowController>& controller, oclero::qlementine::ThemeManager* themeManager, QWidget* parent) 
         : QMainWindow{ parent },
         m_ui{ new Ui::MainWindow() },
         m_infoBar{ new InfoBar(this) },
-        m_controller{ controller }
+        m_controller{ controller },
+        m_themeManager{ themeManager }
     {
         m_ui->setupUi(this);
         setWindowTitle(m_controller->getAppInfo().getVersion().getVersionType() == VersionType::Stable ? _("Application") : _("Application (Preview)"));
@@ -124,7 +125,7 @@ namespace Nickvision::Application::Qt::Views
 
     void MainWindow::settings()
     {
-        SettingsDialog dialog{ m_controller->createPreferencesViewController(), this };
+        SettingsDialog dialog{ m_controller->createPreferencesViewController(), m_themeManager, this };
         dialog.exec();
     }
 
