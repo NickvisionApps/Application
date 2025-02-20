@@ -5,6 +5,8 @@
       "version": "1.5.0"
     },
   
+    "useSystemFonts": true,
+
     "backgroundColorMain1": "#303030",
     "backgroundColorMain2": "#242424",
     "backgroundColorMain3": "#1e1e1e",

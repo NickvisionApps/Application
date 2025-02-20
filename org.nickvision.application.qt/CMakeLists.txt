@@ -8,6 +8,7 @@ add_definitions(-DQT_NO_KEYWORDS)
 
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets Svg)
 find_package(qlementine CONFIG REQUIRED)
+find_package(qlementine-icons CONFIG REQUIRED)
 qt_standard_project_setup()
 
 qt_add_executable(${OUTPUT_NAME}
@@ -31,7 +32,7 @@ qt_add_executable(${OUTPUT_NAME}
     "resources/${OUTPUT_NAME}.qrc"
     "../resources/windows/${PROJECT_NAME}.rc")
 target_include_directories(${OUTPUT_NAME} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
-target_link_libraries(${OUTPUT_NAME} PRIVATE libapplication Qt6::Core Qt6::Gui Qt6::Widgets Qt6::Svg qlementine::qlementine)
+target_link_libraries(${OUTPUT_NAME} PRIVATE libapplication Qt6::Core Qt6::Gui Qt6::Widgets Qt6::Svg qlementine::qlementine qlementine-icons::qlementine-icons)
 if(WIN32)
     set_target_properties(${OUTPUT_NAME} PROPERTIES WIN32_EXECUTABLE ON)
 endif()

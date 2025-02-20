@@ -4,6 +4,8 @@
       "name": "Light",
       "version": "1.5.0"
     },
+
+    "useSystemFonts": true,
   
     "backgroundColorMain1": "#ffffff",
     "backgroundColorMain2": "#fafafa",

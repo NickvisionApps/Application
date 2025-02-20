@@ -1,5 +1,6 @@
 #include "application.h"
 #include <QStyleHints>
+#include <oclero/qlementine/icons/QlementineIcons.hpp>
 
 using namespace Nickvision::Application::Shared::Controllers;
 using namespace Nickvision::Application::Shared::Models;
@@ -13,7 +14,9 @@ namespace Nickvision::Application::Qt
         m_style{ new oclero::qlementine::QlementineStyle(this) },
         m_themeManager{ new oclero::qlementine::ThemeManager(m_style) }
     {
+        oclero::qlementine::icons::initializeIconTheme();
         QApplication::setStyle(m_style);
+        QIcon::setThemeName("qlementine");
         m_themeManager->loadDirectory(":/");
     }
 
