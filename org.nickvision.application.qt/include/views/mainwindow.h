@@ -8,7 +8,6 @@
 #include <QMainWindow>
 #include <oclero/qlementine/style/ThemeManager.hpp>
 #include "controllers/mainwindowcontroller.h"
-#include "controls/infobar.h"
 
 namespace Ui { class MainWindow; }
 
@@ -112,7 +111,6 @@ namespace Nickvision::Application::Qt::Views
          */
         void onFolderChanged(const Events::EventArgs& args);
         Ui::MainWindow* m_ui;
-        Controls::InfoBar* m_infoBar;
         std::shared_ptr<Shared::Controllers::MainWindowController> m_controller;
         oclero::qlementine::ThemeManager* m_themeManager;
     };

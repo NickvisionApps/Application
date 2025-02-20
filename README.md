@@ -28,13 +28,13 @@ A C++20 compiler is also required to build Application.
 1. Set the `VCPKG_ROOT` environment variable to the path of your vcpkg installation's root directory.
 #### Windows
 1. Set the `VCPKG_DEFAULT_TRIPLET` environment variable to `x64-windows`
-1. Run `vcpkg install libnick qtbase qtsvg qttools qlementine`
+1. Run `vcpkg install libnick qtbase qtsvg qttools qlementine qlementine-icons`
 #### Linux (GNOME)
 1. Set the `VCPKG_DEFAULT_TRIPLET` environment variable to `x64-linux`
 1. Run `vcpkg install libnick libxmlpp`
 #### Linux (Qt)
 1. Set the `VCPKG_DEFAULT_TRIPLET` environment variable to `x64-linux`
-1. Run `vcpkg install libnick qtbase qtsvg qttools qlementine`
+1. Run `vcpkg install libnick qtbase qtsvg qttools qlementine qlementine-icons`
 
 ### Building
 1. First, clone/download the repo.

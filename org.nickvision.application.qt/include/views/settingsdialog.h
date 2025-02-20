@@ -16,6 +16,8 @@ namespace Nickvision::Application::Qt::Views
      */
     class SettingsDialog : public QDialog
     {
+    Q_OBJECT
+    
     public:
         /**
          * @brief Constructs a SettingsDialog.
@@ -37,10 +39,6 @@ namespace Nickvision::Application::Qt::Views
         void closeEvent(QCloseEvent* event) override;
 
     private Q_SLOTS:
-        /**
-         * @brief Handles when the navigation row changes.
-         */
-        void onNavigationChanged();
         /**
          * @brief Handles when the theme combobox changes.
          */

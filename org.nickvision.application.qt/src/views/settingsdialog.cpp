@@ -1,12 +1,66 @@
 #include "views/settingsdialog.h"
-#include "ui_settingsdialog.h"
 #include <QApplication>
+#include <QComboBox>
+#include <QFormLayout>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QListWidget>
+#include <QStackedWidget>
 #include <QStyleHints>
 #include <libnick/localization/gettext.h>
+#include <oclero/qlementine/widgets/Switch.hpp>
 #include "helpers/qthelpers.h"
 
 using namespace Nickvision::Application::Shared::Controllers;
-using namespace Nickvision::Application::Shared::Models;
+using namespace oclero::qlementine;
+
+namespace Ui 
+{
+    class SettingsDialog
+    {
+    public:
+        void setupUi(Nickvision::Application::Qt::Views::SettingsDialog* parent)
+        {
+            viewStack = new QStackedWidget(parent);
+            //User Interface Page
+            QLabel* lblTheme{ new QLabel(parent) };
+            lblTheme->setText(_("Theme"));
+            cmbTheme = new QComboBox(parent);
+            cmbTheme->addItem(_("Light"));
+            cmbTheme->addItem(_("Dark"));
+            cmbTheme->addItem(_("System"));
+            QLabel* lblUpdates{ new QLabel(parent) };
+            lblUpdates->setText(_("Automatically Check for Updates"));
+            chkUpdates = new Switch(parent);
+            QFormLayout* layoutUserInterface{ new QFormLayout(parent) };
+            layoutUserInterface->addRow(lblTheme, cmbTheme);
+            layoutUserInterface->addRow(lblUpdates, chkUpdates);
+            QWidget* userInterfacePage{ new QWidget(parent) };
+            userInterfacePage->setLayout(layoutUserInterface);
+            viewStack->addWidget(userInterfacePage);
+            //Navigation List
+            listNavigation = new QListWidget(parent);
+            listNavigation->setMaximumWidth(160);
+            listNavigation->setEditTriggers(QAbstractItemView::EditTrigger::NoEditTriggers);
+            listNavigation->setDropIndicatorShown(false);
+            listNavigation->addItem(new QListWidgetItem(QLEMENTINE_ICON(Navigation_UiPanelLeft), _("User Interface"), listNavigation));
+            QObject::connect(listNavigation, &QListWidget::currentRowChanged, [this]()
+            {
+                viewStack->setCurrentIndex(listNavigation->currentRow());
+            });
+            //Main Layout
+            QHBoxLayout* layout{ new QHBoxLayout(parent) };
+            layout->addWidget(listNavigation);
+            layout->addWidget(viewStack);
+            parent->setLayout(layout);
+        }
+
+        QListWidget* listNavigation;
+        QStackedWidget* viewStack;
+        QComboBox* cmbTheme;
+        Switch* chkUpdates;
+    };
+}
 
 namespace Nickvision::Application::Qt::Views
 {
@@ -16,23 +70,16 @@ namespace Nickvision::Application::Qt::Views
         m_controller{ controller },
         m_themeManager{ themeManager }
     {
-        m_ui->setupUi(this);
+        //Dialog Settings
         setWindowTitle(_("Settings"));
-        //Localize Strings
-        m_ui->lblTheme->setText(_("Theme"));
-        m_ui->cmbTheme->addItem(_("Light"));
-        m_ui->cmbTheme->addItem(_("Dark"));
-        m_ui->cmbTheme->addItem(_("System"));
-        m_ui->lblUpdates->setText(_("Automatically Check for Updates"));
-        //Add Navigation Items
-        m_ui->listNavigation->addItem(new QListWidgetItem(QLEMENTINE_ICON(Navigation_UiPanelLeft), _("User Interface"), m_ui->listNavigation));
-        //Load
-        m_ui->listNavigation->setCurrentRow(0);
-        m_ui->viewStack->setCurrentIndex(0);
+        setMinimumSize(600, 400);
+        setModal(true);
+        //Load Ui
+        m_ui->setupUi(this);
         m_ui->cmbTheme->setCurrentIndex(static_cast<int>(m_controller->getTheme()));
         m_ui->chkUpdates->setChecked(m_controller->getAutomaticallyCheckForUpdates());
+        m_ui->listNavigation->setCurrentRow(0);
         //Signals
-        connect(m_ui->listNavigation, &QListWidget::currentRowChanged, this, &SettingsDialog::onNavigationChanged);
         connect(m_ui->cmbTheme, &QComboBox::currentIndexChanged, this, &SettingsDialog::onThemeChanged);
     }
 
@@ -43,26 +90,21 @@ namespace Nickvision::Application::Qt::Views
 
     void SettingsDialog::closeEvent(QCloseEvent* event)
     {
-        m_controller->setTheme(static_cast<Theme>(m_ui->cmbTheme->currentIndex()));
+        m_controller->setTheme(static_cast<Shared::Models::Theme>(m_ui->cmbTheme->currentIndex()));
         m_controller->setAutomaticallyCheckForUpdates(m_ui->chkUpdates->isChecked());
         m_controller->saveConfiguration();
         event->accept();
     }
 
-    void SettingsDialog::onNavigationChanged()
-    {
-        m_ui->viewStack->setCurrentIndex(m_ui->listNavigation->currentRow());
-    }
-
     void SettingsDialog::onThemeChanged()
     {
-        switch (static_cast<Theme>(m_ui->cmbTheme->currentIndex()))
+        switch (static_cast<Shared::Models::Theme>(m_ui->cmbTheme->currentIndex()))
         {
-        case Theme::Light:
+        case Shared::Models::Theme::Light:
             QApplication::styleHints()->setColorScheme(::Qt::ColorScheme::Light);
             m_themeManager->setCurrentTheme("Light");
             break;
-        case Theme::Dark:
+        case Shared::Models::Theme::Dark:
             QApplication::styleHints()->setColorScheme(::Qt::ColorScheme::Dark);
             m_themeManager->setCurrentTheme("Dark");
             break;

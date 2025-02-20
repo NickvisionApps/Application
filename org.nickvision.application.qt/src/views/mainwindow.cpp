@@ -1,14 +1,23 @@
 #include "views/mainwindow.h"
-#include "ui_mainwindow.h"
+#include <QAction>
 #include <QDesktopServices>
 #include <QFileDialog>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QListWidget>
+#include <QMenu>
+#include <QMenuBar>
 #include <QMessageBox>
 #include <QMimeData>
 #include <QPushButton>
+#include <QScrollArea>
+#include <QToolBar>
+#include <QVBoxLayout>
 #include <libnick/helpers/codehelpers.h>
 #include <libnick/localization/gettext.h>
 #include <libnick/notifications/shellnotification.h>
 #include "controls/aboutdialog.h"
+#include "controls/infobar.h"
 #include "helpers/qthelpers.h"
 #include "views/settingsdialog.h"
 
@@ -22,41 +31,128 @@ using namespace Nickvision::Helpers;
 using namespace Nickvision::Notifications;
 using namespace Nickvision::Update;
 
+namespace Ui
+{
+    class MainWindow
+    {
+    public:
+        void setupUi(Nickvision::Application::Qt::Views::MainWindow* parent) 
+        {
+            //Actions
+            actionOpenFolder = new QAction(parent);
+            actionOpenFolder->setText(_("Open Folder"));
+            actionOpenFolder->setIcon(QLEMENTINE_ICON(File_FolderOpen));
+            actionOpenFolder->setShortcut(Qt::CTRL | Qt::Key_O);
+            actionCloseFolder = new QAction(parent);
+            actionCloseFolder->setText(_("Close Folder"));
+            actionCloseFolder->setIcon(QLEMENTINE_ICON(File_Folder));
+            actionCloseFolder->setShortcut(Qt::CTRL | Qt::Key_W);
+            actionExit = new QAction(parent);
+            actionExit->setText(_("Exit"));
+            actionExit->setIcon(QLEMENTINE_ICON(Action_Close));
+            actionExit->setShortcut(Qt::CTRL | Qt::Key_Q);
+            actionSettings = new QAction(parent);
+            actionSettings->setText(_("Settings"));
+            actionSettings->setIcon(QLEMENTINE_ICON(Navigation_Settings));
+            actionSettings->setShortcut(Qt::CTRL | Qt::Key_Comma);
+            actionCheckForUpdates = new QAction(parent);
+            actionCheckForUpdates->setText(_("Check for Updates"));
+            actionCheckForUpdates->setIcon(QLEMENTINE_ICON(Action_Update));
+            actionGitHubRepo = new QAction(parent);
+            actionGitHubRepo->setText(_("GitHub Repo"));
+            actionGitHubRepo->setIcon(QLEMENTINE_ICON(Software_VersionControl));
+            actionReportABug = new QAction(parent);
+            actionReportABug->setText(_("Report a Bug"));
+            actionReportABug->setIcon(QLEMENTINE_ICON(Misc_Debug));
+            actionDiscussions = new QAction(parent);
+            actionDiscussions->setText(_("Discussions"));
+            actionDiscussions->setIcon(QLEMENTINE_ICON(Misc_Users));
+            actionAbout = new QAction(parent);
+            actionAbout->setText(_("About Application"));
+            actionAbout->setIcon(QLEMENTINE_ICON(Misc_Info));
+            actionAbout->setShortcut(Qt::Key_F1);
+            //InfoBar
+            infoBar = new Nickvision::Application::Qt::Controls::InfoBar(parent);
+            parent->addDockWidget(::Qt::BottomDockWidgetArea, infoBar);
+            //MenuBar
+            QMenu* menuFile{ new QMenu(parent) };
+            menuFile->setTitle(_("File"));
+            menuFile->addAction(actionOpenFolder);
+            menuFile->addAction(actionCloseFolder);
+            menuFile->addSeparator();
+            menuFile->addAction(actionExit);
+            QMenu* menuEdit{ new QMenu(parent) };
+            menuEdit->setTitle(_("Edit"));
+            menuEdit->addAction(actionSettings);
+            QMenu* menuHelp{ new QMenu(parent) };
+            menuHelp->setTitle(_("Help"));
+            menuHelp->addAction(actionCheckForUpdates);
+            menuHelp->addSeparator();
+            menuHelp->addAction(actionGitHubRepo);
+            menuHelp->addAction(actionReportABug);
+            menuHelp->addAction(actionDiscussions);
+            menuHelp->addSeparator();
+            menuHelp->addAction(actionAbout);
+            parent->menuBar()->addMenu(menuFile);
+            parent->menuBar()->addMenu(menuEdit);
+            parent->menuBar()->addMenu(menuHelp);
+            //ToolBar
+            QToolBar* toolBar{ new QToolBar(parent) };
+            toolBar->setAllowedAreas(::Qt::ToolBarArea::TopToolBarArea);
+            toolBar->setMovable(false);
+            toolBar->setFloatable(false);
+            toolBar->addAction(actionOpenFolder);
+            toolBar->addAction(actionCloseFolder);
+            parent->addToolBar(toolBar);
+            //Files View
+            listFiles = new QListWidget(parent);
+            listFiles->setSelectionMode(QAbstractItemView::SelectionMode::SingleSelection);
+            lblFiles = new QLabel(parent);
+            lblFiles->setAlignment(::Qt::AlignmentFlag::AlignCenter);
+            lblFiles->setText(_("No Folder Opened"));
+            //Main Layout
+            QWidget* centralWidget{ new QWidget(parent) };
+            QHBoxLayout* layoutMain{ new QHBoxLayout(parent) };
+            QScrollArea* scrollFiles{ new QScrollArea(parent) };
+            scrollFiles->setMaximumWidth(300);
+            scrollFiles->setWidgetResizable(true);
+            scrollFiles->setWidget(listFiles);
+            layoutMain->addWidget(scrollFiles);
+            layoutMain->addWidget(lblFiles);
+            centralWidget->setLayout(layoutMain);
+            parent->setCentralWidget(centralWidget);
+        }
+
+        QAction* actionOpenFolder;
+        QAction* actionCloseFolder;
+        QAction* actionExit;
+        QAction* actionSettings;
+        QAction* actionCheckForUpdates;
+        QAction* actionGitHubRepo;
+        QAction* actionReportABug;
+        QAction* actionDiscussions;
+        QAction* actionAbout;
+        Nickvision::Application::Qt::Controls::InfoBar* infoBar;
+        QListWidget* listFiles;
+        QLabel* lblFiles;
+    };
+}
+
 namespace Nickvision::Application::Qt::Views
 {
     MainWindow::MainWindow(const std::shared_ptr<MainWindowController>& controller, oclero::qlementine::ThemeManager* themeManager, QWidget* parent) 
         : QMainWindow{ parent },
         m_ui{ new Ui::MainWindow() },
-        m_infoBar{ new InfoBar(this) },
         m_controller{ controller },
         m_themeManager{ themeManager }
     {
+        //Window Settings
+        bool stable{ m_controller->getAppInfo().getVersion().getVersionType() == VersionType::Stable };
+        setWindowTitle(stable ? _("Application") : _("Application (Preview)"));
+        setWindowIcon(QIcon(":/icon.svg"));
+        setAcceptDrops(true);
+        //Load Ui
         m_ui->setupUi(this);
-        setWindowTitle(m_controller->getAppInfo().getVersion().getVersionType() == VersionType::Stable ? _("Application") : _("Application (Preview)"));
-        addDockWidget(::Qt::BottomDockWidgetArea, m_infoBar);
-        //MenuBar
-        m_ui->menuFile->setTitle(_("File"));
-        m_ui->actionOpenFolder->setText(_("Open Folder"));
-        m_ui->actionOpenFolder->setIcon(QLEMENTINE_ICON(File_FolderOpen));
-        m_ui->actionCloseFolder->setText(_("Close Folder"));
-        m_ui->actionCloseFolder->setIcon(QLEMENTINE_ICON(File_Folder));
-        m_ui->actionExit->setText(_("Exit"));
-        m_ui->actionExit->setIcon(QLEMENTINE_ICON(Action_Close));
-        m_ui->menuEdit->setTitle(_("Edit"));
-        m_ui->actionSettings->setText(_("Settings"));
-        m_ui->actionSettings->setIcon(QLEMENTINE_ICON(Navigation_Settings));
-        m_ui->menuHelp->setTitle(_("Help"));
-        m_ui->actionCheckForUpdates->setText(_("Check for Updates"));
-        m_ui->actionCheckForUpdates->setIcon(QLEMENTINE_ICON(Action_Update));
-        m_ui->actionGitHubRepo->setText(_("GitHub Repo"));
-        m_ui->actionGitHubRepo->setIcon(QLEMENTINE_ICON(Software_VersionControl));
-        m_ui->actionReportABug->setText(_("Report a Bug"));
-        m_ui->actionReportABug->setIcon(QLEMENTINE_ICON(Misc_Debug));
-        m_ui->actionDiscussions->setText(_("Discussions"));
-        m_ui->actionDiscussions->setIcon(QLEMENTINE_ICON(Misc_Users));
-        m_ui->actionAbout->setText(_("About Application"));
-        m_ui->actionAbout->setIcon(QLEMENTINE_ICON(Misc_Info));
-        m_ui->lblFiles->setText(_("No Folder Opened"));
         //Signals
         connect(m_ui->actionOpenFolder, &QAction::triggered, this, &MainWindow::openFolder);
         connect(m_ui->actionCloseFolder, &QAction::triggered, this, &MainWindow::closeFolder);
@@ -74,7 +170,6 @@ namespace Nickvision::Application::Qt::Views
 
     MainWindow::~MainWindow()
     {
-        delete m_infoBar;
         delete m_ui;
     }
 
@@ -189,7 +284,7 @@ namespace Nickvision::Application::Qt::Views
             actionCallback = [this]() { windowsUpdate(); };
         }
 #endif
-        m_infoBar->show(args, actionText, actionCallback);
+        m_ui->infoBar->show(args, actionText, actionCallback);
     }
 
     void MainWindow::onShellNotificationSent(const ShellNotificationSentEventArgs& args)

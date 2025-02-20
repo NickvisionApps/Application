@@ -35,9 +35,9 @@ jobs:
         uses: johnwason/vcpkg-action@v6
         id: vcpkg
         with:
-          pkgs: libnick qtbase qtsvg qttools qlementine
+          pkgs: libnick qtbase qtsvg qttools qlementine qlementine-icons
           triplet: x64-windows
-          revision: f6df7351579d2505357de5876f554e949f953ecc
+          revision: f0c3568a543de0c54295c715d5555fd83b547fe4
           token: ${{ secrets.GITHUB_TOKEN }}
           github-binarycache: true
       - name: "Build"
