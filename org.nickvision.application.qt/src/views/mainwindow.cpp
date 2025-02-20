@@ -8,7 +8,6 @@
 #include <libnick/helpers/codehelpers.h>
 #include <libnick/localization/gettext.h>
 #include <libnick/notifications/shellnotification.h>
-#include <oclero/qlementine/icons/Icons16.hpp>
 #include "controls/aboutdialog.h"
 #include "helpers/qthelpers.h"
 #include "views/settingsdialog.h"
@@ -38,25 +37,25 @@ namespace Nickvision::Application::Qt::Views
         //MenuBar
         m_ui->menuFile->setTitle(_("File"));
         m_ui->actionOpenFolder->setText(_("Open Folder"));
-        m_ui->actionOpenFolder->setIcon(QIcon(iconPath(oclero::qlementine::icons::Icons16::File_FolderOpen)));
+        m_ui->actionOpenFolder->setIcon(QLEMENTINE_ICON(File_FolderOpen));
         m_ui->actionCloseFolder->setText(_("Close Folder"));
-        m_ui->actionCloseFolder->setIcon(QIcon(iconPath(oclero::qlementine::icons::Icons16::File_Folder)));
+        m_ui->actionCloseFolder->setIcon(QLEMENTINE_ICON(File_Folder));
         m_ui->actionExit->setText(_("Exit"));
-        m_ui->actionExit->setIcon(QIcon(iconPath(oclero::qlementine::icons::Icons16::Action_Close)));
+        m_ui->actionExit->setIcon(QLEMENTINE_ICON(Action_Close));
         m_ui->menuEdit->setTitle(_("Edit"));
         m_ui->actionSettings->setText(_("Settings"));
-        m_ui->actionSettings->setIcon(QIcon(iconPath(oclero::qlementine::icons::Icons16::Navigation_Settings)));
+        m_ui->actionSettings->setIcon(QLEMENTINE_ICON(Navigation_Settings));
         m_ui->menuHelp->setTitle(_("Help"));
         m_ui->actionCheckForUpdates->setText(_("Check for Updates"));
-        m_ui->actionCheckForUpdates->setIcon(QIcon(iconPath(oclero::qlementine::icons::Icons16::Action_Update)));
+        m_ui->actionCheckForUpdates->setIcon(QLEMENTINE_ICON(Action_Update));
         m_ui->actionGitHubRepo->setText(_("GitHub Repo"));
-        m_ui->actionGitHubRepo->setIcon(QIcon(iconPath(oclero::qlementine::icons::Icons16::Software_VersionControl)));
+        m_ui->actionGitHubRepo->setIcon(QLEMENTINE_ICON(Software_VersionControl));
         m_ui->actionReportABug->setText(_("Report a Bug"));
-        m_ui->actionReportABug->setIcon(QIcon(iconPath(oclero::qlementine::icons::Icons16::Misc_Debug)));
+        m_ui->actionReportABug->setIcon(QLEMENTINE_ICON(Misc_Debug));
         m_ui->actionDiscussions->setText(_("Discussions"));
-        m_ui->actionDiscussions->setIcon(QIcon(iconPath(oclero::qlementine::icons::Icons16::Misc_Users)));
+        m_ui->actionDiscussions->setIcon(QLEMENTINE_ICON(Misc_Users));
         m_ui->actionAbout->setText(_("About Application"));
-        m_ui->actionAbout->setIcon(QIcon(iconPath(oclero::qlementine::icons::Icons16::Misc_Info)));
+        m_ui->actionAbout->setIcon(QLEMENTINE_ICON(Misc_Info));
         m_ui->lblFiles->setText(_("No Folder Opened"));
         //Signals
         connect(m_ui->actionOpenFolder, &QAction::triggered, this, &MainWindow::openFolder);

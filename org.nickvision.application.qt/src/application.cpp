@@ -14,9 +14,14 @@ namespace Nickvision::Application::Qt
         m_style{ new oclero::qlementine::QlementineStyle(this) },
         m_themeManager{ new oclero::qlementine::ThemeManager(m_style) }
     {
-        oclero::qlementine::icons::initializeIconTheme();
+        //Style
+        m_style->setAnimationsEnabled(true);
+        m_style->setAutoIconColor(oclero::qlementine::AutoIconColor::TextColor);
         QApplication::setStyle(m_style);
+        //Icons
+        oclero::qlementine::icons::initializeIconTheme();
         QIcon::setThemeName("qlementine");
+        //Themes
         m_themeManager->loadDirectory(":/");
     }
 

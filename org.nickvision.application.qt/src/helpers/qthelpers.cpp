@@ -3,6 +3,8 @@
 #include <QString>
 #include <QTimer>
 
+using namespace oclero::qlementine::icons;
+
 namespace Nickvision::Application::Qt::Helpers
 {
     void QtHelpers::dispatchToMainThread(const std::function<void()>& function)
@@ -32,5 +34,10 @@ namespace Nickvision::Application::Qt::Helpers
             }
         }
         comboBox->setCurrentIndex(selectedIndex);
+    }
+
+    QIcon QtHelpers::getIcon(Icons16 icon)
+    {
+        return QIcon(iconPath(icon));
     }
 }

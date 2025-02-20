@@ -3,7 +3,7 @@
 #include <QApplication>
 #include <QStyleHints>
 #include <libnick/localization/gettext.h>
-#include <oclero/qlementine/icons/Icons16.hpp>
+#include "helpers/qthelpers.h"
 
 using namespace Nickvision::Application::Shared::Controllers;
 using namespace Nickvision::Application::Shared::Models;
@@ -25,7 +25,7 @@ namespace Nickvision::Application::Qt::Views
         m_ui->cmbTheme->addItem(_("System"));
         m_ui->lblUpdates->setText(_("Automatically Check for Updates"));
         //Add Navigation Items
-        m_ui->listNavigation->addItem(new QListWidgetItem(QIcon(iconPath(oclero::qlementine::icons::Icons16::Navigation_UiPanelLeft)), _("User Interface"), m_ui->listNavigation));
+        m_ui->listNavigation->addItem(new QListWidgetItem(QLEMENTINE_ICON(Navigation_UiPanelLeft), _("User Interface"), m_ui->listNavigation));
         //Load
         m_ui->listNavigation->setCurrentRow(0);
         m_ui->viewStack->setCurrentIndex(0);
