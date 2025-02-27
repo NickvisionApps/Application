@@ -9,9 +9,6 @@
 #include <libnick/localization/gettext.h>
 #include <libnick/system/environment.h>
 #include "models/configuration.h"
-#ifdef _WIN32
-#include <windows.h>
-#endif
 
 using namespace Nickvision::App;
 using namespace Nickvision::Application::Shared::Models;

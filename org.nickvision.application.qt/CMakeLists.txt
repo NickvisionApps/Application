@@ -14,12 +14,14 @@ qt_standard_project_setup()
 qt_add_executable(${OUTPUT_NAME}
     "include/controls/aboutdialog.h"
     "include/controls/infobar.h"
+    "include/controls/statuspage.h"
     "include/helpers/qthelpers.h"
     "include/views/mainwindow.h"
     "include/views/settingsdialog.h"
     "include/application.h"
     "src/controls/aboutdialog.cpp"
     "src/controls/infobar.cpp"
+    "src/controls/statuspage.cpp"
     "src/helpers/qthelpers.cpp"
     "src/views/mainwindow.cpp"
     "src/views/settingsdialog.cpp"
@@ -28,7 +30,11 @@ qt_add_executable(${OUTPUT_NAME}
     "resources/${OUTPUT_NAME}.qrc"
     "../resources/windows/${PROJECT_NAME}.rc")
 target_include_directories(${OUTPUT_NAME} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
-target_link_libraries(${OUTPUT_NAME} PRIVATE libapplication Qt6::Core Qt6::Gui Qt6::Widgets Qt6::Svg qlementine::qlementine qlementine-icons::qlementine-icons)
+if(USING_VCPKG)
+    target_link_libraries(${OUTPUT_NAME} PRIVATE libapplication Qt6::Core Qt6::Gui Qt6::Widgets Qt6::Svg qlementine::qlementine unofficial::qlementine-icons::qlementine-icons)
+else()
+    target_link_libraries(${OUTPUT_NAME} PRIVATE libapplication Qt6::Core Qt6::Gui Qt6::Widgets Qt6::Svg qlementine::qlementine qlementine-icons::qlementine-icons)
+endif()
 if(WIN32)
     set_target_properties(${OUTPUT_NAME} PROPERTIES WIN32_EXECUTABLE ON)
 endif()
