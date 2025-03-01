@@ -149,7 +149,7 @@ namespace Nickvision::Application::Qt::Views
         //Window Settings
         bool stable{ m_controller->getAppInfo().getVersion().getVersionType() == VersionType::Stable };
         setWindowTitle(stable ? _("Application") : _("Application (Preview)"));
-        setWindowIcon(QIcon(":/icon.svg"));
+        setWindowIcon(QIcon(":/icon.ico"));
         setAcceptDrops(true);
         //Load Ui
         m_ui->setupUi(this);

@@ -37,7 +37,7 @@ jobs:
         with:
           pkgs: libnick qtbase qtsvg qttools qlementine qlementine-icons
           triplet: x64-windows
-          revision: d62c72fa85faf66aa0027c744b6706f26eda46c2
+          revision: 42d83e2cb2a196619f7e0eecb1ce5d7e5d5a02c4
           token: ${{ secrets.GITHUB_TOKEN }}
           github-binarycache: true
       - name: "Build"

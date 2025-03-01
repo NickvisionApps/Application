@@ -79,7 +79,7 @@
                 {
                     "type": "git",
                     "url": "https://github.com/nickvisionapps/libnick",
-                    "tag": "2025.1.0"
+                    "tag": "2025.2.0"
                 }
             ]
         },
@@ -95,7 +95,7 @@
                 {
                     "type": "git",
                     "url": "https://github.com/oclero/qlementine",
-                    "commit": "a3b350f3a425f539bd718e2dfb26dea4603df9b1"
+                    "tag": "v1.0.3"
                 }
             ]
         },
