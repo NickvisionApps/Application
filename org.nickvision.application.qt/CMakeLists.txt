@@ -30,11 +30,7 @@ qt_add_executable(${OUTPUT_NAME}
     "resources/${OUTPUT_NAME}.qrc"
     "../resources/windows/${PROJECT_NAME}.rc")
 target_include_directories(${OUTPUT_NAME} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
-if(USING_VCPKG)
-    target_link_libraries(${OUTPUT_NAME} PRIVATE libapplication Qt6::Core Qt6::Gui Qt6::Widgets Qt6::Svg qlementine::qlementine unofficial::qlementine-icons::qlementine-icons)
-else()
-    target_link_libraries(${OUTPUT_NAME} PRIVATE libapplication Qt6::Core Qt6::Gui Qt6::Widgets Qt6::Svg qlementine::qlementine qlementine-icons::qlementine-icons)
-endif()
+target_link_libraries(${OUTPUT_NAME} PRIVATE libapplication Qt6::Core Qt6::Gui Qt6::Widgets Qt6::Svg qlementine::qlementine qlementine-icons::qlementine-icons)
 if(WIN32)
     set_target_properties(${OUTPUT_NAME} PROPERTIES WIN32_EXECUTABLE ON)
 endif()
