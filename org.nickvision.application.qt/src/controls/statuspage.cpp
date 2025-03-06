@@ -17,7 +17,7 @@ namespace Ui
             boldFont.setBold(true);
             boldFont.setPointSize(boldFont.pointSize() + 4);
             //Stacked Items
-            QVBoxLayout* layoutStack{ new QVBoxLayout(parent) };
+            QVBoxLayout* layoutStack{ new QVBoxLayout() };
             layoutStack->setSpacing(12);
             layoutStack->addStretch();
             //Icon
@@ -34,12 +34,12 @@ namespace Ui
             lblDescription->setAlignment(::Qt::AlignCenter);
             layoutStack->addWidget(lblDescription);
             //Extra
-            layoutExtra = new QVBoxLayout(parent);
+            layoutExtra = new QVBoxLayout();
             layoutExtra->setSpacing(12);
             layoutStack->addLayout(layoutExtra);
             layoutStack->addStretch();
             //Main Layout
-            QHBoxLayout* layoutMain{ new QHBoxLayout(parent) };
+            QHBoxLayout* layoutMain{ new QHBoxLayout() };
             layoutMain->addStretch();
             layoutMain->addLayout(layoutStack);
             layoutMain->addStretch();

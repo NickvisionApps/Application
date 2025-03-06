@@ -32,7 +32,7 @@ namespace Ui
             QLabel* lblUpdates{ new QLabel(parent) };
             lblUpdates->setText(_("Automatically Check for Updates"));
             chkUpdates = new Switch(parent);
-            QFormLayout* layoutUserInterface{ new QFormLayout(parent) };
+            QFormLayout* layoutUserInterface{ new QFormLayout() };
             layoutUserInterface->addRow(lblTheme, cmbTheme);
             layoutUserInterface->addRow(lblUpdates, chkUpdates);
             QWidget* userInterfacePage{ new QWidget(parent) };
@@ -49,7 +49,7 @@ namespace Ui
                 viewStack->setCurrentIndex(listNavigation->currentRow());
             });
             //Main Layout
-            QHBoxLayout* layout{ new QHBoxLayout(parent) };
+            QHBoxLayout* layout{ new QHBoxLayout() };
             layout->addWidget(listNavigation);
             layout->addWidget(viewStack);
             parent->setLayout(layout);
