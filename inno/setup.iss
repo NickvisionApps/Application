@@ -33,21 +33,6 @@ PrivilegesRequired=admin
 DirExistsWarning=no
 CloseApplications=yes
 
-[Code]
-procedure SetupVC();
-var
-  ResultCode: Integer;
-begin
-  if not ShellExec('', ExpandConstant('{app}\deps\vc_redist.x64.exe'), '/install /quiet /norestart', '', SW_HIDE, ewWaitUntilTerminated, ResultCode)
-  then
-    MsgBox('Unable to install VC . Please try again', mbError, MB_OK);
-end;
-
-procedure Cleanup();
-begin
-  DelTree(ExpandConstant('{app}\deps'), True, True, True);
-end;
-
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
@@ -55,9 +40,9 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "vc_redist.x64.exe"; DestDir: "{app}\deps"; AfterInstall: SetupVC  
+Source: "vc_redist.x64.exe"; DestDir: "{app}"; Flags: deleteafterinstall
 Source: "..\build\org.nickvision.application.qt\Release\{#MyAppExeName}"; DestDir: "{app}\Release"; Flags: ignoreversion 
-Source: "..\build\org.nickvision.application.qt\Release\*"; DestDir: "{app}\Release"; Flags: ignoreversion recursesubdirs createallsubdirs; AfterInstall: Cleanup
+Source: "..\build\org.nickvision.application.qt\Release\*"; DestDir: "{app}\Release"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
@@ -65,5 +50,6 @@ Name: "{autoprograms}\{#MyAppShortName}"; Filename: "{app}\Release\{#MyAppExeNam
 Name: "{autodesktop}\{#MyAppShortName}"; Filename: "{app}\Release\{#MyAppExeName}"; Tasks: desktopicon
 
 [Run]
+Filename: "{app}\vc_redist.x64.exe"; Parameters: "/install /quiet /norestart"
 Filename: "{app}\Release\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: runascurrentuser nowait postinstall skipifsilent
 
