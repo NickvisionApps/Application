@@ -2,10 +2,11 @@
     "meta": {
       "author": "Nicholas Logozzo",
       "name": "Light",
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
 
     "useSystemFonts": true,
+    "fontSizeH5": 12,
   
     "backgroundColorMain1": "#ffffff",
     "backgroundColorMain2": "#fafafa",

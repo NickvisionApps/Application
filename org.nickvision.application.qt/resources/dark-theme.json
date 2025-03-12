@@ -2,10 +2,11 @@
     "meta": {
       "author": "Nicholas Logozzo",
       "name": "Dark",
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
   
-    "useSystemFonts": true,
+	"useSystemFonts": true,
+	"fontSizeH5": 12,
 
     "backgroundColorMain1": "#303030",
     "backgroundColorMain2": "#242424",
