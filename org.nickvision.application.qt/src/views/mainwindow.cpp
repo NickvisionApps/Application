@@ -15,7 +15,6 @@
 #include <QVBoxLayout>
 #include <libnick/helpers/codehelpers.h>
 #include <libnick/localization/gettext.h>
-#include <libnick/notifications/shellnotification.h>
 #include "controls/aboutdialog.h"
 #include "controls/infobar.h"
 #include "helpers/qthelpers.h"
@@ -163,9 +162,8 @@ namespace Nickvision::Application::Qt::Views
         connect(m_ui->actionReportABug, &QAction::triggered, this, &MainWindow::reportABug);
         connect(m_ui->actionDiscussions, &QAction::triggered, this, &MainWindow::discussions);
         connect(m_ui->actionAbout, &QAction::triggered, this, &MainWindow::about);
-        m_controller->notificationSent() += [&](const NotificationSentEventArgs& args) { QtHelpers::dispatchToMainThread([this, args]() { onNotificationSent(args); }); };
-        m_controller->shellNotificationSent() += [&](const ShellNotificationSentEventArgs& args) { onShellNotificationSent(args); };
-        m_controller->folderChanged() += [&](const EventArgs& args) { onFolderChanged(args); };
+        m_controller->notificationSent() += [this](const NotificationSentEventArgs& args) { QtHelpers::dispatchToMainThread([this, args]() { onNotificationSent(args); }); };
+        m_controller->folderChanged() += [this](const EventArgs& args) { onFolderChanged(args); };
     }
 
     MainWindow::~MainWindow()
@@ -285,17 +283,6 @@ namespace Nickvision::Application::Qt::Views
         }
 #endif
         m_ui->infoBar->show(args, actionText, actionCallback);
-    }
-
-    void MainWindow::onShellNotificationSent(const ShellNotificationSentEventArgs& args)
-    {
-#ifdef _WIN32
-        ShellNotification::send(args, reinterpret_cast<HWND>(winId()));
-#elif defined(__linux__)
-        ShellNotification::send(args, m_controller->getAppInfo().getId(), _("Open"));
-#else
-        ShellNotification::send(args);
-#endif
     }
 
     void MainWindow::onFolderChanged(const EventArgs& args)

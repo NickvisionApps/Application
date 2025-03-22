@@ -14,7 +14,6 @@
 #include <libnick/app/windowgeometry.h>
 #include <libnick/events/event.h>
 #include <libnick/notifications/notificationsenteventargs.h>
-#include <libnick/notifications/shellnotificationsenteventargs.h>
 #include <libnick/taskbar/taskbaritem.h>
 #include <libnick/update/updater.h>
 #include "controllers/preferencesviewcontroller.h"
@@ -44,11 +43,6 @@ namespace Nickvision::Application::Shared::Controllers
          * @return The notification sent event
          */
         Nickvision::Events::Event<Nickvision::Notifications::NotificationSentEventArgs>& notificationSent();
-        /**
-         * @brief Gets the event for when a shell notification is sent.
-         * @return The shell notification sent event
-         */
-        Nickvision::Events::Event<Nickvision::Notifications::ShellNotificationSentEventArgs>& shellNotificationSent();
         /**
          * @brief Gets the AppInfo object for the application
          * @return The current AppInfo object
@@ -147,8 +141,6 @@ namespace Nickvision::Application::Shared::Controllers
         Nickvision::App::DataFileManager m_dataFileManager;
         std::shared_ptr<Nickvision::Update::Updater> m_updater;
         Nickvision::Taskbar::TaskbarItem m_taskbar;
-        Nickvision::Events::Event<Nickvision::Notifications::NotificationSentEventArgs> m_notificationSent;
-        Nickvision::Events::Event<Nickvision::Notifications::ShellNotificationSentEventArgs> m_shellNotificationSent;
         std::filesystem::path m_folderPath;
         std::vector<std::filesystem::path> m_files;
         Nickvision::Events::Event<Nickvision::Events::EventArgs> m_folderChanged;

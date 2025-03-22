@@ -7,6 +7,7 @@
 #include <libnick/helpers/codehelpers.h>
 #include <libnick/helpers/stringhelpers.h>
 #include <libnick/localization/gettext.h>
+#include <libnick/notifications/appnotification.h>
 #include <libnick/system/environment.h>
 #include "models/configuration.h"
 
@@ -55,12 +56,7 @@ namespace Nickvision::Application::Shared::Controllers
 
     Event<NotificationSentEventArgs>& MainWindowController::notificationSent()
     {
-        return m_notificationSent;
-    }
-
-    Event<ShellNotificationSentEventArgs>& MainWindowController::shellNotificationSent()
-    {
-        return m_shellNotificationSent;
+        return AppNotification::sent();
     }
 
     const AppInfo& MainWindowController::getAppInfo() const
@@ -146,7 +142,7 @@ namespace Nickvision::Application::Shared::Controllers
             {
                 if(latest > m_appInfo.getVersion())
                 {
-                    m_notificationSent.invoke({ _("New update available"), NotificationSeverity::Success, "update" });
+                    AppNotification::send({ _("New update available"), NotificationSeverity::Success, "update" });
                 }
             }
         } };
@@ -160,12 +156,12 @@ namespace Nickvision::Application::Shared::Controllers
         {
             return;
         }
-        m_notificationSent.invoke({ _("The update is downloading in the background and will start once it finishes"), NotificationSeverity::Informational });
+        AppNotification::send({ _("The update is downloading in the background and will start once it finishes"), NotificationSeverity::Informational });
         std::thread worker{ [this]()
         {
             if(!m_updater->windowsUpdate(VersionType::Stable))
             {
-                m_notificationSent.invoke({ _("Unable to download and install update"), NotificationSeverity::Error });
+                AppNotification::send({ _("Unable to download and install update"), NotificationSeverity::Error });
             }
         } };
         worker.detach();
@@ -235,7 +231,7 @@ namespace Nickvision::Application::Shared::Controllers
             }
         }
         //UI
-        m_notificationSent.invoke({ std::vformat(_("Folder Opened: {}"), std::make_format_args(CodeHelpers::unmove(m_folderPath.string()))), NotificationSeverity::Success, "close" });
+        AppNotification::send({ std::vformat(_("Folder Opened: {}"), std::make_format_args(CodeHelpers::unmove(m_folderPath.string()))), NotificationSeverity::Success, "close" });
         m_folderChanged.invoke({});
         m_taskbar.setCount(static_cast<long>(m_files.size()));
         m_taskbar.setCountVisible(true);
@@ -250,7 +246,7 @@ namespace Nickvision::Application::Shared::Controllers
         }
         m_folderPath = std::filesystem::path();
         m_files.clear();
-        m_notificationSent.invoke({ _("Folder closed"), NotificationSeverity::Warning });
+        AppNotification::send({ _("Folder closed"), NotificationSeverity::Warning });
         m_folderChanged.invoke({});
         m_taskbar.setCountVisible(false);
     }

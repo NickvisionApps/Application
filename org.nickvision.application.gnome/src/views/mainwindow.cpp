@@ -3,7 +3,6 @@
 #include <format>
 #include <libnick/app/appinfo.h>
 #include <libnick/helpers/codehelpers.h>
-#include <libnick/notifications/shellnotification.h>
 #include <libnick/localization/gettext.h>
 #include "helpers/dialogptr.h"
 #include "helpers/gtkhelpers.h"
@@ -39,7 +38,6 @@ namespace Nickvision::Application::GNOME::Views
         //Register Events
         g_signal_connect(m_window, "close_request", G_CALLBACK(+[](GtkWindow*, gpointer data) -> bool { return reinterpret_cast<MainWindow*>(data)->onCloseRequested(); }), this);
         m_controller->notificationSent() += [&](const NotificationSentEventArgs& args) { GtkHelpers::dispatchToMainThread([this, args]() { onNotificationSent(args); }); };
-        m_controller->shellNotificationSent() += [&](const ShellNotificationSentEventArgs& args) { onShellNotificationSent(args); };
         m_controller->folderChanged() += [&](const EventArgs& args) { onFolderChanged(args); };
         //Drop Target
         GtkDropTarget* dropTarget{ gtk_drop_target_new(G_TYPE_FILE, GDK_ACTION_COPY) };
@@ -129,15 +127,6 @@ namespace Nickvision::Application::GNOME::Views
             g_signal_connect(toast, "button-clicked", G_CALLBACK(+[](AdwToast*, gpointer data){ reinterpret_cast<MainWindow*>(data)->closeFolder(); }), this);
         }
         adw_toast_overlay_add_toast(m_builder.get<AdwToastOverlay>("toastOverlay"), toast);
-    }
-
-    void MainWindow::onShellNotificationSent(const ShellNotificationSentEventArgs& args)
-    {
-#ifdef __linux__
-        ShellNotification::send(args, m_controller->getAppInfo().getId(), _("Open"));
-#else
-        ShellNotification::send(args);
-#endif
     }
 
     void MainWindow::onFolderChanged(const EventArgs& args)
