@@ -15,6 +15,12 @@ else()
     target_compile_options(libapplication PRIVATE -Wall -Wextra -Wpedantic)
 endif()
 
+if(WIN32)
+    if(USING_VCPKG)
+        find_package(unofficial-wintoast CONFIG REQUIRED)
+        target_link_libraries(libparabolic PRIVATE unofficial::wintoast::wintoast)
+    endif()
+endif()
 find_package(libnick CONFIG REQUIRED)
 target_link_libraries(libapplication PUBLIC libnick::libnick)
 

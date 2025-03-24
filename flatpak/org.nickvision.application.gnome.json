@@ -1,7 +1,7 @@
 {
     "app-id" : "org.nickvision.application",
     "runtime" : "org.gnome.Platform",
-    "runtime-version" : "47",
+    "runtime-version" : "48",
     "sdk" : "org.gnome.Sdk",
     "command" : "org.nickvision.application",
     "finish-args":[
@@ -62,7 +62,7 @@
                 {
                     "type": "git",
                     "url": "https://github.com/nickvisionapps/libnick",
-                    "tag": "2025.3.5"
+                    "tag": "2025.3.6"
                 }
             ]
         },

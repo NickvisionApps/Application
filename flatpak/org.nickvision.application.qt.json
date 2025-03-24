@@ -48,7 +48,7 @@
                 {
                     "type": "git",
                     "url": "https://gitlab.gnome.org/GNOME/libsecret",
-                    "tag": "0.21.4"
+                    "tag": "0.21.7"
                 }
             ]
         },
@@ -79,7 +79,7 @@
                 {
                     "type": "git",
                     "url": "https://github.com/nickvisionapps/libnick",
-                    "tag": "2025.3.5"
+                    "tag": "2025.3.6"
                 }
             ]
         },
