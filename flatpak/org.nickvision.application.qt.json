@@ -63,7 +63,7 @@
                 {
                     "type": "git",
                     "url": "https://github.com/progsource/maddy",
-                    "tag": "1.3.0"
+                    "tag": "1.4.0"
                 }
             ]
         },
@@ -78,7 +78,7 @@
             "sources": [
                 {
                     "type": "git",
-                    "url": "https://github.com/nickvisionapps/libnick",
+                    "url": "https://github.com/progsource/maddy",
                     "tag": "2025.3.6"
                 }
             ]
