@@ -35,7 +35,7 @@ jobs:
         id: vcpkg
         with:
           pkgs: libnick qtbase qtsvg qttools qlementine qlementine-icons
-          triplet: x64-windows-release
+          triplet: x64-windows
           revision: bf1a3841b259bc4a14937e4c2f618914018e53a8
           token: ${{ secrets.GITHUB_TOKEN }}
           github-binarycache: true
@@ -82,6 +82,7 @@ jobs:
           revision: bf1a3841b259bc4a14937e4c2f618914018e53a8
           token: ${{ secrets.GITHUB_TOKEN }}
           github-binarycache: true
+          extra-args: "--allow-unsupported"
       - name: "Build"
         working-directory: ${{github.workspace}}/build
         run: |
