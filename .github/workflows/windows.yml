@@ -13,7 +13,7 @@ env:
   GITHUB_ACTIONS: true
   VCPKG_ROOT: ${{github.workspace}}/vcpkg
 jobs:
-  build:
+  build-x64:
     name: "Build on x64"
     runs-on: windows-latest
     if: ${{ github.event.pull_request.user.login != 'weblate' }}
@@ -30,7 +30,6 @@ jobs:
           Invoke-WebRequest https://github.com/mlocati/gettext-iconv-windows/releases/download/v0.23-v1.17/gettext0.23-iconv1.17-shared-64.zip -OutFile gettext.zip
           Expand-Archive -Force 'gettext.zip'
           move gettext\bin\* C:\Windows\System32
-          choco install innosetup
       - name: "Vcpkg"
         uses: johnwason/vcpkg-action@v6
         id: vcpkg
@@ -57,3 +56,46 @@ jobs:
         with:
           path: ${{github.workspace}}/inno/NickvisionApplicationSetup.exe
           name: Windows-x64-Release
+  build-arm64:
+    name: "Build on arm64"
+    runs-on: windows-11-arm
+    if: ${{ github.event.pull_request.user.login != 'weblate' }}
+    steps:
+      - name: "Checkout"  
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: "Setup Environment"
+        shell: pwsh
+        run: |
+          $ProgressPreference = 'SilentlyContinue'
+          mkdir build
+          Invoke-WebRequest https://github.com/mlocati/gettext-iconv-windows/releases/download/v0.23-v1.17/gettext0.23-iconv1.17-shared-64.zip -OutFile gettext.zip
+          Expand-Archive -Force 'gettext.zip'
+          move gettext\bin\* C:\Windows\System32
+      - name: "Vcpkg"
+        uses: johnwason/vcpkg-action@v6
+        id: vcpkg
+        with:
+          pkgs: libnick qtbase qtsvg qttools qlementine qlementine-icons
+          triplet: x64-windows
+          revision: c88d511fcfd4d7f422dc1f53e1eed55941d10e4d
+          token: ${{ secrets.GITHUB_TOKEN }}
+          github-binarycache: true
+      - name: "Build"
+        working-directory: ${{github.workspace}}/build
+        run: |
+          cmake -G "Visual Studio 17 2022" ..
+          cmake --build . --config Release
+      - name: "Create Installer"
+        working-directory: ${{github.workspace}}/inno
+        shell: pwsh
+        run: |
+          $ProgressPreference = 'SilentlyContinue'
+          Invoke-WebRequest https://aka.ms/vs/17/release/vc_redist.arm64.exe -OutFile vc_redist.x64.exe
+          iscc setup.iss
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          path: ${{github.workspace}}/inno/NickvisionApplicationSetup.exe
+          name: Windows-arm64-Release
