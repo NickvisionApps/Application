@@ -1,10 +1,8 @@
 ﻿#include "controllers/mainwindowcontroller.h"
 #include <ctime>
-#include <format>
 #include <sstream>
 #include <thread>
 #include <libnick/filesystem/userdirectories.h>
-#include <libnick/helpers/codehelpers.h>
 #include <libnick/helpers/stringhelpers.h>
 #include <libnick/localization/gettext.h>
 #include <libnick/notifications/appnotification.h>
@@ -15,7 +13,6 @@ using namespace Nickvision::App;
 using namespace Nickvision::Application::Shared::Models;
 using namespace Nickvision::Events;
 using namespace Nickvision::Filesystem;
-using namespace Nickvision::Helpers;
 using namespace Nickvision::Notifications;
 using namespace Nickvision::System;
 using namespace Nickvision::Update;
@@ -231,7 +228,7 @@ namespace Nickvision::Application::Shared::Controllers
             }
         }
         //UI
-        AppNotification::send({ std::vformat(_("Folder Opened: {}"), std::make_format_args(CodeHelpers::unmove(m_folderPath.string()))), NotificationSeverity::Success, "close" });
+        AppNotification::send({ _f("Folder Opened: {}", m_folderPath.string()), NotificationSeverity::Success, "close" });
         m_folderChanged.invoke({});
         m_taskbar.setCount(static_cast<long>(m_files.size()));
         m_taskbar.setCountVisible(true);
