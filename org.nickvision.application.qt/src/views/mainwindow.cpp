@@ -13,7 +13,6 @@
 #include <QScrollArea>
 #include <QToolBar>
 #include <QVBoxLayout>
-#include <libnick/helpers/codehelpers.h>
 #include <libnick/localization/gettext.h>
 #include "controls/aboutdialog.h"
 #include "controls/infobar.h"
@@ -26,7 +25,6 @@ using namespace Nickvision::Application::Qt::Helpers;
 using namespace Nickvision::Application::Shared::Controllers;
 using namespace Nickvision::Application::Shared::Models;
 using namespace Nickvision::Events;
-using namespace Nickvision::Helpers;
 using namespace Nickvision::Notifications;
 using namespace Nickvision::Update;
 
@@ -289,7 +287,7 @@ namespace Nickvision::Application::Qt::Views
     {
         if(m_controller->isFolderOpened())
         {
-            m_ui->lblFiles->setText(QString::fromStdString(std::vformat(_n("There is {} file in the folder.", "There are {} files in the folder.", m_controller->getFiles().size()), std::make_format_args(CodeHelpers::unmove(m_controller->getFiles().size())))));
+            m_ui->lblFiles->setText(_fn("There is {} file in the folder.", "There are {} files in the folder.", m_controller->getFiles().size(), m_controller->getFiles().size()));
             for(const std::filesystem::path& file : m_controller->getFiles())
             {
                 m_ui->listFiles->addItem(QString::fromStdString(file.filename().string()));

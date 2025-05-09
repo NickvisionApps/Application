@@ -1,8 +1,6 @@
 #include "views/mainwindow.h"
 #include <filesystem>
-#include <format>
 #include <libnick/app/appinfo.h>
-#include <libnick/helpers/codehelpers.h>
 #include <libnick/localization/gettext.h>
 #include "helpers/dialogptr.h"
 #include "helpers/gtkhelpers.h"
@@ -13,7 +11,6 @@ using namespace Nickvision::Application::GNOME::Helpers;
 using namespace Nickvision::Application::Shared::Controllers;
 using namespace Nickvision::Application::Shared::Models;
 using namespace Nickvision::Events;
-using namespace Nickvision::Helpers;
 using namespace Nickvision::Notifications;
 using namespace Nickvision::Update;
 
@@ -135,7 +132,7 @@ namespace Nickvision::Application::GNOME::Views
         gtk_widget_set_visible(m_builder.get<GtkWidget>("btnOpenFolder"), m_controller->isFolderOpened());
         gtk_widget_set_visible(m_builder.get<GtkWidget>("btnCloseFolder"), m_controller->isFolderOpened());
         adw_view_stack_set_visible_child_name(m_builder.get<AdwViewStack>("viewStack"), m_controller->isFolderOpened() ? "Folder" : "NoFolder");
-        adw_status_page_set_description(m_builder.get<AdwStatusPage>("pageFiles"), std::vformat(_n("There is {} file in the folder.", "There are {} files in the folder.", m_controller->getFiles().size()), std::make_format_args(CodeHelpers::unmove(m_controller->getFiles().size()))).c_str());
+        adw_status_page_set_description(m_builder.get<AdwStatusPage>("pageFiles"), _fn("There is {} file in the folder.", "There are {} files in the folder.", m_controller->getFiles().size(), m_controller->getFiles().size()));
     }
 
     void MainWindow::quit()
