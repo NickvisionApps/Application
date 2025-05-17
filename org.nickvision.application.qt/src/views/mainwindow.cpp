@@ -287,7 +287,7 @@ namespace Nickvision::Application::Qt::Views
     {
         if(m_controller->isFolderOpened())
         {
-            m_ui->lblFiles->setText(_fn("There is {} file in the folder.", "There are {} files in the folder.", m_controller->getFiles().size(), m_controller->getFiles().size()));
+            m_ui->lblFiles->setText(_fn("There is {} file in the folder.", "There are {} files in the folder.", m_controller->getFiles().size(), m_controller->getFiles().size()).c_str());
             for(const std::filesystem::path& file : m_controller->getFiles())
             {
                 m_ui->listFiles->addItem(QString::fromStdString(file.filename().string()));

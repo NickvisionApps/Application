@@ -132,7 +132,7 @@ namespace Nickvision::Application::GNOME::Views
         gtk_widget_set_visible(m_builder.get<GtkWidget>("btnOpenFolder"), m_controller->isFolderOpened());
         gtk_widget_set_visible(m_builder.get<GtkWidget>("btnCloseFolder"), m_controller->isFolderOpened());
         adw_view_stack_set_visible_child_name(m_builder.get<AdwViewStack>("viewStack"), m_controller->isFolderOpened() ? "Folder" : "NoFolder");
-        adw_status_page_set_description(m_builder.get<AdwStatusPage>("pageFiles"), _fn("There is {} file in the folder.", "There are {} files in the folder.", m_controller->getFiles().size(), m_controller->getFiles().size()));
+        adw_status_page_set_description(m_builder.get<AdwStatusPage>("pageFiles"), _fn("There is {} file in the folder.", "There are {} files in the folder.", m_controller->getFiles().size(), m_controller->getFiles().size()).c_str());
     }
 
     void MainWindow::quit()
