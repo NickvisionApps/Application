@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-09 06:52-0400\n"
+"POT-Creation-Date: 2025-05-20 20:31-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -15,8 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 #: libapplication/src/controllers/mainwindowcontroller.cpp:29
 #: org.nickvision.application.qt/src/views/mainwindow.cpp:148
@@ -83,9 +83,8 @@ msgstr "Добрый вечер!"
 msgid "Good Day!"
 msgstr "Здравствуйте!"
 
-#. UI
 #: libapplication/src/controllers/mainwindowcontroller.cpp:231
-#, fuzzy
+#, fuzzy, c++-format
 msgid "Folder Opened: {}"
 msgstr "Папка открыта: {0}"
 
@@ -105,7 +104,6 @@ msgstr "Параметры"
 msgid "Keyboard Shortcuts"
 msgstr "Комбинации клавиш"
 
-#. Dialog Settings
 #: org.nickvision.application.gnome/blueprints/main_window.blp:7
 #: org.nickvision.application.gnome/blueprints/shortcuts_dialog.blp:39
 #: org.nickvision.application.qt/src/controls/aboutdialog.cpp:148
@@ -193,7 +191,7 @@ msgstr "Закрыть"
 
 #: org.nickvision.application.gnome/src/views/mainwindow.cpp:135
 #: org.nickvision.application.qt/src/views/mainwindow.cpp:290
-#, fuzzy
+#, fuzzy, c++-format
 msgid "There is {} file in the folder."
 msgid_plural "There are {} files in the folder."
 msgstr[0] "В папке {0} файл."
@@ -238,7 +236,6 @@ msgstr ""
 msgid "Debugging"
 msgstr ""
 
-#. Window Settings
 #: org.nickvision.application.qt/src/controls/infobar.cpp:50
 #, fuzzy
 msgid "Notification"
@@ -248,7 +245,6 @@ msgstr "О приложении"
 msgid "Exit"
 msgstr ""
 
-#. Dialog Settings
 #: org.nickvision.application.qt/src/views/mainwindow.cpp:52
 #: org.nickvision.application.qt/src/views/settingsdialog.cpp:74
 msgid "Settings"
