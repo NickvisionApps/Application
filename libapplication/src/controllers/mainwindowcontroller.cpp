@@ -25,7 +25,7 @@ namespace Nickvision::Application::Shared::Controllers
         m_appInfo{ "org.nickvision.application", "Nickvision Application", "Application" },
         m_dataFileManager{ m_appInfo.getName() }
     {
-        m_appInfo.setVersion({ "2025.5.0-next" });
+        m_appInfo.setVersion({ "2025.6.0-next" });
         m_appInfo.setShortName(_("Application"));
         m_appInfo.setDescription(_("Create new Nickvision applications"));
         m_appInfo.setChangelog("- Initial Release");

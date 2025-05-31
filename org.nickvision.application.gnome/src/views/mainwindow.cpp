@@ -85,10 +85,13 @@ namespace Nickvision::Application::GNOME::Views
 #else
         const StartupInformation& info{ m_controller->startup() };
 #endif
-        gtk_window_set_default_size(GTK_WINDOW(m_window), static_cast<int>(info.getWindowGeometry().getWidth()), static_cast<int>(info.getWindowGeometry().getHeight()));
         if(info.getWindowGeometry().isMaximized())
         {
             gtk_window_maximize(GTK_WINDOW(m_window));
+        }
+        else
+        {
+            gtk_window_set_default_size(GTK_WINDOW(m_window), static_cast<int>(info.getWindowGeometry().getWidth()), static_cast<int>(info.getWindowGeometry().getHeight()));
         }
     }
 

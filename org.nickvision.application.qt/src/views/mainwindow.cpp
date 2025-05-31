@@ -179,10 +179,17 @@ namespace Nickvision::Application::Qt::Views
 #else
         const StartupInformation& info{ m_controller->startup() };
 #endif
-        setGeometry(QWidget::geometry().x(), QWidget::geometry().y(), info.getWindowGeometry().getWidth(), info.getWindowGeometry().getHeight());
         if(info.getWindowGeometry().isMaximized())
         {
             showMaximized();
+        }
+        else
+        {
+#ifdef _WIN32
+            info.getWindowGeometry().apply(reinterpret_cast<HWND>(winId()));
+#else
+            setGeometry(QWidget::geometry().x(), QWidget::geometry().y(), info.getWindowGeometry().getWidth(), info.getWindowGeometry().getHeight());
+#endif
         }
     }
 
@@ -192,7 +199,11 @@ namespace Nickvision::Application::Qt::Views
         {
             return event->ignore();
         }
+#ifdef _WIN32
+        m_controller->shutdown({ reinterpret_cast<HWND>(winId()) });
+#else
         m_controller->shutdown({ geometry().width(), geometry().height(), isMaximized() });
+#endif
         event->accept();
     }
 

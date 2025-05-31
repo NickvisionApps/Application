@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-20 20:31-0400\n"
+"POT-Creation-Date: 2025-05-31 18:33-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -83,7 +83,6 @@ msgid "Good Day!"
 msgstr ""
 
 #: libapplication/src/controllers/mainwindowcontroller.cpp:231
-#, c++-format
 msgid "Folder Opened: {}"
 msgstr ""
 
@@ -109,24 +108,24 @@ msgstr ""
 msgid "About Application"
 msgstr ""
 
-#: org.nickvision.application.gnome/blueprints/main_window.blp:21
+#: org.nickvision.application.gnome/blueprints/main_window.blp:23
 msgid "Open Folder (Ctrl+O)"
 msgstr ""
 
-#: org.nickvision.application.gnome/blueprints/main_window.blp:26
-#: org.nickvision.application.gnome/blueprints/main_window.blp:59
+#: org.nickvision.application.gnome/blueprints/main_window.blp:28
+#: org.nickvision.application.gnome/blueprints/main_window.blp:61
 msgid "Open"
 msgstr ""
 
-#: org.nickvision.application.gnome/blueprints/main_window.blp:34
+#: org.nickvision.application.gnome/blueprints/main_window.blp:36
 msgid "Close Folder (Ctrl+W)"
 msgstr ""
 
-#: org.nickvision.application.gnome/blueprints/main_window.blp:43
+#: org.nickvision.application.gnome/blueprints/main_window.blp:45
 msgid "Main Menu"
 msgstr ""
 
-#: org.nickvision.application.gnome/blueprints/main_window.blp:57
+#: org.nickvision.application.gnome/blueprints/main_window.blp:59
 msgid "Open a folder (or drag one into the app) to get started"
 msgstr ""
 
@@ -160,9 +159,9 @@ msgid "Folder"
 msgstr ""
 
 #: org.nickvision.application.gnome/blueprints/shortcuts_dialog.blp:15
-#: org.nickvision.application.gnome/src/views/mainwindow.cpp:149
+#: org.nickvision.application.gnome/src/views/mainwindow.cpp:152
 #: org.nickvision.application.qt/src/views/mainwindow.cpp:40
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:217
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:228
 msgid "Open Folder"
 msgstr ""
 
@@ -180,20 +179,19 @@ msgstr ""
 msgid "Quit"
 msgstr ""
 
-#: org.nickvision.application.gnome/src/views/mainwindow.cpp:123
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:273
+#: org.nickvision.application.gnome/src/views/mainwindow.cpp:126
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:284
 msgid "Close"
 msgstr ""
 
-#: org.nickvision.application.gnome/src/views/mainwindow.cpp:135
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:290
-#, c++-format
+#: org.nickvision.application.gnome/src/views/mainwindow.cpp:138
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:301
 msgid "There is {} file in the folder."
 msgid_plural "There are {} files in the folder."
 msgstr[0] ""
 msgstr[1] ""
 
-#: org.nickvision.application.gnome/src/views/mainwindow.cpp:198
+#: org.nickvision.application.gnome/src/views/mainwindow.cpp:201
 #: org.nickvision.application.qt/src/views/mainwindow.cpp:59
 msgid "GitHub Repo"
 msgstr ""
@@ -269,7 +267,7 @@ msgid "Help"
 msgstr ""
 
 #: org.nickvision.application.qt/src/views/mainwindow.cpp:109
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:299
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:310
 msgid "No Folder Opened"
 msgstr ""
 
@@ -277,7 +275,7 @@ msgstr ""
 msgid "Application (Preview)"
 msgstr ""
 
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:279
+#: org.nickvision.application.qt/src/views/mainwindow.cpp:290
 msgid "Update"
 msgstr ""
 
