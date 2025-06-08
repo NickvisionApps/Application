@@ -22,12 +22,3 @@ endif()
 
 find_package(libnick CONFIG REQUIRED)
 target_link_libraries(libapplication PUBLIC libnick::libnick)
-
-if(HAS_GETTEXT)
-    add_custom_command(TARGET libapplication PRE_BUILD COMMAND "${GETTEXT_XGETTEXT_EXECUTABLE}" --from-code=utf-8 --c++ --force-po --output="${POT_FILE}" --keyword=_ --keyword=_f --keyword=_n:1,2 --keyword=_fn:1,2 --keyword=_p:1c,2 --keyword=_pn:1c,2,3 --keyword=C_:1c,2 --width=80 ${TRANSLATE_FILES} WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}")
-    foreach(LINGUA IN ITEMS ${LINGUAS})
-        add_custom_command(TARGET libapplication PRE_BUILD COMMAND "${GETTEXT_MSGMERGE_EXECUTABLE}" --backup=off --update "${CMAKE_SOURCE_DIR}/resources/po/${LINGUA}.po" "${POT_FILE}")
-    endforeach()
-else()
-    message(WARNING "gettext not found, translations will not be generated")
-endif()
