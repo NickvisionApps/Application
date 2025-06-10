@@ -18,7 +18,7 @@ jobs:
     runs-on: windows-latest
     if: ${{ github.event.pull_request.user.login != 'weblate' }}
     steps:
-      - name: "Checkout"  
+      - name: "Checkout"
         uses: actions/checkout@v4
         with:
           submodules: recursive
@@ -35,7 +35,7 @@ jobs:
         uses: johnwason/vcpkg-action@v6
         id: vcpkg
         with:
-          pkgs: libnick qtbase qtsvg qttools qlementine qlementine-icons
+          pkgs: libnick
           triplet: x64-windows
           revision: bae8fe64fb89f07325480436d27a472d59413b40
           token: ${{ github.token }}
@@ -51,6 +51,7 @@ jobs:
         run: |
           $ProgressPreference = 'SilentlyContinue'
           Invoke-WebRequest https://aka.ms/vs/17/release/vc_redist.x64.exe -OutFile vc_redist.x64.exe
+          Invoke-WebRequest https://aka.ms/windowsappsdk/1.7/latest/windowsappruntimeinstall-x64.exe -OutFile windowsappruntimeinstall-x64.exe
           iscc setup.iss
       - name: Upload
         uses: actions/upload-artifact@v4

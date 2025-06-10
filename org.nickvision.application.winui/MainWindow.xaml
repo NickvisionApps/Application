@@ -1,0 +1,53 @@
+<Window
+	x:Class="Nickvision.Application.WinUI.MainWindow"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="using:Nickvision.Application.WinUI"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d">
+    <Window.SystemBackdrop>
+        <MicaBackdrop/>
+    </Window.SystemBackdrop>
+
+    <Grid x:Name="MainGrid" Loaded="OnLoaded">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="TitleBar" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="LeftPaddingColumn" Width="0"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition x:Name="RightPaddingColumn" Width="0"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="8,0,0,0" Orientation="Horizontal">
+                <Image Width="16" Height="16" Source="../resources/org.nickvision.application.ico"/>
+
+                <TextBlock x:Name="LblAppTitle" Margin="8,0,0,0" Style="{ThemeResource CaptionTextBlockStyle}" TextWrapping="NoWrap"/>
+            </StackPanel>
+        </Grid>
+
+        <MenuBar x:Name="MenuBar" Grid.Row="1">
+            <MenuBarItem x:Name="MenuFile">
+
+            </MenuBarItem>
+
+            <MenuBarItem x:Name="MenuEdit">
+
+            </MenuBarItem>
+
+            <MenuBarItem x:Name="MenuHelp">
+
+            </MenuBarItem>
+        </MenuBar>
+
+        <Grid x:Name="ContentGrid" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
+        </Grid>
+    </Grid>
+</Window>
