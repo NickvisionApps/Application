@@ -21,13 +21,14 @@ if(WIN32)
     add_executable(${OUTPUT_NAME} WIN32
         "../resources/windows/${PROJECT_NAME}.manifest"
         "../resources/windows/${PROJECT_NAME}.rc"
-        "pch.h" "pch.cpp"
-        "App.xaml.cpp" "App.xaml.h" "App.xaml" "App.idl"
-        "MainWindow.xaml.cpp" "MainWindow.xaml.h" "MainWindow.xaml" "MainWindow.idl")
+        "pch.cpp" "pch.h"
+        "Controls/ViewStack.xaml.cpp" "Controls/ViewStack.xaml.h" "Controls/ViewStack.xaml" "Controls/ViewStack.idl"
+        "Views/MainWindow.xaml.cpp" "Views/MainWindow.xaml.h" "Views/MainWindow.xaml" "Views/MainWindow.idl"
+        "App.xaml.cpp" "App.xaml.h" "App.xaml" "App.idl")
     set_property(SOURCE App.xaml PROPERTY VS_XAML_TYPE "ApplicationDefinition")
     set_property(TARGET ${OUTPUT_NAME} PROPERTY VS_PACKAGE_REFERENCES
         "Microsoft.Windows.CppWinRT_2.0.250303.1"
-        "Microsoft.WindowsAppSDK_1.7.250513003"
+        "Microsoft.WindowsAppSDK_1.7.250606001"
         "Microsoft.Windows.SDK.BuildTools_10.0.26100.4188"
         "Microsoft.Windows.ImplementationLibrary_1.0.250325.1")
     target_include_directories(${OUTPUT_NAME} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}")

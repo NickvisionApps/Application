@@ -2,11 +2,12 @@
 #define MAINWINDOW_H
 
 #include "pch.h"
-#include "MainWindow.g.h"
+#include "Controls/ViewStack.g.h"
+#include "Views/MainWindow.g.h"
 #include <memory>
 #include "controllers/mainwindowcontroller.h"
 
-namespace winrt::Nickvision::Application::WinUI::implementation
+namespace winrt::Nickvision::Application::WinUI::Views::implementation
 {
     /**
      * @brief The main window for the application.
@@ -73,7 +74,7 @@ namespace winrt::Nickvision::Application::WinUI::implementation
     };
 }
 
-namespace winrt::Nickvision::Application::WinUI::factory_implementation
+namespace winrt::Nickvision::Application::WinUI::Views::factory_implementation
 {
     struct MainWindow : public MainWindowT<MainWindow, implementation::MainWindow> { };
 }

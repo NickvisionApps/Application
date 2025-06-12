@@ -1,5 +1,5 @@
 #include "App.xaml.h"
-#include "MainWindow.xaml.h"
+#include "Views/MainWindow.xaml.h"
 #include <libnick/helpers/stringhelpers.h>
 
 using namespace ::Nickvision::Application::Shared::Controllers;
@@ -43,9 +43,9 @@ namespace winrt::Nickvision::Application::WinUI::implementation
     {
         if(!m_window)
         {
-            m_window = make<MainWindow>();
-            m_window.as<MainWindow>()->Controller(m_controller);
-            m_window.as<MainWindow>()->SystemTheme(m_systemTheme);
+            m_window = make<Views::implementation::MainWindow>();
+            m_window.as<Views::implementation::MainWindow>()->Controller(m_controller);
+            m_window.as<Views::implementation::MainWindow>()->SystemTheme(m_systemTheme);
         }
         m_window.Activate();
     }

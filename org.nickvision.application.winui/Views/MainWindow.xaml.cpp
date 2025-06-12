@@ -1,6 +1,6 @@
-#include "MainWindow.xaml.h"
-#if __has_include("MainWindow.g.cpp")
-#include "MainWindow.g.cpp"
+#include "Views/MainWindow.xaml.h"
+#if __has_include("Views/MainWindow.g.cpp")
+#include "Views/MainWindow.g.cpp"
 #endif
 #include <stdexcept>
 #include <libnick/localization/gettext.h>
@@ -17,7 +17,7 @@ using namespace winrt::Microsoft::UI::Xaml::Controls::Primitives;
 using namespace winrt::Microsoft::UI::Xaml::Input;
 using namespace winrt::Windows::Graphics;
 
-namespace winrt::Nickvision::Application::WinUI::implementation
+namespace winrt::Nickvision::Application::WinUI::Views::implementation
 {
     MainWindow::MainWindow()
         : m_opened{ false },
