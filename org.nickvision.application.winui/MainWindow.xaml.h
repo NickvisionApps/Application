@@ -35,12 +35,41 @@ namespace winrt::Nickvision::Application::WinUI::implementation
          * @throw std::logic_error Thrown if the controller has not been set before loading the window
          */
         void OnLoaded(const IInspectable& sender, const Microsoft::UI::Xaml::RoutedEventArgs& args);
+        /**
+         * @brief Handles when the main window is closing.
+         * @param sender Microsoft::UI::Windowing::AppWindow
+         * @param args Microsoft::UI::Windowing::AppWindowClosingEventArgs
+         */
+        void OnClosing(const Microsoft::UI::Windowing::AppWindow& sender, const Microsoft::UI::Windowing::AppWindowClosingEventArgs& args);
+        /**
+         * @brief Handles when the app's configuration is saved.
+         * @param args Nickvision::Events::EventArgs
+         */
+        void OnConfigurationSaved(const ::Nickvision::Events::EventArgs& args);
+        /**
+         * @brief Handles when a notification is sent.
+         * @param args Nickvision::Notifications::NotificationSentEventArgs
+         */
+        void OnNotificationSent(const ::Nickvision::Notifications::NotificationSentEventArgs& args);
+        /**
+        * @brief Handles when a change in the window's navigation occurs.
+        * @param sender Microsoft::UI::Xaml::Controls::NavigationView
+        * @param args Microsoft::UI::Xaml::Controls::NavigationViewSelectionChangedEventArgs
+        */
+        void OnNavViewSelectionChanged(const Microsoft::UI::Xaml::Controls::NavigationView& sender, const Microsoft::UI::Xaml::Controls::NavigationViewSelectionChangedEventArgs& args);
+        /**
+         * @brief Handles when a navigation item is tapped (to display it's flyout).
+         * @param sender IInspectable
+         * @param args Microsoft::UI::Xaml::Input::TappedRoutedEventArgs
+         */
+        void OnNavViewItemTapped(const IInspectable& sender, const Microsoft::UI::Xaml::Input::TappedRoutedEventArgs& args);
 
     private:
         HWND m_hwnd;
         std::shared_ptr<::Nickvision::Application::Shared::Controllers::MainWindowController> m_controller;
         Microsoft::UI::Xaml::ElementTheme m_systemTheme;
         bool m_opened;
+        winrt::event_token m_notificationClickToken;
     };
 }
 

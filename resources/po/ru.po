@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-09 20:41-0400\n"
+"POT-Creation-Date: 2025-06-11 21:23-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -154,6 +154,7 @@ msgid "System"
 msgstr "Системная"
 
 #: org.nickvision.application.gnome/blueprints/shortcuts_dialog.blp:12
+#: org.nickvision.application.winui/MainWindow.xaml.cpp:43
 #, fuzzy
 msgid "Folder"
 msgstr "Папка"
@@ -177,6 +178,7 @@ msgid "Quit"
 msgstr "Выход"
 
 #: org.nickvision.application.gnome/src/views/mainwindow.cpp:126
+#: org.nickvision.application.winui/MainWindow.xaml.cpp:137
 msgid "Close"
 msgstr "Закрыть"
 
@@ -189,8 +191,41 @@ msgstr[1] "В папке {0} файла."
 msgstr[2] "В папке {0} файлов."
 
 #: org.nickvision.application.gnome/src/views/mainwindow.cpp:201
+#: org.nickvision.application.winui/MainWindow.xaml.cpp:47
 msgid "GitHub Repo"
 msgstr "Репозиторий GitHub"
+
+#: org.nickvision.application.winui/MainWindow.xaml.cpp:42
+msgid "Home"
+msgstr ""
+
+#: org.nickvision.application.winui/MainWindow.xaml.cpp:44
+msgid "Help"
+msgstr ""
+
+#: org.nickvision.application.winui/MainWindow.xaml.cpp:45
+msgid "Settings"
+msgstr ""
+
+#: org.nickvision.application.winui/MainWindow.xaml.cpp:46
+msgid "Check for Updates"
+msgstr ""
+
+#: org.nickvision.application.winui/MainWindow.xaml.cpp:48
+msgid "Report a Bug"
+msgstr ""
+
+#: org.nickvision.application.winui/MainWindow.xaml.cpp:49
+msgid "Discussions"
+msgstr ""
+
+#: org.nickvision.application.winui/MainWindow.xaml.cpp:50
+msgid "About"
+msgstr ""
+
+#: org.nickvision.application.winui/MainWindow.xaml.cpp:142
+msgid "Update"
+msgstr ""
 
 #, fuzzy
 #~ msgid "Notification"

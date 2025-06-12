@@ -13,7 +13,6 @@
     <Grid x:Name="MainGrid" Loaded="OnLoaded">
         <Grid.RowDefinitions>
             <RowDefinition Height="48"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -32,22 +31,85 @@
             </StackPanel>
         </Grid>
 
-        <MenuBar x:Name="MenuBar" Grid.Row="1">
-            <MenuBarItem x:Name="MenuFile">
+        <NavigationView x:Name="NavView" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                        IsBackButtonVisible="Collapsed" IsSettingsVisible="False" SelectionChanged="OnNavViewSelectionChanged">
+            <NavigationView.MenuItems>
+                <NavigationViewItem x:Name="NavViewHome" Tag="Home">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE80F;"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
 
-            </MenuBarItem>
+                <NavigationViewItem x:Name="NavViewFolder" Tag="Folder" IsEnabled="False">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8B7;"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+            </NavigationView.MenuItems>
 
-            <MenuBarItem x:Name="MenuEdit">
+            <NavigationView.FooterMenuItems>
+                <NavigationViewItem x:Name="NavViewHelp" SelectsOnInvoked="False" Tapped="OnNavViewItemTapped">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE897;"/>
+                    </NavigationViewItem.Icon>
 
-            </MenuBarItem>
+                    <FlyoutBase.AttachedFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem x:Name="MenuCheckForUpdates">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE895;"/>
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
 
-            <MenuBarItem x:Name="MenuHelp">
+                            <MenuFlyoutSeparator/>
 
-            </MenuBarItem>
-        </MenuBar>
+                            <MenuFlyoutItem x:Name="MenuGitHubRepo">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE943;"/>
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
 
-        <Grid x:Name="ContentGrid" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <MenuFlyoutItem x:Name="MenuReportABug">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEBE8;"/>
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
 
-        </Grid>
+                            <MenuFlyoutItem x:Name="MenuDiscussions">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8F2;"/>
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+
+                            <MenuFlyoutSeparator/>
+
+                            <MenuFlyoutItem x:Name="MenuAbout">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE946;"/>
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+                        </MenuFlyout>
+                    </FlyoutBase.AttachedFlyout>
+                 </NavigationViewItem>
+
+                <NavigationViewItem x:Name="NavViewSettings" Tag="Settings">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE713;"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+            </NavigationView.FooterMenuItems>
+
+            <Grid x:Name="ContentGrid">
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
+                </Grid>
+
+                <InfoBar x:Name="InfoBar" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,12" IsOpen="False">
+                    <InfoBar.ActionButton>
+                        <Button x:Name="BtnInfoBar" HorizontalAlignment="Right"/>
+                    </InfoBar.ActionButton>
+                </InfoBar>
+            </Grid>
+        </NavigationView>
     </Grid>
 </Window>
