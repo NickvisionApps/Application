@@ -40,8 +40,8 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "vc_redist.x64.exe"; DestDir: "{app}"; Flags: deleteafterinstall
-Source: "windowsappruntimeinstall-x64.exe"; DestDir: "{app}"; Flags: deleteafterinstall
+Source: "vc_redist.exe"; DestDir: "{app}"; Flags: deleteafterinstall
+Source: "windowsappruntimeinstall.exe"; DestDir: "{app}"; Flags: deleteafterinstall
 Source: "..\build\org.nickvision.application.winui\Release\{#MyAppExeName}"; DestDir: "{app}\Release"; Flags: ignoreversion
 Source: "..\build\org.nickvision.application.winui\Release\*"; DestDir: "{app}\Release"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
@@ -51,7 +51,7 @@ Name: "{autoprograms}\{#MyAppShortName}"; Filename: "{app}\Release\{#MyAppExeNam
 Name: "{autodesktop}\{#MyAppShortName}"; Filename: "{app}\Release\{#MyAppExeName}"; Tasks: desktopicon
 
 [Run]
-Filename: "{app}\vc_redist.x64.exe"; Parameters: "/install /quiet /norestart"
-Filename: "{app}\windowsappruntimeinstall-x64.exe"
+Filename: "{app}\vc_redist.exe"; Parameters: "/install /quiet /norestart"
+Filename: "{app}\windowsappruntimeinstall.exe"
 Filename: "{app}\Release\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: runascurrentuser nowait postinstall skipifsilent
 
