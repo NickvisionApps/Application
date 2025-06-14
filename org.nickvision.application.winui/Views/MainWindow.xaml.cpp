@@ -5,11 +5,13 @@
 #include <stdexcept>
 #include <libnick/localization/gettext.h>
 #include "Controls/AboutDialog.xaml.h"
+#include "Views/SettingsPage.xaml.h"
 
 using namespace ::Nickvision::Application::Shared::Controllers;
 using namespace ::Nickvision::Application::Shared::Models;
 using namespace ::Nickvision::Events;
 using namespace ::Nickvision::Notifications;
+using namespace ::Nickvision::Update;
 using namespace winrt::Microsoft::UI::Dispatching;
 using namespace winrt::Microsoft::UI::Windowing;
 using namespace winrt::Microsoft::UI::Xaml;
@@ -34,9 +36,7 @@ namespace winrt::Nickvision::Application::WinUI::Views::implementation
     {
         InitializeComponent();
         this->m_inner.as<::IWindowNative>()->get_WindowHandle(&m_hwnd);
-        ExtendsContentIntoTitleBar(true);
-        SetTitleBar(TitleBar());
-        AppWindow().TitleBar().PreferredHeightOption(TitleBarHeightOption::Tall);
+        TitleBar().AppWindow(AppWindow());
     }
 
     void MainWindow::Controller(const std::shared_ptr<MainWindowController>& controller)
@@ -47,7 +47,8 @@ namespace winrt::Nickvision::Application::WinUI::Views::implementation
         m_controller->configurationSaved() += [&](const EventArgs& args){ OnConfigurationSaved(args); };
         m_controller->notificationSent() += [&](const NotificationSentEventArgs& args){ DispatcherQueue().TryEnqueue([this, args](){ OnNotificationSent(args); }); };
         //Localize Strings
-        LblAppTitle().Text(winrt::to_hstring(m_controller->getAppInfo().getShortName()));
+        TitleBar().Title(winrt::to_hstring(m_controller->getAppInfo().getShortName()));
+        TitleBar().Subtitle(m_controller->getAppInfo().getVersion().getVersionType() == VersionType::Preview ? winrt::to_hstring(_("Preview")) : L"");
         NavViewHome().Content(winrt::box_value(winrt::to_hstring(_("Home"))));
         NavViewFolder().Content(winrt::box_value(winrt::to_hstring(_("Folder"))));
         NavViewHelp().Content(winrt::box_value(winrt::to_hstring(_("Help"))));
@@ -104,6 +105,11 @@ namespace winrt::Nickvision::Application::WinUI::Views::implementation
             return;
         }
         m_controller->shutdown({ AppWindow().Size().Width, AppWindow().Size().Height, static_cast<bool>(IsZoomed(m_hwnd)), AppWindow().Position().X, AppWindow().Position().Y });
+    }
+
+    void MainWindow::OnActivated(const IInspectable& sender, const WindowActivatedEventArgs& args)
+    {
+        TitleBar().IsActivated(args.WindowActivationState() != WindowActivationState::Deactivated);
     }
 
     void MainWindow::OnConfigurationSaved(const ::Nickvision::Events::EventArgs&)
@@ -175,6 +181,8 @@ namespace winrt::Nickvision::Application::WinUI::Views::implementation
         else if(tag == L"Settings")
         {
             ViewStack().CurrentPageIndex(MainWindowPage::Custom);
+            PageCustom().Content(winrt::make<implementation::SettingsPage>());
+            PageCustom().Content().as<implementation::SettingsPage>()->Controller(m_controller->createPreferencesViewController());
         }
     }
 
@@ -207,6 +215,7 @@ namespace winrt::Nickvision::Application::WinUI::Views::implementation
     {
         ContentDialog dialog{ winrt::make<Controls::implementation::AboutDialog>() };
         dialog.as<Controls::implementation::AboutDialog>()->Info(m_controller->getAppInfo(), m_controller->getDebugInformation());
+        dialog.RequestedTheme(MainGrid().RequestedTheme());
         dialog.XamlRoot(MainGrid().XamlRoot());
         co_await dialog.ShowAsync();
     }

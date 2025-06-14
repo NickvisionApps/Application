@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-14 09:10-0400\n"
+"POT-Creation-Date: 2025-06-14 11:02-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -112,7 +112,7 @@ msgstr ""
 
 #: org.nickvision.application.gnome/blueprints/main_window.blp:28
 #: org.nickvision.application.gnome/blueprints/main_window.blp:61
-#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:62
+#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:63
 msgid "Open"
 msgstr ""
 
@@ -125,15 +125,17 @@ msgid "Main Menu"
 msgstr ""
 
 #: org.nickvision.application.gnome/blueprints/main_window.blp:59
-#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:61
+#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:62
 msgid "Open a folder (or drag one into the app) to get started"
 msgstr ""
 
 #: org.nickvision.application.gnome/blueprints/preferences_dialog.blp:12
+#: org.nickvision.application.winui/Views/SettingsPage.xaml.cpp:19
 msgid "User Interface"
 msgstr ""
 
 #: org.nickvision.application.gnome/blueprints/preferences_dialog.blp:15
+#: org.nickvision.application.winui/Views/SettingsPage.xaml.cpp:20
 msgid "Theme"
 msgstr ""
 
@@ -153,7 +155,7 @@ msgid "System"
 msgstr ""
 
 #: org.nickvision.application.gnome/blueprints/shortcuts_dialog.blp:12
-#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:52
+#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:53
 msgid "Folder"
 msgstr ""
 
@@ -176,7 +178,7 @@ msgid "Quit"
 msgstr ""
 
 #: org.nickvision.application.gnome/src/views/mainwindow.cpp:126
-#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:149
+#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:155
 msgid "Close"
 msgstr ""
 
@@ -188,71 +190,103 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: org.nickvision.application.gnome/src/views/mainwindow.cpp:201
-#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:56
+#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:57
 msgid "GitHub Repo"
 msgstr ""
 
-#: org.nickvision.application.winui/Controls/AboutDialog.xaml.cpp:33
+#: org.nickvision.application.winui/Controls/AboutDialog.xaml.cpp:34
 msgid "OK"
 msgstr ""
 
-#: org.nickvision.application.winui/Controls/AboutDialog.xaml.cpp:34
-#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:59
+#: org.nickvision.application.winui/Controls/AboutDialog.xaml.cpp:35
+#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:60
 msgid "About"
 msgstr ""
 
-#: org.nickvision.application.winui/Controls/AboutDialog.xaml.cpp:35
+#: org.nickvision.application.winui/Controls/AboutDialog.xaml.cpp:36
 msgid "Changelog"
 msgstr ""
 
-#: org.nickvision.application.winui/Controls/AboutDialog.xaml.cpp:36
+#: org.nickvision.application.winui/Controls/AboutDialog.xaml.cpp:37
 msgid "Credits"
 msgstr ""
 
-#: org.nickvision.application.winui/Controls/AboutDialog.xaml.cpp:37
+#: org.nickvision.application.winui/Controls/AboutDialog.xaml.cpp:38
 msgid "Debugging"
 msgstr ""
 
-#: org.nickvision.application.winui/Controls/AboutDialog.xaml.cpp:38
+#: org.nickvision.application.winui/Controls/AboutDialog.xaml.cpp:39
 msgid "Developers"
 msgstr ""
 
-#: org.nickvision.application.winui/Controls/AboutDialog.xaml.cpp:39
+#: org.nickvision.application.winui/Controls/AboutDialog.xaml.cpp:40
 msgid "Designers"
 msgstr ""
 
-#: org.nickvision.application.winui/Controls/AboutDialog.xaml.cpp:40
+#: org.nickvision.application.winui/Controls/AboutDialog.xaml.cpp:41
 msgid "Artists"
 msgstr ""
 
-#: org.nickvision.application.winui/Controls/AboutDialog.xaml.cpp:41
+#: org.nickvision.application.winui/Controls/AboutDialog.xaml.cpp:42
 msgid "Copy Debug Information"
 msgstr ""
 
+#: org.nickvision.application.winui/Controls/TitleBar.xaml.cpp:192
+msgid "Search"
+msgstr ""
+
 #: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:51
+msgid "Preview"
+msgstr ""
+
+#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:52
 msgid "Home"
 msgstr ""
 
-#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:53
+#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:54
 msgid "Help"
 msgstr ""
 
-#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:54
+#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:55
 msgid "Settings"
 msgstr ""
 
-#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:55
+#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:56
 msgid "Check for Updates"
 msgstr ""
 
-#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:57
+#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:58
 msgid "Report a Bug"
 msgstr ""
 
-#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:58
+#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:59
 msgid "Discussions"
 msgstr ""
 
-#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:154
+#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:160
 msgid "Update"
+msgstr ""
+
+#: org.nickvision.application.winui/Views/SettingsPage.xaml.cpp:21
+msgid "Light"
+msgstr ""
+
+#: org.nickvision.application.winui/Views/SettingsPage.xaml.cpp:22
+msgid "Dark"
+msgstr ""
+
+#: org.nickvision.application.winui/Views/SettingsPage.xaml.cpp:23
+msgid "System"
+msgstr ""
+
+#: org.nickvision.application.winui/Views/SettingsPage.xaml.cpp:24
+msgid "Automatically Check for Updates"
+msgstr ""
+
+#: org.nickvision.application.winui/Views/SettingsPage.xaml.cpp:25
+msgid "On"
+msgstr ""
+
+#: org.nickvision.application.winui/Views/SettingsPage.xaml.cpp:26
+msgid "Off"
 msgstr ""

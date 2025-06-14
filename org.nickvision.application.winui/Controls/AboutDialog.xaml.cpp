@@ -30,6 +30,7 @@ namespace winrt::Nickvision::Application::WinUI::Controls::implementation
         : m_dispatcherQueueTimer{ nullptr }
     {
         InitializeComponent();
+        //Localize Strings
         CloseButtonText(winrt::to_hstring(_("OK")));
         NavAbout().Text(winrt::to_hstring(_("About")));
         NavChangelog().Text(winrt::to_hstring(_("Changelog")));

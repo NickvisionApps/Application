@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include "pch.h"
+#include "Controls/TitleBar.g.h"
 #include "Controls/ViewStack.g.h"
 #include "Views/MainWindow.g.h"
 #include <memory>
@@ -41,7 +42,13 @@ namespace winrt::Nickvision::Application::WinUI::Views::implementation
          * @param sender Microsoft::UI::Windowing::AppWindow
          * @param args Microsoft::UI::Windowing::AppWindowClosingEventArgs
          */
-        void OnClosing(const Microsoft::UI::Windowing::AppWindow& sender, const Microsoft::UI::Windowing::AppWindowClosingEventArgs& args);
+        void OnClosing(const Microsoft::UI::Windowing::AppWindow& sender, const Microsoft::UI::Windowing::AppWindowClosingEventArgs& args);\
+        /**
+         * @brief Handles when the main window is activated.
+         * @param sender IInspectable
+         * @param args Microsoft::UI::Xaml::WindowActivatedEventArgs
+         */
+        void OnActivated(const IInspectable& sender, const Microsoft::UI::Xaml::WindowActivatedEventArgs& args);
         /**
          * @brief Handles when the app's configuration is saved.
          * @param args Nickvision::Events::EventArgs
