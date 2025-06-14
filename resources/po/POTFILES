@@ -3,4 +3,5 @@ org.nickvision.application.gnome/blueprints/main_window.blp
 org.nickvision.application.gnome/blueprints/preferences_dialog.blp
 org.nickvision.application.gnome/blueprints/shortcuts_dialog.blp
 org.nickvision.application.gnome/src/views/mainwindow.cpp
+org.nickvision.application.winui/Controls/AboutDialog.xaml.cpp
 org.nickvision.application.winui/Views/MainWindow.xaml.cpp

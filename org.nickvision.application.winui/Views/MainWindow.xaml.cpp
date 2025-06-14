@@ -4,6 +4,7 @@
 #endif
 #include <stdexcept>
 #include <libnick/localization/gettext.h>
+#include "Controls/AboutDialog.xaml.h"
 
 using namespace ::Nickvision::Application::Shared::Controllers;
 using namespace ::Nickvision::Application::Shared::Models;
@@ -16,6 +17,14 @@ using namespace winrt::Microsoft::UI::Xaml::Controls;
 using namespace winrt::Microsoft::UI::Xaml::Controls::Primitives;
 using namespace winrt::Microsoft::UI::Xaml::Input;
 using namespace winrt::Windows::Graphics;
+using namespace winrt::Windows::System;
+
+enum MainWindowPage
+{
+    Home = 0,
+    Folder,
+    Custom
+};
 
 namespace winrt::Nickvision::Application::WinUI::Views::implementation
 {
@@ -48,6 +57,9 @@ namespace winrt::Nickvision::Application::WinUI::Views::implementation
         MenuReportABug().Text(winrt::to_hstring(_("Report a Bug")));
         MenuDiscussions().Text(winrt::to_hstring(_("Discussions")));
         MenuAbout().Text(winrt::to_hstring(_("About")));
+        PageHome().Title(winrt::to_hstring(m_controller->getGreeting()));
+        PageHome().Description(winrt::to_hstring(_("Open a folder (or drag one into the app) to get started")));
+        LblHomeOpenFolder().Text(winrt::to_hstring(_("Open")));
     }
 
     void MainWindow::SystemTheme(ElementTheme theme)
@@ -151,11 +163,50 @@ namespace winrt::Nickvision::Application::WinUI::Views::implementation
 
     void MainWindow::OnNavViewSelectionChanged(const NavigationView& sender, const NavigationViewSelectionChangedEventArgs& args)
     {
-
+        winrt::hstring tag{ NavView().SelectedItem().as<NavigationViewItem>().Tag().as<winrt::hstring>() };
+        if(tag == L"Home")
+        {
+            ViewStack().CurrentPageIndex(MainWindowPage::Home);
+        }
+        else if(tag == L"Folder")
+        {
+            ViewStack().CurrentPageIndex(MainWindowPage::Folder);
+        }
+        else if(tag == L"Settings")
+        {
+            ViewStack().CurrentPageIndex(MainWindowPage::Custom);
+        }
     }
 
     void MainWindow::OnNavViewItemTapped(const IInspectable& sender, const TappedRoutedEventArgs& args)
     {
         FlyoutBase::ShowAttachedFlyout(sender.as<FrameworkElement>());
+    }
+
+    void MainWindow::CheckForUpdates(const IInspectable& sender, const RoutedEventArgs& args)
+    {
+        m_controller->checkForUpdates();
+    }
+
+    Windows::Foundation::IAsyncAction MainWindow::GitHubRepo(const IInspectable& sender, const RoutedEventArgs& args)
+    {
+        co_await Launcher::LaunchUriAsync(Windows::Foundation::Uri{ winrt::to_hstring(m_controller->getAppInfo().getSourceRepo()) });
+    }
+
+    Windows::Foundation::IAsyncAction MainWindow::ReportABug(const IInspectable& sender, const RoutedEventArgs& args)
+    {
+        co_await Launcher::LaunchUriAsync(Windows::Foundation::Uri{ winrt::to_hstring(m_controller->getAppInfo().getIssueTracker()) });
+    }
+
+    Windows::Foundation::IAsyncAction MainWindow::Discussions(const IInspectable& sender, const RoutedEventArgs& args)
+    {
+        co_await Launcher::LaunchUriAsync(Windows::Foundation::Uri{ winrt::to_hstring(m_controller->getAppInfo().getSupportUrl()) });
+    }
+
+    Windows::Foundation::IAsyncAction MainWindow::About(const IInspectable& sender, const RoutedEventArgs& args)
+    {
+        ContentDialog dialog{ winrt::make<Controls::implementation::AboutDialog>() };
+        dialog.XamlRoot(MainGrid().XamlRoot());
+        co_await dialog.ShowAsync();
     }
 }

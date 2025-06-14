@@ -8,12 +8,13 @@ using namespace winrt::Windows::Foundation::Collections;
 
 namespace winrt::Nickvision::Application::WinUI::Controls::implementation
 {
-    DependencyProperty ViewStack::m_pagesProperty = DependencyProperty::Register(L"Pages", winrt::xaml_typename<IObservableVector<IInspectable>>(), winrt::xaml_typename<Nickvision::Application::WinUI::Controls::ViewStack>(), PropertyMetadata{ winrt::box_value(winrt::single_threaded_observable_vector<IInspectable>()) });
+DependencyProperty ViewStack::m_pagesProperty = DependencyProperty::Register(L"Pages", winrt::xaml_typename<IObservableVector<IInspectable>>(), winrt::xaml_typename<Nickvision::Application::WinUI::Controls::ViewStack>(), PropertyMetadata{ nullptr });
 
     ViewStack::ViewStack()
         : m_currentPageIndex{ -1 }
     {
         InitializeComponent();
+        Pages(winrt::single_threaded_observable_vector<IInspectable>());
     }
 
     const DependencyProperty& ViewStack::PagesProperty()

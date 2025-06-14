@@ -41,7 +41,7 @@
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
 
-                <NavigationViewItem x:Name="NavViewFolder" Tag="Folder" IsEnabled="False">
+                <NavigationViewItem x:Name="NavViewFolder" Tag="Folder">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8B7;"/>
                     </NavigationViewItem.Icon>
@@ -56,7 +56,7 @@
 
                     <FlyoutBase.AttachedFlyout>
                         <MenuFlyout>
-                            <MenuFlyoutItem x:Name="MenuCheckForUpdates">
+                            <MenuFlyoutItem x:Name="MenuCheckForUpdates" Click="CheckForUpdates">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE895;"/>
                                 </MenuFlyoutItem.Icon>
@@ -64,19 +64,19 @@
 
                             <MenuFlyoutSeparator/>
 
-                            <MenuFlyoutItem x:Name="MenuGitHubRepo">
+                            <MenuFlyoutItem x:Name="MenuGitHubRepo" Click="GitHubRepo">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE943;"/>
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
 
-                            <MenuFlyoutItem x:Name="MenuReportABug">
+                            <MenuFlyoutItem x:Name="MenuReportABug" Click="ReportABug">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEBE8;"/>
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
 
-                            <MenuFlyoutItem x:Name="MenuDiscussions">
+                            <MenuFlyoutItem x:Name="MenuDiscussions" Click="Discussions">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8F2;"/>
                                 </MenuFlyoutItem.Icon>
@@ -84,7 +84,7 @@
 
                             <MenuFlyoutSeparator/>
 
-                            <MenuFlyoutItem x:Name="MenuAbout">
+                            <MenuFlyoutItem x:Name="MenuAbout" Click="About">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE946;"/>
                                 </MenuFlyoutItem.Icon>
@@ -101,9 +101,29 @@
             </NavigationView.FooterMenuItems>
 
             <Grid x:Name="ContentGrid">
-                <controls:ViewStack HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <controls:ViewStack x:Name="ViewStack" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <controls:ViewStack.Pages>
+                        <controls:StatusPage x:Name="PageHome" UseAppIcon="True">
+                            <controls:StatusPage.Child>
+                                <Button Style="{StaticResource AccentButtonStyle}">
+                                    <Button.Content>
+                                        <StackPanel Orientation="Horizontal" Spacing="6">
+                                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE838;"/>
 
+                                            <TextBlock x:Name="LblHomeOpenFolder"/>
+                                        </StackPanel>
+                                    </Button.Content>
+                                </Button>
+                            </controls:StatusPage.Child>
+                        </controls:StatusPage>
+
+                        <Grid x:Name="PageFolder">
+
+                        </Grid>
+
+                        <Frame x:Name="PageCustom">
+
+                        </Frame>
                     </controls:ViewStack.Pages>
                 </controls:ViewStack>
 

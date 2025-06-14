@@ -22,7 +22,10 @@ if(WIN32)
         "../resources/windows/${PROJECT_NAME}.manifest"
         "../resources/windows/${PROJECT_NAME}.rc"
         "pch.cpp" "pch.h"
+        "Controls/AboutDialog.xaml.cpp" "Controls/AboutDialog.xaml.h" "Controls/AboutDialog.xaml" "Controls/AboutDialog.idl"
+        "Controls/StatusPage.xaml.cpp" "Controls/StatusPage.xaml.h" "Controls/StatusPage.xaml" "Controls/StatusPage.idl"
         "Controls/ViewStack.xaml.cpp" "Controls/ViewStack.xaml.h" "Controls/ViewStack.xaml" "Controls/ViewStack.idl"
+        "Helpers/WinUIHelpers.h"
         "Views/MainWindow.xaml.cpp" "Views/MainWindow.xaml.h" "Views/MainWindow.xaml" "Views/MainWindow.idl"
         "App.xaml.cpp" "App.xaml.h" "App.xaml" "App.idl")
     set_property(SOURCE App.xaml PROPERTY VS_XAML_TYPE "ApplicationDefinition")
