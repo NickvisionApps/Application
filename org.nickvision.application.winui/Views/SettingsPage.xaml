@@ -14,7 +14,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="Settings" FontSize="26" Style="{ThemeResource NavigationViewItemHeaderTextStyle}"/>
+        <TextBlock x:Name="LblSettings" Grid.Row="0" FontSize="26" Style="{ThemeResource NavigationViewItemHeaderTextStyle}"/>
 
         <SelectorBar x:Name="NavView" Grid.Row="1" SelectionChanged="OnNavViewSelectionChanged">
             <SelectorBarItem x:Name="NavUserInterface" IsSelected="True">

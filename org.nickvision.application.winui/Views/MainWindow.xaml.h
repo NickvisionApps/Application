@@ -101,6 +101,23 @@ namespace winrt::Nickvision::Application::WinUI::Views::implementation
         * @param args Microsoft::UI::Xaml::RoutedEventArgs
         */
         Windows::Foundation::IAsyncAction About(const IInspectable& sender, const Microsoft::UI::Xaml::RoutedEventArgs& args);
+        /**
+         * @brief Handles when the folder is changed.
+         * @param args Nickvision::Events::EventArgs
+         */
+        void OnFolderChanged(const ::Nickvision::Events::EventArgs& args);
+        /**
+        * @brief Prompts the user to open a folder.
+        * @param sender IInspectable
+        * @param args Microsoft::UI::Xaml::RoutedEventArgs
+        */
+        Windows::Foundation::IAsyncAction OpenFolder(const IInspectable& sender, const Microsoft::UI::Xaml::RoutedEventArgs& args);
+        /**
+        * @brief Closes the currently opened folder.
+        * @param sender IInspectable
+        * @param args Microsoft::UI::Xaml::RoutedEventArgs
+        */
+        void CloseFolder(const IInspectable& sender, const Microsoft::UI::Xaml::RoutedEventArgs& args);
 
     private:
         HWND m_hwnd;

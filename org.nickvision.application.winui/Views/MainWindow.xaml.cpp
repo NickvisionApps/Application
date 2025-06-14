@@ -19,6 +19,8 @@ using namespace winrt::Microsoft::UI::Xaml::Controls;
 using namespace winrt::Microsoft::UI::Xaml::Controls::Primitives;
 using namespace winrt::Microsoft::UI::Xaml::Input;
 using namespace winrt::Windows::Graphics;
+using namespace winrt::Windows::Storage;
+using namespace winrt::Windows::Storage::Pickers;
 using namespace winrt::Windows::System;
 
 enum MainWindowPage
@@ -46,6 +48,7 @@ namespace winrt::Nickvision::Application::WinUI::Views::implementation
         AppWindow().Closing({ this, &MainWindow::OnClosing });
         m_controller->configurationSaved() += [&](const EventArgs& args){ OnConfigurationSaved(args); };
         m_controller->notificationSent() += [&](const NotificationSentEventArgs& args){ DispatcherQueue().TryEnqueue([this, args](){ OnNotificationSent(args); }); };
+        m_controller->folderChanged() += [&](const EventArgs& args){ OnFolderChanged(args); };
         //Localize Strings
         TitleBar().Title(winrt::to_hstring(m_controller->getAppInfo().getShortName()));
         TitleBar().Subtitle(m_controller->getAppInfo().getVersion().getVersionType() == VersionType::Preview ? winrt::to_hstring(_("Preview")) : L"");
@@ -60,7 +63,11 @@ namespace winrt::Nickvision::Application::WinUI::Views::implementation
         MenuAbout().Text(winrt::to_hstring(_("About")));
         PageHome().Title(winrt::to_hstring(m_controller->getGreeting()));
         PageHome().Description(winrt::to_hstring(_("Open a folder (or drag one into the app) to get started")));
-        LblHomeOpenFolder().Text(winrt::to_hstring(_("Open")));
+        LblHomeOpenFolder().Text(winrt::to_hstring(_("Open Folder")));
+        LblFolder().Text(winrt::to_hstring(_("Folder")));
+        LblFolderOpenFolder().Text(winrt::to_hstring(_("Open")));
+        BtnFolderCloseFolder().Label(winrt::to_hstring(_("Close")));
+        LblFiles().Text(winrt::to_hstring(_("No Folder Opened")));
     }
 
     void MainWindow::SystemTheme(ElementTheme theme)
@@ -153,13 +160,14 @@ namespace winrt::Nickvision::Application::WinUI::Views::implementation
         if(args.getAction() == "close")
         {
             BtnInfoBar().Content(winrt::box_value(winrt::to_hstring(_("Close"))));
-            //TODO: m_notificationClickToken = BtnInfoBar().Click({ this, &MainWindow::CloseFolder });
+            m_notificationClickToken = BtnInfoBar().Click({ this, &MainWindow::CloseFolder });
         }
         else if(args.getAction() == "update")
         {
             BtnInfoBar().Content(winrt::box_value(winrt::to_hstring(_("Update"))));
             m_notificationClickToken = BtnInfoBar().Click([this](const IInspectable&, const RoutedEventArgs&)
             {
+                InfoBar().IsOpen(false);
                 m_controller->windowsUpdate();
             });
         }
@@ -218,5 +226,44 @@ namespace winrt::Nickvision::Application::WinUI::Views::implementation
         dialog.RequestedTheme(MainGrid().RequestedTheme());
         dialog.XamlRoot(MainGrid().XamlRoot());
         co_await dialog.ShowAsync();
+    }
+
+    void MainWindow::OnFolderChanged(const EventArgs& args)
+    {
+        NavViewHome().IsSelected(!m_controller->isFolderOpened());
+        NavViewFolder().IsSelected(m_controller->isFolderOpened());
+        ListFiles().Items().Clear();
+        if(m_controller->isFolderOpened())
+        {
+            LblFolder().Text(winrt::to_hstring(_f("Folder: {}", m_controller->getFolderPath().string())));
+            LblFiles().Text(winrt::to_hstring(_fn("There is {} file in the folder.", "There are {} files in the folder.", m_controller->getFiles().size(), m_controller->getFiles().size())));
+            for(const std::filesystem::path& file : m_controller->getFiles())
+            {
+                ListFiles().Items().Append(winrt::box_value(winrt::to_hstring(file.filename().string())));
+            }
+        }
+        else
+        {
+            LblFolder().Text(winrt::to_hstring(_("Folder")));
+            LblFiles().Text(winrt::to_hstring(_("No Folder Opened")));
+        }
+    }
+
+    Windows::Foundation::IAsyncAction MainWindow::OpenFolder(const IInspectable& sender, const RoutedEventArgs& args)
+    {
+        FolderPicker picker;
+        picker.as<::IInitializeWithWindow>()->Initialize(m_hwnd);
+        picker.FileTypeFilter().Append(L"*");
+        StorageFolder folder{ co_await picker.PickSingleFolderAsync() };
+        if(folder)
+        {
+            m_controller->openFolder(winrt::to_string(folder.Path()));
+        }
+    }
+
+    void MainWindow::CloseFolder(const IInspectable& sender, const RoutedEventArgs& args)
+    {
+        InfoBar().IsOpen(false);
+        m_controller->closeFolder();
     }
 }

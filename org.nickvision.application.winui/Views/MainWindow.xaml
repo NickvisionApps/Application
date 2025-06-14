@@ -92,7 +92,7 @@
                     <controls:ViewStack.Pages>
                         <controls:StatusPage x:Name="PageHome" UseAppIcon="True">
                             <controls:StatusPage.Child>
-                                <Button Style="{StaticResource AccentButtonStyle}">
+                                <Button Style="{StaticResource AccentButtonStyle}" Click="OpenFolder">
                                     <Button.Content>
                                         <StackPanel Orientation="Horizontal" Spacing="6">
                                             <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE838;"/>
@@ -104,8 +104,53 @@
                             </controls:StatusPage.Child>
                         </controls:StatusPage>
 
-                        <Grid x:Name="PageFolder">
+                        <Grid x:Name="PageFolder" Margin="24,24,24,24" RowSpacing="12">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
 
+                            <TextBlock x:Name="LblFolder" Grid.Row="0" FontSize="26" Style="{ThemeResource NavigationViewItemHeaderTextStyle}"/>
+
+                            <StackPanel Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal" Spacing="6">
+                                <Button Style="{StaticResource AccentButtonStyle}" Click="OpenFolder">
+                                    <Button.Content>
+                                        <StackPanel Orientation="Horizontal" Spacing="6">
+                                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE838;"/>
+
+                                            <TextBlock x:Name="LblFolderOpenFolder"/>
+                                        </StackPanel>
+                                    </Button.Content>
+                                </Button>
+
+                                <CommandBar>
+                                    <CommandBar.SecondaryCommands>
+                                        <AppBarButton x:Name="BtnFolderCloseFolder" Click="CloseFolder">
+                                            <AppBarButton.Icon>
+                                                <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8F6;"/>
+                                            </AppBarButton.Icon>
+                                        </AppBarButton>
+                                    </CommandBar.SecondaryCommands>
+                                </CommandBar>
+                            </StackPanel>
+
+                            <MenuFlyoutSeparator Grid.Row="2"/>
+
+                            <Grid Grid.Row="3">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="340"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <ListView x:Name="ListFiles" Grid.Column="0" SelectionMode="Single"/>
+
+                                <AppBarSeparator Grid.Column="1"/>
+
+                                <TextBlock x:Name="LblFiles" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
                         </Grid>
 
                         <Frame x:Name="PageCustom"/>

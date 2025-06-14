@@ -16,6 +16,7 @@ namespace winrt::Nickvision::Application::WinUI::Views::implementation
     {
         InitializeComponent();
         //Localize Strings
+        LblSettings().Text(winrt::to_hstring(_("Settings")));
         NavUserInterface().Text(winrt::to_hstring(_("User Interface")));
         RowTheme().Title(winrt::to_hstring(_("Theme")));
         CmbTheme().Items().Append(winrt::box_value(winrt::to_hstring(_("Light"))));
