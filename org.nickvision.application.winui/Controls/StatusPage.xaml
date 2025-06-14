@@ -9,7 +9,7 @@
     <StackPanel Spacing="{x:Bind CompactSpacing, Mode=OneWay}">
         <FontIcon Visibility="{x:Bind GlyphIconVisibility, Mode=OneWay}" HorizontalAlignment="Center" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{x:Bind Glyph, Mode=OneWay}" FontSize="{x:Bind IconSize, Mode=OneWay}"/>
 
-        <Image Visibility="{x:Bind AppIconVisibility, Mode=OneWay}" HorizontalAlignment="Center" Width="{x:Bind IconWidth, Mode=OneWay}" Height="{x:Bind IconHeight, Mode=OneWay}"  Source="../resources/org.nickvision.application.ico"/>
+        <Image Visibility="{x:Bind AppIconVisibility, Mode=OneWay}" HorizontalAlignment="Center" Width="{x:Bind IconWidth, Mode=OneWay}" Height="{x:Bind IconHeight, Mode=OneWay}"  Source="../resources/icon.ico"/>
 
         <TextBlock Visibility="{x:Bind TitleVisibility, Mode=OneWay}" HorizontalAlignment="Center" TextWrapping="WrapWholeWords" Text="{x:Bind Title, Mode=OneWay}" Style="{x:Bind TitleStyle, Mode=OneWay}"/>
 

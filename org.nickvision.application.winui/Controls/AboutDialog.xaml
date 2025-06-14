@@ -7,5 +7,51 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" Style="{StaticResource DefaultContentDialogStyle}"
     DefaultButton="Close">
+    <StackPanel Orientation="Vertical" Spacing="6">
+        <SelectorBar x:Name="NavView" SelectionChanged="OnNavViewSelectionChanged">
+            <SelectorBarItem x:Name="NavAbout" IsSelected="True">
+                <SelectorBarItem.Icon>
+                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE946;"/>
+                </SelectorBarItem.Icon>
+            </SelectorBarItem>
 
+            <SelectorBarItem x:Name="NavChangelog">
+                <SelectorBarItem.Icon>
+                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8FD;"/>
+                </SelectorBarItem.Icon>
+            </SelectorBarItem>
+
+            <SelectorBarItem x:Name="NavCredits">
+                <SelectorBarItem.Icon>
+                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE716;"/>
+                </SelectorBarItem.Icon>
+            </SelectorBarItem>
+
+            <SelectorBarItem x:Name="NavDebugging">
+                <SelectorBarItem.Icon>
+                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE756;"/>
+                </SelectorBarItem.Icon>
+            </SelectorBarItem>
+        </SelectorBar>
+
+        <local:ViewStack x:Name="ViewStack">
+            <local:ViewStack.Pages>
+                <StackPanel>
+
+                </StackPanel>
+
+                <ScrollViewer>
+                    <TextBlock x:Name="LblChangelog" TextWrapping="Wrap" Margin="0,0,12,0"/>
+                </ScrollViewer>
+
+                <StackPanel>
+
+                </StackPanel>
+
+                <StackPanel>
+
+                </StackPanel>
+            </local:ViewStack.Pages>
+        </local:ViewStack>
+    </StackPanel>
 </ContentDialog>

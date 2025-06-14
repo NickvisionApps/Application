@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-13 23:11-0400\n"
+"POT-Creation-Date: 2025-06-14 08:10-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -102,7 +102,6 @@ msgstr ""
 
 #: org.nickvision.application.gnome/blueprints/main_window.blp:7
 #: org.nickvision.application.gnome/blueprints/shortcuts_dialog.blp:39
-#: org.nickvision.application.winui/Controls/AboutDialog.xaml.cpp:12
 msgid "About Application"
 msgstr ""
 
@@ -191,8 +190,25 @@ msgstr[1] ""
 msgid "GitHub Repo"
 msgstr ""
 
-#: org.nickvision.application.winui/Controls/AboutDialog.xaml.cpp:13
+#: org.nickvision.application.winui/Controls/AboutDialog.xaml.cpp:17
 msgid "OK"
+msgstr ""
+
+#: org.nickvision.application.winui/Controls/AboutDialog.xaml.cpp:18
+#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:59
+msgid "About"
+msgstr ""
+
+#: org.nickvision.application.winui/Controls/AboutDialog.xaml.cpp:19
+msgid "Changelog"
+msgstr ""
+
+#: org.nickvision.application.winui/Controls/AboutDialog.xaml.cpp:20
+msgid "Credits"
+msgstr ""
+
+#: org.nickvision.application.winui/Controls/AboutDialog.xaml.cpp:21
+msgid "Debugging"
 msgstr ""
 
 #: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:51
@@ -217,10 +233,6 @@ msgstr ""
 
 #: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:58
 msgid "Discussions"
-msgstr ""
-
-#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:59
-msgid "About"
 msgstr ""
 
 #: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:154

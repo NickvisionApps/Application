@@ -3,6 +3,8 @@
 
 #include "pch.h"
 #include "Controls/AboutDialog.g.h"
+#include "Controls/ViewStack.g.h"
+#include <libnick/app/appinfo.h>
 
 namespace winrt::Nickvision::Application::WinUI::Controls::implementation
 {
@@ -16,6 +18,18 @@ namespace winrt::Nickvision::Application::WinUI::Controls::implementation
          * @brief Constructs a AboutDialog.
          */
         AboutDialog();
+        /**
+         * @brief Sets the information to display.
+         * @param appInfo The AppInfo object for the application
+         * @param debugInfo The debug information for the application
+         */
+        void Info(const ::Nickvision::App::AppInfo& appInfo, const std::string& debugInfo);
+        /**
+         * @brief Handles when the navigation view selection changes.
+         * @param sender SelectorBar
+         * @param args SelectorItemInvokedEventArgs
+         */
+        void OnNavViewSelectionChanged(const Microsoft::UI::Xaml::Controls::SelectorBar& sender, const Microsoft::UI::Xaml::Controls::SelectorBarSelectionChangedEventArgs& args);
     };
 }
 
