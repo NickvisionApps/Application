@@ -43,7 +43,7 @@ namespace winrt::Nickvision::Application::WinUI::implementation
     {
         if(!m_window)
         {
-            m_window = make<Views::implementation::MainWindow>();
+            m_window = winrt::make<Views::implementation::MainWindow>();
             m_window.as<Views::implementation::MainWindow>()->Controller(m_controller);
             m_window.as<Views::implementation::MainWindow>()->SystemTheme(m_systemTheme);
         }

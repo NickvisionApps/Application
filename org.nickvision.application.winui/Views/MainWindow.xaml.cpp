@@ -205,7 +205,7 @@ namespace winrt::Nickvision::Application::WinUI::Views::implementation
 
     Windows::Foundation::IAsyncAction MainWindow::About(const IInspectable& sender, const RoutedEventArgs& args)
     {
-        ContentDialog dialog{ make<Controls::implementation::AboutDialog>() };
+        ContentDialog dialog{ winrt::make<Controls::implementation::AboutDialog>() };
         dialog.as<Controls::implementation::AboutDialog>()->Info(m_controller->getAppInfo(), m_controller->getDebugInformation());
         dialog.XamlRoot(MainGrid().XamlRoot());
         co_await dialog.ShowAsync();

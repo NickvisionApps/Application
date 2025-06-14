@@ -30,6 +30,15 @@ namespace winrt::Nickvision::Application::WinUI::Controls::implementation
          * @param args SelectorItemInvokedEventArgs
          */
         void OnNavViewSelectionChanged(const Microsoft::UI::Xaml::Controls::SelectorBar& sender, const Microsoft::UI::Xaml::Controls::SelectorBarSelectionChangedEventArgs& args);
+        /**
+         * @brief Copies the debug information to the clipboard.
+         * @param sender IInspectable
+         * @param args Microsoft::UI::Xaml::RoutedEventArgs
+         */
+        void CopyDebugInfo(const IInspectable& sender, const Microsoft::UI::Xaml::RoutedEventArgs& args);
+
+    private:
+        Microsoft::UI::Dispatching::DispatcherQueueTimer m_dispatcherQueueTimer;
     };
 }
 
