@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-01 17:02-0400\n"
+"POT-Creation-Date: 2025-06-14 12:41-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -19,7 +19,6 @@ msgstr ""
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 #: libapplication/src/controllers/mainwindowcontroller.cpp:29
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:148
 msgid "Application"
 msgstr "Application"
 
@@ -106,8 +105,6 @@ msgstr "Комбинации клавиш"
 
 #: org.nickvision.application.gnome/blueprints/main_window.blp:7
 #: org.nickvision.application.gnome/blueprints/shortcuts_dialog.blp:39
-#: org.nickvision.application.qt/src/controls/aboutdialog.cpp:148
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:68
 msgid "About Application"
 msgstr "О приложении"
 
@@ -117,6 +114,7 @@ msgstr "Открыть папку (Ctrl+O)"
 
 #: org.nickvision.application.gnome/blueprints/main_window.blp:28
 #: org.nickvision.application.gnome/blueprints/main_window.blp:61
+#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:68
 msgid "Open"
 msgstr "Открыть"
 
@@ -129,17 +127,18 @@ msgid "Main Menu"
 msgstr "Главное меню"
 
 #: org.nickvision.application.gnome/blueprints/main_window.blp:59
+#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:65
 #, fuzzy
 msgid "Open a folder (or drag one into the app) to get started"
 msgstr "Откройте или перетащите папку, чтобы начать."
 
 #: org.nickvision.application.gnome/blueprints/preferences_dialog.blp:12
-#: org.nickvision.application.qt/src/views/settingsdialog.cpp:46
+#: org.nickvision.application.winui/Views/SettingsPage.xaml.cpp:20
 msgid "User Interface"
 msgstr "Интерфейс"
 
 #: org.nickvision.application.gnome/blueprints/preferences_dialog.blp:15
-#: org.nickvision.application.qt/src/views/settingsdialog.cpp:27
+#: org.nickvision.application.winui/Views/SettingsPage.xaml.cpp:21
 msgid "Theme"
 msgstr "Тема"
 
@@ -159,19 +158,20 @@ msgid "System"
 msgstr "Системная"
 
 #: org.nickvision.application.gnome/blueprints/shortcuts_dialog.blp:12
+#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:56
+#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:67
+#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:247
 #, fuzzy
 msgid "Folder"
 msgstr "Папка"
 
 #: org.nickvision.application.gnome/blueprints/shortcuts_dialog.blp:15
 #: org.nickvision.application.gnome/src/views/mainwindow.cpp:152
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:40
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:221
+#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:66
 msgid "Open Folder"
 msgstr "Открыть Папку"
 
 #: org.nickvision.application.gnome/blueprints/shortcuts_dialog.blp:20
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:44
 msgid "Close Folder"
 msgstr "Закрыть папку"
 
@@ -185,12 +185,13 @@ msgid "Quit"
 msgstr "Выход"
 
 #: org.nickvision.application.gnome/src/views/mainwindow.cpp:126
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:277
+#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:69
+#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:162
 msgid "Close"
 msgstr "Закрыть"
 
 #: org.nickvision.application.gnome/src/views/mainwindow.cpp:138
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:294
+#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:239
 #, fuzzy, c++-format
 msgid "There is {} file in the folder."
 msgid_plural "There are {} files in the folder."
@@ -199,113 +200,129 @@ msgstr[1] "В папке {0} файла."
 msgstr[2] "В папке {0} файлов."
 
 #: org.nickvision.application.gnome/src/views/mainwindow.cpp:201
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:59
+#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:60
 msgid "GitHub Repo"
 msgstr "Репозиторий GitHub"
 
-#: org.nickvision.application.qt/src/controls/aboutdialog.cpp:69
-msgid "Developers"
+#: org.nickvision.application.winui/Controls/AboutDialog.xaml.cpp:34
+msgid "OK"
 msgstr ""
 
-#: org.nickvision.application.qt/src/controls/aboutdialog.cpp:74
-msgid "Designers"
-msgstr ""
-
-#: org.nickvision.application.qt/src/controls/aboutdialog.cpp:79
-msgid "Artists"
-msgstr ""
-
-#: org.nickvision.application.qt/src/controls/aboutdialog.cpp:90
-#: org.nickvision.application.qt/src/controls/aboutdialog.cpp:161
-msgid "Copy Debug Information"
-msgstr ""
-
-#: org.nickvision.application.qt/src/controls/aboutdialog.cpp:108
+#: org.nickvision.application.winui/Controls/AboutDialog.xaml.cpp:35
+#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:63
 msgid "About"
 msgstr ""
 
-#: org.nickvision.application.qt/src/controls/aboutdialog.cpp:109
+#: org.nickvision.application.winui/Controls/AboutDialog.xaml.cpp:36
 msgid "Changelog"
 msgstr ""
 
-#: org.nickvision.application.qt/src/controls/aboutdialog.cpp:110
+#: org.nickvision.application.winui/Controls/AboutDialog.xaml.cpp:37
 msgid "Credits"
 msgstr ""
 
-#: org.nickvision.application.qt/src/controls/aboutdialog.cpp:111
+#: org.nickvision.application.winui/Controls/AboutDialog.xaml.cpp:38
 msgid "Debugging"
 msgstr ""
 
-#: org.nickvision.application.qt/src/controls/infobar.cpp:50
-#, fuzzy
-msgid "Notification"
-msgstr "О приложении"
-
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:48
-msgid "Exit"
+#: org.nickvision.application.winui/Controls/AboutDialog.xaml.cpp:39
+msgid "Developers"
 msgstr ""
 
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:52
-#: org.nickvision.application.qt/src/views/settingsdialog.cpp:74
-msgid "Settings"
+#: org.nickvision.application.winui/Controls/AboutDialog.xaml.cpp:40
+msgid "Designers"
 msgstr ""
 
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:56
-msgid "Check for Updates"
+#: org.nickvision.application.winui/Controls/AboutDialog.xaml.cpp:41
+msgid "Artists"
 msgstr ""
 
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:62
-msgid "Report a Bug"
+#: org.nickvision.application.winui/Controls/AboutDialog.xaml.cpp:42
+msgid "Copy Debug Information"
 msgstr ""
 
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:65
-msgid "Discussions"
+#: org.nickvision.application.winui/Controls/TitleBar.xaml.cpp:192
+msgid "Search"
 msgstr ""
 
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:76
-msgid "File"
+#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:54
+msgid "Preview"
 msgstr ""
 
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:82
-msgid "Edit"
+#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:55
+msgid "Home"
 msgstr ""
 
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:85
+#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:57
 msgid "Help"
 msgstr ""
 
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:109
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:303
+#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:58
+#: org.nickvision.application.winui/Views/SettingsPage.xaml.cpp:19
+msgid "Settings"
+msgstr ""
+
+#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:59
+msgid "Check for Updates"
+msgstr ""
+
+#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:61
+msgid "Report a Bug"
+msgstr ""
+
+#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:62
+msgid "Discussions"
+msgstr ""
+
+#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:70
+#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:248
 msgid "No Folder Opened"
 msgstr "Папка не открыта"
 
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:148
-#, fuzzy
-msgid "Application (Preview)"
-msgstr "Application"
-
-#: org.nickvision.application.qt/src/views/mainwindow.cpp:283
+#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:167
 msgid "Update"
 msgstr ""
 
-#: org.nickvision.application.qt/src/views/settingsdialog.cpp:29
+#: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:238
+#, fuzzy, c++-format
+msgid "Folder: {}"
+msgstr "Папка"
+
+#: org.nickvision.application.winui/Views/SettingsPage.xaml.cpp:22
 #, fuzzy
 msgid "Light"
 msgstr "Светлая"
 
-#: org.nickvision.application.qt/src/views/settingsdialog.cpp:30
+#: org.nickvision.application.winui/Views/SettingsPage.xaml.cpp:23
 #, fuzzy
 msgid "Dark"
 msgstr "Тёмная"
 
-#: org.nickvision.application.qt/src/views/settingsdialog.cpp:31
+#: org.nickvision.application.winui/Views/SettingsPage.xaml.cpp:24
 #, fuzzy
 msgid "System"
 msgstr "Системная"
 
-#: org.nickvision.application.qt/src/views/settingsdialog.cpp:33
+#: org.nickvision.application.winui/Views/SettingsPage.xaml.cpp:25
 msgid "Automatically Check for Updates"
 msgstr ""
+
+#: org.nickvision.application.winui/Views/SettingsPage.xaml.cpp:26
+#, fuzzy
+msgid "On"
+msgstr "Открыть"
+
+#: org.nickvision.application.winui/Views/SettingsPage.xaml.cpp:27
+msgid "Off"
+msgstr ""
+
+#, fuzzy
+#~ msgid "Notification"
+#~ msgstr "О приложении"
+
+#, fuzzy
+#~ msgid "Application (Preview)"
+#~ msgstr "Application"
 
 #~ msgctxt "Shortcut"
 #~ msgid "Folder"
@@ -318,10 +335,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "No files in folder"
 #~ msgstr "В папке {0} файл."
-
-#, fuzzy
-#~ msgid "On"
-#~ msgstr "Открыть"
 
 #~ msgid "Open a folder (or drag one into the app) to get started."
 #~ msgstr "Откройте или перетащите папку, чтобы начать."

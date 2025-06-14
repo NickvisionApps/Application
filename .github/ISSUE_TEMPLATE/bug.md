@@ -8,9 +8,11 @@ assignees: ''
 ---
 
 **Describe the bug**
+
 Describe the steps to reproduce the bug.
 
 **Describe the expected result**
+
 Describe what you expect to happen instead.
 
 **App Version**
@@ -18,15 +20,10 @@ Describe what you expect to happen instead.
     - [ ] Flatpak
     - [ ] Snap
     - [ ] Source (Including AUR)
-- [ ] Qt on Linux
-    - [ ] Flatpak
-    - [ ] Snap
-    - [ ] Source (Including AUR)
-- [ ] Qt on Windows
-    - [ ] Installer
-    - [ ] Portable
+- [ ] WinUI on Windows
 
-Version Number: 
+Version Number:
 
 **Additional context**
+
 Add any other context about the problem here.

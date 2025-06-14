@@ -3,7 +3,7 @@ org.nickvision.application.gnome/blueprints/main_window.blp
 org.nickvision.application.gnome/blueprints/preferences_dialog.blp
 org.nickvision.application.gnome/blueprints/shortcuts_dialog.blp
 org.nickvision.application.gnome/src/views/mainwindow.cpp
-org.nickvision.application.qt/src/controls/aboutdialog.cpp
-org.nickvision.application.qt/src/controls/infobar.cpp
-org.nickvision.application.qt/src/views/mainwindow.cpp
-org.nickvision.application.qt/src/views/settingsdialog.cpp
+org.nickvision.application.winui/Controls/AboutDialog.xaml.cpp
+org.nickvision.application.winui/Controls/TitleBar.xaml.cpp
+org.nickvision.application.winui/Views/MainWindow.xaml.cpp
+org.nickvision.application.winui/Views/SettingsPage.xaml.cpp
