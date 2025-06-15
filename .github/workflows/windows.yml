@@ -22,9 +22,9 @@ jobs:
           - arch: x64
             runner: windows-latest
             triplet: x64-windows
-          - arch: arm64
-            runner: windows-11-arm
-            triplet: arm64-windows
+          #- arch: arm64
+          #  runner: windows-11-arm
+          #  triplet: arm64-windows
     runs-on: ${{ matrix.variant.runner }}
     steps:
       - name: "Checkout"
