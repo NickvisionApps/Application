@@ -74,7 +74,7 @@ if(WIN32)
         endif()
     endforeach()
 
-    add_custom_command(TARGET ${OUTPUT_NAME} PRE_BUILD COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${CMAKE_SOURCE_DIR}/resources/org.nickvision.application.ico" "${CMAKE_CURRENT_BINARY_DIR}/$<CONFIG>/resources/icon.ico")
+    add_custom_command(TARGET ${OUTPUT_NAME} PRE_BUILD COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${CMAKE_SOURCE_DIR}/resources/${PROJECT_NAME}.ico" "${CMAKE_CURRENT_BINARY_DIR}/$<CONFIG>/resources/icon.ico")
 
     generate_translations()
 endif()

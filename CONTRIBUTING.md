@@ -132,7 +132,7 @@ Application is built using C++20 and platform-native user interface libraries. W
 The project is split up into the following sub-projects:
  - [libapplication](#libapplication)
  - [org.nickvision.application.gnome](#org.nickvision.application.gnome)
- - [org.nickvision.application.winui](org.nickvision.application.qt)
+ - [org.nickvision.application.winui](org.nickvision.application.winui)
 
 The whole project utilizes the [MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) pattern for separating data models and UI views.
 

@@ -1,4 +1,3 @@
-
 #ifndef VIEWSTACK_H
 #define VIEWSTACK_H
 
