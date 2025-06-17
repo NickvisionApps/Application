@@ -51,6 +51,22 @@
             ]
         },
         {
+            "name": "sqlcipher",
+            "buildsystem": "autotools",
+            "config-opts": [
+                "--enable-tempstore=yes",
+                "--enable-fts5",
+                "CFLAGS=\"-DSQLITE_HAS_CODEC -DSQLITE_ENABLE_COLUMN_METADATA=1 -DSQLITE_SECURE_DELETE=1 -DSQLITE_ENABLE_UNLOCK_NOTIFY=1 -DSQLITE_ENABLE_DBSTAT_VTAB=1\""
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/sqlcipher/sqlcipher",
+                    "tag": "v4.6.1"
+                }
+            ]
+        },
+        {
             "name": "libnick",
             "buildsystem": "cmake-ninja",
             "builddir": true,
@@ -62,7 +78,7 @@
                 {
                     "type": "git",
                     "url": "https://github.com/nickvisionapps/libnick",
-                    "tag": "2025.6.1"
+                    "tag": "2025.6.3"
                 }
             ]
         },
