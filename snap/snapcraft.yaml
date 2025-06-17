@@ -17,12 +17,10 @@ parts:
       - libstdc++6
       - libboost-system1.83.0
       - libboost-json1.83.0
-      - libsqlcipher-dev
     prime:
       - usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/libstdc++*.so*
       - usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/libboost_system.so*
       - usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/libboost_json.so*
-      - usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/libsqlcipher.so*
 
   maddy:
     source: https://github.com/progsource/maddy.git
@@ -49,6 +47,7 @@ parts:
       - libboost-dev
       - libboost-system1.83-dev
       - libboost-json1.83-dev
+      - libsqlcipher-dev
     override-prime: ''
 
   libxmlplusplus:
