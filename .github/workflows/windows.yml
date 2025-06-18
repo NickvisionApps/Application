@@ -46,7 +46,7 @@ jobs:
         with:
           pkgs: libnick
           triplet: ${{ matrix.variant.triplet }}
-          revision: 01b9c059da1dfdd86ea959338fd7c5f50c40d146
+          revision: 47313591da1d14a8a9b209f4bee39d29acc39b31
           token: ${{ github.token }}
           github-binarycache: true
       - name: "Build"
