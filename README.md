@@ -16,13 +16,23 @@
 See [CONTRIBUTING.md](CONTRIBUTING.md) for details on how can you help the project and how to provide information so we can help you in case of troubles with the app.
 
 ## Building Manually
-Application uses `vcpkg` to manage its dependencies and `cmake` as its build system.
+Application uses `cmake` as its build system and `vcpkg` to *optionally* manage its dependencies.
 
-Ensure both `vcpkg` and `cmake` are installed on your system before building.
+Ensure `cmake` and `vcpkg` are installed on your system before building and installing Application.
 
 A C++20 compiler is also required to build Application.
 
-**If building the Linux version, `blueprint-compiler` must be installed from your system package manager as it is not available on `vcpkg`.**
+### Dependencies
+The following are a list of dependencies used by Application. 
+
+The recommendation is to (and below commands will) use vcpkg to pull these dependencies. However, vcpkg is not a requirement as long as the system provides these dependencies correctly.
+
+#### All Platforms
+- `libnick`
+
+#### Linux
+- `blueprint-compiler` (Not available from vcpkg)
+- `libxmlpp`
 
 ### Configuring vcpkg
 1. Set the `VCPKG_ROOT` environment variable to the path of your vcpkg installation's root directory.
