@@ -58,9 +58,6 @@
             "config-opts": [
                 "--enable-shared=no"
             ],
-            "post-install": [
-                "chmod 755 /app/lib/libtcl*.so"
-            ],
             "sources": [
                 {
                     "type": "archive",
