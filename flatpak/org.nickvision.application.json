@@ -136,8 +136,7 @@
             "buildsystem": "cmake-ninja",
             "builddir": true,
             "config-opts": [
-                "-DCMAKE_BUILD_TYPE=Release",
-                "-DUI_PLATFORM=gnome"
+                "-DCMAKE_BUILD_TYPE=Release"
             ],
             "sources": [
                 {

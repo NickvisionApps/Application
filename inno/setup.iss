@@ -53,5 +53,5 @@ Name: "{autodesktop}\{#MyAppShortName}"; Filename: "{app}\Release\{#MyAppExeName
 [Run]
 Filename: "{app}\vc_redist.exe"; Parameters: "/install /quiet /norestart"
 Filename: "{app}\windowsappruntimeinstall.exe"
-Filename: "{app}\Release\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: runascurrentuser nowait postinstall skipifsilent
+Filename: "{app}\Release\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
 

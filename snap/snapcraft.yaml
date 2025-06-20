@@ -75,7 +75,6 @@ parts:
     cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=/snap/application/current/usr
       - -DCMAKE_BUILD_TYPE=Release
-      - -DUI_PLATFORM=gnome
     stage-packages:
       - libstdc++6
     build-environment:
