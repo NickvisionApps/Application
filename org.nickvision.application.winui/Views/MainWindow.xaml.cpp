@@ -201,7 +201,7 @@ namespace winrt::Nickvision::Application::WinUI::Views::implementation
 
     void MainWindow::CheckForUpdates(const IInspectable& sender, const RoutedEventArgs& args)
     {
-        m_controller->checkForUpdates();
+        m_controller->checkForUpdates(true);
     }
 
     Windows::Foundation::IAsyncAction MainWindow::GitHubRepo(const IInspectable& sender, const RoutedEventArgs& args)

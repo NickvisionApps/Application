@@ -110,7 +110,7 @@ namespace Nickvision::Application::Shared::Controllers
         m_taskbar.connect(hwnd);
         if (m_dataFileManager.get<Configuration>("config").getAutomaticallyCheckForUpdates())
         {
-            checkForUpdates();
+            checkForUpdates(false);
         }
 #elif defined(__linux__)
         m_taskbar.connect(desktopFile);
@@ -126,13 +126,13 @@ namespace Nickvision::Application::Shared::Controllers
         config.save();
     }
 
-    void MainWindowController::checkForUpdates()
+    void MainWindowController::checkForUpdates(bool noUpdateNotification) const
     {
         if(!m_updater)
         {
             return;
         }
-        std::thread worker{ [this]()
+        std::thread worker{ [this, noUpdateNotification]()
         {
             Version latest{ m_updater->fetchCurrentVersion(VersionType::Stable) };
             if(!latest.empty())
@@ -141,6 +141,14 @@ namespace Nickvision::Application::Shared::Controllers
                 {
                     AppNotification::send({ _("New update available"), NotificationSeverity::Success, "update" });
                 }
+                else if(noUpdateNotification)
+                {
+	                AppNotification::send({ _("No update available"), NotificationSeverity::Warning });
+                }
+            }
+            else if(noUpdateNotification)
+            {
+                AppNotification::send({ _("No update available"), NotificationSeverity::Warning });
             }
         } };
         worker.detach();

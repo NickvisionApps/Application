@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-19 11:32-0400\n"
+"POT-Creation-Date: 2025-06-21 09:56-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,43 +50,47 @@ msgstr ""
 msgid "New update available"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:156
+#: libapplication/src/controllers/mainwindowcontroller.cpp:146
+#: libapplication/src/controllers/mainwindowcontroller.cpp:151
+msgid "No update available"
+msgstr ""
+
+#: libapplication/src/controllers/mainwindowcontroller.cpp:164
 msgid ""
 "The update is downloading in the background and will start once it finishes"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:161
+#: libapplication/src/controllers/mainwindowcontroller.cpp:169
 msgid "Unable to download and install update"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:174
+#: libapplication/src/controllers/mainwindowcontroller.cpp:182
 msgctxt "Night"
 msgid "Good Morning!"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:178
+#: libapplication/src/controllers/mainwindowcontroller.cpp:186
 msgctxt "Morning"
 msgid "Good Morning!"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:182
+#: libapplication/src/controllers/mainwindowcontroller.cpp:190
 msgid "Good Afternoon!"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:186
+#: libapplication/src/controllers/mainwindowcontroller.cpp:194
 msgid "Good Evening!"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:188
+#: libapplication/src/controllers/mainwindowcontroller.cpp:196
 msgid "Good Day!"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:231
-#, c++-format
+#: libapplication/src/controllers/mainwindowcontroller.cpp:239
 msgid "Folder Opened: {}"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:246
+#: libapplication/src/controllers/mainwindowcontroller.cpp:254
 msgid "Folder closed"
 msgstr ""
 
@@ -188,7 +192,6 @@ msgstr ""
 
 #: org.nickvision.application.gnome/src/views/mainwindow.cpp:138
 #: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:239
-#, c++-format
 msgid "There is {} file in the folder."
 msgid_plural "There are {} files in the folder."
 msgstr[0] ""
@@ -279,7 +282,6 @@ msgid "Update"
 msgstr ""
 
 #: org.nickvision.application.winui/Views/MainWindow.xaml.cpp:238
-#, c++-format
 msgid "Folder: {}"
 msgstr ""
 

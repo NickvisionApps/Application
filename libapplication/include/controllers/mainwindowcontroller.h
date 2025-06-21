@@ -88,8 +88,9 @@ namespace Nickvision::Application::Shared::Controllers
         void shutdown(const Nickvision::App::WindowGeometry& geometry);
         /**
          * @brief Checks for an application update and sends a notification if one is available.
+         * @param noUpdateNotification Send an app notification if no update is available.
          */
-        void checkForUpdates();
+        void checkForUpdates(bool noUpdateNotification) const;
 #ifdef _WIN32
         /**
          * @brief Downloads and installs the latest application update in the background.
