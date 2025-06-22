@@ -7,7 +7,7 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	mc:Ignorable="d">
-	<Grid Margin="24,24,24,24" RowSpacing="12">
+	<Grid Margin="24,24,0,24" RowSpacing="12">
 	    <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -25,7 +25,7 @@
         </SelectorBar>
 
         <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
-            <controls:ViewStack x:Name="ViewStack">
+            <controls:ViewStack x:Name="ViewStack" Margin="0,0,24,0">
                 <controls:ViewStack.Pages>
                     <StackPanel Orientation="Vertical" Spacing="6">
                         <controls:SettingsRow x:Name="RowTheme" Glyph="&#xE793;">
