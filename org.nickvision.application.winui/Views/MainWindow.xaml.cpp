@@ -46,9 +46,9 @@ namespace winrt::Nickvision::Application::WinUI::Views::implementation
         m_controller = controller;
         //Register Events
         AppWindow().Closing({ this, &MainWindow::OnClosing });
-        m_controller->configurationSaved() += [&](const EventArgs& args){ OnConfigurationSaved(args); };
-        m_controller->notificationSent() += [&](const NotificationSentEventArgs& args){ DispatcherQueue().TryEnqueue([this, args](){ OnNotificationSent(args); }); };
-        m_controller->folderChanged() += [&](const EventArgs& args){ OnFolderChanged(args); };
+        m_controller->configurationSaved() += [this](const EventArgs& args){ OnConfigurationSaved(args); };
+        m_controller->notificationSent() += [this](const NotificationSentEventArgs& args){ DispatcherQueue().TryEnqueue([this, args](){ OnNotificationSent(args); }); };
+        m_controller->folderChanged() += [this](const EventArgs& args){ OnFolderChanged(args); };
         //Localize Strings
         TitleBar().Title(winrt::to_hstring(m_controller->getAppInfo().getShortName()));
         TitleBar().Subtitle(m_controller->getAppInfo().getVersion().getVersionType() == VersionType::Preview ? winrt::to_hstring(_("Preview")) : L"");
