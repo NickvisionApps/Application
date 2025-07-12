@@ -18,8 +18,9 @@ namespace Nickvision::Application::Shared::Models
          * @brief Constructs a Configuration.
          * @param key The key to pass to the DataFileBase
          * @param appName The appName to pass to the DataFileBase
+         * @param isPortable The isPortable to pass to the DataFileBase
          */
-        Configuration(const std::string& key, const std::string& appName);
+        Configuration(const std::string& key, const std::string& appName, bool isPortable);
         /**
          * @brief Gets the preferred theme for the application.
          * @return The preferred theme

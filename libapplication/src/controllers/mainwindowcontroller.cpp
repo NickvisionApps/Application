@@ -23,7 +23,11 @@ namespace Nickvision::Application::Shared::Controllers
         : m_started{ false },
         m_args{ args },
         m_appInfo{ "org.nickvision.application", "Nickvision Application", "Application" },
-        m_dataFileManager{ m_appInfo.getName() }
+#ifdef PORTABLE_BUILD
+        m_dataFileManager{ m_appInfo.getName(), true }
+#else
+        m_dataFileManager{ m_appInfo.getName(), false }
+#endif
     {
         m_appInfo.setVersion({ "2025.7.0-next" });
         m_appInfo.setShortName(_("Application"));

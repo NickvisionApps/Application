@@ -46,13 +46,18 @@ jobs:
         with:
           pkgs: libnick
           triplet: ${{ matrix.variant.triplet }}
-          revision: f3d6b4d5b51d10ac4e52bb88b82fe2076412a177
+          revision: 5188b5339d8731877be0abea20e3384e866391ff
           token: ${{ github.token }}
           github-binarycache: true
-      - name: "Build"
+      - name: "Build (Installer)"
         working-directory: ${{ github.workspace }}/build
         run: |
           cmake -G "Visual Studio 17 2022" ..
+          cmake --build . --config Release
+      - name: "Build (Portable)"
+        working-directory: ${{ github.workspace }}/build-portable
+        run: |
+          cmake -G "Visual Studio 17 2022" -DBUILD_AS_PORTABLE=ON ..
           cmake --build . --config Release
       - name: "Create Installer"
         working-directory: ${{github.workspace}}/inno
@@ -62,8 +67,13 @@ jobs:
           Invoke-WebRequest https://aka.ms/vs/17/release/vc_redist.${{ matrix.variant.arch }}.exe -OutFile vc_redist.exe
           Invoke-WebRequest https://aka.ms/windowsappsdk/1.7/latest/windowsappruntimeinstall-${{ matrix.variant.arch }}.exe -OutFile windowsappruntimeinstall.exe
           iscc setup.iss
-      - name: Upload
+      - name: "Upload (Installer)"
         uses: actions/upload-artifact@v4
         with:
           path: ${{ github.workspace }}/inno/NickvisionApplicationSetup.exe
-          name: Windows-${{ matrix.variant.arch }}-Release
+          name: Windows-${{ matrix.variant.arch }}-Installer
+      - name: "Upload (Portable)"
+        uses: actions/upload-artifact@v4
+        with:
+          path: ${{ github.workspace }}/build-portable
+          name: Windows-${{ matrix.variant.arch }}-Portable
