@@ -68,6 +68,13 @@ jobs:
           Invoke-WebRequest https://aka.ms/vs/17/release/vc_redist.${{ matrix.variant.arch }}.exe -OutFile vc_redist.exe
           Invoke-WebRequest https://aka.ms/windowsappsdk/1.7/latest/windowsappruntimeinstall-${{ matrix.variant.arch }}.exe -OutFile windowsappruntimeinstall.exe
           iscc setup.iss
+      - name: "Create Portable"
+        working-directory: ${{ github.workspace }}/build-portable/org.nickvision.application.winui/Release
+        shell: pwsh
+        run: |
+          $ProgressPreference = 'SilentlyContinue'
+          Invoke-WebRequest https://aka.ms/vs/17/release/vc_redist.${{ matrix.variant.arch }}.exe -OutFile vc_redist.exe
+          Invoke-WebRequest https://aka.ms/windowsappsdk/1.7/latest/windowsappruntimeinstall-${{ matrix.variant.arch }}.exe -OutFile windowsappruntimeinstall.exe
       - name: "Upload (Installer)"
         uses: actions/upload-artifact@v4
         with:
@@ -76,5 +83,5 @@ jobs:
       - name: "Upload (Portable)"
         uses: actions/upload-artifact@v4
         with:
-          path: ${{ github.workspace }}/build-portable
+          path: ${{ github.workspace }}/build-portable/org.nickvision.application.winui/Release
           name: Windows-${{ matrix.variant.arch }}-Portable
