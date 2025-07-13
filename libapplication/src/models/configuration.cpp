@@ -6,8 +6,8 @@ using namespace Nickvision::System;
 
 namespace Nickvision::Application::Shared::Models
 {
-    Configuration::Configuration(const std::string& key, const std::string& appName)
-        : DataFileBase{ key, appName }
+    Configuration::Configuration(const std::string& key, const std::string& appName, bool isPortable)
+        : DataFileBase{ key, appName, isPortable }
     {
         
     }

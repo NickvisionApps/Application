@@ -21,8 +21,10 @@ Describe what you expect to happen instead.
     - [ ] Snap
     - [ ] Source (Including AUR)
 - [ ] WinUI on Windows
+    - [ ] Installer
+    - [ ] Portable
 
-Version Number:
+Version Number: ___
 
 **Additional context**
 
