@@ -26,7 +26,7 @@ parts:
 
   cpr:
     source: https://github.com/libcpr/cpr
-    source-tag: '1.12.0'
+    source-commit: '93a325cd5496c79d1783c22041985fe5d27ac965'
     plugin: cmake
     source-depth: 1
     cmake-parameters:

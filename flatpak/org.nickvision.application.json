@@ -50,11 +50,7 @@
                 {
                     "type": "git",
                     "url": "https://github.com/libcpr/cpr",
-                    "tag": "1.12.0"
-                },
-                {
-                    "type": "patch",
-                    "path": "cpr.patch"
+                    "commit": "93a325cd5496c79d1783c22041985fe5d27ac965"
                 }
             ]
         },
