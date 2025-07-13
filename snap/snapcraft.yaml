@@ -25,7 +25,7 @@ parts:
       - usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/libsqlcipher.so*
 
   cpr:
-    source: https://github.com/nlogozzo/cpr
+    source: https://github.com/libcpr/cpr.git
     source-commit: '93a325cd5496c79d1783c22041985fe5d27ac965'
     source-depth: 1
     plugin: cmake
