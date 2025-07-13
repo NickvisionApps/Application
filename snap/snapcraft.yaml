@@ -31,6 +31,7 @@ parts:
     plugin: cmake
     cmake-parameters:
       - -DCMAKE_BUILD_TYPE=Release
+      - -DCMAKE_INSTALL_PREFIX=/usr
       - -DCPR_BUILD_TESTS=OFF
       - -DCPR_USE_SYSTEM_CURL=ON
       - -DCPR_ENABLE_SSL=ON
