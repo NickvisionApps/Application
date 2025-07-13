@@ -25,13 +25,15 @@ parts:
       - usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/libsqlcipher.so*
 
   cpr:
-    source: https://github.com/libcpr/cpr
+    source: https://github.com/nlogozzo/cpr
     source-commit: '93a325cd5496c79d1783c22041985fe5d27ac965'
-    plugin: cmake
     source-depth: 1
+    plugin: cmake
     cmake-parameters:
       - -DCMAKE_BUILD_TYPE=Release
+      - -DCPR_BUILD_TESTS=OFF
       - -DCPR_USE_SYSTEM_CURL=ON
+      - -DCPR_ENABLE_SSL=ON
     build-environment:
       - CPLUS_INCLUDE_PATH: ${CRAFT_STAGE}/include
     override-prime: ''
@@ -39,8 +41,8 @@ parts:
   maddy:
     source: https://github.com/progsource/maddy.git
     source-tag: '1.5.0'
-    plugin: dump
     source-depth: 1
+    plugin: dump
     override-prime: '' 
 
   libnick:
