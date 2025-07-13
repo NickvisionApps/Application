@@ -44,7 +44,7 @@
                 "-DCMAKE_BUILD_TYPE=Release",
                 "-DCPR_BUILD_TESTS=OFF",
                 "-DCPR_USE_SYSTEM_CURL=ON",
-                "-DCPR_ENABLE_SSL=ON",
+                "-DCPR_ENABLE_SSL=ON"
             ],
             "sources": [
                 {
@@ -53,8 +53,8 @@
                     "tag": "1.12.0"
                 },
                 {
-                    "type" : "patch",
-                    "path" : "cpr.patch"
+                    "type": "patch",
+                    "path": "cpr.patch"
                 }
             ]
         },
