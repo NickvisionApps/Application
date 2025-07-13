@@ -42,13 +42,19 @@
             "builddir": true,
             "config-opts": [
                 "-DCMAKE_BUILD_TYPE=Release",
-                "-DCPR_USE_SYSTEM_CURL=ON"
+                "-DCPR_BUILD_TESTS=OFF",
+                "-DCPR_USE_SYSTEM_CURL=ON",
+                "-DCPR_ENABLE_SSL=ON",
             ],
             "sources": [
                 {
                     "type": "git",
                     "url": "https://github.com/libcpr/cpr",
                     "tag": "1.12.0"
+                },
+                {
+                    "type" : "patch",
+                    "path" : "cpr.patch"
                 }
             ]
         },

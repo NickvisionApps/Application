@@ -1,0 +1,12 @@
+diff --git a/cmake/cprConfig.cmake.in b/cmake/cprConfig.cmake.in
+index 9c0bda5..89483fc 100644
+--- a/cmake/cprConfig.cmake.in
++++ b/cmake/cprConfig.cmake.in
+@@ -2,6 +2,7 @@ include(CMakeFindDependencyMacro)
+ @PACKAGE_INIT@
+
+ find_dependency(CURL REQUIRED)
++find_dependency(OpenSSL REQUIRED)
+
+ include(${CMAKE_CURRENT_LIST_DIR}/cprTargets.cmake)
+
