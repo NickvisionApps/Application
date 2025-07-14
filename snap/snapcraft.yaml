@@ -35,8 +35,6 @@ parts:
       - -DCPR_BUILD_TESTS=OFF
       - -DCPR_USE_SYSTEM_CURL=ON
       - -DCPR_ENABLE_SSL=ON
-    build-environment:
-      - CPLUS_INCLUDE_PATH: ${CRAFT_STAGE}/include
     override-prime: ''
 
   maddy:
@@ -56,8 +54,8 @@ parts:
       - -DCMAKE_INSTALL_PREFIX=/usr
       - -DBUILD_TESTING=OFF
       - -DCMAKE_BUILD_TYPE=Release
-    build-environment:
-      - CPLUS_INCLUDE_PATH: ${CRAFT_STAGE}/include
+    build-environment:    
+      - CMAKE_PREFIX_PATH: ${CRAFT_STAGE}/usr${CMAKE_PREFIX_PATH:+:$CMAKE_PREFIX_PATH}
     build-packages:
       - libssl-dev
       - uuid-dev
@@ -86,14 +84,14 @@ parts:
     source: .
     build-snaps:
       - cmake
-      - blueprint-compiler/latest/edge
+      - blueprint-compiler
     cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=/snap/application/current/usr
       - -DCMAKE_BUILD_TYPE=Release
     stage-packages:
       - libstdc++6
     build-environment:
-      - CMAKE_PREFIX_PATH: ${CRAFT_STAGE}/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/cmake${CMAKE_PREFIX_PATH:+:$CMAKE_PREFIX_PATH}
+      - CMAKE_PREFIX_PATH: ${CRAFT_STAGE}/usr${CMAKE_PREFIX_PATH:+:$CMAKE_PREFIX_PATH}
     parse-info: [usr/share/metainfo/org.nickvision.application.metainfo.xml]
     organize:
       snap/application/current: .
