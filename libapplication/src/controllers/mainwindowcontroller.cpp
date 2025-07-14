@@ -143,14 +143,15 @@ namespace Nickvision::Application::Shared::Controllers
             {
                 if(latest > m_appInfo.getVersion())
                 {
+#ifdef PORTABLE_BUILD
+                    AppNotification::send({ _("New update available"), NotificationSeverity::Success });
+#else
                     AppNotification::send({ _("New update available"), NotificationSeverity::Success, "update" });
-                }
-                else if(noUpdateNotification)
-                {
-	                AppNotification::send({ _("No update available"), NotificationSeverity::Warning });
+#endif
+                    return;
                 }
             }
-            else if(noUpdateNotification)
+            if(noUpdateNotification)
             {
                 AppNotification::send({ _("No update available"), NotificationSeverity::Warning });
             }
