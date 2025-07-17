@@ -17,7 +17,7 @@ namespace Nickvision::Application::GNOME::Helpers::GtkHelpers
     void addToBox(GtkBox* box, GtkWidget* widget, bool addSeparator = false);
     /**
      * @brief Runs the function on the main UI thread.
-     * @param function The function to run
+     * @param function The function to run 
      */
     void dispatchToMainThread(const std::function<void()>& function);
     /**
@@ -50,7 +50,7 @@ namespace Nickvision::Application::GNOME::Helpers::GtkHelpers
      * @param selected An optional index that should be selected
      * @param allowEllipse Whether or not to allow ellipses in the combo row
      */
-    void setComboRowModel(AdwComboRow* row, const std::vector<std::string>& strs, size_t selected, bool allowEllipse = true);
+    void setComboRowModel(AdwComboRow* row, const std::vector<std::string>& strs, const size_t& selected, bool allowEllipse = true);
 }
 
 #endif //GTKHELPERS_H
