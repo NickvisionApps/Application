@@ -9,10 +9,13 @@
 #include <libnick/system/environment.h>
 #include "models/configuration.h"
 
+#define CONFIG_FILE_KEY "config"
+
 using namespace Nickvision::App;
 using namespace Nickvision::Application::Shared::Models;
 using namespace Nickvision::Events;
 using namespace Nickvision::Filesystem;
+using namespace Nickvision::Localization;
 using namespace Nickvision::Notifications;
 using namespace Nickvision::System;
 using namespace Nickvision::Update;
@@ -44,7 +47,12 @@ namespace Nickvision::Application::Shared::Controllers
         m_appInfo.getDesigners()["DaPigGuy"] = "https://github.com/DaPigGuy";
         m_appInfo.getArtists()[_("David Lapshin")] = "https://github.com/daudix";
         m_appInfo.setTranslatorCredits(_("translator-credits"));
-        Localization::Gettext::init(m_appInfo.getEnglishShortName());
+        Gettext::init(m_appInfo.getEnglishShortName());
+        std::string translationLanguage{ m_dataFileManager.get<Configuration>(CONFIG_FILE_KEY).getTranslationLanguage() };
+        if(!translationLanguage.empty())
+        {
+            Gettext::changeLanguage(translationLanguage);
+        }
 #ifdef _WIN32
         m_updater = std::make_shared<Updater>(m_appInfo.getSourceRepo());
 #endif
@@ -52,7 +60,7 @@ namespace Nickvision::Application::Shared::Controllers
 
     Event<EventArgs>& MainWindowController::configurationSaved()
     {
-        return m_dataFileManager.get<Configuration>("config").saved();
+        return m_dataFileManager.get<Configuration>(CONFIG_FILE_KEY).saved();
     }
 
     Event<NotificationSentEventArgs>& MainWindowController::notificationSent()
@@ -67,7 +75,7 @@ namespace Nickvision::Application::Shared::Controllers
 
     Theme MainWindowController::getTheme()
     {
-        return m_dataFileManager.get<Configuration>("config").getTheme();
+        return m_dataFileManager.get<Configuration>(CONFIG_FILE_KEY).getTheme();
     }
 
     std::string MainWindowController::getDebugInformation(const std::string& extraInformation) const
@@ -91,7 +99,7 @@ namespace Nickvision::Application::Shared::Controllers
 
     std::shared_ptr<PreferencesViewController> MainWindowController::createPreferencesViewController()
     {
-        return std::make_shared<PreferencesViewController>(m_dataFileManager.get<Configuration>("config"));
+        return std::make_shared<PreferencesViewController>(m_dataFileManager.get<Configuration>(CONFIG_FILE_KEY));
     }
 
 #ifdef _WIN32
@@ -108,11 +116,11 @@ namespace Nickvision::Application::Shared::Controllers
             return info;
         }
         //Load configuration
-        info.setWindowGeometry(m_dataFileManager.get<Configuration>("config").getWindowGeometry());
+        info.setWindowGeometry(m_dataFileManager.get<Configuration>(CONFIG_FILE_KEY).getWindowGeometry());
         //Load taskbar item
 #ifdef _WIN32
         m_taskbar.connect(hwnd);
-        if (m_dataFileManager.get<Configuration>("config").getAutomaticallyCheckForUpdates())
+        if (m_dataFileManager.get<Configuration>(CONFIG_FILE_KEY).getAutomaticallyCheckForUpdates())
         {
             checkForUpdates(false);
         }
@@ -125,7 +133,7 @@ namespace Nickvision::Application::Shared::Controllers
 
     void MainWindowController::shutdown(const WindowGeometry& geometry)
     {
-        Configuration& config{ m_dataFileManager.get<Configuration>("config") };
+        Configuration& config{ m_dataFileManager.get<Configuration>(CONFIG_FILE_KEY) };
         config.setWindowGeometry(geometry);
         config.save();
     }

@@ -22,6 +22,16 @@ namespace Nickvision::Application::Shared::Models
         m_json["Theme"] = static_cast<int>(theme);
     }
 
+    std::string Configuration::getTranslationLanguage() const
+    {
+        return m_json["TranslationLanguage"].is_string() ? m_json["TranslationLanguage"].as_string().c_str() : "";
+    }
+
+    void Configuration::setTranslationLanguage(const std::string& language)
+    {
+        m_json["TranslationLanguage"] = language;
+    }
+
     WindowGeometry Configuration::getWindowGeometry() const
     {
         if(!m_json["WindowGeometry"].is_object())

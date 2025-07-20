@@ -28,6 +28,26 @@ namespace Nickvision::Application::Shared::Controllers
          */
         void setTheme(Models::Theme theme);
         /**
+         * @brief Gets the available translation languages for the application.
+         * @return The list of available translation languages
+         */
+        const std::vector<std::string>& getAvailableTranslationLanguages() const;
+        /**
+         * @brief Gets the preferred translation language for the application.
+         * @return The preferred translation language
+         */
+        std::string getTranslationLanguage() const;
+        /**
+         * @brief Sets the preferred translation language for the application.
+         * @param language The new preferred translation language
+         */
+        void setTranslationLanguage(const std::string& language);
+        /**
+         * @brief Sets the preferred translation language for the application.
+         * @param index The index of the preferred translation language in the available languages list
+         */
+        void setTranslationLanguage(size_t index);
+        /**
          * @brief Gets whether or not to automatically check for application updates.
          * @return True to automatically check for updates, else false
          */
@@ -44,6 +64,7 @@ namespace Nickvision::Application::Shared::Controllers
 
     private:
         Models::Configuration& m_configuration;
+        std::vector<std::string> m_availableTranslationLanguages;
     };
 }
 

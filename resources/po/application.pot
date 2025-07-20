@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-13 21:31-0400\n"
+"POT-Creation-Date: 2025-07-20 14:10-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,80 +18,80 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:33
+#: libapplication/src/controllers/mainwindowcontroller.cpp:36
 msgid "Application"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:34
+#: libapplication/src/controllers/mainwindowcontroller.cpp:37
 msgid "Create new Nickvision applications"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:39
+#: libapplication/src/controllers/mainwindowcontroller.cpp:42
 msgid "Matrix Chat"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:41
+#: libapplication/src/controllers/mainwindowcontroller.cpp:44
 msgid "Contributors on GitHub"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:43
+#: libapplication/src/controllers/mainwindowcontroller.cpp:46
 msgid "Fyodor Sobolev"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:45
+#: libapplication/src/controllers/mainwindowcontroller.cpp:48
 msgid "David Lapshin"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:46
+#: libapplication/src/controllers/mainwindowcontroller.cpp:49
 msgid "translator-credits"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:147
-#: libapplication/src/controllers/mainwindowcontroller.cpp:149
+#: libapplication/src/controllers/mainwindowcontroller.cpp:155
+#: libapplication/src/controllers/mainwindowcontroller.cpp:157
 msgid "New update available"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:156
+#: libapplication/src/controllers/mainwindowcontroller.cpp:164
 msgid "No update available"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:169
+#: libapplication/src/controllers/mainwindowcontroller.cpp:177
 msgid ""
 "The update is downloading in the background and will start once it finishes"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:174
+#: libapplication/src/controllers/mainwindowcontroller.cpp:182
 msgid "Unable to download and install update"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:187
+#: libapplication/src/controllers/mainwindowcontroller.cpp:195
 msgctxt "Night"
 msgid "Good Morning!"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:191
+#: libapplication/src/controllers/mainwindowcontroller.cpp:199
 msgctxt "Morning"
 msgid "Good Morning!"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:195
+#: libapplication/src/controllers/mainwindowcontroller.cpp:203
 msgid "Good Afternoon!"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:199
+#: libapplication/src/controllers/mainwindowcontroller.cpp:207
 msgid "Good Evening!"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:201
+#: libapplication/src/controllers/mainwindowcontroller.cpp:209
 msgid "Good Day!"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:244
+#: libapplication/src/controllers/mainwindowcontroller.cpp:252
 #, c++-format
 msgid "Folder Opened: {}"
 msgstr ""
 
-#: libapplication/src/controllers/mainwindowcontroller.cpp:259
+#: libapplication/src/controllers/mainwindowcontroller.cpp:267
 msgid "Folder closed"
 msgstr ""
 
@@ -157,6 +157,16 @@ msgstr ""
 #: org.nickvision.application.gnome/blueprints/preferences_dialog.blp:17
 msgctxt "Theme"
 msgid "System"
+msgstr ""
+
+#: org.nickvision.application.gnome/blueprints/preferences_dialog.blp:27
+#: org.nickvision.application.winui/Views/SettingsPage.xaml.cpp:25
+msgid "Translation Language"
+msgstr ""
+
+#: org.nickvision.application.gnome/blueprints/preferences_dialog.blp:28
+#: org.nickvision.application.winui/Views/SettingsPage.xaml.cpp:26
+msgid "An application restart is required for change to take effect"
 msgstr ""
 
 #: org.nickvision.application.gnome/blueprints/shortcuts_dialog.blp:12
@@ -300,14 +310,14 @@ msgstr ""
 msgid "System"
 msgstr ""
 
-#: org.nickvision.application.winui/Views/SettingsPage.xaml.cpp:25
+#: org.nickvision.application.winui/Views/SettingsPage.xaml.cpp:27
 msgid "Automatically Check for Updates"
 msgstr ""
 
-#: org.nickvision.application.winui/Views/SettingsPage.xaml.cpp:26
+#: org.nickvision.application.winui/Views/SettingsPage.xaml.cpp:28
 msgid "On"
 msgstr ""
 
-#: org.nickvision.application.winui/Views/SettingsPage.xaml.cpp:27
+#: org.nickvision.application.winui/Views/SettingsPage.xaml.cpp:29
 msgid "Off"
 msgstr ""

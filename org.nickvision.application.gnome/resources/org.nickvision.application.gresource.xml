@@ -9,5 +9,6 @@
   </gresource>
   <gresource prefix="/org/nickvision/application/icons/scalable/status/">
     <file preprocess="xml-stripblanks">dark-mode-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">translate-symbolic.svg</file>
   </gresource>
 </gresources>

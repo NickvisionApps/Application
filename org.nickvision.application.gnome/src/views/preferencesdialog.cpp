@@ -1,7 +1,9 @@
 #include "views/preferencesdialog.h"
+#include "helpers/gtkhelpers.h"
 
 using namespace Nickvision::Application::Shared::Controllers;
 using namespace Nickvision::Application::Shared::Models;
+using namespace Nickvision::Application::GNOME::Helpers;
 using namespace Nickvision::Events;
 
 namespace Nickvision::Application::GNOME::Views
@@ -12,13 +14,15 @@ namespace Nickvision::Application::GNOME::Views
     {
         //Load
         adw_combo_row_set_selected(m_builder.get<AdwComboRow>("themeRow"), static_cast<unsigned int>(m_controller->getTheme()));
+        GtkHelpers::setComboRowModel(m_builder.get<AdwComboRow>("languageRow"), m_controller->getAvailableTranslationLanguages(), m_controller->getTranslationLanguage());
         //Signals
         m_closed += [&](const EventArgs&){ onClosed(); };
         g_signal_connect(m_builder.get<GObject>("themeRow"), "notify::selected-item", G_CALLBACK(+[](GObject*, GParamSpec* pspec, gpointer data){ reinterpret_cast<PreferencesDialog*>(data)->onThemeChanged(); }), this);
     }
-    
+
     void PreferencesDialog::onClosed()
     {
+        m_controller->setTranslationLanguage(static_cast<size_t>(adw_combo_row_get_selected(m_builder.get<AdwComboRow>("languageRow"))));
         m_controller->saveConfiguration();
     }
 

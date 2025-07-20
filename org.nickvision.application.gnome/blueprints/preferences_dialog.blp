@@ -22,6 +22,16 @@ Adw.PreferencesDialog root {
           icon-name: "dark-mode-symbolic";
         }
       }
+
+      Adw.ComboRow languageRow {
+        title: _("Translation Language");
+        subtitle: _("An application restart is required for change to take effect");
+
+        [prefix]
+        Gtk.Image {
+          icon-name: "translate-symbolic";
+        }
+      }
     }
   }
 }
