@@ -9,7 +9,7 @@ namespace Nickvision::Application::Shared::Models
     Configuration::Configuration(const std::string& key, const std::string& appName, bool isPortable)
         : DataFileBase{ key, appName, isPortable }
     {
-        
+
     }
 
     Theme Configuration::getTheme() const
