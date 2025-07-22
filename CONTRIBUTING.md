@@ -54,7 +54,7 @@ A good bug report shouldn't leave others needing to chase you up for more inform
 - Collect information about the bug:
   - Debug information provided by the application
     - GNOME: From the main hamburger menu, open About Application → Troubleshooting → Debugging Information and copy the information to the clipboard to paste in your issue.
-    - WinUI: From the Help item in the left-side navigation, open About -> Debugging and copy the information to the clipboard to paste in your issue.
+    - WinUI: From the Help item in the left-side navigation, open About Application --> Debugging and copy the information to the clipboard to paste in your issue.
   - Stack trace (Traceback)
     - Including any error messages thrown by the application
     - You may need to start the application via the terminal/console to receive an error message for a crash.
@@ -140,6 +140,7 @@ The whole project utilizes the [MVC](https://en.wikipedia.org/wiki/Model%E2%80%9
 
 This project contains all of the code used by all platforms of the app:
 - `controllers` => The objects used by UI views to receive and manipulate data from the models.
+- `events` => Arguments that are used by events throughout the application.
 - `helpers` => Useful objects and functions specific to the application that can be used by all platforms.
 - `models` => The data driven objects of the application (i.e. Configuration, Database, etc...).
 
@@ -158,7 +159,7 @@ This project contains all of the code used for the GNOME platform version of the
 This project contains all of the code used for the WinUI platform version of the app:
 - `controls` => Generic controls for the app.
     - These UI objects are separate from views in that they should not be backed by a controller and should be easily ported to any other app.
-- `helpers` => Useful objects and functions specific for the Qt platform version of the app.
+- `helpers` => Useful objects and functions specific for the WinUI platform version of the app.
 - `views` => The views (pages, windows, dialogs, etc...) of the app.
 
 #### Developing and Testing
@@ -173,6 +174,7 @@ Application uses the following naming conventions:
 - `CamelCase` for namespaces and classes
 - `pascalCase` for file names, functions, and variables
 - `m_` prefix appended to class member variables
+- `s_` prefix appended to global static variables
 - `get` and `set` prefixes used for accessor and modifiers methods of a class variable respectively
     - Exception: For boolean class members, `is` and `setIs` should be used as the prefixes for the accessor and modifier methods of said members.
 
