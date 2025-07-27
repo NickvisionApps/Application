@@ -1,4 +1,5 @@
 #include "controllers/preferencesviewcontroller.h"
+#include <algorithm>
 #include <libnick/localization/gettext.h>
 
 using namespace Nickvision::Application::Shared::Models;
@@ -10,8 +11,9 @@ namespace Nickvision::Application::Shared::Controllers
         : m_configuration{ configuration },
         m_availableTranslationLanguages{ Gettext::getAvailableLanguages() }
     {
+        m_availableTranslationLanguages.push_back("en_US");
+        std::sort(m_availableTranslationLanguages.begin(), m_availableTranslationLanguages.end());
         m_availableTranslationLanguages.insert(m_availableTranslationLanguages.begin(), _("System"));
-        m_availableTranslationLanguages.insert(m_availableTranslationLanguages.begin(), _("None"));
     }
 
     Theme PreferencesViewController::getTheme() const
@@ -38,7 +40,7 @@ namespace Nickvision::Application::Shared::Controllers
         }
         else if(language == "C")
         {
-            return _("None");
+            return "en_US";
         }
         return language;
     }
@@ -49,7 +51,7 @@ namespace Nickvision::Application::Shared::Controllers
         {
             m_configuration.setTranslationLanguage("");
         }
-        else if(language == _("None"))
+        else if(language == "en_US")
         {
             m_configuration.setTranslationLanguage("C");
         }
