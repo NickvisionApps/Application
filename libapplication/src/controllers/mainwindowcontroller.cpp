@@ -32,7 +32,7 @@ namespace Nickvision::Application::Shared::Controllers
         m_dataFileManager{ m_appInfo.getName(), false }
 #endif
     {
-        m_appInfo.setVersion({ "2025.7.0-next" });
+        m_appInfo.setVersion({ "2025.8.0-next" });
         m_appInfo.setShortName(_("Application"));
         m_appInfo.setDescription(_("Create new Nickvision applications"));
         m_appInfo.setChangelog("- Initial Release");
@@ -152,16 +152,16 @@ namespace Nickvision::Application::Shared::Controllers
                 if(latest > m_appInfo.getVersion())
                 {
 #ifdef PORTABLE_BUILD
-                    AppNotification::send({ _("New update available"), NotificationSeverity::Success });
+                    AppNotification::send({ _("New version of Application available"), NotificationSeverity::Success });
 #else
-                    AppNotification::send({ _("New update available"), NotificationSeverity::Success, "update" });
+                    AppNotification::send({ _("New version of Application available"), NotificationSeverity::Success, "update" });
 #endif
                     return;
                 }
             }
             if(noUpdateNotification)
             {
-                AppNotification::send({ _("No update available"), NotificationSeverity::Warning });
+                AppNotification::send({ _("No Application update available"), NotificationSeverity::Warning });
             }
         } };
         worker.detach();
