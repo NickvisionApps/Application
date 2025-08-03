@@ -45,14 +45,4 @@ namespace Nickvision::Application::Shared::Models
     {
         m_json["WindowGeometry"] = geometry.toJson();
     }
-
-    bool Configuration::getAutomaticallyCheckForUpdates() const
-    {
-        return m_json["AutomaticallyCheckForUpdates"].is_bool() ? m_json["AutomaticallyCheckForUpdates"].as_bool() : Environment::getOperatingSystem() == OperatingSystem::Windows;
-    }
-
-    void Configuration::setAutomaticallyCheckForUpdates(bool check)
-    {
-        m_json["AutomaticallyCheckForUpdates"] = check;
-    }
 }

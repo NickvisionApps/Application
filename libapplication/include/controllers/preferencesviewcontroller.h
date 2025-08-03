@@ -48,16 +48,6 @@ namespace Nickvision::Application::Shared::Controllers
          */
         void setTranslationLanguage(size_t index);
         /**
-         * @brief Gets whether or not to automatically check for application updates.
-         * @return True to automatically check for updates, else false
-         */
-        bool getAutomaticallyCheckForUpdates() const;
-        /**
-         * @brief Sets whether or not to automatically check for application updates.
-         * @param check Whether or not to automatically check for updates
-         */
-        void setAutomaticallyCheckForUpdates(bool check);
-        /**
          * @brief Saves the current configuration to disk.
          */
         void saveConfiguration();

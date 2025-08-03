@@ -53,16 +53,6 @@ namespace Nickvision::Application::Shared::Models
          * @param geometry The new window geometry
          */
         void setWindowGeometry(const App::WindowGeometry& geometry);
-        /**
-         * @brief Gets whether or not to automatically check for application updates.
-         * @return True to automatically check for updates, else false
-         */
-        bool getAutomaticallyCheckForUpdates() const;
-        /**
-         * @brief Sets whether or not to automatically check for application updates.
-         * @param check Whether or not to automatically check for updates
-         */
-        void setAutomaticallyCheckForUpdates(bool check);
     };
 }
 

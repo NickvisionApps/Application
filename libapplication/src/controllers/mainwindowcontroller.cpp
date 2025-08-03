@@ -53,9 +53,7 @@ namespace Nickvision::Application::Shared::Controllers
         {
             Gettext::changeLanguage(translationLanguage);
         }
-#ifdef _WIN32
         m_updater = std::make_shared<Updater>(m_appInfo.getSourceRepo());
-#endif
     }
 
     Event<EventArgs>& MainWindowController::configurationSaved()
@@ -66,6 +64,16 @@ namespace Nickvision::Application::Shared::Controllers
     Event<NotificationSentEventArgs>& MainWindowController::notificationSent()
     {
         return AppNotification::sent();
+    }
+
+    Event<ParamEventArgs<Version>>& MainWindowController::appUpdateAvailable()
+    {
+        return m_appUpdateAvailable;
+    }
+
+    Event<ParamEventArgs<double>>& MainWindowController::appUpdateProgressChanged()
+    {
+        return m_appUpdateProgressChanged;
     }
 
     const AppInfo& MainWindowController::getAppInfo() const
@@ -120,13 +128,22 @@ namespace Nickvision::Application::Shared::Controllers
         //Load taskbar item
 #ifdef _WIN32
         m_taskbar.connect(hwnd);
-        if (m_dataFileManager.get<Configuration>(CONFIG_FILE_KEY).getAutomaticallyCheckForUpdates())
-        {
-            checkForUpdates(false);
-        }
 #elif defined(__linux__)
         m_taskbar.connect(desktopFile);
 #endif
+        //Start checking for app updates
+        std::thread workerUpdates{ [this]()
+        {
+            Version latest{ m_updater->fetchCurrentVersion(VersionType::Stable) };
+            if(!latest.empty())
+            {
+                if(latest > m_appInfo.getVersion())
+                {
+                    m_appUpdateAvailable.invoke({ latest });
+                }
+            }
+        } };
+        workerUpdates.detach();
         m_started = true;
         return info;
     }
@@ -138,46 +155,26 @@ namespace Nickvision::Application::Shared::Controllers
         config.save();
     }
 
-    void MainWindowController::checkForUpdates(bool noUpdateNotification) const
-    {
-        if(!m_updater)
-        {
-            return;
-        }
-        std::thread worker{ [this, noUpdateNotification]()
-        {
-            Version latest{ m_updater->fetchCurrentVersion(VersionType::Stable) };
-            if(!latest.empty())
-            {
-                if(latest > m_appInfo.getVersion())
-                {
-#ifdef PORTABLE_BUILD
-                    AppNotification::send({ _("New version of Application available"), NotificationSeverity::Success });
-#else
-                    AppNotification::send({ _("New version of Application available"), NotificationSeverity::Success, "update" });
-#endif
-                    return;
-                }
-            }
-            if(noUpdateNotification)
-            {
-                AppNotification::send({ _("No Application update available"), NotificationSeverity::Warning });
-            }
-        } };
-        worker.detach();
-    }
-
 #ifdef _WIN32
-    void MainWindowController::windowsUpdate()
+    void MainWindowController::startWindowsUpdate()
     {
-        if(!m_updater)
-        {
-            return;
-        }
-        AppNotification::send({ _("The update is downloading in the background and will start once it finishes"), NotificationSeverity::Informational });
         std::thread worker{ [this]()
         {
-            if(!m_updater->windowsUpdate(VersionType::Stable))
+            m_appUpdateProgressChanged.invoke({ 0.0 });
+            bool res{ m_updater->windowsUpdate(VersionType::Stable, { [this](curl_off_t downloadTotal, curl_off_t downloadNow, curl_off_t, curl_off_t, intptr_t) -> bool
+            {
+                if(downloadTotal == 0)
+                {
+                    return true;
+                }
+                m_appUpdateProgressChanged.invoke({ static_cast<double>(static_cast<long double>(downloadNow) / static_cast<long double>(downloadTotal)) });
+                return true;
+            } }) };
+            if(res)
+            {
+                m_appUpdateProgressChanged.invoke({ 1.0 });
+            }
+            else
             {
                 AppNotification::send({ _("Unable to download and install update"), NotificationSeverity::Error });
             }
