@@ -2,9 +2,9 @@
 #if __has_include("Views/MainWindow.g.cpp")
 #include "Views/MainWindow.g.cpp"
 #endif
+#include <cmath>
 #include <stdexcept>
 #include <libnick/localization/gettext.h>
-#include "Controls/AboutDialog.xaml.h"
 #include "Views/SettingsPage.xaml.h"
 
 using namespace ::Nickvision::Application::Shared::Controllers;
@@ -27,7 +27,15 @@ enum MainWindowPage
 {
     Home = 0,
     Folder,
+    UpdateCenter,
     Custom
+};
+
+enum UpdateCenterPage
+{
+    NoUpdates = 0,
+    UpdatesAvailable,
+    DownloadingUpdate,
 };
 
 namespace winrt::Nickvision::Application::WinUI::Views::implementation
@@ -48,26 +56,43 @@ namespace winrt::Nickvision::Application::WinUI::Views::implementation
         AppWindow().Closing({ this, &MainWindow::OnClosing });
         m_controller->configurationSaved() += [this](const EventArgs& args){ OnConfigurationSaved(args); };
         m_controller->notificationSent() += [this](const NotificationSentEventArgs& args){ DispatcherQueue().TryEnqueue([this, args](){ OnNotificationSent(args); }); };
+        m_controller->appUpdateAvailable() += [this](const ParamEventArgs<Version>& args){ DispatcherQueue().TryEnqueue([this, args](){ OnAppUpdateAvailable(args); }); };
+        m_controller->appUpdateProgressChanged() += [this](const ParamEventArgs<double>& args){ DispatcherQueue().TryEnqueue([this, args](){ OnAppUpdateProgressChanged(args); }); };
         m_controller->folderChanged() += [this](const EventArgs& args){ OnFolderChanged(args); };
         //Localize Strings
         TitleBar().Title(winrt::to_hstring(m_controller->getAppInfo().getShortName()));
         TitleBar().Subtitle(m_controller->getAppInfo().getVersion().getVersionType() == VersionType::Preview ? winrt::to_hstring(_("Preview")) : L"");
         NavViewHome().Content(winrt::box_value(winrt::to_hstring(_("Home"))));
         NavViewFolder().Content(winrt::box_value(winrt::to_hstring(_("Folder"))));
-        NavViewHelp().Content(winrt::box_value(winrt::to_hstring(_("Help"))));
+        NavViewUpdates().Content(winrt::box_value(winrt::to_hstring(_("Updates"))));
         NavViewSettings().Content(winrt::box_value(winrt::to_hstring(_("Settings"))));
-        MenuCheckForUpdates().Text(winrt::to_hstring(_("Check for Updates")));
-        MenuGitHubRepo().Text(winrt::to_hstring(_("GitHub Repo")));
-        MenuReportABug().Text(winrt::to_hstring(_("Report a Bug")));
-        MenuDiscussions().Text(winrt::to_hstring(_("Discussions")));
-        MenuAbout().Text(winrt::to_hstring(_("About")));
-        PageHome().Title(winrt::to_hstring(m_controller->getGreeting()));
-        PageHome().Description(winrt::to_hstring(_("Open a folder (or drag one into the app) to get started")));
+        LblGreeting().Text(winrt::to_hstring(m_controller->getGreeting()));
+        LblGettingStarted().Text(winrt::to_hstring(_("Open a folder (or drag one into the app) to get started")));
+        LblHomeStart().Text(winrt::to_hstring(_("Start")));
         LblHomeOpenFolder().Text(winrt::to_hstring(_("Open Folder")));
+        BtnHomeGitHubRepo().Label(winrt::to_hstring(_("GitHub Repo")));
+        BtnHomeReportABug().Label(winrt::to_hstring(_("Report a Bug")));
+        BtnHomeDiscussions().Label(winrt::to_hstring(_("Discussions")));
         LblFolder().Text(winrt::to_hstring(_("Folder")));
         LblFolderOpenFolder().Text(winrt::to_hstring(_("Open")));
         BtnFolderCloseFolder().Label(winrt::to_hstring(_("Close")));
         LblFiles().Text(winrt::to_hstring(_("No Folder Opened")));
+        LblUpdateCenter().Text(winrt::to_hstring(_("Updates")));
+        LblNoUpdates().Text(winrt::to_hstring(_("You're up to date")));
+        LblNoUpdatesDetails().Text(winrt::to_hstring(_("We will let you know once app updates are available to install")));
+        LblUpdatesAvailable().Text(winrt::to_hstring(_("There is an update available")));
+        LblDownloadUpdate().Text(winrt::to_hstring(_("Download")));
+        LblUpdatesDownloading().Text(winrt::to_hstring(_("Downloading the update")));
+        LblUpdatesOptions().Text(winrt::to_hstring(_("Options")));
+        RowUpdatesBeta().Title(winrt::to_hstring(_("Receive Beta App Updates")));
+        RowUpdatesBeta().Description(winrt::to_hstring(_f("Check for pre-release (beta) versions of {}", m_controller->getAppInfo().getShortName())));
+        TglUpdatesBeta().OnContent(winrt::box_value(winrt::to_hstring(_("On"))));
+        TglUpdatesBeta().OffContent(winrt::box_value(winrt::to_hstring(_("Off"))));
+        LblUpdatesChangelogTitle().Text(winrt::to_hstring(_("Changelog")));
+        LblUpdatesChangelogVersion().Text(winrt::to_hstring(_f("Version {}", m_controller->getAppInfo().getVersion().str())));
+        LblUpdatesChangelog().Text(winrt::to_hstring(m_controller->getAppInfo().getChangelog()));
+        //Load
+        TglUpdatesBeta().IsOn(m_controller->getPreferredUpdateType() == VersionType::Preview);
     }
 
     void MainWindow::SystemTheme(ElementTheme theme)
@@ -85,6 +110,9 @@ namespace winrt::Nickvision::Application::WinUI::Views::implementation
         {
             return;
         }
+        //Load UI
+        ViewStackUpdateCenter().CurrentPageIndex(UpdateCenterPage::NoUpdates);
+        NavViewHome().IsSelected(true);
         //Startup
         const StartupInformation& info{ m_controller->startup(m_hwnd) };
         if(info.getWindowGeometry().isMaximized())
@@ -100,7 +128,6 @@ namespace winrt::Nickvision::Application::WinUI::Views::implementation
             size.Y = info.getWindowGeometry().getY();
             AppWindow().MoveAndResize(size);
         }
-        NavViewHome().IsSelected(true);
         m_opened = true;
     }
 
@@ -162,17 +189,32 @@ namespace winrt::Nickvision::Application::WinUI::Views::implementation
             BtnInfoBar().Content(winrt::box_value(winrt::to_hstring(_("Close"))));
             m_notificationClickToken = BtnInfoBar().Click({ this, &MainWindow::CloseFolder });
         }
-        else if(args.getAction() == "update")
-        {
-            BtnInfoBar().Content(winrt::box_value(winrt::to_hstring(_("Update"))));
-            m_notificationClickToken = BtnInfoBar().Click([this](const IInspectable&, const RoutedEventArgs&)
-            {
-                InfoBar().IsOpen(false);
-                m_controller->windowsUpdate();
-            });
-        }
         BtnInfoBar().Visibility(!args.getAction().empty() ? Visibility::Visible : Visibility::Collapsed);
         InfoBar().IsOpen(true);
+    }
+
+    void MainWindow::OnAppUpdateAvailable(const ParamEventArgs<Version>& args)
+    {
+        InfoBadgeUpdates().Visibility(Visibility::Visible);
+        ViewStackUpdateCenter().CurrentPageIndex(UpdateCenterPage::UpdatesAvailable);
+        LblUpdatesAvailableDetails().Text(winrt::to_hstring(_f("{} version {} is available to download and install", m_controller->getAppInfo().getShortName(), (*args).str())));
+    }
+
+    void MainWindow::OnAppUpdateProgressChanged(const ParamEventArgs<double>& args)
+    {
+        ViewStackUpdateCenter().CurrentPageIndex(UpdateCenterPage::DownloadingUpdate);
+        LblUpdatesDownloadingDetails().Text(winrt::to_hstring(_("The installer will start once the download is complete")));
+        LblUpdatesDownloadingProgress().Text(winrt::to_hstring(_f("Downloading {}%", static_cast<int>(std::round((*args) * 100.0)))));
+        if(*args == 1.0)
+        {
+            InfoBadgeUpdates().Visibility(Visibility::Collapsed);
+            ViewStackUpdateCenter().CurrentPageIndex(UpdateCenterPage::NoUpdates);
+        }
+    }
+
+    void MainWindow::OnAppUpdateBetaToggled(const IInspectable& sender, const Microsoft::UI::Xaml::RoutedEventArgs& args)
+    {
+        m_controller->setPreferredUpdateType(TglUpdatesBeta().IsOn() ? VersionType::Preview : VersionType::Stable);
     }
 
     void MainWindow::OnNavViewSelectionChanged(const NavigationView& sender, const NavigationViewSelectionChangedEventArgs& args)
@@ -186,6 +228,10 @@ namespace winrt::Nickvision::Application::WinUI::Views::implementation
         {
             ViewStack().CurrentPageIndex(MainWindowPage::Folder);
         }
+        else if(tag == L"Updates")
+        {
+            ViewStack().CurrentPageIndex(MainWindowPage::UpdateCenter);
+        }
         else if(tag == L"Settings")
         {
             ViewStack().CurrentPageIndex(MainWindowPage::Custom);
@@ -197,11 +243,6 @@ namespace winrt::Nickvision::Application::WinUI::Views::implementation
     void MainWindow::OnNavViewItemTapped(const IInspectable& sender, const TappedRoutedEventArgs& args)
     {
         FlyoutBase::ShowAttachedFlyout(sender.as<FrameworkElement>());
-    }
-
-    void MainWindow::CheckForUpdates(const IInspectable& sender, const RoutedEventArgs& args)
-    {
-        m_controller->checkForUpdates(true);
     }
 
     Windows::Foundation::IAsyncAction MainWindow::GitHubRepo(const IInspectable& sender, const RoutedEventArgs& args)
@@ -219,13 +260,9 @@ namespace winrt::Nickvision::Application::WinUI::Views::implementation
         co_await Launcher::LaunchUriAsync(Windows::Foundation::Uri{ winrt::to_hstring(m_controller->getAppInfo().getSupportUrl()) });
     }
 
-    Windows::Foundation::IAsyncAction MainWindow::About(const IInspectable& sender, const RoutedEventArgs& args)
+    void MainWindow::DownloadUpdate(const IInspectable& sender, const Microsoft::UI::Xaml::RoutedEventArgs& args)
     {
-        ContentDialog dialog{ winrt::make<Controls::implementation::AboutDialog>() };
-        dialog.as<Controls::implementation::AboutDialog>()->Info(m_controller->getAppInfo(), m_controller->getDebugInformation());
-        dialog.RequestedTheme(MainGrid().RequestedTheme());
-        dialog.XamlRoot(MainGrid().XamlRoot());
-        co_await dialog.ShowAsync();
+        m_controller->startWindowsUpdate();
     }
 
     void MainWindow::OnFolderChanged(const EventArgs& args)

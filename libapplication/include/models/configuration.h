@@ -4,6 +4,7 @@
 #include <string>
 #include <libnick/app/datafilebase.h>
 #include <libnick/app/windowgeometry.h>
+#include <libnick/update/versiontype.h>
 #include "theme.h"
 
 namespace Nickvision::Application::Shared::Models
@@ -53,6 +54,16 @@ namespace Nickvision::Application::Shared::Models
          * @param geometry The new window geometry
          */
         void setWindowGeometry(const App::WindowGeometry& geometry);
+        /**
+         * @brief Gets the preferred update type for the application.
+         * @return The preferred update type
+         */
+        Update::VersionType getPreferredUpdateType() const;
+        /**
+         * @brief Sets the preferred update type for the application.
+         * @param type The new preferred update type
+         */
+        void setPreferredUpdateType(Update::VersionType type);
     };
 }
 

@@ -1,8 +1,7 @@
 #include "models/configuration.h"
-#include <libnick/system/environment.h>
 
 using namespace Nickvision::App;
-using namespace Nickvision::System;
+using namespace Nickvision::Update;
 
 namespace Nickvision::Application::Shared::Models
 {
@@ -44,5 +43,15 @@ namespace Nickvision::Application::Shared::Models
     void Configuration::setWindowGeometry(const WindowGeometry& geometry)
     {
         m_json["WindowGeometry"] = geometry.toJson();
+    }
+
+    VersionType Configuration::getPreferredUpdateType() const
+    {
+        return m_json["PreferredUpdateType"].is_int64() ? static_cast<VersionType>(m_json["PreferredUpdateType"].as_int64()) : VersionType::Stable;
+    }
+
+    void Configuration::setPreferredUpdateType(VersionType type)
+    {
+        m_json["PreferredUpdateType"] = static_cast<int>(type);
     }
 }

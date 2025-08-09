@@ -86,6 +86,16 @@ namespace Nickvision::Application::Shared::Controllers
         return m_dataFileManager.get<Configuration>(CONFIG_FILE_KEY).getTheme();
     }
 
+    VersionType MainWindowController::getPreferredUpdateType()
+    {
+        return m_dataFileManager.get<Configuration>(CONFIG_FILE_KEY).getPreferredUpdateType();
+    }
+
+    void MainWindowController::setPreferredUpdateType(VersionType type)
+    {
+        m_dataFileManager.get<Configuration>(CONFIG_FILE_KEY).setPreferredUpdateType(type);
+    }
+
     std::string MainWindowController::getDebugInformation(const std::string& extraInformation) const
     {
         std::stringstream builder;
@@ -134,7 +144,7 @@ namespace Nickvision::Application::Shared::Controllers
         //Start checking for app updates
         std::thread workerUpdates{ [this]()
         {
-            Version latest{ m_updater->fetchCurrentVersion(VersionType::Stable) };
+            Version latest{ m_updater->fetchCurrentVersion(getPreferredUpdateType()) };
             if(!latest.empty())
             {
                 if(latest > m_appInfo.getVersion())
@@ -161,7 +171,7 @@ namespace Nickvision::Application::Shared::Controllers
         std::thread worker{ [this]()
         {
             m_appUpdateProgressChanged.invoke({ 0.0 });
-            bool res{ m_updater->windowsUpdate(VersionType::Stable, { [this](curl_off_t downloadTotal, curl_off_t downloadNow, curl_off_t, curl_off_t, intptr_t) -> bool
+            bool res{ m_updater->windowsUpdate(getPreferredUpdateType(), { [this](curl_off_t downloadTotal, curl_off_t downloadNow, curl_off_t, curl_off_t, intptr_t) -> bool
             {
                 if(downloadTotal == 0)
                 {

@@ -66,6 +66,16 @@ namespace Nickvision::Application::Shared::Controllers
          */
         Models::Theme getTheme();
         /**
+         * @brief Gets the preferred update type for the application.
+         * @return The preferred update type
+         */
+        Update::VersionType getPreferredUpdateType();
+        /**
+         * @brief Sets the preferred update type for the application.
+         * @param type The preferred update type
+         */
+        void setPreferredUpdateType(Update::VersionType type);
+        /**
          * @brief Gets the debugging information for the application.
          * @param extraInformation Extra, ui-specific, information to include in the debug info statement
          * @return The application's debug information
