@@ -24,9 +24,6 @@ namespace winrt::Nickvision::Application::WinUI::Views::implementation
         CmbTheme().Items().Append(winrt::box_value(winrt::to_hstring(_("System"))));
         RowLanguage().Title(winrt::to_hstring(_("Translation Language")));
         RowLanguage().Description(winrt::to_hstring(_("An application restart is required for change to take effect")));
-        RowUpdates().Title(winrt::to_hstring(_("Automatically Check for Updates")));
-        TglUpdates().OnContent(winrt::box_value(winrt::to_hstring(_("On"))));
-        TglUpdates().OffContent(winrt::box_value(winrt::to_hstring(_("Off"))));
     }
 
     void SettingsPage::Controller(const std::shared_ptr<PreferencesViewController>& controller)
@@ -44,7 +41,6 @@ namespace winrt::Nickvision::Application::WinUI::Views::implementation
                 CmbLanguage().SelectedItem(item);
             }
         }
-        TglUpdates().IsOn(m_controller->getAutomaticallyCheckForUpdates());
         m_constructing = false;
     }
 
@@ -75,7 +71,6 @@ namespace winrt::Nickvision::Application::WinUI::Views::implementation
         }
         m_controller->setTheme(static_cast<Theme>(CmbTheme().SelectedIndex()));
         m_controller->setTranslationLanguage(winrt::to_string(CmbLanguage().SelectedItem().as<winrt::hstring>()));
-        m_controller->setAutomaticallyCheckForUpdates(TglUpdates().IsOn());
         m_controller->saveConfiguration();
     }
 }
