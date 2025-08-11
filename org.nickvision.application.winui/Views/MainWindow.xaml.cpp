@@ -54,7 +54,7 @@ namespace winrt::Nickvision::Application::WinUI::Views::implementation
         m_controller = controller;
         //Register Events
         AppWindow().Closing({ this, &MainWindow::OnClosing });
-        m_controller->configurationSaved() += [this](const EventArgs& args){ OnConfigurationSaved(args); };
+        m_controller->configurationSaved() += [this](const EventArgs& args){ DispatcherQueue().TryEnqueue([this, args](){ OnConfigurationSaved(args); }); };
         m_controller->notificationSent() += [this](const NotificationSentEventArgs& args){ DispatcherQueue().TryEnqueue([this, args](){ OnNotificationSent(args); }); };
         m_controller->appUpdateAvailable() += [this](const ParamEventArgs<Version>& args){ DispatcherQueue().TryEnqueue([this, args](){ OnAppUpdateAvailable(args); }); };
         m_controller->appUpdateProgressChanged() += [this](const ParamEventArgs<double>& args){ DispatcherQueue().TryEnqueue([this, args](){ OnAppUpdateProgressChanged(args); }); };
