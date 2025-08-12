@@ -180,11 +180,8 @@ namespace Nickvision::Application::Shared::Controllers
                 m_appUpdateProgressChanged.invoke({ static_cast<double>(static_cast<long double>(downloadNow) / static_cast<long double>(downloadTotal)) });
                 return true;
             } }) };
-            if(res)
-            {
-                m_appUpdateProgressChanged.invoke({ 1.0 });
-            }
-            else
+            m_appUpdateProgressChanged.invoke({ 1.0 });
+            if(!res)
             {
                 AppNotification::send({ _("Unable to download and install update"), NotificationSeverity::Error });
             }

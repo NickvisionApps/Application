@@ -107,6 +107,12 @@ namespace winrt::Nickvision::Application::WinUI::Views::implementation
          */
         Windows::Foundation::IAsyncAction Discussions(const IInspectable& sender, const Microsoft::UI::Xaml::RoutedEventArgs& args);
         /**
+         * @brief Copies the debug information to the clipboard.
+         * @param sender IInspectable
+         * @param args Microsoft::UI::Xaml::RoutedEventArgs
+         */
+        void CopyDebugInformation(const IInspectable& sender, const Microsoft::UI::Xaml::RoutedEventArgs& args);
+        /**
         * @brief Downloads an application update.
         * @param sender IInspectable
         * @param args Microsoft::UI::Xaml::RoutedEventArgs

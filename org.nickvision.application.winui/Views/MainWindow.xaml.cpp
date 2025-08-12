@@ -18,6 +18,7 @@ using namespace winrt::Microsoft::UI::Xaml;
 using namespace winrt::Microsoft::UI::Xaml::Controls;
 using namespace winrt::Microsoft::UI::Xaml::Controls::Primitives;
 using namespace winrt::Microsoft::UI::Xaml::Input;
+using namespace winrt::Windows::ApplicationModel::DataTransfer;
 using namespace winrt::Windows::Graphics;
 using namespace winrt::Windows::Storage;
 using namespace winrt::Windows::Storage::Pickers;
@@ -258,6 +259,14 @@ namespace winrt::Nickvision::Application::WinUI::Views::implementation
     Windows::Foundation::IAsyncAction MainWindow::Discussions(const IInspectable& sender, const RoutedEventArgs& args)
     {
         co_await Launcher::LaunchUriAsync(Windows::Foundation::Uri{ winrt::to_hstring(m_controller->getAppInfo().getSupportUrl()) });
+    }
+
+    void MainWindow::CopyDebugInformation(const IInspectable& sender, const RoutedEventArgs& args)
+    {
+        DataPackage dataPackage;
+        dataPackage.SetText(winrt::to_hstring(m_controller->getDebugInformation()));
+        Clipboard::SetContent(dataPackage);
+        AppNotification::send({ _("Debug information copied to clipboard"), NotificationSeverity::Success });
     }
 
     void MainWindow::DownloadUpdate(const IInspectable& sender, const Microsoft::UI::Xaml::RoutedEventArgs& args)
