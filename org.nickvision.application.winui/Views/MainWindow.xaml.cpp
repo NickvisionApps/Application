@@ -5,6 +5,7 @@
 #include <cmath>
 #include <stdexcept>
 #include <libnick/localization/gettext.h>
+#include <libnick/notifications/appnotification.h>
 #include "Views/SettingsPage.xaml.h"
 
 using namespace ::Nickvision::Application::Shared::Controllers;
@@ -92,6 +93,7 @@ namespace winrt::Nickvision::Application::WinUI::Views::implementation
         LblUpdatesChangelogTitle().Text(winrt::to_hstring(_("Changelog")));
         LblUpdatesChangelogVersion().Text(winrt::to_hstring(_f("Version {}", m_controller->getAppInfo().getVersion().str())));
         LblUpdatesChangelog().Text(winrt::to_hstring(m_controller->getAppInfo().getChangelog()));
+        BtnCopyDebugInformation().Label(winrt::to_hstring(_("Copy Debug Information")));
         //Load
         TglUpdatesBeta().IsOn(m_controller->getPreferredUpdateType() == VersionType::Preview);
     }
