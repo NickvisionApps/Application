@@ -10,15 +10,14 @@
 #include <string>
 #include <vector>
 #include <libnick/app/appinfo.h>
-#include <libnick/app/datafilemanager.h>
 #include <libnick/app/windowgeometry.h>
 #include <libnick/events/event.h>
 #include <libnick/events/parameventargs.h>
 #include <libnick/notifications/notificationsenteventargs.h>
-#include <libnick/taskbar/taskbaritem.h>
 #include <libnick/update/updater.h>
 #include <libnick/update/version.h>
 #include "controllers/preferencesviewcontroller.h"
+#include "models/configuration.h"
 #include "models/startupinformation.h"
 #include "models/theme.h"
 
@@ -96,13 +95,7 @@ namespace Nickvision::Application::Shared::Controllers
          * @brief Will only have an effect the first time called.
          * @return The StartupInformation for the application
          */
-#ifdef _WIN32
-        const Models::StartupInformation& startup(HWND hwnd);
-#elif defined(__linux__)
-        const Models::StartupInformation& startup(const std::string& desktopFile);
-#else
         const Models::StartupInformation& startup();
-#endif
         /**
          * @brief Shuts down the application.
          * @param geometry The window geometry to save
@@ -156,9 +149,8 @@ namespace Nickvision::Application::Shared::Controllers
         Nickvision::Events::Event<Nickvision::Events::ParamEventArgs<Nickvision::Update::Version>> m_appUpdateAvailable;
         Nickvision::Events::Event<Nickvision::Events::ParamEventArgs<double>> m_appUpdateProgressChanged;
         Nickvision::App::AppInfo m_appInfo;
-        Nickvision::App::DataFileManager m_dataFileManager;
         std::shared_ptr<Nickvision::Update::Updater> m_updater;
-        Nickvision::Taskbar::TaskbarItem m_taskbar;
+        Models::Configuration m_configuration;
         std::filesystem::path m_folderPath;
         std::vector<std::filesystem::path> m_files;
         Nickvision::Events::Event<Nickvision::Events::EventArgs> m_folderChanged;

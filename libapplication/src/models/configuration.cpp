@@ -1,57 +1,59 @@
 #include "models/configuration.h"
 
 using namespace Nickvision::App;
+using namespace Nickvision::Helpers;
 using namespace Nickvision::Update;
 
 namespace Nickvision::Application::Shared::Models
 {
-    Configuration::Configuration(const std::string& key, const std::string& appName, bool isPortable)
-        : DataFileBase{ key, appName, isPortable }
+    Configuration::Configuration(const std::filesystem::path& path)
+        : JsonFileBase{ path }
     {
 
     }
 
     Theme Configuration::getTheme() const
     {
-        return m_json["Theme"].is_int64() ? static_cast<Theme>(m_json["Theme"].as_int64()) : Theme::System;
+        return static_cast<Theme>(get("Theme", static_cast<int>(Theme::System)));
     }
 
     void Configuration::setTheme(Theme theme)
     {
-        m_json["Theme"] = static_cast<int>(theme);
+        set("Theme", static_cast<int>(theme));
     }
 
     std::string Configuration::getTranslationLanguage() const
     {
-        return m_json["TranslationLanguage"].is_string() ? m_json["TranslationLanguage"].as_string().c_str() : "";
+        return get<std::string>("TranslationLanguage", "");
     }
 
     void Configuration::setTranslationLanguage(const std::string& language)
     {
-        m_json["TranslationLanguage"] = language;
+        set("TranslationLanguage", language);
     }
 
     WindowGeometry Configuration::getWindowGeometry() const
     {
-        if(!m_json["WindowGeometry"].is_object())
+        boost::json::object geometry = get<boost::json::object>("WindowGeometry", {});
+        if(geometry.empty())
         {
             return { 800, 600, false };
         }
-        return WindowGeometry(m_json["WindowGeometry"].as_object());
+        return WindowGeometry(geometry);
     }
 
     void Configuration::setWindowGeometry(const WindowGeometry& geometry)
     {
-        m_json["WindowGeometry"] = geometry.toJson();
+        set("WindowGeometry", geometry.toJson().as_object());
     }
 
     VersionType Configuration::getPreferredUpdateType() const
     {
-        return m_json["PreferredUpdateType"].is_int64() ? static_cast<VersionType>(m_json["PreferredUpdateType"].as_int64()) : VersionType::Stable;
+        return static_cast<VersionType>(get("PreferredUpdateType", static_cast<int>(VersionType::Stable)));
     }
 
     void Configuration::setPreferredUpdateType(VersionType type)
     {
-        m_json["PreferredUpdateType"] = static_cast<int>(type);
+        set("PreferredUpdateType", static_cast<int>(type));
     }
 }

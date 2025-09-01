@@ -7,9 +7,6 @@
 #include <libnick/localization/gettext.h>
 #include <libnick/notifications/appnotification.h>
 #include <libnick/system/environment.h>
-#include "models/configuration.h"
-
-#define CONFIG_FILE_KEY "config"
 
 using namespace Nickvision::App;
 using namespace Nickvision::Application::Shared::Models;
@@ -27,9 +24,9 @@ namespace Nickvision::Application::Shared::Controllers
         m_args{ args },
         m_appInfo{ "org.nickvision.application", "Nickvision Application", "Application" },
 #ifdef PORTABLE_BUILD
-        m_dataFileManager{ m_appInfo.getName(), true }
+        m_configuration{ Environment::getExecutableDirectory() / "config.json" }
 #else
-        m_dataFileManager{ m_appInfo.getName(), false }
+        m_configuration{ UserDirectories::get(ApplicationUserDirectory::Config, m_appInfo.getName()) / "config.json" }
 #endif
     {
         m_appInfo.setVersion({ "2025.8.0-next" });
@@ -48,7 +45,7 @@ namespace Nickvision::Application::Shared::Controllers
         m_appInfo.getArtists()[_("David Lapshin")] = "https://github.com/daudix";
         m_appInfo.setTranslatorCredits(_("translator-credits"));
         Gettext::init(m_appInfo.getEnglishShortName());
-        std::string translationLanguage{ m_dataFileManager.get<Configuration>(CONFIG_FILE_KEY).getTranslationLanguage() };
+        std::string translationLanguage{ m_configuration.getTranslationLanguage() };
         if(!translationLanguage.empty())
         {
             Gettext::changeLanguage(translationLanguage);
@@ -58,7 +55,7 @@ namespace Nickvision::Application::Shared::Controllers
 
     Event<EventArgs>& MainWindowController::configurationSaved()
     {
-        return m_dataFileManager.get<Configuration>(CONFIG_FILE_KEY).saved();
+        return m_configuration.saved();
     }
 
     Event<NotificationSentEventArgs>& MainWindowController::notificationSent()
@@ -83,17 +80,17 @@ namespace Nickvision::Application::Shared::Controllers
 
     Theme MainWindowController::getTheme()
     {
-        return m_dataFileManager.get<Configuration>(CONFIG_FILE_KEY).getTheme();
+        return m_configuration.getTheme();
     }
 
     VersionType MainWindowController::getPreferredUpdateType()
     {
-        return m_dataFileManager.get<Configuration>(CONFIG_FILE_KEY).getPreferredUpdateType();
+        return m_configuration.getPreferredUpdateType();
     }
 
     void MainWindowController::setPreferredUpdateType(VersionType type)
     {
-        m_dataFileManager.get<Configuration>(CONFIG_FILE_KEY).setPreferredUpdateType(type);
+        m_configuration.setPreferredUpdateType(type);
     }
 
     std::string MainWindowController::getDebugInformation(const std::string& extraInformation) const
@@ -117,16 +114,10 @@ namespace Nickvision::Application::Shared::Controllers
 
     std::shared_ptr<PreferencesViewController> MainWindowController::createPreferencesViewController()
     {
-        return std::make_shared<PreferencesViewController>(m_dataFileManager.get<Configuration>(CONFIG_FILE_KEY));
+        return std::make_shared<PreferencesViewController>(m_configuration);
     }
 
-#ifdef _WIN32
-    const StartupInformation& MainWindowController::startup(HWND hwnd)
-#elif defined(__linux__)
-    const StartupInformation& MainWindowController::startup(const std::string& desktopFile)
-#else
     const StartupInformation& MainWindowController::startup()
-#endif
     {
         static StartupInformation info;
         if (m_started)
@@ -134,13 +125,7 @@ namespace Nickvision::Application::Shared::Controllers
             return info;
         }
         //Load configuration
-        info.setWindowGeometry(m_dataFileManager.get<Configuration>(CONFIG_FILE_KEY).getWindowGeometry());
-        //Load taskbar item
-#ifdef _WIN32
-        m_taskbar.connect(hwnd);
-#elif defined(__linux__)
-        m_taskbar.connect(desktopFile);
-#endif
+        info.setWindowGeometry(m_configuration.getWindowGeometry());
         //Start checking for app updates
         std::thread workerUpdates{ [this]()
         {
@@ -160,9 +145,8 @@ namespace Nickvision::Application::Shared::Controllers
 
     void MainWindowController::shutdown(const WindowGeometry& geometry)
     {
-        Configuration& config{ m_dataFileManager.get<Configuration>(CONFIG_FILE_KEY) };
-        config.setWindowGeometry(geometry);
-        config.save();
+        m_configuration.setWindowGeometry(geometry);
+        m_configuration.save();
     }
 
 #ifdef _WIN32
@@ -258,8 +242,6 @@ namespace Nickvision::Application::Shared::Controllers
         //UI
         AppNotification::send({ _f("Folder Opened: {}", m_folderPath.string()), NotificationSeverity::Success, "close" });
         m_folderChanged.invoke({});
-        m_taskbar.setCount(static_cast<long>(m_files.size()));
-        m_taskbar.setCountVisible(true);
         return true;
     }
 
@@ -273,6 +255,5 @@ namespace Nickvision::Application::Shared::Controllers
         m_files.clear();
         AppNotification::send({ _("Folder closed"), NotificationSeverity::Warning });
         m_folderChanged.invoke({});
-        m_taskbar.setCountVisible(false);
     }
 }
