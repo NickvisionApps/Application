@@ -47,9 +47,9 @@ jobs:
         with:
           pkgs: libnick
           triplet: ${{ matrix.variant.triplet }}
-          revision: 8fba35d954b7ede406a42c06abd70c6470e59b00
+          revision: 3c49e92d66d8eb4505d7f18d8c461240f55c08b0
           token: ${{ github.token }}
-          cache-key: ${{ matrix.variant.triplet }}-8fba35d954b7ede406a42c06abd70c6470e59b00
+          cache-key: ${{ matrix.variant.triplet }}-3c49e92d66d8eb4505d7f18d8c461240f55c08b0
       - name: "Build (Installer)"
         working-directory: ${{ github.workspace }}/build
         run: |
