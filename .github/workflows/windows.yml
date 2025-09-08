@@ -12,6 +12,7 @@ permissions:
 env:
   GITHUB_ACTIONS: true
   VCPKG_ROOT: ${{ github.workspace }}/vcpkg
+  PATH:
 jobs:
   winui-windows:
     name: "WinUI on Windows"
@@ -31,16 +32,19 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
-      - name: "Setup Environment"
+      - name: "Setup Environment and Dependencies"
         shell: pwsh
         run: |
           $ProgressPreference = 'SilentlyContinue'
           mkdir build
           mkdir build-portable
           Invoke-WebRequest https://github.com/mlocati/gettext-iconv-windows/releases/download/v0.25-v1.17/gettext0.25-iconv1.17-shared-64.zip -OutFile gettext.zip
+          Invoke-WebRequest https://files.jrsoftware.org/is/6/innosetup-6.5.1.exe -OutFile innosetup.exe
           Expand-Archive -Force 'gettext.zip'
           move gettext\bin\* C:\Windows\System32
-          choco install innosetup
+          Start-Process -Verb runAs -FilePath innosetup.exe -ArgumentList '/SILENT', '/SUPPRESSMSGBOXES', '/NORESTART', '/SP-' -Wait
+          $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+          [System.Environment]::SetEnvironmentVariable("Path", $env:Path + ";C:\Program Files (x86)\Inno Setup 6", "User")
       - name: "Vcpkg"
         uses: johnwason/vcpkg-action@v7
         id: vcpkg

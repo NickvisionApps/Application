@@ -14,7 +14,7 @@ if (POLICY CMP0141)
     set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
 endif()
 
-project("org.nickvision.application" LANGUAGES C CXX VERSION 2025.8.0 DESCRIPTION "Create new Nickvision applications.")
+project("org.nickvision.application" LANGUAGES C CXX VERSION 2025.9.0 DESCRIPTION "Create new Nickvision applications.")
 set(SHORT_NAME "application")
 set(DISPLAY_NAME "Application")
 include(GNUInstallDirs)
