@@ -12,7 +12,6 @@ permissions:
 env:
   GITHUB_ACTIONS: true
   VCPKG_ROOT: ${{ github.workspace }}/vcpkg
-  PATH:
 jobs:
   winui-windows:
     name: "WinUI on Windows"
