@@ -20,7 +20,7 @@ jobs:
       matrix:
         variant:
           - arch: x64
-            runner: windows-latest
+            runner: windows-2025
             triplet: x64-windows
           #- arch: arm64
           #  runner: windows-11-arm
@@ -41,9 +41,11 @@ jobs:
           Invoke-WebRequest https://files.jrsoftware.org/is/6/innosetup-6.5.1.exe -OutFile innosetup.exe
           Expand-Archive -Force 'gettext.zip'
           move gettext\bin\* C:\Windows\System32
-          Start-Process -Verb runAs -FilePath innosetup.exe -ArgumentList '/SILENT', '/SUPPRESSMSGBOXES', '/NORESTART', '/SP-' -Wait
+          winget upgrade winget --accept-package-agreements --accept-source-agreements --disable-interactivity
+          winget install --id JRSoftware.InnoSetup -e --accept-package-agreements --accept-source-agreements --disable-interactivity
           $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
-          [System.Environment]::SetEnvironmentVariable("Path", $env:Path + ";C:\Program Files (x86)\Inno Setup 6", "User")
+          [System.Environment]::SetEnvironmentVariable("Path", $env:Path + ";C:\Program Files (x86)\Inno Setup 6;%LOCALAPPDATA%\Programs\Inno Setup 6", "User")
+
       - name: "Vcpkg"
         uses: johnwason/vcpkg-action@v7
         id: vcpkg
