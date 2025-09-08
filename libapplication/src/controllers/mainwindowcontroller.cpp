@@ -29,7 +29,7 @@ namespace Nickvision::Application::Shared::Controllers
         m_configuration{ UserDirectories::get(ApplicationUserDirectory::Config, m_appInfo.getName()) / "config.json" }
 #endif
     {
-        m_appInfo.setVersion({ "2025.8.0-next" });
+        m_appInfo.setVersion({ "2025.9.0-next" });
         m_appInfo.setShortName(_("Application"));
         m_appInfo.setDescription(_("Create new Nickvision applications"));
         m_appInfo.setChangelog("- Initial Release");
