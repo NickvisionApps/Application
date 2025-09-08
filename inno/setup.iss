@@ -11,6 +11,8 @@
 #define CurrentYear         GetDateTimeString('yyyy','','')
 
 [Setup]
+; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
+; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{C43542D3-74E2-4499-9484-89848ACF4B2F}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
@@ -40,6 +42,8 @@ UsePreviousAppDir=no
 DefaultDirName={autopf}\{#MyAppName}
 DisableProgramGroupPage=yes
 LicenseFile=..\License.rtf
+; Uncomment the following line to run in non administrative install mode (install for current user only.)
+;PrivilegesRequired=lowest
 OutputDir=..\inno
 OutputBaseFilename=NickvisionApplicationSetup
 SetupIconFile=..\resources\org.nickvision.application.ico

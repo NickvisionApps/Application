@@ -45,7 +45,6 @@ jobs:
           winget install --id JRSoftware.InnoSetup -e --accept-package-agreements --accept-source-agreements --disable-interactivity
           $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
           [System.Environment]::SetEnvironmentVariable("Path", $env:Path + ";C:\Program Files (x86)\Inno Setup 6;%LOCALAPPDATA%\Programs\Inno Setup 6", "User")
-
       - name: "Vcpkg"
         uses: johnwason/vcpkg-action@v7
         id: vcpkg
