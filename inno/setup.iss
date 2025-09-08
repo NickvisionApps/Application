@@ -42,14 +42,11 @@ UsePreviousAppDir=no
 DefaultDirName={autopf}\{#MyAppName}
 DisableProgramGroupPage=yes
 LicenseFile=..\License.rtf
-; Uncomment the following line to run in non administrative install mode (install for current user only.)
-;PrivilegesRequired=lowest
 OutputDir=..\inno
-OutputBaseFilename=NickvisionApplicationSetup
-SetupIconFile=..\resources\org.nickvision.application.ico
+OutputBaseFilename=NickvisionParabolicSetup
+SetupIconFile=..\resources\org.nickvision.tubeconverter.ico
 Compression=lzma
 SolidCompression=yes
-WizardStyle=modern
 PrivilegesRequired=admin
 DirExistsWarning=no
 CloseApplications=yes
