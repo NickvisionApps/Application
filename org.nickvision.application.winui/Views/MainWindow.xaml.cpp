@@ -48,7 +48,8 @@ namespace winrt::Nickvision::Application::WinUI::Views::implementation
     {
         InitializeComponent();
         this->m_inner.as<::IWindowNative>()->get_WindowHandle(&m_hwnd);
-        TitleBar().AppWindow(AppWindow());
+        ExtendsContentIntoTitleBar(true);
+        SetTitleBar(TitleBar());
     }
 
     void MainWindow::Controller(const std::shared_ptr<MainWindowController>& controller)
@@ -144,9 +145,9 @@ namespace winrt::Nickvision::Application::WinUI::Views::implementation
         m_controller->shutdown({ AppWindow().Size().Width, AppWindow().Size().Height, static_cast<bool>(IsZoomed(m_hwnd)), AppWindow().Position().X, AppWindow().Position().Y });
     }
 
-    void MainWindow::OnActivated(const IInspectable& sender, const WindowActivatedEventArgs& args)
+    void MainWindow::OnPaneToggleRequested(const Microsoft::UI::Xaml::Controls::TitleBar& sender, const IInspectable& args)
     {
-        TitleBar().IsActivated(args.WindowActivationState() != WindowActivationState::Deactivated);
+        NavView().IsPaneOpen(!NavView().IsPaneOpen());
     }
 
     void MainWindow::OnConfigurationSaved(const ::Nickvision::Events::EventArgs&)

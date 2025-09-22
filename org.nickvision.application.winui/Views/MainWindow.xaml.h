@@ -3,7 +3,6 @@
 
 #include "pch.h"
 #include "Controls/SettingsRow.g.h"
-#include "Controls/TitleBar.g.h"
 #include "Controls/ViewStack.g.h"
 #include "Views/MainWindow.g.h"
 #include <memory>
@@ -43,13 +42,13 @@ namespace winrt::Nickvision::Application::WinUI::Views::implementation
          * @param sender Microsoft::UI::Windowing::AppWindow
          * @param args Microsoft::UI::Windowing::AppWindowClosingEventArgs
          */
-        void OnClosing(const Microsoft::UI::Windowing::AppWindow& sender, const Microsoft::UI::Windowing::AppWindowClosingEventArgs& args);\
+        void OnClosing(const Microsoft::UI::Windowing::AppWindow& sender, const Microsoft::UI::Windowing::AppWindowClosingEventArgs& args);
         /**
-         * @brief Handles when the main window is activated.
-         * @param sender IInspectable
-         * @param args Microsoft::UI::Xaml::WindowActivatedEventArgs
+         * @brief Handles when the title bar's pane toggle button is clicked.
+         * @param sender Microsoft::UI::Xaml::Controls::TitleBar
+         * @param args IInspectable
          */
-        void OnActivated(const IInspectable& sender, const Microsoft::UI::Xaml::WindowActivatedEventArgs& args);
+        void OnPaneToggleRequested(const Microsoft::UI::Xaml::Controls::TitleBar& sender, const IInspectable& args);
         /**
          * @brief Handles when the app's configuration is saved.
          * @param args Nickvision::Events::EventArgs
