@@ -50,6 +50,7 @@ namespace winrt::Nickvision::Application::WinUI::Views::implementation
         this->m_inner.as<::IWindowNative>()->get_WindowHandle(&m_hwnd);
         ExtendsContentIntoTitleBar(true);
         SetTitleBar(TitleBar());
+		AppWindow().TitleBar().PreferredHeightOption(TitleBarHeightOption::Tall);
     }
 
     void MainWindow::Controller(const std::shared_ptr<MainWindowController>& controller)
