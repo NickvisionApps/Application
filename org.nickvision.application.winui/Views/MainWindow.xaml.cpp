@@ -48,6 +48,7 @@ namespace winrt::Nickvision::Application::WinUI::Views::implementation
     {
         InitializeComponent();
         this->m_inner.as<::IWindowNative>()->get_WindowHandle(&m_hwnd);
+        AppWindow().SetIcon(L"resources\\icon.ico");
         ExtendsContentIntoTitleBar(true);
         SetTitleBar(TitleBar());
     }
@@ -63,6 +64,7 @@ namespace winrt::Nickvision::Application::WinUI::Views::implementation
         m_controller->appUpdateProgressChanged() += [this](const ParamEventArgs<double>& args){ DispatcherQueue().TryEnqueue([this, args](){ OnAppUpdateProgressChanged(args); }); };
         m_controller->folderChanged() += [this](const EventArgs& args){ OnFolderChanged(args); };
         //Localize Strings
+        AppWindow().Title(winrt::to_hstring(m_controller->getAppInfo().getShortName()));
         TitleBar().Title(winrt::to_hstring(m_controller->getAppInfo().getShortName()));
         TitleBar().Subtitle(m_controller->getAppInfo().getVersion().getVersionType() == VersionType::Preview ? winrt::to_hstring(_("Preview")) : L"");
         NavViewHome().Content(winrt::box_value(winrt::to_hstring(_("Home"))));
