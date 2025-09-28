@@ -19,10 +19,10 @@ using namespace winrt::Microsoft::UI::Xaml;
 using namespace winrt::Microsoft::UI::Xaml::Controls;
 using namespace winrt::Microsoft::UI::Xaml::Controls::Primitives;
 using namespace winrt::Microsoft::UI::Xaml::Input;
+using namespace winrt::Microsoft::Windows::Storage::Pickers;
 using namespace winrt::Windows::ApplicationModel::DataTransfer;
 using namespace winrt::Windows::Graphics;
 using namespace winrt::Windows::Storage;
-using namespace winrt::Windows::Storage::Pickers;
 using namespace winrt::Windows::System;
 
 enum MainWindowPage
@@ -302,13 +302,11 @@ namespace winrt::Nickvision::Application::WinUI::Views::implementation
 
     Windows::Foundation::IAsyncAction MainWindow::OpenFolder(const IInspectable& sender, const RoutedEventArgs& args)
     {
-        FolderPicker picker;
-        picker.as<::IInitializeWithWindow>()->Initialize(m_hwnd);
-        picker.FileTypeFilter().Append(L"*");
-        StorageFolder folder{ co_await picker.PickSingleFolderAsync() };
-        if(folder)
+        FolderPicker picker{ AppWindow().Id() };
+        PickFolderResult result{ co_await picker.PickSingleFolderAsync() };
+        if(result)
         {
-            m_controller->openFolder(winrt::to_string(folder.Path()));
+            m_controller->openFolder(winrt::to_string(result.Path()));
         }
     }
 
