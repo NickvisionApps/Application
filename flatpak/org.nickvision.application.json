@@ -9,8 +9,9 @@
         "--socket=wayland",
         "--device=dri",
         "--share=ipc",
-        "--talk-name=com.canonical.Unity",
-        "--talk-name=org.freedesktop.Notifications"
+        "--talk-name=org.freedesktop.Notifications",
+        "--talk-name=org.freedesktop.ScreenSaver",
+        "--talk-name=org.freedesktop.secrets"
     ],
     "cleanup":[
         "/include",
