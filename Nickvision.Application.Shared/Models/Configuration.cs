@@ -4,6 +4,11 @@ namespace Nickvision.Application.Shared.Models;
 
 public class Configuration
 {
+    public bool AllowPreviewUpdates { get; set; }
+    public Theme Theme { get; set; }
+    public string TranslationLanguage { get; set; }
+    public WindowGeometry WindowGeometry { get; set; }
+
     public Configuration()
     {
         Theme = Theme.System;
@@ -11,9 +16,4 @@ public class Configuration
         WindowGeometry = new WindowGeometry();
         AllowPreviewUpdates = false;
     }
-
-    public Theme Theme { get; set; }
-    public string TranslationLanguage { get; set; }
-    public WindowGeometry WindowGeometry { get; set; }
-    public bool AllowPreviewUpdates { get; set; }
 }
