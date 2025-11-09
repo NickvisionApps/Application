@@ -1,4 +1,6 @@
-﻿using Nickvision.Application.Shared.Models;
+﻿using Nickvision.Application.Shared.Events;
+using Nickvision.Application.Shared.Models;
+using Nickvision.Application.Shared.Services;
 using Nickvision.Desktop.Application;
 using Nickvision.Desktop.Filesystem;
 using Nickvision.Desktop.Globalization;
@@ -34,7 +36,8 @@ public class MainWindowController : IDisposable
         var jsonFileService = _services.Add<IJsonFileService>(new JsonFileService(AppInfo));
         _services.Add<IUpdaterService>(new GitHubUpdaterService(AppInfo, _httpClient));
         var translationService = _services.Add<ITranslationService>(new GettextTranslationService(AppInfo, jsonFileService!.Load<Configuration>("config").TranslationLanguage));
-        _services.Add<INotificationService>(new NotificationService(AppInfo, translationService!._("Open")));
+        var notificationService = _services.Add<INotificationService>(new NotificationService(AppInfo, translationService!._("Open")));
+        _services.Add<IFolderService>(new FolderService(notificationService!, translationService!));
         // Translate strings
         AppInfo.ShortName = translationService._("Application");
         AppInfo.Description = translationService._("Create new Nickvision applications.");
@@ -53,11 +56,24 @@ public class MainWindowController : IDisposable
         Dispose(false);
     }
 
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
     public event EventHandler<AppNotificationSentEventArgs>? AppNotificationSent
     {
         add => _services.Get<INotificationService>()!.AppNotificationSent += value;
 
         remove => _services.Get<INotificationService>()!.AppNotificationSent -= value;
+    }
+    
+    public event EventHandler<FolderChangedEventArgs> FolderChanged
+    {
+        add => _services.Get<IFolderService>()!.Changed += value;
+        
+        remove => _services.Get<IFolderService>()!.Changed -= value;
     }
 
     public event EventHandler<JsonFileSavedEventArgs>? JsonFileSaved
@@ -90,6 +106,8 @@ public class MainWindowController : IDisposable
             < 24 => _services.Get<ITranslationService>()!._("Good Evening!"),
             var _ => _services.Get<ITranslationService>()!._("Good Day!")
         };
+    
+    public bool IsFolderOpen => _services.Get<IFolderService>()!.Path is not null;
 
     public Theme Theme
     {
@@ -115,14 +133,12 @@ public class MainWindowController : IDisposable
         }
     }
 
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
-    }
-
     public string GetDebugInformation(string extraInformation) => Desktop.System.Environment.GetDebugInformation(AppInfo, $"{CultureInfo.CurrentCulture}\n{extraInformation}");
 
+    public void OpenFolder(string path) => _services.Get<IFolderService>()!.Open(path);
+    
+    public void CloseFolder() => _services.Get<IFolderService>()!.Close();
+    
     private void Dispose(bool disposing)
     {
         if (!disposing)

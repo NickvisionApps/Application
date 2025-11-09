@@ -7,10 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Services\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <PackageReference Include="Nickvision.Desktop" Version="2025.11.4" />
     </ItemGroup>
 
