@@ -68,11 +68,11 @@ public class MainWindowController : IDisposable
 
         remove => _services.Get<INotificationService>()!.AppNotificationSent -= value;
     }
-    
+
     public event EventHandler<FolderChangedEventArgs> FolderChanged
     {
         add => _services.Get<IFolderService>()!.Changed += value;
-        
+
         remove => _services.Get<IFolderService>()!.Changed -= value;
     }
 
@@ -106,7 +106,7 @@ public class MainWindowController : IDisposable
             < 24 => _services.Get<ITranslationService>()!._("Good Evening!"),
             var _ => _services.Get<ITranslationService>()!._("Good Day!")
         };
-    
+
     public bool IsFolderOpen => _services.Get<IFolderService>()!.Path is not null;
 
     public Theme Theme
@@ -120,6 +120,8 @@ public class MainWindowController : IDisposable
             _services.Get<IJsonFileService>()!.Save(config, "config");
         }
     }
+
+    public ITranslationService Translator => _services.Get<ITranslationService>()!;
 
     public WindowGeometry WindowGeometry
     {
@@ -136,9 +138,9 @@ public class MainWindowController : IDisposable
     public string GetDebugInformation(string extraInformation) => Desktop.System.Environment.GetDebugInformation(AppInfo, $"{CultureInfo.CurrentCulture}\n{extraInformation}");
 
     public void OpenFolder(string path) => _services.Get<IFolderService>()!.Open(path);
-    
+
     public void CloseFolder() => _services.Get<IFolderService>()!.Close();
-    
+
     private void Dispose(bool disposing)
     {
         if (!disposing)

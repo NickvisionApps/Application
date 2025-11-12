@@ -11,9 +11,11 @@ public class FolderService : IFolderService
 {
     private readonly INotificationService _notificationService;
     private readonly ITranslationService _translationService;
-    
+
     public List<string> Files { get; init; }
     public string? Path { get; private set; }
+
+    public event EventHandler<FolderChangedEventArgs>? Changed;
 
     public FolderService(INotificationService notificationService, ITranslationService translationService)
     {
@@ -22,8 +24,6 @@ public class FolderService : IFolderService
         Files = new List<string>();
         Path = null;
     }
-
-    public event EventHandler<FolderChangedEventArgs>? Changed;
 
     public void Open(string path)
     {

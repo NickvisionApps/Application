@@ -7,9 +7,10 @@ namespace Nickvision.Application.Shared.Services;
 
 public interface IFolderService : IService
 {
-    public event EventHandler<FolderChangedEventArgs>? Changed;
     public List<string> Files { get; }
     public string? Path { get; }
+
+    public event EventHandler<FolderChangedEventArgs>? Changed;
 
     public void Open(string path);
 

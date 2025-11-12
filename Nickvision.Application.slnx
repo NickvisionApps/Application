@@ -1,3 +1,7 @@
 <Solution>
-  <Project Path="Nickvision.Application.Shared\Nickvision.Application.Shared.csproj" Type="Classic C#" />
+  <Project Path="Nickvision.Application.Shared\Nickvision.Application.Shared.csproj" />
+  <Project Path="Nickvision.Application.WinUI/Nickvision.Application.WinUI.csproj" Id="21f0ae04-701e-4a43-8e8e-49ae7ed7beb4">
+    <Platform Project="x64" />
+    <Deploy />
+  </Project>
 </Solution>

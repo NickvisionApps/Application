@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="Nickvision.Application.WinUI.Views.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Nickvision.Application.WinUI.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Window.SystemBackdrop>
+        <MicaBackdrop/>
+    </Window.SystemBackdrop>
+
+    <Grid x:Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TitleBar x:Name="TitleBar" Grid.Row="0">
+            <TitleBar.IconSource>
+                <ImageIconSource ImageSource="/Assets/org.nickvision.application.ico"/>
+            </TitleBar.IconSource>
+
+            <TitleBar.Content>
+                <AutoSuggestBox PlaceholderText="Search" VerticalAlignment="Center" Width="360"/>
+            </TitleBar.Content>
+        </TitleBar>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <MenuBar Grid.Column="0">
+                <MenuBarItem x:Name="MenuFile">
+                    <MenuFlyoutItem x:Name="MenuOpenFolder">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE838;"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutItem x:Name="MenuCloseFolder">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE8F6;"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutSeparator/>
+
+                    <MenuFlyoutItem x:Name="MenuExit">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE711;"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+                </MenuBarItem>
+
+                <MenuBarItem x:Name="MenuEdit">
+                    <MenuFlyoutItem x:Name="MenuSettings">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE713;"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+                </MenuBarItem>
+
+                <MenuBarItem x:Name="MenuHelp">
+
+                </MenuBarItem>
+            </MenuBar>
+
+            <StackPanel Grid.Column="2" Margin="0,0,6,0" Orientation="Horizontal" Spacing="6">
+                <Button x:Name="BtnSettings" Style="{ThemeResource SubtleButtonStyle}">
+                    <Button.Content>
+                        <FontIcon FontSize="16" FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE713;"/>
+                    </Button.Content>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <InfoBar x:Name="InfoBar" Grid.Row="2" IsOpen="True" Title="Test" Severity="Success"/>
+
+        <Grid Grid.Row="3" CornerRadius="8" Background="{ThemeResource LayerFillColorDefaultBrush}">
+
+        </Grid>
+    </Grid>
+</Window>
