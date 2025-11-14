@@ -41,9 +41,7 @@ WizardStyle=modern
 WizardResizable=yes
 WizardSizePercent=120,130
 
-UsePreviousAppDir=no
 DefaultDirName={autopf}\{#MyAppName}
-DisableProgramGroupPage=yes
 LicenseFile=..\License.rtf
 OutputDir=..\inno
 OutputBaseFilename=NickvisionApplicationSetup
@@ -51,7 +49,6 @@ SetupIconFile=..\resources\org.nickvision.application.ico
 Compression=lzma
 SolidCompression=yes
 PrivilegesRequired=admin
-DirExistsWarning=no
 CloseApplications=yes
 ChangesEnvironment=yes
 
