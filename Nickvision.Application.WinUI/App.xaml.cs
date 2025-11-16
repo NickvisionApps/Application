@@ -15,7 +15,7 @@ public partial class App : Microsoft.UI.Xaml.Application
 
     protected override void OnLaunched(LaunchActivatedEventArgs args)
     {
-        if(_window is null)
+        if (_window is null)
         {
             _window = new MainWindow(new MainWindowController(args.Arguments.Split(' ')));
         }

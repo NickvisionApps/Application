@@ -97,15 +97,14 @@ public class MainWindowController : IDisposable
 
     public bool CanShutdown => true;
 
-    public string Greeting =>
-        DateTime.Now.Hour switch
-        {
-            >= 0 and < 6 => _services.Get<ITranslationService>()!._p("Night", "Good Morning!"),
-            < 12 => _services.Get<ITranslationService>()!._p("Morning", "Good Morning!"),
-            < 18 => _services.Get<ITranslationService>()!._("Good Afternoon!"),
-            < 24 => _services.Get<ITranslationService>()!._("Good Evening!"),
-            var _ => _services.Get<ITranslationService>()!._("Good Day!")
-        };
+    public string Greeting => DateTime.Now.Hour switch
+    {
+        >= 0 and < 6 => _services.Get<ITranslationService>()!._p("Night", "Good Morning!"),
+        < 12 => _services.Get<ITranslationService>()!._p("Morning", "Good Morning!"),
+        < 18 => _services.Get<ITranslationService>()!._("Good Afternoon!"),
+        < 24 => _services.Get<ITranslationService>()!._("Good Evening!"),
+        var _ => _services.Get<ITranslationService>()!._("Good Day!")
+    };
 
     public bool IsFolderOpen => _services.Get<IFolderService>()!.Path is not null;
 
