@@ -17,14 +17,13 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <TitleBar x:Name="TitleBar" Grid.Row="0" IsPaneToggleButtonVisible="True" PaneToggleRequested="TitleBar_PaneToggleRequested">
-            <TitleBar.IconSource>
-                <ImageIconSource ImageSource="/Assets/org.nickvision.application.ico"/>
-            </TitleBar.IconSource>
+            <TitleBar.LeftHeader>
+                <ImageIcon VerticalAlignment="Center" Margin="0,0,6,0"  Height="18" Source="/Assets/org.nickvision.application.ico"/>
+            </TitleBar.LeftHeader>
 
             <TitleBar.Content>
                 <AutoSuggestBox PlaceholderText="Search" VerticalAlignment="Center" Width="360" QueryIcon="Find"/>
@@ -37,12 +36,20 @@
                     <MenuFlyoutItem.Icon>
                         <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE838;"/>
                     </MenuFlyoutItem.Icon>
+
+                    <MenuFlyoutItem.KeyboardAccelerators>
+                        <KeyboardAccelerator Modifiers="Control" Key="O"/>
+                    </MenuFlyoutItem.KeyboardAccelerators>
                 </MenuFlyoutItem>
 
                 <MenuFlyoutItem x:Name="MenuCloseFolder" Click="CloseFolder">
                     <MenuFlyoutItem.Icon>
                         <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE8F6;"/>
                     </MenuFlyoutItem.Icon>
+
+                    <MenuFlyoutItem.KeyboardAccelerators>
+                        <KeyboardAccelerator Modifiers="Control" Key="W"/>
+                    </MenuFlyoutItem.KeyboardAccelerators>
                 </MenuFlyoutItem>
 
                 <MenuFlyoutSeparator/>
@@ -51,6 +58,10 @@
                     <MenuFlyoutItem.Icon>
                         <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE711;"/>
                     </MenuFlyoutItem.Icon>
+
+                    <MenuFlyoutItem.KeyboardAccelerators>
+                        <KeyboardAccelerator Modifiers="Menu" Key="F4"/>
+                    </MenuFlyoutItem.KeyboardAccelerators>
                 </MenuFlyoutItem>
             </MenuBarItem>
 
@@ -59,6 +70,10 @@
                     <MenuFlyoutItem.Icon>
                         <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE713;"/>
                     </MenuFlyoutItem.Icon>
+
+                    <MenuFlyoutItem.KeyboardAccelerators>
+                        <KeyboardAccelerator Modifiers="Control" Key="Decimal"/>
+                    </MenuFlyoutItem.KeyboardAccelerators>
                 </MenuFlyoutItem>
             </MenuBarItem>
 
@@ -67,33 +82,99 @@
             </MenuBarItem>
         </MenuBar>
 
-        <InfoBar x:Name="InfoBar" Grid.Row="2" IsOpen="False"/>
-
-        <NavigationView x:Name="NavView" Grid.Row="3" PaneDisplayMode="LeftCompact" SelectionChanged="NavView_SelectionChanged"
+        <NavigationView x:Name="NavView" Grid.Row="2" PaneDisplayMode="LeftCompact" SelectionChanged="NavView_SelectionChanged"
                         IsBackButtonVisible="Collapsed" IsPaneToggleButtonVisible="False" IsSettingsVisible="False">
             <NavigationView.MenuItems>
-                <NavigationViewItem x:Name="NavItemHome" Tag="Home" Icon="Home" IsSelected="True"/>
+                <NavigationViewItem x:Name="NavItemHome" Tag="Home" IsSelected="True">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE80F;"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+
+                <NavigationViewItem x:Name="NavItemFolder" Tag="Folder" Visibility="Collapsed">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE8B7;"/>
+                    </NavigationViewItem.Icon>
+
+                    <NavigationViewItem.InfoBadge>
+                        <InfoBadge x:Name="InfoBadgeFolder" Style="{ThemeResource AttentionValueInfoBadgeStyle}"/>
+                    </NavigationViewItem.InfoBadge>
+                </NavigationViewItem>
             </NavigationView.MenuItems>
 
             <NavigationView.FooterMenuItems>
-                <NavigationViewItem x:Name="NavItemSettings" Tag="Settings" Icon="Setting"/>
+                <NavigationViewItem x:Name="NavItemSettings" Tag="Settings">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE713;"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
             </NavigationView.FooterMenuItems>
-            
-            <nickvision:ViewStack x:Name="ViewStack">
-                <nickvision:ViewStack.Pages>
-                    <nickvision:StatusPage x:Name="StatusHome" Image="/Assets/org.nickvision.application.ico">
-                        <nickvision:StatusPage.Child>
-                            <Button Style="{ThemeResource AccentButtonStyle}" Click="OpenFolder">
-                                <StackPanel Orientation="Horizontal" Spacing="6">
-                                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE838;"/>
 
-                                    <TextBlock x:Name="LblHomeOpenFolder"/>
-                                </StackPanel>
-                            </Button>
-                        </nickvision:StatusPage.Child>
-                    </nickvision:StatusPage>
-                </nickvision:ViewStack.Pages>
-            </nickvision:ViewStack>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <nickvision:ViewStack x:Name="ViewStack" Grid.Row="0">
+                    <nickvision:ViewStack.Pages>
+                        <nickvision:StatusPage x:Name="StatusHome" Image="/Assets/org.nickvision.application.ico">
+                            <nickvision:StatusPage.Child>
+                                <Button Style="{ThemeResource AccentButtonStyle}" Click="OpenFolder">
+                                    <StackPanel Orientation="Horizontal" Spacing="6">
+                                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE838;"/>
+
+                                        <TextBlock x:Name="LblHomeOpenFolder"/>
+                                    </StackPanel>
+                                </Button>
+                            </nickvision:StatusPage.Child>
+                        </nickvision:StatusPage>
+
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <CommandBar Grid.Column="0" HorizontalAlignment="Left" DefaultLabelPosition="Right">
+                                    <AppBarButton x:Name="BtnFolderOpenFolder" Click="OpenFolder">
+                                        <AppBarButton.Icon>
+                                            <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE838;"/>
+                                        </AppBarButton.Icon>
+                                    </AppBarButton>
+
+                                    <AppBarButton x:Name="BtnFolderCloseFolder" Click="CloseFolder">
+                                        <AppBarButton.Icon>
+                                            <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE8F6;"/>
+                                        </AppBarButton.Icon>
+                                    </AppBarButton>
+                                </CommandBar>
+
+                                <TextBlock x:Name="LblFolderPath" Grid.Column="2" VerticalAlignment="Center" Margin="0,0,6,0" Foreground="Gray"/>
+                            </Grid>
+
+                            <MenuFlyoutSeparator Grid.Row="1"/>
+
+                            <ListView x:Name="ListFolderFiles" Grid.Row="2"/>
+                        </Grid>
+
+                        <Frame x:Name="FrameCustom"/>
+                    </nickvision:ViewStack.Pages>
+                </nickvision:ViewStack>
+
+                <InfoBar x:Name="InfoBar" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" IsOpen="False">
+                    <InfoBar.ActionButton>
+                        <Button x:Name="BtnInfoBar" HorizontalAlignment="Right" Visibility="Collapsed"/>
+                    </InfoBar.ActionButton>
+                </InfoBar>
+            </Grid>
         </NavigationView>
     </Grid>
 </Window>

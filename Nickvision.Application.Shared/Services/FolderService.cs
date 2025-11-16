@@ -42,7 +42,7 @@ public class FolderService : IFolderService
         {
             Action = "close"
         });
-        Changed?.Invoke(this, new FolderChangedEventArgs(Path));
+        Changed?.Invoke(this, new FolderChangedEventArgs(Path, Files));
     }
 
     public void Close()

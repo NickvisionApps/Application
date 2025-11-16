@@ -6,6 +6,7 @@ using Nickvision.Desktop.Filesystem;
 using Nickvision.Desktop.Globalization;
 using Nickvision.Desktop.Notifications;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Net.Http;
 
@@ -105,8 +106,6 @@ public class MainWindowController : IDisposable
         < 24 => _services.Get<ITranslationService>()!._("Good Evening!"),
         var _ => _services.Get<ITranslationService>()!._("Good Day!")
     };
-
-    public bool IsFolderOpen => _services.Get<IFolderService>()!.Path is not null;
 
     public Theme Theme
     {
