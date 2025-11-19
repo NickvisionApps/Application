@@ -6,10 +6,12 @@ using Microsoft.Windows.Storage.Pickers;
 using Nickvision.Application.Shared.Controllers;
 using Nickvision.Application.Shared.Events;
 using Nickvision.Application.Shared.Models;
+using Nickvision.Application.WinUI.Controls;
 using Nickvision.Desktop.Application;
 using Nickvision.Desktop.Notifications;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using Vanara.PInvoke;
 using Windows.Graphics;
 using Windows.Storage;
@@ -84,6 +86,11 @@ public sealed partial class MainWindow : Window
         MenuEdit.Title = _controller.Translator._("Edit");
         MenuSettings.Text = _controller.Translator._("Settings");
         MenuHelp.Title = _controller.Translator._("Help");
+        MenuCheckForUpdates.Text = _controller.Translator._("Check for Updates");
+        MenuGitHubRepo.Text = _controller.Translator._("GitHub Repo");
+        MenuReportABug.Text = _controller.Translator._("Report a Bug");
+        MenuDiscussions.Text = _controller.Translator._("Discussions");
+        MenuAbout.Text = _controller.Translator._("About {0}", _controller.AppInfo.ShortName!);
         NavItemHome.Content = _controller.Translator._("Home");
         NavItemFolder.Content = _controller.Translator._("Folder");
         NavItemSettings.Content = _controller.Translator._("Settings");
@@ -210,4 +217,29 @@ public sealed partial class MainWindow : Window
     private void Exit(object sender, RoutedEventArgs e) => Close();
 
     private void Settings(object sender, RoutedEventArgs e) => NavItemSettings.IsSelected = true;
+
+    private async void GitHubRepo(object sender, RoutedEventArgs e) => await LaunchUriAsync(_controller.AppInfo.SourceRepository);
+
+    private async void ReportABug(object sender, RoutedEventArgs e) => await LaunchUriAsync(_controller.AppInfo.IssueTracker);
+
+    private async void Discussions(object sender, RoutedEventArgs e) => await LaunchUriAsync(_controller.AppInfo.DiscussionsForum);
+
+    private async void About(object sender, RoutedEventArgs e)
+    {
+        var aboutDialog = new AboutDialog(_controller.AppInfo, _controller.GetDebugInformation(), _controller.Translator)
+        {
+            RequestedTheme = MainGrid.RequestedTheme,
+            XamlRoot = MainGrid.XamlRoot
+        };
+        await aboutDialog.ShowAsync();
+    }
+
+    private async Task LaunchUriAsync(Uri? uri)
+    {
+        if (uri is null)
+        {
+            return;
+        }
+        await Launcher.LaunchUriAsync(uri);
+    }
 }

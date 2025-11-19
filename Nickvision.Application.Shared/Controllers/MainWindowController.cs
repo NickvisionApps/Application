@@ -6,7 +6,6 @@ using Nickvision.Desktop.Filesystem;
 using Nickvision.Desktop.Globalization;
 using Nickvision.Desktop.Notifications;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Net.Http;
 
@@ -133,7 +132,7 @@ public class MainWindowController : IDisposable
         }
     }
 
-    public string GetDebugInformation(string extraInformation) => Desktop.System.Environment.GetDebugInformation(AppInfo, $"{CultureInfo.CurrentCulture}\n{extraInformation}");
+    public string GetDebugInformation(string extraInformation = "") => Desktop.System.Environment.GetDebugInformation(AppInfo, extraInformation);
 
     public void OpenFolder(string path) => _services.Get<IFolderService>()!.Open(path);
 
