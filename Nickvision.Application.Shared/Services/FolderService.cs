@@ -38,7 +38,7 @@ public class FolderService : IFolderService
         {
             Files.Add(file);
         }
-        _notificationService.Send(new AppNotification(_translationService._("Folder Opened: {0}", Path), NotificationSeverity.Success)
+        _notificationService.Send(new AppNotification(_translationService._("Folder opened: {0}", Path), NotificationSeverity.Success)
         {
             Action = "close"
         });

@@ -4,10 +4,11 @@ using Nickvision.Application.Shared.Services;
 using Nickvision.Desktop.Application;
 using Nickvision.Desktop.Filesystem;
 using Nickvision.Desktop.Globalization;
+using Nickvision.Desktop.Network;
 using Nickvision.Desktop.Notifications;
 using System;
-using System.Globalization;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace Nickvision.Application.Shared.Controllers;
 
@@ -16,6 +17,7 @@ public class MainWindowController : IDisposable
     private readonly string[] _args;
     private readonly HttpClient _httpClient;
     private readonly ServiceCollection _services;
+    private AppVersion _latestVersion;
 
     public AppInfo AppInfo { get; init; }
 
@@ -24,9 +26,10 @@ public class MainWindowController : IDisposable
         _args = args;
         _services = new ServiceCollection();
         _httpClient = new HttpClient();
+        _latestVersion = new AppVersion("2025.11.0-next");
         AppInfo = new AppInfo("org.nickvision.application", "Nickvision Application", "Application")
         {
-            Version = new AppVersion("2025.11.0-next"),
+            Version = _latestVersion,
             Changelog = "- Initial release",
             SourceRepository = new Uri("https://github.com/NickvisionApps/Application"),
             IssueTracker = new Uri("https://github.com/NickvisionApps/Application/issues/new"),
@@ -34,7 +37,7 @@ public class MainWindowController : IDisposable
         };
         // Register services
         var jsonFileService = _services.Add<IJsonFileService>(new JsonFileService(AppInfo));
-        _services.Add<IUpdaterService>(new GitHubUpdaterService(AppInfo, _httpClient));
+        var updaterService = _services.Add<IUpdaterService>(new GitHubUpdaterService(AppInfo, _httpClient));
         var translationService = _services.Add<ITranslationService>(new GettextTranslationService(AppInfo, jsonFileService!.Load<Configuration>("config").TranslationLanguage));
         var notificationService = _services.Add<INotificationService>(new NotificationService(AppInfo, translationService!._("Open")));
         _services.Add<IFolderService>(new FolderService(notificationService!, translationService!));
@@ -106,6 +109,8 @@ public class MainWindowController : IDisposable
         var _ => _services.Get<ITranslationService>()!._("Good Day!")
     };
 
+    public INotificationService Notifier => _services.Get<INotificationService>()!;
+
     public Theme Theme
     {
         get => _services.Get<IJsonFileService>()!.Load<Configuration>("config").Theme;
@@ -132,11 +137,54 @@ public class MainWindowController : IDisposable
         }
     }
 
+    public async Task CheckForUpdatesAsync(bool showNotificationForNoUpdates)
+    {
+        var config = _services.Get<IJsonFileService>()!.Load<Configuration>("config");
+        var notificationService = _services.Get<INotificationService>()!;
+        var translationService = _services.Get<ITranslationService>()!;
+        var updaterService = _services.Get<IUpdaterService>()!;
+        var stableVersion = await updaterService.GetLatestStableVersionAsync();
+        if (stableVersion is not null)
+        {
+            _latestVersion = stableVersion;
+        }
+        if (config.AllowPreviewUpdates)
+        {
+            var previewVersion = await updaterService.GetLatestPreviewVersionAsync();
+            if (previewVersion is not null && previewVersion > stableVersion)
+            {
+                _latestVersion = previewVersion;
+            }
+        }
+        if (_latestVersion > AppInfo.Version!)
+        {
+            notificationService.Send(new AppNotification(translationService._("New {0} update available: {1}", AppInfo.ShortName!, _latestVersion.ToString()), NotificationSeverity.Success)
+            {
+                Action = "update"
+            });
+        }
+        else if (showNotificationForNoUpdates)
+        {
+            notificationService.Send(new AppNotification(translationService._("No update available"), NotificationSeverity.Warning));
+        }
+    }
+
     public string GetDebugInformation(string extraInformation = "") => Desktop.System.Environment.GetDebugInformation(AppInfo, extraInformation);
 
     public void OpenFolder(string path) => _services.Get<IFolderService>()!.Open(path);
 
     public void CloseFolder() => _services.Get<IFolderService>()!.Close();
+
+#if OS_WINDOWS
+    public async Task WindowsUpdateAsync(IProgress<DownloadProgress> progress)
+    {
+        var res = await _services.Get<IUpdaterService>()!.WindowsUpdate(_latestVersion, progress);
+        if (!res)
+        {
+            _services.Get<INotificationService>()!.Send(new AppNotification(_services.Get<ITranslationService>()!._("Unable to download and install the update"), NotificationSeverity.Error));
+        }
+    }
+#endif
 
     private void Dispose(bool disposing)
     {

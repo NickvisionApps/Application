@@ -32,13 +32,13 @@ public sealed partial class AboutDialog : ContentDialog
         LblChangelog.Text = appInfo.Changelog!;
         LblCopyDebugInformation.Text = _translator._("Copy Debug Information");
         LblDebugInformation.Text = debugInfo;
-        if(_appInfo.TranslationCredits == "translation-credits")
+        if (string.IsNullOrEmpty(_appInfo.TranslationCredits) || _appInfo.TranslationCredits == "translation-credits")
         {
             LblCredits.Text = _translator._("Developers:\n{0}\n\nDesigners:\n{1}\n\nArtists:\n{2}", _appInfo.Developers.Keys.Aggregate((current, next) => $"{current}\n{next}"), _appInfo.Designers.Keys.Aggregate((current, next) => $"{current}\n{next}"), _appInfo.Artists.Keys.Aggregate((current, next) => $"{current}\n{next}"));
         }
         else
         {
-            LblCredits.Text = _translator._("Developers:\n{0}\n\nDesigners:\n{1}\n\nArtists:\n{2}\n\nTranslators:\n{3}", _appInfo.Developers.Keys.Aggregate((current, next) => $"{current}\n{next}"), _appInfo.Designers.Keys.Aggregate((current, next) => $"{current}\n{next}"), _appInfo.Artists.Keys.Aggregate((current, next) => $"{current}\n{next}"), _appInfo.TranslationCredits);
+            LblCredits.Text = _translator._("Developers:\n{0}\n\nDesigners:\n{1}\n\nArtists:\n{2}\n\nTranslators:\n{3}", _appInfo.Developers.Keys.Aggregate((current, next) => $"{current}\n{next}"), _appInfo.Designers.Keys.Aggregate((current, next) => $"{current}\n{next}"), _appInfo.Artists.Keys.Aggregate((current, next) => $"{current}\n{next}"), _appInfo.TranslationCredits!);
         }
     }
 

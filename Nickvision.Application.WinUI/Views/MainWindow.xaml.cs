@@ -8,6 +8,7 @@ using Nickvision.Application.Shared.Events;
 using Nickvision.Application.Shared.Models;
 using Nickvision.Application.WinUI.Controls;
 using Nickvision.Desktop.Application;
+using Nickvision.Desktop.Network;
 using Nickvision.Desktop.Notifications;
 using System;
 using System.IO;
@@ -101,6 +102,13 @@ public sealed partial class MainWindow : Window
         BtnFolderCloseFolder.Label = _controller.Translator._("Close");
     }
 
+    private async void Window_Loaded(object sender, RoutedEventArgs e)
+    {
+        MenuCheckForUpdates.IsEnabled = false;
+        await _controller.CheckForUpdatesAsync(false);
+        MenuCheckForUpdates.IsEnabled = true;
+    }
+
     private void Window_Closing(AppWindow sender, AppWindowClosingEventArgs args)
     {
         if (!_controller.CanShutdown)
@@ -145,7 +153,13 @@ public sealed partial class MainWindow : Window
             NotificationSeverity.Error => InfoBarSeverity.Error,
             _ => InfoBarSeverity.Informational
         };
-        if (args.Notification.Action == "close")
+        if (args.Notification.Action == "update")
+        {
+            BtnInfoBar.Content = _controller.Translator._("Update");
+            _notificationClickHandler = WindowsUpdate;
+            BtnInfoBar.Click += _notificationClickHandler;
+        }
+        else if (args.Notification.Action == "close")
         {
             BtnInfoBar.Content = _controller.Translator._("Close");
             _notificationClickHandler = CloseFolder;
@@ -218,6 +232,13 @@ public sealed partial class MainWindow : Window
 
     private void Settings(object sender, RoutedEventArgs e) => NavItemSettings.IsSelected = true;
 
+    private async void CheckForUpdates(object sender, RoutedEventArgs e)
+    {
+        MenuCheckForUpdates.IsEnabled = false;
+        await _controller.CheckForUpdatesAsync(true);
+        MenuCheckForUpdates.IsEnabled = true;
+    }
+
     private async void GitHubRepo(object sender, RoutedEventArgs e) => await LaunchUriAsync(_controller.AppInfo.SourceRepository);
 
     private async void ReportABug(object sender, RoutedEventArgs e) => await LaunchUriAsync(_controller.AppInfo.IssueTracker);
@@ -232,6 +253,32 @@ public sealed partial class MainWindow : Window
             XamlRoot = MainGrid.XamlRoot
         };
         await aboutDialog.ShowAsync();
+    }
+
+    private async void WindowsUpdate(object sender, RoutedEventArgs e)
+    {
+        var progress = new Progress<DownloadProgress>();
+        progress.ProgressChanged += (s, p) =>
+        {
+            DispatcherQueue.TryEnqueue(() =>
+            {
+                if (p.Completed)
+                {
+                    FlyoutProgress.Hide();
+                    BtnProgress.Visibility = Visibility.Collapsed;
+                    ToolTipService.SetToolTip(BtnProgress, string.Empty);
+                    return;
+                }
+                var message = _controller.Translator._("Downloading update: {0}%", Math.Round(p.Percentage * 100));
+                BtnProgress.Visibility = Visibility.Visible;
+                ToolTipService.SetToolTip(BtnProgress, message);
+                IconProgress.Glyph = "\uE896";
+                StsProgress.Description = message;
+                BarProgress.Value = p.Percentage * 100;
+            });
+        };
+        InfoBar.IsOpen = false;
+        await _controller.WindowsUpdateAsync(progress);
     }
 
     private async Task LaunchUriAsync(Uri? uri)
