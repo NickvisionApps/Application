@@ -38,7 +38,7 @@ public class MainWindowController : IDisposable
         // Register services
         var jsonFileService = _services.Add<IJsonFileService>(new JsonFileService(AppInfo));
         var updaterService = _services.Add<IUpdaterService>(new GitHubUpdaterService(AppInfo, _httpClient));
-        var translationService = _services.Add<ITranslationService>(new GettextTranslationService(AppInfo, jsonFileService!.Load<Configuration>("config").TranslationLanguage));
+        var translationService = _services.Add<ITranslationService>(new GettextTranslationService(AppInfo, jsonFileService!.Load<Configuration>(Configuration.Key).TranslationLanguage));
         var notificationService = _services.Add<INotificationService>(new NotificationService(AppInfo, translationService!._("Open")));
         _services.Add<IFolderService>(new FolderService(notificationService!, translationService!));
         // Translate strings
@@ -86,18 +86,6 @@ public class MainWindowController : IDisposable
         remove => _services.Get<IJsonFileService>()!.Saved -= value;
     }
 
-    public bool AllowPreviewUpdates
-    {
-        get => _services.Get<IJsonFileService>()!.Load<Configuration>("config").AllowPreviewUpdates;
-
-        set
-        {
-            var config = _services.Get<IJsonFileService>()!.Load<Configuration>("config");
-            config.AllowPreviewUpdates = value;
-            _services.Get<IJsonFileService>()!.Save(config, "config");
-        }
-    }
-
     public bool CanShutdown => true;
 
     public string Greeting => DateTime.Now.Hour switch
@@ -109,37 +97,27 @@ public class MainWindowController : IDisposable
         var _ => _services.Get<ITranslationService>()!._("Good Day!")
     };
 
-    public INotificationService Notifier => _services.Get<INotificationService>()!;
+    public PreferencesViewController PreferencesViewController => new PreferencesViewController(_services.Get<IJsonFileService>()!, _services.Get<ITranslationService>()!);
 
-    public Theme Theme
-    {
-        get => _services.Get<IJsonFileService>()!.Load<Configuration>("config").Theme;
-
-        set
-        {
-            var config = _services.Get<IJsonFileService>()!.Load<Configuration>("config");
-            config.Theme = value;
-            _services.Get<IJsonFileService>()!.Save(config, "config");
-        }
-    }
+    public Theme Theme => _services.Get<IJsonFileService>()!.Load<Configuration>(Configuration.Key).Theme;
 
     public ITranslationService Translator => _services.Get<ITranslationService>()!;
 
     public WindowGeometry WindowGeometry
     {
-        get => _services.Get<IJsonFileService>()!.Load<Configuration>("config").WindowGeometry;
+        get => _services.Get<IJsonFileService>()!.Load<Configuration>(Configuration.Key).WindowGeometry;
 
         set
         {
-            var config = _services.Get<IJsonFileService>()!.Load<Configuration>("config");
+            var config = _services.Get<IJsonFileService>()!.Load<Configuration>(Configuration.Key);
             config.WindowGeometry = value;
-            _services.Get<IJsonFileService>()!.Save(config, "config");
+            _services.Get<IJsonFileService>()!.Save(config, Configuration.Key);
         }
     }
 
     public async Task CheckForUpdatesAsync(bool showNotificationForNoUpdates)
     {
-        var config = _services.Get<IJsonFileService>()!.Load<Configuration>("config");
+        var config = _services.Get<IJsonFileService>()!.Load<Configuration>(Configuration.Key);
         var notificationService = _services.Get<INotificationService>()!;
         var translationService = _services.Get<ITranslationService>()!;
         var updaterService = _services.Get<IUpdaterService>()!;

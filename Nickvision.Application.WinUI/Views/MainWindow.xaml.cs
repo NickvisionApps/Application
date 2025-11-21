@@ -8,6 +8,7 @@ using Nickvision.Application.Shared.Events;
 using Nickvision.Application.Shared.Models;
 using Nickvision.Application.WinUI.Controls;
 using Nickvision.Desktop.Application;
+using Nickvision.Desktop.Filesystem;
 using Nickvision.Desktop.Network;
 using Nickvision.Desktop.Notifications;
 using System;
@@ -27,7 +28,7 @@ public sealed partial class MainWindow : Window
     {
         Home = 0,
         Folder = 1,
-        Settings = 2
+        Custom = 2
     }
 
     private readonly MainWindowController _controller;
@@ -76,6 +77,7 @@ public sealed partial class MainWindow : Window
         AppWindow.Closing += Window_Closing;
         _controller.AppNotificationSent += (sender, args) => DispatcherQueue.TryEnqueue(() => Controller_AppNotificationSent(sender, args));
         _controller.FolderChanged += Controller_FolderChanged;
+        _controller.JsonFileSaved += Controller_JsonFileSaved;
         // Translations
         AppWindow.Title = _controller.AppInfo.ShortName;
         TitleBar.Title = _controller.AppInfo.ShortName;
@@ -129,10 +131,16 @@ public sealed partial class MainWindow : Window
     {
         if (args.SelectedItem is NavigationViewItem item)
         {
-            ViewStack.SelectedIndex = (item.Tag as string) switch
+            var tag = item.Tag as string;
+            FrameCustom.Content = tag switch
+            {
+                "Settings" => new SettingsPage(_controller.PreferencesViewController),
+                _ => null
+            };
+            ViewStack.SelectedIndex = tag switch
             {
                 "Folder" => (int)Pages.Folder,
-                "Settings" => (int)Pages.Settings,
+                "Settings" => (int)Pages.Custom,
                 _ => (int)Pages.Home
             };
         }
@@ -201,6 +209,18 @@ public sealed partial class MainWindow : Window
         }
     }
 
+    private void Controller_JsonFileSaved(object? sender, JsonFileSavedEventArgs args)
+    {
+        if (args.Name == Configuration.Key)
+        {
+            MainGrid.RequestedTheme = _controller.Theme switch
+            {
+                Theme.Light => ElementTheme.Light,
+                Theme.Dark => ElementTheme.Dark,
+                _ => ElementTheme.Default
+            };
+        }
+    }
 
     private async void ListFolderFiles_ItemDoubleTapped(object sender, DoubleTappedRoutedEventArgs args)
     {
