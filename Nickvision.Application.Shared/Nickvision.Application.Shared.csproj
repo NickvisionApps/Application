@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Nickvision.Desktop" Version="2025.11.9" />
+    <PackageReference Include="Nickvision.Desktop" Version="2025.11.10" />
   </ItemGroup>
 
   <PropertyGroup Condition="$([MSBuild]::IsOSPlatform('Windows'))">

@@ -1,4 +1,4 @@
-﻿namespace Nickvision.Application.Gtk;
+﻿namespace Nickvision.Application.GNOME;
 
 public class Program
 {

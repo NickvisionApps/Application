@@ -1,15 +1,17 @@
-﻿using Nickvision.Application.Gtk.Views;
+﻿using Nickvision.Application.GNOME.Views;
 using Nickvision.Application.Shared.Controllers;
 using Nickvision.Application.Shared.Models;
 using System;
+using System.IO;
 
-namespace Nickvision.Application.Gtk;
+namespace Nickvision.Application.GNOME;
 
 public class Application
 {
     private string[] _args;
     private MainWindowController _controller;
     private Adw.Application _application;
+    private Gio.Resource _resource;
     private MainWindow? _mainWindow;
 
     public Application(string[] args)
@@ -17,6 +19,16 @@ public class Application
         _args = args;
         _controller = new MainWindowController(_args);
         _application = Adw.Application.New(_controller.AppInfo.Id, Gio.ApplicationFlags.DefaultFlags);
+        var resourceFilePath = Path.Combine(Desktop.System.Environment.ExecutingDirectory, $"{_controller.AppInfo.Id}.gresource");
+        try
+        {
+            _resource = Gio.Resource.Load(resourceFilePath);
+            _resource.Register();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Failed to load GResource file: {resourceFilePath}", ex);
+        }
         _application.OnStartup += Application_OnStartup;
         _application.OnActivate += Application_OnActivate;
     }
@@ -27,7 +39,7 @@ public class Application
     {
         if(_mainWindow is null)
         {
-            _mainWindow = new MainWindow(_controller)
+            _mainWindow = new MainWindow(_controller, Gtk.Builder.NewFromFile(Path.Combine(Desktop.System.Environment.ExecutingDirectory, "ui", "MainWindow.blp")))
             {
                 Application = _application
             };
