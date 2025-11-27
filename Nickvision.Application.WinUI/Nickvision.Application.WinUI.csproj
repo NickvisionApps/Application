@@ -53,10 +53,6 @@
 		<ApplicationIcon>Assets\org.nickvision.application.ico</ApplicationIcon>
 	</PropertyGroup>
 
-	<Target Name="PrintDirectories" AfterTargets="Build">
-		<Message Importance="high" Text="Project Dir: $(MSBuildProjectDirectory)" />
-		<Message Importance="high" Text="Target Dir: $(TargetDir)" />
-		<Message Importance="high" Text="Platform: $(Platform)" />
-	</Target>
+	<Import Project="..\Nickvision.Common.targets"/>
 
 </Project>

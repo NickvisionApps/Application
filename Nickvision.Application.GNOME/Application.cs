@@ -39,7 +39,7 @@ public class Application
     {
         if(_mainWindow is null)
         {
-            _mainWindow = new MainWindow(_controller, Gtk.Builder.NewFromFile(Path.Combine(Desktop.System.Environment.ExecutingDirectory, "ui", "MainWindow.blp")))
+            _mainWindow = new MainWindow(_controller, Gtk.Builder.NewFromFile(Path.Combine(Desktop.System.Environment.ExecutingDirectory, "ui", "MainWindow.ui")))
             {
                 Application = _application
             };
