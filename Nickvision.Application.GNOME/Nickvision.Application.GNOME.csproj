@@ -1,53 +1,54 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework Condition="$([MSBuild]::IsOSPlatform('Windows'))">net10.0-windows10.0.19041.0</TargetFramework>
-    <TargetFramework Condition="!$([MSBuild]::IsOSPlatform('Windows'))">net10.0</TargetFramework>
-    <LangVersion>latest</LangVersion>
-    <ImplicitUsings>disable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <OutputType>Exe</OutputType>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="GirCore.Adw-1" Version="0.7.0-preview.3" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Nickvision.Application.Shared\Nickvision.Application.Shared.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
-
-  <Target Name="PrintDirectories" AfterTargets="Build">
-    <Message Importance="high" Text="Project Dir: $(MSBuildProjectDirectory)" />
-    <Message Importance="high" Text="Target Dir: $(TargetDir)" />
-  </Target>
-    
-  <Target Name="CompileGlibResources" AfterTargets="Build">
-    <Message Importance="high" Text="Compiling glib resources..." />
-    <Exec WorkingDirectory="$(MSBuildProjectDirectory)" Command="glib-compile-resources --sourcedir &quot;Resources&quot; &quot;Resources/org.nickvision.application.gresource.xml&quot; --target=&quot;$(TargetDir)/org.nickvision.application.gresource&quot;" />
-  </Target>
-    
-  <Target Name="CompileBlueprints" AfterTargets="Build">
-    <ItemGroup>
-      <AllBlueprintFiles Include="$(MSBuildProjectDirectory)\Blueprints\**\*.blp" />
-    </ItemGroup>
     <PropertyGroup>
-      <QuoteChar Condition="$([MSBuild]::IsOSPlatform('Windows'))">'</QuoteChar>
-      <QuoteChar Condition="!$([MSBuild]::IsOSPlatform('Windows'))">"</QuoteChar>
+        <TargetFramework Condition="$([MSBuild]::IsOSPlatform('Windows'))">net10.0-windows10.0.19041.0</TargetFramework>
+        <TargetFramework Condition="!$([MSBuild]::IsOSPlatform('Windows'))">net10.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <ImplicitUsings>disable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <OutputType>Exe</OutputType>
+        <Platforms>AnyCPU;ARM64;x64</Platforms>
     </PropertyGroup>
+
     <ItemGroup>
-      <AllQuotedBlueprintFiles Include="@(AllBlueprintFiles->'$(QuoteChar)%(FullPath)$(QuoteChar)')" />
+        <PackageReference Include="GirCore.Adw-1" Version="0.7.0-preview.3" />
     </ItemGroup>
-    <PropertyGroup>
-      <AllQuotedBlueprintFilesList>@(AllQuotedBlueprintFiles, ' ')</AllQuotedBlueprintFilesList>
-    </PropertyGroup>
-    <Message Importance="high" Text="Compiling blueprints..." />
-    <Message Importance="high" Text="@(AllQuotedBlueprintFiles)" />
-    <Message Importance="high" Text="$(AllQuotedBlueprintFilesList)" />
-    <Exec Condition="$([MSBuild]::IsOSPlatform('Windows'))" Command="C:\msys64\msys2_shell.cmd -mingw64 -c &quot;blueprint-compiler batch-compile '$(TargetDir)/ui' '$(MSBuildProjectDirectory)/Blueprints' $(AllQuotedBlueprintFilesList)&quot;" />
-    <Exec Condition="!$([MSBuild]::IsOSPlatform('Windows'))" WorkingDirectory="$(MSBuildProjectDirectory)" Command="blueprint-compiler batch-compile &quot;$(TargetDir)/ui&quot; &quot;$(MSBuildProjectDirectory)/Blueprints&quot; $(AllQuotedBlueprintFilesList)" />
-  </Target>
+    <ItemGroup>
+        <ProjectReference Include="..\Nickvision.Application.Shared\Nickvision.Application.Shared.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <Folder Include="Resources\" />
+    </ItemGroup>
+
+    <Target Name="PrintDirectories" AfterTargets="Build">
+        <Message Importance="high" Text="Project Dir: $(MSBuildProjectDirectory)" />
+        <Message Importance="high" Text="Target Dir: $(TargetDir)" />
+        <Message Importance="high" Text="Platform: $(Platform)" />
+    </Target>
+    
+    <Target Name="CompileGlibResources" AfterTargets="Build">
+        <Message Importance="high" Text="Compiling glib resources..." />
+        <Exec WorkingDirectory="$(MSBuildProjectDirectory)" Command="glib-compile-resources --sourcedir &quot;Resources&quot; &quot;Resources/org.nickvision.application.gresource.xml&quot; --target=&quot;$(TargetDir)/org.nickvision.application.gresource&quot;" />
+    </Target>
+    
+    <Target Name="CompileBlueprints" AfterTargets="Build">
+        <ItemGroup>
+            <AllBlueprintFiles Include="$(MSBuildProjectDirectory)\Blueprints\**\*.blp" />
+        </ItemGroup>
+        <PropertyGroup>
+            <QuoteChar>"</QuoteChar>
+        </PropertyGroup>
+        <ItemGroup>
+            <AllQuotedBlueprintFiles Include="@(AllBlueprintFiles->'$(QuoteChar)%(FullPath)$(QuoteChar)')" />
+        </ItemGroup>
+        <PropertyGroup>
+            <AllQuotedBlueprintFilesList>@(AllQuotedBlueprintFiles, ' ')</AllQuotedBlueprintFilesList>
+        </PropertyGroup>
+        <Message Importance="high" Text="Compiling blueprints..." />
+        <Message Importance="high" Text="$(AllQuotedBlueprintFilesList)" />
+        <Exec Condition="$([MSBuild]::IsOSPlatform('Windows')) and $(Platform)!='ARM64'" Command="python &quot;C:\msys64\mingw64\bin\blueprint-compiler&quot; batch-compile &quot;$(TargetDir)/ui&quot; &quot;$(MSBuildProjectDirectory)/Blueprints&quot; $(AllQuotedBlueprintFilesList)" />
+        <Exec Condition="$([MSBuild]::IsOSPlatform('Windows')) and $(Platform)=='ARM64'" Command="python &quot;C:\msys64\clangarm64\bin\blueprint-compiler&quot; batch-compile &quot;$(TargetDir)/ui&quot; &quot;$(MSBuildProjectDirectory)/Blueprints&quot; $(AllQuotedBlueprintFilesList)" />
+        <Exec Condition="!$([MSBuild]::IsOSPlatform('Windows'))" WorkingDirectory="$(MSBuildProjectDirectory)" Command="blueprint-compiler batch-compile &quot;$(TargetDir)/ui&quot; &quot;$(MSBuildProjectDirectory)/Blueprints&quot; $(AllQuotedBlueprintFilesList)" />
+    </Target>
     
 </Project>
