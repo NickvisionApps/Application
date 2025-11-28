@@ -10,7 +10,7 @@ permissions:
   id-token: write
   contents: read
 env:
-  PROJECT_NAME: Nickvision.Application.WinUI
+  PROJECT_PATH: Nickvision.Application.WinUI/Nickvision.Application.WinUI.csproj
   INSTALLER_NAME: NickvisionApplicationSetup
 jobs:
   winui-windows:
@@ -40,15 +40,16 @@ jobs:
       - uses: actions/setup-dotnet@v5
         with:
           dotnet-version: '10.0.x'
+      - uses: microsoft/setup-msbuild@v2
       - name: "Setup Environment"
         shell: pwsh
         run: |
           echo "${{ steps.msys2.outputs.msys2-location }}\${{ matrix.variant.subsys }}\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
           mkdir build
       - name: "Restore"
-        run: dotnet restore ${{ env.PROJECT_NAME }}
+        run: msbuild ${{ env.PROJECT_PATH }} /t:Restore /p:Configuration=Release
       - name: "Build"
-        run: dotnet build ${{ env.PROJECT_NAME }} -c Release --no-restore --output build /p:Platform=${{ matrix.variant.arch }}
+        run: msbuild ${{ env.PROJECT_PATH }} /p:Configuration=Release /p:Platform=${{ matrix.variant.arch }} /p:OutDir=build
       - name: "Installer"
         working-directory: ${{github.workspace}}/inno
         shell: pwsh
