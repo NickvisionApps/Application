@@ -19,9 +19,9 @@ public sealed partial class SettingsPage : Page
         LblSettings.Text = _controller.Translator._("Settings");
         SelectorUI.Text = _controller.Translator._("User Interface");
         RowTheme.Header = _controller.Translator._("Theme");
-        CmbTheme.Items.Add(_controller.Translator._("Light"));
-        CmbTheme.Items.Add(_controller.Translator._("Dark"));
-        CmbTheme.Items.Add(_controller.Translator._("System"));
+        CmbTheme.Items.Add(_controller.Translator._p("Theme", "Light"));
+        CmbTheme.Items.Add(_controller.Translator._p("Theme", "Dark"));
+        CmbTheme.Items.Add(_controller.Translator._p("Theme", "System"));
         RowTranslationLanguage.Header = _controller.Translator._("Translation Language");
         RowTranslationLanguage.Description = _controller.Translator._("An application restart is required for a change to take effect");
         RowPreviewUpdates.Header = _controller.Translator._("Receive Preview Updates");

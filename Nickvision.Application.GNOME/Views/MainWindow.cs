@@ -1,4 +1,5 @@
-﻿using Nickvision.Application.GNOME.Helpers;
+﻿using Nickvision.Application.GNOME.Controls;
+using Nickvision.Application.GNOME.Helpers;
 using Nickvision.Application.Shared.Controllers;
 using Nickvision.Application.Shared.Events;
 using Nickvision.Desktop.Application;
@@ -8,7 +9,7 @@ using System.Linq;
 
 namespace Nickvision.Application.GNOME.Views;
 
-public partial class MainWindow : Adw.ApplicationWindow
+public class MainWindow : Adw.ApplicationWindow
 {
     private readonly MainWindowController _controller;
     private readonly Gtk.Builder _builder;
@@ -35,7 +36,7 @@ public partial class MainWindow : Adw.ApplicationWindow
     [Gtk.Connect("pageFiles")]
     private Adw.StatusPage? _pageFiles;
 
-    public MainWindow(MainWindowController controller, Adw.Application application) : this(controller, application, Gtk.Builder.NewFromBlueprint("MainWindow"))
+    public MainWindow(MainWindowController controller, Adw.Application application) : this(controller, application, Gtk.Builder.NewFromBlueprint("MainWindow", controller.Translator))
     {
 
     }
@@ -86,7 +87,7 @@ public partial class MainWindow : Adw.ApplicationWindow
         _actPreferences = Gio.SimpleAction.New("preferences", null);
         _actPreferences.OnActivate += Preferences;
         AddAction(_actPreferences);
-        Application!.SetAccelsForAction("win.preferences", ["<Ctrl>."]);
+        Application!.SetAccelsForAction("win.preferences", ["<Ctrl>period"]);
         // Keyboard shortcuts action
         _actKeyboardShortcuts = Gio.SimpleAction.New("keyboardShortcuts", null);
         _actKeyboardShortcuts.OnActivate += KeyboardShortcuts;
@@ -181,14 +182,14 @@ public partial class MainWindow : Adw.ApplicationWindow
 
     private void Preferences(Gio.SimpleAction sender, Gio.SimpleAction.ActivateSignalArgs args)
     {
-
+        var preferencesDialog = new PreferencesDialog(_controller.PreferencesViewController);
+        preferencesDialog.Present(this);
     }
 
     private void KeyboardShortcuts(Gio.SimpleAction sender, Gio.SimpleAction.ActivateSignalArgs args)
     {
-        var builder = Gtk.Builder.NewFromBlueprint("ShortcutsDialog");
-        var dialog = new Adw.ShortcutsDialog(new Adw.Internal.ShortcutsDialogHandle(builder.GetPointer("root"), false));
-        dialog.Present(this);
+        var shortcutsDialog = new ShortcutsDialog(_controller.Translator);
+        shortcutsDialog.Present(this);
     }
 
     private void About(Gio.SimpleAction sender, Gio.SimpleAction.ActivateSignalArgs args)

@@ -1,4 +1,5 @@
 Nickvision.Application.GNOME/Blueprints/MainWindow.blp
+Nickvision.Application.GNOME/Blueprints/PreferencesDialog.blp
 Nickvision.Application.GNOME/Blueprints/ShortcutsDialog.blp
 Nickvision.Application.Shared/Controllers/PreferencesViewController.cs
 Nickvision.Application.Shared/Controllers/MainWindowController.cs

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-27 13:16-0500\n"
+"POT-Creation-Date: 2025-11-28 10:50-0500\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -19,6 +19,7 @@ msgstr ""
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 #: Nickvision.Application.GNOME/Blueprints/MainWindow.blp:5
+#: Nickvision.Application.GNOME/Blueprints/PreferencesDialog.blp:8
 #: Nickvision.Application.GNOME/Blueprints/ShortcutsDialog.blp:9
 msgid "Preferences"
 msgstr "Параметры"
@@ -57,6 +58,44 @@ msgstr "Главное меню"
 msgid "Open a folder (or drag one into the app) to get started"
 msgstr "Откройте или перетащите папку, чтобы начать."
 
+#: Nickvision.Application.GNOME/Blueprints/PreferencesDialog.blp:12
+#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:20
+msgid "User Interface"
+msgstr "Интерфейс"
+
+#: Nickvision.Application.GNOME/Blueprints/PreferencesDialog.blp:15
+#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:21
+msgid "Theme"
+msgstr "Тема"
+
+#: Nickvision.Application.GNOME/Blueprints/PreferencesDialog.blp:17
+#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:22
+msgctxt "Theme"
+msgid "Light"
+msgstr "Светлая"
+
+#: Nickvision.Application.GNOME/Blueprints/PreferencesDialog.blp:17
+#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:23
+msgctxt "Theme"
+msgid "Dark"
+msgstr "Тёмная"
+
+#: Nickvision.Application.GNOME/Blueprints/PreferencesDialog.blp:17
+#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:24
+msgctxt "Theme"
+msgid "System"
+msgstr "Системная"
+
+#: Nickvision.Application.GNOME/Blueprints/PreferencesDialog.blp:27
+#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:25
+msgid "Translation Language"
+msgstr ""
+
+#: Nickvision.Application.GNOME/Blueprints/PreferencesDialog.blp:28
+#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:26
+msgid "An application restart is required for a change to take effect"
+msgstr ""
+
 #: Nickvision.Application.GNOME/Blueprints/ShortcutsDialog.blp:6
 msgctxt "Shortcut"
 msgid "Application"
@@ -86,7 +125,6 @@ msgstr "Закрыть папку"
 #: Nickvision.Application.Shared/Controllers/PreferencesViewController.cs:26
 #: Nickvision.Application.Shared/Controllers/PreferencesViewController.cs:42
 #: Nickvision.Application.Shared/Controllers/PreferencesViewController.cs:58
-#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:24
 #, fuzzy
 msgid "System"
 msgstr "Системная"
@@ -289,32 +327,6 @@ msgstr ""
 msgid "Downloading update: {0}%"
 msgstr ""
 
-#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:20
-msgid "User Interface"
-msgstr "Интерфейс"
-
-#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:21
-msgid "Theme"
-msgstr "Тема"
-
-#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:22
-#, fuzzy
-msgid "Light"
-msgstr "Светлая"
-
-#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:23
-#, fuzzy
-msgid "Dark"
-msgstr "Тёмная"
-
-#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:25
-msgid "Translation Language"
-msgstr ""
-
-#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:26
-msgid "An application restart is required for a change to take effect"
-msgstr ""
-
 #: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:27
 msgid "Receive Preview Updates"
 msgstr ""
@@ -328,17 +340,13 @@ msgstr "Открыть"
 msgid "Off"
 msgstr ""
 
-#~ msgctxt "Theme"
+#, fuzzy
 #~ msgid "Light"
 #~ msgstr "Светлая"
 
-#~ msgctxt "Theme"
+#, fuzzy
 #~ msgid "Dark"
 #~ msgstr "Тёмная"
-
-#~ msgctxt "Theme"
-#~ msgid "System"
-#~ msgstr "Системная"
 
 #, fuzzy
 #~ msgid "There is {} file in the folder."

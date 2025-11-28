@@ -20,7 +20,7 @@
         <Folder Include="Resources\" />
     </ItemGroup>
 
-	<Import Project="..\Nickvision.Common.targets"/>
+	<Import Project="..\Nickvision.Common.targets" />
     
     <Target Name="CompileGlibResources" AfterTargets="Build">
         <Message Importance="high" Text="Compiling glib resources..." />
@@ -32,7 +32,7 @@
             <AllBlueprintFiles Include="$(MSBuildProjectDirectory)\Blueprints\**\*.blp" />
         </ItemGroup>
         <PropertyGroup>
-            <AllQuotedBlueprintFiles>@(AllBlueprintFiles->'&quot;%(FullPath)&quot;', ' ')</AllQuotedBlueprintFiles>
+            <AllQuotedBlueprintFiles>@(AllBlueprintFiles->'"%(FullPath)"', ' ')</AllQuotedBlueprintFiles>
         </PropertyGroup>
         <Message Importance="high" Text="Compiling blueprints..." />
         <Exec Condition="$([MSBuild]::IsOSPlatform('Windows')) and $(Platform)!='ARM64'" Command="python &quot;C:\msys64\mingw64\bin\blueprint-compiler&quot; batch-compile &quot;$(TargetDir)/ui&quot; &quot;$(MSBuildProjectDirectory)/Blueprints&quot; $(AllQuotedBlueprintFiles)" />
