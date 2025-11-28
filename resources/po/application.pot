@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-21 18:29-0500\n"
+"POT-Creation-Date: 2025-11-27 13:16-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,16 +17,74 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: Nickvision.Application.GNOME/Blueprints/MainWindow.blp:5
+#: Nickvision.Application.GNOME/Blueprints/ShortcutsDialog.blp:9
+msgid "Preferences"
+msgstr ""
+
+#: Nickvision.Application.GNOME/Blueprints/MainWindow.blp:6
+#: Nickvision.Application.GNOME/Blueprints/ShortcutsDialog.blp:14
+msgid "Keyboard Shortcuts"
+msgstr ""
+
+#: Nickvision.Application.GNOME/Blueprints/MainWindow.blp:7
+#: Nickvision.Application.GNOME/Blueprints/ShortcutsDialog.blp:19
+msgid "About Application"
+msgstr ""
+
+#: Nickvision.Application.GNOME/Blueprints/MainWindow.blp:23
+msgid "Open Folder (Ctrl+O)"
+msgstr ""
+
+#: Nickvision.Application.GNOME/Blueprints/MainWindow.blp:28
+#: Nickvision.Application.GNOME/Blueprints/MainWindow.blp:61
+#: Nickvision.Application.Shared/Controllers/MainWindowController.cs:42
+#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:104
+msgid "Open"
+msgstr ""
+
+#: Nickvision.Application.GNOME/Blueprints/MainWindow.blp:36
+msgid "Close Folder (Ctrl+W)"
+msgstr ""
+
+#: Nickvision.Application.GNOME/Blueprints/MainWindow.blp:45
+msgid "Main Menu"
+msgstr ""
+
+#: Nickvision.Application.GNOME/Blueprints/MainWindow.blp:59
+msgid "Open a folder (or drag one into the app) to get started"
+msgstr ""
+
+#: Nickvision.Application.GNOME/Blueprints/ShortcutsDialog.blp:6
+msgctxt "Shortcut"
+msgid "Application"
+msgstr ""
+
+#: Nickvision.Application.GNOME/Blueprints/ShortcutsDialog.blp:24
+msgid "Quit"
+msgstr ""
+
+#: Nickvision.Application.GNOME/Blueprints/ShortcutsDialog.blp:30
+#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:99
+msgid "Folder"
+msgstr ""
+
+#: Nickvision.Application.GNOME/Blueprints/ShortcutsDialog.blp:33
+#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:87
+#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:103
+msgid "Open Folder"
+msgstr ""
+
+#: Nickvision.Application.GNOME/Blueprints/ShortcutsDialog.blp:38
+#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:88
+msgid "Close Folder"
+msgstr ""
+
 #: Nickvision.Application.Shared/Controllers/PreferencesViewController.cs:26
 #: Nickvision.Application.Shared/Controllers/PreferencesViewController.cs:42
 #: Nickvision.Application.Shared/Controllers/PreferencesViewController.cs:58
 #: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:24
 msgid "System"
-msgstr ""
-
-#: Nickvision.Application.Shared/Controllers/MainWindowController.cs:42
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:103
-msgid "Open"
 msgstr ""
 
 #: Nickvision.Application.Shared/Controllers/MainWindowController.cs:45
@@ -102,14 +160,14 @@ msgid "Folder closed"
 msgstr ""
 
 #: Nickvision.Application.WinUI/Controls/AboutDialog.xaml.cs:21
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:96
+#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:97
 #, csharp-format
 msgid "About {0}"
 msgstr ""
 
 #: Nickvision.Application.WinUI/Controls/AboutDialog.xaml.cs:22
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:104
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:172
+#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:105
+#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:173
 msgid "Close"
 msgstr ""
 
@@ -162,74 +220,61 @@ msgid ""
 "{3}"
 msgstr ""
 
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:84
+#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:85
 msgid "Preview"
 msgstr ""
 
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:85
+#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:86
 msgid "File"
 msgstr ""
 
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:86
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:102
-msgid "Open Folder"
-msgstr ""
-
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:87
-msgid "Close Folder"
-msgstr ""
-
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:88
+#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:89
 msgid "Exit"
 msgstr ""
 
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:89
+#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:90
 msgid "Edit"
 msgstr ""
 
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:90
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:99
+#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:91
+#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:100
 #: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:19
 msgid "Settings"
 msgstr ""
 
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:91
+#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:92
 msgid "Help"
 msgstr ""
 
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:92
+#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:93
 msgid "Check for Updates"
 msgstr ""
 
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:93
+#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:94
 msgid "GitHub Repo"
 msgstr ""
 
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:94
+#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:95
 msgid "Report a Bug"
 msgstr ""
 
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:95
+#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:96
 msgid "Discussions"
 msgstr ""
 
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:97
+#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:98
 msgid "Home"
 msgstr ""
 
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:98
-msgid "Folder"
-msgstr ""
-
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:101
+#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:102
 msgid "Open a folder to get started"
 msgstr ""
 
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:166
+#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:167
 msgid "Update"
 msgstr ""
 
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:292
+#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:293
 #, csharp-format
 msgid "Downloading update: {0}%"
 msgstr ""

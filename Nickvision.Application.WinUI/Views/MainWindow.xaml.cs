@@ -49,7 +49,8 @@ public sealed partial class MainWindow : Window
             _ => ElementTheme.Default
         };
         // Size
-        if (_controller.WindowGeometry.IsMaximized)
+        var windowGeometry = _controller.WindowGeometry;
+        if (windowGeometry.IsMaximized)
         {
             AppWindow.Resize(new SizeInt32
             {
@@ -62,10 +63,10 @@ public sealed partial class MainWindow : Window
         {
             AppWindow.MoveAndResize(new RectInt32
             {
-                X = _controller.WindowGeometry.X,
-                Y = _controller.WindowGeometry.Y,
-                Width = _controller.WindowGeometry.Width,
-                Height = _controller.WindowGeometry.Height
+                X = windowGeometry.X,
+                Y = windowGeometry.Y,
+                Width = windowGeometry.Width,
+                Height = windowGeometry.Height
             });
         }
         // TitleBar

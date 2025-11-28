@@ -37,12 +37,9 @@ public class Application
 
     private void Application_OnStartup(Gio.Application sender, EventArgs args)
     {
-        if(_mainWindow is null)
+        if (_mainWindow is null)
         {
-            _mainWindow = new MainWindow(_controller, Gtk.Builder.NewFromFile(Path.Combine(Desktop.System.Environment.ExecutingDirectory, "ui", "MainWindow.ui")))
-            {
-                Application = _application
-            };
+            _mainWindow = new MainWindow(_controller, _application, Gtk.Builder.NewFromFile(Path.Combine(Desktop.System.Environment.ExecutingDirectory, "ui", "MainWindow.ui")));
         }
         Adw.StyleManager.GetDefault().ColorScheme = _controller.Theme switch
         {
