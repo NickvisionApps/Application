@@ -52,7 +52,7 @@ jobs:
       - name: "Installer"
         working-directory: ${{github.workspace}}/inno
         env:
-          APP_ARCH: ${{ matrix.variant.arch }}
+          APP_FILES_PATH: ${{ env.PROJECT_NAME }}/bin/${{ matrix.variant.arch }}/Release/net10.0-windows10.0.19041.0
         shell: pwsh
         run: |
           $ProgressPreference = 'SilentlyContinue'

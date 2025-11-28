@@ -50,7 +50,6 @@ Compression=lzma
 SolidCompression=yes
 PrivilegesRequired=admin
 CloseApplications=yes
-ChangesEnvironment=yes
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -68,8 +67,8 @@ Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescrip
 
 [Files]
 Source: "dotnet.exe"; DestDir: "{app}"; Flags: deleteafterinstall
-Source: "..\Nickvision.Application.WinUI\bin\{#GetEnv('APP_ARCH')}\Release\net10.0-windows10.0.19041.0\{#MyAppExeName}"; DestDir: "{app}\Release"; Flags: ignoreversion
-Source: "..\Nickvision.Application.WinUI\bin\{#GetEnv('APP_ARCH')}\Release\net10.0-windows10.0.19041.0\*"; DestDir: "{app}\Release"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\{#GetEnv('APP_FILES_PATH')}\{#MyAppExeName}"; DestDir: "{app}\Release"; Flags: ignoreversion
+Source: "..\{#GetEnv('APP_FILES_PATH')}\*"; DestDir: "{app}\Release"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
 Name: "{autoprograms}\{#MyAppShortName}"; Filename: "{app}\Release\{#MyAppExeName}"; Tasks: quicklaunchicon
