@@ -33,6 +33,7 @@ jobs:
         with:
           submodules: recursive
       - uses: msys2/setup-msys2@v2
+        id: msys2
         with:
           msystem: ${{ matrix.variant.subsys }}
           install: mingw-w64-${{ matrix.variant.type }}-gettext-tools
@@ -47,7 +48,7 @@ jobs:
       - name: "Restore"
         run: dotnet restore ${{ env.PROJECT_NAME }}
       - name: "Build"
-        run: dotnet build ${{ env.PROJECT_NAME }} -c Release --no-restore --ouput build /p:Platform=${{ matrix.variant.arch }}
+        run: dotnet build ${{ env.PROJECT_NAME }} -c Release --no-restore --output build /p:Platform=${{ matrix.variant.arch }}
       - name: "Installer"
         working-directory: ${{github.workspace}}/inno
         shell: pwsh
