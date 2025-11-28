@@ -1,6 +1,6 @@
-﻿using Nickvision.Application.GNOME.Helpers;
-using Nickvision.Application.Shared.Controllers;
+﻿using Nickvision.Application.Shared.Controllers;
 using Nickvision.Application.Shared.Models;
+using Nickvision.Desktop.GNOME.Helpers;
 using System;
 
 namespace Nickvision.Application.GNOME.Views;

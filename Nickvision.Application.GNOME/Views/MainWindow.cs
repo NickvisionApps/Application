@@ -1,8 +1,8 @@
-﻿using Nickvision.Application.GNOME.Controls;
-using Nickvision.Application.GNOME.Helpers;
-using Nickvision.Application.Shared.Controllers;
+﻿using Nickvision.Application.Shared.Controllers;
 using Nickvision.Application.Shared.Events;
 using Nickvision.Desktop.Application;
+using Nickvision.Desktop.GNOME.Controls;
+using Nickvision.Desktop.GNOME.Helpers;
 using Nickvision.Desktop.Notifications;
 using System;
 using System.Linq;
