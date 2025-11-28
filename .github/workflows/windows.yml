@@ -49,13 +49,13 @@ jobs:
       - name: "Restore"
         run: msbuild ${{ env.PROJECT_PATH }} /t:Restore /p:Configuration=Release
       - name: "Build"
-        run: msbuild ${{ env.PROJECT_PATH }} /p:Configuration=Release /p:Platform=${{ matrix.variant.arch }} /p:OutDir=build
+        run: msbuild ${{ env.PROJECT_PATH }} /p:Configuration=Release /p:Platform=${{ matrix.variant.arch }} /p:OutDir=${{github.workspace}}/build
       - name: "Installer"
         working-directory: ${{github.workspace}}/inno
         shell: pwsh
         run: |
           $ProgressPreference = 'SilentlyContinue'
-          Invoke-WebRequest https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-10.0.0-windows-${{ matrix.variant.arch }}-installer -OutFile dotnet.exe
+          Invoke-WebRequest https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/10.0.0/windowsdesktop-runtime-10.0.0-win-${{ matrix.variant.arch }}.exe -OutFile dotnet.exe
           iscc setup.iss
       - uses: actions/upload-artifact@v4
         with:
