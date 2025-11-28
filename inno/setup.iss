@@ -68,8 +68,8 @@ Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescrip
 
 [Files]
 Source: "dotnet.exe"; DestDir: "{app}"; Flags: deleteafterinstall
-Source: "..\Nickvision.Application.WinUI\bin\{#GetEnv('APP_ARCH')}\Debug\net9.0-windows10.0.19041.0\{#MyAppExeName}"; DestDir: "{app}\Release"; Flags: ignoreversion
-Source: "...\Nickvision.Application.WinUI\bin\{#GetEnv('APP_ARCH')}\Debug\net9.0-windows10.0.19041.0\*"; DestDir: "{app}\Release"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\Nickvision.Application.WinUI\bin\{#GetEnv('APP_ARCH')}\Release\net10.0-windows10.0.19041.0\{#MyAppExeName}"; DestDir: "{app}\Release"; Flags: ignoreversion
+Source: "..\Nickvision.Application.WinUI\bin\{#GetEnv('APP_ARCH')}\Release\net10.0-windows10.0.19041.0\*"; DestDir: "{app}\Release"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
 Name: "{autoprograms}\{#MyAppShortName}"; Filename: "{app}\Release\{#MyAppExeName}"; Tasks: quicklaunchicon
