@@ -49,9 +49,11 @@ jobs:
       - name: "Restore"
         run: msbuild ${{ env.PROJECT_PATH }} /t:Restore /p:Configuration=Debug
       - name: "Build"
-        run: msbuild ${{ env.PROJECT_PATH }} /p:Configuration=Debug /p:Platform=${{ matrix.variant.arch }} /p:OutDir=${{github.workspace}}/build
+        run: msbuild ${{ env.PROJECT_PATH }} /p:Configuration=Debug /p:Platform=${{ matrix.variant.arch }}
       - name: "Installer"
         working-directory: ${{github.workspace}}/inno
+        env:
+          APP_ARCH: ${{ matrix.variant.arch }}
         shell: pwsh
         run: |
           $ProgressPreference = 'SilentlyContinue'
