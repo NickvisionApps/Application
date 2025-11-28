@@ -39,7 +39,7 @@ public class Application
     {
         if (_mainWindow is null)
         {
-            _mainWindow = new MainWindow(_controller, _application, Gtk.Builder.NewFromFile(Path.Combine(Desktop.System.Environment.ExecutingDirectory, "ui", "MainWindow.ui")));
+            _mainWindow = new MainWindow(_controller, _application);
         }
         Adw.StyleManager.GetDefault().ColorScheme = _controller.Theme switch
         {

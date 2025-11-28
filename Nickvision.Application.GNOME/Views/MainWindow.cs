@@ -1,25 +1,24 @@
-﻿using Nickvision.Application.Shared.Controllers;
+﻿using Nickvision.Application.GNOME.Helpers;
+using Nickvision.Application.Shared.Controllers;
 using Nickvision.Application.Shared.Events;
 using Nickvision.Desktop.Application;
 using Nickvision.Desktop.Notifications;
 using System;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 
 namespace Nickvision.Application.GNOME.Views;
 
 public partial class MainWindow : Adw.ApplicationWindow
 {
-    private MainWindowController _controller;
-    private Gtk.Builder _builder;
-    private Gtk.DropTarget _dropTarget;
-    private Gio.SimpleAction _actQuit;
-    private Gio.SimpleAction _actOpenFolder;
-    private Gio.SimpleAction _actCloseFolder;
-    private Gio.SimpleAction _actPreferences;
-    private Gio.SimpleAction _actKeyboardShortcuts;
-    private Gio.SimpleAction _actAbout;
+    private readonly MainWindowController _controller;
+    private readonly Gtk.Builder _builder;
+    private readonly Gtk.DropTarget _dropTarget;
+    private readonly Gio.SimpleAction _actQuit;
+    private readonly Gio.SimpleAction _actOpenFolder;
+    private readonly Gio.SimpleAction _actCloseFolder;
+    private readonly Gio.SimpleAction _actPreferences;
+    private readonly Gio.SimpleAction _actKeyboardShortcuts;
+    private readonly Gio.SimpleAction _actAbout;
 
     [Gtk.Connect("windowTitle")]
     private Adw.WindowTitle? _windowTitle;
@@ -36,7 +35,12 @@ public partial class MainWindow : Adw.ApplicationWindow
     [Gtk.Connect("pageFiles")]
     private Adw.StatusPage? _pageFiles;
 
-    public MainWindow(MainWindowController controller, Adw.Application application, Gtk.Builder builder) : base(new Adw.Internal.ApplicationWindowHandle(builder.GetPointer("root"), false))
+    public MainWindow(MainWindowController controller, Adw.Application application) : this(controller, application, Gtk.Builder.NewFromBlueprint("MainWindow"))
+    {
+
+    }
+
+    private MainWindow(MainWindowController controller, Adw.Application application, Gtk.Builder builder) : base(new Adw.Internal.ApplicationWindowHandle(builder.GetPointer("root"), false))
     {
         Application = application;
         _controller = controller;
@@ -137,7 +141,7 @@ public partial class MainWindow : Adw.ApplicationWindow
     private void Controller_AppNotificationSent(object? sender, AppNotificationSentEventArgs args)
     {
         var toast = Adw.Toast.New(args.Notification.Message);
-        if(args.Notification.Action == "close")
+        if (args.Notification.Action == "close")
         {
             toast.ButtonLabel = _controller.Translator._("Close");
             toast.OnButtonClicked += (_, _) => _controller.CloseFolder();
@@ -167,7 +171,7 @@ public partial class MainWindow : Adw.ApplicationWindow
         var folderDialog = Gtk.FileDialog.New();
         folderDialog.Title = _controller.Translator._("Open Folder");
         var file = await folderDialog.SelectFolderAsync(this);
-        if(file is not null)
+        if (file is not null)
         {
             _controller.OpenFolder(file.GetPath()!);
         }
@@ -182,7 +186,7 @@ public partial class MainWindow : Adw.ApplicationWindow
 
     private void KeyboardShortcuts(Gio.SimpleAction sender, Gio.SimpleAction.ActivateSignalArgs args)
     {
-        var builder = Gtk.Builder.NewFromFile(Path.Combine(Desktop.System.Environment.ExecutingDirectory, "ui", "ShortcutsDialog.ui"));
+        var builder = Gtk.Builder.NewFromBlueprint("ShortcutsDialog");
         var dialog = new Adw.ShortcutsDialog(new Adw.Internal.ShortcutsDialogHandle(builder.GetPointer("root"), false));
         dialog.Present(this);
     }
@@ -206,17 +210,17 @@ public partial class MainWindow : Adw.ApplicationWindow
         dialog.IssueUrl = _controller.AppInfo.IssueTracker!.ToString();
         dialog.SupportUrl = _controller.AppInfo.DiscussionsForum!.ToString();
         dialog.AddLink(_controller.Translator._("GitHub Repo"), _controller.AppInfo.SourceRepository!.ToString());
-        foreach(var pair in _controller.AppInfo.ExtraLinks)
+        foreach (var pair in _controller.AppInfo.ExtraLinks)
         {
             dialog.AddLink(pair.Key, pair.Value.ToString());
         }
         dialog.Developers = _controller.AppInfo.Developers.Select(x => $"{x.Key} {x.Value}").ToArray();
         dialog.Designers = _controller.AppInfo.Designers.Select(x => $"{x.Key} {x.Value}").ToArray();
-        dialog.Artists = _controller.AppInfo.Designers.Select(x => $"{x.Key} {x.Value}").ToArray();
+        dialog.Artists = _controller.AppInfo.Artists.Select(x => $"{x.Key} {x.Value}").ToArray();
         if (!string.IsNullOrEmpty(_controller.AppInfo.TranslationCredits) && _controller.AppInfo.TranslationCredits != "translation-credits")
         {
             dialog.TranslatorCredits = _controller.AppInfo.TranslationCredits;
-        }   
+        }
         dialog.Present(this);
     }
 }
