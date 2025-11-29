@@ -37,9 +37,10 @@ echo "---------------------------"
 echo " Publishing application... "
 echo "---------------------------"
 if [ -n "$container" ]; then
-    dotnet publish -c Release --source "$CURRENT_PWD/nuget-sources" --source "/usr/lib/sdk/dotnet10/nuget/packages" "../$PROJECT/$PROJECT.csproj" --runtime $RUNTIME --self-contained true
+    echo "[INFO] Detected container environment, using local nuget sources."
+    dotnet publish -c Release --source "$CURRENT_PWD/nuget-sources" --source "/usr/lib/sdk/dotnet10/nuget/packages" "../../$PROJECT/$PROJECT.csproj" --runtime $RUNTIME --self-contained true
 else
-    dotnet publish -c Release "../$PROJECT/$PROJECT.csproj" --runtime $RUNTIME --self-contained true
+    dotnet publish -c Release "../../$PROJECT/$PROJECT.csproj" --runtime $RUNTIME --self-contained true
 fi
 cp -r --remove-destination "../../$PROJECT/bin/Release/net10.0/$RUNTIME/publish/*" $LIB_DIR
 
