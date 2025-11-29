@@ -29,7 +29,7 @@ Application is a .NET 10 project and can easily be built on any platform. Beside
 	- [libadwaita](https://gitlab.gnome.org/GNOME/libadwaita)
 	- [blueprint-compiler](https://gitlab.gnome.org/GNOME/blueprint-compiler)
 
-Once all dependencies are availbale on the system, simply run `dotnet run --project Nickvision.Application.WinUI` or `dotnet run --project Nickvision.Application.GNOME` to run the version of the app for your system.
+Once all dependencies are available on the system, simply run `dotnet run --project Nickvision.Application.WinUI` or `dotnet run --project Nickvision.Application.GNOME` to run the version of the app for your system.
 
 ## Code of Conduct
 

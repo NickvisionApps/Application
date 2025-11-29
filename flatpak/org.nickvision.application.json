@@ -23,7 +23,6 @@
     ],
     "cleanup":[
         "/include",
-        "/lib/cmake",
         "/lib/pkgconfig",
         "/man",
         "*.a"
@@ -50,19 +49,21 @@
                 "arch": {
                     "aarch64": {
                         "env" : {
-                            "RUNTIME": "linux-arm64"
+                            "RUNTIME": "linux-arm64",
+                            "container": "flatpak"
                         }
                     },
                     "x86_64": {
                         "env" : {
-                            "RUNTIME": "linux-x64"
+                            "RUNTIME": "linux-x64",
+                            "container": "flatpak"
                         }
                     }
                 }
             },
             "build-commands": [
-                "chmod +x publish-and-install.sh",
-                "./publish-and-install.sh org.nickvision.application Nickvision.Application.GNOME /app $RUNTIME"
+                "chmod +x ../resources/linux/publish-and-install.sh",
+                "../resources/linux/publish-and-install.sh /app $RUNTIME"
             ],
             "sources": [
                 {
