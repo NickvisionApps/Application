@@ -31,6 +31,20 @@ Application is a .NET 10 project and can easily be built on any platform. Beside
 
 Once all dependencies are available on the system, simply run `dotnet run --project Nickvision.Application.WinUI` or `dotnet run --project Nickvision.Application.GNOME` to run the version of the app for your system.
 
+## Installing
+
+### Windows
+The recommended method is to use the pre-built Windows installer from the Releases section.
+
+However, you can also build an installer manually with the [inno installer script](inno/setup.iss).
+
+### Linux
+The recommended method is to use the flatpak availablt on Flathub.
+
+However, you can also build a flatpak of the app manually using the [flatpak manifest file](flatpak/org.nickvision.application.json).
+
+You can also install the application locally from source using the [linux install script](resources/linux/publish-and-install.sh).
+
 ## Code of Conduct
 
 This project follows the [GNOME Code of Conduct](https://conduct.gnome.org/).
