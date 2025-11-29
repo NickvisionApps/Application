@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ -x $1 || -x $2 ];
+if [ -z $1 || -z $2 ]
 then
     echo "Usage: $0 prefix runtime"
     exit 1
@@ -36,13 +36,14 @@ mkdir -p $DATA_DIR
 echo "---------------------------"
 echo " Publishing application... "
 echo "---------------------------"
-if [ -n "$container" ]; then
-    echo "[INFO] Detected container environment, using local nuget sources."
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
+if [ -n "$container" ]
+then
     dotnet publish -c Release --source "$CURRENT_PWD/nuget-sources" --source "/usr/lib/sdk/dotnet10/nuget/packages" "../../$PROJECT/$PROJECT.csproj" --runtime $RUNTIME --self-contained true
 else
     dotnet publish -c Release "../../$PROJECT/$PROJECT.csproj" --runtime $RUNTIME --self-contained true
 fi
-cp -r --remove-destination "../../$PROJECT/bin/Release/net10.0/$RUNTIME/publish/*" $LIB_DIR
+cp -a ../../$PROJECT/bin/Release/net10.0/$RUNTIME/publish/. $LIB_DIR
 
 # Create desktop file
 echo "---------------------------"
