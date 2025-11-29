@@ -1,0 +1,324 @@
+[
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "gettext.net.8.0.5.nupkg",
+    "sha512": "08032d942bed96bd990bbff15cb08cfc27787fd041dc96feafbfa3bfb0ad8234475450617dc867f7c1c3b331435483b1ae3ae13aacc6b897f7b2ac06b5cc6bf8",
+    "url": "https://api.nuget.org/v3-flatcontainer/gettext.net/8.0.5/gettext.net.8.0.5.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "gircore.adw-1.0.7.0-preview.3.nupkg",
+    "sha512": "f1b8e300243ecab5fb1b8dac65c02504cdd27326b6b0a40d0916e74ce79376e60612537e16f4c609e67069e696aed8f071bfdae5e377f780eb7b8012a56520bb",
+    "url": "https://api.nuget.org/v3-flatcontainer/gircore.adw-1/0.7.0-preview.3/gircore.adw-1.0.7.0-preview.3.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "gircore.cairo-1.0.0.7.0-preview.3.nupkg",
+    "sha512": "f72de1f8da94fab7df6dfe54883c854c7ca2747ff8de0d5d5254593475322a367f56e9459ceb3ee72de7f3ef83ea0a34b3132962c4c3103fd29d022cb4f21df1",
+    "url": "https://api.nuget.org/v3-flatcontainer/gircore.cairo-1.0/0.7.0-preview.3/gircore.cairo-1.0.0.7.0-preview.3.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "gircore.freetype2-2.0.0.7.0-preview.3.nupkg",
+    "sha512": "c7879fdec87a6a7d267a21d6411eae22d282dbc3ad15ade125752deebad0b35c872f0bbe0f6cdb59c4e123be20b44214ca703d2e8dbeff8cbc47af2f4214c38f",
+    "url": "https://api.nuget.org/v3-flatcontainer/gircore.freetype2-2.0/0.7.0-preview.3/gircore.freetype2-2.0.0.7.0-preview.3.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "gircore.gdk-4.0.0.7.0-preview.3.nupkg",
+    "sha512": "5750c10895f9de3099f5817a8cd75bf9dc870b889dc3bce09a2fc4402a0600b94b2782f9f059775f60d8b7e2fdcc883a5bba5767d14e4b2864119adf4c05d8ab",
+    "url": "https://api.nuget.org/v3-flatcontainer/gircore.gdk-4.0/0.7.0-preview.3/gircore.gdk-4.0.0.7.0-preview.3.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "gircore.gdkpixbuf-2.0.0.7.0-preview.3.nupkg",
+    "sha512": "cde8d6fe72050d801ac373707ae3ea8d7162d066e85f11e1ddc26eb2b9c432eeb7e4e9e2ac2f6aedf36e4ab005a2be18d74e8b5e07793b9a037a758af3c62208",
+    "url": "https://api.nuget.org/v3-flatcontainer/gircore.gdkpixbuf-2.0/0.7.0-preview.3/gircore.gdkpixbuf-2.0.0.7.0-preview.3.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "gircore.gio-2.0.0.7.0-preview.3.nupkg",
+    "sha512": "79db0f8cde15349e8cd40de8a1e5016ef234d38c9c69f456744219ed54c18caf1b36601954458c4dc15d86f296978ba33819cb52f82ace28a4b35e80d471b016",
+    "url": "https://api.nuget.org/v3-flatcontainer/gircore.gio-2.0/0.7.0-preview.3/gircore.gio-2.0.0.7.0-preview.3.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "gircore.glib-2.0.0.7.0-preview.3.nupkg",
+    "sha512": "0694b118d73e1c3f76bddee5ee91bd7a970b69e04a4e44cbd79b5d42bebde93fe8d945cf5e2db1f75dfd435b94dc76fbfa157f91e8764a61b8de3f300d3daf7e",
+    "url": "https://api.nuget.org/v3-flatcontainer/gircore.glib-2.0/0.7.0-preview.3/gircore.glib-2.0.0.7.0-preview.3.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "gircore.gobject-2.0.0.7.0-preview.3.nupkg",
+    "sha512": "e9de6e1ea577807930bf2cb59e8fa892af72cb77031f1aedcd76c459032a0e3113edb5071ed9bedb52fd1d9233b23aca6db3113119b94a2d5c3a84a9e7392458",
+    "url": "https://api.nuget.org/v3-flatcontainer/gircore.gobject-2.0/0.7.0-preview.3/gircore.gobject-2.0.0.7.0-preview.3.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "gircore.graphene-1.0.0.7.0-preview.3.nupkg",
+    "sha512": "b029ccd614b0f2e14f1c138313e7ff1425cb61e420ce0d1c988655079f4b6c94c3bdd4635c8bde58d1edd892fa2530ccb4efa4e800b57264ee3fe8f157fbfa83",
+    "url": "https://api.nuget.org/v3-flatcontainer/gircore.graphene-1.0/0.7.0-preview.3/gircore.graphene-1.0.0.7.0-preview.3.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "gircore.gsk-4.0.0.7.0-preview.3.nupkg",
+    "sha512": "02ed85be6dc147d5f85b4c96056584db8b259ad9831a4553c66b4d5da385561b3349caa3b90055de0f8083585537d9ecd98916c19a311d696da210f7ce756d47",
+    "url": "https://api.nuget.org/v3-flatcontainer/gircore.gsk-4.0/0.7.0-preview.3/gircore.gsk-4.0.0.7.0-preview.3.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "gircore.gtk-4.0.0.7.0-preview.3.nupkg",
+    "sha512": "8a7276106345b1264efc55bf7026dfd54c62a87c4436c917ce9eb35f8e6410c707b347ed5d62c5872a328901b5cc3c24e6f4867b0e63f9039d38822e523e45fa",
+    "url": "https://api.nuget.org/v3-flatcontainer/gircore.gtk-4.0/0.7.0-preview.3/gircore.gtk-4.0.0.7.0-preview.3.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "gircore.harfbuzz-0.0.0.7.0-preview.3.nupkg",
+    "sha512": "0ea01b4dbf151316fc3eede9e9cec8a8bfbf19c39d00f28eec60936086c6c366b7c64cd491309b708818f1cc4cfd0c22b1d76c393d677898647322830b95970b",
+    "url": "https://api.nuget.org/v3-flatcontainer/gircore.harfbuzz-0.0/0.7.0-preview.3/gircore.harfbuzz-0.0.0.7.0-preview.3.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "gircore.pango-1.0.0.7.0-preview.3.nupkg",
+    "sha512": "12f698cfc9938f772d55b7f98351812f0f66713b42ae8f2ef6118ba930439aed08566f264a962259ab90287d83e527d2e1240e85a0726c2f0e8b2ce018238dc1",
+    "url": "https://api.nuget.org/v3-flatcontainer/gircore.pango-1.0/0.7.0-preview.3/gircore.pango-1.0.0.7.0-preview.3.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "gircore.pangocairo-1.0.0.7.0-preview.3.nupkg",
+    "sha512": "3426acc6bb6f158a6e63dd5a14a5dd1e9b99e37379e4e17bd59bd8a36532dddb145fe76490363b11666e8fe402195c30e278154c96ea73aea0ee946803ce69e8",
+    "url": "https://api.nuget.org/v3-flatcontainer/gircore.pangocairo-1.0/0.7.0-preview.3/gircore.pangocairo-1.0.0.7.0-preview.3.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "markdig.0.43.0.nupkg",
+    "sha512": "83ab75dfb2c5b201316b4b4cdf0115e3b94baf172a64861886d689ec118649820ed4aa76660562df4f7fa50e3227172a98ebeaec0bc89fe91ba7d4577f8a284d",
+    "url": "https://api.nuget.org/v3-flatcontainer/markdig/0.43.0/markdig.0.43.0.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "microsoft.aspnetcore.app.runtime.linux-arm.10.0.0.nupkg",
+    "sha512": "11b3df31e69fa128b82b68e68736e2671d5687029dba049f5ea024ffa5a7b26588542270d7ded5e2a4c806404424b2e919b41ace23fd4ac03193bf4c3923f0c9",
+    "url": "https://api.nuget.org/v3-flatcontainer/microsoft.aspnetcore.app.runtime.linux-arm/10.0.0/microsoft.aspnetcore.app.runtime.linux-arm.10.0.0.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "microsoft.aspnetcore.app.runtime.linux-arm64.10.0.0.nupkg",
+    "sha512": "b813d0975b5477971028df54742527274546fe263c6c8f16793329ae6a82fa6040d2183296c6632d425f05ce08f443ccc4d14e05027046343fbb3b75b3915048",
+    "url": "https://api.nuget.org/v3-flatcontainer/microsoft.aspnetcore.app.runtime.linux-arm64/10.0.0/microsoft.aspnetcore.app.runtime.linux-arm64.10.0.0.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "microsoft.aspnetcore.app.runtime.linux-x64.10.0.0.nupkg",
+    "sha512": "5fc35c7082ca8ff684563cf51ade74cc6951a652076c8f87eae46fdb2158f4a8a833eb0a32075b35302c469f501b86b0e51180f488596317070906fc01373e5d",
+    "url": "https://api.nuget.org/v3-flatcontainer/microsoft.aspnetcore.app.runtime.linux-x64/10.0.0/microsoft.aspnetcore.app.runtime.linux-x64.10.0.0.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "microsoft.data.sqlite.core.10.0.0.nupkg",
+    "sha512": "79ee3833af7220dfa70edfccf24cd4ef1adbd86bf12dfbfc87b1a9003d5b19eabc63e3940efaf8ae7e26ab4efd5dc060706f44ee1b561b98595ecbce20601d7c",
+    "url": "https://api.nuget.org/v3-flatcontainer/microsoft.data.sqlite.core/10.0.0/microsoft.data.sqlite.core.10.0.0.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "microsoft.netcore.app.runtime.linux-arm.10.0.0.nupkg",
+    "sha512": "a6a5f4494c602c0f92b5f2e55e0ecfeb2ed691e6248e7691d1a4c4bbd077372b089ce94eabc2e78d032ed8e84c2064958f33d2538a0cafe61189951db52eed7d",
+    "url": "https://api.nuget.org/v3-flatcontainer/microsoft.netcore.app.runtime.linux-arm/10.0.0/microsoft.netcore.app.runtime.linux-arm.10.0.0.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "microsoft.netcore.app.runtime.linux-arm64.10.0.0.nupkg",
+    "sha512": "ca8fffc5626e3b42699993b445a4f94086ba9efa81d4c334322780b57b835cce1265de1827c0f26f3d7ce58a353547b1a1b6a9788aca34b5f4d3671e87b28113",
+    "url": "https://api.nuget.org/v3-flatcontainer/microsoft.netcore.app.runtime.linux-arm64/10.0.0/microsoft.netcore.app.runtime.linux-arm64.10.0.0.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "microsoft.netcore.app.runtime.linux-x64.10.0.0.nupkg",
+    "sha512": "58932d90464cd896e24bb55973f476fb7a9457188247e1b725ea50c1ccccd2a581aec469795a17189bbf6690db530afb02acf0266ea20fe6826d8a712bc2659e",
+    "url": "https://api.nuget.org/v3-flatcontainer/microsoft.netcore.app.runtime.linux-x64/10.0.0/microsoft.netcore.app.runtime.linux-x64.10.0.0.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "microsoft.toolkit.uwp.notifications.7.1.3.nupkg",
+    "sha512": "f6994f0c1e989174d8d3a4a87279d47998b04b14d1c864006ae98aed1712ae173f74b04c5714f689eb0fc37fb2f9bb9887aaadead77dce34d0aaa2fc12566cb9",
+    "url": "https://api.nuget.org/v3-flatcontainer/microsoft.toolkit.uwp.notifications/7.1.3/microsoft.toolkit.uwp.notifications.7.1.3.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "microsoft.win32.systemevents.10.0.0.nupkg",
+    "sha512": "25216e46fff0f034a8d3bfe1ab79c1bc27cd55d3878404415f8b8599149e831b7f1ed144de6da15f4252c3e7f1cf7a6dabcb37102042952745a70c3668df8f1b",
+    "url": "https://api.nuget.org/v3-flatcontainer/microsoft.win32.systemevents/10.0.0/microsoft.win32.systemevents.10.0.0.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "nickvision.desktop.2025.11.10.nupkg",
+    "sha512": "3c390cf2d31717402fa7674fcc5f905a8525b03490096d3af4fb485812c7226bb4337cd4b91ab4a30de739c54483f2f1416a71e80f6bc8ba790d3fa2ee37a622",
+    "url": "https://api.nuget.org/v3-flatcontainer/nickvision.desktop/2025.11.10/nickvision.desktop.2025.11.10.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "nickvision.desktop.gnome.2025.11.0.nupkg",
+    "sha512": "1ff5010a371dafe9cce1249bd620b2cb14e86a21b66a12a0911cee0e997c7f30652b1d3504052e118d72bcfeb76c9fe669c0b5c6b21913d8b7139c56f482b26f",
+    "url": "https://api.nuget.org/v3-flatcontainer/nickvision.desktop.gnome/2025.11.0/nickvision.desktop.gnome.2025.11.0.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "octokit.14.0.0.nupkg",
+    "sha512": "6ef25f9562de471ff0a7f98b8b51ec0f6f7b914769ce304d1f48021f30667c40e65dbec6b5659e180bf0c01c3149ad46748231e46fc49445ad17511a13ec2a7b",
+    "url": "https://api.nuget.org/v3-flatcontainer/octokit/14.0.0/octokit.14.0.0.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "sqlitepclraw.bundle_e_sqlcipher.2.1.11.nupkg",
+    "sha512": "174fb5ae21c0abd5368d7baa459dc8fe3116235997cb27b122eb5cf2b00456aedbf67380baa96bec90b910ab3c1e4de015092bc2f2bd3446b7b51b34e1ed00aa",
+    "url": "https://api.nuget.org/v3-flatcontainer/sqlitepclraw.bundle_e_sqlcipher/2.1.11/sqlitepclraw.bundle_e_sqlcipher.2.1.11.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "sqlitepclraw.core.2.1.11.nupkg",
+    "sha512": "0f5d108f19bcf1a0df06a6bc1885724f1c0f5a76426aa38461e85523746167e5b60b1081d57046c03fb44d395fa4ce936d3e2a44e9d20dcacebee671b7ae0340",
+    "url": "https://api.nuget.org/v3-flatcontainer/sqlitepclraw.core/2.1.11/sqlitepclraw.core.2.1.11.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "sqlitepclraw.lib.e_sqlcipher.2.1.11.nupkg",
+    "sha512": "0552dfab01914c53e12a9495086c822fd49b4b268e233d11fcbee9967c1617a83ca1d4482a4a25de3dcd5e63d00a78d192d3124ce6c44acb143117ff0dd339c8",
+    "url": "https://api.nuget.org/v3-flatcontainer/sqlitepclraw.lib.e_sqlcipher/2.1.11/sqlitepclraw.lib.e_sqlcipher.2.1.11.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "sqlitepclraw.provider.e_sqlcipher.2.1.11.nupkg",
+    "sha512": "ecf851202dfd6b5f682d504b722e29fd9af6a49384751a90cc1f60ef193831ca3186285b88ff6ffe6986d4152b55bbfc45012fe7733f0548a0be66f3a89c535a",
+    "url": "https://api.nuget.org/v3-flatcontainer/sqlitepclraw.provider.e_sqlcipher/2.1.11/sqlitepclraw.provider.e_sqlcipher.2.1.11.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "system.drawing.common.10.0.0.nupkg",
+    "sha512": "3ee05668527576fe1974d17c17d8870578b8829eb4b5959e9c248f29c20e32ce98b68bf27ee71166477c0fda4842f435fa7ae4336c2800fe49765cc01fe417cb",
+    "url": "https://api.nuget.org/v3-flatcontainer/system.drawing.common/10.0.0/system.drawing.common.10.0.0.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "vanara.core.4.2.1.nupkg",
+    "sha512": "14588f503109e7f61c49a97608bbd87352d256ec5fd47bbe1ab9ac95fd69d9d14a5816ed4e0595eb156cd9703c8414fad84ee5e3a7708d7fd4e923449c1cca9e",
+    "url": "https://api.nuget.org/v3-flatcontainer/vanara.core/4.2.1/vanara.core.4.2.1.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "vanara.pinvoke.comctl32.4.2.1.nupkg",
+    "sha512": "e36294a10af86bb59721b04d2e43181a5c28777fd3ddf9f105e57ac0faf32e354254835c1bff0db5a4537d7aed137edf5b47448d9c4a4f6b0f60dc1cc1b411b2",
+    "url": "https://api.nuget.org/v3-flatcontainer/vanara.pinvoke.comctl32/4.2.1/vanara.pinvoke.comctl32.4.2.1.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "vanara.pinvoke.cryptography.4.2.1.nupkg",
+    "sha512": "115a644f2fbce4b55d06546f868038aec6732dc15749c88c2bcbe2a259564a531a4a636722beec63b41ff218095fdd8179158782adf9e1aef7328f458a86b094",
+    "url": "https://api.nuget.org/v3-flatcontainer/vanara.pinvoke.cryptography/4.2.1/vanara.pinvoke.cryptography.4.2.1.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "vanara.pinvoke.gdi32.4.2.1.nupkg",
+    "sha512": "e6c89ed1937306cdab47850aad7d77ab0cabe1ed77b6bfe843c253849726bfcdb13d2864a5349dc892966560ced4b66f9856caada36976b0d0e73b64092424d2",
+    "url": "https://api.nuget.org/v3-flatcontainer/vanara.pinvoke.gdi32/4.2.1/vanara.pinvoke.gdi32.4.2.1.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "vanara.pinvoke.kernel32.4.2.1.nupkg",
+    "sha512": "bb0a52ea108dcbd7d6eac85edcd7c80cb6e8c213a8a3e46f8349b583a0c962651d72add8813ab8c65673a0bec473b02be6bc0181af92d8baaeeb3a4e9d147359",
+    "url": "https://api.nuget.org/v3-flatcontainer/vanara.pinvoke.kernel32/4.2.1/vanara.pinvoke.kernel32.4.2.1.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "vanara.pinvoke.ole.4.2.1.nupkg",
+    "sha512": "3fe2792851051509c376d7104ddc50399a69884dbeb7683b545eb6e6125206c119d5515d3d4e80c5cb95f750a6f0d659a3f663c1c98a4caa57048e3d38c0ac08",
+    "url": "https://api.nuget.org/v3-flatcontainer/vanara.pinvoke.ole/4.2.1/vanara.pinvoke.ole.4.2.1.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "vanara.pinvoke.powrprof.4.2.1.nupkg",
+    "sha512": "c142c5ece8f036f262eb99002745c5af8ab2dfe86b0a69be61b76f359f97ccdec08ffc043af7d9833b9c02d37a549da727e1bac6a8fe08dfe944967c699ff0e7",
+    "url": "https://api.nuget.org/v3-flatcontainer/vanara.pinvoke.powrprof/4.2.1/vanara.pinvoke.powrprof.4.2.1.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "vanara.pinvoke.rpc.4.2.1.nupkg",
+    "sha512": "f467be016785e787080d63ea6c62100a2f24e2ed2debb1911b2a7c5503b28504e86db4fa23237e2afd623afe59a28f93709fe7d0d38a54183d9ba9e40c359d31",
+    "url": "https://api.nuget.org/v3-flatcontainer/vanara.pinvoke.rpc/4.2.1/vanara.pinvoke.rpc.4.2.1.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "vanara.pinvoke.security.4.2.1.nupkg",
+    "sha512": "a6a78db2538c0e3b5183104e62f13bbe76c8da2243bc04dfcf0255a4052f860c984bfd18681354c1c92b03efc303aa6708c058af785eee8d48848c5950627395",
+    "url": "https://api.nuget.org/v3-flatcontainer/vanara.pinvoke.security/4.2.1/vanara.pinvoke.security.4.2.1.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "vanara.pinvoke.shared.4.2.1.nupkg",
+    "sha512": "2bebafc085fd1449ee08b97ca73f25fa3884703459e61b2db47969342530717f02e1f1bc46d7ec73846bc494cb3791b98ec50c00d57f48b0f8a298d262672e4c",
+    "url": "https://api.nuget.org/v3-flatcontainer/vanara.pinvoke.shared/4.2.1/vanara.pinvoke.shared.4.2.1.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "vanara.pinvoke.shell32.4.2.1.nupkg",
+    "sha512": "369aa3cea91f4988aae529864d9ba0e2e7ed3c43cdcc14aaa0cbe67ab018133c576363e724486311018c1cd10e1bae036dd553b85cbfa4cc161c4e041a990f19",
+    "url": "https://api.nuget.org/v3-flatcontainer/vanara.pinvoke.shell32/4.2.1/vanara.pinvoke.shell32.4.2.1.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "vanara.pinvoke.shlwapi.4.2.1.nupkg",
+    "sha512": "d4d1da06fdd3f206cc3848028271faa5ba850616904a26337807ace7b91cfb47aa9e4dc67add2b9f8b9b7c9d3d9f75cc6a151a58ec00f74ef59ddef5fd086aa1",
+    "url": "https://api.nuget.org/v3-flatcontainer/vanara.pinvoke.shlwapi/4.2.1/vanara.pinvoke.shlwapi.4.2.1.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "vanara.pinvoke.user32.4.2.1.nupkg",
+    "sha512": "8d49c836fd3b1474ee2c3c8f6dd44714ba0da1bcbc7970979ed095a7066db8b90ed7b812adb7df3a753b70573f0627504a2e7ad931bf072e1073503dee59b9af",
+    "url": "https://api.nuget.org/v3-flatcontainer/vanara.pinvoke.user32/4.2.1/vanara.pinvoke.user32.4.2.1.nupkg",
+    "type": "file"
+  }
+]
