@@ -1,13 +1,5 @@
 #!/usr/bin/env bash
 
-# Initialize script and check arguments
-CURRENT_PWD=$(pwd)
-set -euo pipefail
-if [[ $# -lt 2 ]]; then
-    echo "Usage: $0 prefix runtime"
-    exit 1
-fi
-
 # Define colors and logging functions
 RED="\033[0;31m"
 GREEN="\033[0;32m"
@@ -22,15 +14,23 @@ success() { echo -e "${GREEN}✔${RESET} $1"; }
 warn()    { echo -e "${YELLOW}⚠${RESET} $1"; }
 error()   { echo -e "${RED}✘${RESET} $1"; exit 1; }
 
+echo -e "${BOLD}${BLUE}==============================================================${RESET}"
+echo -e "${BOLD}${BLUE} Nickvision Linux publish-and-install Script${RESET}"
+echo -e "${BOLD}${BLUE}==============================================================${RESET}"
+
+# Initialize script and check arguments
+CURRENT_PWD=$(pwd)
+set -euo pipefail
+if [[ $# -lt 2 ]]; then
+    echo "Usage: $0 prefix runtime"
+    exit 1
+fi
+
 # Change pwd to script directory
 info "Changing to script directory..."
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 cd "$SCRIPT_DIR"
 success "Changed to script directory: $SCRIPT_DIR"
-
-echo -e "${BOLD}${BLUE}==============================================================${RESET}"
-echo -e "${BOLD}${BLUE} Publishing and Installing $APP_ID${RESET}"
-echo -e "${BOLD}${BLUE}==============================================================${RESET}"
 
 # Load variables
 info "Loading variables..."
@@ -45,6 +45,10 @@ info "Bin directory: $BIN_DIR"
 info "Lib directory: $LIB_DIR"
 info "Data directory: $DATA_DIR"
 success "Loaded variables."
+
+echo -e "${BOLD}${BLUE}==============================================================${RESET}"
+echo -e "${BOLD}${BLUE} Publishing and Installing $APP_ID${RESET}"
+echo -e "${BOLD}${BLUE}==============================================================${RESET}"
 
 # Create main directories
 info "Creating directories..."
