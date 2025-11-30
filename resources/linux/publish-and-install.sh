@@ -1,105 +1,130 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-if [ -z $1 || -z $2 ]
-then
+# Initialize script and check arguments
+CURRENT_PWD=$(pwd)
+set -euo pipefail
+if [[ $# -lt 2 ]]; then
     echo "Usage: $0 prefix runtime"
     exit 1
 fi
 
-# Initialize script
-CURRENT_PWD=$(pwd)
-set -eu
+# Define colors and logging functions
+RED="\033[0;31m"
+GREEN="\033[0;32m"
+YELLOW="\033[1;33m"
+BLUE="\033[0;34m"
+CYAN="\033[0;36m"
+BOLD="\033[1m"
+RESET="\033[0m"
+
+info()    { echo -e "${CYAN}==>${RESET} $1"; }
+success() { echo -e "${GREEN}✔${RESET} $1"; }
+warn()    { echo -e "${YELLOW}⚠${RESET} $1"; }
+error()   { echo -e "${RED}✘${RESET} $1"; exit 1; }
 
 # Change pwd to script directory
+info "Changing to script directory..."
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-cd $SCRIPT_DIR
+cd "$SCRIPT_DIR"
+success "Changed to script directory: $SCRIPT_DIR"
+
+echo -e "${BOLD}${BLUE}==============================================================${RESET}"
+echo -e "${BOLD}${BLUE} Publishing and Installing $APP_ID${RESET}"
+echo -e "${BOLD}${BLUE}==============================================================${RESET}"
 
 # Load variables
+info "Loading variables..."
 APP_ID="org.nickvision.application"
 PROJECT="Nickvision.Application.GNOME"
-PREFIX=$1
-RUNTIME=$2
+PREFIX="$1"
+RUNTIME="$2"
 BIN_DIR="$PREFIX/bin"
 LIB_DIR="$PREFIX/lib/$APP_ID"
 DATA_DIR="$PREFIX/share"
-
-echo "=============================================================="
-echo " Publishing and Installing $APP_ID"
-echo "=============================================================="
+info "Bin directory: $BIN_DIR"
+info "Lib directory: $LIB_DIR"
+info "Data directory: $DATA_DIR"
+success "Loaded variables."
 
 # Create main directories
-mkdir -p $BIN_DIR
-mkdir -p $LIB_DIR
-mkdir -p $DATA_DIR
+info "Creating directories..."
+mkdir -p "$BIN_DIR" "$LIB_DIR" "$DATA_DIR"
+success "Created directories."
 
 # Publish application
-echo "---------------------------"
-echo " Publishing application... "
-echo "---------------------------"
+info "Publishing application..."
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
-if [ -n "$container" ]
-then
-    dotnet publish -c Release --source "$CURRENT_PWD/nuget-sources" --source "/usr/lib/sdk/dotnet10/nuget/packages" "../../$PROJECT/$PROJECT.csproj" --runtime $RUNTIME --self-contained true
+if [ -n "$container" ]; then
+    dotnet publish -c Release \
+        --source "$CURRENT_PWD/nuget-sources" \
+        --source "/usr/lib/sdk/dotnet10/nuget/packages" \
+        "../../$PROJECT/$PROJECT.csproj" \
+        --runtime $RUNTIME \
+        --self-contained true
 else
-    dotnet publish -c Release "../../$PROJECT/$PROJECT.csproj" --runtime $RUNTIME --self-contained true
+    dotnet publish -c Release \
+        "../../$PROJECT/$PROJECT.csproj" \
+        --runtime $RUNTIME \
+        --self-contained true
 fi
-cp -a ../../$PROJECT/bin/Release/net10.0/$RUNTIME/publish/. $LIB_DIR
+PUBLISH_DIR="$(find "../../$PROJECT/bin/Release" -type d -name publish | head -n1)"
+if [[ ! -d "$PUBLISH_DIR" ]]; then
+    error "Publish directory not found!"
+fi
+cp -a "$PUBLISH_DIR/." "$LIB_DIR"
+success "Published application to $LIB_DIR."
 
 # Create desktop file
-echo "---------------------------"
-echo " Creating desktop file... "
-echo "---------------------------"
+info "Creating desktop file..."
 DESKTOP_FILE="$DATA_DIR/applications/$APP_ID.desktop"
-mkdir -p "$(dirname $DESKTOP_FILE)"
-cp "$APP_ID.desktop.in" $DESKTOP_FILE
-sed -i "s|@LIB_DIR@|$LIB_DIR|g" $DESKTOP_FILE
-sed -i "s|@OUTPUT_NAME@|$PROJECT|g" $DESKTOP_FILE
+mkdir -p "$(dirname "$DESKTOP_FILE")"
+cp "$APP_ID.desktop.in" "$DESKTOP_FILE"
+sed -i "s|@LIB_DIR@|$LIB_DIR|g" "$DESKTOP_FILE"
+sed -i "s|@OUTPUT_NAME@|$PROJECT|g" "$DESKTOP_FILE"
+success "Created desktop file at $DESKTOP_FILE."
 
 # Create executable launcher script
-echo "---------------------------"
-echo " Creating launcher... "
-echo "---------------------------"
+info "Creating launcher script..."
 LAUNCHER_FILE="$BIN_DIR/$APP_ID"
-cp "$APP_ID.in" $LAUNCHER_FILE
-sed -i "s|@LIB_DIR@|$LIB_DIR|g" $LAUNCHER_FILE
-sed -i "s|@OUTPUT_NAME@|$PROJECT|g" $LAUNCHER_FILE
-chmod +x $LAUNCHER_FILE
+cp "$APP_ID.in" "$LAUNCHER_FILE"
+sed -i "s|@LIB_DIR@|$LIB_DIR|g" "$LAUNCHER_FILE"
+sed -i "s|@OUTPUT_NAME@|$PROJECT|g" "$LAUNCHER_FILE"
+chmod +x "$LAUNCHER_FILE"
+success "Created launcher script at $LAUNCHER_FILE."
 
 # Copy metadata file
-echo "---------------------------"
-echo " Copying metadata... "
-echo "---------------------------"
+info "Copying metadata file..."
 METADATA_FILE="$DATA_DIR/metainfo/$APP_ID.metainfo.xml"
-mkdir -p "$(dirname $METADATA_FILE)"
-cp "$APP_ID.metainfo.xml" $METADATA_FILE
+mkdir -p "$(dirname "$METADATA_FILE")"
+cp "$APP_ID.metainfo.xml" "$METADATA_FILE"
+success "Copied metadata file to $METADATA_FILE."
 
 # Copy icons
-echo "---------------------------"
-echo " Copying icons... "
-echo "---------------------------"
+info "Copying icons..."
 SCALABLE_ICON_DIR="$DATA_DIR/icons/hicolor/scalable/apps"
 SYMBOLIC_ICON_DIR="$DATA_DIR/icons/hicolor/symbolic/apps"
-mkdir -p $SCALABLE_ICON_DIR
-mkdir -p $SYMBOLIC_ICON_DIR
+mkdir -p "$SCALABLE_ICON_DIR"
+mkdir -p "$SYMBOLIC_ICON_DIR"
 cp "../$APP_ID.svg" "$SCALABLE_ICON_DIR/$APP_ID.svg"
 cp "../$APP_ID-devel.svg" "$SCALABLE_ICON_DIR/$APP_ID-devel.svg"
 cp "../$APP_ID-symbolic.svg" "$SYMBOLIC_ICON_DIR/$APP_ID-symbolic.svg"
+success "Copied icons."
 
 # Update gtk icon cache
-echo "---------------------------"
-echo " Updating icon cache... "
-echo "---------------------------"
+info "Updating GTK icon cache..."
 gtk-update-icon-cache
+success "Updated GTK icon cache."
 
 # Update desktop database
-echo "---------------------------"
-echo " Updating desktop files... "
-echo "---------------------------"
+info "Updating desktop database..."
 update-desktop-database
+success "Updated desktop database."
 
 # Restore pwd
+info "Restoring previous working directory..."
 cd $CURRENT_PWD
+success "Restored working directory to $CURRENT_PWD."
 
-echo "---------------------------"
-echo " Completed successfully! "
-echo "---------------------------"
+echo -e "${BOLD}${BLUE}==============================================================${RESET}"
+echo -e "${BOLD}${GREEN}✔ Published and Installed $APP_ID Successfully!${RESET}"
+echo -e "${BOLD}${BLUE}==============================================================${RESET}"
