@@ -30,7 +30,7 @@
 
 	<Target Name="CompileGlibResourcesForPublish" AfterTargets="Publish">
 		<Message Importance="high" Text="Compiling glib resources..." />
-		<Exec WorkingDirectory="$(MSBuildProjectDirectory)" Command="glib-compile-resources --sourcedir &quot;Resources&quot; &quot;Resources/org.nickvision.application.gresource.xml&quot; --target=&quot;$(PublishDir)/org.nickvision.application.gresource&quot;" />
+		<Exec WorkingDirectory="$(MSBuildProjectDirectory)" Command="glib-compile-resources --sourcedir &quot;Resources&quot; &quot;Resources/org.nickvision.application.gresource.xml&quot; --target=&quot;$(MSBuildProjectDirectory)/$(PublishDir)/org.nickvision.application.gresource&quot;" />
 	</Target>
 	
 	<Target Name="CompileBlueprintsForBuild" AfterTargets="Build">
@@ -54,9 +54,9 @@
 			<AllQuotedBlueprintFiles>@(AllBlueprintFiles->'"%(FullPath)"', ' ')</AllQuotedBlueprintFiles>
 		</PropertyGroup>
 		<Message Importance="high" Text="Compiling blueprints..." />
-		<Exec Condition="$([MSBuild]::IsOSPlatform('Windows')) and $(Platform)!='ARM64'" Command="python &quot;C:\msys64\mingw64\bin\blueprint-compiler&quot; batch-compile &quot;$(PublishDir)/ui&quot; &quot;$(MSBuildProjectDirectory)/Blueprints&quot; $(AllQuotedBlueprintFiles)" />
-		<Exec Condition="$([MSBuild]::IsOSPlatform('Windows')) and $(Platform)=='ARM64'" Command="python &quot;C:\msys64\clangarm64\bin\blueprint-compiler&quot; batch-compile &quot;$(PublishDir)/ui&quot; &quot;$(MSBuildProjectDirectory)/Blueprints&quot; $(AllQuotedBlueprintFiles)" />
-		<Exec Condition="!$([MSBuild]::IsOSPlatform('Windows'))" WorkingDirectory="$(MSBuildProjectDirectory)" Command="blueprint-compiler batch-compile &quot;$(PublishDir)/ui&quot; &quot;$(MSBuildProjectDirectory)/Blueprints&quot; $(AllQuotedBlueprintFiles)" />
+		<Exec Condition="$([MSBuild]::IsOSPlatform('Windows')) and $(Platform)!='ARM64'" Command="python &quot;C:\msys64\mingw64\bin\blueprint-compiler&quot; batch-compile &quot;$(MSBuildProjectDirectory)/$(PublishDir)/ui&quot; &quot;$(MSBuildProjectDirectory)/Blueprints&quot; $(AllQuotedBlueprintFiles)" />
+		<Exec Condition="$([MSBuild]::IsOSPlatform('Windows')) and $(Platform)=='ARM64'" Command="python &quot;C:\msys64\clangarm64\bin\blueprint-compiler&quot; batch-compile &quot;$(MSBuildProjectDirectory)/$(PublishDir)/ui&quot; &quot;$(MSBuildProjectDirectory)/Blueprints&quot; $(AllQuotedBlueprintFiles)" />
+		<Exec Condition="!$([MSBuild]::IsOSPlatform('Windows'))" WorkingDirectory="$(MSBuildProjectDirectory)" Command="blueprint-compiler batch-compile &quot;$(MSBuildProjectDirectory)/$(PublishDir)/ui&quot; &quot;$(MSBuildProjectDirectory)/Blueprints&quot; $(AllQuotedBlueprintFiles)" />
 	</Target>
 
 </Project>
