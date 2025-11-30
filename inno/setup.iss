@@ -3,10 +3,10 @@
 
 #define MyAppName           "Nickvision Application"
 #define MyAppShortName      "Application"
-#define MyAppVersion        "2025.9.0"
+#define MyAppVersion        "2025.11.0"
 #define MyAppPublisher      "Nickvision"
 #define MyAppURL            "https://nickvision.org"
-#define MyAppExeName        "org.nickvision.application.winui.exe"
+#define MyAppExeName        "Nickvision.Application.WinUI.exe"
 #define StartYearCopyright  "2021"
 #define CurrentYear         GetDateTimeString('yyyy','','')
 
@@ -41,9 +41,7 @@ WizardStyle=modern
 WizardResizable=yes
 WizardSizePercent=120,130
 
-UsePreviousAppDir=no
 DefaultDirName={autopf}\{#MyAppName}
-DisableProgramGroupPage=yes
 LicenseFile=..\License.rtf
 OutputDir=..\inno
 OutputBaseFilename=NickvisionApplicationSetup
@@ -51,9 +49,7 @@ SetupIconFile=..\resources\org.nickvision.application.ico
 Compression=lzma
 SolidCompression=yes
 PrivilegesRequired=admin
-DirExistsWarning=no
 CloseApplications=yes
-ChangesEnvironment=yes
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -70,16 +66,14 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"
 
 [Files]
-Source: "vc_redist.exe"; DestDir: "{app}"; Flags: deleteafterinstall
-Source: "windowsappruntimeinstall.exe"; DestDir: "{app}"; Flags: deleteafterinstall
-Source: "..\build\org.nickvision.application.winui\Release\{#MyAppExeName}"; DestDir: "{app}\Release"; Flags: ignoreversion
-Source: "..\build\org.nickvision.application.winui\Release\*"; DestDir: "{app}\Release"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "dotnet.exe"; DestDir: "{app}"; Flags: deleteafterinstall
+Source: "..\{#GetEnv('APP_FILES_PATH')}\{#MyAppExeName}"; DestDir: "{app}\Release"; Flags: ignoreversion
+Source: "..\{#GetEnv('APP_FILES_PATH')}\*"; DestDir: "{app}\Release"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
 Name: "{autoprograms}\{#MyAppShortName}"; Filename: "{app}\Release\{#MyAppExeName}"; Tasks: quicklaunchicon
 Name: "{commondesktop}\{#MyAppShortName}"; Filename: "{app}\Release\{#MyAppExeName}"; Tasks: desktopicon
 
 [Run]
-Filename: "{app}\vc_redist.exe"; Parameters: "/install /quiet /norestart"
-Filename: "{app}\windowsappruntimeinstall.exe"; Parameters: "--quiet --force"
+Filename: "{app}\dotnet.exe"; Parameters: "/install /quiet /norestart"
 Filename: "{app}\Release\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent unchecked

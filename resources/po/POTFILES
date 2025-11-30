@@ -1,7 +1,9 @@
-libapplication/src/controllers/mainwindowcontroller.cpp
-org.nickvision.application.gnome/blueprints/main_window.blp
-org.nickvision.application.gnome/blueprints/preferences_dialog.blp
-org.nickvision.application.gnome/blueprints/shortcuts_dialog.blp
-org.nickvision.application.gnome/src/views/mainwindow.cpp
-org.nickvision.application.winui/Views/MainWindow.xaml.cpp
-org.nickvision.application.winui/Views/SettingsPage.xaml.cpp
+Nickvision.Application.GNOME/Blueprints/MainWindow.blp
+Nickvision.Application.GNOME/Blueprints/PreferencesDialog.blp
+Nickvision.Application.GNOME/Blueprints/ShortcutsDialog.blp
+Nickvision.Application.Shared/Controllers/PreferencesViewController.cs
+Nickvision.Application.Shared/Controllers/MainWindowController.cs
+Nickvision.Application.Shared/Services/FolderService.cs
+Nickvision.Application.WinUI/Controls/AboutDialog.xaml.cs
+Nickvision.Application.WinUI/Views/MainWindow.xaml.cs
+Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs

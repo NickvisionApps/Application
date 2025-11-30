@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>org.nickvision.application</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <name>@Name=Application</name>
+  <project_group>Nickvision</project_group>
+  <developer id="org.nickvision">
+    <name>Nickvision</name>
+  </developer>
+  <summary>Create new Nickvision applications</summary>
+  <description>
+    <p>A template for creating cross-platform Nickvision applications</p>
+  </description>
+  <launchable type="desktop-id">org.nickvision.application.desktop</launchable>
+  <screenshots>
+    <screenshot type="default">
+      <!-- Translators: Screenshot caption -->
+      <caption>Light mode</caption>
+      <image>https://raw.githubusercontent.com/NickvisionApps/Application/main/Nickvision.Application.GNOME/resources/screenshots/light.png</image>
+    </screenshot>
+    <screenshot>
+      <!-- Translators: Screenshot caption -->
+      <caption>Dark mode</caption>
+      <image>https://raw.githubusercontent.com/NickvisionApps/Application/main/Nickvision.Application.GNOME/resources/screenshots/dark.png</image>
+    </screenshot>
+  </screenshots>
+  <branding>
+    <color type="primary" scheme_preference="light">#FFFFFF</color>
+    <color type="primary" scheme_preference="dark">#000000</color>
+  </branding>
+  <url type="homepage">https://nickvision.org/Application.html</url>
+  <url type="bugtracker">https://github.com/NickvisionApps/Application/issues</url>
+  <url type="donation">https://github.com/sponsors/nlogozzo</url>
+  <url type="translate">https://github.com/NickvisionApps/Application/blob/master/CONTRIBUTING.md#providing-translations</url>
+  <url type="contribute">https://github.com/NickvisionApps/Application/blob/main/CONTRIBUTING.md</url>
+  <url type="contact">https://matrix.to/#/#nickvision:matrix.org</url>
+  <url type="vcs-browser">https://github.com/NickvisionApps/Application</url>
+  <provides>
+    <binary>org.nickvision.application</binary>
+  </provides>
+  <content_rating type="oars-1.1" />
+  <supports>
+    <control>pointing</control>
+    <control>keyboard</control>
+    <control>touch</control>
+  </supports>
+  <requires>
+    <display_length compare="ge">360</display_length>
+  </requires>
+  <releases>
+    <release version="2025.11.0-next" date="2025-11-01">
+      <description translate="no">
+        <p>- Initial Release</p>
+      </description>
+    </release>
+  </releases>
+</component>

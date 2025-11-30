@@ -1,0 +1,18 @@
+<Solution>
+  <Configurations>
+    <Platform Name="ARM64" />
+    <Platform Name="x64" />
+  </Configurations>
+  <Folder Name="/Solution Items/">
+    <File Path="Nickvision.Common.targets" />
+  </Folder>
+  <Project Path="Nickvision.Application.GNOME/Nickvision.Application.GNOME.csproj" Id="5ea1c422-8202-433e-860d-ecac925bd6a6">
+    <Platform Solution="*|ARM64" Project="ARM64" />
+    <Platform Solution="*|x64" Project="x64" />
+  </Project>
+  <Project Path="Nickvision.Application.Shared/Nickvision.Application.Shared.csproj" />
+  <Project Path="Nickvision.Application.WinUI/Nickvision.Application.WinUI.csproj" Id="21f0ae04-701e-4a43-8e8e-49ae7ed7beb4">
+    <Platform Solution="*|ARM64" Project="ARM64" />
+    <Platform Solution="*|x64" Project="x64" />
+  </Project>
+</Solution>

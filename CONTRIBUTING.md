@@ -40,7 +40,7 @@ We will then take care of the question as soon as possible and convert it to a p
 ## I Want To Contribute
 
 ### Legal Notice
-When contributing to this project, you must agree that you have authored 100% of the content and/or that you have the necessary rights to the content and that the content you contribute may be provided under the project [license](COPYING).
+When contributing to this project, you must agree that you have authored 100% of the content and/or that you have the necessary rights to the content and that the content you contribute may be provided under the project [license](LICENSE).
 
 ### Reporting Bugs
 
@@ -54,11 +54,11 @@ A good bug report shouldn't leave others needing to chase you up for more inform
 - Collect information about the bug:
   - Debug information provided by the application
     - GNOME: From the main hamburger menu, open About Application → Troubleshooting → Debugging Information and copy the information to the clipboard to paste in your issue.
-    - WinUI: From the Help item in the left-side navigation, open About Application --> Debugging and copy the information to the clipboard to paste in your issue.
+    - WinUI: From the main Help menu, open About Application --> Debugging and copy the information to the clipboard to paste in your issue.
   - Stack trace (Traceback)
     - Including any error messages thrown by the application
     - You may need to start the application via the terminal/console to receive an error message for a crash.
-  - OS, Platform and Version (Distro, Kernel Version, x64/ARM, etc...)
+  - OS, Platform and Version (Distro, Kernel Version, x64/ARM64, etc...)
   - Your input and the output to the application
     - i.e. Steps you took to produce the crash and/or attach any files you may have opened within the app that caused a crash
   - Can you reliably reproduce the issue? And can you also reproduce it with older versions?
@@ -127,71 +127,49 @@ Once all changes to your translated file are made, commit these changes and crea
 
 #### Structure
 
-Application is built using C++20 and platform-native user interface libraries. With these technologies, Application is built for the Windows and Linux operating systems.
+Application is built using .NET 10 and platform-native user interface libraries. With these technologies, Application is built for the Windows and Linux operating systems.
 
 The project is split up into the following sub-projects:
- - [libapplication](#libapplication)
- - [org.nickvision.application.gnome](#org.nickvision.application.gnome)
- - [org.nickvision.application.winui](org.nickvision.application.winui)
+ - [Nickvision.Application.Shared](#Nickvision.Application.Shared)
+ - [Nickvision.Application.GNOME](#Nickvision.Application.GNOME)
+ - [Nickvision.Application.WinUI](#Nickvision.Application.WinUI)
 
-The whole project utilizes the [MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) pattern for separating data models and UI views.
+The whole project utilizes the [MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) pattern for separating data models, business logic, and UI views.
 
-##### libapplication
+##### Nickvision.Application.Shared
 
 This project contains all of the code used by all platforms of the app:
-- `controllers` => The objects used by UI views to receive and manipulate data from the models.
-- `events` => Arguments that are used by events throughout the application.
-- `helpers` => Useful objects and functions specific to the application that can be used by all platforms.
-- `models` => The data driven objects of the application (i.e. Configuration, Database, etc...).
+- `Controllers` => The objects used by UI views to receive and manipulate data in the application.
+- `Events` => Arguments that are used by events throughout the application.
+- `Models` => The data driven objects of the application (i.e. Configuration, Database, etc...).
+- `Services` => The business logic for modifying models and data throughout the application.
 
-##### org.nickvision.application.gnome
+##### Nickvision.Application.GNOME
 
 This project contains all of the code used for the GNOME platform version of the app:
-- `blueprints` => UI design files written in [Blueprint markup language](https://jwestman.pages.gitlab.gnome.org/blueprint-compiler/).
-- `controls` => Generic controls for the app.
+- `Blueprint` => UI design files written in [Blueprint markup language](https://jwestman.pages.gitlab.gnome.org/blueprint-compiler/).
+- `Controls` => Generic controls for the app.
     - These UI objects are separate from views in that they should not be backed by a controller and should be easily ported to any other app.
-- `helpers` => Useful objects and functions specific for the GNOME platform version of the app.
-- `resources` => Extra icons and other files specific for the GNOME platform version of the app.
-- `views` => The views (pages, windows, dialogs, etc...) of the app.
+- `Resources` => Extra icons and other files specific for the GNOME platform version of the app.
+- `Views` => The views (pages, windows, dialogs, etc...) of the app.
 
-##### org.nickvision.application.winui
+##### Nickvision.Application.WinUI
 
 This project contains all of the code used for the WinUI platform version of the app:
-- `controls` => Generic controls for the app.
+- `Assets` => Extra icons and other files specific for the WinUI platform version of the app.
+- `Controls` => Generic controls for the app.
     - These UI objects are separate from views in that they should not be backed by a controller and should be easily ported to any other app.
-- `helpers` => Useful objects and functions specific for the WinUI platform version of the app.
-- `views` => The views (pages, windows, dialogs, etc...) of the app.
-
-#### Developing and Testing
-
-Application simply relies on `cmake` to configure and manage the correct projects for the running platform. Meaning, on Linux the `.gnome` variant of the app will be built and on Windows the `.winui` variant.
-
-[See the readme](README#building-manually) for instructions on building and running the app locally.
+- `Views` => The views (pages, windows, dialogs, etc...) of the app.
 
 ## Styleguides
 
 Application uses the following naming conventions:
-- `CamelCase` for namespaces and classes
-- `pascalCase` for file names, functions, and variables
-- `m_` prefix appended to class member variables
+- `CamelCase` for namespaces, classes, file names, functions, properties
+- `pascalCase` for local variables
+- `_` prefix appended to class member variables
 - `s_` prefix appended to global static variables
-- `get` and `set` prefixes used for accessor and modifiers methods of a class variable respectively
-    - Exception: For boolean class members, `is` and `setIs` should be used as the prefixes for the accessor and modifier methods of said members.
 
-Application uses the following coding styles:
-- ```cpp
-    #ifndef FILENAME_H
-    #define FILENAME_H
-    ...
-    #endif //FILENAME_H
-  ```
-  used as the guards to a header file.
-  - `#pragma once` should not be used.
-- Brackets `{}` should be placed on individual new lines and never inline.
-    - This applies for any type of structure (`if`, `switch`, `class`, etc...) that requires brackets.
-    - *Single-line if statements should also be wrapped by brackets.*
-- Proper indentation using spacing with spaces and not tabs.
-
+Application uses the standard Microsoft C# style code conventions.
 
 ## Join The Project Team
 
