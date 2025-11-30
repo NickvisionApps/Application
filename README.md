@@ -39,7 +39,7 @@ The recommended method is to use the pre-built Windows installer from the Releas
 However, you can also build an installer manually with the [inno installer script](inno/setup.iss).
 
 ### Linux
-The recommended method is to use the flatpak availablt on Flathub.
+The recommended method is to use the flatpak available on Flathub.
 
 However, you can also build a flatpak of the app manually using the [flatpak manifest file](flatpak/org.nickvision.application.json).
 
