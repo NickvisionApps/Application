@@ -44,17 +44,18 @@ jobs:
         shell: pwsh
         run: echo "${{ steps.msys2.outputs.msys2-location }}\${{ matrix.variant.subsys }}\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
       - name: "Restore"
-        run: dotnet restore ${{ env.PROJECT_NAME }}
-      - name: "Build"
-        run: dotnet build ${{ env.PROJECT_NAME }} -c Release --no-restore /p:Platform=${{ matrix.variant.arch }}
+        run: dotnet restore ${{ env.PROJECT_NAME }} -p:PublishReadyToRun=true
+      - name: "Publish"
+        run: dotnet publish ${{ env.PROJECT_NAME }} -c Release --no-restore --runtime win-${{ matrix.variant.arch }} --self-contained true /p:PublishReadyToRun=true /p:Platform=${{ matrix.variant.arch }}
       - name: "Installer"
         working-directory: ${{github.workspace}}/inno
         env:
-          APP_FILES_PATH: ${{ env.PROJECT_NAME }}/bin/${{ matrix.variant.arch }}/Release/net10.0-windows10.0.19041.0
+          APP_FILES_PATH: ${{ env.PROJECT_NAME }}/bin/${{ matrix.variant.arch }}/Release/net10.0-windows10.0.19041.0/win-${{ matrix.variant.arch }}/publish
         shell: pwsh
         run: |
           $ProgressPreference = 'SilentlyContinue'
           Invoke-WebRequest https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/10.0.0/windowsdesktop-runtime-10.0.0-win-${{ matrix.variant.arch }}.exe -OutFile dotnet.exe
+          Invoke-WebRequest https://aka.ms/windowsappsdk/1.8/latest/windowsappruntimeinstall-${{ matrix.variant.arch }}.exe -OutFile windowsappruntimeinstall.exe
           iscc setup.iss
       - uses: actions/upload-artifact@v4
         with:

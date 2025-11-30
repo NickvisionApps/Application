@@ -15,6 +15,8 @@
 		<UseWinUI>true</UseWinUI>
 		<EnableMsixTooling>true</EnableMsixTooling>
 		<WindowsPackageType>None</WindowsPackageType>
+		<WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+		<WindowsAppSDKBootstrapAutoInitializeOptions_OnNoMatch_ShowUI>false</WindowsAppSDKBootstrapAutoInitializeOptions_OnNoMatch_ShowUI>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -40,6 +42,9 @@
 	<ItemGroup>
 		<Folder Include="Views\" />
 	</ItemGroup>
+	<ItemGroup>
+		<None Include="Assets\**" CopyToPublishDirectory="PreserveNewest" />
+	</ItemGroup>
 
 	<PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
 		<HasPackageAndPublishMenu>true</HasPackageAndPublishMenu>
@@ -50,9 +55,11 @@
 		<PublishReadyToRun Condition="'$(Configuration)' != 'Debug'">True</PublishReadyToRun>
 		<PublishTrimmed Condition="'$(Configuration)' == 'Debug'">False</PublishTrimmed>
 		<PublishTrimmed Condition="'$(Configuration)' != 'Debug'">True</PublishTrimmed>
+	</PropertyGroup>
+	<PropertyGroup>
 		<ApplicationIcon>Assets\org.nickvision.application.ico</ApplicationIcon>
 	</PropertyGroup>
 
-	<Import Project="..\Nickvision.Common.targets"/>
+	<Import Project="..\Nickvision.Common.targets" />
 
 </Project>

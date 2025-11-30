@@ -67,6 +67,7 @@ Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescrip
 
 [Files]
 Source: "dotnet.exe"; DestDir: "{app}"; Flags: deleteafterinstall
+Source: "windowsappruntimeinstall.exe"; DestDir: "{app}"; Flags: deleteafterinstall 
 Source: "..\{#GetEnv('APP_FILES_PATH')}\{#MyAppExeName}"; DestDir: "{app}\Release"; Flags: ignoreversion
 Source: "..\{#GetEnv('APP_FILES_PATH')}\*"; DestDir: "{app}\Release"; Flags: ignoreversion recursesubdirs createallsubdirs
 
@@ -76,4 +77,5 @@ Name: "{commondesktop}\{#MyAppShortName}"; Filename: "{app}\Release\{#MyAppExeNa
 
 [Run]
 Filename: "{app}\dotnet.exe"; Parameters: "/install /quiet /norestart"
+Filename: "{app}\windowsappruntimeinstall.exe"; Parameters: "--quiet --force"
 Filename: "{app}\Release\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent unchecked
