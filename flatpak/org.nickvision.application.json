@@ -23,6 +23,7 @@
     ],
     "cleanup":[
         "/include",
+        "/lib/debug",
         "/lib/pkgconfig",
         "/man",
         "*.a"

@@ -19,9 +19,9 @@ APP_ID="org.nickvision.application"
 PROJECT="Nickvision.Application.GNOME"
 PREFIX=$1
 RUNTIME=$2
-BIN_DIR="/$PREFIX/bin"
-LIB_DIR="/$PREFIX/lib/$APP_ID"
-DATA_DIR="/$PREFIX/share"
+BIN_DIR="$PREFIX/bin"
+LIB_DIR="$PREFIX/lib/$APP_ID"
+DATA_DIR="$PREFIX/share"
 
 echo "=============================================================="
 echo " Publishing and Installing $APP_ID"

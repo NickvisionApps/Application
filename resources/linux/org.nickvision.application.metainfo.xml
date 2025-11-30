@@ -49,7 +49,7 @@
     <display_length compare="ge">360</display_length>
   </requires>
   <releases>
-    <release version="2025.9.0-next" date="2025-09-01">
+    <release version="2025.11.0-next" date="2025-11-01">
       <description translate="no">
         <p>- Initial Release</p>
       </description>
