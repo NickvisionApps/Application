@@ -15,8 +15,6 @@
 		<UseWinUI>true</UseWinUI>
 		<EnableMsixTooling>true</EnableMsixTooling>
 		<WindowsPackageType>None</WindowsPackageType>
-		<WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
-		<WindowsAppSDKBootstrapAutoInitializeOptions_OnNoMatch_ShowUI>false</WindowsAppSDKBootstrapAutoInitializeOptions_OnNoMatch_ShowUI>
 	</PropertyGroup>
 
 	<ItemGroup>
