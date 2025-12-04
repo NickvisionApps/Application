@@ -26,7 +26,7 @@ public class MainWindowController : IDisposable
         _args = args;
         _services = new ServiceCollection();
         _httpClient = new HttpClient();
-        _latestVersion = new AppVersion("2025.11.0-next");
+        _latestVersion = new AppVersion("2025.12.0-next");
         AppInfo = new AppInfo("org.nickvision.application", "Nickvision Application", "Application")
         {
             Version = _latestVersion,
