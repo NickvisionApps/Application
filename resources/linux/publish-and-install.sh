@@ -63,11 +63,11 @@ if [ -n "$container" ]; then
         --source "$CURRENT_PWD/nuget-sources" \
         --source "/usr/lib/sdk/dotnet10/nuget/packages" \
         "../../$PROJECT/$PROJECT.csproj" \
-        --runtime $RUNTIME \
+        --runtime $RUNTIME
 else
     dotnet publish -c Release \
         "../../$PROJECT/$PROJECT.csproj" \
-        --runtime $RUNTIME \
+        --runtime $RUNTIME
 fi
 PUBLISH_DIR="$(find "../../$PROJECT/bin/Release" -type d -name publish | head -n1)"
 if [[ ! -d "$PUBLISH_DIR" ]]; then
