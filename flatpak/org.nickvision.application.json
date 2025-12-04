@@ -65,7 +65,7 @@
             "build-commands": [
                 "chmod +x ./resources/linux/publish-and-install.sh",
                 "./resources/linux/publish-and-install.sh /app $RUNTIME",
-				"install.sh",
+                "install.sh",
             ],
             "sources": [
                 {
