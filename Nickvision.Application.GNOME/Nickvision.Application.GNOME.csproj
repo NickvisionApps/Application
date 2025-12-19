@@ -12,7 +12,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="GirCore.Adw-1" Version="0.7.0-preview.3" />
+		<PackageReference Include="GirCore.Adw-1" Version="0.7.0" />
 		<PackageReference Include="Nickvision.Desktop.GNOME" Version="2025.11.0" />
 	</ItemGroup>
 	<ItemGroup>
