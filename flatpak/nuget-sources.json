@@ -106,13 +106,6 @@
   },
   {
     "dest": "nuget-sources",
-    "dest-filename": "markdig.0.43.0.nupkg",
-    "sha512": "83ab75dfb2c5b201316b4b4cdf0115e3b94baf172a64861886d689ec118649820ed4aa76660562df4f7fa50e3227172a98ebeaec0bc89fe91ba7d4577f8a284d",
-    "url": "https://api.nuget.org/v3-flatcontainer/markdig/0.43.0/markdig.0.43.0.nupkg",
-    "type": "file"
-  },
-  {
-    "dest": "nuget-sources",
     "dest-filename": "markdig.0.44.0.nupkg",
     "sha512": "44474ebc2bda4767a11fa52913837b5a39861634e5654d7d0dcf060d931d7c3ef68a8c73f1c5d77798b8d31df1edb820b64c9738d63dc17337fb936b5e52551c",
     "url": "https://api.nuget.org/v3-flatcontainer/markdig/0.44.0/markdig.0.44.0.nupkg",
@@ -137,13 +130,6 @@
     "dest-filename": "microsoft.aspnetcore.app.runtime.linux-x64.10.0.1.nupkg",
     "sha512": "04b5de30e7cc8a9f6fabcfab71ed3e0e05fcf83466c63af149e3bc24e1a21c9ee80fdad81dd5fea52a9a6a48f07bbcbba0c2032a6d4c0b89c9145a5ab8797195",
     "url": "https://api.nuget.org/v3-flatcontainer/microsoft.aspnetcore.app.runtime.linux-x64/10.0.1/microsoft.aspnetcore.app.runtime.linux-x64.10.0.1.nupkg",
-    "type": "file"
-  },
-  {
-    "dest": "nuget-sources",
-    "dest-filename": "microsoft.data.sqlite.core.10.0.0.nupkg",
-    "sha512": "79ee3833af7220dfa70edfccf24cd4ef1adbd86bf12dfbfc87b1a9003d5b19eabc63e3940efaf8ae7e26ab4efd5dc060706f44ee1b561b98595ecbce20601d7c",
-    "url": "https://api.nuget.org/v3-flatcontainer/microsoft.data.sqlite.core/10.0.0/microsoft.data.sqlite.core.10.0.0.nupkg",
     "type": "file"
   },
   {
@@ -183,23 +169,9 @@
   },
   {
     "dest": "nuget-sources",
-    "dest-filename": "microsoft.win32.systemevents.10.0.0.nupkg",
-    "sha512": "25216e46fff0f034a8d3bfe1ab79c1bc27cd55d3878404415f8b8599149e831b7f1ed144de6da15f4252c3e7f1cf7a6dabcb37102042952745a70c3668df8f1b",
-    "url": "https://api.nuget.org/v3-flatcontainer/microsoft.win32.systemevents/10.0.0/microsoft.win32.systemevents.10.0.0.nupkg",
-    "type": "file"
-  },
-  {
-    "dest": "nuget-sources",
     "dest-filename": "microsoft.win32.systemevents.10.0.1.nupkg",
     "sha512": "97ae43f66d84606605b268b84eab8b118a65ca57f2206a91cfb8e996aa822bf527febfe661b940f90265ed79dacfc6e195925d82d4d86439e3d2cbbad836caf3",
     "url": "https://api.nuget.org/v3-flatcontainer/microsoft.win32.systemevents/10.0.1/microsoft.win32.systemevents.10.0.1.nupkg",
-    "type": "file"
-  },
-  {
-    "dest": "nuget-sources",
-    "dest-filename": "nickvision.desktop.2025.11.10.nupkg",
-    "sha512": "3c390cf2d31717402fa7674fcc5f905a8525b03490096d3af4fb485812c7226bb4337cd4b91ab4a30de739c54483f2f1416a71e80f6bc8ba790d3fa2ee37a622",
-    "url": "https://api.nuget.org/v3-flatcontainer/nickvision.desktop/2025.11.10/nickvision.desktop.2025.11.10.nupkg",
     "type": "file"
   },
   {
@@ -211,9 +183,16 @@
   },
   {
     "dest": "nuget-sources",
-    "dest-filename": "nickvision.desktop.gnome.2025.11.0.nupkg",
-    "sha512": "1ff5010a371dafe9cce1249bd620b2cb14e86a21b66a12a0911cee0e997c7f30652b1d3504052e118d72bcfeb76c9fe669c0b5c6b21913d8b7139c56f482b26f",
-    "url": "https://api.nuget.org/v3-flatcontainer/nickvision.desktop.gnome/2025.11.0/nickvision.desktop.gnome.2025.11.0.nupkg",
+    "dest-filename": "nickvision.desktop.2025.12.1.nupkg",
+    "sha512": "1342f343b7f1520dbffd44792cf9a440018e10f8f231e77f973c670641cae0374b56a0716558c3def5e1dea570834f98a05f7a77fd39c8f1007d1c4ccf188681",
+    "url": "https://api.nuget.org/v3-flatcontainer/nickvision.desktop/2025.12.1/nickvision.desktop.2025.12.1.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "nickvision.desktop.gnome.2025.12.0.nupkg",
+    "sha512": "c9daa3c439d1923582c5f9de7b287b2a387965ce66c21604abd5e7cf0c76314bb9cf7362acad04b7768d94943c08ea3b3a3f6eefd079fe811ee606f1092797fb",
+    "url": "https://api.nuget.org/v3-flatcontainer/nickvision.desktop.gnome/2025.12.0/nickvision.desktop.gnome.2025.12.0.nupkg",
     "type": "file"
   },
   {
@@ -249,13 +228,6 @@
     "dest-filename": "sqlitepclraw.provider.e_sqlcipher.2.1.11.nupkg",
     "sha512": "ecf851202dfd6b5f682d504b722e29fd9af6a49384751a90cc1f60ef193831ca3186285b88ff6ffe6986d4152b55bbfc45012fe7733f0548a0be66f3a89c535a",
     "url": "https://api.nuget.org/v3-flatcontainer/sqlitepclraw.provider.e_sqlcipher/2.1.11/sqlitepclraw.provider.e_sqlcipher.2.1.11.nupkg",
-    "type": "file"
-  },
-  {
-    "dest": "nuget-sources",
-    "dest-filename": "system.drawing.common.10.0.0.nupkg",
-    "sha512": "3ee05668527576fe1974d17c17d8870578b8829eb4b5959e9c248f29c20e32ce98b68bf27ee71166477c0fda4842f435fa7ae4336c2800fe49765cc01fe417cb",
-    "url": "https://api.nuget.org/v3-flatcontainer/system.drawing.common/10.0.0/system.drawing.common.10.0.0.nupkg",
     "type": "file"
   },
   {

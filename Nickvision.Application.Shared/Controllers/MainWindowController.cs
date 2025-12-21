@@ -36,11 +36,11 @@ public class MainWindowController : IDisposable
             DiscussionsForum = new Uri("https://github.com/NickvisionApps/Application/discussions")
         };
         // Register services
-        var jsonFileService = _services.Add<IJsonFileService>(new JsonFileService(AppInfo));
-        var updaterService = _services.Add<IUpdaterService>(new GitHubUpdaterService(AppInfo, _httpClient));
-        var translationService = _services.Add<ITranslationService>(new GettextTranslationService(AppInfo, jsonFileService!.Load<Configuration>(Configuration.Key).TranslationLanguage));
-        var notificationService = _services.Add<INotificationService>(new NotificationService(AppInfo, translationService!._("Open")));
-        _services.Add<IFolderService>(new FolderService(notificationService!, translationService!));
+        var jsonFileService = _services.Add<IJsonFileService>(new JsonFileService(AppInfo))!;
+        var updaterService = _services.Add<IUpdaterService>(new GitHubUpdaterService(AppInfo, _httpClient))!;
+        var translationService = _services.Add<ITranslationService>(new GettextTranslationService(AppInfo, jsonFileService.Load<Configuration>(Configuration.Key).TranslationLanguage))!;
+        var notificationService = _services.Add<INotificationService>(new NotificationService(AppInfo, translationService._("Open")))!;
+        _services.Add<IFolderService>(new FolderService(notificationService, translationService));
         // Translate strings
         AppInfo.ShortName = translationService._("Application");
         AppInfo.Description = translationService._("Create new Nickvision applications.");
