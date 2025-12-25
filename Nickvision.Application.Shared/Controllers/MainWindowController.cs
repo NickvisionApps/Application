@@ -19,7 +19,7 @@ public class MainWindowController : IDisposable
     private readonly ServiceCollection _services;
     private AppVersion _latestVersion;
 
-    public AppInfo AppInfo { get; init; }
+    public AppInfo AppInfo { get; }
 
     public MainWindowController(string[] args)
     {
