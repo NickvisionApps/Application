@@ -30,20 +30,6 @@
     ],
     "modules" : [
         {
-            "name": "blueprint-compiler",
-            "buildsystem": "meson",
-            "cleanup": [
-                "*"
-            ],
-            "sources": [
-                {
-                    "type": "git",
-                    "url": "https://gitlab.gnome.org/jwestman/blueprint-compiler",
-                    "tag": "v0.16.0"
-                }
-            ]
-        },
-        {
             "name": "org.nickvision.application",
             "buildsystem": "simple",
             "build-options": {
