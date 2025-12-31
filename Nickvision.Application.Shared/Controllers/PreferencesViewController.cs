@@ -1,65 +1,61 @@
 ﻿using Nickvision.Application.Shared.Models;
+using Nickvision.Desktop.Application;
 using Nickvision.Desktop.Filesystem;
 using Nickvision.Desktop.Globalization;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Nickvision.Application.Shared.Controllers;
 
 public class PreferencesViewController
 {
-    private IJsonFileService _jsonFileService;
-    private Configuration _configuration;
+    private readonly IJsonFileService _jsonFileService;
+    private readonly Configuration _configuration;
 
     public ITranslationService Translator { get; }
-    public List<string> AvailableTranslationLanguages { get; }
 
     public PreferencesViewController(IJsonFileService jsonFileService, ITranslationService translationService)
     {
         _jsonFileService = jsonFileService;
         _configuration = _jsonFileService.Load<Configuration>(Configuration.Key);
         Translator = translationService;
-        AvailableTranslationLanguages = Translator.AvailableLanguages.ToList();
-        AvailableTranslationLanguages.Sort();
-        AvailableTranslationLanguages.Insert(0, "en_US");
-        AvailableTranslationLanguages.Insert(0, Translator._("System"));
     }
 
-    public Theme Theme
+    public IReadOnlyList<SelectionItem<Theme>> Themes
     {
-        get => _configuration.Theme;
-
-        set => _configuration.Theme = value;
+        get => new List<SelectionItem<Theme>>()
+        {
+            new SelectionItem<Theme>(Models.Theme.Light, Translator._p("Theme", "Light"), _configuration.Theme == Models.Theme.Light),
+            new SelectionItem<Theme>(Models.Theme.Dark, Translator._p("Theme", "Dark"), _configuration.Theme == Models.Theme.Dark),
+            new SelectionItem<Theme>(Models.Theme.System, Translator._p("Theme", "System"), _configuration.Theme == Models.Theme.System),
+        };
     }
 
-    public string TranslationLanguage
+    public SelectionItem<Theme> Theme
+    {
+        set => _configuration.Theme = value.Value;
+    }
+
+    public IReadOnlyList<SelectionItem<string>> AvailableTranslationLanguages
     {
         get
         {
-            if (string.IsNullOrEmpty(_configuration.TranslationLanguage))
+            var availableLanguages = new List<SelectionItem<string>>()
             {
-                return Translator._("System");
-            }
-            else if (_configuration.TranslationLanguage == "C")
-            {
-                return "en_US";
-            }
-            else
-            {
-                return _configuration.TranslationLanguage;
-            }
-        }
-
-        set
-        {
-            _configuration.TranslationLanguage = value switch
-            {
-                _ when value == Translator._("System") => string.Empty,
-                "en_US" => "C",
-                _ => value
+                new SelectionItem<string>(string.Empty, Translator._("System"), string.IsNullOrEmpty(_configuration.TranslationLanguage)),
+                new SelectionItem<string>("C", "en_US", _configuration.TranslationLanguage == "C")
             };
+            foreach (var language in Translator.AvailableLanguages)
+            {
+                availableLanguages.Add(new SelectionItem<string>(language, language, _configuration.TranslationLanguage == language));
+            }
+            return availableLanguages;
         }
+    }
+
+    public SelectionItem<string> TranslationLanguage
+    {
+        set => _configuration.TranslationLanguage = value.Value;
     }
 
     public bool AllowPreviewUpdates

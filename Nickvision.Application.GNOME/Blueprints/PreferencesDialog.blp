@@ -13,9 +13,6 @@ Adw.PreferencesDialog root {
 
       Adw.ComboRow themeRow {
         title: _("Theme");
-        model: Gtk.StringList {
-          strings [C_("Theme", "Light"), C_("Theme", "Dark"), C_("Theme", "System")]
-        };
 
         [prefix]
         Gtk.Image {

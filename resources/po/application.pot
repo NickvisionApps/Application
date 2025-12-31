@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-25 16:23-0500\n"
+"POT-Creation-Date: 2025-12-31 11:06-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -57,40 +57,22 @@ msgid "Open a folder (or drag one into the app) to get started"
 msgstr ""
 
 #: Nickvision.Application.GNOME/Blueprints/PreferencesDialog.blp:12
-#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:20
+#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:23
 msgid "User Interface"
 msgstr ""
 
 #: Nickvision.Application.GNOME/Blueprints/PreferencesDialog.blp:15
-#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:21
+#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:24
 msgid "Theme"
 msgstr ""
 
-#: Nickvision.Application.GNOME/Blueprints/PreferencesDialog.blp:17
-#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:22
-msgctxt "Theme"
-msgid "Light"
-msgstr ""
-
-#: Nickvision.Application.GNOME/Blueprints/PreferencesDialog.blp:17
-#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:23
-msgctxt "Theme"
-msgid "Dark"
-msgstr ""
-
-#: Nickvision.Application.GNOME/Blueprints/PreferencesDialog.blp:17
-#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:24
-msgctxt "Theme"
-msgid "System"
-msgstr ""
-
-#: Nickvision.Application.GNOME/Blueprints/PreferencesDialog.blp:27
-#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:25
+#: Nickvision.Application.GNOME/Blueprints/PreferencesDialog.blp:24
+#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:26
 msgid "Translation Language"
 msgstr ""
 
-#: Nickvision.Application.GNOME/Blueprints/PreferencesDialog.blp:28
-#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:26
+#: Nickvision.Application.GNOME/Blueprints/PreferencesDialog.blp:25
+#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:27
 msgid "An application restart is required for a change to take effect"
 msgstr ""
 
@@ -117,12 +99,6 @@ msgstr ""
 #: Nickvision.Application.GNOME/Blueprints/ShortcutsDialog.blp:38
 #: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:88
 msgid "Close Folder"
-msgstr ""
-
-#: Nickvision.Application.Shared/Controllers/PreferencesViewController.cs:26
-#: Nickvision.Application.Shared/Controllers/PreferencesViewController.cs:42
-#: Nickvision.Application.Shared/Controllers/PreferencesViewController.cs:58
-msgid "System"
 msgstr ""
 
 #: Nickvision.Application.Shared/Controllers/MainWindowController.cs:45
@@ -186,6 +162,25 @@ msgstr ""
 
 #: Nickvision.Application.Shared/Controllers/MainWindowController.cs:162
 msgid "Unable to download and install the update"
+msgstr ""
+
+#: Nickvision.Application.Shared/Controllers/PreferencesViewController.cs:28
+msgctxt "Theme"
+msgid "Light"
+msgstr ""
+
+#: Nickvision.Application.Shared/Controllers/PreferencesViewController.cs:29
+msgctxt "Theme"
+msgid "Dark"
+msgstr ""
+
+#: Nickvision.Application.Shared/Controllers/PreferencesViewController.cs:30
+msgctxt "Theme"
+msgid "System"
+msgstr ""
+
+#: Nickvision.Application.Shared/Controllers/PreferencesViewController.cs:45
+msgid "System"
 msgstr ""
 
 #: Nickvision.Application.Shared/Services/FolderService.cs:41
@@ -276,7 +271,7 @@ msgstr ""
 
 #: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:91
 #: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:100
-#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:19
+#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:22
 msgid "Settings"
 msgstr ""
 
@@ -317,14 +312,14 @@ msgstr ""
 msgid "Downloading update: {0}%"
 msgstr ""
 
-#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:27
+#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:29
 msgid "Receive Preview Updates"
 msgstr ""
 
-#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:28
+#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:30
 msgid "On"
 msgstr ""
 
-#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:29
+#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:31
 msgid "Off"
 msgstr ""

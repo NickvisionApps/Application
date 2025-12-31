@@ -1,6 +1,9 @@
-﻿using Microsoft.UI.Xaml.Controls;
+﻿using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using Nickvision.Application.Shared.Controllers;
 using Nickvision.Application.Shared.Models;
+using Nickvision.Desktop.Application;
+using Nickvision.Desktop.WinUI.Helpers;
 using System.Threading.Tasks;
 
 namespace Nickvision.Application.WinUI.Views;
@@ -19,21 +22,19 @@ public sealed partial class SettingsPage : Page
         LblSettings.Text = _controller.Translator._("Settings");
         SelectorUI.Text = _controller.Translator._("User Interface");
         RowTheme.Header = _controller.Translator._("Theme");
-        CmbTheme.Items.Add(_controller.Translator._p("Theme", "Light"));
-        CmbTheme.Items.Add(_controller.Translator._p("Theme", "Dark"));
-        CmbTheme.Items.Add(_controller.Translator._p("Theme", "System"));
+        CmbTheme.ItemsSource = _controller.Themes;
         RowTranslationLanguage.Header = _controller.Translator._("Translation Language");
         RowTranslationLanguage.Description = _controller.Translator._("An application restart is required for a change to take effect");
+        CmbTranslationLanguage.ItemsSource = _controller.AvailableTranslationLanguages;
         RowPreviewUpdates.Header = _controller.Translator._("Receive Preview Updates");
         TglPreviewUpdates.OnContent = _controller.Translator._("On");
         TglPreviewUpdates.OffContent = _controller.Translator._("Off");
-        // Configuration
-        CmbTheme.SelectedIndex = (int)_controller.Theme;
-        foreach (var language in _controller.AvailableTranslationLanguages)
-        {
-            CmbTranslationLanguage.Items.Add(language);
-        }
-        CmbTranslationLanguage.SelectedItem = _controller.TranslationLanguage;
+    }
+
+    private void Page_Loaded(object sender, RoutedEventArgs e)
+    {
+        CmbTheme.SelectSelectionItem();
+        CmbTranslationLanguage.SelectSelectionItem();
         TglPreviewUpdates.IsOn = _controller.AllowPreviewUpdates;
         _constructing = false;
     }
@@ -54,8 +55,8 @@ public sealed partial class SettingsPage : Page
         {
             return;
         }
-        _controller.Theme = (Theme)CmbTheme.SelectedIndex;
-        _controller.TranslationLanguage = (CmbTranslationLanguage.SelectedItem as string)!;
+        _controller.Theme = (CmbTheme.SelectedItem as SelectionItem<Theme>)!;
+        _controller.TranslationLanguage = (CmbTranslationLanguage.SelectedItem as SelectionItem<string>)!;
         _controller.AllowPreviewUpdates = TglPreviewUpdates.IsOn;
         await _controller.SaveConfigurationAsync();
     }
