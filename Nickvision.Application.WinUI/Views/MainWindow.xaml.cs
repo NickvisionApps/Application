@@ -270,7 +270,7 @@ public sealed partial class MainWindow : Window
     {
         var aboutDialog = new AboutDialog(_controller.AppInfo, _controller.GetDebugInformation(), _controller.Translator)
         {
-            RequestedTheme = MainGrid.RequestedTheme,
+            RequestedTheme = MainGrid.ActualTheme,
             XamlRoot = MainGrid.XamlRoot
         };
         await aboutDialog.ShowAsync();
