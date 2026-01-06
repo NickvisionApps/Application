@@ -176,23 +176,16 @@
   },
   {
     "dest": "nuget-sources",
-    "dest-filename": "nickvision.desktop.2025.12.0.nupkg",
-    "sha512": "4cec62cc21c0f270dbee36d085859f14e39e44d62a405b79caac43707ffc2a5e7fa710ead0d25bbab53c4f1ec66e85cab74cff548f578dc52af97cdff69dc3e4",
-    "url": "https://api.nuget.org/v3-flatcontainer/nickvision.desktop/2025.12.0/nickvision.desktop.2025.12.0.nupkg",
+    "dest-filename": "nickvision.desktop.2025.12.3.nupkg",
+    "sha512": "0c3d5b32702cf99d29428e735e2ce9b34fc1b259b7f1938e891a48c32d379dd8e6b086822b5cd82ed031f32f0428c8eb28f9bf4bfd958acec5778b8d1a356b4d",
+    "url": "https://api.nuget.org/v3-flatcontainer/nickvision.desktop/2025.12.3/nickvision.desktop.2025.12.3.nupkg",
     "type": "file"
   },
   {
     "dest": "nuget-sources",
-    "dest-filename": "nickvision.desktop.2025.12.1.nupkg",
-    "sha512": "1342f343b7f1520dbffd44792cf9a440018e10f8f231e77f973c670641cae0374b56a0716558c3def5e1dea570834f98a05f7a77fd39c8f1007d1c4ccf188681",
-    "url": "https://api.nuget.org/v3-flatcontainer/nickvision.desktop/2025.12.1/nickvision.desktop.2025.12.1.nupkg",
-    "type": "file"
-  },
-  {
-    "dest": "nuget-sources",
-    "dest-filename": "nickvision.desktop.gnome.2025.12.0.nupkg",
-    "sha512": "c9daa3c439d1923582c5f9de7b287b2a387965ce66c21604abd5e7cf0c76314bb9cf7362acad04b7768d94943c08ea3b3a3f6eefd079fe811ee606f1092797fb",
-    "url": "https://api.nuget.org/v3-flatcontainer/nickvision.desktop.gnome/2025.12.0/nickvision.desktop.gnome.2025.12.0.nupkg",
+    "dest-filename": "nickvision.desktop.gnome.2025.12.1.nupkg",
+    "sha512": "28f4fa51316f5c47119588468e2556d68fb86136bd44f9224324385627a493960dc88733c8e0a25362369dc90a9a69fc1a8004799fad806b0d06ce7a9fd05cfa",
+    "url": "https://api.nuget.org/v3-flatcontainer/nickvision.desktop.gnome/2025.12.1/nickvision.desktop.gnome.2025.12.1.nupkg",
     "type": "file"
   },
   {
