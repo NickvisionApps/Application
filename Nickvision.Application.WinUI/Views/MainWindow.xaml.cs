@@ -1,6 +1,7 @@
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.Windows.Storage.Pickers;
 using Nickvision.Application.Shared.Controllers;
@@ -83,20 +84,15 @@ public sealed partial class MainWindow : Window
         AppWindow.Title = _controller.AppInfo.ShortName;
         TitleBar.Title = _controller.AppInfo.ShortName;
         TitleBar.Subtitle = _controller.AppInfo.Version!.IsPreview ? _controller.Translator._("Preview") : string.Empty;
-        MenuFile.Title = _controller.Translator._("File");
-        MenuOpenFolder.Text = _controller.Translator._("Open Folder");
-        MenuCloseFolder.Text = _controller.Translator._("Close Folder");
-        MenuExit.Text = _controller.Translator._("Exit");
-        MenuEdit.Title = _controller.Translator._("Edit");
-        MenuSettings.Text = _controller.Translator._("Settings");
-        MenuHelp.Title = _controller.Translator._("Help");
+        NavItemHome.Content = _controller.Translator._("Home");
+        NavItemFolder.Content = _controller.Translator._("Folder");
+        NavItemUpdates.Content = _controller.Translator._("Updating");
+        NavItemHelp.Content = _controller.Translator._("Help");
         MenuCheckForUpdates.Text = _controller.Translator._("Check for Updates");
         MenuGitHubRepo.Text = _controller.Translator._("GitHub Repo");
         MenuReportABug.Text = _controller.Translator._("Report a Bug");
         MenuDiscussions.Text = _controller.Translator._("Discussions");
         MenuAbout.Text = _controller.Translator._("About {0}", _controller.AppInfo.ShortName!);
-        NavItemHome.Content = _controller.Translator._("Home");
-        NavItemFolder.Content = _controller.Translator._("Folder");
         NavItemSettings.Content = _controller.Translator._("Settings");
         StatusHome.Title = _controller.Greeting;
         StatusHome.Description = _controller.Translator._("Open a folder to get started");
@@ -146,6 +142,8 @@ public sealed partial class MainWindow : Window
             };
         }
     }
+
+    private void NavItem_Tapped(object sender, TappedRoutedEventArgs e) => FlyoutBase.ShowAttachedFlyout(sender as FrameworkElement);
 
     private void Controller_AppNotificationSent(object? sender, AppNotificationSentEventArgs args)
     {
@@ -249,10 +247,6 @@ public sealed partial class MainWindow : Window
 
     private void CloseFolder(object sender, RoutedEventArgs e) => _controller.CloseFolder();
 
-    private void Exit(object sender, RoutedEventArgs e) => Close();
-
-    private void Settings(object sender, RoutedEventArgs e) => NavItemSettings.IsSelected = true;
-
     private async void CheckForUpdates(object sender, RoutedEventArgs e)
     {
         MenuCheckForUpdates.IsEnabled = false;
@@ -286,14 +280,11 @@ public sealed partial class MainWindow : Window
                 if (p.Completed)
                 {
                     FlyoutProgress.Hide();
-                    BtnProgress.Visibility = Visibility.Collapsed;
-                    ToolTipService.SetToolTip(BtnProgress, string.Empty);
+                    NavItemUpdates.Visibility = Visibility.Collapsed;
                     return;
                 }
                 var message = _controller.Translator._("Downloading update: {0}%", Math.Round(p.Percentage * 100));
-                BtnProgress.Visibility = Visibility.Visible;
-                ToolTipService.SetToolTip(BtnProgress, message);
-                IconProgress.Glyph = "\uE896";
+                NavItemUpdates.Visibility = Visibility.Visible;
                 StsProgress.Description = message;
                 BarProgress.Value = p.Percentage * 100;
             });
