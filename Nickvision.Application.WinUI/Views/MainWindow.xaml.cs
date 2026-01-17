@@ -8,18 +8,15 @@ using Nickvision.Application.Shared.Controllers;
 using Nickvision.Application.Shared.Events;
 using Nickvision.Application.Shared.Models;
 using Nickvision.Application.WinUI.Controls;
-using Nickvision.Desktop.Application;
 using Nickvision.Desktop.Filesystem;
 using Nickvision.Desktop.Network;
 using Nickvision.Desktop.Notifications;
+using Nickvision.Desktop.WinUI.Helpers;
 using System;
 using System.IO;
 using System.Threading.Tasks;
-using Vanara.PInvoke;
-using Windows.Graphics;
 using Windows.Storage;
 using Windows.System;
-using WinRT.Interop;
 
 namespace Nickvision.Application.WinUI.Views;
 
@@ -33,43 +30,21 @@ public sealed partial class MainWindow : Window
     }
 
     private readonly MainWindowController _controller;
-    private readonly nint _hwnd;
     private RoutedEventHandler? _notificationClickHandler;
 
     public MainWindow(MainWindowController controller)
     {
         InitializeComponent();
         _controller = controller;
-        _hwnd = WindowNative.GetWindowHandle(this);
         _notificationClickHandler = null;
-        // Theme
+        // Config
         MainGrid.RequestedTheme = _controller.Theme switch
         {
             Theme.Light => ElementTheme.Light,
             Theme.Dark => ElementTheme.Dark,
             _ => ElementTheme.Default
         };
-        // Size
-        var windowGeometry = _controller.WindowGeometry;
-        if (windowGeometry.IsMaximized)
-        {
-            AppWindow.Resize(new SizeInt32
-            {
-                Width = 900,
-                Height = 700
-            });
-            User32.ShowWindow(_hwnd, ShowWindowCommand.SW_SHOWMAXIMIZED);
-        }
-        else
-        {
-            AppWindow.MoveAndResize(new RectInt32
-            {
-                X = windowGeometry.X,
-                Y = windowGeometry.Y,
-                Width = windowGeometry.Width,
-                Height = windowGeometry.Height
-            });
-        }
+        this.Geometry = _controller.WindowGeometry;
         // TitleBar
         AppWindow.SetIcon("./Assets/org.nickvision.application.ico");
         ExtendsContentIntoTitleBar = true;
@@ -115,7 +90,7 @@ public sealed partial class MainWindow : Window
             args.Cancel = true;
             return;
         }
-        _controller.WindowGeometry = new WindowGeometry(AppWindow.Size.Width, AppWindow.Size.Height, User32.IsZoomed(_hwnd), AppWindow.Position.X, AppWindow.Position.Y);
+        _controller.WindowGeometry = this.Geometry;
         _controller.Dispose();
     }
 

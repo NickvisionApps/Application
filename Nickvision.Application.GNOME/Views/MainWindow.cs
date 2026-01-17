@@ -1,6 +1,5 @@
 ﻿using Nickvision.Application.Shared.Controllers;
 using Nickvision.Application.Shared.Events;
-using Nickvision.Desktop.Application;
 using Nickvision.Desktop.GNOME.Controls;
 using Nickvision.Desktop.GNOME.Helpers;
 using Nickvision.Desktop.Notifications;
@@ -103,15 +102,7 @@ public class MainWindow : Adw.ApplicationWindow
     public new void Present()
     {
         base.Present();
-        var windowGeometry = _controller.WindowGeometry;
-        if (windowGeometry.IsMaximized)
-        {
-            Maximize();
-        }
-        else
-        {
-            SetDefaultSize(windowGeometry.Width, windowGeometry.Height);
-        }
+        this.WindowGeometry = _controller.WindowGeometry;
     }
 
     private bool Window_OnCloseRequest(Gtk.Window sender, EventArgs args)
@@ -121,7 +112,7 @@ public class MainWindow : Adw.ApplicationWindow
             return true;
         }
         GetDefaultSize(out int width, out int height);
-        _controller.WindowGeometry = new WindowGeometry(width, height, IsMaximized());
+        _controller.WindowGeometry = this.WindowGeometry;
         _controller.Dispose();
         Destroy();
         return false;
