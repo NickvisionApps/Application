@@ -183,6 +183,13 @@
   },
   {
     "dest": "nuget-sources",
+    "dest-filename": "nickvision.desktop.2026.1.3.nupkg",
+    "sha512": "d4c13a0f72f03d511f0f6c73e411678fbf5eb44342ff8ce096b13d4c715a5dc48237a3a15ed825287fe465b4d2d52ad66fd9d951bd1a0ef80062d6d4fcaf50f0",
+    "url": "https://api.nuget.org/v3-flatcontainer/nickvision.desktop/2026.1.3/nickvision.desktop.2026.1.3.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
     "dest-filename": "nickvision.desktop.gnome.2026.1.0.nupkg",
     "sha512": "7d9cb49dffecb127409c55cb7cce17185e3a01ab2ba46a12acf47b66a3861f960b25534abd014ce5176c075fdb5e4836ceed4e761bb16dc788eb98bcebc7287b",
     "url": "https://api.nuget.org/v3-flatcontainer/nickvision.desktop.gnome/2026.1.0/nickvision.desktop.gnome.2026.1.0.nupkg",
@@ -228,6 +235,13 @@
     "dest-filename": "system.drawing.common.10.0.2.nupkg",
     "sha512": "1fa9c7f4d7310b4ba69e04ea58838821593b98d865249725a66e5184cd5b8429555cace4ec870c22ad6b665d53a8def604b48122164f6f112e4a65c5e8ae0c7f",
     "url": "https://api.nuget.org/v3-flatcontainer/system.drawing.common/10.0.2/system.drawing.common.10.0.2.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "tmds.dbus.0.23.0.nupkg",
+    "sha512": "c4492a04b0883098fd2bf0e722077d6b35ae8e70fcac8880fcbabafd4eaaca8a493fe98fa842e259051e33da73b70419a777714b7ad12c7083296743fb8f6bff",
+    "url": "https://api.nuget.org/v3-flatcontainer/tmds.dbus/0.23.0/tmds.dbus.0.23.0.nupkg",
     "type": "file"
   },
   {
