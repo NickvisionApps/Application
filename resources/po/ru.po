@@ -94,6 +94,7 @@ msgid "Folder"
 msgstr "Папка"
 
 #: Nickvision.Application.GNOME/Blueprints/ShortcutsDialog.blp:33
+#: Nickvision.Application.GNOME/Views/MainWindow.cs:164
 #: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:74
 msgid "Open Folder"
 msgstr "Открыть Папку"
@@ -101,6 +102,26 @@ msgstr "Открыть Папку"
 #: Nickvision.Application.GNOME/Blueprints/ShortcutsDialog.blp:38
 msgid "Close Folder"
 msgstr "Закрыть папку"
+
+#: Nickvision.Application.GNOME/Views/MainWindow.cs:138
+#: Nickvision.Application.WinUI/Controls/AboutDialog.xaml.cs:22
+#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:76
+#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:146
+msgid "Close"
+msgstr "Закрыть"
+
+#: Nickvision.Application.GNOME/Views/MainWindow.cs:150
+#, fuzzy, csharp-format
+msgid "There is {0} file in the folder."
+msgid_plural "There are {0} files in the folder"
+msgstr[0] "В папке {0} файл."
+msgstr[1] "В папке {0} файла."
+msgstr[2] "В папке {0} файлов."
+
+#: Nickvision.Application.GNOME/Views/MainWindow.cs:204
+#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:67
+msgid "GitHub Repo"
+msgstr "Репозиторий GitHub"
 
 #: Nickvision.Application.Shared/Controllers/MainWindowController.cs:45
 msgid "Application"
@@ -205,12 +226,6 @@ msgstr "Папка закрыта."
 msgid "About {0}"
 msgstr ""
 
-#: Nickvision.Application.WinUI/Controls/AboutDialog.xaml.cs:22
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:76
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:146
-msgid "Close"
-msgstr "Закрыть"
-
 #: Nickvision.Application.WinUI/Controls/AboutDialog.xaml.cs:24
 msgid "General"
 msgstr ""
@@ -280,10 +295,6 @@ msgstr ""
 msgid "Check for Updates"
 msgstr ""
 
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:67
-msgid "GitHub Repo"
-msgstr "Репозиторий GitHub"
-
 #: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:68
 msgid "Report a Bug"
 msgstr ""
@@ -331,13 +342,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Dark"
 #~ msgstr "Тёмная"
-
-#, fuzzy
-#~ msgid "There is {} file in the folder."
-#~ msgid_plural "There are {} files in the folder."
-#~ msgstr[0] "В папке {0} файл."
-#~ msgstr[1] "В папке {0} файла."
-#~ msgstr[2] "В папке {0} файлов."
 
 #~ msgid "No Folder Opened"
 #~ msgstr "Папка не открыта"

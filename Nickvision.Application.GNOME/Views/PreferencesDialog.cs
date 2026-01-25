@@ -30,7 +30,7 @@ public class PreferencesDialog : Adw.PreferencesDialog
         _builder = builder;
         _themes = controller.Themes;
         _languages = controller.AvailableTranslationLanguages;
-        builder.Connect(this);
+        _builder.Connect(this);
         // Load
         _themeRow!.SetModel(_themes);
         _languageRow!.SetModel(_languages);
