@@ -1,9 +1,7 @@
 ﻿using Nickvision.Application.Shared.Controllers;
 using Nickvision.Application.Shared.Models;
-using Nickvision.Desktop.Application;
 using Nickvision.Desktop.GNOME.Helpers;
 using System;
-using System.Collections.Generic;
 
 namespace Nickvision.Application.GNOME.Views;
 
@@ -11,8 +9,6 @@ public class PreferencesDialog : Adw.PreferencesDialog
 {
     private readonly PreferencesViewController _controller;
     private readonly Gtk.Builder _builder;
-    private IReadOnlyList<SelectionItem<Theme>> _themes;
-    private IReadOnlyList<SelectionItem<string>> _languages;
 
     [Gtk.Connect("themeRow")]
     private Adw.ComboRow? _themeRow;
@@ -28,12 +24,10 @@ public class PreferencesDialog : Adw.PreferencesDialog
     {
         _controller = controller;
         _builder = builder;
-        _themes = controller.Themes;
-        _languages = controller.AvailableTranslationLanguages;
         _builder.Connect(this);
         // Load
-        _themeRow!.SetModel(_themes);
-        _languageRow!.SetModel(_languages);
+        _themeRow!.SetModel(_controller.Themes);
+        _languageRow!.SetModel(_controller.AvailableTranslationLanguages);
         // Events
         OnClosed += Dialog_OnClosed;
         _themeRow!.OnNotify += ThemeRow_OnNotify;
@@ -41,7 +35,7 @@ public class PreferencesDialog : Adw.PreferencesDialog
 
     private async void Dialog_OnClosed(Adw.Dialog sender, EventArgs args)
     {
-        _controller.TranslationLanguage = _languages[(int)_languageRow!.Selected];
+        _controller.TranslationLanguage = _controller.AvailableTranslationLanguages[(int)_languageRow!.Selected];
         await _controller.SaveConfigurationAsync();
     }
 
@@ -49,8 +43,8 @@ public class PreferencesDialog : Adw.PreferencesDialog
     {
         if (args.Pspec.GetName() == "selected-item")
         {
-            _controller.Theme = _themes[(int)_themeRow!.Selected];
-            Adw.StyleManager.GetDefault().ColorScheme = _themes[(int)_themeRow!.Selected].Value switch
+            _controller.Theme = _controller.Themes[(int)_themeRow!.Selected];
+            Adw.StyleManager.GetDefault().ColorScheme = _controller.Themes[(int)_themeRow!.Selected].Value switch
             {
                 Theme.Light => Adw.ColorScheme.ForceLight,
                 Theme.Dark => Adw.ColorScheme.ForceDark,
