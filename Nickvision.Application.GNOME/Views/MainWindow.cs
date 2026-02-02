@@ -12,13 +12,6 @@ public class MainWindow : Adw.ApplicationWindow
 {
     private readonly MainWindowController _controller;
     private readonly Gtk.Builder _builder;
-    private readonly Gtk.DropTarget _dropTarget;
-    private readonly Gio.SimpleAction _actQuit;
-    private readonly Gio.SimpleAction _actOpenFolder;
-    private readonly Gio.SimpleAction _actCloseFolder;
-    private readonly Gio.SimpleAction _actPreferences;
-    private readonly Gio.SimpleAction _actKeyboardShortcuts;
-    private readonly Gio.SimpleAction _actAbout;
 
     [Gtk.Connect("windowTitle")]
     private Adw.WindowTitle? _windowTitle;
@@ -42,8 +35,8 @@ public class MainWindow : Adw.ApplicationWindow
 
     private MainWindow(MainWindowController controller, Adw.Application application, Gtk.Builder builder) : base(new Adw.Internal.ApplicationWindowHandle(builder.GetPointer("root"), false))
     {
-        Application = application;
         _controller = controller;
+        _application = application;
         _builder = builder;
         _builder.Connect(this);
         // Window
@@ -57,46 +50,46 @@ public class MainWindow : Adw.ApplicationWindow
         _pageGreeting!.Title = _controller.Greeting;
         // Events
         OnCloseRequest += Window_OnCloseRequest;
-        _controller.AppNotificationSent += (sender, args) => GLib.Functions.IdleAdd(200, () =>
+        _controller.AppNotificationSent += (sender, args) => GLib.Functions.IdleAdd(0, () =>
         {
             Controller_AppNotificationSent(sender, args);
             return false;
         });
         _controller.FolderChanged += Controller_FolderChanged;
         // Drop target
-        _dropTarget = Gtk.DropTarget.New(Gio.FileHelper.GetGType(), Gdk.DragAction.Copy);
-        _dropTarget.OnDrop += Window_OnDrop;
-        AddController(_dropTarget);
+        var dropTarget = Gtk.DropTarget.New(Gio.FileHelper.GetGType(), Gdk.DragAction.Copy);
+        dropTarget.OnDrop += Window_OnDrop;
+        AddController(dropTarget);
         // Quit action
-        _actQuit = Gio.SimpleAction.New("quit", null);
-        _actQuit.OnActivate += Quit;
-        AddAction(_actQuit);
-        Application!.SetAccelsForAction("win.quit", ["<Ctrl>q"]);
+        var actQuit = Gio.SimpleAction.New("quit", null);
+        actQuit.OnActivate += Quit;
+        AddAction(actQuit);
+        _application.SetAccelsForAction("win.quit", ["<Ctrl>q"]);
         // Open folder action
-        _actOpenFolder = Gio.SimpleAction.New("openFolder", null);
-        _actOpenFolder.OnActivate += OpenFolder;
-        AddAction(_actOpenFolder);
-        Application!.SetAccelsForAction("win.openFolder", ["<Ctrl>o"]);
+        var actOpenFolder = Gio.SimpleAction.New("openFolder", null);
+        actOpenFolder.OnActivate += OpenFolder;
+        AddAction(actOpenFolder);
+        _application.SetAccelsForAction("win.openFolder", ["<Ctrl>o"]);
         // Close folder action
-        _actCloseFolder = Gio.SimpleAction.New("closeFolder", null);
-        _actCloseFolder.OnActivate += CloseFolder;
-        AddAction(_actCloseFolder);
-        Application!.SetAccelsForAction("win.closeFolder", ["<Ctrl>w"]);
+        var actCloseFolder = Gio.SimpleAction.New("closeFolder", null);
+        actCloseFolder.OnActivate += CloseFolder;
+        AddAction(actCloseFolder);
+        _application.SetAccelsForAction("win.closeFolder", ["<Ctrl>w"]);
         // Preferences action
-        _actPreferences = Gio.SimpleAction.New("preferences", null);
-        _actPreferences.OnActivate += Preferences;
-        AddAction(_actPreferences);
-        Application!.SetAccelsForAction("win.preferences", ["<Ctrl>period"]);
+        var actPreferences = Gio.SimpleAction.New("preferences", null);
+        actPreferences.OnActivate += Preferences;
+        AddAction(actPreferences);
+        _application.SetAccelsForAction("win.preferences", ["<Ctrl>period"]);
         // Keyboard shortcuts action
-        _actKeyboardShortcuts = Gio.SimpleAction.New("keyboardShortcuts", null);
-        _actKeyboardShortcuts.OnActivate += KeyboardShortcuts;
-        AddAction(_actKeyboardShortcuts);
-        Application!.SetAccelsForAction("win.keyboardShortcuts", ["<Ctrl>question"]);
+        var actKeyboardShortcuts = Gio.SimpleAction.New("keyboardShortcuts", null);
+        actKeyboardShortcuts.OnActivate += KeyboardShortcuts;
+        AddAction(actKeyboardShortcuts);
+        _application.SetAccelsForAction("win.keyboardShortcuts", ["<Ctrl>question"]);
         // About action
-        _actAbout = Gio.SimpleAction.New("about", null);
-        _actAbout.OnActivate += About;
-        AddAction(_actAbout);
-        Application!.SetAccelsForAction("win.about", ["F1"]);
+        var actAbout = Gio.SimpleAction.New("about", null);
+        actAbout.OnActivate += About;
+        AddAction(actAbout);
+        _application.SetAccelsForAction("win.about", ["F1"]);
     }
 
     public new void Present()
@@ -154,7 +147,7 @@ public class MainWindow : Adw.ApplicationWindow
     {
         if (!Window_OnCloseRequest(this, new EventArgs()))
         {
-            Application!.Quit();
+            _application.Quit();
         }
     }
 
@@ -162,11 +155,15 @@ public class MainWindow : Adw.ApplicationWindow
     {
         var folderDialog = Gtk.FileDialog.New();
         folderDialog.Title = _controller.Translator._("Open Folder");
-        var file = await folderDialog.SelectFolderAsync(this);
-        if (file is not null)
+        try
         {
-            _controller.OpenFolder(file.GetPath()!);
+            var file = await folderDialog.SelectFolderAsync(this);
+            if (file is not null)
+            {
+                _controller.OpenFolder(file.GetPath()!);
+            }
         }
+        catch { }
     }
 
     private void CloseFolder(Gio.SimpleAction sender, Gio.SimpleAction.ActivateSignalArgs args) => _controller.CloseFolder();

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-25 12:39-0500\n"
+"POT-Creation-Date: 2026-01-27 20:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -92,7 +92,7 @@ msgid "Folder"
 msgstr ""
 
 #: Nickvision.Application.GNOME/Blueprints/ShortcutsDialog.blp:33
-#: Nickvision.Application.GNOME/Views/MainWindow.cs:164
+#: Nickvision.Application.GNOME/Views/MainWindow.cs:157
 #: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:74
 msgid "Open Folder"
 msgstr ""
@@ -101,21 +101,21 @@ msgstr ""
 msgid "Close Folder"
 msgstr ""
 
-#: Nickvision.Application.GNOME/Views/MainWindow.cs:138
+#: Nickvision.Application.GNOME/Views/MainWindow.cs:131
 #: Nickvision.Application.WinUI/Controls/AboutDialog.xaml.cs:22
 #: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:76
 #: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:146
 msgid "Close"
 msgstr ""
 
-#: Nickvision.Application.GNOME/Views/MainWindow.cs:150
+#: Nickvision.Application.GNOME/Views/MainWindow.cs:143
 #, csharp-format
 msgid "There is {0} file in the folder."
 msgid_plural "There are {0} files in the folder"
 msgstr[0] ""
 msgstr[1] ""
 
-#: Nickvision.Application.GNOME/Views/MainWindow.cs:204
+#: Nickvision.Application.GNOME/Views/MainWindow.cs:201
 #: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:67
 msgid "GitHub Repo"
 msgstr ""
