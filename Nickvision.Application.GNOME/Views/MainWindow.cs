@@ -11,6 +11,7 @@ namespace Nickvision.Application.GNOME.Views;
 public class MainWindow : Adw.ApplicationWindow
 {
     private readonly MainWindowController _controller;
+    private readonly Adw.Application _application;
     private readonly Gtk.Builder _builder;
 
     [Gtk.Connect("windowTitle")]
