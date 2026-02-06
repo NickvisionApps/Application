@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-27 20:26-0500\n"
+"POT-Creation-Date: 2026-02-01 22:11-0500\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -94,7 +94,7 @@ msgid "Folder"
 msgstr "Папка"
 
 #: Nickvision.Application.GNOME/Blueprints/ShortcutsDialog.blp:33
-#: Nickvision.Application.GNOME/Views/MainWindow.cs:157
+#: Nickvision.Application.GNOME/Views/MainWindow.cs:158
 #: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:74
 msgid "Open Folder"
 msgstr "Открыть Папку"
@@ -103,14 +103,14 @@ msgstr "Открыть Папку"
 msgid "Close Folder"
 msgstr "Закрыть папку"
 
-#: Nickvision.Application.GNOME/Views/MainWindow.cs:131
+#: Nickvision.Application.GNOME/Views/MainWindow.cs:132
 #: Nickvision.Application.WinUI/Controls/AboutDialog.xaml.cs:22
 #: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:76
 #: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:146
 msgid "Close"
 msgstr "Закрыть"
 
-#: Nickvision.Application.GNOME/Views/MainWindow.cs:143
+#: Nickvision.Application.GNOME/Views/MainWindow.cs:144
 #, fuzzy, csharp-format
 msgid "There is {0} file in the folder."
 msgid_plural "There are {0} files in the folder"
@@ -118,7 +118,7 @@ msgstr[0] "В папке {0} файл."
 msgstr[1] "В папке {0} файла."
 msgstr[2] "В папке {0} файлов."
 
-#: Nickvision.Application.GNOME/Views/MainWindow.cs:201
+#: Nickvision.Application.GNOME/Views/MainWindow.cs:202
 #: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:67
 msgid "GitHub Repo"
 msgstr "Репозиторий GitHub"
@@ -186,7 +186,7 @@ msgstr "Application"
 msgid "No update available"
 msgstr "Application"
 
-#: Nickvision.Application.Shared/Controllers/MainWindowController.cs:162
+#: Nickvision.Application.Shared/Controllers/MainWindowController.cs:161
 msgid "Unable to download and install the update"
 msgstr ""
 

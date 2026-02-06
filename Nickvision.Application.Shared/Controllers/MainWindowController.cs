@@ -153,7 +153,6 @@ public class MainWindowController : IDisposable
 
     public void CloseFolder() => _services.Get<IFolderService>()!.Close();
 
-#if OS_WINDOWS
     public async Task WindowsUpdateAsync(IProgress<DownloadProgress> progress)
     {
         var res = await _services.Get<IUpdaterService>()!.WindowsUpdate(_latestVersion, progress);
@@ -162,7 +161,6 @@ public class MainWindowController : IDisposable
             _services.Get<INotificationService>()!.Send(new AppNotification(_services.Get<ITranslationService>()!._("Unable to download and install the update"), NotificationSeverity.Error));
         }
     }
-#endif
 
     private void Dispose(bool disposing)
     {
