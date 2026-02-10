@@ -50,6 +50,7 @@ Compression=lzma
 SolidCompression=yes
 PrivilegesRequired=admin
 CloseApplications=yes
+RestartIfNeededByRun=no
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"

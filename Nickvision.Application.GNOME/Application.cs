@@ -8,10 +8,10 @@ namespace Nickvision.Application.GNOME;
 
 public class Application
 {
-    private string[] _args;
-    private MainWindowController _controller;
-    private Adw.Application _application;
-    private Gio.Resource _resource;
+    private readonly string[] _args;
+    private readonly MainWindowController _controller;
+    private readonly Adw.Application _application;
+    private readonly Gio.Resource _resource;
     private MainWindow? _mainWindow;
 
     public Application(string[] args)
