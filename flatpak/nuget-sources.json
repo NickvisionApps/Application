@@ -106,58 +106,58 @@
   },
   {
     "dest": "nuget-sources",
-    "dest-filename": "markdig.0.44.0.nupkg",
-    "sha512": "44474ebc2bda4767a11fa52913837b5a39861634e5654d7d0dcf060d931d7c3ef68a8c73f1c5d77798b8d31df1edb820b64c9738d63dc17337fb936b5e52551c",
-    "url": "https://api.nuget.org/v3-flatcontainer/markdig/0.44.0/markdig.0.44.0.nupkg",
+    "dest-filename": "markdig.0.45.0.nupkg",
+    "sha512": "ce989f2f64d76145e0bdfe20ee1d0840e177cef717f69a85bf8362fb7b19af972032b8f7a548177d660c002ad77aa164fa4eeabe1909c75f4fce4a2b88923ffe",
+    "url": "https://api.nuget.org/v3-flatcontainer/markdig/0.45.0/markdig.0.45.0.nupkg",
     "type": "file"
   },
   {
     "dest": "nuget-sources",
-    "dest-filename": "microsoft.aspnetcore.app.runtime.linux-arm.10.0.2.nupkg",
-    "sha512": "fe8d23032663900871505d6268388c0e57a629cc172c8a4a5b7c8698b73074928e2fa5f7d5f9426111d57821a52f97058ee01a05cfef0d12b2a08d9cd8c55329",
-    "url": "https://api.nuget.org/v3-flatcontainer/microsoft.aspnetcore.app.runtime.linux-arm/10.0.2/microsoft.aspnetcore.app.runtime.linux-arm.10.0.2.nupkg",
+    "dest-filename": "microsoft.aspnetcore.app.runtime.linux-arm.10.0.3.nupkg",
+    "sha512": "73bce2051c3f8b654d146d832141c3719af13fdbee584c004161f98426d0e8bd3e0518fad8ed84bda65bfa3cc1f75f88fc437b785048eda8c26c97e31932ebc4",
+    "url": "https://api.nuget.org/v3-flatcontainer/microsoft.aspnetcore.app.runtime.linux-arm/10.0.3/microsoft.aspnetcore.app.runtime.linux-arm.10.0.3.nupkg",
     "type": "file"
   },
   {
     "dest": "nuget-sources",
-    "dest-filename": "microsoft.aspnetcore.app.runtime.linux-arm64.10.0.2.nupkg",
-    "sha512": "628862f87b7388ebf758fdfd466dc58dbd60b6d81f8e3d8ca64d6816456e620c5ef75063cadf2f7924a6cede2d28b99c4d45ebffe4d4b80d25c7f3dfb4788f27",
-    "url": "https://api.nuget.org/v3-flatcontainer/microsoft.aspnetcore.app.runtime.linux-arm64/10.0.2/microsoft.aspnetcore.app.runtime.linux-arm64.10.0.2.nupkg",
+    "dest-filename": "microsoft.aspnetcore.app.runtime.linux-arm64.10.0.3.nupkg",
+    "sha512": "00bbe88f652bf7682e88780ebab689f0d3a4c48001a33f0f3c7482a4830cb3163c26aa385c26b6a8ee4035db4a82cc01712fb09b2356535d505742a65c85e4cf",
+    "url": "https://api.nuget.org/v3-flatcontainer/microsoft.aspnetcore.app.runtime.linux-arm64/10.0.3/microsoft.aspnetcore.app.runtime.linux-arm64.10.0.3.nupkg",
     "type": "file"
   },
   {
     "dest": "nuget-sources",
-    "dest-filename": "microsoft.aspnetcore.app.runtime.linux-x64.10.0.2.nupkg",
-    "sha512": "8f9de8fe3acd077fd52e44b437b4085db1ee2cb892f7373a826202336820caf865c9768c40151cbeed6f5ca289ced7760bcd423346aaf63f4253fca07172c82e",
-    "url": "https://api.nuget.org/v3-flatcontainer/microsoft.aspnetcore.app.runtime.linux-x64/10.0.2/microsoft.aspnetcore.app.runtime.linux-x64.10.0.2.nupkg",
+    "dest-filename": "microsoft.aspnetcore.app.runtime.linux-x64.10.0.3.nupkg",
+    "sha512": "5d4025c53fa23aff698734f8b0ac70de8c650f25864a1c3f33f7060d6885a7b4bbc4f906bd417c921284b12604900458b2b3f8c73383f81a42a7da1d9b6c0b3b",
+    "url": "https://api.nuget.org/v3-flatcontainer/microsoft.aspnetcore.app.runtime.linux-x64/10.0.3/microsoft.aspnetcore.app.runtime.linux-x64.10.0.3.nupkg",
     "type": "file"
   },
   {
     "dest": "nuget-sources",
-    "dest-filename": "microsoft.data.sqlite.core.10.0.2.nupkg",
-    "sha512": "75dfc62056c5c4d3058c4a2ac655aa847ac66cd94b447fb4a8d37e888fbede01498224b4d57f4534b34d00d09b2aeb44291f08be3fee6b1a28de6c269cd10de3",
-    "url": "https://api.nuget.org/v3-flatcontainer/microsoft.data.sqlite.core/10.0.2/microsoft.data.sqlite.core.10.0.2.nupkg",
+    "dest-filename": "microsoft.data.sqlite.core.10.0.3.nupkg",
+    "sha512": "1d4d9d3c403c9f3c7a6534d488849d4c27715b6fb7ea5d2eb9e1cfaa7e09623c0aa69068c5ed290367765b4796d9a1eeb665a959ce4d1c086d379095db606a61",
+    "url": "https://api.nuget.org/v3-flatcontainer/microsoft.data.sqlite.core/10.0.3/microsoft.data.sqlite.core.10.0.3.nupkg",
     "type": "file"
   },
   {
     "dest": "nuget-sources",
-    "dest-filename": "microsoft.netcore.app.runtime.linux-arm.10.0.2.nupkg",
-    "sha512": "26941d46fa3fc91795d56ad73740b3acfa12cdc8a03d36f837599e10ddb6ea1aadef19367dcbc05c93039ed0f9784368fe1676afb5ffae081c92328bcd76cbc8",
-    "url": "https://api.nuget.org/v3-flatcontainer/microsoft.netcore.app.runtime.linux-arm/10.0.2/microsoft.netcore.app.runtime.linux-arm.10.0.2.nupkg",
+    "dest-filename": "microsoft.netcore.app.runtime.linux-arm.10.0.3.nupkg",
+    "sha512": "9a69ca99f070a74707bb765544c2f3b539e7d838903f140c3701d6afb0a3e3628df6dfa7214fc75569c375990a337250f38d1b66d8c44a487de4c62ec29e6774",
+    "url": "https://api.nuget.org/v3-flatcontainer/microsoft.netcore.app.runtime.linux-arm/10.0.3/microsoft.netcore.app.runtime.linux-arm.10.0.3.nupkg",
     "type": "file"
   },
   {
     "dest": "nuget-sources",
-    "dest-filename": "microsoft.netcore.app.runtime.linux-arm64.10.0.2.nupkg",
-    "sha512": "f853e31f414ea94ef9aac4250320da18a184c059b09d5b4d13442dba0a0aa8cc0fdeb2585a77c01360c0f3856e69e28f521d2e8134627b3d4a57184ff6528cf5",
-    "url": "https://api.nuget.org/v3-flatcontainer/microsoft.netcore.app.runtime.linux-arm64/10.0.2/microsoft.netcore.app.runtime.linux-arm64.10.0.2.nupkg",
+    "dest-filename": "microsoft.netcore.app.runtime.linux-arm64.10.0.3.nupkg",
+    "sha512": "de3a9896270df83170ed8a401dadb5a206dd0b381e29b84934e7a06611707cc841f9c855a3df840d804f90c8dbd1d4efa5a362cc13347efc2760e9be2cad89d7",
+    "url": "https://api.nuget.org/v3-flatcontainer/microsoft.netcore.app.runtime.linux-arm64/10.0.3/microsoft.netcore.app.runtime.linux-arm64.10.0.3.nupkg",
     "type": "file"
   },
   {
     "dest": "nuget-sources",
-    "dest-filename": "microsoft.netcore.app.runtime.linux-x64.10.0.2.nupkg",
-    "sha512": "707e7d4c03f333eb9504bd4e8d31450cc5277978708f35a88d24e07e853a1d5198e0607bf30148c03f6c10107e69b053d1a91b3f8a7e65f50da7824a330551c0",
-    "url": "https://api.nuget.org/v3-flatcontainer/microsoft.netcore.app.runtime.linux-x64/10.0.2/microsoft.netcore.app.runtime.linux-x64.10.0.2.nupkg",
+    "dest-filename": "microsoft.netcore.app.runtime.linux-x64.10.0.3.nupkg",
+    "sha512": "ff9b987903d5f2cb5fd61c4d5412853efaa29470c3193d308cd35afa001baf68513fee0bb8dc875677ac3ebc1625e4a39714f94e7ed4e512e9961eb03ae292ad",
+    "url": "https://api.nuget.org/v3-flatcontainer/microsoft.netcore.app.runtime.linux-x64/10.0.3/microsoft.netcore.app.runtime.linux-x64.10.0.3.nupkg",
     "type": "file"
   },
   {
@@ -169,30 +169,30 @@
   },
   {
     "dest": "nuget-sources",
-    "dest-filename": "microsoft.win32.systemevents.10.0.2.nupkg",
-    "sha512": "25d85723f47ef098bb6022b03916b61af1b7b8d1b1079262ce1b935d34ee39b2f5faa98fd639bd0f7439041dd6e71342fb491a9a722f1fb758cbc5e33320e730",
-    "url": "https://api.nuget.org/v3-flatcontainer/microsoft.win32.systemevents/10.0.2/microsoft.win32.systemevents.10.0.2.nupkg",
+    "dest-filename": "microsoft.win32.systemevents.10.0.3.nupkg",
+    "sha512": "0c687e770eb29d68a3c6bfc75fe5adb9e05f7f729399b7a249b6327195f50f658245602489872615d65100efa387c867eba2b121584f9ba78ae31028702b1af4",
+    "url": "https://api.nuget.org/v3-flatcontainer/microsoft.win32.systemevents/10.0.3/microsoft.win32.systemevents.10.0.3.nupkg",
     "type": "file"
   },
   {
     "dest": "nuget-sources",
-    "dest-filename": "nickvision.desktop.2026.1.1.nupkg",
-    "sha512": "f3f49b5bcc89f1aa84f92af7371e0d6657965483aaa520f83d96ed21f4e2898c3022a5437d01c68e9108e64153937406563be04d392e2366ead3a9a156b0d722",
-    "url": "https://api.nuget.org/v3-flatcontainer/nickvision.desktop/2026.1.1/nickvision.desktop.2026.1.1.nupkg",
+    "dest-filename": "nickvision.desktop.2026.2.3.nupkg",
+    "sha512": "7070a3915305d372b02d1949e24f827abfc820e18b4e07d7eadf8f8d8274d74d078ff3825e859cbb0098780ac2ca972c4c652671911495165576bd2a655094d1",
+    "url": "https://api.nuget.org/v3-flatcontainer/nickvision.desktop/2026.2.3/nickvision.desktop.2026.2.3.nupkg",
     "type": "file"
   },
   {
     "dest": "nuget-sources",
-    "dest-filename": "nickvision.desktop.2026.1.3.nupkg",
-    "sha512": "d4c13a0f72f03d511f0f6c73e411678fbf5eb44342ff8ce096b13d4c715a5dc48237a3a15ed825287fe465b4d2d52ad66fd9d951bd1a0ef80062d6d4fcaf50f0",
-    "url": "https://api.nuget.org/v3-flatcontainer/nickvision.desktop/2026.1.3/nickvision.desktop.2026.1.3.nupkg",
+    "dest-filename": "nickvision.desktop.2026.2.6.nupkg",
+    "sha512": "2783223607498cbfc9ac7ce398bb01e0645504f745414389b891f6084de95638afd408556723662cb8930cda9a8088be4ca0f27830cb1da97d498f6e8ab76e1b",
+    "url": "https://api.nuget.org/v3-flatcontainer/nickvision.desktop/2026.2.6/nickvision.desktop.2026.2.6.nupkg",
     "type": "file"
   },
   {
     "dest": "nuget-sources",
-    "dest-filename": "nickvision.desktop.gnome.2026.1.0.nupkg",
-    "sha512": "7d9cb49dffecb127409c55cb7cce17185e3a01ab2ba46a12acf47b66a3861f960b25534abd014ce5176c075fdb5e4836ceed4e761bb16dc788eb98bcebc7287b",
-    "url": "https://api.nuget.org/v3-flatcontainer/nickvision.desktop.gnome/2026.1.0/nickvision.desktop.gnome.2026.1.0.nupkg",
+    "dest-filename": "nickvision.desktop.gnome.2026.2.1.nupkg",
+    "sha512": "88784116e8f106d3521ade425d8e32261e091cfa3cf3a78c517c1c2e862ca8f74ee812eaf4329d65f2eeb887e78f7cdc00f771bc499e6457df4cfda62a889cf6",
+    "url": "https://api.nuget.org/v3-flatcontainer/nickvision.desktop.gnome/2026.2.1/nickvision.desktop.gnome.2026.2.1.nupkg",
     "type": "file"
   },
   {
@@ -232,16 +232,16 @@
   },
   {
     "dest": "nuget-sources",
-    "dest-filename": "system.drawing.common.10.0.2.nupkg",
-    "sha512": "1fa9c7f4d7310b4ba69e04ea58838821593b98d865249725a66e5184cd5b8429555cace4ec870c22ad6b665d53a8def604b48122164f6f112e4a65c5e8ae0c7f",
-    "url": "https://api.nuget.org/v3-flatcontainer/system.drawing.common/10.0.2/system.drawing.common.10.0.2.nupkg",
+    "dest-filename": "system.drawing.common.10.0.3.nupkg",
+    "sha512": "0568e30d5fca2cd24c1b6c82ad177923f46a305b26576f8769c99d950f476f67e9ea7e76b6ab8d909bde815aba6168fa3bdf7becbe142c1d605cf6283588d8c2",
+    "url": "https://api.nuget.org/v3-flatcontainer/system.drawing.common/10.0.3/system.drawing.common.10.0.3.nupkg",
     "type": "file"
   },
   {
     "dest": "nuget-sources",
-    "dest-filename": "tmds.dbus.0.23.0.nupkg",
-    "sha512": "c4492a04b0883098fd2bf0e722077d6b35ae8e70fcac8880fcbabafd4eaaca8a493fe98fa842e259051e33da73b70419a777714b7ad12c7083296743fb8f6bff",
-    "url": "https://api.nuget.org/v3-flatcontainer/tmds.dbus/0.23.0/tmds.dbus.0.23.0.nupkg",
+    "dest-filename": "tmds.dbus.0.90.3.nupkg",
+    "sha512": "095a19691113aa9401014d10cec729fef24106b130b3e05e4c223b97d6b617972608c612690eab2db132bfce5f561aac8af00a1ba2e4c2b4098c1c406d6023e6",
+    "url": "https://api.nuget.org/v3-flatcontainer/tmds.dbus/0.90.3/tmds.dbus.0.90.3.nupkg",
     "type": "file"
   },
   {
