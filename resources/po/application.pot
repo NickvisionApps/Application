@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-21 10:22-0500\n"
+"POT-Creation-Date: 2026-02-16 18:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -92,7 +92,7 @@ msgid "Folder"
 msgstr ""
 
 #: Nickvision.Application.GNOME/Blueprints/ShortcutsDialog.blp:33
-#: Nickvision.Application.GNOME/Views/MainWindow.cs:154
+#: Nickvision.Application.GNOME/Views/MainWindow.cs:158
 #: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:74
 msgid "Open Folder"
 msgstr ""
@@ -101,21 +101,21 @@ msgstr ""
 msgid "Close Folder"
 msgstr ""
 
-#: Nickvision.Application.GNOME/Views/MainWindow.cs:128
+#: Nickvision.Application.GNOME/Views/MainWindow.cs:132
 #: Nickvision.Application.WinUI/Controls/AboutDialog.xaml.cs:22
 #: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:76
 #: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:146
 msgid "Close"
 msgstr ""
 
-#: Nickvision.Application.GNOME/Views/MainWindow.cs:140
+#: Nickvision.Application.GNOME/Views/MainWindow.cs:144
 #, csharp-format
 msgid "There is {0} file in the folder."
 msgid_plural "There are {0} files in the folder"
 msgstr[0] ""
 msgstr[1] ""
 
-#: Nickvision.Application.GNOME/Views/MainWindow.cs:198
+#: Nickvision.Application.GNOME/Views/MainWindow.cs:202
 #: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:67
 msgid "GitHub Repo"
 msgstr ""
@@ -183,21 +183,21 @@ msgstr ""
 msgid "Unable to download and install the update"
 msgstr ""
 
-#: Nickvision.Application.Shared/Controllers/PreferencesViewController.cs:28
+#: Nickvision.Application.Shared/Controllers/PreferencesViewController.cs:27
 msgid "System"
 msgstr ""
 
-#: Nickvision.Application.Shared/Controllers/PreferencesViewController.cs:39
+#: Nickvision.Application.Shared/Controllers/PreferencesViewController.cs:36
 msgctxt "Theme"
 msgid "Light"
 msgstr ""
 
-#: Nickvision.Application.Shared/Controllers/PreferencesViewController.cs:40
+#: Nickvision.Application.Shared/Controllers/PreferencesViewController.cs:37
 msgctxt "Theme"
 msgid "Dark"
 msgstr ""
 
-#: Nickvision.Application.Shared/Controllers/PreferencesViewController.cs:41
+#: Nickvision.Application.Shared/Controllers/PreferencesViewController.cs:38
 msgctxt "Theme"
 msgid "System"
 msgstr ""
