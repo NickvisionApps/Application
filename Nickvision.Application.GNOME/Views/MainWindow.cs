@@ -51,11 +51,7 @@ public class MainWindow : Adw.ApplicationWindow
         _pageGreeting!.Title = _controller.Greeting;
         // Events
         OnCloseRequest += Window_OnCloseRequest;
-        _controller.AppNotificationSent += (sender, args) => GLib.Functions.IdleAdd(0, () =>
-        {
-            Controller_AppNotificationSent(sender, args);
-            return false;
-        });
+        _controller.AppNotificationSent += Controller_AppNotificationSent;
         _controller.FolderChanged += Controller_FolderChanged;
         // Drop target
         var dropTarget = Gtk.DropTarget.New(Gio.FileHelper.GetGType(), Gdk.DragAction.Copy);
