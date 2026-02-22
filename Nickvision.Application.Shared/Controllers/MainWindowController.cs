@@ -33,7 +33,8 @@ public class MainWindowController : IDisposable
             Changelog = "- Initial release",
             SourceRepository = new Uri("https://github.com/NickvisionApps/Application"),
             IssueTracker = new Uri("https://github.com/NickvisionApps/Application/issues/new"),
-            DiscussionsForum = new Uri("https://github.com/NickvisionApps/Application/discussions")
+            DiscussionsForum = new Uri("https://github.com/NickvisionApps/Application/discussions"),
+            IsPortable = OperatingSystem.IsWindows() && _args.Contains("--portable")
         };
         // Register services
         var jsonFileService = _services.Add<IJsonFileService>(new JsonFileService(AppInfo))!;
