@@ -12,6 +12,7 @@ permissions:
 env:
   PROJECT_NAME: Nickvision.Application.WinUI
   INSTALLER_NAME: NickvisionApplicationSetup
+  SHORT_NAME: Application
 jobs:
   winui-windows:
     name: "WinUI on Windows"
@@ -65,7 +66,7 @@ jobs:
           New-Item -ItemType Directory -Force -Path "$portableDir\Release" | Out-Null
           Copy-Item -Path "$publishDir\*" -Destination "$portableDir\Release" -Recurse
           $WshShell = New-Object -comObject WScript.Shell
-          $Shortcut = $WshShell.CreateShortcut("$portableDir\Parabolic.lnk")
+          $Shortcut = $WshShell.CreateShortcut("$portableDir\${{ env.SHORT_NAME }}.lnk")
           $Shortcut.TargetPath = "Release\${{ env.PROJECT_NAME }}.exe"
           $Shortcut.Arguments = "--portable"
           $Shortcut.Save()
