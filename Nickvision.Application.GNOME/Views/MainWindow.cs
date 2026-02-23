@@ -1,5 +1,10 @@
-﻿using Nickvision.Application.Shared.Controllers;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Nickvision.Application.Shared.Controllers;
 using Nickvision.Application.Shared.Events;
+using Nickvision.Application.Shared.Models;
+using Nickvision.Desktop.Application;
+using Nickvision.Desktop.Globalization;
 using Nickvision.Desktop.GNOME.Controls;
 using Nickvision.Desktop.GNOME.Helpers;
 using Nickvision.Desktop.Notifications;
@@ -10,8 +15,10 @@ namespace Nickvision.Application.GNOME.Views;
 
 public class MainWindow : Adw.ApplicationWindow
 {
+    private readonly IServiceProvider _serviceProvider;
     private readonly MainWindowController _controller;
-    private readonly Adw.Application _application;
+    private readonly AppInfo _appInfo;
+    private readonly ITranslationService _translationService;
     private readonly Gtk.Builder _builder;
 
     [Gtk.Connect("windowTitle")]
@@ -29,25 +36,34 @@ public class MainWindow : Adw.ApplicationWindow
     [Gtk.Connect("pageFiles")]
     private Adw.StatusPage? _pageFiles;
 
-    public MainWindow(MainWindowController controller, Adw.Application application) : this(controller, application, Gtk.Builder.NewFromBlueprint("MainWindow", controller.Translator))
+    public MainWindow(IServiceProvider serviceProvider, MainWindowController controller, AppInfo appInfo, ITranslationService translationService, IGtkBuilderFactory builderFactory) : this(serviceProvider, controller, appInfo, translationService, builderFactory.Create("MainWindow"))
     {
 
     }
 
-    private MainWindow(MainWindowController controller, Adw.Application application, Gtk.Builder builder) : base(new Adw.Internal.ApplicationWindowHandle(builder.GetPointer("root"), false))
+    private MainWindow(IServiceProvider serviceProvider, MainWindowController controller, AppInfo appInfo, ITranslationService translationService, Gtk.Builder builder) : base(new Adw.Internal.ApplicationWindowHandle(builder.GetPointer("root"), false))
     {
+        var application = serviceProvider.GetRequiredService<Adw.Application>();
+        _serviceProvider = serviceProvider;
         _controller = controller;
-        _application = application;
+        _appInfo = appInfo;
+        _translationService = translationService;
         _builder = builder;
         _builder.Connect(this);
         // Window
-        Title = _controller.AppInfo.ShortName;
-        IconName = _controller.AppInfo.Id;
-        if (_controller.AppInfo.Version!.IsPreview)
+        Adw.StyleManager.GetDefault().ColorScheme = _controller.Theme switch
+        {
+            Theme.Light => Adw.ColorScheme.ForceLight,
+            Theme.Dark => Adw.ColorScheme.ForceDark,
+            _ => Adw.ColorScheme.Default
+        };
+        Title = _appInfo.ShortName;
+        IconName = _appInfo.Id;
+        if (_appInfo.Version!.IsPreview)
         {
             AddCssClass("devel");
         }
-        _windowTitle!.Title = _controller.AppInfo.ShortName;
+        _windowTitle!.Title = _appInfo.ShortName;
         _pageGreeting!.Title = _controller.Greeting;
         // Events
         OnCloseRequest += Window_OnCloseRequest;
@@ -65,32 +81,32 @@ public class MainWindow : Adw.ApplicationWindow
         var actQuit = Gio.SimpleAction.New("quit", null);
         actQuit.OnActivate += Quit;
         AddAction(actQuit);
-        _application.SetAccelsForAction("win.quit", ["<Ctrl>q"]);
+        application.SetAccelsForAction("win.quit", ["<Ctrl>q"]);
         // Open folder action
         var actOpenFolder = Gio.SimpleAction.New("openFolder", null);
         actOpenFolder.OnActivate += OpenFolder;
         AddAction(actOpenFolder);
-        _application.SetAccelsForAction("win.openFolder", ["<Ctrl>o"]);
+        application.SetAccelsForAction("win.openFolder", ["<Ctrl>o"]);
         // Close folder action
         var actCloseFolder = Gio.SimpleAction.New("closeFolder", null);
         actCloseFolder.OnActivate += CloseFolder;
         AddAction(actCloseFolder);
-        _application.SetAccelsForAction("win.closeFolder", ["<Ctrl>w"]);
+        application.SetAccelsForAction("win.closeFolder", ["<Ctrl>w"]);
         // Preferences action
         var actPreferences = Gio.SimpleAction.New("preferences", null);
         actPreferences.OnActivate += Preferences;
         AddAction(actPreferences);
-        _application.SetAccelsForAction("win.preferences", ["<Ctrl>period"]);
+        application.SetAccelsForAction("win.preferences", ["<Ctrl>period"]);
         // Keyboard shortcuts action
         var actKeyboardShortcuts = Gio.SimpleAction.New("keyboardShortcuts", null);
         actKeyboardShortcuts.OnActivate += KeyboardShortcuts;
         AddAction(actKeyboardShortcuts);
-        _application.SetAccelsForAction("win.keyboardShortcuts", ["<Ctrl>question"]);
+        application.SetAccelsForAction("win.keyboardShortcuts", ["<Ctrl>question"]);
         // About action
         var actAbout = Gio.SimpleAction.New("about", null);
         actAbout.OnActivate += About;
         AddAction(actAbout);
-        _application.SetAccelsForAction("win.about", ["F1"]);
+        application.SetAccelsForAction("win.about", ["F1"]);
     }
 
     public new void Present()
@@ -107,8 +123,8 @@ public class MainWindow : Adw.ApplicationWindow
         }
         GetDefaultSize(out int width, out int height);
         _controller.WindowGeometry = this.WindowGeometry;
-        _controller.Dispose();
         Destroy();
+        _serviceProvider.GetRequiredService<IHostApplicationLifetime>().StopApplication();
         return false;
     }
 
@@ -129,7 +145,7 @@ public class MainWindow : Adw.ApplicationWindow
         var toast = Adw.Toast.New(args.Notification.Message);
         if (args.Notification.Action == "close")
         {
-            toast.ButtonLabel = _controller.Translator._("Close");
+            toast.ButtonLabel = _translationService._("Close");
             toast.OnButtonClicked += (_, _) => _controller.CloseFolder();
         }
         _toastOverlay!.AddToast(toast);
@@ -141,21 +157,15 @@ public class MainWindow : Adw.ApplicationWindow
         _btnOpenFolder!.Visible = args.IsOpen;
         _btnCloseFolder!.Visible = args.IsOpen;
         _viewStack!.VisibleChildName = args.IsOpen ? "Folder" : "NoFolder";
-        _pageFiles!.Description = _controller.Translator._n("There is {0} file in the folder.", "There are {0} files in the folder", args.Files.Count, args.Files.Count);
+        _pageFiles!.Description = _translationService._n("There is {0} file in the folder.", "There are {0} files in the folder", args.Files.Count, args.Files.Count);
     }
 
-    private void Quit(Gio.SimpleAction sender, Gio.SimpleAction.ActivateSignalArgs args)
-    {
-        if (!Window_OnCloseRequest(this, new EventArgs()))
-        {
-            _application.Quit();
-        }
-    }
+    private void Quit(Gio.SimpleAction sender, Gio.SimpleAction.ActivateSignalArgs args) => Window_OnCloseRequest(this, new EventArgs());
 
     private async void OpenFolder(Gio.SimpleAction sender, Gio.SimpleAction.ActivateSignalArgs args)
     {
         var folderDialog = Gtk.FileDialog.New();
-        folderDialog.Title = _controller.Translator._("Open Folder");
+        folderDialog.Title = _translationService._("Open Folder");
         try
         {
             var file = await folderDialog.SelectFolderAsync(this);
@@ -171,15 +181,11 @@ public class MainWindow : Adw.ApplicationWindow
 
     private void Preferences(Gio.SimpleAction sender, Gio.SimpleAction.ActivateSignalArgs args)
     {
-        var preferencesDialog = new PreferencesDialog(_controller.PreferencesViewController);
+        var preferencesDialog = ActivatorUtilities.CreateInstance<PreferencesDialog>(_serviceProvider);
         preferencesDialog.Present(this);
     }
 
-    private void KeyboardShortcuts(Gio.SimpleAction sender, Gio.SimpleAction.ActivateSignalArgs args)
-    {
-        var shortcutsDialog = new ShortcutsDialog(_controller.Translator);
-        shortcutsDialog.Present(this);
-    }
+    private void KeyboardShortcuts(Gio.SimpleAction sender, Gio.SimpleAction.ActivateSignalArgs args) => _serviceProvider.GetRequiredService<ShortcutsDialog>().Present(this);
 
     private void About(Gio.SimpleAction sender, Gio.SimpleAction.ActivateSignalArgs args)
     {
@@ -187,29 +193,29 @@ public class MainWindow : Adw.ApplicationWindow
         extraInfo += $"GTK {Gtk.Functions.GetMajorVersion()}.{Gtk.Functions.GetMinorVersion()}.{Gtk.Functions.GetMicroVersion()}\n";
         extraInfo += $"libadwaita {Adw.Functions.GetMajorVersion()}.{Adw.Functions.GetMinorVersion()}.{Adw.Functions.GetMicroVersion()}";
         var dialog = Adw.AboutDialog.New();
-        dialog.ApplicationName = _controller.AppInfo.ShortName;
-        dialog.ApplicationIcon = _controller.AppInfo.Version!.IsPreview ? $"{_controller.AppInfo.Id}-devel" : _controller.AppInfo.Id;
+        dialog.ApplicationName = _appInfo.ShortName;
+        dialog.ApplicationIcon = _appInfo.Version!.IsPreview ? $"{_appInfo.Id}-devel" : _appInfo.Id;
         dialog.DeveloperName = "Nickvision";
-        dialog.Version = _controller.AppInfo.Version.ToString();
-        dialog.ReleaseNotes = _controller.AppInfo.HtmlChangelog;
+        dialog.Version = _appInfo.Version.ToString();
+        dialog.ReleaseNotes = _appInfo.HtmlChangelog;
         dialog.DebugInfo = _controller.GetDebugInformation(extraInfo);
-        dialog.Comments = _controller.AppInfo.Description;
+        dialog.Comments = _appInfo.Description;
         dialog.LicenseType = Gtk.License.MitX11;
         dialog.Copyright = "© Nickvision 2021-2026";
         dialog.Website = "https://nickvision.org";
-        dialog.IssueUrl = _controller.AppInfo.IssueTracker!.ToString();
-        dialog.SupportUrl = _controller.AppInfo.DiscussionsForum!.ToString();
-        dialog.AddLink(_controller.Translator._("GitHub Repo"), _controller.AppInfo.SourceRepository!.ToString());
-        foreach (var pair in _controller.AppInfo.ExtraLinks)
+        dialog.IssueUrl = _appInfo.IssueTracker!.ToString();
+        dialog.SupportUrl = _appInfo.DiscussionsForum!.ToString();
+        dialog.AddLink(_translationService._("GitHub Repo"), _appInfo.SourceRepository!.ToString());
+        foreach (var pair in _appInfo.ExtraLinks)
         {
             dialog.AddLink(pair.Key, pair.Value.ToString());
         }
-        dialog.Developers = _controller.AppInfo.Developers.Select(x => $"{x.Key} {x.Value}").ToArray();
-        dialog.Designers = _controller.AppInfo.Designers.Select(x => $"{x.Key} {x.Value}").ToArray();
-        dialog.Artists = _controller.AppInfo.Artists.Select(x => $"{x.Key} {x.Value}").ToArray();
-        if (!string.IsNullOrEmpty(_controller.AppInfo.TranslationCredits) && _controller.AppInfo.TranslationCredits != "translation-credits")
+        dialog.Developers = _appInfo.Developers.Select(x => $"{x.Key} {x.Value}").ToArray();
+        dialog.Designers = _appInfo.Designers.Select(x => $"{x.Key} {x.Value}").ToArray();
+        dialog.Artists = _appInfo.Artists.Select(x => $"{x.Key} {x.Value}").ToArray();
+        if (!string.IsNullOrEmpty(_appInfo.TranslationCredits) && _appInfo.TranslationCredits != "translation-credits")
         {
-            dialog.TranslatorCredits = _controller.AppInfo.TranslationCredits;
+            dialog.TranslatorCredits = _appInfo.TranslationCredits;
         }
         dialog.Present(this);
     }

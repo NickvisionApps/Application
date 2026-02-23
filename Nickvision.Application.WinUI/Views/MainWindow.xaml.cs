@@ -1,3 +1,5 @@
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -8,7 +10,9 @@ using Nickvision.Application.Shared.Controllers;
 using Nickvision.Application.Shared.Events;
 using Nickvision.Application.Shared.Models;
 using Nickvision.Application.WinUI.Controls;
+using Nickvision.Desktop.Application;
 using Nickvision.Desktop.Filesystem;
+using Nickvision.Desktop.Globalization;
 using Nickvision.Desktop.Network;
 using Nickvision.Desktop.Notifications;
 using Nickvision.Desktop.WinUI.Helpers;
@@ -29,13 +33,19 @@ public sealed partial class MainWindow : Window
         Custom = 2
     }
 
+    private readonly IServiceProvider _serviceProvider;
     private readonly MainWindowController _controller;
+    private readonly AppInfo _appInfo;
+    private readonly ITranslationService _translationService;
     private RoutedEventHandler? _notificationClickHandler;
 
-    public MainWindow(MainWindowController controller)
+    public MainWindow(IServiceProvider serviceProvider, MainWindowController controller, AppInfo appInfo, ITranslationService translationService)
     {
         InitializeComponent();
+        _serviceProvider = serviceProvider;
         _controller = controller;
+        _appInfo = appInfo;
+        _translationService = translationService;
         _notificationClickHandler = null;
         // Config
         MainGrid.RequestedTheme = _controller.Theme switch
@@ -56,24 +66,24 @@ public sealed partial class MainWindow : Window
         _controller.FolderChanged += Controller_FolderChanged;
         _controller.JsonFileSaved += Controller_JsonFileSaved;
         // Translations
-        AppWindow.Title = _controller.AppInfo.ShortName;
-        TitleBar.Title = _controller.AppInfo.ShortName;
-        TitleBar.Subtitle = _controller.AppInfo.Version!.IsPreview ? _controller.Translator._("Preview") : string.Empty;
-        NavItemHome.Content = _controller.Translator._("Home");
-        NavItemFolder.Content = _controller.Translator._("Folder");
-        NavItemUpdates.Content = _controller.Translator._("Updating");
-        NavItemHelp.Content = _controller.Translator._("Help");
-        MenuCheckForUpdates.Text = _controller.Translator._("Check for Updates");
-        MenuGitHubRepo.Text = _controller.Translator._("GitHub Repo");
-        MenuReportABug.Text = _controller.Translator._("Report a Bug");
-        MenuDiscussions.Text = _controller.Translator._("Discussions");
-        MenuAbout.Text = _controller.Translator._("About {0}", _controller.AppInfo.ShortName!);
-        NavItemSettings.Content = _controller.Translator._("Settings");
+        AppWindow.Title = _appInfo.ShortName;
+        TitleBar.Title = _appInfo.ShortName;
+        TitleBar.Subtitle = _appInfo.Version!.IsPreview ? _translationService._("Preview") : string.Empty;
+        NavItemHome.Content = _translationService._("Home");
+        NavItemFolder.Content = _translationService._("Folder");
+        NavItemUpdates.Content = _translationService._("Updating");
+        NavItemHelp.Content = _translationService._("Help");
+        MenuCheckForUpdates.Text = _translationService._("Check for Updates");
+        MenuGitHubRepo.Text = _translationService._("GitHub Repo");
+        MenuReportABug.Text = _translationService._("Report a Bug");
+        MenuDiscussions.Text = _translationService._("Discussions");
+        MenuAbout.Text = _translationService._("About {0}", _appInfo.ShortName!);
+        NavItemSettings.Content = _translationService._("Settings");
         StatusHome.Title = _controller.Greeting;
-        StatusHome.Description = _controller.Translator._("Open a folder to get started");
-        LblHomeOpenFolder.Text = _controller.Translator._("Open Folder");
-        BtnFolderOpenFolder.Label = _controller.Translator._("Open");
-        BtnFolderCloseFolder.Label = _controller.Translator._("Close");
+        StatusHome.Description = _translationService._("Open a folder to get started");
+        LblHomeOpenFolder.Text = _translationService._("Open Folder");
+        BtnFolderOpenFolder.Label = _translationService._("Open");
+        BtnFolderCloseFolder.Label = _translationService._("Close");
     }
 
     private async void Window_Loaded(object sender, RoutedEventArgs e)
@@ -91,7 +101,7 @@ public sealed partial class MainWindow : Window
             return;
         }
         _controller.WindowGeometry = this.Geometry;
-        _controller.Dispose();
+        _serviceProvider.GetRequiredService<IHostApplicationLifetime>().StopApplication();
     }
 
     private void TitleBar_PaneToggleRequested(TitleBar sender, object args)
@@ -106,7 +116,7 @@ public sealed partial class MainWindow : Window
             var tag = item.Tag as string;
             FrameCustom.Content = tag switch
             {
-                "Settings" => new SettingsPage(_controller.PreferencesViewController),
+                "Settings" => ActivatorUtilities.CreateInstance<SettingsPage>(_serviceProvider),
                 _ => null
             };
             ViewStack.SelectedIndex = tag switch
@@ -137,13 +147,13 @@ public sealed partial class MainWindow : Window
         };
         if (args.Notification.Action == "update")
         {
-            BtnInfoBar.Content = _controller.Translator._("Update");
+            BtnInfoBar.Content = _translationService._("Update");
             _notificationClickHandler = WindowsUpdate;
             BtnInfoBar.Click += _notificationClickHandler;
         }
         else if (args.Notification.Action == "close")
         {
-            BtnInfoBar.Content = _controller.Translator._("Close");
+            BtnInfoBar.Content = _translationService._("Close");
             _notificationClickHandler = CloseFolder;
             BtnInfoBar.Click += _notificationClickHandler;
         }
@@ -229,19 +239,18 @@ public sealed partial class MainWindow : Window
         MenuCheckForUpdates.IsEnabled = true;
     }
 
-    private async void GitHubRepo(object sender, RoutedEventArgs e) => await LaunchUriAsync(_controller.AppInfo.SourceRepository);
+    private async void GitHubRepo(object sender, RoutedEventArgs e) => await LaunchUriAsync(_appInfo.SourceRepository);
 
-    private async void ReportABug(object sender, RoutedEventArgs e) => await LaunchUriAsync(_controller.AppInfo.IssueTracker);
+    private async void ReportABug(object sender, RoutedEventArgs e) => await LaunchUriAsync(_appInfo.IssueTracker);
 
-    private async void Discussions(object sender, RoutedEventArgs e) => await LaunchUriAsync(_controller.AppInfo.DiscussionsForum);
+    private async void Discussions(object sender, RoutedEventArgs e) => await LaunchUriAsync(_appInfo.DiscussionsForum);
 
     private async void About(object sender, RoutedEventArgs e)
     {
-        var aboutDialog = new AboutDialog(_controller.AppInfo, _controller.GetDebugInformation(), _controller.Translator)
-        {
-            RequestedTheme = MainGrid.ActualTheme,
-            XamlRoot = MainGrid.XamlRoot
-        };
+        var aboutDialog = ActivatorUtilities.CreateInstance<AboutDialog>(_serviceProvider);
+        aboutDialog.DebugInformation = _controller.GetDebugInformation();
+        aboutDialog.RequestedTheme = MainGrid.ActualTheme;
+        aboutDialog.XamlRoot = MainGrid.XamlRoot;
         await aboutDialog.ShowAsync();
     }
 
@@ -258,7 +267,7 @@ public sealed partial class MainWindow : Window
                     NavItemUpdates.Visibility = Visibility.Collapsed;
                     return;
                 }
-                var message = _controller.Translator._("Downloading update: {0}%", Math.Round(p.Percentage * 100));
+                var message = _translationService._("Downloading update: {0}%", Math.Round(p.Percentage * 100));
                 NavItemUpdates.Visibility = Visibility.Visible;
                 StsProgress.Description = message;
                 BarProgress.Value = p.Percentage * 100;

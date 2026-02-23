@@ -15,7 +15,7 @@ public class PreferencesDialog : Adw.PreferencesDialog
     [Gtk.Connect("languageRow")]
     private Adw.ComboRow? _languageRow;
 
-    public PreferencesDialog(PreferencesViewController controller) : this(controller, Gtk.Builder.NewFromBlueprint("PreferencesDialog", controller.Translator))
+    public PreferencesDialog(PreferencesViewController controller, IGtkBuilderFactory builderFactory) : this(controller, builderFactory.Create("PreferencesDialog"))
     {
 
     }

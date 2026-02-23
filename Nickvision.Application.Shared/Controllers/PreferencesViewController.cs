@@ -12,23 +12,23 @@ namespace Nickvision.Application.Shared.Controllers;
 public class PreferencesViewController
 {
     private readonly IJsonFileService _jsonFileService;
+    private readonly ITranslationService _translationService;
     private readonly Configuration _configuration;
 
-    public ITranslationService Translator { get; }
     public IReadOnlyList<SelectionItem<string>> AvailableTranslationLanguages { get; }
     public IReadOnlyList<SelectionItem<Theme>> Themes { get; }
 
     public PreferencesViewController(IJsonFileService jsonFileService, ITranslationService translationService)
     {
         _jsonFileService = jsonFileService;
+        _translationService = translationService;
         _configuration = _jsonFileService.Load<Configuration>(Configuration.Key);
-        Translator = translationService;
         AvailableTranslationLanguages = new List<SelectionItem<string>>()
         {
-            new SelectionItem<string>(string.Empty, Translator._("System"), string.IsNullOrEmpty(_configuration.TranslationLanguage)),
+            new SelectionItem<string>(string.Empty, _translationService._("System"), string.IsNullOrEmpty(_configuration.TranslationLanguage)),
             new SelectionItem<string>("C", "en_US", _configuration.TranslationLanguage == "C")
         };
-        var languages = Translator.AvailableLanguages.ToList();
+        var languages = _translationService.AvailableLanguages.ToList();
         languages.Sort();
         foreach (var language in languages)
         {
@@ -36,9 +36,9 @@ public class PreferencesViewController
         }
         Themes = new List<SelectionItem<Theme>>()
         {
-            new SelectionItem<Theme>(Models.Theme.Light, Translator._p("Theme", "Light"), _configuration.Theme == Models.Theme.Light),
-            new SelectionItem<Theme>(Models.Theme.Dark, Translator._p("Theme", "Dark"), _configuration.Theme == Models.Theme.Dark),
-            new SelectionItem<Theme>(Models.Theme.System, Translator._p("Theme", "System"), _configuration.Theme == Models.Theme.System),
+            new SelectionItem<Theme>(Models.Theme.Light, _translationService._p("Theme", "Light"), _configuration.Theme == Models.Theme.Light),
+            new SelectionItem<Theme>(Models.Theme.Dark, _translationService._p("Theme", "Dark"), _configuration.Theme == Models.Theme.Dark),
+            new SelectionItem<Theme>(Models.Theme.System, _translationService._p("Theme", "System"), _configuration.Theme == Models.Theme.System),
         };
     }
     public SelectionItem<Theme> Theme

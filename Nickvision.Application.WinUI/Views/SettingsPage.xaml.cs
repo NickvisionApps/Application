@@ -3,6 +3,7 @@ using Microsoft.UI.Xaml.Controls;
 using Nickvision.Application.Shared.Controllers;
 using Nickvision.Application.Shared.Models;
 using Nickvision.Desktop.Application;
+using Nickvision.Desktop.Globalization;
 using Nickvision.Desktop.WinUI.Helpers;
 using System.Threading.Tasks;
 
@@ -11,24 +12,26 @@ namespace Nickvision.Application.WinUI.Views;
 public sealed partial class SettingsPage : Page
 {
     private PreferencesViewController _controller;
+    private ITranslationService _translationService;
     private bool _constructing;
 
-    public SettingsPage(PreferencesViewController controller)
+    public SettingsPage(PreferencesViewController controller, ITranslationService translationService)
     {
         InitializeComponent();
         _controller = controller;
+        _translationService = translationService;
         _constructing = true;
         // Translations
-        LblSettings.Text = _controller.Translator._("Settings");
-        SelectorUI.Text = _controller.Translator._("User Interface");
-        RowTheme.Header = _controller.Translator._("Theme");
+        LblSettings.Text = _translationService._("Settings");
+        SelectorUI.Text = _translationService._("User Interface");
+        RowTheme.Header = _translationService._("Theme");
         CmbTheme.ItemsSource = _controller.Themes;
-        RowTranslationLanguage.Header = _controller.Translator._("Translation Language");
-        RowTranslationLanguage.Description = _controller.Translator._("An application restart is required for a change to take effect");
+        RowTranslationLanguage.Header = _translationService._("Translation Language");
+        RowTranslationLanguage.Description = _translationService._("An application restart is required for a change to take effect");
         CmbTranslationLanguage.ItemsSource = _controller.AvailableTranslationLanguages;
-        RowPreviewUpdates.Header = _controller.Translator._("Receive Preview Updates");
-        TglPreviewUpdates.OnContent = _controller.Translator._("On");
-        TglPreviewUpdates.OffContent = _controller.Translator._("Off");
+        RowPreviewUpdates.Header = _translationService._("Receive Preview Updates");
+        TglPreviewUpdates.OnContent = _translationService._("On");
+        TglPreviewUpdates.OffContent = _translationService._("Off");
     }
 
     private void Page_Loaded(object sender, RoutedEventArgs e)
