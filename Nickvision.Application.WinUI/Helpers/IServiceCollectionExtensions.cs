@@ -12,7 +12,7 @@ public static class IServiceCollectionExtensions
         {
             collection.AddSingleton<MainWindow>();
             collection.AddTransient<SettingsPage>();
-            collection.AddTransient<AboutDialog>();
+            collection.AddSingleton<AboutDialog>();
             return collection;
         }
     }

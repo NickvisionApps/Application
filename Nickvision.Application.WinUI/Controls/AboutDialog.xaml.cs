@@ -53,6 +53,8 @@ public sealed partial class AboutDialog : ContentDialog
         }
     }
 
+    private void Dialog_Loaded(object sender, RoutedEventArgs e) => SelectorGeneral.IsSelected = true;
+
     private void SelectorBar_SelectionChanged(SelectorBar sender, SelectorBarSelectionChangedEventArgs args)
     {
         var index = sender.Items.IndexOf(sender.SelectedItem);
