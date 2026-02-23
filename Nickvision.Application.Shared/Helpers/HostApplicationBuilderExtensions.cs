@@ -28,7 +28,7 @@ public static class HostApplicationBuilderExtensions
             builder.ConfigureNickvision(args);
             builder.Services.AddSingleton<IFolderService, FolderService>();
             builder.Services.AddSingleton<MainWindowController>();
-            builder.Services.AddSingleton<PreferencesViewController>();
+            builder.Services.AddTransient<PreferencesViewController>();
             return builder;
         }
     }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Nickvision.Application.Shared.Helpers;
+using Nickvision.Application.WinUI.Helpers;
 using Nickvision.Desktop.WinUI.Helpers;
 using System;
 using System.Runtime.InteropServices;
@@ -15,9 +16,10 @@ public static partial class Program
     private static void Main(string[] args)
     {
         XamlCheckProcessRequirements();
-        var builder = Host.CreateApplicationBuilder();
+        var builder = Host.CreateApplicationBuilder(args);
         builder.ConfigureApplication(args);
         builder.ConfigureWinUI<App>();
+        builder.Services.AddControls();
         var app = builder.Build();
         app.Run();
     }

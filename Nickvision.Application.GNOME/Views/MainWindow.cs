@@ -179,11 +179,7 @@ public class MainWindow : Adw.ApplicationWindow
 
     private void CloseFolder(Gio.SimpleAction sender, Gio.SimpleAction.ActivateSignalArgs args) => _controller.CloseFolder();
 
-    private void Preferences(Gio.SimpleAction sender, Gio.SimpleAction.ActivateSignalArgs args)
-    {
-        var preferencesDialog = ActivatorUtilities.CreateInstance<PreferencesDialog>(_serviceProvider);
-        preferencesDialog.Present(this);
-    }
+    private void Preferences(Gio.SimpleAction sender, Gio.SimpleAction.ActivateSignalArgs args) => _serviceProvider.GetRequiredService<PreferencesDialog>().Present(this);
 
     private void KeyboardShortcuts(Gio.SimpleAction sender, Gio.SimpleAction.ActivateSignalArgs args) => _serviceProvider.GetRequiredService<ShortcutsDialog>().Present(this);
 

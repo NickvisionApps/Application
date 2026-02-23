@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Hosting;
+using Nickvision.Application.GNOME.Helpers;
 using Nickvision.Application.GNOME.Views;
 using Nickvision.Application.Shared.Helpers;
 using Nickvision.Desktop.GNOME.Helpers;
@@ -13,9 +14,10 @@ public class Program
         var newArgs = new string[args.Length + 1];
         newArgs[0] = "org.nickvision.application";
         args.CopyTo(newArgs, 1);
-        var builder = Host.CreateApplicationBuilder();
+        var builder = Host.CreateApplicationBuilder(args);
         builder.ConfigureApplication(newArgs);
         builder.ConfigureAdw<MainWindow>();
+        builder.Services.AddControls();
         var app = builder.Build();
         await app.RunAsync();
     }

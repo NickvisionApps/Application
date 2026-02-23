@@ -116,7 +116,7 @@ public sealed partial class MainWindow : Window
             var tag = item.Tag as string;
             FrameCustom.Content = tag switch
             {
-                "Settings" => ActivatorUtilities.CreateInstance<SettingsPage>(_serviceProvider),
+                "Settings" => _serviceProvider.GetRequiredService<SettingsPage>(),
                 _ => null
             };
             ViewStack.SelectedIndex = tag switch
@@ -247,7 +247,7 @@ public sealed partial class MainWindow : Window
 
     private async void About(object sender, RoutedEventArgs e)
     {
-        var aboutDialog = ActivatorUtilities.CreateInstance<AboutDialog>(_serviceProvider);
+        var aboutDialog = _serviceProvider.GetRequiredService<AboutDialog>();
         aboutDialog.DebugInformation = _controller.GetDebugInformation();
         aboutDialog.RequestedTheme = MainGrid.ActualTheme;
         aboutDialog.XamlRoot = MainGrid.XamlRoot;

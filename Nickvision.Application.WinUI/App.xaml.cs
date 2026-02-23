@@ -20,7 +20,7 @@ public partial class App : Microsoft.UI.Xaml.Application
     {
         if (_window is null)
         {
-            _window = ActivatorUtilities.CreateInstance<MainWindow>(_serviceProvider);
+            _window = _serviceProvider.GetRequiredService<MainWindow>();
         }
         _window.Activate();
     }
