@@ -18,7 +18,7 @@ public static partial class Program
         var builder = Host.CreateApplicationBuilder();
         builder.ConfigureApplication(args);
         builder.ConfigureWinUI<App>();
-        var host = builder.Build();
-        host.Run();
+        var app = builder.Build();
+        app.Run();
     }
 }

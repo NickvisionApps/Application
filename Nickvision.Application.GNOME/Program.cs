@@ -16,7 +16,7 @@ public class Program
         var builder = Host.CreateApplicationBuilder();
         builder.ConfigureApplication(newArgs);
         builder.ConfigureAdw<MainWindow>();
-        var host = builder.Build();
-        await host.RunAsync();
+        var app = builder.Build();
+        await app.RunAsync();
     }
 }
