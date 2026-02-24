@@ -33,7 +33,7 @@ public class MainWindowController
         _updaterService = updaterService;
         _latestVersion = appInfo.Version!;
         _translationService.Language = _jsonFileService.Load<Configuration>(Configuration.Key).TranslationLanguage;
-        _logger.LogInformation($"Receieved command-line argumnets: [{string.Join(", ", argumentsService.Data)}]");
+        _logger.LogInformation($"Received command-line arguments: [{string.Join(", ", argumentsService.Data)}]");
         // Translate strings
         _appInfo.ShortName = _translationService._("Application");
         _appInfo.Description = _translationService._("Create new Nickvision applications.");
