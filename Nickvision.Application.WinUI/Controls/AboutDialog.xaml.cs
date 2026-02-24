@@ -10,8 +10,8 @@ namespace Nickvision.Application.WinUI.Controls;
 
 public sealed partial class AboutDialog : ContentDialog
 {
-    private AppInfo _appInfo;
-    private ITranslationService _translator;
+    private readonly AppInfo _appInfo;
+    private readonly ITranslationService _translator;
 
     public AboutDialog(AppInfo appInfo, ITranslationService translator)
     {

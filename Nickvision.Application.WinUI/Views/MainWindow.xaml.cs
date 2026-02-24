@@ -9,6 +9,7 @@ using Microsoft.Windows.Storage.Pickers;
 using Nickvision.Application.Shared.Controllers;
 using Nickvision.Application.Shared.Events;
 using Nickvision.Application.Shared.Models;
+using Nickvision.Application.Shared.Services;
 using Nickvision.Application.WinUI.Controls;
 using Nickvision.Desktop.Application;
 using Nickvision.Desktop.Filesystem;
@@ -39,7 +40,7 @@ public sealed partial class MainWindow : Window
     private readonly ITranslationService _translationService;
     private RoutedEventHandler? _notificationClickHandler;
 
-    public MainWindow(IServiceProvider serviceProvider, MainWindowController controller, AppInfo appInfo, ITranslationService translationService)
+    public MainWindow(IServiceProvider serviceProvider, MainWindowController controller, AppInfo appInfo, IEventsService eventsService, ITranslationService translationService)
     {
         InitializeComponent();
         _serviceProvider = serviceProvider;
@@ -62,9 +63,9 @@ public sealed partial class MainWindow : Window
         AppWindow.TitleBar.PreferredHeightOption = TitleBarHeightOption.Tall;
         // Events
         AppWindow.Closing += Window_Closing;
-        _controller.AppNotificationSent += (sender, args) => DispatcherQueue.TryEnqueue(() => Controller_AppNotificationSent(sender, args));
-        _controller.FolderChanged += Controller_FolderChanged;
-        _controller.JsonFileSaved += Controller_JsonFileSaved;
+        eventsService.AppNotificationSent += (sender, args) => DispatcherQueue.TryEnqueue(() => Controller_AppNotificationSent(sender, args));
+        eventsService.FolderChanged += Controller_FolderChanged;
+        eventsService.JsonFileSaved += Controller_JsonFileSaved;
         // Translations
         AppWindow.Title = _appInfo.ShortName;
         TitleBar.Title = _appInfo.ShortName;

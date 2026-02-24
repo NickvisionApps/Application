@@ -1,5 +1,4 @@
-﻿using Nickvision.Application.Shared.Events;
-using Nickvision.Application.Shared.Models;
+﻿using Nickvision.Application.Shared.Models;
 using Nickvision.Application.Shared.Services;
 using Nickvision.Desktop.Application;
 using Nickvision.Desktop.Filesystem;
@@ -42,27 +41,6 @@ public class MainWindowController
         _appInfo.Designers.Add(_translationService._("DaPigGuy"), "https://github.com/DaPigGuy");
         _appInfo.Artists.Add(_translationService._("David Lapshin"), "https://github.com/daudix");
         _appInfo.TranslationCredits = _translationService._("translation-credits");
-    }
-
-    public event EventHandler<AppNotificationSentEventArgs>? AppNotificationSent
-    {
-        add => _notificationService.AppNotificationSent += value;
-
-        remove => _notificationService.AppNotificationSent -= value;
-    }
-
-    public event EventHandler<FolderChangedEventArgs> FolderChanged
-    {
-        add => _folderService.Changed += value;
-
-        remove => _folderService.Changed -= value;
-    }
-
-    public event EventHandler<JsonFileSavedEventArgs>? JsonFileSaved
-    {
-        add => _jsonFileService.Saved += value;
-
-        remove => _jsonFileService.Saved -= value;
     }
 
     public bool CanShutdown => true;

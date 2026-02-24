@@ -3,6 +3,7 @@ using Microsoft.Extensions.Hosting;
 using Nickvision.Application.Shared.Controllers;
 using Nickvision.Application.Shared.Events;
 using Nickvision.Application.Shared.Models;
+using Nickvision.Application.Shared.Services;
 using Nickvision.Desktop.Application;
 using Nickvision.Desktop.Globalization;
 using Nickvision.Desktop.GNOME.Controls;
@@ -36,12 +37,12 @@ public class MainWindow : Adw.ApplicationWindow
     [Gtk.Connect("pageFiles")]
     private Adw.StatusPage? _pageFiles;
 
-    public MainWindow(IServiceProvider serviceProvider, MainWindowController controller, AppInfo appInfo, ITranslationService translationService, IGtkBuilderFactory builderFactory) : this(serviceProvider, controller, appInfo, translationService, builderFactory.Create("MainWindow"))
+    public MainWindow(IServiceProvider serviceProvider, MainWindowController controller, AppInfo appInfo, IEventsService eventsService, ITranslationService translationService, IGtkBuilderFactory builderFactory) : this(serviceProvider, controller, appInfo, eventsService, translationService, builderFactory.Create("MainWindow"))
     {
 
     }
 
-    private MainWindow(IServiceProvider serviceProvider, MainWindowController controller, AppInfo appInfo, ITranslationService translationService, Gtk.Builder builder) : base(new Adw.Internal.ApplicationWindowHandle(builder.GetPointer("root"), false))
+    private MainWindow(IServiceProvider serviceProvider, MainWindowController controller, AppInfo appInfo, IEventsService eventsService, ITranslationService translationService, Gtk.Builder builder) : base(new Adw.Internal.ApplicationWindowHandle(builder.GetPointer("root"), false))
     {
         var application = serviceProvider.GetRequiredService<Adw.Application>();
         _serviceProvider = serviceProvider;
@@ -67,12 +68,12 @@ public class MainWindow : Adw.ApplicationWindow
         _pageGreeting!.Title = _controller.Greeting;
         // Events
         OnCloseRequest += Window_OnCloseRequest;
-        _controller.AppNotificationSent += (sender, args) => GLib.Functions.IdleAdd(0, () =>
+        eventsService.AppNotificationSent += (sender, args) => GLib.Functions.IdleAdd(0, () =>
         {
             Controller_AppNotificationSent(sender, args);
             return false;
         });
-        _controller.FolderChanged += Controller_FolderChanged;
+        eventsService.FolderChanged += Controller_FolderChanged;
         // Drop target
         var dropTarget = Gtk.DropTarget.New(Gio.FileHelper.GetGType(), Gdk.DragAction.Copy);
         dropTarget.OnDrop += Window_OnDrop;

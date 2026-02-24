@@ -11,8 +11,8 @@ namespace Nickvision.Application.WinUI.Views;
 
 public sealed partial class SettingsPage : Page
 {
-    private PreferencesViewController _controller;
-    private ITranslationService _translationService;
+    private readonly PreferencesViewController _controller;
+    private readonly ITranslationService _translationService;
     private bool _constructing;
 
     public SettingsPage(PreferencesViewController controller, ITranslationService translationService)
