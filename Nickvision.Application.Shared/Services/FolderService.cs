@@ -1,4 +1,5 @@
-﻿using Nickvision.Application.Shared.Events;
+﻿using Microsoft.Extensions.Logging;
+using Nickvision.Application.Shared.Events;
 using Nickvision.Desktop.Globalization;
 using Nickvision.Desktop.Notifications;
 using System;
@@ -9,6 +10,7 @@ namespace Nickvision.Application.Shared.Services;
 
 public class FolderService : IFolderService
 {
+    private readonly ILogger<FolderService> _logger;
     private readonly INotificationService _notificationService;
     private readonly ITranslationService _translationService;
 
@@ -17,8 +19,9 @@ public class FolderService : IFolderService
 
     public event EventHandler<FolderChangedEventArgs>? Changed;
 
-    public FolderService(INotificationService notificationService, ITranslationService translationService)
+    public FolderService(ILogger<FolderService> logger, INotificationService notificationService, ITranslationService translationService)
     {
+        _logger = logger;
         _notificationService = notificationService;
         _translationService = translationService;
         Files = new List<string>();
@@ -27,8 +30,10 @@ public class FolderService : IFolderService
 
     public void Open(string path)
     {
+        _logger.LogInformation($"Opening folder: {path}");
         if (!Directory.Exists(path))
         {
+            _logger.LogError("Folder does not exist.");
             Path = null;
             return;
         }
@@ -38,6 +43,7 @@ public class FolderService : IFolderService
         {
             Files.Add(file);
         }
+        _logger.LogInformation($"Folder opened with {Files.Count} file(s).");
         _notificationService.Send(new AppNotification(_translationService._("Folder opened: {0}", Path), NotificationSeverity.Success)
         {
             Action = "close"
@@ -47,8 +53,10 @@ public class FolderService : IFolderService
 
     public void Close()
     {
+        _logger.LogInformation($"Closing folder: {Path}");
         Path = null;
         Files.Clear();
+        _logger.LogInformation("Folder closed.");
         _notificationService.Send(new AppNotification(_translationService._("Folder closed"), NotificationSeverity.Warning));
         Changed?.Invoke(this, new FolderChangedEventArgs(null));
     }

@@ -1,4 +1,5 @@
-﻿using Nickvision.Application.Shared.Models;
+﻿using Microsoft.Extensions.Logging;
+using Nickvision.Application.Shared.Models;
 using Nickvision.Application.Shared.Services;
 using Nickvision.Desktop.Application;
 using Nickvision.Desktop.Filesystem;
@@ -12,6 +13,7 @@ namespace Nickvision.Application.Shared.Controllers;
 
 public class MainWindowController
 {
+    ILogger<MainWindowController> _logger;
     private readonly AppInfo _appInfo;
     private readonly IFolderService _folderService;
     private readonly IJsonFileService _jsonFileService;
@@ -20,8 +22,9 @@ public class MainWindowController
     private readonly IUpdaterService _updaterService;
     private AppVersion _latestVersion;
 
-    public MainWindowController(AppInfo appInfo, IFolderService folderService, IJsonFileService jsonFileService, INotificationService notificationService, ITranslationService translationService, IUpdaterService updaterService)
+    public MainWindowController(ILogger<MainWindowController> logger, AppInfo appInfo, IArgumentsService argumentsService, IFolderService folderService, IJsonFileService jsonFileService, INotificationService notificationService, ITranslationService translationService, IUpdaterService updaterService)
     {
+        _logger = logger;
         _appInfo = appInfo;
         _folderService = folderService;
         _jsonFileService = jsonFileService;
@@ -30,6 +33,7 @@ public class MainWindowController
         _updaterService = updaterService;
         _latestVersion = appInfo.Version!;
         _translationService.Language = _jsonFileService.Load<Configuration>(Configuration.Key).TranslationLanguage;
+        _logger.LogInformation($"Receieved command-line argumnets: [{string.Join(", ", argumentsService.Data)}]");
         // Translate strings
         _appInfo.ShortName = _translationService._("Application");
         _appInfo.Description = _translationService._("Create new Nickvision applications.");
@@ -70,6 +74,7 @@ public class MainWindowController
 
     public async Task CheckForUpdatesAsync(bool showNotificationForNoUpdates)
     {
+        _logger.LogInformation("Checking for updates...");
         var config = _jsonFileService.Load<Configuration>(Configuration.Key);
         var stableVersion = await _updaterService.GetLatestStableVersionAsync();
         if (stableVersion is not null)
@@ -86,14 +91,19 @@ public class MainWindowController
         }
         if (_latestVersion > _appInfo.Version!)
         {
+            _logger.LogInformation($"New application update available: {_latestVersion}");
             _notificationService.Send(new AppNotification(_translationService._("New {0} update available: {1}", _appInfo.ShortName!, _latestVersion.ToString()), NotificationSeverity.Success)
             {
                 Action = "update"
             });
         }
-        else if (showNotificationForNoUpdates)
+        else
         {
-            _notificationService.Send(new AppNotification(_translationService._("No update available"), NotificationSeverity.Warning));
+            _logger.LogInformation("No application update available.");
+            if (showNotificationForNoUpdates)
+            {
+                _notificationService.Send(new AppNotification(_translationService._("No update available"), NotificationSeverity.Warning));
+            }
         }
     }
 
