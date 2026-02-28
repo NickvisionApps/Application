@@ -13,6 +13,12 @@
     </Window.SystemBackdrop>
 
     <Grid x:Name="MainGrid" Loaded="Window_Loaded">
+        <Grid.Transitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.Transitions>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -133,6 +139,12 @@
             <nickvision:ViewStack x:Name="ViewStack" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <nickvision:ViewStack.Pages>
                     <nickvision:StatusPage x:Name="StatusHome" Image="/Assets/org.nickvision.application.ico">
+                        <nickvision:StatusPage.Transitions>
+                            <TransitionCollection>
+                                <EntranceThemeTransition/>
+                            </TransitionCollection>
+                        </nickvision:StatusPage.Transitions>
+
                         <nickvision:StatusPage.Child>
                             <Button Style="{ThemeResource AccentButtonStyle}" Click="OpenFolder">
                                 <StackPanel Orientation="Horizontal" Spacing="6">
@@ -145,6 +157,12 @@
                     </nickvision:StatusPage>
 
                     <Grid>
+                        <Grid.Transitions>
+                            <TransitionCollection>
+                                <EntranceThemeTransition/>
+                            </TransitionCollection>
+                        </Grid.Transitions>
+
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>

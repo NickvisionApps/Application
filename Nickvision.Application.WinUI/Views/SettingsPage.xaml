@@ -10,6 +10,12 @@
     mc:Ignorable="d" Loaded="Page_Loaded">
 
     <Grid x:Name="MainGrid" RowSpacing="12">
+        <Grid.Transitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.Transitions>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -30,6 +36,12 @@
             <nickvision:ViewStack x:Name="ViewStack" Margin="24,0,24,24">
                 <nickvision:ViewStack.Pages>
                     <StackPanel Spacing="6">
+                        <StackPanel.Transitions>
+                            <TransitionCollection>
+                                <EntranceThemeTransition/>
+                            </TransitionCollection>
+                        </StackPanel.Transitions>
+
                         <community:SettingsCard x:Name="RowTheme">
                             <community:SettingsCard.HeaderIcon>
                                 <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE793;"/> 
