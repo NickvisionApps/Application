@@ -1,12 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Nickvision.Application.Shared.Controllers;
 using Nickvision.Application.Shared.Services;
 using Nickvision.Desktop.Application;
 using Nickvision.Desktop.Filesystem;
 using Nickvision.Desktop.Helpers;
-using NReco.Logging.File;
 using System;
 using System.IO;
 
@@ -27,18 +25,13 @@ public static class HostApplicationBuilderExtensions
                 DiscussionsForum = new Uri("https://github.com/NickvisionApps/Application/discussions"),
                 IsPortable = OperatingSystem.IsWindows() && args.Contains("--portable")
             };
-            var loggingPath = appInfo.IsPortable ? "app.log" : Path.Combine(UserDirectories.LocalData, appInfo.Name, "app.log");
             builder.Properties.Add("AppInfo", appInfo);
             builder.Services.AddSingleton(appInfo);
-            builder.ConfigureNickvision(args);
+            builder.ConfigureNickvision(args, appInfo.IsPortable ? "app.log" : Path.Combine(UserDirectories.LocalData, appInfo.Name, "app.log"));
             builder.Services.AddSingleton<IEventsService, EventsService>();
             builder.Services.AddSingleton<IFolderService, FolderService>();
             builder.Services.AddSingleton<MainWindowController>();
             builder.Services.AddTransient<PreferencesViewController>();
-            builder.Logging.ClearProviders();
-            builder.Logging.SetMinimumLevel(LogLevel.Information);
-            builder.Logging.AddConsole();
-            builder.Logging.AddFile(loggingPath, false);
             return builder;
         }
     }
