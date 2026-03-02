@@ -21,6 +21,7 @@ public class MainWindow : Adw.ApplicationWindow
     private readonly AppInfo _appInfo;
     private readonly ITranslationService _translationService;
     private readonly Gtk.Builder _builder;
+    private bool _shown;
 
     [Gtk.Connect("windowTitle")]
     private Adw.WindowTitle? _windowTitle;
@@ -50,6 +51,7 @@ public class MainWindow : Adw.ApplicationWindow
         _appInfo = appInfo;
         _translationService = translationService;
         _builder = builder;
+        _shown = false;
         _builder.Connect(this);
         // Window
         Adw.StyleManager.GetDefault().ColorScheme = _controller.Theme switch
@@ -67,10 +69,11 @@ public class MainWindow : Adw.ApplicationWindow
         _windowTitle!.Title = _appInfo.ShortName;
         _pageGreeting!.Title = _controller.Greeting;
         // Events
+        OnShow += Window_OnShow;
         OnCloseRequest += Window_OnCloseRequest;
-        eventsService.AppNotificationSent += (sender, args) => GLib.Functions.IdleAdd(0, () =>
+        eventsService.AppNotificationSent += (sender, e) => GLib.Functions.IdleAdd(0, () =>
         {
-            Controller_AppNotificationSent(sender, args);
+            Controller_AppNotificationSent(sender, e);
             return false;
         });
         eventsService.FolderChanged += Controller_FolderChanged;
@@ -116,7 +119,17 @@ public class MainWindow : Adw.ApplicationWindow
         this.WindowGeometry = _controller.WindowGeometry;
     }
 
-    private bool Window_OnCloseRequest(Gtk.Window sender, EventArgs args)
+    public async void Window_OnShow(Gtk.Widget sender, EventArgs e)
+    {
+        if (_shown)
+        {
+            return;
+        }
+        await _controller.CheckForUpdatesAsync(false);
+        _shown = true;
+    }
+
+    private bool Window_OnCloseRequest(Gtk.Window sender, EventArgs e)
     {
         if (!_controller.CanShutdown)
         {
@@ -129,9 +142,9 @@ public class MainWindow : Adw.ApplicationWindow
         return false;
     }
 
-    private bool Window_OnDrop(Gtk.DropTarget sender, Gtk.DropTarget.DropSignalArgs args)
+    private bool Window_OnDrop(Gtk.DropTarget sender, Gtk.DropTarget.DropSignalArgs e)
     {
-        var file = new Gio.FileHelper(args.Value.GetObject()!.Handle);
+        var file = new Gio.FileHelper(e.Value.GetObject()!.Handle);
         var path = file.GetPath();
         if (string.IsNullOrEmpty(path))
         {
@@ -141,29 +154,38 @@ public class MainWindow : Adw.ApplicationWindow
         return true;
     }
 
-    private void Controller_AppNotificationSent(object? sender, AppNotificationSentEventArgs args)
+    private void Controller_AppNotificationSent(object? sender, AppNotificationSentEventArgs e)
     {
-        var toast = Adw.Toast.New(args.Notification.Message);
-        if (args.Notification.Action == "close")
+        var toast = Adw.Toast.New(e.Notification.Message);
+        if (e.Notification.Action == "close")
         {
             toast.ButtonLabel = _translationService._("Close");
             toast.OnButtonClicked += (_, _) => _controller.CloseFolder();
         }
+        else if (e.Notification.Action == "update")
+        {
+            toast.ButtonLabel = _translationService._("View");
+            toast.OnButtonClicked += async (_, _) =>
+            {
+                var launcher = Gtk.UriLauncher.New($"{_appInfo.SourceRepository}/releases/latest");
+                await launcher.LaunchAsync(this);
+            };
+        }
         _toastOverlay!.AddToast(toast);
     }
 
-    private void Controller_FolderChanged(object? sender, FolderChangedEventArgs args)
+    private void Controller_FolderChanged(object? sender, FolderChangedEventArgs e)
     {
-        _windowTitle!.Subtitle = args.IsOpen ? args.Path : string.Empty;
-        _btnOpenFolder!.Visible = args.IsOpen;
-        _btnCloseFolder!.Visible = args.IsOpen;
-        _viewStack!.VisibleChildName = args.IsOpen ? "Folder" : "NoFolder";
-        _pageFiles!.Description = _translationService._n("There is {0} file in the folder.", "There are {0} files in the folder", args.Files.Count, args.Files.Count);
+        _windowTitle!.Subtitle = e.IsOpen ? e.Path : string.Empty;
+        _btnOpenFolder!.Visible = e.IsOpen;
+        _btnCloseFolder!.Visible = e.IsOpen;
+        _viewStack!.VisibleChildName = e.IsOpen ? "Folder" : "NoFolder";
+        _pageFiles!.Description = _translationService._n("There is {0} file in the folder.", "There are {0} files in the folder", e.Files.Count, e.Files.Count);
     }
 
-    private void Quit(Gio.SimpleAction sender, Gio.SimpleAction.ActivateSignalArgs args) => Window_OnCloseRequest(this, new EventArgs());
+    private void Quit(Gio.SimpleAction sender, Gio.SimpleAction.ActivateSignalArgs e) => Window_OnCloseRequest(this, new EventArgs());
 
-    private async void OpenFolder(Gio.SimpleAction sender, Gio.SimpleAction.ActivateSignalArgs args)
+    private async void OpenFolder(Gio.SimpleAction sender, Gio.SimpleAction.ActivateSignalArgs e)
     {
         var folderDialog = Gtk.FileDialog.New();
         folderDialog.Title = _translationService._("Open Folder");
@@ -178,13 +200,13 @@ public class MainWindow : Adw.ApplicationWindow
         catch { }
     }
 
-    private void CloseFolder(Gio.SimpleAction sender, Gio.SimpleAction.ActivateSignalArgs args) => _controller.CloseFolder();
+    private void CloseFolder(Gio.SimpleAction sender, Gio.SimpleAction.ActivateSignalArgs e) => _controller.CloseFolder();
 
-    private void Preferences(Gio.SimpleAction sender, Gio.SimpleAction.ActivateSignalArgs args) => _serviceProvider.GetRequiredService<PreferencesDialog>().Present(this);
+    private void Preferences(Gio.SimpleAction sender, Gio.SimpleAction.ActivateSignalArgs e) => _serviceProvider.GetRequiredService<PreferencesDialog>().Present(this);
 
-    private void KeyboardShortcuts(Gio.SimpleAction sender, Gio.SimpleAction.ActivateSignalArgs args) => _serviceProvider.GetRequiredService<ShortcutsDialog>().Present(this);
+    private void KeyboardShortcuts(Gio.SimpleAction sender, Gio.SimpleAction.ActivateSignalArgs e) => _serviceProvider.GetRequiredService<ShortcutsDialog>().Present(this);
 
-    private void About(Gio.SimpleAction sender, Gio.SimpleAction.ActivateSignalArgs args)
+    private void About(Gio.SimpleAction sender, Gio.SimpleAction.ActivateSignalArgs e)
     {
         var extraInfo = string.Empty;
         extraInfo += $"GTK {Gtk.Functions.GetMajorVersion()}.{Gtk.Functions.GetMinorVersion()}.{Gtk.Functions.GetMicroVersion()}\n";
