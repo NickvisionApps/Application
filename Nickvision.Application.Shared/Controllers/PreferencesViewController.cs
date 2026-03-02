@@ -58,5 +58,5 @@ public class PreferencesViewController
         set => _configuration.AllowPreviewUpdates = value;
     }
 
-    public async Task SaveConfigurationAsync() => await _jsonFileService.SaveAsync(_configuration, Configuration.Key);
+    public Task SaveConfigurationAsync() => _jsonFileService.SaveAsync(_configuration, Configuration.Key);
 }
