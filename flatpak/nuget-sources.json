@@ -456,6 +456,13 @@
   },
   {
     "dest": "nuget-sources",
+    "dest-filename": "nickvision.desktop.2026.3.1.nupkg",
+    "sha512": "2e7a84adb9aeb055527259e095128a5d65f51c3b82771397459fc5f75638c44b8ca8f9a6967be2907e9ae588a7911f4f9c630ca3dc23214e3073c34464d0cf50",
+    "url": "https://api.nuget.org/v3-flatcontainer/nickvision.desktop/2026.3.1/nickvision.desktop.2026.3.1.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
     "dest-filename": "nickvision.desktop.gnome.2026.3.0.nupkg",
     "sha512": "41d9c540e43872e59ef491c66a5c7bace2a41805d4d522263e1e156d3a386e0038673d52fb243c8babf745a8fce53602b62de6cb66742ab28f8e08c37e3dacee",
     "url": "https://api.nuget.org/v3-flatcontainer/nickvision.desktop.gnome/2026.3.0/nickvision.desktop.gnome.2026.3.0.nupkg",
