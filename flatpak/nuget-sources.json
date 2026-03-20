@@ -463,9 +463,30 @@
   },
   {
     "dest": "nuget-sources",
+    "dest-filename": "microsoft.netcore.app.runtime.nativeaot.linux-arm.10.0.5.nupkg",
+    "sha512": "1aa94195c9f1c4d5f5e0d513975dc773f01ec0469d3ae696469990511b37cdfbd68ea317904d720cec40ff58f42a715f2448c55ea622027f10e7680862ad566a",
+    "url": "https://api.nuget.org/v3-flatcontainer/microsoft.netcore.app.runtime.nativeaot.linux-arm/10.0.5/microsoft.netcore.app.runtime.nativeaot.linux-arm.10.0.5.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
     "dest-filename": "microsoft.netcore.app.runtime.nativeaot.linux-arm64.10.0.5.nupkg",
     "sha512": "679f8c2b88ca03598dc1702fb48d144e0ebbbe8a792e81d1b4d80ab502d992393e81ef85dfac9b15038e85cc01bb662ca396f4ae7f55f47e432349fca2c369dd",
     "url": "https://api.nuget.org/v3-flatcontainer/microsoft.netcore.app.runtime.nativeaot.linux-arm64/10.0.5/microsoft.netcore.app.runtime.nativeaot.linux-arm64.10.0.5.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "microsoft.netcore.app.runtime.nativeaot.linux-arm64.10.0.5.nupkg",
+    "sha512": "679f8c2b88ca03598dc1702fb48d144e0ebbbe8a792e81d1b4d80ab502d992393e81ef85dfac9b15038e85cc01bb662ca396f4ae7f55f47e432349fca2c369dd",
+    "url": "https://api.nuget.org/v3-flatcontainer/microsoft.netcore.app.runtime.nativeaot.linux-arm64/10.0.5/microsoft.netcore.app.runtime.nativeaot.linux-arm64.10.0.5.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "microsoft.netcore.app.runtime.nativeaot.linux-x64.10.0.5.nupkg",
+    "sha512": "efaeec20e9c7a18bdc8a4eb02c2bc983f69e9a59874aa0d045a0a085ddfa1a8f5060932e5dc62d746124ea6e26455337a448ab4b9fe456a656b5684374be51a4",
+    "url": "https://api.nuget.org/v3-flatcontainer/microsoft.netcore.app.runtime.nativeaot.linux-x64/10.0.5/microsoft.netcore.app.runtime.nativeaot.linux-x64.10.0.5.nupkg",
     "type": "file"
   },
   {
@@ -512,9 +533,30 @@
   },
   {
     "dest": "nuget-sources",
+    "dest-filename": "runtime.linux-arm.microsoft.dotnet.ilcompiler.10.0.5.nupkg",
+    "sha512": "562420e52c95aee6ab49a5807a9519ab9083a6d780f67a040f908eb5d36c81001a5a12435fa696a53b7f5c3749123416508d9dbf6c82f8072dde0da8ffd1b0b8",
+    "url": "https://api.nuget.org/v3-flatcontainer/runtime.linux-arm.microsoft.dotnet.ilcompiler/10.0.5/runtime.linux-arm.microsoft.dotnet.ilcompiler.10.0.5.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
     "dest-filename": "runtime.linux-arm64.microsoft.dotnet.ilcompiler.10.0.5.nupkg",
     "sha512": "5e927baee8049942a340c7d77cb45c5385ab1c547a3a29b5afc03f8404a1fc4673af4fc9a88cd432f8b6c43afa77b4b3d14b1d6facc0b098f5a7762e75ff9798",
     "url": "https://api.nuget.org/v3-flatcontainer/runtime.linux-arm64.microsoft.dotnet.ilcompiler/10.0.5/runtime.linux-arm64.microsoft.dotnet.ilcompiler.10.0.5.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "runtime.linux-arm64.microsoft.dotnet.ilcompiler.10.0.5.nupkg",
+    "sha512": "5e927baee8049942a340c7d77cb45c5385ab1c547a3a29b5afc03f8404a1fc4673af4fc9a88cd432f8b6c43afa77b4b3d14b1d6facc0b098f5a7762e75ff9798",
+    "url": "https://api.nuget.org/v3-flatcontainer/runtime.linux-arm64.microsoft.dotnet.ilcompiler/10.0.5/runtime.linux-arm64.microsoft.dotnet.ilcompiler.10.0.5.nupkg",
+    "type": "file"
+  },
+  {
+    "dest": "nuget-sources",
+    "dest-filename": "runtime.linux-x64.microsoft.dotnet.ilcompiler.10.0.5.nupkg",
+    "sha512": "1a2f99749abdc41b2597232ff5324056d94c5de3290167f702bc49e3d449d9ba525b594a7359d6115437c48e773201904d28b60fc7e4ffe9853fefa3bc1c43f7",
+    "url": "https://api.nuget.org/v3-flatcontainer/runtime.linux-x64.microsoft.dotnet.ilcompiler/10.0.5/runtime.linux-x64.microsoft.dotnet.ilcompiler.10.0.5.nupkg",
     "type": "file"
   },
   {
