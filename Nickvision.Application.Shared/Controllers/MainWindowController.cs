@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Nickvision.Application.Shared.Helpers;
 using Nickvision.Application.Shared.Models;
 using Nickvision.Application.Shared.Services;
 using Nickvision.Desktop.Application;
@@ -32,7 +33,7 @@ public class MainWindowController
         _translationService = translationService;
         _updaterService = updaterService;
         _latestVersion = appInfo.Version!;
-        _translationService.Language = _jsonFileService.Load<Configuration>(Configuration.Key).TranslationLanguage;
+        _translationService.Language = _jsonFileService.Load(ApplicationJsonContext.Default.Configuration, Configuration.Key).TranslationLanguage;
         _logger.LogInformation($"Received command-line arguments: [{string.Join(", ", argumentsService.Data)}]");
         // Translate strings
         _appInfo.ShortName = _translationService._("Application");
@@ -58,24 +59,24 @@ public class MainWindowController
         var _ => _translationService._("Good Day!")
     };
 
-    public Theme Theme => _jsonFileService.Load<Configuration>(Configuration.Key).Theme;
+    public Theme Theme => _jsonFileService.Load(ApplicationJsonContext.Default.Configuration, Configuration.Key).Theme;
 
     public WindowGeometry WindowGeometry
     {
-        get => _jsonFileService.Load<Configuration>(Configuration.Key).WindowGeometry;
+        get => _jsonFileService.Load(ApplicationJsonContext.Default.Configuration, Configuration.Key).WindowGeometry;
 
         set
         {
-            var config = _jsonFileService.Load<Configuration>(Configuration.Key);
+            var config = _jsonFileService.Load(ApplicationJsonContext.Default.Configuration, Configuration.Key);
             config.WindowGeometry = value;
-            _jsonFileService.Save(config, Configuration.Key);
+            _jsonFileService.Save(config, ApplicationJsonContext.Default.Configuration, Configuration.Key);
         }
     }
 
     public async Task CheckForUpdatesAsync(bool showNotificationForNoUpdates)
     {
         _logger.LogInformation("Checking for updates...");
-        var config = _jsonFileService.Load<Configuration>(Configuration.Key);
+        var config = _jsonFileService.Load(ApplicationJsonContext.Default.Configuration, Configuration.Key);
         var stableVersion = await _updaterService.GetLatestStableVersionAsync();
         if (stableVersion is not null)
         {

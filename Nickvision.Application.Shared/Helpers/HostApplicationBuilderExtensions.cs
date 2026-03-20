@@ -18,7 +18,7 @@ public static class HostApplicationBuilderExtensions
         {
             var appInfo = new AppInfo("org.nickvision.application", "Nickvision Application", "Application")
             {
-                Version = new AppVersion("2026.2.0-next"),
+                Version = new AppVersion("2026.3.0-next"),
                 Changelog = "- Initial release",
                 SourceRepository = new Uri("https://github.com/NickvisionApps/Application"),
                 IssueTracker = new Uri("https://github.com/NickvisionApps/Application/issues/new"),

@@ -1,4 +1,5 @@
-﻿using Nickvision.Application.Shared.Models;
+﻿using Nickvision.Application.Shared.Helpers;
+using Nickvision.Application.Shared.Models;
 using Nickvision.Desktop.Application;
 using Nickvision.Desktop.Filesystem;
 using Nickvision.Desktop.Globalization;
@@ -22,7 +23,7 @@ public class PreferencesViewController
     {
         _jsonFileService = jsonFileService;
         _translationService = translationService;
-        _configuration = _jsonFileService.Load<Configuration>(Configuration.Key);
+        _configuration = _jsonFileService.Load(ApplicationJsonContext.Default.Configuration, Configuration.Key);
         AvailableTranslationLanguages = new List<SelectionItem<string>>()
         {
             new SelectionItem<string>(string.Empty, _translationService._("System"), string.IsNullOrEmpty(_configuration.TranslationLanguage)),
@@ -58,5 +59,5 @@ public class PreferencesViewController
         set => _configuration.AllowPreviewUpdates = value;
     }
 
-    public Task SaveConfigurationAsync() => _jsonFileService.SaveAsync(_configuration, Configuration.Key);
+    public Task SaveConfigurationAsync() => _jsonFileService.SaveAsync(_configuration, ApplicationJsonContext.Default.Configuration, Configuration.Key);
 }
