@@ -1,10 +1,8 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Nickvision.Application.Shared.Controllers;
-using Nickvision.Application.Shared.Models;
-using Nickvision.Desktop.Application;
 using Nickvision.Desktop.Globalization;
-using Nickvision.Desktop.WinUI.Helpers;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Nickvision.Application.WinUI.Views;
@@ -25,10 +23,20 @@ public sealed partial class SettingsPage : Page
         LblSettings.Text = _translationService._("Settings");
         SelectorUI.Text = _translationService._("User Interface");
         RowTheme.Header = _translationService._("Theme");
-        CmbTheme.ItemsSource = _controller.Themes;
+        var themeLabels = new List<string>();
+        foreach (var theme in _controller.Themes)
+        {
+            themeLabels.Add(theme.Label);
+        }
+        CmbTheme.ItemsSource = themeLabels;
         RowTranslationLanguage.Header = _translationService._("Translation Language");
         RowTranslationLanguage.Description = _translationService._("An application restart is required for a change to take effect");
-        CmbTranslationLanguage.ItemsSource = _controller.AvailableTranslationLanguages;
+        var languageLabels = new List<string>();
+        foreach (var lang in _controller.AvailableTranslationLanguages)
+        {
+            languageLabels.Add(lang.Label);
+        }
+        CmbTranslationLanguage.ItemsSource = languageLabels;
         RowPreviewUpdates.Header = _translationService._("Receive Preview Updates");
         TglPreviewUpdates.OnContent = _translationService._("On");
         TglPreviewUpdates.OffContent = _translationService._("Off");
@@ -36,8 +44,22 @@ public sealed partial class SettingsPage : Page
 
     private void Page_Loaded(object sender, RoutedEventArgs e)
     {
-        CmbTheme.SelectSelectionItem();
-        CmbTranslationLanguage.SelectSelectionItem();
+        for (int i = 0; i < _controller.Themes.Count; i++)
+        {
+            if (_controller.Themes[i].ShouldSelect)
+            {
+                CmbTheme.SelectedIndex = i;
+                break;
+            }
+        }
+        for (int i = 0; i < _controller.AvailableTranslationLanguages.Count; i++)
+        {
+            if (_controller.AvailableTranslationLanguages[i].ShouldSelect)
+            {
+                CmbTranslationLanguage.SelectedIndex = i;
+                break;
+            }
+        }
         TglPreviewUpdates.IsOn = _controller.AllowPreviewUpdates;
         _constructing = false;
     }
@@ -58,8 +80,12 @@ public sealed partial class SettingsPage : Page
         {
             return;
         }
-        _controller.Theme = (CmbTheme.SelectedItem as SelectionItem<Theme>)!;
-        _controller.TranslationLanguage = (CmbTranslationLanguage.SelectedItem as SelectionItem<string>)!;
+        if (CmbTheme.SelectedIndex < 0 || CmbTranslationLanguage.SelectedIndex < 0)
+        {
+            return;
+        }
+        _controller.Theme = _controller.Themes[CmbTheme.SelectedIndex];
+        _controller.TranslationLanguage = _controller.AvailableTranslationLanguages[CmbTranslationLanguage.SelectedIndex];
         _controller.AllowPreviewUpdates = TglPreviewUpdates.IsOn;
         await _controller.SaveConfigurationAsync();
     }
