@@ -3,12 +3,14 @@ using Nickvision.Application.GNOME.Helpers;
 using Nickvision.Application.GNOME.Views;
 using Nickvision.Application.Shared.Helpers;
 using Nickvision.Desktop.GNOME.Helpers;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace Nickvision.Application.GNOME;
 
 public class Program
 {
+    [RequiresDynamicCode("Calls ConfigureAdw<T>() which may use dynamic code generation.")]
     public static async Task Main(string[] args)
     {
         var newArgs = new string[args.Length + 1];
