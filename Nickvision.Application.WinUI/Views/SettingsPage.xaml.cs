@@ -1,6 +1,7 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Nickvision.Application.Shared.Controllers;
+using Nickvision.Application.WinUI.Models;
 using Nickvision.Desktop.Globalization;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -23,20 +24,20 @@ public sealed partial class SettingsPage : Page
         LblSettings.Text = _translationService._("Settings");
         SelectorUI.Text = _translationService._("User Interface");
         RowTheme.Header = _translationService._("Theme");
-        var themeLabels = new List<string>();
+        var themeItems = new List<BindableSelectionItem>();
         foreach (var theme in _controller.Themes)
         {
-            themeLabels.Add(theme.Label);
+            themeItems.Add(new BindableSelectionItem(theme.Label));
         }
-        CmbTheme.ItemsSource = themeLabels;
+        CmbTheme.ItemsSource = themeItems;
         RowTranslationLanguage.Header = _translationService._("Translation Language");
         RowTranslationLanguage.Description = _translationService._("An application restart is required for a change to take effect");
-        var languageLabels = new List<string>();
+        var languageItems = new List<BindableSelectionItem>();
         foreach (var lang in _controller.AvailableTranslationLanguages)
         {
-            languageLabels.Add(lang.Label);
+            languageItems.Add(new BindableSelectionItem(lang.Label));
         }
-        CmbTranslationLanguage.ItemsSource = languageLabels;
+        CmbTranslationLanguage.ItemsSource = languageItems;
         RowPreviewUpdates.Header = _translationService._("Receive Preview Updates");
         TglPreviewUpdates.OnContent = _translationService._("On");
         TglPreviewUpdates.OffContent = _translationService._("Off");

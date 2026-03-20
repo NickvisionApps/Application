@@ -5,6 +5,7 @@
     xmlns:local="using:Nickvision.Application.WinUI.Views"
     xmlns:nickvision="using:Nickvision.Desktop.WinUI.Controls"
     xmlns:community="using:CommunityToolkit.WinUI.Controls"
+    xmlns:models="using:Nickvision.Application.WinUI.Models"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" Loaded="Page_Loaded">
@@ -47,7 +48,13 @@
                                 <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE793;"/> 
                             </community:SettingsCard.HeaderIcon>
                             
-                            <ComboBox x:Name="CmbTheme" SelectionChanged="Cmb_SelectionChanged"/>
+                            <ComboBox x:Name="CmbTheme" SelectionChanged="Cmb_SelectionChanged">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate x:DataType="models:BindableSelectionItem">
+                                        <TextBlock Text="{x:Bind Label}"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
                         </community:SettingsCard>
 
                         <community:SettingsCard x:Name="RowTranslationLanguage">
@@ -55,7 +62,13 @@
                                 <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xF2B7;"/>
                             </community:SettingsCard.HeaderIcon>
 
-                            <ComboBox x:Name="CmbTranslationLanguage" SelectionChanged="Cmb_SelectionChanged"/>
+                            <ComboBox x:Name="CmbTranslationLanguage" SelectionChanged="Cmb_SelectionChanged">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate x:DataType="models:BindableSelectionItem">
+                                        <TextBlock Text="{x:Bind Label}"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
                         </community:SettingsCard>
 
                         <community:SettingsCard x:Name="RowPreviewUpdates">
