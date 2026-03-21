@@ -10,6 +10,7 @@ using Nickvision.Desktop.GNOME.Controls;
 using Nickvision.Desktop.GNOME.Helpers;
 using Nickvision.Desktop.Notifications;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace Nickvision.Application.GNOME.Views;
@@ -43,6 +44,7 @@ public class MainWindow : Adw.ApplicationWindow
 
     }
 
+    [DynamicDependency(DynamicallyAccessedMemberTypes.NonPublicFields, typeof(MainWindow))]
     private MainWindow(IServiceProvider serviceProvider, MainWindowController controller, AppInfo appInfo, IEventsService eventsService, ITranslationService translationService, Gtk.Builder builder) : base(new Adw.Internal.ApplicationWindowHandle(builder.GetPointer("root"), false))
     {
         var application = serviceProvider.GetRequiredService<Adw.Application>();
