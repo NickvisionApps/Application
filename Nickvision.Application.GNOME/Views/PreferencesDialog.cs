@@ -2,6 +2,7 @@
 using Nickvision.Application.Shared.Models;
 using Nickvision.Desktop.GNOME.Helpers;
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Nickvision.Application.GNOME.Views;
 
@@ -20,6 +21,7 @@ public class PreferencesDialog : Adw.PreferencesDialog
 
     }
 
+    [DynamicDependency(DynamicallyAccessedMemberTypes.NonPublicFields, typeof(PreferencesDialog))]
     private PreferencesDialog(PreferencesViewController controller, Gtk.Builder builder) : base(new Adw.Internal.PreferencesDialogHandle(builder.GetPointer("root"), false))
     {
         _controller = controller;
