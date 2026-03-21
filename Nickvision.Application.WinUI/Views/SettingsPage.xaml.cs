@@ -2,7 +2,6 @@
 using Microsoft.UI.Xaml.Controls;
 using Nickvision.Application.Shared.Controllers;
 using Nickvision.Application.Shared.Models;
-using Nickvision.Desktop.Application;
 using Nickvision.Desktop.Globalization;
 using Nickvision.Desktop.WinUI.Helpers;
 using System.Threading.Tasks;
@@ -25,10 +24,10 @@ public sealed partial class SettingsPage : Page
         LblSettings.Text = _translationService._("Settings");
         SelectorUI.Text = _translationService._("User Interface");
         RowTheme.Header = _translationService._("Theme");
-        CmbTheme.ItemsSource = _controller.Themes;
+        CmbTheme.ItemsSource = _controller.Themes.ToBindableSelectonItems();
         RowTranslationLanguage.Header = _translationService._("Translation Language");
         RowTranslationLanguage.Description = _translationService._("An application restart is required for a change to take effect");
-        CmbTranslationLanguage.ItemsSource = _controller.AvailableTranslationLanguages;
+        CmbTranslationLanguage.ItemsSource = _controller.AvailableTranslationLanguages.ToBindableSelectonItems();
         RowPreviewUpdates.Header = _translationService._("Receive Preview Updates");
         TglPreviewUpdates.OnContent = _translationService._("On");
         TglPreviewUpdates.OffContent = _translationService._("Off");
@@ -58,8 +57,8 @@ public sealed partial class SettingsPage : Page
         {
             return;
         }
-        _controller.Theme = (CmbTheme.SelectedItem as SelectionItem<Theme>)!;
-        _controller.TranslationLanguage = (CmbTranslationLanguage.SelectedItem as SelectionItem<string>)!;
+        _controller.Theme = (CmbTheme.SelectedItem as BindableSelectionItem)!.ToSelectionItem<Theme>()!;
+        _controller.TranslationLanguage = (CmbTranslationLanguage.SelectedItem as BindableSelectionItem)!.ToSelectionItem<string>()!;
         _controller.AllowPreviewUpdates = TglPreviewUpdates.IsOn;
         await _controller.SaveConfigurationAsync();
     }
