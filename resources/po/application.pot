@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-20 14:58-0400\n"
+"POT-Creation-Date: 2026-03-21 10:59-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -57,22 +57,22 @@ msgid "Open a folder (or drag one into the app) to get started"
 msgstr ""
 
 #: Nickvision.Application.GNOME/Blueprints/PreferencesDialog.blp:12
-#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:26
+#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:25
 msgid "User Interface"
 msgstr ""
 
 #: Nickvision.Application.GNOME/Blueprints/PreferencesDialog.blp:15
-#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:27
+#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:26
 msgid "Theme"
 msgstr ""
 
 #: Nickvision.Application.GNOME/Blueprints/PreferencesDialog.blp:24
-#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:29
+#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:28
 msgid "Translation Language"
 msgstr ""
 
 #: Nickvision.Application.GNOME/Blueprints/PreferencesDialog.blp:25
-#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:30
+#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:29
 msgid "An application restart is required for a change to take effect"
 msgstr ""
 
@@ -307,7 +307,7 @@ msgid "Discussions"
 msgstr ""
 
 #: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:82
-#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:25
+#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:24
 msgid "Settings"
 msgstr ""
 
@@ -324,14 +324,14 @@ msgstr ""
 msgid "Downloading update: {0}%"
 msgstr ""
 
-#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:32
+#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:31
 msgid "Receive Preview Updates"
 msgstr ""
 
-#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:33
+#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:32
 msgid "On"
 msgstr ""
 
-#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:34
+#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:33
 msgid "Off"
 msgstr ""
