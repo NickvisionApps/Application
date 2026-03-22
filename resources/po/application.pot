@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-21 10:59-0400\n"
+"POT-Creation-Date: 2026-03-21 22:55-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -91,7 +91,7 @@ msgid "Folder"
 msgstr ""
 
 #: Nickvision.Application.GNOME/Blueprints/ShortcutsDialog.blp:33
-#: Nickvision.Application.GNOME/Views/MainWindow.cs:191
+#: Nickvision.Application.GNOME/Views/MainWindow.cs:193
 #: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:85
 msgid "Open Folder"
 msgstr ""
@@ -100,25 +100,25 @@ msgstr ""
 msgid "Close Folder"
 msgstr ""
 
-#: Nickvision.Application.GNOME/Views/MainWindow.cs:162
+#: Nickvision.Application.GNOME/Views/MainWindow.cs:164
 #: Nickvision.Application.WinUI/Controls/AboutDialog.xaml.cs:23
 #: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:87
 #: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:157
 msgid "Close"
 msgstr ""
 
-#: Nickvision.Application.GNOME/Views/MainWindow.cs:167
+#: Nickvision.Application.GNOME/Views/MainWindow.cs:169
 msgid "View"
 msgstr ""
 
-#: Nickvision.Application.GNOME/Views/MainWindow.cs:183
+#: Nickvision.Application.GNOME/Views/MainWindow.cs:185
 #, csharp-format
 msgid "There is {0} file in the folder."
 msgid_plural "There are {0} files in the folder"
 msgstr[0] ""
 msgstr[1] ""
 
-#: Nickvision.Application.GNOME/Views/MainWindow.cs:227
+#: Nickvision.Application.GNOME/Views/MainWindow.cs:229
 #: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:78
 msgid "GitHub Repo"
 msgstr ""
