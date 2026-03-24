@@ -40,19 +40,19 @@ public partial class App : Microsoft.UI.Xaml.Application
     {
         if (args.Arguments.ContainsKey("action") && args.Arguments["action"] == "OpenInExplorer")
         {
-            if (!Directory.Exists(args.Arguments["path"]))
+            if (!Directory.Exists(args.Arguments["param"]))
             {
                 try
                 {
                     using var _ = Process.Start(new ProcessStartInfo()
                     {
-                        FileName = args.Arguments["path"],
+                        FileName = args.Arguments["param"],
                         UseShellExecute = true
                     });
                 }
                 catch
                 {
-                    await Launcher.LaunchFolderPathAsync(args.Arguments["path"]);
+                    await Launcher.LaunchFolderPathAsync(args.Arguments["param"]);
                 }
             }
         }
