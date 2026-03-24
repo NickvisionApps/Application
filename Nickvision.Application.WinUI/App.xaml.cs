@@ -1,7 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
+using Microsoft.Windows.AppNotifications;
 using Nickvision.Application.WinUI.Views;
 using System;
+using System.Diagnostics;
+using System.IO;
+using Windows.System;
 
 namespace Nickvision.Application.WinUI;
 
@@ -14,6 +18,13 @@ public partial class App : Microsoft.UI.Xaml.Application
     {
         InitializeComponent();
         _serviceProvider = serviceProvider;
+        AppNotificationManager.Default.NotificationInvoked += App_NotificationInvoked;
+        AppNotificationManager.Default.Register();
+        AppDomain.CurrentDomain.ProcessExit += async (_, _) =>
+        {
+            await AppNotificationManager.Default.RemoveAllAsync();
+            AppNotificationManager.Default.UnregisterAll();
+        };
     }
 
     protected override void OnLaunched(LaunchActivatedEventArgs args)
@@ -23,5 +34,27 @@ public partial class App : Microsoft.UI.Xaml.Application
             _window = _serviceProvider.GetRequiredService<MainWindow>();
         }
         _window.Activate();
+    }
+
+    private async void App_NotificationInvoked(AppNotificationManager sender, AppNotificationActivatedEventArgs args)
+    {
+        if (args.Arguments.ContainsKey("action") && args.Arguments["action"] == "OpenInExplorer")
+        {
+            if (!Directory.Exists(args.Arguments["path"]))
+            {
+                try
+                {
+                    using var _ = Process.Start(new ProcessStartInfo()
+                    {
+                        FileName = args.Arguments["path"],
+                        UseShellExecute = true
+                    });
+                }
+                catch
+                {
+                    await Launcher.LaunchFolderPathAsync(args.Arguments["path"]);
+                }
+            }
+        }
     }
 }

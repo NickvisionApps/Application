@@ -50,6 +50,8 @@ public class MainWindowController
 
     public bool CanShutdown => true;
 
+    public string? CurrentFolder => _folderService.Path;
+
     public string Greeting => DateTime.Now.Hour switch
     {
         >= 0 and < 6 => _translationService._p("Night", "Good Morning!"),

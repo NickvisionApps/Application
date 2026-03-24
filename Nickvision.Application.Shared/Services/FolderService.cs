@@ -48,6 +48,11 @@ public class FolderService : IFolderService
         {
             Action = "close"
         });
+        _notificationService.Send(new ShellNotification(_translationService._("Folder"), _translationService._("Loaded {0} file(s)", Files.Count), NotificationSeverity.Information)
+        {
+            Action = "open",
+            ActionParam = Path
+        });
         Changed?.Invoke(this, new FolderChangedEventArgs(Path, Files));
     }
 

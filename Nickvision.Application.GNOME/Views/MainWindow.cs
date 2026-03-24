@@ -11,6 +11,7 @@ using Nickvision.Desktop.GNOME.Helpers;
 using Nickvision.Desktop.Notifications;
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq;
 
 namespace Nickvision.Application.GNOME.Views;
@@ -18,6 +19,7 @@ namespace Nickvision.Application.GNOME.Views;
 public class MainWindow : Adw.ApplicationWindow
 {
     private readonly IServiceProvider _serviceProvider;
+    private readonly Adw.Application _application;
     private readonly MainWindowController _controller;
     private readonly AppInfo _appInfo;
     private readonly ITranslationService _translationService;
@@ -39,16 +41,16 @@ public class MainWindow : Adw.ApplicationWindow
     [Gtk.Connect("pageFiles")]
     private Adw.StatusPage? _pageFiles;
 
-    public MainWindow(IServiceProvider serviceProvider, MainWindowController controller, AppInfo appInfo, IEventsService eventsService, ITranslationService translationService, IGtkBuilderFactory builderFactory) : this(serviceProvider, controller, appInfo, eventsService, translationService, builderFactory.Create("MainWindow"))
+    public MainWindow(IServiceProvider serviceProvider, Adw.Application application, MainWindowController controller, AppInfo appInfo, IEventsService eventsService, ITranslationService translationService, IGtkBuilderFactory builderFactory) : this(serviceProvider, application, controller, appInfo, eventsService, translationService, builderFactory.Create("MainWindow"))
     {
 
     }
 
     [DynamicDependency(DynamicallyAccessedMemberTypes.NonPublicFields, typeof(MainWindow))]
-    private MainWindow(IServiceProvider serviceProvider, MainWindowController controller, AppInfo appInfo, IEventsService eventsService, ITranslationService translationService, Gtk.Builder builder) : base(new Adw.Internal.ApplicationWindowHandle(builder.GetPointer("root"), false))
+    private MainWindow(IServiceProvider serviceProvider, Adw.Application application, MainWindowController controller, AppInfo appInfo, IEventsService eventsService, ITranslationService translationService, Gtk.Builder builder) : base(new Adw.Internal.ApplicationWindowHandle(builder.GetPointer("root"), false))
     {
-        var application = serviceProvider.GetRequiredService<Adw.Application>();
         _serviceProvider = serviceProvider;
+        _application = application;
         _controller = controller;
         _appInfo = appInfo;
         _translationService = translationService;
@@ -87,32 +89,36 @@ public class MainWindow : Adw.ApplicationWindow
         var actQuit = Gio.SimpleAction.New("quit", null);
         actQuit.OnActivate += Quit;
         AddAction(actQuit);
-        application.SetAccelsForAction("win.quit", ["<Ctrl>q"]);
+        _application.SetAccelsForAction("win.quit", ["<Ctrl>q"]);
+        // Open in files action
+        var actOpenInFiles = Gio.SimpleAction.New("openInFiles", null);
+        actOpenInFiles.OnActivate += OpenInFiles;
+        AddAction(actOpenInFiles);
         // Open folder action
         var actOpenFolder = Gio.SimpleAction.New("openFolder", null);
         actOpenFolder.OnActivate += OpenFolder;
         AddAction(actOpenFolder);
-        application.SetAccelsForAction("win.openFolder", ["<Ctrl>o"]);
+        _application.SetAccelsForAction("win.openFolder", ["<Ctrl>o"]);
         // Close folder action
         var actCloseFolder = Gio.SimpleAction.New("closeFolder", null);
         actCloseFolder.OnActivate += CloseFolder;
         AddAction(actCloseFolder);
-        application.SetAccelsForAction("win.closeFolder", ["<Ctrl>w"]);
+        _application.SetAccelsForAction("win.closeFolder", ["<Ctrl>w"]);
         // Preferences action
         var actPreferences = Gio.SimpleAction.New("preferences", null);
         actPreferences.OnActivate += Preferences;
         AddAction(actPreferences);
-        application.SetAccelsForAction("win.preferences", ["<Ctrl>period"]);
+        _application.SetAccelsForAction("win.preferences", ["<Ctrl>period"]);
         // Keyboard shortcuts action
         var actKeyboardShortcuts = Gio.SimpleAction.New("keyboardShortcuts", null);
         actKeyboardShortcuts.OnActivate += KeyboardShortcuts;
         AddAction(actKeyboardShortcuts);
-        application.SetAccelsForAction("win.keyboardShortcuts", ["<Ctrl>question"]);
+        _application.SetAccelsForAction("win.keyboardShortcuts", ["<Ctrl>question"]);
         // About action
         var actAbout = Gio.SimpleAction.New("about", null);
         actAbout.OnActivate += About;
         AddAction(actAbout);
-        application.SetAccelsForAction("win.about", ["F1"]);
+        _application.SetAccelsForAction("win.about", ["F1"]);
     }
 
     public new void Present()
@@ -158,6 +164,16 @@ public class MainWindow : Adw.ApplicationWindow
 
     private void Controller_AppNotificationSent(object? sender, AppNotificationSentEventArgs e)
     {
+        if (e.Notification is ShellNotification shellNotification)
+        {
+            var notification = Gio.Notification.New(shellNotification.Title);
+            notification.SetBody(shellNotification.Message);
+            if (shellNotification.Action == "open" && !Directory.Exists(shellNotification.ActionParam))
+            {
+                notification.AddButton(_translationService._("Open in Files"), "win.openInFiles");
+            }
+            _application.SendNotification(null, notification);
+        }
         var toast = Adw.Toast.New(e.Notification.Message);
         if (e.Notification.Action == "close")
         {
@@ -186,6 +202,16 @@ public class MainWindow : Adw.ApplicationWindow
     }
 
     private void Quit(Gio.SimpleAction sender, Gio.SimpleAction.ActivateSignalArgs e) => Window_OnCloseRequest(this, new EventArgs());
+
+    private async void OpenInFiles(Gio.SimpleAction sender, Gio.SimpleAction.ActivateSignalArgs e)
+    {
+        if (!Directory.Exists(_controller.CurrentFolder))
+        {
+            return;
+        }
+        var launcher = Gtk.FileLauncher.New(Gio.FileHelper.NewForPath(_controller.CurrentFolder));
+        await launcher.LaunchAsync(this);
+    }
 
     private async void OpenFolder(Gio.SimpleAction sender, Gio.SimpleAction.ActivateSignalArgs e)
     {

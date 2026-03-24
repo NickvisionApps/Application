@@ -3,7 +3,6 @@ using Nickvision.Application.Shared.Helpers;
 using Nickvision.Application.WinUI.Helpers;
 using Nickvision.Desktop.WinUI.Helpers;
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 
 namespace Nickvision.Application.WinUI;
@@ -14,7 +13,6 @@ public static partial class Program
     private static partial void XamlCheckProcessRequirements();
 
     [STAThread]
-    [RequiresDynamicCode("Calls ConfigureWinUI<T>() which may use dynamic code generation.")]
     private static void Main(string[] args)
     {
         XamlCheckProcessRequirements();
