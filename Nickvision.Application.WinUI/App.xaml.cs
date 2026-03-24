@@ -38,22 +38,19 @@ public partial class App : Microsoft.UI.Xaml.Application
 
     private async void App_NotificationInvoked(AppNotificationManager sender, AppNotificationActivatedEventArgs args)
     {
-        if (args.Arguments.ContainsKey("action") && args.Arguments["action"] == "OpenInExplorer")
+        if (args.Arguments.ContainsKey("action") && args.Arguments["action"] == "OpenInExplorer" && args.Arguments.ContainsKey("param") && Directory.Exists(args.Arguments["param"]))
         {
-            if (!Directory.Exists(args.Arguments["param"]))
+            try
             {
-                try
+                using var _ = Process.Start(new ProcessStartInfo()
                 {
-                    using var _ = Process.Start(new ProcessStartInfo()
-                    {
-                        FileName = args.Arguments["param"],
-                        UseShellExecute = true
-                    });
-                }
-                catch
-                {
-                    await Launcher.LaunchFolderPathAsync(args.Arguments["param"]);
-                }
+                    FileName = args.Arguments["param"],
+                    UseShellExecute = true
+                });
+            }
+            catch
+            {
+                await Launcher.LaunchFolderPathAsync(args.Arguments["param"]);
             }
         }
     }
