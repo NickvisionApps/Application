@@ -198,7 +198,7 @@ public class MainWindow : Adw.ApplicationWindow
     {
         var password = string.Empty;
         var passwordEntryRow = Adw.PasswordEntryRow.New();
-        passwordEntryRow.Title = _("Password");
+        passwordEntryRow.Title = _translationService._("Password");
         var preferencesGroup = Adw.PreferencesGroup.New();
         preferencesGroup.Add(passwordEntryRow);
         var dialog = Adw.MessageDialog.New(this, _translationService._("Password Required"), _translationService._("This app stores data in an encrypted database. As the system credential manager (secret service) is not available, please provide a password to use to encrypt the database.\n\nIf you've already provided a password, please provide it again to unlock the database."));
