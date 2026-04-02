@@ -1,5 +1,5 @@
 ﻿using Nickvision.Application.Shared.Events;
-using Nickvision.Desktop.Filesystem;
+using Nickvision.Desktop.Application;
 using Nickvision.Desktop.Notifications;
 using System;
 
@@ -7,14 +7,16 @@ namespace Nickvision.Application.Shared.Services;
 
 public class EventsService : IEventsService
 {
+    private readonly IConfigurationService _configurationService;
+    private readonly IDatabaseService _databaseService;
     private readonly IFolderService _folderService;
-    private readonly IJsonFileService _jsonFileService;
     private readonly INotificationService _notificationService;
 
-    public EventsService(IFolderService folderService, IJsonFileService jsonFileService, INotificationService notificationService)
+    public EventsService(IConfigurationService configurationService, IDatabaseService databaseService, IFolderService folderService, INotificationService notificationService)
     {
+        _configurationService = configurationService;
+        _databaseService = databaseService;
         _folderService = folderService;
-        _jsonFileService = jsonFileService;
         _notificationService = notificationService;
     }
 
@@ -25,17 +27,24 @@ public class EventsService : IEventsService
         remove => _notificationService.AppNotificationSent -= value;
     }
 
+    public event EventHandler<ConfigurationSavedEventArgs>? ConfigurationSaved
+    {
+        add => _configurationService.Saved += value;
+
+        remove => _configurationService.Saved -= value;
+    }
+
+    public event EventHandler<PasswordRequiredEventArgs>? DatabasePasswordRequired
+    {
+        add => _databaseService.PasswordRequired += value;
+
+        remove => _databaseService.PasswordRequired -= value;
+    }
+
     public event EventHandler<FolderChangedEventArgs> FolderChanged
     {
         add => _folderService.Changed += value;
 
         remove => _folderService.Changed -= value;
-    }
-
-    public event EventHandler<JsonFileSavedEventArgs>? JsonFileSaved
-    {
-        add => _jsonFileService.Saved += value;
-
-        remove => _jsonFileService.Saved -= value;
     }
 }

@@ -3,7 +3,6 @@ using Nickvision.Application.Shared.Helpers;
 using Nickvision.Application.Shared.Models;
 using Nickvision.Application.Shared.Services;
 using Nickvision.Desktop.Application;
-using Nickvision.Desktop.Filesystem;
 using Nickvision.Desktop.Globalization;
 using Nickvision.Desktop.Network;
 using Nickvision.Desktop.Notifications;
@@ -16,24 +15,24 @@ public class MainWindowController
 {
     ILogger<MainWindowController> _logger;
     private readonly AppInfo _appInfo;
+    private readonly IConfigurationService _configurationService;
     private readonly IFolderService _folderService;
-    private readonly IJsonFileService _jsonFileService;
     private readonly INotificationService _notificationService;
     private readonly ITranslationService _translationService;
     private readonly IUpdaterService _updaterService;
     private AppVersion _latestVersion;
 
-    public MainWindowController(ILogger<MainWindowController> logger, AppInfo appInfo, IArgumentsService argumentsService, IFolderService folderService, IJsonFileService jsonFileService, INotificationService notificationService, ITranslationService translationService, IUpdaterService updaterService)
+    public MainWindowController(ILogger<MainWindowController> logger, AppInfo appInfo, IArgumentsService argumentsService, IConfigurationService configurationService, IFolderService folderService, INotificationService notificationService, ITranslationService translationService, IUpdaterService updaterService)
     {
         _logger = logger;
         _appInfo = appInfo;
+        _configurationService = configurationService;
         _folderService = folderService;
-        _jsonFileService = jsonFileService;
         _notificationService = notificationService;
         _translationService = translationService;
         _updaterService = updaterService;
         _latestVersion = appInfo.Version!;
-        _translationService.Language = _jsonFileService.Load(ApplicationJsonContext.Default.Configuration, Configuration.Key).TranslationLanguage;
+        _translationService.Language = _configurationService.TranslationLanguage;
         _logger.LogInformation($"Received command-line arguments: [{string.Join(", ", argumentsService.Data)}]");
         // Translate strings
         _appInfo.ShortName = _translationService._("Application");
@@ -61,30 +60,28 @@ public class MainWindowController
         var _ => _translationService._("Good Day!")
     };
 
-    public Theme Theme => _jsonFileService.Load(ApplicationJsonContext.Default.Configuration, Configuration.Key).Theme;
+    public Theme Theme => _configurationService.Theme;
 
     public WindowGeometry WindowGeometry
     {
-        get => _jsonFileService.Load(ApplicationJsonContext.Default.Configuration, Configuration.Key).WindowGeometry;
+        get => _configurationService.WindowGeometry;
 
         set
         {
-            var config = _jsonFileService.Load(ApplicationJsonContext.Default.Configuration, Configuration.Key);
-            config.WindowGeometry = value;
-            _jsonFileService.Save(config, ApplicationJsonContext.Default.Configuration, Configuration.Key);
+            _configurationService.WindowGeometry = value;
+            _configurationService.Save();
         }
     }
 
     public async Task CheckForUpdatesAsync(bool showNotificationForNoUpdates)
     {
         _logger.LogInformation("Checking for updates...");
-        var config = _jsonFileService.Load(ApplicationJsonContext.Default.Configuration, Configuration.Key);
         var stableVersion = await _updaterService.GetLatestStableVersionAsync();
         if (stableVersion is not null)
         {
             _latestVersion = stableVersion;
         }
-        if (config.AllowPreviewUpdates)
+        if (_configurationService.AllowPreviewUpdates)
         {
             var previewVersion = await _updaterService.GetLatestPreviewVersionAsync();
             if (previewVersion is not null && previewVersion > stableVersion)

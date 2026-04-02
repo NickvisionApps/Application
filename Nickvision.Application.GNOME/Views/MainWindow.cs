@@ -13,6 +13,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Nickvision.Application.GNOME.Views;
 
@@ -77,10 +78,11 @@ public class MainWindow : Adw.ApplicationWindow
         OnCloseRequest += Window_OnCloseRequest;
         eventsService.AppNotificationSent += (sender, e) => GLib.Functions.IdleAdd(0, () =>
         {
-            Controller_AppNotificationSent(sender, e);
+            App_AppNotificationSent(sender, e);
             return false;
         });
-        eventsService.FolderChanged += Controller_FolderChanged;
+        eventsService.DatabasePasswordRequired += App_DatabasePasswordRequired;
+        eventsService.FolderChanged += App_FolderChanged;
         // Drop target
         var dropTarget = Gtk.DropTarget.New(Gio.FileHelper.GetGType(), Gdk.DragAction.Copy);
         dropTarget.OnDrop += Window_OnDrop;
@@ -162,7 +164,7 @@ public class MainWindow : Adw.ApplicationWindow
         return true;
     }
 
-    private void Controller_AppNotificationSent(object? sender, AppNotificationSentEventArgs e)
+    private void App_AppNotificationSent(object? sender, AppNotificationSentEventArgs e)
     {
         if (e.Notification is ShellNotification shellNotification)
         {
@@ -192,7 +194,34 @@ public class MainWindow : Adw.ApplicationWindow
         _toastOverlay!.AddToast(toast);
     }
 
-    private void Controller_FolderChanged(object? sender, FolderChangedEventArgs e)
+    private async void App_DatabasePasswordRequired(object? sender, PasswordRequiredEventArgs e)
+    {
+        var password = string.Empty;
+        var passwordEntryRow = Adw.PasswordEntryRow.New();
+        passwordEntryRow.Title = _("Password");
+        var preferencesGroup = Adw.PreferencesGroup.New();
+        preferencesGroup.Add(passwordEntryRow);
+        var dialog = Adw.MessageDialog.New(this, _translationService._("Password Required"), _translationService._("This app stores data in an encrypted database. As the system credential manager (secret service) is not available, please provide a password to use to encrypt the database.\n\nIf you've already provided a password, please provide it again to unlock the database."));
+        dialog.AddResponse("submit", _translationService._("Submit"));
+        dialog.SetResponseAppearance("submit", Adw.ResponseAppearance.Suggested);
+        dialog.SetDefaultResponse("submit");
+        dialog.SetCloseResponse("submit");
+        dialog.SetExtraChild(preferencesGroup);
+        dialog.OnResponse += (_, args) =>
+        {
+            if (args.Response == "submit")
+            {
+                password = passwordEntryRow.Text_ ?? string.Empty;
+            }
+        };
+        while (string.IsNullOrEmpty(password))
+        {
+            dialog.Present();
+            await Task.Delay(100);
+        }
+    }
+
+    private void App_FolderChanged(object? sender, FolderChangedEventArgs e)
     {
         _windowTitle!.Subtitle = e.IsOpen ? e.Path : string.Empty;
         _btnOpenFolder!.Visible = e.IsOpen;

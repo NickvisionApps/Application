@@ -1,7 +1,6 @@
 ﻿using Nickvision.Application.Shared.Helpers;
 using Nickvision.Application.Shared.Models;
 using Nickvision.Desktop.Application;
-using Nickvision.Desktop.Filesystem;
 using Nickvision.Desktop.Globalization;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,52 +11,50 @@ namespace Nickvision.Application.Shared.Controllers;
 
 public class PreferencesViewController
 {
-    private readonly IJsonFileService _jsonFileService;
+    private readonly IConfigurationService _configurationService;
     private readonly ITranslationService _translationService;
-    private readonly Configuration _configuration;
 
     public IReadOnlyList<SelectionItem<string>> AvailableTranslationLanguages { get; }
     public IReadOnlyList<SelectionItem<Theme>> Themes { get; }
 
-    public PreferencesViewController(IJsonFileService jsonFileService, ITranslationService translationService)
+    public PreferencesViewController(IConfigurationService configurationService, ITranslationService translationService)
     {
-        _jsonFileService = jsonFileService;
+        _configurationService = configurationService;
         _translationService = translationService;
-        _configuration = _jsonFileService.Load(ApplicationJsonContext.Default.Configuration, Configuration.Key);
         AvailableTranslationLanguages = new List<SelectionItem<string>>()
         {
-            new SelectionItem<string>(string.Empty, _translationService._("System"), string.IsNullOrEmpty(_configuration.TranslationLanguage)),
-            new SelectionItem<string>("C", "en_US", _configuration.TranslationLanguage == "C")
+            new SelectionItem<string>(string.Empty, _translationService._("System"), string.IsNullOrEmpty(_configurationService.TranslationLanguage)),
+            new SelectionItem<string>("C", "en_US", _configurationService.TranslationLanguage == "C")
         };
         var languages = _translationService.AvailableLanguages.ToList();
         languages.Sort();
         foreach (var language in languages)
         {
-            (AvailableTranslationLanguages as IList)!.Add(new SelectionItem<string>(language, language, _configuration.TranslationLanguage == language));
+            (AvailableTranslationLanguages as IList)!.Add(new SelectionItem<string>(language, language, _configurationService.TranslationLanguage == language));
         }
         Themes = new List<SelectionItem<Theme>>()
         {
-            new SelectionItem<Theme>(Models.Theme.Light, _translationService._p("Theme", "Light"), _configuration.Theme == Models.Theme.Light),
-            new SelectionItem<Theme>(Models.Theme.Dark, _translationService._p("Theme", "Dark"), _configuration.Theme == Models.Theme.Dark),
-            new SelectionItem<Theme>(Models.Theme.System, _translationService._p("Theme", "System"), _configuration.Theme == Models.Theme.System),
+            new SelectionItem<Theme>(Models.Theme.Light, _translationService._p("Theme", "Light"), _configurationService.Theme == Models.Theme.Light),
+            new SelectionItem<Theme>(Models.Theme.Dark, _translationService._p("Theme", "Dark"), _configurationService.Theme == Models.Theme.Dark),
+            new SelectionItem<Theme>(Models.Theme.System, _translationService._p("Theme", "System"), _configurationService.Theme == Models.Theme.System),
         };
     }
     public SelectionItem<Theme> Theme
     {
-        set => _configuration.Theme = value.Value;
+        set => _configurationService.Theme = value.Value;
     }
 
     public SelectionItem<string> TranslationLanguage
     {
-        set => _configuration.TranslationLanguage = value.Value;
+        set => _configurationService.TranslationLanguage = value.Value;
     }
 
     public bool AllowPreviewUpdates
     {
-        get => _configuration.AllowPreviewUpdates;
+        get => _configurationService.AllowPreviewUpdates;
 
-        set => _configuration.AllowPreviewUpdates = value;
+        set => _configurationService.AllowPreviewUpdates = value;
     }
 
-    public Task SaveConfigurationAsync() => _jsonFileService.SaveAsync(_configuration, ApplicationJsonContext.Default.Configuration, Configuration.Key);
+    public Task SaveConfigurationAsync() => _configurationService.SaveAsync();
 }

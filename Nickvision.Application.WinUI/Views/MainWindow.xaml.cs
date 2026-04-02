@@ -14,7 +14,6 @@ using Nickvision.Application.Shared.Models;
 using Nickvision.Application.Shared.Services;
 using Nickvision.Application.WinUI.Controls;
 using Nickvision.Desktop.Application;
-using Nickvision.Desktop.Filesystem;
 using Nickvision.Desktop.Globalization;
 using Nickvision.Desktop.Network;
 using Nickvision.Desktop.Notifications;
@@ -65,9 +64,10 @@ public sealed partial class MainWindow : Window
         AppWindow.TitleBar.PreferredHeightOption = TitleBarHeightOption.Tall;
         // Events
         AppWindow.Closing += Window_Closing;
-        eventsService.AppNotificationSent += (sender, args) => DispatcherQueue.TryEnqueue(() => Controller_AppNotificationSent(sender, args));
-        eventsService.FolderChanged += Controller_FolderChanged;
-        eventsService.JsonFileSaved += Controller_JsonFileSaved;
+        eventsService.AppNotificationSent += (sender, args) => DispatcherQueue.TryEnqueue(() => App_AppNotificationSent(sender, args));
+        eventsService.ConfigurationSaved += App_ConfigurationSaved;
+        eventsService.DatabasePasswordRequired += App_DatabasePasswordRequired;
+        eventsService.FolderChanged += App_FolderChanged;
         // Translations
         AppWindow.Title = _appInfo.ShortName;
         TitleBar.Title = _appInfo.ShortName;
@@ -133,7 +133,7 @@ public sealed partial class MainWindow : Window
 
     private void NavItem_Tapped(object sender, TappedRoutedEventArgs e) => FlyoutBase.ShowAttachedFlyout(sender as FrameworkElement);
 
-    private void Controller_AppNotificationSent(object? sender, AppNotificationSentEventArgs args)
+    private void App_AppNotificationSent(object? sender, AppNotificationSentEventArgs args)
     {
         if (args.Notification is ShellNotification shellNotification)
         {
@@ -178,7 +178,54 @@ public sealed partial class MainWindow : Window
         InfoBar.IsOpen = true;
     }
 
-    private void Controller_FolderChanged(object? sender, FolderChangedEventArgs args)
+    private void App_ConfigurationSaved(object? sender, ConfigurationSavedEventArgs args)
+    {
+        if (args.ChangedPropertyName == "Theme")
+        {
+            MainGrid.RequestedTheme = _controller.Theme switch
+            {
+                Theme.Light => ElementTheme.Light,
+                Theme.Dark => ElementTheme.Dark,
+                _ => ElementTheme.Default
+            };
+        }
+    }
+
+    private async void App_DatabasePasswordRequired(object? sender, PasswordRequiredEventArgs args)
+    {
+        var passwordBox = new PasswordBox()
+        {
+            PlaceholderText = _translationService._("Enter password here")
+        };
+        var stackPanel = new StackPanel()
+        {
+            Orientation = Orientation.Vertical,
+            Spacing = 12
+        };
+        stackPanel.Children.Add(new TextBlock()
+        {
+            Text = _translationService._("This app stores data in an encrypted database. As the system credential manager (secret service) is not available, please provide a password to use to encrypt the database.\n\nIf you've already provided a password, please provide it again to unlock the database."),
+            TextWrapping = TextWrapping.WrapWholeWords
+        });
+        stackPanel.Children.Add(passwordBox);
+        var contentDialog = new ContentDialog()
+        {
+            Title = _translationService._("Password Required"),
+            Content = stackPanel,
+            PrimaryButtonText = _translationService._("Submit"),
+            DefaultButton = ContentDialogButton.Primary
+        };
+        while (string.IsNullOrEmpty(args.Password))
+        {
+            var res = await contentDialog.ShowAsync();
+            if (res == ContentDialogResult.Primary)
+            {
+                args.Password = passwordBox.Password;
+            }
+        }
+    }
+
+    private void App_FolderChanged(object? sender, FolderChangedEventArgs args)
     {
         foreach (var item in ListFolderFiles.Items)
         {
@@ -207,19 +254,6 @@ public sealed partial class MainWindow : Window
         {
             NavItemFolder.Visibility = Visibility.Collapsed;
             NavItemHome.IsSelected = true;
-        }
-    }
-
-    private void Controller_JsonFileSaved(object? sender, JsonFileSavedEventArgs args)
-    {
-        if (args.Name == Configuration.Key)
-        {
-            MainGrid.RequestedTheme = _controller.Theme switch
-            {
-                Theme.Light => ElementTheme.Light,
-                Theme.Dark => ElementTheme.Dark,
-                _ => ElementTheme.Default
-            };
         }
     }
 

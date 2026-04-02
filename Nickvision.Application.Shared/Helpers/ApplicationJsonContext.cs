@@ -1,10 +1,10 @@
-﻿using Nickvision.Application.Shared.Models;
+﻿using Nickvision.Desktop.Application;
 using System.Text.Json.Serialization;
 
 namespace Nickvision.Application.Shared.Helpers;
 
 [JsonSourceGenerationOptions(DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull, WriteIndented = true)]
-[JsonSerializable(typeof(Configuration))]
+[JsonSerializable(typeof(WindowGeometry))]
 public partial class ApplicationJsonContext : JsonSerializerContext
 {
 
