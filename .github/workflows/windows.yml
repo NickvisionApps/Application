@@ -51,7 +51,7 @@ jobs:
       - name: "Installer"
         working-directory: ${{github.workspace}}/inno
         env:
-          APP_FILES_PATH: ${{ env.PROJECT_NAME }}/bin/${{ matrix.variant.arch }}/Release/net10.0-windows10.0.19041.0/win-${{ matrix.variant.arch }}/publish
+          APP_FILES_PATH: ${{ env.PROJECT_NAME }}/bin/${{ matrix.variant.arch }}/Release/net10.0-windows10.0.22621.0/win-${{ matrix.variant.arch }}/publish
         shell: pwsh
         run: |
           $ProgressPreference = 'SilentlyContinue'
@@ -59,7 +59,7 @@ jobs:
       - name: "Portable"
         shell: pwsh
         run: |
-          $publishDir = "${{ env.PROJECT_NAME }}\bin\${{ matrix.variant.arch }}\Release\net10.0-windows10.0.19041.0\win-${{ matrix.variant.arch }}\publish"
+          $publishDir = "${{ env.PROJECT_NAME }}\bin\${{ matrix.variant.arch }}\Release\net10.0-windows10.0.22621.0\win-${{ matrix.variant.arch }}\publish"
           $portableDir = "${{ github.workspace }}\portable"
           New-Item -ItemType Directory -Force -Path "$portableDir\Release" | Out-Null
           Copy-Item -Path "$publishDir\*" -Destination "$portableDir\Release" -Recurse
