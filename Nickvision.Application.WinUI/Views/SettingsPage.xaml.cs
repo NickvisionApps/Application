@@ -48,7 +48,7 @@ public sealed partial class SettingsPage : Page
     private async void Cmb_SelectionChanged(object sender, SelectionChangedEventArgs args)
     {
         await ApplyChangesAsync();
-        if(sender.Equals(CmbTheme))
+        if (sender.Equals(CmbTheme))
         {
             await _controller.SaveConfigurationAsync();
         }

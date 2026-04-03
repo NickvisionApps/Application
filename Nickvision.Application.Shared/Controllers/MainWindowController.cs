@@ -119,7 +119,11 @@ public class MainWindowController
     public async Task WindowsUpdateAsync(IProgress<DownloadProgress> progress)
     {
         var res = await _updaterService.WindowsApplicationUpdateAsync(_latestVersion, progress);
-        if (!res)
+        if (res)
+        {
+            _notificationService.Send(new AppNotification(_translationService._("Starting {0} installer...", _appInfo.ShortName!), NotificationSeverity.Success));
+        }
+        else
         {
             _notificationService.Send(new AppNotification(_translationService._("Unable to download and install the update"), NotificationSeverity.Error));
         }

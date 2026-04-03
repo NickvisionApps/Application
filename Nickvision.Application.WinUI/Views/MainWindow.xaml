@@ -129,17 +129,31 @@
             </TitleBar.LeftHeader>
 
             <TitleBar.RightHeader>
-                <Button x:Name="BtnPreview" Background="Transparent" BorderThickness="0">
-                    <Button.Content>
-                        <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" FontSize="18" Glyph="&#xE794;"/>
-                    </Button.Content>
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                    <Button x:Name="BtnPreview" Background="Transparent" BorderThickness="0" Visibility="Collapsed">
+                        <Button.Content>
+                            <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" FontSize="18" Glyph="&#xE794;"/>
+                        </Button.Content>
 
-                    <Button.Flyout>
-                        <Flyout>
-                            <TextBlock x:Name="LblPreview" TextWrapping="Wrap"/>
-                        </Flyout>
-                    </Button.Flyout>
-                </Button>
+                        <Button.Flyout>
+                            <Flyout>
+                                <TextBlock x:Name="LblPreview" TextWrapping="Wrap"/>
+                            </Flyout>
+                        </Button.Flyout>
+                    </Button>
+
+                    <Button x:Name="BtnUpdateProgress" Background="Transparent" BorderThickness="0" Visibility="Collapsed">
+                        <Button.Content>
+                            <ProgressRing x:Name="RingUpdateProcess" Width="24" Height="24" IsIndeterminate="False"/>
+                        </Button.Content>
+
+                        <Button.Flyout>
+                            <Flyout x:Name="FlyoutUpdateProgress" Placement="Bottom">
+                                <TextBlock x:Name="LblUpdateProgress" TextWrapping="WrapWholeWords"/>
+                            </Flyout>
+                        </Button.Flyout>
+                    </Button>
+                </StackPanel>
             </TitleBar.RightHeader>
         </TitleBar>
 

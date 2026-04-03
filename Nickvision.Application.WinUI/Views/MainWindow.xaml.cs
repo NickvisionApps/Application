@@ -13,6 +13,7 @@ using Nickvision.Application.Shared.Services;
 using Nickvision.Application.WinUI.Controls;
 using Nickvision.Desktop.Application;
 using Nickvision.Desktop.Globalization;
+using Nickvision.Desktop.Network;
 using Nickvision.Desktop.Notifications;
 using Nickvision.Desktop.WinUI.Controls;
 using Nickvision.Desktop.WinUI.Helpers;
@@ -64,6 +65,7 @@ public sealed partial class MainWindow : Window
         ExtendsContentIntoTitleBar = true;
         SetTitleBar(TitleBar);
         AppWindow.TitleBar.PreferredHeightOption = TitleBarHeightOption.Tall;
+        BtnPreview.Visibility = _appInfo.Version!.IsPreview ? Visibility.Visible : Visibility.Collapsed;
         // Events
         AppWindow.Closing += Window_Closing;
         eventsService.AppNotificationSent += (sender, args) => DispatcherQueue.TryEnqueue(() => App_AppNotificationSent(sender, args));
@@ -85,7 +87,6 @@ public sealed partial class MainWindow : Window
         MenuReportABug.Text = _translationService._("Report a Bug");
         MenuDiscussions.Text = _translationService._("Discussions");
         MenuAbout.Text = _translationService._("About {0}", _appInfo.ShortName!);
-        BtnPreview.Visibility = _appInfo.Version!.IsPreview ? Visibility.Visible : Visibility.Collapsed;
         ToolTipService.SetToolTip(BtnPreview, _translationService._("You are running a preview version of {0}", _appInfo.ShortName!));
         LblPreview.Text = _translationService._("Thank you for testing the upcoming features and changes! ❤️");
         LblOpenFolder.Text = _translationService._("Open Folder");
@@ -217,7 +218,7 @@ public sealed partial class MainWindow : Window
         if (args.IsOpen)
         {
             ViewStack.SelectedIndex = (int)Pages.Folder;
-            foreach(var file in args.Files)
+            foreach (var file in args.Files)
             {
                 ListFiles.Items.Add(Path.GetFileName(file));
             }
@@ -280,24 +281,25 @@ public sealed partial class MainWindow : Window
 
     private async void WindowsUpdate(object sender, RoutedEventArgs args)
     {
-        //var progress = new Progress<DownloadProgress>();
-        //progress.ProgressChanged += (s, p) =>
-        //{
-        //    DispatcherQueue.TryEnqueue(() =>
-        //    {
-        //        if (p.Completed)
-        //        {
-        //            FlyoutProgress.Hide();
-        //            NavItemUpdates.Visibility = Visibility.Collapsed;
-        //            return;
-        //        }
-        //        var message = _translationService._("Downloading update: {0}%", Math.Round(p.Percentage * 100));
-        //        NavItemUpdates.Visibility = Visibility.Visible;
-        //        StsProgress.Description = message;
-        //        BarProgress.Value = p.Percentage * 100;
-        //    });
-        //};
-        //InfoBar.IsOpen = false;
-        //await _controller.WindowsUpdateAsync(progress);
+        var progress = new Progress<DownloadProgress>();
+        progress.ProgressChanged += (s, p) =>
+        {
+            DispatcherQueue.TryEnqueue(() =>
+            {
+                if (p.Completed)
+                {
+                    FlyoutUpdateProgress.Hide();
+                    BtnUpdateProgress.Visibility = Visibility.Collapsed;
+                    return;
+                }
+                var message = _translationService._("Downloading update: {0}%", Math.Round(p.Percentage * 100));
+                BtnUpdateProgress.Visibility = Visibility.Visible;
+                ToolTipService.SetToolTip(BtnUpdateProgress, message);
+                RingUpdateProcess.Value = p.Percentage * 100;
+                LblUpdateProgress.Text = message;
+            });
+        };
+        InfoBar.IsOpen = false;
+        await _controller.WindowsUpdateAsync(progress);
     }
 }
