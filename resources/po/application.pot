@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-03 14:36-0400\n"
+"POT-Creation-Date: 2026-04-03 14:40-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -222,6 +222,11 @@ msgid "No update available"
 msgstr ""
 
 #: Nickvision.Application.Shared/Controllers/MainWindowController.cs:124
+#, csharp-format
+msgid "Starting {0} installer..."
+msgstr ""
+
+#: Nickvision.Application.Shared/Controllers/MainWindowController.cs:128
 msgid "Unable to download and install the update"
 msgstr ""
 
@@ -368,7 +373,7 @@ msgstr ""
 msgid "Enter password here"
 msgstr ""
 
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:297
+#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:295
 #, csharp-format
 msgid "Downloading update: {0}%"
 msgstr ""
