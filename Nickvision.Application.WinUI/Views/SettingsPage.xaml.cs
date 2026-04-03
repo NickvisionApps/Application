@@ -21,8 +21,8 @@ public sealed partial class SettingsPage : Page
         _translationService = translationService;
         _constructing = true;
         // Translations
-        LblSettings.Text = _translationService._("Settings");
-        SelectorUI.Text = _translationService._("User Interface");
+        NavigationView.PaneTitle = _translationService._("Settings");
+        NavUserInterface.Content = _translationService._("User Interface");
         RowTheme.Header = _translationService._("Theme");
         CmbTheme.ItemsSource = _controller.Themes.ToBindableSelectonItems();
         RowTranslationLanguage.Header = _translationService._("Translation Language");
@@ -33,7 +33,7 @@ public sealed partial class SettingsPage : Page
         TglPreviewUpdates.OffContent = _translationService._("Off");
     }
 
-    private void Page_Loaded(object sender, RoutedEventArgs e)
+    private void Page_Loaded(object sender, RoutedEventArgs args)
     {
         CmbTheme.SelectSelectionItem();
         CmbTranslationLanguage.SelectSelectionItem();
@@ -41,15 +41,20 @@ public sealed partial class SettingsPage : Page
         _constructing = false;
     }
 
-    private void SelectorBar_SelectionChanged(SelectorBar sender, SelectorBarSelectionChangedEventArgs args)
+    private async void Page_Unloaded(object sender, RoutedEventArgs args) => await _controller.SaveConfigurationAsync();
+
+    private void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args) => ViewStack.SelectedIndex = int.Parse(((NavigationView.SelectedItem as NavigationViewItem)!.Tag as string)!);
+
+    private async void Cmb_SelectionChanged(object sender, SelectionChangedEventArgs args)
     {
-        var index = sender.Items.IndexOf(sender.SelectedItem);
-        ViewStack.SelectedIndex = index == -1 ? 0 : index;
+        await ApplyChangesAsync();
+        if(sender.Equals(CmbTheme))
+        {
+            await _controller.SaveConfigurationAsync();
+        }
     }
 
-    private async void Cmb_SelectionChanged(object sender, SelectionChangedEventArgs e) => await ApplyChangesAsync();
-
-    private async void Tgl_Toggled(object sender, Microsoft.UI.Xaml.RoutedEventArgs e) => await ApplyChangesAsync();
+    private async void Tgl_Toggled(object sender, RoutedEventArgs args) => await ApplyChangesAsync();
 
     private async Task ApplyChangesAsync()
     {
@@ -60,6 +65,5 @@ public sealed partial class SettingsPage : Page
         _controller.Theme = (CmbTheme.SelectedItem as BindableSelectionItem)!.ToSelectionItem<Theme>()!;
         _controller.TranslationLanguage = (CmbTranslationLanguage.SelectedItem as BindableSelectionItem)!.ToSelectionItem<string>()!;
         _controller.AllowPreviewUpdates = TglPreviewUpdates.IsOn;
-        await _controller.SaveConfigurationAsync();
     }
 }

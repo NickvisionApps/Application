@@ -3,8 +3,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Input;
 using Microsoft.Windows.AppNotifications;
 using Microsoft.Windows.AppNotifications.Builder;
 using Microsoft.Windows.Storage.Pickers;
@@ -15,13 +13,11 @@ using Nickvision.Application.Shared.Services;
 using Nickvision.Application.WinUI.Controls;
 using Nickvision.Desktop.Application;
 using Nickvision.Desktop.Globalization;
-using Nickvision.Desktop.Network;
 using Nickvision.Desktop.Notifications;
+using Nickvision.Desktop.WinUI.Controls;
 using Nickvision.Desktop.WinUI.Helpers;
 using System;
 using System.IO;
-using System.Threading.Tasks;
-using Windows.Storage;
 using Windows.System;
 
 namespace Nickvision.Application.WinUI.Views;
@@ -50,6 +46,12 @@ public sealed partial class MainWindow : Window
         _translationService = translationService;
         _notificationClickHandler = null;
         // Config
+        AppWindow.TitleBar.PreferredTheme = _controller.Theme switch
+        {
+            Theme.Light => TitleBarTheme.Light,
+            Theme.Dark => TitleBarTheme.Dark,
+            _ => TitleBarTheme.UseDefaultAppMode
+        };
         MainGrid.RequestedTheme = _controller.Theme switch
         {
             Theme.Light => ElementTheme.Light,
@@ -70,27 +72,30 @@ public sealed partial class MainWindow : Window
         eventsService.FolderChanged += App_FolderChanged;
         // Translations
         AppWindow.Title = _appInfo.ShortName;
-        TitleBar.Title = _appInfo.ShortName;
-        TitleBar.Subtitle = _appInfo.Version!.IsPreview ? _translationService._("Preview") : string.Empty;
-        NavItemHome.Content = _translationService._("Home");
-        NavItemFolder.Content = _translationService._("Folder");
-        NavItemUpdates.Content = _translationService._("Updating");
-        NavItemHelp.Content = _translationService._("Help");
+        LblTitle.Text = _appInfo.ShortName;
+        MenuFile.Title = _translationService._("File");
+        MenuOpenFolder.Text = _translationService._("Open Folder");
+        MenuCloseFolder.Text = _translationService._("Close Folder");
+        MenuExit.Text = _translationService._("Exit");
+        MenuEdit.Title = _translationService._("Edit");
+        MenuHelp.Title = _translationService._("Help");
+        MenuSettings.Text = _translationService._("Settings");
         MenuCheckForUpdates.Text = _translationService._("Check for Updates");
         MenuGitHubRepo.Text = _translationService._("GitHub Repo");
         MenuReportABug.Text = _translationService._("Report a Bug");
         MenuDiscussions.Text = _translationService._("Discussions");
         MenuAbout.Text = _translationService._("About {0}", _appInfo.ShortName!);
-        NavItemSettings.Content = _translationService._("Settings");
-        StatusHome.Title = _controller.Greeting;
-        StatusHome.Description = _translationService._("Open a folder to get started");
-        LblHomeOpenFolder.Text = _translationService._("Open Folder");
-        BtnFolderOpenFolder.Label = _translationService._("Open");
-        BtnFolderCloseFolder.Label = _translationService._("Close");
+        BtnPreview.Visibility = _appInfo.Version!.IsPreview ? Visibility.Visible : Visibility.Collapsed;
+        ToolTipService.SetToolTip(BtnPreview, _translationService._("You are running a preview version of {0}", _appInfo.ShortName!));
+        LblPreview.Text = _translationService._("Thank you for testing the upcoming features and changes! ❤️");
+        LblOpenFolder.Text = _translationService._("Open Folder");
+        LblSettings.Text = _translationService._("Settings");
+        BtnCloseFolder.Label = _translationService._("Close");
     }
 
-    private async void Window_Loaded(object sender, RoutedEventArgs e)
+    private async void Window_Loaded(object sender, RoutedEventArgs args)
     {
+        ViewStack.SelectedIndex = (int)Pages.Home;
         MenuCheckForUpdates.IsEnabled = false;
         await _controller.CheckForUpdatesAsync(false);
         MenuCheckForUpdates.IsEnabled = true;
@@ -100,38 +105,12 @@ public sealed partial class MainWindow : Window
     {
         if (!_controller.CanShutdown)
         {
-            args.Cancel = true;
+            args?.Cancel = true;
             return;
         }
         _controller.WindowGeometry = this.Geometry;
         _serviceProvider.GetRequiredService<IHostApplicationLifetime>().StopApplication();
     }
-
-    private void TitleBar_PaneToggleRequested(TitleBar sender, object args)
-    {
-        NavView.IsPaneOpen = !NavView.IsPaneOpen;
-    }
-
-    private void NavView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
-    {
-        if (args.SelectedItem is NavigationViewItem item)
-        {
-            var tag = item.Tag as string;
-            FrameCustom.Content = tag switch
-            {
-                "Settings" => _serviceProvider.GetRequiredService<SettingsPage>(),
-                _ => null
-            };
-            ViewStack.SelectedIndex = tag switch
-            {
-                "Folder" => (int)Pages.Folder,
-                "Settings" => (int)Pages.Custom,
-                _ => (int)Pages.Home
-            };
-        }
-    }
-
-    private void NavItem_Tapped(object sender, TappedRoutedEventArgs e) => FlyoutBase.ShowAttachedFlyout(sender as FrameworkElement);
 
     private void App_AppNotificationSent(object? sender, AppNotificationSentEventArgs args)
     {
@@ -182,6 +161,12 @@ public sealed partial class MainWindow : Window
     {
         if (args.ChangedPropertyName == "Theme")
         {
+            AppWindow.TitleBar.PreferredTheme = _controller.Theme switch
+            {
+                Theme.Light => TitleBarTheme.Light,
+                Theme.Dark => TitleBarTheme.Dark,
+                _ => TitleBarTheme.UseDefaultAppMode
+            };
             MainGrid.RequestedTheme = _controller.Theme switch
             {
                 Theme.Light => ElementTheme.Light,
@@ -227,50 +212,29 @@ public sealed partial class MainWindow : Window
 
     private void App_FolderChanged(object? sender, FolderChangedEventArgs args)
     {
-        foreach (var item in ListFolderFiles.Items)
-        {
-            if (item is ListViewItem listViewItem)
-            {
-                listViewItem.DoubleTapped -= ListFolderFiles_ItemDoubleTapped;
-            }
-        }
-        ListFolderFiles.Items.Clear();
+        TitleBar.IsBackButtonVisible = false;
+        ListFiles.Items.Clear();
         if (args.IsOpen)
         {
-            NavItemFolder.Visibility = Visibility.Visible;
-            NavItemFolder.IsSelected = true;
-            InfoBadgeFolder.Value = args.Files.Count;
-            LblFolderPath.Text = args.Path;
-            foreach (var file in args.Files)
+            ViewStack.SelectedIndex = (int)Pages.Folder;
+            foreach(var file in args.Files)
             {
-                var item = new ListViewItem();
-                item.Content = Path.GetFileName(file);
-                item.Tag = file;
-                item.DoubleTapped += ListFolderFiles_ItemDoubleTapped;
-                ListFolderFiles.Items.Add(item);
+                ListFiles.Items.Add(Path.GetFileName(file));
             }
         }
         else
         {
-            NavItemFolder.Visibility = Visibility.Collapsed;
-            NavItemHome.IsSelected = true;
+            ViewStack.SelectedIndex = (int)Pages.Home;
         }
     }
 
-    private async void ListFolderFiles_ItemDoubleTapped(object sender, DoubleTappedRoutedEventArgs args)
+    private void TitleBar_BackRequested(TitleBar sender, object args)
     {
-        if (sender is ListViewItem item)
-        {
-            var tag = item.Tag as string;
-            if (string.IsNullOrEmpty(tag))
-            {
-                return;
-            }
-            await Launcher.LaunchFileAsync(await StorageFile.GetFileFromPathAsync(tag));
-        }
+        TitleBar.IsBackButtonVisible = false;
+        ViewStack.SelectedIndex = ViewStack.PreviousSelectedIndex;
     }
 
-    private async void OpenFolder(object sender, RoutedEventArgs e)
+    private async void OpenFolder(object sender, RoutedEventArgs args)
     {
         var picker = new FolderPicker(AppWindow.Id);
         var result = await picker.PickSingleFolderAsync();
@@ -281,22 +245,31 @@ public sealed partial class MainWindow : Window
         _controller.OpenFolder(result.Path);
     }
 
-    private void CloseFolder(object sender, RoutedEventArgs e) => _controller.CloseFolder();
+    private void CloseFolder(object sender, RoutedEventArgs args) => _controller.CloseFolder();
 
-    private async void CheckForUpdates(object sender, RoutedEventArgs e)
+    private void Exit(object sender, RoutedEventArgs args) => Window_Closing(AppWindow, null);
+
+    private void Settings(object sender, RoutedEventArgs args)
+    {
+        TitleBar.IsBackButtonVisible = true;
+        ViewStack.SelectedIndex = (int)Pages.Custom;
+        FrameCustom.Content = _serviceProvider.GetRequiredService<SettingsPage>();
+    }
+
+    private async void CheckForUpdates(object sender, RoutedEventArgs args)
     {
         MenuCheckForUpdates.IsEnabled = false;
         await _controller.CheckForUpdatesAsync(true);
         MenuCheckForUpdates.IsEnabled = true;
     }
 
-    private async void GitHubRepo(object sender, RoutedEventArgs e) => await LaunchUriAsync(_appInfo.SourceRepository);
+    private async void GitHubRepo(object sender, RoutedEventArgs args) => await Launcher.LaunchUriAsync(_appInfo.SourceRepository!);
 
-    private async void ReportABug(object sender, RoutedEventArgs e) => await LaunchUriAsync(_appInfo.IssueTracker);
+    private async void ReportABug(object sender, RoutedEventArgs args) => await Launcher.LaunchUriAsync(_appInfo.IssueTracker!);
 
-    private async void Discussions(object sender, RoutedEventArgs e) => await LaunchUriAsync(_appInfo.DiscussionsForum);
+    private async void Discussions(object sender, RoutedEventArgs args) => await Launcher.LaunchUriAsync(_appInfo.DiscussionsForum!);
 
-    private async void About(object sender, RoutedEventArgs e)
+    private async void About(object sender, RoutedEventArgs args)
     {
         var aboutDialog = _serviceProvider.GetRequiredService<AboutDialog>();
         aboutDialog.DebugInformation = _controller.GetDebugInformation();
@@ -305,35 +278,26 @@ public sealed partial class MainWindow : Window
         await aboutDialog.ShowAsync();
     }
 
-    private async void WindowsUpdate(object sender, RoutedEventArgs e)
+    private async void WindowsUpdate(object sender, RoutedEventArgs args)
     {
-        var progress = new Progress<DownloadProgress>();
-        progress.ProgressChanged += (s, p) =>
-        {
-            DispatcherQueue.TryEnqueue(() =>
-            {
-                if (p.Completed)
-                {
-                    FlyoutProgress.Hide();
-                    NavItemUpdates.Visibility = Visibility.Collapsed;
-                    return;
-                }
-                var message = _translationService._("Downloading update: {0}%", Math.Round(p.Percentage * 100));
-                NavItemUpdates.Visibility = Visibility.Visible;
-                StsProgress.Description = message;
-                BarProgress.Value = p.Percentage * 100;
-            });
-        };
-        InfoBar.IsOpen = false;
-        await _controller.WindowsUpdateAsync(progress);
-    }
-
-    private async Task LaunchUriAsync(Uri? uri)
-    {
-        if (uri is null)
-        {
-            return;
-        }
-        await Launcher.LaunchUriAsync(uri);
+        //var progress = new Progress<DownloadProgress>();
+        //progress.ProgressChanged += (s, p) =>
+        //{
+        //    DispatcherQueue.TryEnqueue(() =>
+        //    {
+        //        if (p.Completed)
+        //        {
+        //            FlyoutProgress.Hide();
+        //            NavItemUpdates.Visibility = Visibility.Collapsed;
+        //            return;
+        //        }
+        //        var message = _translationService._("Downloading update: {0}%", Math.Round(p.Percentage * 100));
+        //        NavItemUpdates.Visibility = Visibility.Visible;
+        //        StsProgress.Description = message;
+        //        BarProgress.Value = p.Percentage * 100;
+        //    });
+        //};
+        //InfoBar.IsOpen = false;
+        //await _controller.WindowsUpdateAsync(progress);
     }
 }

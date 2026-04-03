@@ -8,46 +8,32 @@
     xmlns:community="using:CommunityToolkit.WinUI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" Loaded="Page_Loaded">
+    mc:Ignorable="d" Loaded="Page_Loaded" Unloaded="Page_Unloaded">
 
-    <Grid x:Name="MainGrid" RowSpacing="12">
-        <Grid.Transitions>
-            <TransitionCollection>
-                <EntranceThemeTransition/>
-            </TransitionCollection>
-        </Grid.Transitions>
+    <NavigationView x:Name="NavigationView" IsPaneToggleButtonVisible="False" IsBackButtonVisible="Collapsed" IsSettingsVisible="False"
+                PaneDisplayMode="Left" SelectionChanged="NavigationView_SelectionChanged">
+        <NavigationView.Resources>
+            <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent"/>
+            <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent"/>
+        </NavigationView.Resources>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <TextBlock x:Name="LblSettings" Grid.Row="0" Margin="24,24,0,0" Style="{ThemeResource SubtitleTextBlockStyle}"/>
-
-        <SelectorBar Grid.Row="1" Margin="24,0,0,0" SelectionChanged="SelectorBar_SelectionChanged">
-            <SelectorBarItem x:Name="SelectorUI" IsSelected="True">
-                <SelectorBarItem.Icon>
+        <NavigationView.MenuItems>
+            <NavigationViewItem x:Name="NavUserInterface" Tag="0" IsSelected="True">
+                <NavigationViewItem.Icon>
                     <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE790;"/>
-                </SelectorBarItem.Icon>
-            </SelectorBarItem>
-        </SelectorBar>
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+        </NavigationView.MenuItems>
 
-        <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible">
-            <nickvision:ViewStack x:Name="ViewStack" Margin="24,0,24,24">
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible">
+            <nickvision:ViewStack x:Name="ViewStack" Margin="12,12,12,12">
                 <nickvision:ViewStack.Pages>
                     <StackPanel Spacing="6">
-                        <StackPanel.Transitions>
-                            <TransitionCollection>
-                                <EntranceThemeTransition/>
-                            </TransitionCollection>
-                        </StackPanel.Transitions>
-
                         <community:SettingsCard x:Name="RowTheme">
                             <community:SettingsCard.HeaderIcon>
-                                <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE793;"/> 
+                                <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE793;"/>
                             </community:SettingsCard.HeaderIcon>
-                            
+
                             <ComboBox x:Name="CmbTheme" SelectionChanged="Cmb_SelectionChanged">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate x:DataType="helpers:BindableSelectionItem">
@@ -82,5 +68,5 @@
                 </nickvision:ViewStack.Pages>
             </nickvision:ViewStack>
         </ScrollViewer>
-    </Grid>
+    </NavigationView>
 </Page>
