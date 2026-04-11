@@ -80,8 +80,8 @@ public sealed partial class MainWindow : Window
         MenuCloseFolder.Text = _translationService._("Close Folder");
         MenuExit.Text = _translationService._("Exit");
         MenuEdit.Title = _translationService._("Edit");
-        MenuHelp.Title = _translationService._("Help");
         MenuSettings.Text = _translationService._("Settings");
+        MenuHelp.Title = _translationService._("Help");
         MenuCheckForUpdates.Text = _translationService._("Check for Updates");
         MenuGitHubRepo.Text = _translationService._("GitHub Repo");
         MenuReportABug.Text = _translationService._("Report a Bug");
@@ -89,6 +89,8 @@ public sealed partial class MainWindow : Window
         MenuAbout.Text = _translationService._("About {0}", _appInfo.ShortName!);
         ToolTipService.SetToolTip(BtnPreview, _translationService._("You are running a preview version of {0}", _appInfo.ShortName!));
         LblPreview.Text = _translationService._("Thank you for testing the upcoming features and changes! ❤️");
+        LblHomeTitle.Text = _appInfo.ShortName;
+        LblHomeDescription.Text = _appInfo.Description;
         LblOpenFolder.Text = _translationService._("Open Folder");
         LblSettings.Text = _translationService._("Settings");
         BtnCloseFolder.Label = _translationService._("Close");

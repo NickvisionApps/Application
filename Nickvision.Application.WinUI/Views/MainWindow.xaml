@@ -165,9 +165,9 @@
                     <StackPanel Margin="48,48,48,48" HorizontalAlignment="Stretch" Orientation="Vertical" Spacing="12">
                         <Image HorizontalAlignment="Left" Width="64" Height="64" Source="/Assets/org.nickvision.application.ico"/>
 
-                        <TextBlock HorizontalAlignment="Left" Style="{ThemeResource TitleTextBlockStyle}" Text="Application"/>
+                        <TextBlock x:Name="LblHomeTitle" HorizontalAlignment="Left" Style="{ThemeResource TitleTextBlockStyle}"/>
                         
-                        <TextBlock HorizontalAlignment="Left" Foreground="Gray" Text="Create new Nickvision applications"/>
+                        <TextBlock x:Name="LblHomeDescription" HorizontalAlignment="Left" Foreground="Gray"/>
 
                         <HyperlinkButton Margin="0,24,0,0" Click="OpenFolder">
                             <HyperlinkButton.Content>

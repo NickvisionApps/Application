@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-03 15:19-0400\n"
+"POT-Creation-Date: 2026-04-11 12:18-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -92,7 +92,7 @@ msgstr ""
 #: Nickvision.Application.GNOME/Blueprints/ShortcutsDialog.blp:33
 #: Nickvision.Application.GNOME/Views/MainWindow.cs:248
 #: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:79
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:92
+#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:94
 msgid "Open Folder"
 msgstr ""
 
@@ -107,8 +107,8 @@ msgstr ""
 
 #: Nickvision.Application.GNOME/Views/MainWindow.cs:182
 #: Nickvision.Application.WinUI/Controls/AboutDialog.xaml.cs:23
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:94
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:153
+#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:96
+#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:155
 msgid "Close"
 msgstr ""
 
@@ -121,12 +121,12 @@ msgid "Password"
 msgstr ""
 
 #: Nickvision.Application.GNOME/Views/MainWindow.cs:204
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:199
+#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:201
 msgid "Password Required"
 msgstr ""
 
 #: Nickvision.Application.GNOME/Views/MainWindow.cs:204
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:193
+#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:195
 msgid ""
 "This app stores data in an encrypted database. As the system credential "
 "manager (secret service) is not available, please provide a password to use "
@@ -137,7 +137,7 @@ msgid ""
 msgstr ""
 
 #: Nickvision.Application.GNOME/Views/MainWindow.cs:205
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:201
+#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:203
 msgid "Submit"
 msgstr ""
 
@@ -331,13 +331,13 @@ msgid "Edit"
 msgstr ""
 
 #: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:83
-msgid "Help"
+#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:95
+#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:24
+msgid "Settings"
 msgstr ""
 
 #: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:84
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:93
-#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:24
-msgid "Settings"
+msgid "Help"
 msgstr ""
 
 #: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:85
@@ -361,19 +361,19 @@ msgstr ""
 msgid "Thank you for testing the upcoming features and changes! ❤️"
 msgstr ""
 
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:125
+#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:127
 msgid "Open in Explorer"
 msgstr ""
 
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:147
+#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:149
 msgid "Update"
 msgstr ""
 
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:184
+#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:186
 msgid "Enter password here"
 msgstr ""
 
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:295
+#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:297
 #, csharp-format
 msgid "Downloading update: {0}%"
 msgstr ""
