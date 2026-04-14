@@ -1,7 +1,9 @@
-﻿using Nickvision.Application.Shared.Helpers;
+﻿using Microsoft.Data.Sqlite;
+using Nickvision.Application.Shared.Helpers;
 using Nickvision.Application.Shared.Models;
 using Nickvision.Desktop.Application;
 using Nickvision.Desktop.Globalization;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +11,11 @@ using System.Threading.Tasks;
 
 namespace Nickvision.Application.Shared.Controllers;
 
-public class PreferencesViewController
+public class PreferencesViewController : IDisposable
 {
     private readonly IConfigurationService _configurationService;
     private readonly ITranslationService _translationService;
+    private readonly SqliteTransaction _transaction;
 
     public IReadOnlyList<SelectionItem<string>> AvailableTranslationLanguages { get; }
     public IReadOnlyList<SelectionItem<Theme>> Themes { get; }
@@ -21,6 +24,7 @@ public class PreferencesViewController
     {
         _configurationService = configurationService;
         _translationService = translationService;
+        _transaction = _configurationService.CreateTransaction();
         AvailableTranslationLanguages = new List<SelectionItem<string>>()
         {
             new SelectionItem<string>(string.Empty, _translationService._("System"), string.IsNullOrEmpty(_configurationService.TranslationLanguage)),
@@ -39,6 +43,12 @@ public class PreferencesViewController
             new SelectionItem<Theme>(Models.Theme.System, _translationService._p("Theme", "System"), _configurationService.Theme == Models.Theme.System),
         };
     }
+
+    ~PreferencesViewController()
+    {
+        Dispose(false);
+    }
+
     public SelectionItem<Theme> Theme
     {
         set => _configurationService.Theme = value.Value;
@@ -56,5 +66,20 @@ public class PreferencesViewController
         set => _configurationService.AllowPreviewUpdates = value;
     }
 
-    public Task SaveConfigurationAsync() => _configurationService.SaveAsync();
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    public Task SaveConfigurationAsync() => _transaction.CommitAsync();
+
+    private void Dispose(bool disposing)
+    {
+        if(!disposing)
+        {
+            return;
+        }
+        _transaction.Dispose();
+    }
 }

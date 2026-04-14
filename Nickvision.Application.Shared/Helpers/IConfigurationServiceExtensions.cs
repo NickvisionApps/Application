@@ -16,9 +16,9 @@ public static class IConfigurationServiceExtensions
 
         public Theme Theme
         {
-            get => (Theme)configurationService.Get("Theme", 2);
+            get => configurationService.Get("Theme", Theme.System);
 
-            set => configurationService.Set("Theme", (int)value);
+            set => configurationService.Set("Theme", value);
         }
 
         public string TranslationLanguage

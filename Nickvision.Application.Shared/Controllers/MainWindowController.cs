@@ -66,11 +66,7 @@ public class MainWindowController
     {
         get => _configurationService.WindowGeometry;
 
-        set
-        {
-            _configurationService.WindowGeometry = value;
-            _configurationService.Save();
-        }
+        set => _configurationService.WindowGeometry = value;
     }
 
     public async Task CheckForUpdatesAsync(bool showNotificationForNoUpdates)
