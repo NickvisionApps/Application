@@ -34,13 +34,6 @@ public class EventsService : IEventsService
         remove => _configurationService.Saved -= value;
     }
 
-    public event EventHandler<PasswordRequiredEventArgs>? DatabasePasswordRequired
-    {
-        add => _databaseService.PasswordRequired += value;
-
-        remove => _databaseService.PasswordRequired -= value;
-    }
-
     public event EventHandler<FolderChangedEventArgs> FolderChanged
     {
         add => _folderService.Changed += value;
