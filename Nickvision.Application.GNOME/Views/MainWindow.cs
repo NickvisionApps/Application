@@ -90,7 +90,7 @@ public class MainWindow : Adw.ApplicationWindow
         var actQuit = Gio.SimpleAction.New("quit", null);
         actQuit.OnActivate += Quit;
         AddAction(actQuit);
-        _application.SetAccelsForAction("win.quit", ["<Ctrl>q"]);
+        _application.SetAccelsForAction("win.quit", ["<Primary>q"]);
         // Open in files action
         var actOpenInFiles = Gio.SimpleAction.New("openInFiles", null);
         actOpenInFiles.OnActivate += OpenInFiles;
@@ -99,22 +99,22 @@ public class MainWindow : Adw.ApplicationWindow
         var actOpenFolder = Gio.SimpleAction.New("openFolder", null);
         actOpenFolder.OnActivate += OpenFolder;
         AddAction(actOpenFolder);
-        _application.SetAccelsForAction("win.openFolder", ["<Ctrl>o"]);
+        _application.SetAccelsForAction("win.openFolder", ["<Primary>o"]);
         // Close folder action
         var actCloseFolder = Gio.SimpleAction.New("closeFolder", null);
         actCloseFolder.OnActivate += CloseFolder;
         AddAction(actCloseFolder);
-        _application.SetAccelsForAction("win.closeFolder", ["<Ctrl>w"]);
+        _application.SetAccelsForAction("win.closeFolder", ["<Primary>w"]);
         // Preferences action
         var actPreferences = Gio.SimpleAction.New("preferences", null);
         actPreferences.OnActivate += Preferences;
         AddAction(actPreferences);
-        _application.SetAccelsForAction("win.preferences", ["<Ctrl>period"]);
+        _application.SetAccelsForAction("win.preferences", ["<Primary>period"]);
         // Keyboard shortcuts action
         var actKeyboardShortcuts = Gio.SimpleAction.New("keyboardShortcuts", null);
         actKeyboardShortcuts.OnActivate += KeyboardShortcuts;
         AddAction(actKeyboardShortcuts);
-        _application.SetAccelsForAction("win.keyboardShortcuts", ["<Ctrl>question"]);
+        _application.SetAccelsForAction("win.keyboardShortcuts", ["<Primary>question"]);
         // About action
         var actAbout = Gio.SimpleAction.New("about", null);
         actAbout.OnActivate += About;

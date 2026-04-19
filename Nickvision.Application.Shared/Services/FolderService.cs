@@ -30,7 +30,7 @@ public class FolderService : IFolderService
 
     public void Open(string path)
     {
-        _logger.LogInformation($"Opening folder: {path}");
+        _logger.LogDebug($"Opening folder: {path}");
         if (!Directory.Exists(path))
         {
             _logger.LogError("Folder does not exist.");
@@ -58,7 +58,7 @@ public class FolderService : IFolderService
 
     public void Close()
     {
-        _logger.LogInformation($"Closing folder: {Path}");
+        _logger.LogDebug($"Closing folder: {Path}");
         Path = null;
         Files.Clear();
         _logger.LogInformation("Folder closed.");

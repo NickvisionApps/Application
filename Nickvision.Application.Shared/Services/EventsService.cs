@@ -8,14 +8,12 @@ namespace Nickvision.Application.Shared.Services;
 public class EventsService : IEventsService
 {
     private readonly IConfigurationService _configurationService;
-    private readonly IDatabaseService _databaseService;
     private readonly IFolderService _folderService;
     private readonly INotificationService _notificationService;
 
-    public EventsService(IConfigurationService configurationService, IDatabaseService databaseService, IFolderService folderService, INotificationService notificationService)
+    public EventsService(IConfigurationService configurationService, IFolderService folderService, INotificationService notificationService)
     {
         _configurationService = configurationService;
-        _databaseService = databaseService;
         _folderService = folderService;
         _notificationService = notificationService;
     }
