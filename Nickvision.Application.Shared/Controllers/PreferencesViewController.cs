@@ -15,7 +15,7 @@ public class PreferencesViewController : IDisposable
 {
     private readonly IConfigurationService _configurationService;
     private readonly ITranslationService _translationService;
-    private readonly SqliteTransaction? _transaction;
+    private SqliteTransaction? _transaction;
 
     public IReadOnlyList<SelectionItem<string>> AvailableTranslationLanguages { get; }
     public IReadOnlyList<SelectionItem<Theme>> Themes { get; }
