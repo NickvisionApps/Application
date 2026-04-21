@@ -15,7 +15,7 @@ public class PreferencesViewController : IDisposable
 {
     private readonly IConfigurationService _configurationService;
     private readonly ITranslationService _translationService;
-    private readonly SqliteTransaction _transaction;
+    private readonly SqliteTransaction? _transaction;
 
     public IReadOnlyList<SelectionItem<string>> AvailableTranslationLanguages { get; }
     public IReadOnlyList<SelectionItem<Theme>> Themes { get; }
@@ -72,14 +72,21 @@ public class PreferencesViewController : IDisposable
         GC.SuppressFinalize(this);
     }
 
-    public Task SaveConfigurationAsync() => _transaction.CommitAsync();
-
+    public async Task SaveConfigurationAsync()
+    {
+        if(_transaction is not null)
+        {
+            await _transaction.CommitAsync();
+            await _transaction.DisposeAsync();
+            _transaction = null;
+        }
+    }
     private void Dispose(bool disposing)
     {
         if(!disposing)
         {
             return;
         }
-        _transaction.Dispose();
+        _transaction?.Dispose();
     }
 }
