@@ -3,8 +3,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.Windows.AppNotifications;
-using Microsoft.Windows.AppNotifications.Builder;
 using Microsoft.Windows.Storage.Pickers;
 using Nickvision.Application.Shared.Controllers;
 using Nickvision.Application.Shared.Events;
@@ -116,20 +114,6 @@ public sealed partial class MainWindow : Window
 
     private void App_AppNotificationSent(object? sender, AppNotificationSentEventArgs args)
     {
-        if (args.Notification is ShellNotification shellNotification)
-        {
-            var builder = new AppNotificationBuilder()
-                .AddText(shellNotification.Title)
-                .AddText(shellNotification.Message);
-            if (shellNotification.Action == "open")
-            {
-                builder.AddButton(new AppNotificationButton(_translationService._("Open in Explorer"))
-                    .AddArgument("action", "OpenInExplorer")
-                    .AddArgument("param", shellNotification.ActionParam));
-            }
-            AppNotificationManager.Default.Show(builder.BuildNotification());
-            return;
-        }
         if (_notificationClickHandler is not null)
         {
             BtnInfoBar.Click -= _notificationClickHandler;

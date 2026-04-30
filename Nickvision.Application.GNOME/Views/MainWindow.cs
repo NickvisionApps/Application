@@ -13,7 +13,6 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Nickvision.Application.GNOME.Views;
 

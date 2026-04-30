@@ -74,7 +74,7 @@ public class PreferencesViewController : IDisposable
 
     public async Task SaveConfigurationAsync()
     {
-        if(_transaction is not null)
+        if (_transaction is not null)
         {
             await _transaction.CommitAsync();
             await _transaction.DisposeAsync();
@@ -83,7 +83,7 @@ public class PreferencesViewController : IDisposable
     }
     private void Dispose(bool disposing)
     {
-        if(!disposing)
+        if (!disposing)
         {
             return;
         }
