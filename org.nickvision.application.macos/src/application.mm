@@ -3,18 +3,57 @@
 #import "views/main_window.h"
 
 using namespace application::controllers;
+using namespace desktop::app;
+using namespace desktop::services;
+
+static void appendPeople(NSMutableAttributedString* credits, NSDictionary* boldAttrs, NSDictionary* normalAttrs, NSString* title,
+                         const std::unordered_map<std::string, std::string>& people)
+{
+	if (people.empty())
+	{
+		return;
+	}
+	[credits appendAttributedString:[[NSAttributedString alloc] initWithString:[title stringByAppendingString:@"\n"] attributes:boldAttrs]];
+	for (const auto& [name, url] : people)
+	{
+		NSString* nsName{ [NSString stringWithUTF8String:name.c_str()] };
+		if (!url.empty())
+		{
+			NSMutableDictionary* linkAttrs{ [normalAttrs mutableCopy] };
+			linkAttrs[NSLinkAttributeName] = [NSURL URLWithString:[NSString stringWithUTF8String:url.c_str()]];
+			[credits appendAttributedString:[[NSAttributedString alloc] initWithString:[@"  " stringByAppendingString:nsName] attributes:linkAttrs]];
+		}
+		else
+		{
+			[credits appendAttributedString:[[NSAttributedString alloc] initWithString:[@"  " stringByAppendingString:nsName] attributes:normalAttrs]];
+		}
+		[credits appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:normalAttrs]];
+	}
+	[credits appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:normalAttrs]];
+}
+
+static void appendLink(NSMutableAttributedString* credits, NSDictionary* normalAttrs, NSString* label, const std::string& url)
+{
+	if (url.empty())
+	{
+		return;
+	}
+	NSMutableDictionary* linkAttrs{ [normalAttrs mutableCopy] };
+	linkAttrs[NSLinkAttributeName] = [NSURL URLWithString:[NSString stringWithUTF8String:url.c_str()]];
+	[credits appendAttributedString:[[NSAttributedString alloc] initWithString:[label stringByAppendingString:@"\n"] attributes:linkAttrs]];
+}
 
 @implementation Application
 {
-	std::shared_ptr<main_window_controller> _controller;
-	MainWindow* _mainWindow;
+	std::shared_ptr<service_provider> m_service_provider;
+	MainWindow* m_main_window;
 }
 
-- (instancetype)initWithController:(std::shared_ptr<main_window_controller>)controller
+- (instancetype)initWithServiceProvider:(std::shared_ptr<service_provider>)serviceProvider
 {
 	if (self = [super init])
 	{
-		_controller = std::move(controller);
+		m_service_provider = std::move(serviceProvider);
 	}
 	return self;
 }
@@ -57,7 +96,7 @@ using namespace application::controllers;
 
 - (void)showAboutPanel:(id)sender
 {
-	auto info{ _controller->get_app_info() };
+	std::shared_ptr<app_info> info{ m_service_provider->get_required<app_info>() };
 	NSMutableAttributedString* credits{ [[NSMutableAttributedString alloc] init] };
 	NSDictionary* boldAttrs
 	{
@@ -67,49 +106,15 @@ using namespace application::controllers;
 	{
 		@{NSFontAttributeName : [NSFont systemFontOfSize:NSFont.smallSystemFontSize]}
 	};
-	auto appendPeople = [&](NSString* title, const std::unordered_map<std::string, std::string>& people)
-	{
-		if (people.empty())
-		{
-			return;
-		}
-		[credits appendAttributedString:[[NSAttributedString alloc] initWithString:[title stringByAppendingString:@"\n"] attributes:boldAttrs]];
-		for (const auto& [name, url] : people)
-		{
-			NSString* nsName{ [NSString stringWithUTF8String:name.c_str()] };
-			if (!url.empty())
-			{
-				NSMutableDictionary* linkAttrs{ [normalAttrs mutableCopy] };
-				linkAttrs[NSLinkAttributeName] = [NSURL URLWithString:[NSString stringWithUTF8String:url.c_str()]];
-				[credits appendAttributedString:[[NSAttributedString alloc] initWithString:[@"  " stringByAppendingString:nsName] attributes:linkAttrs]];
-			}
-			else
-			{
-				[credits appendAttributedString:[[NSAttributedString alloc] initWithString:[@"  " stringByAppendingString:nsName] attributes:normalAttrs]];
-			}
-			[credits appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:normalAttrs]];
-		}
-		[credits appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:normalAttrs]];
-	};
-	auto appendLink = [&](NSString* label, const std::string& url)
-	{
-		if (url.empty())
-		{
-			return;
-		}
-		NSMutableDictionary* linkAttrs{ [normalAttrs mutableCopy] };
-		linkAttrs[NSLinkAttributeName] = [NSURL URLWithString:[NSString stringWithUTF8String:url.c_str()]];
-		[credits appendAttributedString:[[NSAttributedString alloc] initWithString:[label stringByAppendingString:@"\n"] attributes:linkAttrs]];
-	};
 	if (!info->get_description().empty())
 	{
 		[credits appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithUTF8String:info->get_description().c_str()]
 		                                                                attributes:normalAttrs]];
 		[credits appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n\n" attributes:normalAttrs]];
 	}
-	appendPeople(@"Developers", info->get_developers());
-	appendPeople(@"Designers", info->get_designers());
-	appendPeople(@"Artists", info->get_artists());
+	appendPeople(credits, boldAttrs, normalAttrs, @"Developers", info->get_developers());
+	appendPeople(credits, boldAttrs, normalAttrs, @"Designers", info->get_designers());
+	appendPeople(credits, boldAttrs, normalAttrs, @"Artists", info->get_artists());
 	if (!info->get_translation_credits().empty() && info->get_translation_credits() != "translation-credits")
 	{
 		[credits appendAttributedString:[[NSAttributedString alloc] initWithString:@"Translators\n" attributes:boldAttrs]];
@@ -117,12 +122,12 @@ using namespace application::controllers;
 		                                                                attributes:normalAttrs]];
 		[credits appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n\n" attributes:normalAttrs]];
 	}
-	appendLink(@"Source Code", info->get_source_url());
-	appendLink(@"Report an Issue", info->get_issues_url());
-	appendLink(@"Discussions", info->get_discussions_url());
+	appendLink(credits, normalAttrs, @"Source Code", info->get_source_url());
+	appendLink(credits, normalAttrs, @"Report an Issue", info->get_issues_url());
+	appendLink(credits, normalAttrs, @"Discussions", info->get_discussions_url());
 	for (const auto& [name, url] : info->get_extra_links())
 	{
-		appendLink([NSString stringWithUTF8String:name.c_str()], url);
+		appendLink(credits, normalAttrs, [NSString stringWithUTF8String:name.c_str()], url);
 	}
 	NSString* versionStr{ info->get_version().empty() ? @"" : [NSString stringWithUTF8String:info->get_version().str().c_str()] };
 	[NSApp orderFrontStandardAboutPanelWithOptions:@{
@@ -135,10 +140,11 @@ using namespace application::controllers;
 
 - (void)applicationDidFinishLaunching:(NSNotification*)notification
 {
-	NSString* title{ [NSString stringWithUTF8String:_controller->get_app_info()->get_short_name().c_str()] };
+	std::shared_ptr<main_window_controller> controller{ m_service_provider->get_required<main_window_controller>() };
+	NSString* title{ [NSString stringWithUTF8String:controller->get_app_info()->get_short_name().c_str()] };
 	[self setupMainMenu:title];
-	_mainWindow = [[MainWindow alloc] initWithTitle:title];
-	[_mainWindow makeKeyAndOrderFront:nil];
+	m_main_window = [[MainWindow alloc] initWithTitle:title serviceProvider:m_service_provider];
+	[m_main_window makeKeyAndOrderFront:nil];
 	[NSApp activateIgnoringOtherApps:YES];
 }
 
@@ -151,7 +157,7 @@ using namespace application::controllers;
 {
 	if (!flag)
 	{
-		[_mainWindow makeKeyAndOrderFront:nil];
+		[m_main_window makeKeyAndOrderFront:nil];
 		[NSApp activateIgnoringOtherApps:YES];
 	}
 	return YES;

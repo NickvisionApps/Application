@@ -5,8 +5,9 @@
 namespace application::macos
 {
 	cocoa_lifetime_service::cocoa_lifetime_service(const std::shared_ptr<desktop::app::app_info>& app_info,
-	                                               std::shared_ptr<application::controllers::main_window_controller> controller)
-	    : lifetime_service{ app_info }, m_controller{ std::move(controller) }
+	                                               std::shared_ptr<desktop::services::service_provider> service_provider)
+	    : lifetime_service{ app_info },
+	      m_service_provider{ std::move(service_provider) }
 	{
 	}
 
@@ -15,7 +16,7 @@ namespace application::macos
 		@autoreleasepool
 		{
 			NSApplication* app{ [NSApplication sharedApplication] };
-			Application* delegate{ [[Application alloc] initWithController:m_controller] };
+			Application* delegate{ [[Application alloc] initWithServiceProvider:m_service_provider] };
 			[app setDelegate:delegate];
 			[app run];
 		}

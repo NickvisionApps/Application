@@ -36,14 +36,19 @@ IncludeCategories:
     Priority: 3
 IncludeIsMainRegex: '([-_]|(/.*/)?)[A-Za-z0-9_]*$'
 IndentCaseLabels: false
+IndentRequiresClause: true
 IndentWidth: 4
 KeepEmptyLines:
   AtStartOfBlock: false
+LambdaBodyIndentation: OuterScope
 MaxEmptyLinesToKeep: 1
 NamespaceIndentation: All
+PackConstructorInitializers: Never
 PointerAlignment: Left
 ReferenceAlignment: Left
+RequiresClausePosition: OwnLine
 SortIncludes: CaseSensitive
+SortUsingDeclarations: Lexicographic
 SpaceAfterCStyleCast: false
 SpaceBeforeCpp11BracedList: false
 SpaceBeforeParens: ControlStatements

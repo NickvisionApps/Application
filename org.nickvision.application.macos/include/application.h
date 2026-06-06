@@ -2,15 +2,11 @@
 
 #ifdef __OBJC__
 #import <AppKit/AppKit.h>
+#include <libdesktop.h>
 #include <memory>
 
-namespace application::controllers
-{
-	class main_window_controller;
-}
-
 @interface Application : NSObject <NSApplicationDelegate>
-- (instancetype)initWithController:(std::shared_ptr<application::controllers::main_window_controller>)controller;
+- (instancetype)initWithServiceProvider:(std::shared_ptr<desktop::services::service_provider>)serviceProvider;
 @end
 
 #endif
