@@ -53,9 +53,6 @@ if(APPLE)
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
         "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}>")
 
-    set(OUTPUT_NAME "Application")
-    set(APP_ID "${PROJECT_NAME}")
-    set(APP_NAME "Application")
     configure_file(
         "${CMAKE_CURRENT_SOURCE_DIR}/resources/Info.plist"
         "${CMAKE_CURRENT_BINARY_DIR}/Info.plist"
