@@ -2,8 +2,8 @@
 Version=1.0
 Name=Application
 Comment=Create new Nickvision applications
-Exec=@LIB_DIR@/@OUTPUT_NAME@
-Icon=@APP_ID@
+Exec=@LIB_DIR@/@SHORT_NAME_WORD@
+Icon=@PROJECT_NAME@
 Terminal=false
 Type=Application
 Categories=Utility;

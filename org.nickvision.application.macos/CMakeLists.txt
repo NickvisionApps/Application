@@ -53,13 +53,15 @@ if(APPLE)
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
         "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}>")
 
+    set(OUTPUT_NAME "Application")
+    set(APP_ID "${PROJECT_NAME}")
+    set(APP_NAME "Application")
     configure_file(
         "${CMAKE_CURRENT_SOURCE_DIR}/resources/Info.plist"
         "${CMAKE_CURRENT_BINARY_DIR}/Info.plist"
         @ONLY)
     set_target_properties(${PLATFORM_PROJECT_NAME} PROPERTIES
-        VERSION "${PROJECT_VERSION}"
-        OUTPUT_NAME "${PROJECT_NAME}"
+        OUTPUT_NAME ${SHORT_NAME_WORD}
         MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_BINARY_DIR}/Info.plist")
     set_property(TARGET ${PLATFORM_PROJECT_NAME} APPEND PROPERTY COMPATIBLE_INTERFACE_STRING "${PROJECT_VERSION}")
 
@@ -75,4 +77,9 @@ if(APPLE)
     include(DesktopHelpers)
     desktop_generate_translations(TARGET ${PLATFORM_PROJECT_NAME}
         SHORT_NAME ${SHORT_NAME})
+
+    add_custom_command(TARGET ${PLATFORM_PROJECT_NAME} POST_BUILD
+        COMMAND codesign --force --deep --sign - "$<TARGET_BUNDLE_DIR:${PLATFORM_PROJECT_NAME}>"
+        COMMENT "Signing app bundle..."
+        VERBATIM)
 endif()

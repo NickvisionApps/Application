@@ -1,2 +1,2 @@
 #!/bin/sh
-exec @LIB_DIR@/@OUTPUT_NAME@ "$@"
+exec @LIB_DIR@/@SHORT_NAME_WORD@ "$@"
