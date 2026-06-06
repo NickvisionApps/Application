@@ -20,8 +20,10 @@ endif()
 
 if(ENABLE_CLANG_FORMAT AND CLANG_FORMAT)
     file(GLOB_RECURSE FORMAT_SOURCE_FILES CONFIGURE_DEPENDS
-        "${CMAKE_CURRENT_SOURCE_DIR}/*.h"
-        "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
+        "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h"
+        "${CMAKE_CURRENT_SOURCE_DIR}/include/**/*.h"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/**/*.cpp")
     add_custom_target(tests_format
         COMMAND ${CLANG_FORMAT} -i ${FORMAT_SOURCE_FILES}
         COMMENT "Running clang-format")

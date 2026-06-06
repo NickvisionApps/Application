@@ -29,10 +29,10 @@ if(APPLE)
         "${ICNS_FILE}"
         "include/application.h"
         "include/cocoa_lifetime_service.h"
-        "include/main_window.h"
+        "include/views/main_window.h"
         "src/application.mm"
         "src/cocoa_lifetime_service.mm"
-        "src/main_window.mm"
+        "src/views/main_window.mm"
         "src/main.mm")
 
     if(ENABLE_CLANG_TIDY AND CLANG_TIDY)
@@ -42,7 +42,9 @@ if(APPLE)
     if(ENABLE_CLANG_FORMAT AND CLANG_FORMAT)
         file(GLOB_RECURSE FORMAT_SOURCE_FILES CONFIGURE_DEPENDS
             "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h"
-            "${CMAKE_CURRENT_SOURCE_DIR}/src/*.mm")
+            "${CMAKE_CURRENT_SOURCE_DIR}/include/**/*.h"
+            "${CMAKE_CURRENT_SOURCE_DIR}/src/*.mm"
+            "${CMAKE_CURRENT_SOURCE_DIR}/src/**/*.mm")
         add_custom_target(platform_format
             COMMAND ${CLANG_FORMAT} -i ${FORMAT_SOURCE_FILES}
             COMMENT "Running clang-format")
@@ -65,18 +67,14 @@ if(APPLE)
     target_compile_options(${PLATFORM_PROJECT_NAME} PRIVATE -Wall -Wextra -Wpedantic)
 
     find_package(libdesktop CONFIG REQUIRED)
-    target_link_libraries(${PLATFORM_PROJECT_NAME} PRIVATE
-        ${LIBRARY_PROJECT_NAME}
-        libdesktop::libdesktop
-        "-framework AppKit"
-        "-framework Foundation")
+    target_link_libraries(${PLATFORM_PROJECT_NAME} PRIVATE ${LIBRARY_PROJECT_NAME} libdesktop::libdesktop "-framework AppKit" "-framework Foundation")
 
     include(DesktopHelpers)
     desktop_generate_translations(TARGET ${PLATFORM_PROJECT_NAME}
         SHORT_NAME ${SHORT_NAME})
 
     add_custom_command(TARGET ${PLATFORM_PROJECT_NAME} POST_BUILD
-        COMMAND codesign --force --deep --sign - "$<TARGET_BUNDLE_DIR:${PLATFORM_PROJECT_NAME}>"
         COMMENT "Signing app bundle..."
+        COMMAND codesign --force --deep --sign - "$<TARGET_BUNDLE_DIR:${PLATFORM_PROJECT_NAME}>"
         VERBATIM)
 endif()
