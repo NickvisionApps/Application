@@ -22,6 +22,7 @@ using namespace desktop::services;
 		self.titlebarAppearsTransparent = YES;
 		self.releasedWhenClosed = NO;
 		self.minSize = NSMakeSize(600, 400);
+		self.collectionBehavior = NSWindowCollectionBehaviorManaged | NSWindowCollectionBehaviorFullScreenNone;
 		if (@available(macOS 12.0, *))
 		{
 			self.titlebarSeparatorStyle = NSTitlebarSeparatorStyleNone;

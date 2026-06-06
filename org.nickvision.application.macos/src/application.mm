@@ -1,6 +1,7 @@
 #import "application.h"
 #include "controllers/main_window_controller.h"
 #import "views/main_window.h"
+#import "views/settings_dialog.h"
 
 using namespace application::controllers;
 using namespace desktop::app;
@@ -47,6 +48,7 @@ static void appendLink(NSMutableAttributedString* credits, NSDictionary* normalA
 {
 	std::shared_ptr<service_provider> m_service_provider;
 	MainWindow* m_main_window;
+	SettingsDialog* m_settings_dialog;
 }
 
 - (instancetype)initWithServiceProvider:(std::shared_ptr<service_provider>)serviceProvider
@@ -67,6 +69,15 @@ static void appendLink(NSMutableAttributedString* credits, NSDictionary* normalA
 	NSMenu* appMenu{ [[NSMenu alloc] init] };
 	[appMenuItem setSubmenu:appMenu];
 	[appMenu addItemWithTitle:[NSString stringWithFormat:@"About %@", appName] action:@selector(showAboutPanel:) keyEquivalent:@""];
+	[appMenu addItem:[NSMenuItem separatorItem]];
+	NSMenuItem* settingsMenuItem
+	{
+		[appMenu addItemWithTitle:@"Settings\u2026" action:@selector(showSettings:) keyEquivalent:@","]
+	};
+	if (@available(macOS 11.0, *))
+	{
+		settingsMenuItem.image = [NSImage imageWithSystemSymbolName:@"gearshape" accessibilityDescription:nil];
+	}
 	[appMenu addItem:[NSMenuItem separatorItem]];
 	[appMenu addItemWithTitle:[NSString stringWithFormat:@"Quit %@", appName] action:@selector(terminate:) keyEquivalent:@"q"];
 	NSMenuItem* fileMenuItem{ [[NSMenuItem alloc] init] };
@@ -92,6 +103,15 @@ static void appendLink(NSMutableAttributedString* credits, NSDictionary* normalA
 	[windowMenu addItemWithTitle:@"Minimize" action:@selector(performMiniaturize:) keyEquivalent:@"m"];
 	[windowMenu addItemWithTitle:@"Zoom" action:@selector(performZoom:) keyEquivalent:@""];
 	[NSApp setWindowsMenu:windowMenu];
+}
+
+- (void)showSettings:(id)sender
+{
+	if (!m_settings_dialog)
+	{
+		m_settings_dialog = [[SettingsDialog alloc] initWithServiceProvider:m_service_provider];
+	}
+	[m_settings_dialog show];
 }
 
 - (void)showAboutPanel:(id)sender

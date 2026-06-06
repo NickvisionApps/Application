@@ -30,9 +30,11 @@ if(APPLE)
         "include/application.h"
         "include/cocoa_lifetime_service.h"
         "include/views/main_window.h"
+        "include/views/settings_dialog.h"
         "src/application.mm"
         "src/cocoa_lifetime_service.mm"
         "src/views/main_window.mm"
+        "src/views/settings_dialog.mm"
         "src/main.mm")
 
     if(ENABLE_CLANG_TIDY AND CLANG_TIDY)
