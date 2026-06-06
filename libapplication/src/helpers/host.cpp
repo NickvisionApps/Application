@@ -1,5 +1,6 @@
 #include "helpers/host.h"
 #include "controllers/main_window_controller.h"
+#include "controllers/preferences_view_controller.h"
 #include "services/app_config_service.h"
 #include "services/folder_service.h"
 
@@ -34,6 +35,7 @@ namespace application::helpers
 		h.get_services()->add<app_config_service>(service_scope::singleton);
 		h.get_services()->add<folder_service>(service_scope::singleton);
 		h.get_services()->add<main_window_controller>(service_scope::singleton);
+		h.get_services()->add<preferences_view_controller>(service_scope::singleton);
 		h.use_github_updates();
 		return h;
 	}

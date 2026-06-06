@@ -1,5 +1,6 @@
 add_library(${LIBRARY_PROJECT_NAME} STATIC
     "include/controllers/main_window_controller.h"
+    "include/controllers/preferences_view_controller.h"
     "include/events/folder_changed_event_args.h"
     "include/helpers/host.h"
     "include/models/theme.h"
@@ -7,6 +8,7 @@ add_library(${LIBRARY_PROJECT_NAME} STATIC
     "include/services/events_service.h"
     "include/services/folder_service.h"
     "src/controllers/main_window_controller.cpp"
+    "src/controllers/preferences_view_controller.cpp"
     "src/events/folder_changed_event_args.cpp"
     "src/helpers/host.cpp"
     "src/services/app_config_service.cpp"
