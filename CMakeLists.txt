@@ -1,0 +1,52 @@
+cmake_minimum_required(VERSION 3.25)
+
+if(DEFINED ENV{VCPKG_ROOT})
+    file(TO_CMAKE_PATH $ENV{VCPKG_ROOT} VCPKG_ROOT)
+    if(EXISTS "${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake")
+        set(CMAKE_TOOLCHAIN_FILE "${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake")
+        set(USING_VCPKG ON)
+    endif()
+endif()
+
+if(APPLE)
+    if(EXISTS "/opt/homebrew/opt/libarchive/include")
+        set(LibArchive_INCLUDE_DIR "/opt/homebrew/opt/libarchive/include")
+    elseif(EXISTS "/usr/local/opt/libarchive/include")
+        set(LibArchive_INCLUDE_DIR "/usr/local/opt/libarchive/include")
+    endif()
+endif()
+
+if(POLICY CMP0141)
+    cmake_policy(SET CMP0141 NEW)
+    set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
+endif()
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_CXX_STANDARD 20)
+
+find_program(CLANG_FORMAT clang-format)
+find_program(CLANG_TIDY clang-tidy)
+
+project("org.nickvision.application" LANGUAGES C CXX VERSION 2026.6.0 DESCRIPTION "Create new Nickvision applications.")
+
+option(BUILD_TESTING "Build tests" ON)
+option(ENABLE_CLANG_FORMAT "Enable clang-format analysis" ON)
+option(ENABLE_CLANG_TIDY "Enable clang-tidy analysis" ON)
+
+include(CMakePackageConfigHelpers)
+include(GNUInstallDirs)
+
+set(LIBRARY_PROJECT_NAME libapplication)
+set(TESTS_PROJECT_NAME org.nickvision.application.tests)
+if(WIN32)
+    set(PLATFORM_PROJECT_NAME org.nickvision.application.windows)
+elseif(APPLE)
+    set(PLATFORM_PROJECT_NAME org.nickvision.application.macos)
+else()
+    set(PLATFORM_PROJECT_NAME org.nickvision.application.linux)
+endif()
+
+add_subdirectory(${LIBRARY_PROJECT_NAME})
+add_subdirectory(${PLATFORM_PROJECT_NAME})
+if (BUILD_TESTING)
+    add_subdirectory(${TESTS_PROJECT_NAME})
+endif()

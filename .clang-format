@@ -1,0 +1,59 @@
+---
+Language: Cpp
+Standard: c++20
+BasedOnStyle: LLVM
+
+AccessModifierOffset: -4
+AllowShortBlocksOnASingleLine: Empty
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLambdasOnASingleLine: None
+AllowShortLoopsOnASingleLine: false
+AlwaysBreakTemplateDeclarations: Yes
+BraceWrapping:
+  AfterClass: true
+  AfterControlStatement: Always
+  AfterEnum: true
+  AfterFunction: true
+  AfterNamespace: true
+  AfterStruct: true
+  AfterUnion: true
+  BeforeCatch: true
+  BeforeElse: true
+BreakBeforeBraces: Allman
+BreakConstructorInitializers: BeforeColon
+ColumnLimit: 160
+ConstructorInitializerIndentWidth: 4
+Cpp11BracedListStyle: false
+FixNamespaceComments: false
+IncludeBlocks: Merge
+IncludeCategories:
+  - Regex: '^<windows\.h>'
+    Priority: 1
+  - Regex: '^<'
+    Priority: 2
+  - Regex: '^"'
+    Priority: 3
+IncludeIsMainRegex: '([-_]|(/.*/)?)[A-Za-z0-9_]*$'
+IndentCaseLabels: false
+IndentRequiresClause: true
+IndentWidth: 4
+KeepEmptyLines:
+  AtStartOfBlock: false
+LambdaBodyIndentation: OuterScope
+MaxEmptyLinesToKeep: 1
+NamespaceIndentation: All
+PackConstructorInitializers: Never
+PointerAlignment: Left
+ReferenceAlignment: Left
+RequiresClausePosition: OwnLine
+SortIncludes: CaseSensitive
+SortUsingDeclarations: Lexicographic
+SpaceAfterCStyleCast: false
+SpaceBeforeCpp11BracedList: false
+SpaceBeforeParens: ControlStatements
+SpaceInEmptyBlock: true
+SpacesInAngles: Never
+SpacesInParens: Never
+TabWidth: 4
+UseTab: ForIndentation
