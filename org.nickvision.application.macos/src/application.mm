@@ -2,13 +2,15 @@
 #include "controllers/main_window_controller.h"
 #import "main_window.h"
 
+using namespace application::controllers;
+
 @implementation Application
 {
-	std::shared_ptr<application::controllers::main_window_controller> _controller;
+	std::shared_ptr<main_window_controller> _controller;
 	MainWindow* _mainWindow;
 }
 
-- (instancetype)initWithController:(std::shared_ptr<application::controllers::main_window_controller>)controller
+- (instancetype)initWithController:(std::shared_ptr<main_window_controller>)controller
 {
 	if (self = [super init])
 	{

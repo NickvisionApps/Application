@@ -6,7 +6,7 @@
 
 namespace application::controllers
 {
-class main_window_controller;
+	class main_window_controller;
 }
 
 @interface Application : NSObject <NSApplicationDelegate>
