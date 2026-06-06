@@ -1,7 +1,39 @@
 if(APPLE)
-    add_executable(${PLATFORM_PROJECT_NAME}
-        "src/main.cpp"
-    )
+    enable_language(OBJCXX)
+
+    set(ICON_PNG "${CMAKE_SOURCE_DIR}/resources/${PROJECT_NAME}.png")
+    set(ICONSET_DIR "${CMAKE_CURRENT_BINARY_DIR}/AppIcon.iconset")
+    set(ICNS_FILE "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.icns")
+
+    add_custom_command(
+        OUTPUT "${ICNS_FILE}"
+        COMMAND ${CMAKE_COMMAND} -E make_directory "${ICONSET_DIR}"
+        COMMAND sips -z 16   16   "${ICON_PNG}" --out "${ICONSET_DIR}/icon_16x16.png"
+        COMMAND sips -z 32   32   "${ICON_PNG}" --out "${ICONSET_DIR}/icon_16x16@2x.png"
+        COMMAND sips -z 32   32   "${ICON_PNG}" --out "${ICONSET_DIR}/icon_32x32.png"
+        COMMAND sips -z 64   64   "${ICON_PNG}" --out "${ICONSET_DIR}/icon_32x32@2x.png"
+        COMMAND sips -z 128  128  "${ICON_PNG}" --out "${ICONSET_DIR}/icon_128x128.png"
+        COMMAND sips -z 256  256  "${ICON_PNG}" --out "${ICONSET_DIR}/icon_128x128@2x.png"
+        COMMAND sips -z 256  256  "${ICON_PNG}" --out "${ICONSET_DIR}/icon_256x256.png"
+        COMMAND sips -z 512  512  "${ICON_PNG}" --out "${ICONSET_DIR}/icon_256x256@2x.png"
+        COMMAND sips -z 512  512  "${ICON_PNG}" --out "${ICONSET_DIR}/icon_512x512.png"
+        COMMAND sips -z 1024 1024 "${ICON_PNG}" --out "${ICONSET_DIR}/icon_512x512@2x.png"
+        COMMAND iconutil -c icns "${ICONSET_DIR}" -o "${ICNS_FILE}"
+        DEPENDS "${ICON_PNG}"
+        COMMENT "Generating ${PROJECT_NAME}.icns"
+        VERBATIM)
+
+    set_source_files_properties("${ICNS_FILE}" PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
+
+    add_executable(${PLATFORM_PROJECT_NAME} MACOSX_BUNDLE
+        "${ICNS_FILE}"
+        "include/application.h"
+        "include/cocoa_lifetime_service.h"
+        "include/main_window.h"
+        "src/application.mm"
+        "src/cocoa_lifetime_service.mm"
+        "src/main_window.mm"
+        "src/main.mm")
 
     if(ENABLE_CLANG_TIDY AND CLANG_TIDY)
         set_target_properties(${PLATFORM_PROJECT_NAME} PROPERTIES CXX_CLANG_TIDY "${CLANG_TIDY};--extra-arg=-fexceptions")
@@ -10,7 +42,7 @@ if(APPLE)
     if(ENABLE_CLANG_FORMAT AND CLANG_FORMAT)
         file(GLOB_RECURSE FORMAT_SOURCE_FILES CONFIGURE_DEPENDS
             "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h"
-            "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
+            "${CMAKE_CURRENT_SOURCE_DIR}/src/*.mm")
         add_custom_target(platform_format
             COMMAND ${CLANG_FORMAT} -i ${FORMAT_SOURCE_FILES}
             COMMENT "Running clang-format")
@@ -21,21 +53,26 @@ if(APPLE)
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
         "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}>")
 
+    configure_file(
+        "${CMAKE_CURRENT_SOURCE_DIR}/resources/Info.plist"
+        "${CMAKE_CURRENT_BINARY_DIR}/Info.plist"
+        @ONLY)
     set_target_properties(${PLATFORM_PROJECT_NAME} PROPERTIES
-        VERSION "${PROJECT_VERSION}")
+        VERSION "${PROJECT_VERSION}"
+        OUTPUT_NAME "${PROJECT_NAME}"
+        MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_BINARY_DIR}/Info.plist")
     set_property(TARGET ${PLATFORM_PROJECT_NAME} APPEND PROPERTY COMPATIBLE_INTERFACE_STRING "${PROJECT_VERSION}")
 
-    if(MSVC)
-        target_compile_options(${PLATFORM_PROJECT_NAME} PRIVATE /W4)
-        target_compile_definitions(${PLATFORM_PROJECT_NAME} PRIVATE _CRT_SECURE_NO_WARNINGS)
-    else()
-        target_compile_options(${PLATFORM_PROJECT_NAME} PRIVATE -Wall -Wextra -Wpedantic)
-    endif()
+    target_compile_options(${PLATFORM_PROJECT_NAME} PRIVATE -Wall -Wextra -Wpedantic)
 
     find_package(libdesktop CONFIG REQUIRED)
-    target_link_libraries(${PLATFORM_PROJECT_NAME} PRIVATE ${LIBRARY_PROJECT_NAME} libdesktop::libdesktop)
+    target_link_libraries(${PLATFORM_PROJECT_NAME} PRIVATE
+        ${LIBRARY_PROJECT_NAME}
+        libdesktop::libdesktop
+        "-framework AppKit"
+        "-framework Foundation")
 
     include(DesktopHelpers)
     desktop_generate_translations(TARGET ${PLATFORM_PROJECT_NAME}
-        SHORT_NAME application)
+        SHORT_NAME ${SHORT_NAME})
 endif()

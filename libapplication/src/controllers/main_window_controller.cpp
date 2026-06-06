@@ -15,8 +15,7 @@ namespace application::controllers
 {
 	main_window_controller::main_window_controller(std::shared_ptr<app_info> app_info, std::shared_ptr<app_config_service> app_config_service,
 	                                               std::shared_ptr<folder_service> folder_service, std::shared_ptr<notification_service> notification_service,
-	                                               std::shared_ptr<translation_service> translation_service,
-	                                               std::shared_ptr<github_update_service> update_service)
+	                                               std::shared_ptr<translation_service> translation_service, std::shared_ptr<update_service> update_service)
 	    : m_app_info{ std::move(app_info) },
 	      m_app_config_service{ std::move(app_config_service) },
 	      m_folder_service{ std::move(folder_service) },
@@ -39,6 +38,11 @@ namespace application::controllers
 	bool main_window_controller::can_shutdown() const
 	{
 		return true;
+	}
+
+	std::shared_ptr<app_info> main_window_controller::get_app_info() const
+	{
+		return m_app_info;
 	}
 
 	const std::filesystem::path& main_window_controller::get_current_folder() const

@@ -37,5 +37,5 @@ if(WIN32)
 
     include(DesktopHelpers)
     desktop_generate_translations(TARGET ${PLATFORM_PROJECT_NAME}
-        SHORT_NAME application)
+        SHORT_NAME ${SHORT_NAME})
 endif()

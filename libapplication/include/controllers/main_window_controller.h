@@ -14,18 +14,18 @@ namespace application::controllers
 	class main_window_controller
 	{
 	public:
-		using dependencies =
-		    std::tuple<desktop::app::app_info, services::app_config_service, services::folder_service, desktop::notifications::notification_service,
-		               desktop::app::translation_service, desktop::updates::github_update_service>;
+		using dependencies = std::tuple<desktop::app::app_info, services::app_config_service, services::folder_service,
+		                                desktop::notifications::notification_service, desktop::app::translation_service, desktop::updates::update_service>;
 		main_window_controller(std::shared_ptr<desktop::app::app_info> app_info, std::shared_ptr<services::app_config_service> app_config_service,
 		                       std::shared_ptr<services::folder_service> folder_service,
 		                       std::shared_ptr<desktop::notifications::notification_service> notification_service,
 		                       std::shared_ptr<desktop::app::translation_service> translation_service,
-		                       std::shared_ptr<desktop::updates::github_update_service> update_service);
+		                       std::shared_ptr<desktop::updates::update_service> update_service);
 		~main_window_controller() = default;
 		main_window_controller(const main_window_controller&) = delete;
 		main_window_controller(main_window_controller&&) = delete;
 		bool can_shutdown() const;
+		std::shared_ptr<desktop::app::app_info> get_app_info() const;
 		const std::filesystem::path& get_current_folder() const;
 		std::string get_greeting() const;
 		models::theme get_theme() const;
@@ -47,7 +47,7 @@ namespace application::controllers
 		std::shared_ptr<services::folder_service> m_folder_service;
 		std::shared_ptr<desktop::notifications::notification_service> m_notification_service;
 		std::shared_ptr<desktop::app::translation_service> m_translation_service;
-		std::shared_ptr<desktop::updates::github_update_service> m_update_service;
+		std::shared_ptr<desktop::updates::update_service> m_update_service;
 		desktop::updates::version m_latest_version;
 	};
 }

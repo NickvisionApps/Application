@@ -27,6 +27,8 @@ find_program(CLANG_FORMAT clang-format)
 find_program(CLANG_TIDY clang-tidy)
 
 project("org.nickvision.application" LANGUAGES C CXX VERSION 2026.6.0 DESCRIPTION "Create new Nickvision applications.")
+set(SHORT_NAME "application")
+set(SHORT_NAME_WORD "Application")
 
 option(BUILD_TESTING "Build tests" ON)
 option(ENABLE_CLANG_FORMAT "Enable clang-format analysis" ON)

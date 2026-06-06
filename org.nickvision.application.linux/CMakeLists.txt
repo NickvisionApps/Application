@@ -37,7 +37,7 @@ if(LINUX)
 
     include(DesktopHelpers)
     desktop_generate_translations(TARGET ${PLATFORM_PROJECT_NAME}
-        SHORT_NAME application)
+        SHORT_NAME ${SHORT_NAME})
     desktop_compile_glib_resources(TARGET ${PLATFORM_PROJECT_NAME}
         RESOURCE_XML "${CMAKE_CURRENT_SOURCE_DIR}/resources/${PROJECT_NAME}.gresource.xml"
         OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.gresource")
