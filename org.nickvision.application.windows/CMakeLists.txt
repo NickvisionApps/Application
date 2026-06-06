@@ -33,6 +33,9 @@ if(WIN32)
     endif()
 
     find_package(libdesktop CONFIG REQUIRED)
-    include(DesktopHelpers)
     target_link_libraries(${PLATFORM_PROJECT_NAME} PRIVATE ${LIBRARY_PROJECT_NAME} libdesktop::libdesktop)
+
+    include(DesktopHelpers)
+    desktop_generate_translations(TARGET ${PLATFORM_PROJECT_NAME}
+        SHORT_NAME application)
 endif()

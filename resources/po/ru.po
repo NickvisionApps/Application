@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-29 20:49-0400\n"
+"POT-Creation-Date: 2026-06-05 22:11-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -18,355 +18,187 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: Nickvision.Application.GNOME/Blueprints/MainWindow.blp:5
-#: Nickvision.Application.GNOME/Blueprints/PreferencesDialog.blp:8
-#: Nickvision.Application.GNOME/Blueprints/ShortcutsDialog.blp:9
-msgid "Preferences"
-msgstr "Параметры"
-
-#: Nickvision.Application.GNOME/Blueprints/MainWindow.blp:6
-#: Nickvision.Application.GNOME/Blueprints/ShortcutsDialog.blp:14
-msgid "Keyboard Shortcuts"
-msgstr "Комбинации клавиш"
-
-#: Nickvision.Application.GNOME/Blueprints/MainWindow.blp:7
-#: Nickvision.Application.GNOME/Blueprints/ShortcutsDialog.blp:19
-msgid "About Application"
-msgstr "О приложении"
-
-#: Nickvision.Application.GNOME/Blueprints/MainWindow.blp:23
-msgid "Open Folder (Ctrl+O)"
-msgstr "Открыть папку (Ctrl+O)"
-
-#: Nickvision.Application.GNOME/Blueprints/MainWindow.blp:28
-#: Nickvision.Application.GNOME/Blueprints/MainWindow.blp:61
-msgid "Open"
-msgstr "Открыть"
-
-#: Nickvision.Application.GNOME/Blueprints/MainWindow.blp:36
-msgid "Close Folder (Ctrl+W)"
-msgstr "Закрыть папку (Ctrl+W)"
-
-#: Nickvision.Application.GNOME/Blueprints/MainWindow.blp:45
-msgid "Main Menu"
-msgstr "Главное меню"
-
-#: Nickvision.Application.GNOME/Blueprints/MainWindow.blp:59
-#, fuzzy
-msgid "Open a folder (or drag one into the app) to get started"
-msgstr "Откройте или перетащите папку, чтобы начать."
-
-#: Nickvision.Application.GNOME/Blueprints/PreferencesDialog.blp:12
-#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:25
-msgid "User Interface"
-msgstr "Интерфейс"
-
-#: Nickvision.Application.GNOME/Blueprints/PreferencesDialog.blp:15
-#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:26
-msgid "Theme"
-msgstr "Тема"
-
-#: Nickvision.Application.GNOME/Blueprints/PreferencesDialog.blp:24
-#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:28
-msgid "Translation Language"
-msgstr ""
-
-#: Nickvision.Application.GNOME/Blueprints/PreferencesDialog.blp:25
-#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:29
-msgid "An application restart is required for a change to take effect"
-msgstr ""
-
-#: Nickvision.Application.GNOME/Blueprints/ShortcutsDialog.blp:6
-msgctxt "Shortcut"
-msgid "Application"
-msgstr "Приложение"
-
-#: Nickvision.Application.GNOME/Blueprints/ShortcutsDialog.blp:24
-msgid "Quit"
-msgstr "Выход"
-
-#: Nickvision.Application.GNOME/Blueprints/ShortcutsDialog.blp:30
-#: Nickvision.Application.Shared/Services/FolderService.cs:51
-#, fuzzy
-msgid "Folder"
-msgstr "Папка"
-
-#: Nickvision.Application.GNOME/Blueprints/ShortcutsDialog.blp:33
-#: Nickvision.Application.GNOME/Views/MainWindow.cs:219
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:76
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:91
-msgid "Open Folder"
-msgstr "Открыть Папку"
-
-#: Nickvision.Application.GNOME/Blueprints/ShortcutsDialog.blp:38
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:77
-msgid "Close Folder"
-msgstr "Закрыть папку"
-
-#: Nickvision.Application.GNOME/Views/MainWindow.cs:173
-#, fuzzy
-msgid "Open in Files"
-msgstr "Открыть Папку"
-
-#: Nickvision.Application.GNOME/Views/MainWindow.cs:180
-#: Nickvision.Application.WinUI/Controls/AboutDialog.xaml.cs:23
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:93
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:138
-msgid "Close"
-msgstr "Закрыть"
-
-#: Nickvision.Application.GNOME/Views/MainWindow.cs:185
-msgid "View"
-msgstr ""
-
-#: Nickvision.Application.GNOME/Views/MainWindow.cs:201
-#, fuzzy, csharp-format
-msgid "There is {0} file in the folder."
-msgid_plural "There are {0} files in the folder"
-msgstr[0] "В папке {0} файл."
-msgstr[1] "В папке {0} файла."
-msgstr[2] "В папке {0} файлов."
-
-#: Nickvision.Application.GNOME/Views/MainWindow.cs:255
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:83
-msgid "GitHub Repo"
-msgstr "Репозиторий GitHub"
-
-#: Nickvision.Application.Shared/Controllers/MainWindowController.cs:38
+#: libapplication/src/controllers/main_window_controller.cpp:27
 msgid "Application"
 msgstr "Application"
 
-#: Nickvision.Application.Shared/Controllers/MainWindowController.cs:39
+#: libapplication/src/controllers/main_window_controller.cpp:28
 #, fuzzy
-msgid "Create new Nickvision applications."
+msgid "Create new Nickvision application"
 msgstr "Создавайте новые приложения Nickvision"
 
-#: Nickvision.Application.Shared/Controllers/MainWindowController.cs:40
+#: libapplication/src/controllers/main_window_controller.cpp:29
 msgid "Matrix Chat"
 msgstr "Чат Matrix"
 
-#: Nickvision.Application.Shared/Controllers/MainWindowController.cs:41
-#: Nickvision.Application.Shared/Controllers/MainWindowController.cs:43
+#: libapplication/src/controllers/main_window_controller.cpp:30
+#: libapplication/src/controllers/main_window_controller.cpp:32
 msgid "Nicholas Logozzo"
 msgstr "Nicholas Logozzo"
 
-#: Nickvision.Application.Shared/Controllers/MainWindowController.cs:42
+#: libapplication/src/controllers/main_window_controller.cpp:31
 #, fuzzy
 msgid "Contributors on GitHub ❤️"
 msgstr "Соавторы на GitHub ❤️"
 
-#: Nickvision.Application.Shared/Controllers/MainWindowController.cs:44
+#: libapplication/src/controllers/main_window_controller.cpp:33
 msgid "Fyodor Sobolev"
 msgstr "Фёдор Соболев"
 
-#: Nickvision.Application.Shared/Controllers/MainWindowController.cs:45
+#: libapplication/src/controllers/main_window_controller.cpp:34
 msgid "DaPigGuy"
 msgstr "DaPigGuy"
 
-#: Nickvision.Application.Shared/Controllers/MainWindowController.cs:46
+#: libapplication/src/controllers/main_window_controller.cpp:35
 msgid "David Lapshin"
 msgstr "Давид Лапшин"
 
-#: Nickvision.Application.Shared/Controllers/MainWindowController.cs:47
+#: libapplication/src/controllers/main_window_controller.cpp:36
 #, fuzzy
 msgid "translation-credits"
 msgstr "Фёдор Соболев https://github.com/fsobolev"
 
-#: Nickvision.Application.Shared/Controllers/MainWindowController.cs:56
+#: libapplication/src/controllers/main_window_controller.cpp:54
 msgctxt "Night"
 msgid "Good Morning!"
 msgstr "Доброй ночи!"
 
-#: Nickvision.Application.Shared/Controllers/MainWindowController.cs:57
+#: libapplication/src/controllers/main_window_controller.cpp:58
 msgctxt "Morning"
 msgid "Good Morning!"
 msgstr "Доброе утро!"
 
-#: Nickvision.Application.Shared/Controllers/MainWindowController.cs:58
+#: libapplication/src/controllers/main_window_controller.cpp:62
 msgid "Good Afternoon!"
 msgstr "Добрый день!"
 
-#: Nickvision.Application.Shared/Controllers/MainWindowController.cs:59
+#: libapplication/src/controllers/main_window_controller.cpp:66
 msgid "Good Evening!"
 msgstr "Добрый вечер!"
 
-#: Nickvision.Application.Shared/Controllers/MainWindowController.cs:60
+#: libapplication/src/controllers/main_window_controller.cpp:68
 msgid "Good Day!"
 msgstr "Здравствуйте!"
 
-#: Nickvision.Application.Shared/Controllers/MainWindowController.cs:93
-#, fuzzy, csharp-format
-msgid "New {0} update available: {1}"
+#: libapplication/src/controllers/main_window_controller.cpp:114
+#, fuzzy, c++-format
+msgid "New {} update available: {}"
 msgstr "Application"
 
-#: Nickvision.Application.Shared/Controllers/MainWindowController.cs:104
+#: libapplication/src/controllers/main_window_controller.cpp:120
 #, fuzzy
-msgid "No update available"
+msgid "No Update Available"
 msgstr "Application"
 
-#: Nickvision.Application.Shared/Controllers/MainWindowController.cs:120
-#, csharp-format
-msgid "Starting {0} installer..."
+#: libapplication/src/controllers/main_window_controller.cpp:131
+#, c++-format
+msgid "Starting {} installer..."
 msgstr ""
 
-#: Nickvision.Application.Shared/Controllers/MainWindowController.cs:124
+#: libapplication/src/controllers/main_window_controller.cpp:136
 msgid "Unable to download and install the update"
 msgstr ""
 
-#: Nickvision.Application.Shared/Controllers/PreferencesViewController.cs:30
-#, fuzzy
-msgid "System"
-msgstr "Системная"
-
-#: Nickvision.Application.Shared/Controllers/PreferencesViewController.cs:41
-msgctxt "Theme"
-msgid "Light"
-msgstr "Светлая"
-
-#: Nickvision.Application.Shared/Controllers/PreferencesViewController.cs:42
-msgctxt "Theme"
-msgid "Dark"
-msgstr "Тёмная"
-
-#: Nickvision.Application.Shared/Controllers/PreferencesViewController.cs:43
-msgctxt "Theme"
-msgid "System"
-msgstr "Системная"
-
-#: Nickvision.Application.Shared/Services/FolderService.cs:47
-#, fuzzy, csharp-format
-msgid "Folder opened: {0}"
+#: libapplication/src/services/folder_service.cpp:46
+#, fuzzy, c++-format
+msgid "Folder opened: {}"
 msgstr "Папка открыта: {0}"
 
-#: Nickvision.Application.Shared/Services/FolderService.cs:51
-#, csharp-format
-msgid "Loaded {0} file(s)"
+#: libapplication/src/services/folder_service.cpp:47
+#, fuzzy
+msgid "Folder"
+msgstr "Папка"
+
+#: libapplication/src/services/folder_service.cpp:47
+#, c++-format
+msgid "Loaded {} file(s)"
 msgstr ""
 
-#: Nickvision.Application.Shared/Services/FolderService.cs:65
+#: libapplication/src/services/folder_service.cpp:56
 #, fuzzy
 msgid "Folder closed"
 msgstr "Папка закрыта."
 
-#: Nickvision.Application.WinUI/Controls/AboutDialog.xaml.cs:22
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:86
-#, csharp-format
-msgid "About {0}"
-msgstr ""
+#~ msgid "Preferences"
+#~ msgstr "Параметры"
 
-#: Nickvision.Application.WinUI/Controls/AboutDialog.xaml.cs:25
-msgid "General"
-msgstr ""
+#~ msgid "Keyboard Shortcuts"
+#~ msgstr "Комбинации клавиш"
 
-#: Nickvision.Application.WinUI/Controls/AboutDialog.xaml.cs:26
-msgid "Changelog"
-msgstr ""
+#~ msgid "About Application"
+#~ msgstr "О приложении"
 
-#: Nickvision.Application.WinUI/Controls/AboutDialog.xaml.cs:27
-msgid "Debugging"
-msgstr ""
+#~ msgid "Open Folder (Ctrl+O)"
+#~ msgstr "Открыть папку (Ctrl+O)"
 
-#: Nickvision.Application.WinUI/Controls/AboutDialog.xaml.cs:28
-msgid "Credits"
-msgstr ""
+#~ msgid "Open"
+#~ msgstr "Открыть"
 
-#: Nickvision.Application.WinUI/Controls/AboutDialog.xaml.cs:34
-msgid "Copy Debug Information"
-msgstr ""
+#~ msgid "Close Folder (Ctrl+W)"
+#~ msgstr "Закрыть папку (Ctrl+W)"
 
-#: Nickvision.Application.WinUI/Controls/AboutDialog.xaml.cs:37
-#, csharp-format
-msgid ""
-"Developers:\n"
-"{0}\n"
-"\n"
-"Designers:\n"
-"{1}\n"
-"\n"
-"Artists:\n"
-"{2}"
-msgstr ""
+#~ msgid "Main Menu"
+#~ msgstr "Главное меню"
 
-#: Nickvision.Application.WinUI/Controls/AboutDialog.xaml.cs:41
-#, csharp-format
-msgid ""
-"Developers:\n"
-"{0}\n"
-"\n"
-"Designers:\n"
-"{1}\n"
-"\n"
-"Artists:\n"
-"{2}\n"
-"\n"
-"Translators:\n"
-"{3}"
-msgstr ""
-
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:75
-msgid "File"
-msgstr ""
-
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:78
-msgid "Exit"
-msgstr ""
-
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:79
-msgid "Edit"
-msgstr ""
-
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:80
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:92
-#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:24
-msgid "Settings"
-msgstr ""
-
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:81
-msgid "Help"
-msgstr ""
-
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:82
-msgid "Check for Updates"
-msgstr ""
-
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:84
-msgid "Report a Bug"
-msgstr ""
-
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:85
-msgid "Discussions"
-msgstr ""
-
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:87
-#, csharp-format
-msgid "You are running a preview version of {0}"
-msgstr ""
-
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:88
-msgid "Thank you for testing the upcoming features and changes! ❤️"
-msgstr ""
-
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:132
-msgid "Update"
-msgstr ""
-
-#: Nickvision.Application.WinUI/Views/MainWindow.xaml.cs:246
-#, csharp-format
-msgid "Downloading update: {0}%"
-msgstr ""
-
-#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:31
-msgid "Receive Preview Updates"
-msgstr ""
-
-#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:32
 #, fuzzy
-msgid "On"
-msgstr "Открыть"
+#~ msgid "Open a folder (or drag one into the app) to get started"
+#~ msgstr "Откройте или перетащите папку, чтобы начать."
 
-#: Nickvision.Application.WinUI/Views/SettingsPage.xaml.cs:33
-msgid "Off"
-msgstr ""
+#~ msgid "User Interface"
+#~ msgstr "Интерфейс"
+
+#~ msgid "Theme"
+#~ msgstr "Тема"
+
+#~ msgctxt "Shortcut"
+#~ msgid "Application"
+#~ msgstr "Приложение"
+
+#~ msgid "Quit"
+#~ msgstr "Выход"
+
+#~ msgid "Open Folder"
+#~ msgstr "Открыть Папку"
+
+#~ msgid "Close Folder"
+#~ msgstr "Закрыть папку"
+
+#, fuzzy
+#~ msgid "Open in Files"
+#~ msgstr "Открыть Папку"
+
+#~ msgid "Close"
+#~ msgstr "Закрыть"
+
+#, fuzzy, csharp-format
+#~ msgid "There is {0} file in the folder."
+#~ msgid_plural "There are {0} files in the folder"
+#~ msgstr[0] "В папке {0} файл."
+#~ msgstr[1] "В папке {0} файла."
+#~ msgstr[2] "В папке {0} файлов."
+
+#~ msgid "GitHub Repo"
+#~ msgstr "Репозиторий GitHub"
+
+#, fuzzy
+#~ msgid "System"
+#~ msgstr "Системная"
+
+#~ msgctxt "Theme"
+#~ msgid "Light"
+#~ msgstr "Светлая"
+
+#~ msgctxt "Theme"
+#~ msgid "Dark"
+#~ msgstr "Тёмная"
+
+#~ msgctxt "Theme"
+#~ msgid "System"
+#~ msgstr "Системная"
+
+#, fuzzy
+#~ msgid "On"
+#~ msgstr "Открыть"
 
 #, fuzzy
 #~ msgid "Open in Explorer"

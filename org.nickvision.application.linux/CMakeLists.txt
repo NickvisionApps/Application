@@ -33,6 +33,15 @@ if(LINUX)
     endif()
 
     find_package(libdesktop CONFIG REQUIRED)
-    include(DesktopHelpers)
     target_link_libraries(${PLATFORM_PROJECT_NAME} PRIVATE ${LIBRARY_PROJECT_NAME} libdesktop::libdesktop)
+
+    include(DesktopHelpers)
+    desktop_generate_translations(TARGET ${PLATFORM_PROJECT_NAME}
+        SHORT_NAME application)
+    desktop_compile_glib_resources(TARGET ${PLATFORM_PROJECT_NAME}
+        RESOURCE_XML "${CMAKE_CURRENT_SOURCE_DIR}/resources/${PROJECT_NAME}.gresource.xml"
+        OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.gresource")
+    desktop_compile_blueprints(TARGET ${PLATFORM_PROJECT_NAME}
+        BLUEPRINT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/blueprints"
+        OUTPUT_DIR "${CMAKE_CURRENT_BINARY_DIR}/ui")
 endif()
