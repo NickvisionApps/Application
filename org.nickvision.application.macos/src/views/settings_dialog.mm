@@ -62,11 +62,8 @@ using namespace desktop::services;
 - (void)configureWithItem:(SettingsSidebarItem*)item
 {
 	self.textField.stringValue = item.title;
-	if (@available(macOS 11.0, *))
-	{
-		NSImageSymbolConfiguration* config{ [NSImageSymbolConfiguration configurationWithPointSize:14.0 weight:NSFontWeightRegular] };
-		self.iconView.image = [[NSImage imageWithSystemSymbolName:item.symbolName accessibilityDescription:nil] imageWithSymbolConfiguration:config];
-	}
+	NSImageSymbolConfiguration* config{ [NSImageSymbolConfiguration configurationWithPointSize:14.0 weight:NSFontWeightRegular] };
+	self.iconView.image = [[NSImage imageWithSystemSymbolName:item.symbolName accessibilityDescription:nil] imageWithSymbolConfiguration:config];
 }
 
 @end
@@ -101,10 +98,7 @@ using namespace desktop::services;
 		self.releasedWhenClosed = NO;
 		self.minSize = NSMakeSize(700, 400);
 		self.collectionBehavior = NSWindowCollectionBehaviorManaged | NSWindowCollectionBehaviorFullScreenNone;
-		if (@available(macOS 12.0, *))
-		{
-			self.titlebarSeparatorStyle = NSTitlebarSeparatorStyleNone;
-		}
+		self.titlebarSeparatorStyle = NSTitlebarSeparatorStyleNone;
 		NSToolbar* toolbar{ [[NSToolbar alloc] initWithIdentifier:@"SettingsToolbar"] };
 		toolbar.displayMode = NSToolbarDisplayModeIconOnly;
 		self.toolbar = toolbar;
@@ -128,10 +122,7 @@ using namespace desktop::services;
 		m_outlineView.rowSizeStyle = NSTableViewRowSizeStyleCustom;
 		m_outlineView.dataSource = self;
 		m_outlineView.delegate = self;
-		if (@available(macOS 11.0, *))
-		{
-			m_outlineView.style = NSTableViewStyleSourceList;
-		}
+		m_outlineView.style = NSTableViewStyleSourceList;
 		NSScrollView* scrollView{ [[NSScrollView alloc] init] };
 		scrollView.translatesAutoresizingMaskIntoConstraints = NO;
 		scrollView.hasVerticalScroller = YES;

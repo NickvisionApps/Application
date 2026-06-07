@@ -26,10 +26,7 @@ using namespace desktop::services;
 		self.releasedWhenClosed = NO;
 		self.minSize = NSMakeSize(600, 400);
 		self.collectionBehavior = NSWindowCollectionBehaviorManaged | NSWindowCollectionBehaviorFullScreenNone;
-		if (@available(macOS 12.0, *))
-		{
-			self.titlebarSeparatorStyle = NSTitlebarSeparatorStyleNone;
-		}
+		self.titlebarSeparatorStyle = NSTitlebarSeparatorStyleNone;
 		NSToolbar* toolbar{ [[NSToolbar alloc] initWithIdentifier:@"MainToolbar"] };
 		toolbar.displayMode = NSToolbarDisplayModeIconOnly;
 		self.toolbar = toolbar;

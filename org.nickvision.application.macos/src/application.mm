@@ -74,10 +74,7 @@ static void appendLink(NSMutableAttributedString* credits, NSDictionary* normalA
 	{
 		[appMenu addItemWithTitle:@"Settings\u2026" action:@selector(showSettings:) keyEquivalent:@","]
 	};
-	if (@available(macOS 11.0, *))
-	{
-		settingsMenuItem.image = [NSImage imageWithSystemSymbolName:@"gear" accessibilityDescription:nil];
-	}
+	settingsMenuItem.image = [NSImage imageWithSystemSymbolName:@"gear" accessibilityDescription:nil];
 	[appMenu addItem:[NSMenuItem separatorItem]];
 	[appMenu addItemWithTitle:[NSString stringWithFormat:@"Quit %@", appName] action:@selector(terminate:) keyEquivalent:@"q"];
 	NSMenuItem* fileMenuItem{ [[NSMenuItem alloc] init] };
