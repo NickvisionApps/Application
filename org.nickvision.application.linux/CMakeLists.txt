@@ -1,10 +1,12 @@
 if(LINUX)
     add_executable(${PLATFORM_PROJECT_NAME}
+        "include/gtk_lifetime_service.h"
+        "src/gtk_lifetime_service.cpp"
         "src/main.cpp"
     )
 
     if(ENABLE_CLANG_TIDY AND CLANG_TIDY)
-        set_target_properties(${PLATFORM_PROJECT_NAME} PROPERTIES CXX_CLANG_TIDY "${CLANG_TIDY};--extra-arg=-fexceptions --extra-arg=-std=c++20")
+        set_target_properties(${PLATFORM_PROJECT_NAME} PROPERTIES CXX_CLANG_TIDY "${CLANG_TIDY};--extra-arg=-fexceptions;--extra-arg=-std=c++20")
     endif()
 
     if(ENABLE_CLANG_FORMAT AND CLANG_FORMAT)
@@ -44,6 +46,7 @@ if(LINUX)
         RESOURCE_XML "${CMAKE_CURRENT_SOURCE_DIR}/resources/${PROJECT_NAME}.gresource.xml"
         OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.gresource")
     desktop_compile_blueprints(TARGET ${PLATFORM_PROJECT_NAME}
-        BLUEPRINT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/blueprints"
         OUTPUT_DIR "${CMAKE_CURRENT_BINARY_DIR}/ui")
+    desktop_linux_install(APP_ID ${PROJECT_NAME}
+        ICON_DIR "${CMAKE_SOURCE_DIR}/resources")
 endif()
