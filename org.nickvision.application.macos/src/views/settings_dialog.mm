@@ -81,7 +81,6 @@ using namespace desktop::services;
 	NSSplitViewController* m_splitViewController;
 	NSOutlineView* m_outlineView;
 	NSArray<SettingsSidebarItem*>* m_sidebarItems;
-	NSView* m_sidebarGlassView;
 }
 
 - (instancetype)initWithServiceProvider:(std::shared_ptr<service_provider>)serviceProvider
@@ -115,28 +114,6 @@ using namespace desktop::services;
 		sidebarBaseView.material = NSVisualEffectMaterialSidebar;
 		sidebarBaseView.blendingMode = NSVisualEffectBlendingModeBehindWindow;
 		sidebarBaseView.state = NSVisualEffectStateFollowsWindowActiveState;
-		if (@available(macOS 26.0, *))
-		{
-			NSGlassEffectView* glassView{ [[NSGlassEffectView alloc] init] };
-			glassView.translatesAutoresizingMaskIntoConstraints = NO;
-			glassView.hidden = YES;
-			[sidebarBaseView addSubview:glassView];
-			[NSLayoutConstraint activateConstraints:@[
-				[glassView.topAnchor constraintEqualToAnchor:sidebarBaseView.topAnchor],
-				[glassView.leadingAnchor constraintEqualToAnchor:sidebarBaseView.leadingAnchor],
-				[glassView.trailingAnchor constraintEqualToAnchor:sidebarBaseView.trailingAnchor],
-				[glassView.bottomAnchor constraintEqualToAnchor:sidebarBaseView.bottomAnchor],
-			]];
-			m_sidebarGlassView = glassView;
-			[[NSNotificationCenter defaultCenter] addObserver:self
-			                                         selector:@selector(handleWindowKeyChange:)
-			                                             name:NSWindowDidBecomeKeyNotification
-			                                           object:self];
-			[[NSNotificationCenter defaultCenter] addObserver:self
-			                                         selector:@selector(handleWindowKeyChange:)
-			                                             name:NSWindowDidResignKeyNotification
-			                                           object:self];
-		}
 		NSSearchField* searchField{ [[NSSearchField alloc] init] };
 		searchField.translatesAutoresizingMaskIntoConstraints = NO;
 		searchField.placeholderString = @(m_translation_service->_("Search"));
@@ -173,8 +150,9 @@ using namespace desktop::services;
 		]];
 		sidebarVC.view = sidebarBaseView;
 		NSSplitViewItem* sidebarItem{ [NSSplitViewItem sidebarWithViewController:sidebarVC] };
-		sidebarItem.minimumThickness = 180.0;
+		sidebarItem.minimumThickness = 200.0;
 		sidebarItem.maximumThickness = 300.0;
+		sidebarItem.canCollapse = NO;
 		[m_splitViewController addSplitViewItem:sidebarItem];
 		NSViewController* contentVC{ [[NSViewController alloc] init] };
 		NSView* contentView{ [[NSView alloc] init] };
@@ -230,17 +208,14 @@ using namespace desktop::services;
 	return 28.0;
 }
 
-- (void)handleWindowKeyChange:(NSNotification*)notification
+- (BOOL)outlineView:(NSOutlineView*)outlineView shouldSelectItem:(id)item
 {
-	if (@available(macOS 26.0, *))
-	{
-		m_sidebarGlassView.hidden = !self.isKeyWindow;
-	}
+	return YES;
 }
 
-- (void)dealloc
+- (BOOL)selectionShouldChangeInOutlineView:(NSOutlineView*)outlineView
 {
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	return outlineView.selectedRow != -1;
 }
 
 @end
