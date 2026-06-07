@@ -76,7 +76,7 @@ static void appendLink(NSMutableAttributedString* credits, NSDictionary* normalA
 	};
 	if (@available(macOS 11.0, *))
 	{
-		settingsMenuItem.image = [NSImage imageWithSystemSymbolName:@"gearshape" accessibilityDescription:nil];
+		settingsMenuItem.image = [NSImage imageWithSystemSymbolName:@"gear" accessibilityDescription:nil];
 	}
 	[appMenu addItem:[NSMenuItem separatorItem]];
 	[appMenu addItemWithTitle:[NSString stringWithFormat:@"Quit %@", appName] action:@selector(terminate:) keyEquivalent:@"q"];

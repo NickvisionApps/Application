@@ -2,11 +2,13 @@
 #include "controllers/main_window_controller.h"
 
 using namespace application::controllers;
+using namespace desktop::app;
 using namespace desktop::services;
 
 @implementation MainWindow
 {
 	std::shared_ptr<main_window_controller> m_controller;
+	std::shared_ptr<translation_service> m_translation_service;
 }
 
 - (instancetype)initWithTitle:(NSString*)title serviceProvider:(std::shared_ptr<service_provider>)serviceProvider
@@ -18,6 +20,7 @@ using namespace desktop::services;
 	if (self)
 	{
 		m_controller = serviceProvider->get_required<main_window_controller>();
+		m_translation_service = serviceProvider->get_required<translation_service>();
 		[self setTitle:title];
 		self.titlebarAppearsTransparent = YES;
 		self.releasedWhenClosed = NO;

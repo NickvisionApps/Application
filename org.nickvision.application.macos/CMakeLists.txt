@@ -1,7 +1,7 @@
 if(APPLE)
     enable_language(OBJCXX)
 
-    set(ICON_PNG "${CMAKE_SOURCE_DIR}/resources/${PROJECT_NAME}.png")
+    set(ICON_PNG "${CMAKE_SOURCE_DIR}/resources/${PROJECT_NAME}.macos.png")
     set(ICONSET_DIR "${CMAKE_CURRENT_BINARY_DIR}/AppIcon.iconset")
     set(ICNS_FILE "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.icns")
 

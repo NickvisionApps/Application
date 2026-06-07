@@ -2,6 +2,7 @@
 #include "controllers/preferences_view_controller.h"
 
 using namespace application::controllers;
+using namespace desktop::app;
 using namespace desktop::services;
 
 @interface SettingsSidebarItem : NSObject
@@ -76,6 +77,7 @@ using namespace desktop::services;
 @implementation SettingsDialog
 {
 	std::shared_ptr<preferences_view_controller> m_controller;
+	std::shared_ptr<translation_service> m_translation_service;
 	NSSplitViewController* m_splitViewController;
 	NSOutlineView* m_outlineView;
 	NSArray<SettingsSidebarItem*>* m_sidebarItems;
@@ -91,10 +93,11 @@ using namespace desktop::services;
 	if (self)
 	{
 		m_controller = serviceProvider->get_required<preferences_view_controller>();
+		m_translation_service = serviceProvider->get_required<translation_service>();
 		m_sidebarItems = @[
-			[[SettingsSidebarItem alloc] initWithTitle:@"General" symbolName:@"gearshape"],
+			[[SettingsSidebarItem alloc] initWithTitle:@(m_translation_service->_("General")) symbolName:@"gear"],
 		];
-		self.title = @"Settings";
+		self.title = @(m_translation_service->_("Settings"));
 		self.titlebarAppearsTransparent = YES;
 		self.releasedWhenClosed = NO;
 		self.minSize = NSMakeSize(700, 400);
@@ -136,7 +139,7 @@ using namespace desktop::services;
 		}
 		NSSearchField* searchField{ [[NSSearchField alloc] init] };
 		searchField.translatesAutoresizingMaskIntoConstraints = NO;
-		searchField.placeholderString = @"Search";
+		searchField.placeholderString = @(m_translation_service->_("Search"));
 		[sidebarBaseView addSubview:searchField];
 		NSTableColumn* column{ [[NSTableColumn alloc] initWithIdentifier:@"SidebarColumn"] };
 		column.editable = NO;
