@@ -21,7 +21,7 @@ using namespace desktop::services;
 	{
 		m_controller = serviceProvider->get_required<main_window_controller>();
 		m_translation_service = serviceProvider->get_required<translation_service>();
-		[self setTitle:title];
+		self.title = title;
 		self.titlebarAppearsTransparent = YES;
 		self.releasedWhenClosed = NO;
 		self.minSize = NSMakeSize(600, 400);

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-06 23:17-0400\n"
+"POT-Creation-Date: 2026-06-06 23:30-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -127,7 +127,7 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: org.nickvision.application.macos/src/views/settings_dialog.mm:119
+#: org.nickvision.application.macos/src/views/settings_dialog.mm:120
 msgid "Search"
 msgstr ""
 

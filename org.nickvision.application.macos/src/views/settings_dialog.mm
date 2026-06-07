@@ -106,6 +106,7 @@ using namespace desktop::services;
 			self.titlebarSeparatorStyle = NSTitlebarSeparatorStyleNone;
 		}
 		NSToolbar* toolbar{ [[NSToolbar alloc] initWithIdentifier:@"SettingsToolbar"] };
+		toolbar.displayMode = NSToolbarDisplayModeIconOnly;
 		self.toolbar = toolbar;
 		self.toolbarStyle = NSWindowToolbarStyleUnified;
 		m_splitViewController = [[NSSplitViewController alloc] init];
