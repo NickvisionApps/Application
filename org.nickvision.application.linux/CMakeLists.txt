@@ -1,6 +1,10 @@
 if(LINUX)
     add_executable(${PLATFORM_PROJECT_NAME}
+        "include/helpers/ui_builder.h"
+        "include/views/main_window.h"
         "include/gtk_lifetime_service.h"
+        "src/helpers/ui_builder.cpp"
+        "src/views/main_window.cpp"
         "src/gtk_lifetime_service.cpp"
         "src/main.cpp"
     )
@@ -37,7 +41,11 @@ if(LINUX)
     endif()
 
     find_package(libdesktop CONFIG REQUIRED)
-    target_link_libraries(${PLATFORM_PROJECT_NAME} PRIVATE ${LIBRARY_PROJECT_NAME} libdesktop::libdesktop)
+    find_package(PkgConfig REQUIRED)
+    pkg_check_modules(gtk REQUIRED IMPORTED_TARGET gtk4)
+    pkg_check_modules(adwaita REQUIRED IMPORTED_TARGET libadwaita-1)
+    pkg_check_modules(libxmlpp REQUIRED IMPORTED_TARGET libxml++-5.0)
+    target_link_libraries(${PLATFORM_PROJECT_NAME} PRIVATE ${LIBRARY_PROJECT_NAME} libdesktop::libdesktop PkgConfig::gtk PkgConfig::adwaita PkgConfig::libxmlpp)
 
     include(DesktopHelpers)
     desktop_generate_translations(TARGET ${PLATFORM_PROJECT_NAME}

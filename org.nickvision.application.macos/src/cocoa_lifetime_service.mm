@@ -2,12 +2,15 @@
 #import <AppKit/AppKit.h>
 #import "application.h"
 
+using namespace desktop::app;
+using namespace desktop::hosting;
+using namespace desktop::services;
+
 namespace application::macos
 {
-	cocoa_lifetime_service::cocoa_lifetime_service(const std::shared_ptr<desktop::app::app_info>& app_info,
-	                                               std::shared_ptr<desktop::services::service_provider> service_provider)
-	    : lifetime_service{ app_info },
-	      m_service_provider{ std::move(service_provider) }
+	cocoa_lifetime_service::cocoa_lifetime_service(const std::shared_ptr<service_provider>& service_provider)
+		: lifetime_service{ service_provider->get_required<app_info>() },
+		m_service_provider{ service_provider }
 	{
 	}
 
