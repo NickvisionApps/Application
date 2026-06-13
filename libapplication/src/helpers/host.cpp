@@ -41,7 +41,7 @@ namespace application::helpers
 		info->set_short_name(translator->_("Application"));
 		info->set_description(translator->_("Create new Nickvision application"));
 		info->add_extra_link(translator->_("Matrix Chat"), "https://matrix.to/#/#nickvision:matrix.org");
-		info->add_developer(translator->_("Nicholas Logozzo"), "https://githjub.com/nlogozzo");
+		info->add_developer(translator->_("Nicholas Logozzo"), "https://github.com/nlogozzo");
 		info->add_developer(translator->_("Contributors on GitHub ❤️"), "https://github.com/NickvisionApps/Application/graphs/contributors");
 		info->add_designer(translator->_("Nicholas Logozzo"), "https://github.com/nlogozzo");
 		info->add_designer(translator->_("Fyodor Sobolev"), "https://github.com/fsobolev");
