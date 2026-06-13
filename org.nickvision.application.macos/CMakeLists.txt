@@ -27,14 +27,18 @@ if(APPLE)
 
     add_executable(${PLATFORM_PROJECT_NAME} MACOSX_BUNDLE
         "${ICNS_FILE}"
-        "include/app_delegate.h"
-        "include/cocoa_lifetime_service.h"
+        "include/controls/settings_sidebar_cell_view.h"
+        "include/controls/settings_sidebar_item.h"
         "include/views/main_window.h"
         "include/views/settings_dialog.h"
-        "src/app_delegate.mm"
-        "src/cocoa_lifetime_service.mm"
+        "include/app_delegate.h"
+        "include/cocoa_lifetime_service.h"
+        "src/controls/settings_sidebar_cell_view.mm"
+        "src/controls/settings_sidebar_item.mm"
         "src/views/main_window.mm"
         "src/views/settings_dialog.mm"
+        "src/app_delegate.mm"
+        "src/cocoa_lifetime_service.mm"
         "src/main.mm")
 
     if(ENABLE_CLANG_TIDY AND CLANG_TIDY)

@@ -10,4 +10,7 @@
 - (void)show;
 @end
 
+@interface SettingsDialog () <NSOutlineViewDataSource, NSOutlineViewDelegate>
+@end
+
 #endif
