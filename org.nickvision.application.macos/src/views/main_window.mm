@@ -36,4 +36,16 @@ using namespace desktop::services;
 	return self;
 }
 
+- (void)checkForUpdates
+{
+}
+
+- (void)openFolder
+{
+}
+
+- (void)closeFolder
+{
+}
+
 @end

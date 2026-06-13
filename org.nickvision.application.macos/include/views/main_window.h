@@ -7,6 +7,9 @@
 
 @interface MainWindow : NSWindow
 - (instancetype)initWithServiceProvider:(std::shared_ptr<desktop::services::service_provider>)serviceProvider;
+- (void)checkForUpdates;
+- (void)openFolder;
+- (void)closeFolder;
 @end
 
 #endif

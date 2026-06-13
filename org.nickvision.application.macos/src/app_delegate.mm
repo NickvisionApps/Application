@@ -155,6 +155,12 @@ static void appendPeople(NSMutableAttributedString* credits, NSDictionary* boldA
 
 - (void)checkForUpdates:(id)sender
 {
+	if (!m_main_window)
+	{
+		return;
+	}
+	[m_main_window makeKeyAndOrderFront:nil];
+	[m_main_window closeFolder];
 }
 
 - (void)showSettingsDialog:(id)sender
@@ -168,10 +174,22 @@ static void appendPeople(NSMutableAttributedString* credits, NSDictionary* boldA
 
 - (void)openFolder:(id)sender
 {
+	if (!m_main_window)
+	{
+		return;
+	}
+	[m_main_window makeKeyAndOrderFront:nil];
+	[m_main_window openFolder];
 }
 
 - (void)closeFolder:(id)sender
 {
+	if (!m_main_window)
+	{
+		return;
+	}
+	[m_main_window makeKeyAndOrderFront:nil];
+	[m_main_window closeFolder];
 }
 
 - (void)openGitHubRepository:(id)sender
