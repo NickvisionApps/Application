@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-07 12:44-0400\n"
+"POT-Creation-Date: 2026-06-13 12:29-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,81 +17,80 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: libapplication/src/controllers/main_window_controller.cpp:26
-msgid "Application"
-msgstr ""
-
-#: libapplication/src/controllers/main_window_controller.cpp:27
-msgid "Create new Nickvision application"
-msgstr ""
-
-#: libapplication/src/controllers/main_window_controller.cpp:28
-msgid "Matrix Chat"
-msgstr ""
-
-#: libapplication/src/controllers/main_window_controller.cpp:29
-#: libapplication/src/controllers/main_window_controller.cpp:31
-msgid "Nicholas Logozzo"
-msgstr ""
-
-#: libapplication/src/controllers/main_window_controller.cpp:30
-msgid "Contributors on GitHub ❤️"
-msgstr ""
-
-#: libapplication/src/controllers/main_window_controller.cpp:32
-msgid "Fyodor Sobolev"
-msgstr ""
-
-#: libapplication/src/controllers/main_window_controller.cpp:33
-msgid "DaPigGuy"
-msgstr ""
-
-#: libapplication/src/controllers/main_window_controller.cpp:34
-msgid "David Lapshin"
-msgstr ""
-
-#: libapplication/src/controllers/main_window_controller.cpp:35
-msgid "translation-credits"
-msgstr ""
-
-#: libapplication/src/controllers/main_window_controller.cpp:58
+#: libapplication/src/controllers/main_window_controller.cpp:48
 msgctxt "Night"
 msgid "Good Morning!"
 msgstr ""
 
-#: libapplication/src/controllers/main_window_controller.cpp:62
+#: libapplication/src/controllers/main_window_controller.cpp:52
 msgctxt "Morning"
 msgid "Good Morning!"
 msgstr ""
 
-#: libapplication/src/controllers/main_window_controller.cpp:66
+#: libapplication/src/controllers/main_window_controller.cpp:56
 msgid "Good Afternoon!"
 msgstr ""
 
-#: libapplication/src/controllers/main_window_controller.cpp:70
+#: libapplication/src/controllers/main_window_controller.cpp:60
 msgid "Good Evening!"
 msgstr ""
 
-#: libapplication/src/controllers/main_window_controller.cpp:72
+#: libapplication/src/controllers/main_window_controller.cpp:62
 msgid "Good Day!"
 msgstr ""
 
-#: libapplication/src/controllers/main_window_controller.cpp:118
+#: libapplication/src/controllers/main_window_controller.cpp:108
 #, c++-format
 msgid "New {} update available: {}"
 msgstr ""
 
-#: libapplication/src/controllers/main_window_controller.cpp:124
+#: libapplication/src/controllers/main_window_controller.cpp:114
 msgid "No Update Available"
 msgstr ""
 
-#: libapplication/src/controllers/main_window_controller.cpp:135
+#: libapplication/src/controllers/main_window_controller.cpp:125
 #, c++-format
 msgid "Starting {} installer..."
 msgstr ""
 
-#: libapplication/src/controllers/main_window_controller.cpp:140
+#: libapplication/src/controllers/main_window_controller.cpp:130
 msgid "Unable to download and install the update"
+msgstr ""
+
+#: libapplication/src/helpers/host.cpp:41
+msgid "Application"
+msgstr ""
+
+#: libapplication/src/helpers/host.cpp:42
+msgid "Create new Nickvision application"
+msgstr ""
+
+#: libapplication/src/helpers/host.cpp:43
+msgid "Matrix Chat"
+msgstr ""
+
+#: libapplication/src/helpers/host.cpp:44 libapplication/src/helpers/host.cpp:46
+msgid "Nicholas Logozzo"
+msgstr ""
+
+#: libapplication/src/helpers/host.cpp:45
+msgid "Contributors on GitHub ❤️"
+msgstr ""
+
+#: libapplication/src/helpers/host.cpp:47
+msgid "Fyodor Sobolev"
+msgstr ""
+
+#: libapplication/src/helpers/host.cpp:48
+msgid "DaPigGuy"
+msgstr ""
+
+#: libapplication/src/helpers/host.cpp:49
+msgid "David Lapshin"
+msgstr ""
+
+#: libapplication/src/helpers/host.cpp:50
+msgid "translation-credits"
 msgstr ""
 
 #: libapplication/src/services/folder_service.cpp:46
@@ -110,6 +109,72 @@ msgstr ""
 
 #: libapplication/src/services/folder_service.cpp:56
 msgid "Folder closed"
+msgstr ""
+
+#: org.nickvision.application.macos/src/app_delegate.mm:36
+#, c++-format
+msgid "About {}"
+msgstr ""
+
+#: org.nickvision.application.macos/src/app_delegate.mm:39
+msgid "Check for Updates…"
+msgstr ""
+
+#: org.nickvision.application.macos/src/app_delegate.mm:41
+msgid "Settings…"
+msgstr ""
+
+#: org.nickvision.application.macos/src/app_delegate.mm:43
+#, c++-format
+msgid "Quit {}"
+msgstr ""
+
+#: org.nickvision.application.macos/src/app_delegate.mm:48
+msgid "File"
+msgstr ""
+
+#: org.nickvision.application.macos/src/app_delegate.mm:51
+msgid "Open Folder…"
+msgstr ""
+
+#: org.nickvision.application.macos/src/app_delegate.mm:52
+msgid "Close Folder"
+msgstr ""
+
+#: org.nickvision.application.macos/src/app_delegate.mm:54
+msgid "Close"
+msgstr ""
+
+#: org.nickvision.application.macos/src/app_delegate.mm:59
+msgid "Window"
+msgstr ""
+
+#: org.nickvision.application.macos/src/app_delegate.mm:62
+msgid "Minimize"
+msgstr ""
+
+#: org.nickvision.application.macos/src/app_delegate.mm:63
+msgid "Zoom"
+msgstr ""
+
+#: org.nickvision.application.macos/src/app_delegate.mm:69
+msgid "Help"
+msgstr ""
+
+#: org.nickvision.application.macos/src/app_delegate.mm:72
+msgid "GitHub Repo"
+msgstr ""
+
+#: org.nickvision.application.macos/src/app_delegate.mm:73
+msgid "Report a Bug"
+msgstr ""
+
+#: org.nickvision.application.macos/src/app_delegate.mm:74
+msgid "Discussions"
+msgstr ""
+
+#: org.nickvision.application.macos/src/app_delegate.mm:76
+msgid "Credits"
 msgstr ""
 
 #: org.nickvision.application.macos/src/views/settings_dialog.mm:94

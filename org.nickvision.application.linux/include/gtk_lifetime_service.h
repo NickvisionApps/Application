@@ -13,7 +13,7 @@ namespace application::linux
 	{
 	public:
 		using dependencies = std::tuple<desktop::services::service_provider>;
-		gtk_lifetime_service(const std::shared_ptr<desktop::services::service_provider>& service_provider);
+		gtk_lifetime_service(std::shared_ptr<desktop::services::service_provider> service_provider);
 		~gtk_lifetime_service() override;
 		gtk_lifetime_service(const gtk_lifetime_service&) = delete;
 		gtk_lifetime_service(gtk_lifetime_service&&) = delete;

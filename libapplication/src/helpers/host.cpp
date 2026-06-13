@@ -13,7 +13,7 @@ namespace application::helpers
 {
 	desktop::hosting::host host::create_host(std::span<char*> args)
 	{
-		std::shared_ptr<app_info> info{ std::make_shared<app_info>("org.nickvision.application", "Application", "Application", true) };
+		std::shared_ptr<app_info> info{ std::make_shared<app_info>("org.nickvision.application", "Nickvision Application", "Application", true) };
 		info->set_version({ 2026, 6, 0 });
 		info->set_changelog("- Initial release");
 		info->set_source_url("https://github.com/NickvisionApps/Application");
@@ -37,6 +37,17 @@ namespace application::helpers
 		h.get_services()->add<main_window_controller>(service_scope::singleton);
 		h.get_services()->add<preferences_view_controller>(service_scope::singleton);
 		h.use_github_updates();
+		std::shared_ptr<translation_service> translator{ h.get_services()->get_required<translation_service>() };
+		info->set_short_name(translator->_("Application"));
+		info->set_description(translator->_("Create new Nickvision application"));
+		info->add_extra_link(translator->_("Matrix Chat"), "https://matrix.to/#/#nickvision:matrix.org");
+		info->add_developer(translator->_("Nicholas Logozzo"), "https://githjub.com/nlogozzo");
+		info->add_developer(translator->_("Contributors on GitHub ❤️"), "https://github.com/NickvisionApps/Application/graphs/contributors");
+		info->add_designer(translator->_("Nicholas Logozzo"), "https://github.com/nlogozzo");
+		info->add_designer(translator->_("Fyodor Sobolev"), "https://github.com/fsobolev");
+		info->add_designer(translator->_("DaPigGuy"), "https://github.com/DaPigGuy");
+		info->add_artist(translator->_("David Lapshin"), "https://github.com/daudix");
+		info->set_translation_credits(translator->_("translation-credits"));
 		return h;
 	}
 }

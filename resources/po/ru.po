@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-07 12:44-0400\n"
+"POT-Creation-Date: 2026-06-13 12:29-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -18,86 +18,86 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: libapplication/src/controllers/main_window_controller.cpp:26
-msgid "Application"
-msgstr "Application"
-
-#: libapplication/src/controllers/main_window_controller.cpp:27
-#, fuzzy
-msgid "Create new Nickvision application"
-msgstr "Создавайте новые приложения Nickvision"
-
-#: libapplication/src/controllers/main_window_controller.cpp:28
-msgid "Matrix Chat"
-msgstr "Чат Matrix"
-
-#: libapplication/src/controllers/main_window_controller.cpp:29
-#: libapplication/src/controllers/main_window_controller.cpp:31
-msgid "Nicholas Logozzo"
-msgstr "Nicholas Logozzo"
-
-#: libapplication/src/controllers/main_window_controller.cpp:30
-#, fuzzy
-msgid "Contributors on GitHub ❤️"
-msgstr "Соавторы на GitHub ❤️"
-
-#: libapplication/src/controllers/main_window_controller.cpp:32
-msgid "Fyodor Sobolev"
-msgstr "Фёдор Соболев"
-
-#: libapplication/src/controllers/main_window_controller.cpp:33
-msgid "DaPigGuy"
-msgstr "DaPigGuy"
-
-#: libapplication/src/controllers/main_window_controller.cpp:34
-msgid "David Lapshin"
-msgstr "Давид Лапшин"
-
-#: libapplication/src/controllers/main_window_controller.cpp:35
-#, fuzzy
-msgid "translation-credits"
-msgstr "Фёдор Соболев https://github.com/fsobolev"
-
-#: libapplication/src/controllers/main_window_controller.cpp:58
+#: libapplication/src/controllers/main_window_controller.cpp:48
 msgctxt "Night"
 msgid "Good Morning!"
 msgstr "Доброй ночи!"
 
-#: libapplication/src/controllers/main_window_controller.cpp:62
+#: libapplication/src/controllers/main_window_controller.cpp:52
 msgctxt "Morning"
 msgid "Good Morning!"
 msgstr "Доброе утро!"
 
-#: libapplication/src/controllers/main_window_controller.cpp:66
+#: libapplication/src/controllers/main_window_controller.cpp:56
 msgid "Good Afternoon!"
 msgstr "Добрый день!"
 
-#: libapplication/src/controllers/main_window_controller.cpp:70
+#: libapplication/src/controllers/main_window_controller.cpp:60
 msgid "Good Evening!"
 msgstr "Добрый вечер!"
 
-#: libapplication/src/controllers/main_window_controller.cpp:72
+#: libapplication/src/controllers/main_window_controller.cpp:62
 msgid "Good Day!"
 msgstr "Здравствуйте!"
 
-#: libapplication/src/controllers/main_window_controller.cpp:118
+#: libapplication/src/controllers/main_window_controller.cpp:108
 #, fuzzy, c++-format
 msgid "New {} update available: {}"
 msgstr "Application"
 
-#: libapplication/src/controllers/main_window_controller.cpp:124
+#: libapplication/src/controllers/main_window_controller.cpp:114
 #, fuzzy
 msgid "No Update Available"
 msgstr "Application"
 
-#: libapplication/src/controllers/main_window_controller.cpp:135
+#: libapplication/src/controllers/main_window_controller.cpp:125
 #, c++-format
 msgid "Starting {} installer..."
 msgstr ""
 
-#: libapplication/src/controllers/main_window_controller.cpp:140
+#: libapplication/src/controllers/main_window_controller.cpp:130
 msgid "Unable to download and install the update"
 msgstr ""
+
+#: libapplication/src/helpers/host.cpp:41
+msgid "Application"
+msgstr "Application"
+
+#: libapplication/src/helpers/host.cpp:42
+#, fuzzy
+msgid "Create new Nickvision application"
+msgstr "Создавайте новые приложения Nickvision"
+
+#: libapplication/src/helpers/host.cpp:43
+msgid "Matrix Chat"
+msgstr "Чат Matrix"
+
+#: libapplication/src/helpers/host.cpp:44
+#: libapplication/src/helpers/host.cpp:46
+msgid "Nicholas Logozzo"
+msgstr "Nicholas Logozzo"
+
+#: libapplication/src/helpers/host.cpp:45
+#, fuzzy
+msgid "Contributors on GitHub ❤️"
+msgstr "Соавторы на GitHub ❤️"
+
+#: libapplication/src/helpers/host.cpp:47
+msgid "Fyodor Sobolev"
+msgstr "Фёдор Соболев"
+
+#: libapplication/src/helpers/host.cpp:48
+msgid "DaPigGuy"
+msgstr "DaPigGuy"
+
+#: libapplication/src/helpers/host.cpp:49
+msgid "David Lapshin"
+msgstr "Давид Лапшин"
+
+#: libapplication/src/helpers/host.cpp:50
+#, fuzzy
+msgid "translation-credits"
+msgstr "Фёдор Соболев https://github.com/fsobolev"
 
 #: libapplication/src/services/folder_service.cpp:46
 #, fuzzy, c++-format
@@ -118,6 +118,73 @@ msgstr ""
 #, fuzzy
 msgid "Folder closed"
 msgstr "Папка закрыта."
+
+#: org.nickvision.application.macos/src/app_delegate.mm:36
+#, c++-format
+msgid "About {}"
+msgstr ""
+
+#: org.nickvision.application.macos/src/app_delegate.mm:39
+msgid "Check for Updates…"
+msgstr ""
+
+#: org.nickvision.application.macos/src/app_delegate.mm:41
+msgid "Settings…"
+msgstr ""
+
+#: org.nickvision.application.macos/src/app_delegate.mm:43
+#, fuzzy, c++-format
+msgid "Quit {}"
+msgstr "Выход"
+
+#: org.nickvision.application.macos/src/app_delegate.mm:48
+msgid "File"
+msgstr ""
+
+#: org.nickvision.application.macos/src/app_delegate.mm:51
+#, fuzzy
+msgid "Open Folder…"
+msgstr "Открыть Папку"
+
+#: org.nickvision.application.macos/src/app_delegate.mm:52
+msgid "Close Folder"
+msgstr "Закрыть папку"
+
+#: org.nickvision.application.macos/src/app_delegate.mm:54
+msgid "Close"
+msgstr "Закрыть"
+
+#: org.nickvision.application.macos/src/app_delegate.mm:59
+msgid "Window"
+msgstr ""
+
+#: org.nickvision.application.macos/src/app_delegate.mm:62
+msgid "Minimize"
+msgstr ""
+
+#: org.nickvision.application.macos/src/app_delegate.mm:63
+msgid "Zoom"
+msgstr ""
+
+#: org.nickvision.application.macos/src/app_delegate.mm:69
+msgid "Help"
+msgstr ""
+
+#: org.nickvision.application.macos/src/app_delegate.mm:72
+msgid "GitHub Repo"
+msgstr "Репозиторий GitHub"
+
+#: org.nickvision.application.macos/src/app_delegate.mm:73
+msgid "Report a Bug"
+msgstr ""
+
+#: org.nickvision.application.macos/src/app_delegate.mm:74
+msgid "Discussions"
+msgstr ""
+
+#: org.nickvision.application.macos/src/app_delegate.mm:76
+msgid "Credits"
+msgstr ""
 
 #: org.nickvision.application.macos/src/views/settings_dialog.mm:94
 msgid "General"
@@ -166,21 +233,9 @@ msgstr ""
 #~ msgid "Application"
 #~ msgstr "Приложение"
 
-#~ msgid "Quit"
-#~ msgstr "Выход"
-
-#~ msgid "Open Folder"
-#~ msgstr "Открыть Папку"
-
-#~ msgid "Close Folder"
-#~ msgstr "Закрыть папку"
-
 #, fuzzy
 #~ msgid "Open in Files"
 #~ msgstr "Открыть Папку"
-
-#~ msgid "Close"
-#~ msgstr "Закрыть"
 
 #, fuzzy, csharp-format
 #~ msgid "There is {0} file in the folder."
@@ -188,9 +243,6 @@ msgstr ""
 #~ msgstr[0] "В папке {0} файл."
 #~ msgstr[1] "В папке {0} файла."
 #~ msgstr[2] "В папке {0} файлов."
-
-#~ msgid "GitHub Repo"
-#~ msgstr "Репозиторий GitHub"
 
 #, fuzzy
 #~ msgid "System"

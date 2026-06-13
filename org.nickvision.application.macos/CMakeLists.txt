@@ -27,11 +27,11 @@ if(APPLE)
 
     add_executable(${PLATFORM_PROJECT_NAME} MACOSX_BUNDLE
         "${ICNS_FILE}"
-        "include/application.h"
+        "include/app_delegate.h"
         "include/cocoa_lifetime_service.h"
         "include/views/main_window.h"
         "include/views/settings_dialog.h"
-        "src/application.mm"
+        "src/app_delegate.mm"
         "src/cocoa_lifetime_service.mm"
         "src/views/main_window.mm"
         "src/views/settings_dialog.mm"

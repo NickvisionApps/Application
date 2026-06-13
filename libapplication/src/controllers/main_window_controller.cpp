@@ -23,16 +23,6 @@ namespace application::controllers
 	      m_translation_service{ std::move(translation_service) },
 	      m_update_service{ std::move(update_service) }
 	{
-		m_app_info->set_short_name(m_translation_service->_("Application"));
-		m_app_info->set_description(m_translation_service->_("Create new Nickvision application"));
-		m_app_info->add_extra_link(m_translation_service->_("Matrix Chat"), "https://matrix.to/#/#nickvision:matrix.org");
-		m_app_info->add_developer(m_translation_service->_("Nicholas Logozzo"), "https://githjub.com/nlogozzo");
-		m_app_info->add_developer(m_translation_service->_("Contributors on GitHub ❤️"), "https://github.com/NickvisionApps/Application/graphs/contributors");
-		m_app_info->add_designer(m_translation_service->_("Nicholas Logozzo"), "https://github.com/nlogozzo");
-		m_app_info->add_designer(m_translation_service->_("Fyodor Sobolev"), "https://github.com/fsobolev");
-		m_app_info->add_designer(m_translation_service->_("DaPigGuy"), "https://github.com/DaPigGuy");
-		m_app_info->add_artist(m_translation_service->_("David Lapshin"), "https://github.com/daudix");
-		m_app_info->set_translation_credits(m_translation_service->_("translation-credits"));
 	}
 
 	bool main_window_controller::can_shutdown() const

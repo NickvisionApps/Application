@@ -6,7 +6,7 @@
 #include <memory>
 
 @interface MainWindow : NSWindow
-- (instancetype)initWithTitle:(NSString*)title serviceProvider:(std::shared_ptr<desktop::services::service_provider>)serviceProvider;
+- (instancetype)initWithServiceProvider:(std::shared_ptr<desktop::services::service_provider>)serviceProvider;
 @end
 
 #endif

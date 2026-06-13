@@ -11,7 +11,7 @@ using namespace desktop::services;
 	std::shared_ptr<translation_service> m_translation_service;
 }
 
-- (instancetype)initWithTitle:(NSString*)title serviceProvider:(std::shared_ptr<service_provider>)serviceProvider
+- (instancetype)initWithServiceProvider:(std::shared_ptr<service_provider>)serviceProvider
 {
 	NSRect frame{ NSMakeRect(0, 0, 800, 600) };
 	NSWindowStyleMask style{ NSWindowStyleMaskTitled | NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskResizable |
@@ -21,7 +21,7 @@ using namespace desktop::services;
 	{
 		m_controller = serviceProvider->get_required<main_window_controller>();
 		m_translation_service = serviceProvider->get_required<translation_service>();
-		self.title = title;
+		self.title = [NSString stringWithUTF8String:m_controller->get_app_info()->get_short_name().c_str()];
 		self.titlebarAppearsTransparent = YES;
 		self.releasedWhenClosed = NO;
 		self.minSize = NSMakeSize(600, 400);

@@ -10,7 +10,7 @@ namespace application::macos
 	{
 	public:
 		using dependencies = std::tuple<desktop::services::service_provider>;
-		cocoa_lifetime_service(const std::shared_ptr<desktop::services::service_provider>& service_provider);
+		cocoa_lifetime_service(std::shared_ptr<desktop::services::service_provider> service_provider);
 		~cocoa_lifetime_service() override = default;
 		cocoa_lifetime_service(const cocoa_lifetime_service&) = delete;
 		cocoa_lifetime_service(cocoa_lifetime_service&&) = delete;

@@ -1,3 +1,5 @@
 libapplication/src/controllers/main_window_controller.cpp
+libapplication/src/helpers/host.cpp
 libapplication/src/services/folder_service.cpp
+org.nickvision.application.macos/src/app_delegate.mm
 org.nickvision.application.macos/src/views/settings_dialog.mm

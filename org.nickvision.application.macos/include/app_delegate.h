@@ -5,7 +5,7 @@
 #include <libdesktop.h>
 #include <memory>
 
-@interface Application : NSObject <NSApplicationDelegate>
+@interface AppDelegate : NSObject <NSApplicationDelegate>
 - (instancetype)initWithServiceProvider:(std::shared_ptr<desktop::services::service_provider>)serviceProvider;
 @end
 

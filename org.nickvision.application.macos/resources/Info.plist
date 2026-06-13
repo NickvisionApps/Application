@@ -20,5 +20,7 @@
     <string>APPL</string>
     <key>LSMinimumSystemVersion</key>
     <string>14.0</string>
+    <key>NSHumanReadableCopyright</key>
+    <string>Copyright © 2021-2026 Nickvision. All rights reserved.</string>
 </dict>
 </plist>

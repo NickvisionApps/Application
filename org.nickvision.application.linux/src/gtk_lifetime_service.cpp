@@ -13,9 +13,9 @@ using namespace desktop::system;
 
 namespace application::linux
 {
-	gtk_lifetime_service::gtk_lifetime_service(const std::shared_ptr<service_provider>& service_provider)
+	gtk_lifetime_service::gtk_lifetime_service(std::shared_ptr<service_provider> service_provider)
 	    : lifetime_service{ service_provider->get_required<app_info>() },
-	      m_service_provider{ service_provider }
+	      m_service_provider{ std::move(service_provider) }
 	{
 	}
 
