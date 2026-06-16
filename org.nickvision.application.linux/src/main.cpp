@@ -14,5 +14,10 @@ int main(int argc, char* argv[])
 	host h{ create_host({ argv, static_cast<size_t>(argc) }) };
 	h.use_lifetime<gtk_lifetime_service>();
 	h.get_services()->add<main_window>(service_scope::singleton);
-	return h.run() ? 1 : 0;
+	std::exception_ptr ptr{ h.run() };
+	if (ptr)
+	{
+		std::rethrow_exception(ptr);
+	}
+	return ptr ? 1 : 0;
 }

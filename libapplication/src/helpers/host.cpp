@@ -2,6 +2,7 @@
 #include "controllers/main_window_controller.h"
 #include "controllers/preferences_view_controller.h"
 #include "services/app_config_service.h"
+#include "services/events_service.h"
 #include "services/folder_service.h"
 
 using namespace application::controllers;
@@ -33,6 +34,7 @@ namespace application::helpers
 #endif
 		desktop::hosting::host h{ info, args };
 		h.get_services()->add<app_config_service>(service_scope::singleton);
+		h.get_services()->add<events_service>(service_scope::singleton);
 		h.get_services()->add<folder_service>(service_scope::singleton);
 		h.get_services()->add<main_window_controller>(service_scope::singleton);
 		h.get_services()->add<preferences_view_controller>(service_scope::singleton);

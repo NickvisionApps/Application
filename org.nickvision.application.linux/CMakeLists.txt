@@ -1,8 +1,10 @@
 if(LINUX)
     add_executable(${PLATFORM_PROJECT_NAME}
+        "include/helpers/gtk.h"
         "include/helpers/ui_builder.h"
         "include/views/main_window.h"
         "include/gtk_lifetime_service.h"
+        "src/helpers/gtk.cpp"
         "src/helpers/ui_builder.cpp"
         "src/views/main_window.cpp"
         "src/gtk_lifetime_service.cpp"
