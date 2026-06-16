@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-13 12:44-0400\n"
+"POT-Creation-Date: 2026-06-15 23:53-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -18,48 +18,49 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: libapplication/src/controllers/main_window_controller.cpp:48
+#: libapplication/src/controllers/main_window_controller.cpp:43
 msgctxt "Night"
 msgid "Good Morning!"
 msgstr "Доброй ночи!"
 
-#: libapplication/src/controllers/main_window_controller.cpp:52
+#: libapplication/src/controllers/main_window_controller.cpp:47
 msgctxt "Morning"
 msgid "Good Morning!"
 msgstr "Доброе утро!"
 
-#: libapplication/src/controllers/main_window_controller.cpp:56
+#: libapplication/src/controllers/main_window_controller.cpp:51
 msgid "Good Afternoon!"
 msgstr "Добрый день!"
 
-#: libapplication/src/controllers/main_window_controller.cpp:60
+#: libapplication/src/controllers/main_window_controller.cpp:55
 msgid "Good Evening!"
 msgstr "Добрый вечер!"
 
-#: libapplication/src/controllers/main_window_controller.cpp:62
+#: libapplication/src/controllers/main_window_controller.cpp:57
 msgid "Good Day!"
 msgstr "Здравствуйте!"
 
-#: libapplication/src/controllers/main_window_controller.cpp:108
+#: libapplication/src/controllers/main_window_controller.cpp:103
 #, fuzzy, c++-format
 msgid "New {} update available: {}"
 msgstr "Application"
 
-#: libapplication/src/controllers/main_window_controller.cpp:114
+#: libapplication/src/controllers/main_window_controller.cpp:109
 #, fuzzy
 msgid "No Update Available"
 msgstr "Application"
 
-#: libapplication/src/controllers/main_window_controller.cpp:125
+#: libapplication/src/controllers/main_window_controller.cpp:120
 #, c++-format
 msgid "Starting {} installer..."
 msgstr ""
 
-#: libapplication/src/controllers/main_window_controller.cpp:130
+#: libapplication/src/controllers/main_window_controller.cpp:125
 msgid "Unable to download and install the update"
 msgstr ""
 
 #: libapplication/src/helpers/host.cpp:41
+#: org.nickvision.application.linux/resources/main_window.blp:18
 msgid "Application"
 msgstr "Application"
 
@@ -118,6 +119,41 @@ msgstr ""
 #, fuzzy
 msgid "Folder closed"
 msgstr "Папка закрыта."
+
+#: org.nickvision.application.linux/resources/main_window.blp:5
+msgid "Preferences"
+msgstr "Параметры"
+
+#: org.nickvision.application.linux/resources/main_window.blp:6
+msgid "Keyboard Shortcuts"
+msgstr "Комбинации клавиш"
+
+#: org.nickvision.application.linux/resources/main_window.blp:7
+msgid "About Application"
+msgstr "О приложении"
+
+#: org.nickvision.application.linux/resources/main_window.blp:23
+msgid "Open Folder (Ctrl+O)"
+msgstr "Открыть папку (Ctrl+O)"
+
+#: org.nickvision.application.linux/resources/main_window.blp:27
+#: org.nickvision.application.linux/resources/main_window.blp:62
+msgid "Open"
+msgstr "Открыть"
+
+#: org.nickvision.application.linux/resources/main_window.blp:34
+#: org.nickvision.application.linux/resources/main_window.blp:60
+msgid "Close Folder (Ctrl+W)"
+msgstr "Закрыть папку (Ctrl+W)"
+
+#: org.nickvision.application.linux/resources/main_window.blp:43
+msgid "Main Menu"
+msgstr "Главное меню"
+
+#: org.nickvision.application.linux/resources/main_window.blp:57
+#, fuzzy
+msgid "Open a folder (or drag one into the app) to get started"
+msgstr "Откройте или перетащите папку, чтобы начать."
 
 #: org.nickvision.application.macos/src/app_delegate.mm:62
 #, c++-format
@@ -193,31 +229,6 @@ msgstr ""
 #: org.nickvision.application.macos/src/views/settings_dialog.mm:50
 msgid "Search"
 msgstr ""
-
-#~ msgid "Preferences"
-#~ msgstr "Параметры"
-
-#~ msgid "Keyboard Shortcuts"
-#~ msgstr "Комбинации клавиш"
-
-#~ msgid "About Application"
-#~ msgstr "О приложении"
-
-#~ msgid "Open Folder (Ctrl+O)"
-#~ msgstr "Открыть папку (Ctrl+O)"
-
-#~ msgid "Open"
-#~ msgstr "Открыть"
-
-#~ msgid "Close Folder (Ctrl+W)"
-#~ msgstr "Закрыть папку (Ctrl+W)"
-
-#~ msgid "Main Menu"
-#~ msgstr "Главное меню"
-
-#, fuzzy
-#~ msgid "Open a folder (or drag one into the app) to get started"
-#~ msgstr "Откройте или перетащите папку, чтобы начать."
 
 #~ msgid "User Interface"
 #~ msgstr "Интерфейс"

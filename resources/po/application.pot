@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-13 12:49-0400\n"
+"POT-Creation-Date: 2026-06-15 23:53-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,47 +17,48 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: libapplication/src/controllers/main_window_controller.cpp:48
+#: libapplication/src/controllers/main_window_controller.cpp:43
 msgctxt "Night"
 msgid "Good Morning!"
 msgstr ""
 
-#: libapplication/src/controllers/main_window_controller.cpp:52
+#: libapplication/src/controllers/main_window_controller.cpp:47
 msgctxt "Morning"
 msgid "Good Morning!"
 msgstr ""
 
-#: libapplication/src/controllers/main_window_controller.cpp:56
+#: libapplication/src/controllers/main_window_controller.cpp:51
 msgid "Good Afternoon!"
 msgstr ""
 
-#: libapplication/src/controllers/main_window_controller.cpp:60
+#: libapplication/src/controllers/main_window_controller.cpp:55
 msgid "Good Evening!"
 msgstr ""
 
-#: libapplication/src/controllers/main_window_controller.cpp:62
+#: libapplication/src/controllers/main_window_controller.cpp:57
 msgid "Good Day!"
 msgstr ""
 
-#: libapplication/src/controllers/main_window_controller.cpp:108
+#: libapplication/src/controllers/main_window_controller.cpp:103
 #, c++-format
 msgid "New {} update available: {}"
 msgstr ""
 
-#: libapplication/src/controllers/main_window_controller.cpp:114
+#: libapplication/src/controllers/main_window_controller.cpp:109
 msgid "No Update Available"
 msgstr ""
 
-#: libapplication/src/controllers/main_window_controller.cpp:125
+#: libapplication/src/controllers/main_window_controller.cpp:120
 #, c++-format
 msgid "Starting {} installer..."
 msgstr ""
 
-#: libapplication/src/controllers/main_window_controller.cpp:130
+#: libapplication/src/controllers/main_window_controller.cpp:125
 msgid "Unable to download and install the update"
 msgstr ""
 
 #: libapplication/src/helpers/host.cpp:41
+#: org.nickvision.application.linux/resources/main_window.blp:18
 msgid "Application"
 msgstr ""
 
@@ -109,6 +110,40 @@ msgstr ""
 
 #: libapplication/src/services/folder_service.cpp:56
 msgid "Folder closed"
+msgstr ""
+
+#: org.nickvision.application.linux/resources/main_window.blp:5
+msgid "Preferences"
+msgstr ""
+
+#: org.nickvision.application.linux/resources/main_window.blp:6
+msgid "Keyboard Shortcuts"
+msgstr ""
+
+#: org.nickvision.application.linux/resources/main_window.blp:7
+msgid "About Application"
+msgstr ""
+
+#: org.nickvision.application.linux/resources/main_window.blp:23
+msgid "Open Folder (Ctrl+O)"
+msgstr ""
+
+#: org.nickvision.application.linux/resources/main_window.blp:27
+#: org.nickvision.application.linux/resources/main_window.blp:62
+msgid "Open"
+msgstr ""
+
+#: org.nickvision.application.linux/resources/main_window.blp:34
+#: org.nickvision.application.linux/resources/main_window.blp:60
+msgid "Close Folder (Ctrl+W)"
+msgstr ""
+
+#: org.nickvision.application.linux/resources/main_window.blp:43
+msgid "Main Menu"
+msgstr ""
+
+#: org.nickvision.application.linux/resources/main_window.blp:57
+msgid "Open a folder (or drag one into the app) to get started"
 msgstr ""
 
 #: org.nickvision.application.macos/src/app_delegate.mm:62

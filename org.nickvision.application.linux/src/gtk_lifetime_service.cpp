@@ -75,6 +75,7 @@ namespace application::linux
 
 	void gtk_lifetime_service::on_shutdown() noexcept
 	{
+		g_application_quit(G_APPLICATION(m_application));
 		g_object_unref(m_application);
 		m_application = nullptr;
 	}

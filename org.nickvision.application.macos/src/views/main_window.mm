@@ -8,6 +8,7 @@ using namespace desktop::services;
 @implementation MainWindow
 {
 	std::shared_ptr<main_window_controller> m_controller;
+	std::shared_ptr<app_info> m_app_info;
 	std::shared_ptr<translation_service> m_translation_service;
 }
 
@@ -15,13 +16,14 @@ using namespace desktop::services;
 {
 	NSRect frame{ NSMakeRect(0, 0, 800, 600) };
 	NSWindowStyleMask style{ NSWindowStyleMaskTitled | NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskResizable |
-		                     NSWindowStyleMaskFullSizeContentView };
+							NSWindowStyleMaskFullSizeContentView };
 	self = [super initWithContentRect:frame styleMask:style backing:NSBackingStoreBuffered defer:NO];
 	if (self)
 	{
 		m_controller = serviceProvider->get_required<main_window_controller>();
+		m_app_info = serviceProvider->get_required<app_info>();
 		m_translation_service = serviceProvider->get_required<translation_service>();
-		self.title = [NSString stringWithUTF8String:m_controller->get_app_info()->get_short_name().c_str()];
+		self.title = [NSString stringWithUTF8String:m_app_info->get_short_name().c_str()];
 		self.titlebarAppearsTransparent = YES;
 		self.releasedWhenClosed = NO;
 		self.minSize = NSMakeSize(600, 400);

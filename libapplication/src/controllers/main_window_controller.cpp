@@ -30,11 +30,6 @@ namespace application::controllers
 		return true;
 	}
 
-	std::shared_ptr<app_info> main_window_controller::get_app_info() const
-	{
-		return m_app_info;
-	}
-
 	const std::filesystem::path& main_window_controller::get_current_folder() const
 	{
 		return m_folder_service->get_path();

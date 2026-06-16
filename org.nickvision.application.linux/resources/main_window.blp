@@ -1,6 +1,89 @@
 using Gtk 4.0;
 using Adw 1;
 
+menu main_menu {
+  item(_("Preferences"), "win.preferences")
+  item(_("Keyboard Shortcuts"), "win.shortcuts")
+  item(_("About Application"), "win.about")
+}
+
 Adw.ApplicationWindow root {
-    
+    width-request: 360;
+    height-request: 200;
+
+    Adw.ToolbarView toolbar {
+        [top]
+        Adw.HeaderBar {
+            title-widget: Adw.WindowTitle {
+                title: _("Application");
+            };
+            
+            [start]
+            Gtk.Button {
+                tooltip-text: _("Open Folder (Ctrl+O)");
+                action-name: "win.open_folder";
+
+                Adw.ButtonContent {
+                    label: _("Open");
+                    icon-name: "folder-open-symbolic";
+                }
+            }
+
+            [start]
+            Gtk.Button {
+                tooltip-text: _("Close Folder (Ctrl+W)");
+                action-name: "win.close_folder";
+                icon-name: "window-close-symbolic";
+            }
+
+            [end]
+            Gtk.MenuButton {
+                direction: none;
+                menu-model: main_menu;
+                tooltip-text: _("Main Menu");
+                primary: true;
+            }
+        }
+
+        content: Adw.ToastOverlay toast_overlay {
+            hexpand: true;
+            vexpand: true;
+
+            Adw.ViewStack stack {
+                Adw.ViewStackPage {
+                    name: "Home";
+                    child: Adw.StatusPage home_page {
+                        icon-name: "org.nickvision.application";
+                        description: _("Open a folder (or drag one into the app) to get started");
+                        child: Gtk.Button {
+                            halign: center;
+                            tooltip-text: _("Close Folder (Ctrl+W)");
+                            action-name: "win.open_folder";
+                            label: _("Open");
+
+                            styles [
+                                "pill",
+                                "suggested-action"
+                            ]
+                        };
+
+                        styles [
+                            "icon-dropshadow"
+                        ]
+                    };
+                }
+
+                Adw.ViewStackPage {
+                    name: "Folder";
+                    child: Adw.StatusPage folder_page {
+                        icon-name: "folder-documents-symbolic";
+
+                        styles [
+                            "compact"
+                        ]
+                    };
+                }
+            }
+        };
+    }
 }

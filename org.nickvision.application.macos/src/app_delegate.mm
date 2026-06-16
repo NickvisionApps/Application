@@ -34,8 +34,8 @@ static void appendPeople(NSMutableAttributedString* credits, NSDictionary* boldA
 @implementation AppDelegate
 {
 	std::shared_ptr<service_provider> m_service_provider;
-	std::shared_ptr<translation_service> m_translation_service;
 	std::shared_ptr<app_info> m_app_info;
+	std::shared_ptr<translation_service> m_translation_service;
 	MainWindow* m_main_window;
 	SettingsDialog* m_settings_dialog;
 }
@@ -45,8 +45,8 @@ static void appendPeople(NSMutableAttributedString* credits, NSDictionary* boldA
 	if (self = [super init])
 	{
 		m_service_provider = std::move(serviceProvider);
+        m_app_info = m_service_provider->get_required<app_info>();
 		m_translation_service = m_service_provider->get_required<translation_service>();
-		m_app_info = m_service_provider->get_required<app_info>();
 	}
 	return self;
 }

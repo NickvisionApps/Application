@@ -25,7 +25,6 @@ namespace application::controllers
 		main_window_controller(const main_window_controller&) = delete;
 		main_window_controller(main_window_controller&&) = delete;
 		bool can_shutdown() const;
-		std::shared_ptr<desktop::app::app_info> get_app_info() const;
 		const std::filesystem::path& get_current_folder() const;
 		std::string get_greeting() const;
 		models::theme get_theme() const;

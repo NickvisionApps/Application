@@ -14,7 +14,7 @@ namespace application::helpers
 	desktop::hosting::host host::create_host(std::span<char*> args)
 	{
 		std::shared_ptr<app_info> info{ std::make_shared<app_info>("org.nickvision.application", "Nickvision Application", "Application", true) };
-		info->set_version({ 2026, 6, 0 });
+		info->set_version({ 2026, 6, 0, "next" });
 		info->set_changelog("- Initial release");
 		info->set_source_url("https://github.com/NickvisionApps/Application");
 		info->set_issues_url("https://github.com/NickvisionApps/Application/issues");
