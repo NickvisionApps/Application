@@ -51,10 +51,10 @@ Adw.ApplicationWindow root {
 
             Adw.ViewStack stack {
                 Adw.ViewStackPage {
-                    name: "Home";
+                    name: "home_page";
                     child: Adw.StatusPage home_page {
                         icon-name: "org.nickvision.application";
-                        description: _("Open a folder (or drag one into the app) to get started");
+                        description: _("Open a folder to get started");
                         child: Gtk.Button {
                             halign: center;
                             tooltip-text: _("Close Folder (Ctrl+W)");
@@ -74,7 +74,7 @@ Adw.ApplicationWindow root {
                 }
 
                 Adw.ViewStackPage {
-                    name: "Folder";
+                    name: "folder_page";
                     child: Adw.StatusPage folder_page {
                         icon-name: "folder-documents-symbolic";
 

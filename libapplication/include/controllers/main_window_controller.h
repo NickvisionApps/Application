@@ -30,7 +30,7 @@ namespace application::controllers
 		models::theme get_theme() const;
 		desktop::app::window_geometry get_window_geometry() const;
 		void set_window_geometry(const desktop::app::window_geometry& geometry);
-		std::string get_debugging_information() const;
+		std::string get_debugging_information(const std::string& extra) const;
 		void queue_check_for_updates(bool show_no_update_notification);
 #ifdef _WIN32
 		void install_update_for_windows(const std::function<void(const desktop::network::download_progress&)>& progress = {});

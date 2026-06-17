@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-16 19:05-0400\n"
+"POT-Creation-Date: 2026-06-16 22:38-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -40,22 +40,22 @@ msgstr "Добрый вечер!"
 msgid "Good Day!"
 msgstr "Здравствуйте!"
 
-#: libapplication/src/controllers/main_window_controller.cpp:103
+#: libapplication/src/controllers/main_window_controller.cpp:107
 #, fuzzy, c++-format
 msgid "New {} update available: {}"
 msgstr "Application"
 
-#: libapplication/src/controllers/main_window_controller.cpp:109
+#: libapplication/src/controllers/main_window_controller.cpp:113
 #, fuzzy
 msgid "No Update Available"
 msgstr "Application"
 
-#: libapplication/src/controllers/main_window_controller.cpp:120
+#: libapplication/src/controllers/main_window_controller.cpp:124
 #, c++-format
 msgid "Starting {} installer..."
 msgstr ""
 
-#: libapplication/src/controllers/main_window_controller.cpp:125
+#: libapplication/src/controllers/main_window_controller.cpp:129
 msgid "Unable to download and install the update"
 msgstr ""
 
@@ -155,6 +155,29 @@ msgstr "Главное меню"
 msgid "Open a folder (or drag one into the app) to get started"
 msgstr "Откройте или перетащите папку, чтобы начать."
 
+#: org.nickvision.application.linux/src/views/main_window.cpp:112
+#: org.nickvision.application.macos/src/app_delegate.mm:98
+msgid "GitHub Repo"
+msgstr "Репозиторий GitHub"
+
+#: org.nickvision.application.linux/src/views/main_window.cpp:130
+#: org.nickvision.application.macos/src/app_delegate.mm:80
+msgid "Close"
+msgstr "Закрыть"
+
+#: org.nickvision.application.linux/src/views/main_window.cpp:161
+#, c++-format
+msgid "{} file"
+msgid_plural "{} files"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: org.nickvision.application.linux/src/views/main_window.cpp:167
+#, fuzzy
+msgid "Open Folder"
+msgstr "Открыть Папку"
+
 #: org.nickvision.application.macos/src/app_delegate.mm:62
 #, c++-format
 msgid "About {}"
@@ -186,10 +209,6 @@ msgstr "Открыть Папку"
 msgid "Close Folder"
 msgstr "Закрыть папку"
 
-#: org.nickvision.application.macos/src/app_delegate.mm:80
-msgid "Close"
-msgstr "Закрыть"
-
 #: org.nickvision.application.macos/src/app_delegate.mm:85
 msgid "Window"
 msgstr ""
@@ -205,10 +224,6 @@ msgstr ""
 #: org.nickvision.application.macos/src/app_delegate.mm:95
 msgid "Help"
 msgstr ""
-
-#: org.nickvision.application.macos/src/app_delegate.mm:98
-msgid "GitHub Repo"
-msgstr "Репозиторий GitHub"
 
 #: org.nickvision.application.macos/src/app_delegate.mm:99
 msgid "Report a Bug"

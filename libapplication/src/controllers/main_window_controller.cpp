@@ -72,10 +72,14 @@ namespace application::controllers
 		m_app_config_service->set_window_geometry(geometry);
 	}
 
-	std::string main_window_controller::get_debugging_information() const
+	std::string main_window_controller::get_debugging_information(const std::string& extra) const
 	{
 		std::string info{ std::format("{} {}\n\n", m_app_info->get_short_name(), m_app_info->get_version().str()) };
 		info += environment::get_debugging_information();
+		if (!extra.empty())
+		{
+			info += "\n" + extra;
+		}
 		return info;
 	}
 

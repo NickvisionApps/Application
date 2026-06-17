@@ -94,8 +94,26 @@ namespace application::linux::views
 	{
 		std::string extra;
 		extra += std::format("gtk {}.{}.{}\n", gtk_get_major_version(), gtk_get_minor_version(), gtk_get_micro_version());
-		extra += std::format("libadwaita {}.{}.{}\n", adw_get_major_version(), adw_get_minor_version(), adw_get_micro_version());
+		extra += std::format("libadwaita {}.{}.{}", adw_get_major_version(), adw_get_minor_version(), adw_get_micro_version());
 		AdwAboutDialog* dialog{ ADW_ABOUT_DIALOG(adw_about_dialog_new()) };
+		adw_about_dialog_set_application_name(dialog, m_app_info->get_short_name().c_str());
+		adw_about_dialog_set_application_icon(dialog, m_app_info->get_version().is_preview() ? std::string(m_app_info->get_id() + "-devel").c_str()
+		                                                                                     : m_app_info->get_id().c_str());
+		adw_about_dialog_set_developer_name(dialog, "Nickvision");
+		adw_about_dialog_set_version(dialog, m_app_info->get_version().str().c_str());
+		adw_about_dialog_set_release_notes(dialog, m_app_info->get_changelog_html().c_str());
+		adw_about_dialog_set_debug_info(dialog, m_controller->get_debugging_information(extra).c_str());
+		adw_about_dialog_set_comments(dialog, m_app_info->get_description().c_str());
+		adw_about_dialog_set_license_type(dialog, GTK_LICENSE_MIT_X11);
+		adw_about_dialog_set_copyright(dialog, "© Nickvision 2021-2026");
+		adw_about_dialog_set_website(dialog, "https://nickvision.org");
+		adw_about_dialog_set_issue_url(dialog, m_app_info->get_issues_url().c_str());
+		adw_about_dialog_set_support_url(dialog, m_app_info->get_discussions_url().c_str());
+		adw_about_dialog_add_link(dialog, m_translation_service->_("GitHub Repo"), m_app_info->get_source_url().c_str());
+		for (const std::pair<const std::string, std::string>& link : m_app_info->get_extra_links())
+		{
+			adw_about_dialog_add_link(dialog, link.first.c_str(), link.second.c_str());
+		}
 		adw_dialog_present(ADW_DIALOG(dialog), GTK_WIDGET(m_window));
 	}
 
@@ -129,7 +147,7 @@ namespace application::linux::views
 		int width{ 0 };
 		int height{ 0 };
 		gtk_window_get_default_size(GTK_WINDOW(m_window), &width, &height);
-		m_controller->set_window_geometry({ width, height, static_cast<bool>(gtk_window_is_maximized(GTK_WINDOW(m_window))) });
+		m_controller->set_window_geometry({ height, width, static_cast<bool>(gtk_window_is_maximized(GTK_WINDOW(m_window))) });
 		gtk_window_destroy(GTK_WINDOW(m_window));
 		m_lifetime_service->request_stop();
 		return false;
@@ -137,6 +155,10 @@ namespace application::linux::views
 
 	void main_window::on_folder_changed(const folder_changed_event_args& args)
 	{
+		adw_view_stack_set_visible_child_name(m_builder.get<AdwViewStack>("stack"), args.get_path().empty() ? "home_page" : "folder_page");
+		adw_status_page_set_title(m_builder.get<AdwStatusPage>("folder_page"), args.get_path().filename().c_str());
+		adw_status_page_set_description(m_builder.get<AdwStatusPage>("folder_page"),
+		                                m_translation_service->_n("{} file", "{} files", args.get_files().size(), args.get_files().size()).c_str());
 	}
 
 	void main_window::open_folder()

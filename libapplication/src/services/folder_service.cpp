@@ -46,7 +46,7 @@ namespace application::services
 		    app_notification{ m_translation_service->_("Folder opened: {}", m_path.string()), notification_severity::success, "close" });
 		m_notification_service->send(shell_notification{ m_translation_service->_("Folder"), m_translation_service->_("Loaded {} file(s)", m_files.size()),
 		                                                 notification_severity::information, "open", m_path.string() });
-		m_folder_changed_event.invoke(*this, folder_changed_event_args{ m_path });
+		m_folder_changed_event.invoke(*this, folder_changed_event_args{ m_path, m_files });
 	}
 
 	void folder_service::close()
