@@ -1,6 +1,7 @@
 #include "views/main_window.h"
 #include <format>
 #include <string>
+#include <vector>
 #include "helpers/gtk.h"
 
 using namespace application::controllers;
@@ -13,6 +14,18 @@ using namespace desktop::notifications;
 
 namespace application::linux::views
 {
+	static std::vector<const char*> to_char_list(const std::vector<std::string>& list)
+	{
+		std::vector<const char*> res;
+		res.reserve(list.size() + 1);
+		for (const std::string& s : list)
+		{
+			res.push_back(s.c_str());
+		}
+		res.push_back(nullptr);
+		return res;
+	}
+
 	main_window::main_window(std::shared_ptr<main_window_controller> controller, std::shared_ptr<app_info> app_info,
 	                         const std::shared_ptr<events_service>& events_service, std::shared_ptr<lifetime_service> lifetime_service,
 	                         std::shared_ptr<translation_service> translation_service)
@@ -113,6 +126,31 @@ namespace application::linux::views
 		for (const std::pair<const std::string, std::string>& link : m_app_info->get_extra_links())
 		{
 			adw_about_dialog_add_link(dialog, link.first.c_str(), link.second.c_str());
+		}
+		std::vector<std::string> artists;
+		artists.reserve(m_app_info->get_artists().size());
+		for (const std::pair<const std::string, std::string>& artist : m_app_info->get_artists())
+		{
+			artists.push_back(std::format("{} {}", artist.first, artist.second));
+		}
+		std::vector<std::string> designers;
+		designers.reserve(m_app_info->get_designers().size());
+		for (const std::pair<const std::string, std::string>& designer : m_app_info->get_designers())
+		{
+			designers.push_back(std::format("{} {}", designer.first, designer.second));
+		}
+		std::vector<std::string> developers;
+		developers.reserve(m_app_info->get_developers().size());
+		for (const std::pair<const std::string, std::string>& developer : m_app_info->get_developers())
+		{
+			developers.push_back(std::format("{} {}", developer.first, developer.second));
+		}
+		adw_about_dialog_set_artists(dialog, to_char_list(artists).data());
+		adw_about_dialog_set_designers(dialog, to_char_list(designers).data());
+		adw_about_dialog_set_developers(dialog, to_char_list(developers).data());
+		if (!m_app_info->get_translation_credits().empty() && m_app_info->get_translation_credits() != "translation-credits")
+		{
+			adw_about_dialog_set_translator_credits(dialog, m_app_info->get_translation_credits().c_str());
 		}
 		adw_dialog_present(ADW_DIALOG(dialog), GTK_WIDGET(m_window));
 	}
