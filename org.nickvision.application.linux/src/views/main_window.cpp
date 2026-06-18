@@ -2,15 +2,19 @@
 #include <format>
 #include <string>
 #include <vector>
+#include "controls/shortcuts_dialog.h"
 #include "helpers/gtk.h"
+#include "views/preferences_dialog.h"
 
 using namespace application::controllers;
 using namespace application::events;
+using namespace application::linux::controls;
 using namespace application::linux::helpers;
 using namespace application::services;
 using namespace desktop::app;
 using namespace desktop::hosting;
 using namespace desktop::notifications;
+using namespace desktop::services;
 
 namespace application::linux::views
 {
@@ -26,10 +30,11 @@ namespace application::linux::views
 		return res;
 	}
 
-	main_window::main_window(std::shared_ptr<main_window_controller> controller, std::shared_ptr<app_info> app_info,
-	                         const std::shared_ptr<events_service>& events_service, std::shared_ptr<lifetime_service> lifetime_service,
-	                         std::shared_ptr<translation_service> translation_service)
+	main_window::main_window(std::shared_ptr<main_window_controller> controller, std::shared_ptr<service_provider> service_provider,
+	                         std::shared_ptr<app_info> app_info, const std::shared_ptr<events_service>& events_service,
+	                         std::shared_ptr<lifetime_service> lifetime_service, std::shared_ptr<translation_service> translation_service)
 	    : m_controller{ std::move(controller) },
+	      m_service_provider{ std::move(service_provider) },
 	      m_app_info{ std::move(app_info) },
 	      m_lifetime_service{ std::move(lifetime_service) },
 	      m_translation_service{ std::move(translation_service) },
@@ -225,11 +230,13 @@ namespace application::linux::views
 
 	void main_window::preferences()
 	{
+		std::shared_ptr<preferences_dialog> dialog{ m_service_provider->get_required<preferences_dialog>() };
+		dialog->present(GTK_WIDGET(m_window));
 	}
 
 	void main_window::shortcuts()
 	{
-		ui_builder dialog{ "shortcuts_dialog", m_translation_service };
-		adw_dialog_present(ADW_DIALOG(dialog.get<AdwDialog>("root")), GTK_WIDGET(m_window));
+		std::shared_ptr<shortcuts_dialog> dialog{ m_service_provider->get_required<shortcuts_dialog>() };
+		dialog->present(GTK_WIDGET(m_window));
 	}
 }

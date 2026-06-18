@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-17 21:26-0400\n"
+"POT-Creation-Date: 2026-06-17 21:44-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -122,6 +122,7 @@ msgid "Folder closed"
 msgstr "Папка закрыта."
 
 #: org.nickvision.application.linux/resources/main_window.blp:5
+#: org.nickvision.application.linux/resources/preferences_dialog.blp:8
 #: org.nickvision.application.linux/resources/shortcuts_dialog.blp:9
 msgid "Preferences"
 msgstr "Параметры"
@@ -159,6 +160,27 @@ msgstr "Главное меню"
 msgid "Open a folder to get started"
 msgstr "Откройте или перетащите папку, чтобы начать."
 
+#: org.nickvision.application.linux/resources/preferences_dialog.blp:11
+#: org.nickvision.application.macos/src/views/settings_dialog.mm:30
+msgid "General"
+msgstr ""
+
+#: org.nickvision.application.linux/resources/preferences_dialog.blp:14
+msgid "User Interface"
+msgstr "Интерфейс"
+
+#: org.nickvision.application.linux/resources/preferences_dialog.blp:17
+msgid "Theme"
+msgstr "Тема"
+
+#: org.nickvision.application.linux/resources/preferences_dialog.blp:26
+msgid "Translation Language"
+msgstr ""
+
+#: org.nickvision.application.linux/resources/preferences_dialog.blp:27
+msgid "An application restart is required for a change to take effect"
+msgstr ""
+
 #: org.nickvision.application.linux/resources/shortcuts_dialog.blp:6
 msgid "App"
 msgstr ""
@@ -169,7 +191,7 @@ msgid "Quit"
 msgstr "Выход"
 
 #: org.nickvision.application.linux/resources/shortcuts_dialog.blp:33
-#: org.nickvision.application.linux/src/views/main_window.cpp:205
+#: org.nickvision.application.linux/src/views/main_window.cpp:210
 #, fuzzy
 msgid "Open Folder"
 msgstr "Открыть Папку"
@@ -179,17 +201,17 @@ msgstr "Открыть Папку"
 msgid "Close Folder"
 msgstr "Закрыть папку"
 
-#: org.nickvision.application.linux/src/views/main_window.cpp:125
+#: org.nickvision.application.linux/src/views/main_window.cpp:130
 #: org.nickvision.application.macos/src/app_delegate.mm:98
 msgid "GitHub Repo"
 msgstr "Репозиторий GitHub"
 
-#: org.nickvision.application.linux/src/views/main_window.cpp:168
+#: org.nickvision.application.linux/src/views/main_window.cpp:173
 #: org.nickvision.application.macos/src/app_delegate.mm:80
 msgid "Close"
 msgstr "Закрыть"
 
-#: org.nickvision.application.linux/src/views/main_window.cpp:199
+#: org.nickvision.application.linux/src/views/main_window.cpp:204
 #, c++-format
 msgid "{} file"
 msgid_plural "{} files"
@@ -248,10 +270,6 @@ msgstr ""
 msgid "Discussions"
 msgstr ""
 
-#: org.nickvision.application.macos/src/views/settings_dialog.mm:30
-msgid "General"
-msgstr ""
-
 #: org.nickvision.application.macos/src/views/settings_dialog.mm:32
 msgid "Settings"
 msgstr ""
@@ -263,12 +281,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Open a folder (or drag one into the app) to get started"
 #~ msgstr "Откройте или перетащите папку, чтобы начать."
-
-#~ msgid "User Interface"
-#~ msgstr "Интерфейс"
-
-#~ msgid "Theme"
-#~ msgstr "Тема"
 
 #~ msgctxt "Shortcut"
 #~ msgid "Application"

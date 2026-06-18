@@ -15,10 +15,11 @@ namespace application::linux::views
 	class main_window
 	{
 	public:
-		using dependencies = std::tuple<controllers::main_window_controller, desktop::app::app_info, services::events_service,
-		                                desktop::hosting::lifetime_service, desktop::app::translation_service>;
-		main_window(std::shared_ptr<controllers::main_window_controller> controller, std::shared_ptr<desktop::app::app_info> app_info,
-		            const std::shared_ptr<services::events_service>& events_service, std::shared_ptr<desktop::hosting::lifetime_service> lifetime_service,
+		using dependencies = std::tuple<controllers::main_window_controller, desktop::services::service_provider, desktop::app::app_info,
+		                                services::events_service, desktop::hosting::lifetime_service, desktop::app::translation_service>;
+		main_window(std::shared_ptr<controllers::main_window_controller> controller, std::shared_ptr<desktop::services::service_provider> service_provider,
+		            std::shared_ptr<desktop::app::app_info> app_info, const std::shared_ptr<services::events_service>& events_service,
+		            std::shared_ptr<desktop::hosting::lifetime_service> lifetime_service,
 		            std::shared_ptr<desktop::app::translation_service> translation_service);
 		~main_window() = default;
 		main_window(const main_window&) = delete;
@@ -38,6 +39,7 @@ namespace application::linux::views
 		void preferences();
 		void shortcuts();
 		std::shared_ptr<controllers::main_window_controller> m_controller;
+		std::shared_ptr<desktop::services::service_provider> m_service_provider;
 		std::shared_ptr<desktop::app::app_info> m_app_info;
 		std::shared_ptr<desktop::hosting::lifetime_service> m_lifetime_service;
 		std::shared_ptr<desktop::app::translation_service> m_translation_service;
