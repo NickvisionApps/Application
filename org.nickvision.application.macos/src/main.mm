@@ -10,7 +10,7 @@ int main(int argc, char* argv[])
 {
 	host h{ create_host({ argv, static_cast<size_t>(argc) }) };
 	h.use_lifetime<cocoa_lifetime_service>();
-    std::exception_ptr ptr{ h.run() };
+	std::exception_ptr ptr{ h.run() };
 	if (ptr)
 	{
 		std::rethrow_exception(ptr);

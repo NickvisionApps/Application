@@ -16,7 +16,7 @@ using namespace desktop::services;
 {
 	NSRect frame{ NSMakeRect(0, 0, 800, 600) };
 	NSWindowStyleMask style{ NSWindowStyleMaskTitled | NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskResizable |
-							NSWindowStyleMaskFullSizeContentView };
+		                     NSWindowStyleMaskFullSizeContentView };
 	self = [super initWithContentRect:frame styleMask:style backing:NSBackingStoreBuffered defer:NO];
 	if (self)
 	{

@@ -45,7 +45,7 @@ static void appendPeople(NSMutableAttributedString* credits, NSDictionary* boldA
 	if (self = [super init])
 	{
 		m_service_provider = std::move(serviceProvider);
-        m_app_info = m_service_provider->get_required<app_info>();
+		m_app_info = m_service_provider->get_required<app_info>();
 		m_translation_service = m_service_provider->get_required<translation_service>();
 	}
 	return self;
