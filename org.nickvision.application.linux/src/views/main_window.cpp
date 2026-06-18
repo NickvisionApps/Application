@@ -6,7 +6,7 @@
 
 using namespace application::controllers;
 using namespace application::events;
-using namespace application::linux::helpers::gtk;
+using namespace application::linux::helpers;
 using namespace application::services;
 using namespace desktop::app;
 using namespace desktop::hosting;
@@ -38,7 +38,7 @@ namespace application::linux::views
 	{
 		events_service->get_app_notification_sent_event() += [this](const notification_service&, const app_notification_sent_event_args& args)
 		{
-			invoke_on_main_thread([this, args]()
+			gtk::invoke_on_main_thread([this, args]()
 			{
 				on_app_notification_sent(args);
 			});
@@ -53,27 +53,27 @@ namespace application::linux::views
 			return static_cast<main_window*>(data)->on_close_request();
 		}),
 		                 this);
-		add_action(m_window, "about", [this]()
+		gtk::add_action(m_window, "about", [this]()
 		{
 			about();
 		}, "F1");
-		add_action(m_window, "close_folder", [this]()
+		gtk::add_action(m_window, "close_folder", [this]()
 		{
 			close_folder();
 		}, "<Primary>W");
-		add_action(m_window, "open_folder", [this]()
+		gtk::add_action(m_window, "open_folder", [this]()
 		{
 			open_folder();
 		}, "<Primary>O");
-		add_action(m_window, "preferences", [this]()
+		gtk::add_action(m_window, "preferences", [this]()
 		{
 			preferences();
 		}, "<Primary>comma");
-		add_action(m_window, "quit", [this]()
+		gtk::add_action(m_window, "quit", [this]()
 		{
 			on_close_request();
 		}, "<Primary>Q");
-		add_action(m_window, "shortcuts", [this]()
+		gtk::add_action(m_window, "shortcuts", [this]()
 		{
 			shortcuts();
 		}, "<Primary>question");
@@ -229,5 +229,7 @@ namespace application::linux::views
 
 	void main_window::shortcuts()
 	{
+		ui_builder dialog{ "shortcuts_dialog", m_translation_service };
+		adw_dialog_present(ADW_DIALOG(dialog.get<AdwDialog>("root")), GTK_WIDGET(m_window));
 	}
 }

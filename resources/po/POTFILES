@@ -2,6 +2,7 @@ libapplication/src/controllers/main_window_controller.cpp
 libapplication/src/helpers/host.cpp
 libapplication/src/services/folder_service.cpp
 org.nickvision.application.linux/resources/main_window.blp
+org.nickvision.application.linux/resources/shortcuts_dialog.blp
 org.nickvision.application.linux/src/views/main_window.cpp
 org.nickvision.application.macos/src/app_delegate.mm
 org.nickvision.application.macos/src/views/settings_dialog.mm

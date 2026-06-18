@@ -1,0 +1,42 @@
+using Gtk 4.0;
+using Adw 1;
+
+Adw.ShortcutsDialog root {
+  Adw.ShortcutsSection {
+    title: _("App");
+
+    Adw.ShortcutsItem {
+      title: _("Preferences");
+      accelerator: "<Primary>comma";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Keyboard Shortcuts");
+      accelerator: "<Primary>question";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("About Application");
+      accelerator: "F1";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Quit");
+      accelerator: "<Primary>Q";
+    }
+  }
+
+  Adw.ShortcutsSection {
+    title: _("Folder");
+
+    Adw.ShortcutsItem {
+      title: _("Open Folder");
+      accelerator: "<Primary>O";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Close Folder");
+      accelerator: "<Primary>W";
+    }
+  }
+}

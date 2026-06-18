@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-16 23:09-0400\n"
+"POT-Creation-Date: 2026-06-17 21:26-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -101,6 +101,7 @@ msgid "Folder opened: {}"
 msgstr ""
 
 #: libapplication/src/services/folder_service.cpp:47
+#: org.nickvision.application.linux/resources/shortcuts_dialog.blp:30
 msgid "Folder"
 msgstr ""
 
@@ -114,14 +115,17 @@ msgid "Folder closed"
 msgstr ""
 
 #: org.nickvision.application.linux/resources/main_window.blp:5
+#: org.nickvision.application.linux/resources/shortcuts_dialog.blp:9
 msgid "Preferences"
 msgstr ""
 
 #: org.nickvision.application.linux/resources/main_window.blp:6
+#: org.nickvision.application.linux/resources/shortcuts_dialog.blp:14
 msgid "Keyboard Shortcuts"
 msgstr ""
 
 #: org.nickvision.application.linux/resources/main_window.blp:7
+#: org.nickvision.application.linux/resources/shortcuts_dialog.blp:19
 msgid "About Application"
 msgstr ""
 
@@ -147,6 +151,24 @@ msgstr ""
 msgid "Open a folder to get started"
 msgstr ""
 
+#: org.nickvision.application.linux/resources/shortcuts_dialog.blp:6
+msgid "App"
+msgstr ""
+
+#: org.nickvision.application.linux/resources/shortcuts_dialog.blp:24
+msgid "Quit"
+msgstr ""
+
+#: org.nickvision.application.linux/resources/shortcuts_dialog.blp:33
+#: org.nickvision.application.linux/src/views/main_window.cpp:205
+msgid "Open Folder"
+msgstr ""
+
+#: org.nickvision.application.linux/resources/shortcuts_dialog.blp:38
+#: org.nickvision.application.macos/src/app_delegate.mm:78
+msgid "Close Folder"
+msgstr ""
+
 #: org.nickvision.application.linux/src/views/main_window.cpp:125
 #: org.nickvision.application.macos/src/app_delegate.mm:98
 msgid "GitHub Repo"
@@ -163,10 +185,6 @@ msgid "{} file"
 msgid_plural "{} files"
 msgstr[0] ""
 msgstr[1] ""
-
-#: org.nickvision.application.linux/src/views/main_window.cpp:205
-msgid "Open Folder"
-msgstr ""
 
 #: org.nickvision.application.macos/src/app_delegate.mm:62
 #, c++-format
@@ -192,10 +210,6 @@ msgstr ""
 
 #: org.nickvision.application.macos/src/app_delegate.mm:77
 msgid "Open Folder…"
-msgstr ""
-
-#: org.nickvision.application.macos/src/app_delegate.mm:78
-msgid "Close Folder"
 msgstr ""
 
 #: org.nickvision.application.macos/src/app_delegate.mm:85
