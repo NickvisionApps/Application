@@ -39,5 +39,6 @@ if(WIN32)
 
     include(DesktopHelpers)
     desktop_generate_translations(TARGET ${PLATFORM_PROJECT_NAME}
-        SHORT_NAME ${SHORT_NAME})
+        SHORT_NAME ${SHORT_NAME}
+        OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}")
 endif()

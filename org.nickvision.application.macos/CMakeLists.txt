@@ -77,7 +77,8 @@ if(APPLE)
 
     include(DesktopHelpers)
     desktop_generate_translations(TARGET ${PLATFORM_PROJECT_NAME}
-        SHORT_NAME ${SHORT_NAME})
+        SHORT_NAME ${SHORT_NAME}
+        OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}")
 
     add_custom_command(TARGET ${PLATFORM_PROJECT_NAME} POST_BUILD
         COMMENT "Signing app bundle..."
