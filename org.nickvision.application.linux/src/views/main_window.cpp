@@ -41,19 +41,19 @@ namespace application::linux::views
 	      m_builder{ "main_window", m_translation_service },
 	      m_window{ m_builder.get<AdwApplicationWindow>("root") }
 	{
-		events_service->get_app_notification_sent_event() += [this](const notification_service&, const app_notification_sent_event_args& args)
+		events_service->get_app_notification_sent_event() += [this](const notification_service& /* unused */, const app_notification_sent_event_args& args)
 		{
 			gtk::invoke_on_main_thread([this, args]()
 			{
 				on_app_notification_sent(args);
 			});
 		};
-		events_service->get_folder_changed_event() += [this](const folder_service&, const folder_changed_event_args& args)
+		events_service->get_folder_changed_event() += [this](const folder_service& /* unused */, const folder_changed_event_args& args)
 		{
 			on_folder_changed(args);
 		};
 		g_signal_connect(m_window, "close-request",
-		                 G_CALLBACK(+[](GtkWindow*, gpointer data) -> bool
+		                 G_CALLBACK(+[](GtkWindow* /* unused */, gpointer data) -> bool
 		{
 			return static_cast<main_window*>(data)->on_close_request();
 		}),
@@ -172,7 +172,7 @@ namespace application::linux::views
 		{
 			adw_toast_set_button_label(toast, m_translation_service->_("Close"));
 			g_signal_connect(toast, "button-clicked",
-			                 G_CALLBACK(+[](AdwToast*, gpointer data)
+			                 G_CALLBACK(+[](AdwToast* /* unused */, gpointer data)
 			{
 				static_cast<main_window*>(data)->close_folder();
 			}),

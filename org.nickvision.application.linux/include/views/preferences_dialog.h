@@ -21,6 +21,7 @@ namespace application::linux::views
 		preferences_dialog(const preferences_dialog&) = delete;
 		preferences_dialog(preferences_dialog&&) = delete;
 		AdwDialog* gobj() const;
+		void apply_changes();
 		void present(GtkWidget* parent);
 		preferences_dialog& operator=(const preferences_dialog&) = delete;
 		preferences_dialog& operator=(preferences_dialog&&) = delete;

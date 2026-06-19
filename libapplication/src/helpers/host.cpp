@@ -36,7 +36,7 @@ namespace application::helpers
 		h.get_services()->add<app_config_service>(service_scope::singleton);
 		h.get_services()->add<events_service>(service_scope::singleton);
 		h.get_services()->add<folder_service>(service_scope::singleton);
-		h.get_services()->add<main_window_controller>(service_scope::transient);
+		h.get_services()->add<main_window_controller>(service_scope::singleton);
 		h.get_services()->add<preferences_view_controller>(service_scope::transient);
 		h.use_github_updates();
 		std::shared_ptr<translation_service> translator{ h.get_services()->get_required<translation_service>() };
