@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-17 21:44-0400\n"
+"POT-Creation-Date: 2026-06-19 12:09-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -59,43 +59,43 @@ msgstr ""
 msgid "Unable to download and install the update"
 msgstr ""
 
-#: libapplication/src/helpers/host.cpp:43
+#: libapplication/src/helpers/host.cpp:44
 #: org.nickvision.application.linux/resources/main_window.blp:18
 msgid "Application"
 msgstr "Application"
 
-#: libapplication/src/helpers/host.cpp:44
+#: libapplication/src/helpers/host.cpp:45
 #, fuzzy
 msgid "Create new Nickvision application"
 msgstr "Создавайте новые приложения Nickvision"
 
-#: libapplication/src/helpers/host.cpp:45
+#: libapplication/src/helpers/host.cpp:46
 msgid "Matrix Chat"
 msgstr "Чат Matrix"
 
-#: libapplication/src/helpers/host.cpp:46
-#: libapplication/src/helpers/host.cpp:48
+#: libapplication/src/helpers/host.cpp:47
+#: libapplication/src/helpers/host.cpp:49
 msgid "Nicholas Logozzo"
 msgstr "Nicholas Logozzo"
 
-#: libapplication/src/helpers/host.cpp:47
+#: libapplication/src/helpers/host.cpp:48
 #, fuzzy
 msgid "Contributors on GitHub ❤️"
 msgstr "Соавторы на GitHub ❤️"
 
-#: libapplication/src/helpers/host.cpp:49
+#: libapplication/src/helpers/host.cpp:50
 msgid "Fyodor Sobolev"
 msgstr "Фёдор Соболев"
 
-#: libapplication/src/helpers/host.cpp:50
+#: libapplication/src/helpers/host.cpp:51
 msgid "DaPigGuy"
 msgstr "DaPigGuy"
 
-#: libapplication/src/helpers/host.cpp:51
+#: libapplication/src/helpers/host.cpp:52
 msgid "David Lapshin"
 msgstr "Давид Лапшин"
 
-#: libapplication/src/helpers/host.cpp:52
+#: libapplication/src/helpers/host.cpp:53
 #, fuzzy
 msgid "translation-credits"
 msgstr "Фёдор Соболев https://github.com/fsobolev"

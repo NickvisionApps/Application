@@ -40,6 +40,7 @@ namespace application::helpers
 		h.get_services()->add<preferences_view_controller>(service_scope::transient);
 		h.use_github_updates();
 		std::shared_ptr<translation_service> translator{ h.get_services()->get_required<translation_service>() };
+		translator->set_language(h.get_services()->get_required<app_config_service>()->get_translation_language());
 		info->set_short_name(translator->_("Application"));
 		info->set_description(translator->_("Create new Nickvision application"));
 		info->add_extra_link(translator->_("Matrix Chat"), "https://matrix.to/#/#nickvision:matrix.org");

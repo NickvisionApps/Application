@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-19 12:03-0400\n"
+"POT-Creation-Date: 2026-06-19 12:09-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -58,40 +58,40 @@ msgstr ""
 msgid "Unable to download and install the update"
 msgstr ""
 
-#: libapplication/src/helpers/host.cpp:43
+#: libapplication/src/helpers/host.cpp:44
 #: org.nickvision.application.linux/resources/main_window.blp:18
 msgid "Application"
 msgstr ""
 
-#: libapplication/src/helpers/host.cpp:44
+#: libapplication/src/helpers/host.cpp:45
 msgid "Create new Nickvision application"
 msgstr ""
 
-#: libapplication/src/helpers/host.cpp:45
+#: libapplication/src/helpers/host.cpp:46
 msgid "Matrix Chat"
 msgstr ""
 
-#: libapplication/src/helpers/host.cpp:46 libapplication/src/helpers/host.cpp:48
+#: libapplication/src/helpers/host.cpp:47 libapplication/src/helpers/host.cpp:49
 msgid "Nicholas Logozzo"
 msgstr ""
 
-#: libapplication/src/helpers/host.cpp:47
+#: libapplication/src/helpers/host.cpp:48
 msgid "Contributors on GitHub ❤️"
 msgstr ""
 
-#: libapplication/src/helpers/host.cpp:49
+#: libapplication/src/helpers/host.cpp:50
 msgid "Fyodor Sobolev"
 msgstr ""
 
-#: libapplication/src/helpers/host.cpp:50
+#: libapplication/src/helpers/host.cpp:51
 msgid "DaPigGuy"
 msgstr ""
 
-#: libapplication/src/helpers/host.cpp:51
+#: libapplication/src/helpers/host.cpp:52
 msgid "David Lapshin"
 msgstr ""
 
-#: libapplication/src/helpers/host.cpp:52
+#: libapplication/src/helpers/host.cpp:53
 msgid "translation-credits"
 msgstr ""
 
