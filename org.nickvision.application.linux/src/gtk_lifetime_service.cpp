@@ -13,8 +13,9 @@ using namespace desktop::system;
 
 namespace application::linux
 {
-	gtk_lifetime_service::gtk_lifetime_service(std::shared_ptr<service_provider> service_provider)
+	gtk_lifetime_service::gtk_lifetime_service(std::shared_ptr<logger> logger, std::shared_ptr<service_provider> service_provider)
 	    : lifetime_service{ service_provider->get_required<app_info>() },
+	      m_logger{ std::move(logger) },
 	      m_service_provider{ std::move(service_provider) }
 	{
 	}
@@ -29,6 +30,7 @@ namespace application::linux
 
 	void gtk_lifetime_service::on_startup_and_run()
 	{
+        m_logger->log_info("Starting Linux application lifetime service...");
 		std::shared_ptr<app_info> info{ m_service_provider->get_required<app_info>() };
 		std::shared_ptr<arguments_service> arguments{ m_service_provider->get_required<arguments_service>() };
 		m_application = adw_application_new(info->get_id().c_str(), G_APPLICATION_DEFAULT_FLAGS);
@@ -75,13 +77,14 @@ namespace application::linux
 
 	void gtk_lifetime_service::on_shutdown() noexcept
 	{
-		g_application_quit(G_APPLICATION(m_application));
+        m_logger->log_info("Shutting down Linux application lifetime service...");
 		g_object_unref(m_application);
 		m_application = nullptr;
 	}
 
 	void gtk_lifetime_service::on_stop_requested() noexcept
 	{
+        m_logger->log_info("Stop requested for Linux application lifetime service.");
 		g_application_quit(G_APPLICATION(m_application));
 	}
 }

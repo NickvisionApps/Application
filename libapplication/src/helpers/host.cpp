@@ -8,6 +8,7 @@
 using namespace application::controllers;
 using namespace application::services;
 using namespace desktop::app;
+using namespace desktop::filesystem;
 using namespace desktop::services;
 
 namespace application::helpers
@@ -38,6 +39,7 @@ namespace application::helpers
 		h.get_services()->add<folder_service>(service_scope::singleton);
 		h.get_services()->add<main_window_controller>(service_scope::singleton);
 		h.get_services()->add<preferences_view_controller>(service_scope::transient);
+		h.use_logging(log_type::info, user_directories::get_local_data() / info->get_name() / "logs" / "app.log");
 		h.use_github_updates();
 		std::shared_ptr<translation_service> translator{ h.get_services()->get_required<translation_service>() };
 		translator->set_language(h.get_services()->get_required<app_config_service>()->get_translation_language());

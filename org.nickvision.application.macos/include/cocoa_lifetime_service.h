@@ -9,8 +9,8 @@ namespace application::macos
 	class cocoa_lifetime_service : public desktop::hosting::lifetime_service
 	{
 	public:
-		using dependencies = std::tuple<desktop::services::service_provider>;
-		cocoa_lifetime_service(std::shared_ptr<desktop::services::service_provider> service_provider);
+		using dependencies = std::tuple<desktop::app::logger, desktop::services::service_provider>;
+		cocoa_lifetime_service(std::shared_ptr<desktop::app::logger> logger, std::shared_ptr<desktop::services::service_provider> service_provider);
 		~cocoa_lifetime_service() override = default;
 		cocoa_lifetime_service(const cocoa_lifetime_service&) = delete;
 		cocoa_lifetime_service(cocoa_lifetime_service&&) = delete;
@@ -23,6 +23,7 @@ namespace application::macos
 		void on_stop_requested() noexcept override;
 
 	private:
+		std::shared_ptr<desktop::app::logger> m_logger;
 		std::shared_ptr<desktop::services::service_provider> m_service_provider;
 	};
 }

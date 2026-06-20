@@ -3,6 +3,7 @@
 #import "views/settings_dialog.h"
 
 using namespace desktop::app;
+using namespace desktop::hosting;
 using namespace desktop::services;
 
 static void appendPeople(NSMutableAttributedString* credits, NSDictionary* boldAttrs, NSDictionary* normalAttrs, NSString* title,
@@ -35,6 +36,7 @@ static void appendPeople(NSMutableAttributedString* credits, NSDictionary* boldA
 {
 	std::shared_ptr<service_provider> m_service_provider;
 	std::shared_ptr<app_info> m_app_info;
+	std::shared_ptr<lifetime_service> m_lifetime_service;
 	std::shared_ptr<translation_service> m_translation_service;
 	MainWindow* m_main_window;
 	SettingsDialog* m_settings_dialog;
@@ -46,6 +48,7 @@ static void appendPeople(NSMutableAttributedString* credits, NSDictionary* boldA
 	{
 		m_service_provider = std::move(serviceProvider);
 		m_app_info = m_service_provider->get_required<app_info>();
+		m_lifetime_service = m_service_provider->get_required<lifetime_service>();
 		m_translation_service = m_service_provider->get_required<translation_service>();
 	}
 	return self;
@@ -66,7 +69,7 @@ static void appendPeople(NSMutableAttributedString* credits, NSDictionary* boldA
 	[appMenu addItem:[NSMenuItem separatorItem]];
 	[appMenu addItemWithTitle:@(m_translation_service->_("Settings\u2026")) action:@selector(showSettingsDialog:) keyEquivalent:@","];
 	[appMenu addItem:[NSMenuItem separatorItem]];
-	[appMenu addItemWithTitle:@(m_translation_service->_("Quit {}", m_app_info->get_short_name()).c_str()) action:@selector(terminate:) keyEquivalent:@"q"];
+	[appMenu addItemWithTitle:@(m_translation_service->_("Quit {}", m_app_info->get_short_name()).c_str()) action:@selector(quit:) keyEquivalent:@"q"];
 	NSMenuItem* fileMenuItem{ [[NSMenuItem alloc] init] };
 	[menuBar addItem:fileMenuItem];
 	NSMenu* fileMenu
@@ -101,6 +104,12 @@ static void appendPeople(NSMutableAttributedString* credits, NSDictionary* boldA
 	m_main_window = [[MainWindow alloc] initWithServiceProvider:m_service_provider];
 	[m_main_window makeKeyAndOrderFront:nil];
 	[[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
+}
+
+- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication*)sender
+{
+	[self quit:sender];
+	return NSTerminateLater;
 }
 
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication*)sender
@@ -170,6 +179,11 @@ static void appendPeople(NSMutableAttributedString* credits, NSDictionary* boldA
 		m_settings_dialog = [[SettingsDialog alloc] initWithServiceProvider:m_service_provider];
 	}
 	[m_settings_dialog show];
+}
+
+- (void)quit:(id)sender
+{
+	m_lifetime_service->request_stop();
 }
 
 - (void)openFolder:(id)sender
