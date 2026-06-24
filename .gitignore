@@ -53,3 +53,6 @@ CMakeLists.txt.user
 
 # Qt Creator
 *.pro.user
+
+# IntelliJ
+.idea/
