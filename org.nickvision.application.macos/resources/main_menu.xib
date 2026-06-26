@@ -2,22 +2,9 @@
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24765" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24765"/>
-        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="AppDelegate">
-            <connections>
-                <action selector="about:" destination="-2" id="about-action"/>
-                <action selector="checkForUpdates:" destination="-2" id="check-for-updates-action"/>
-                <action selector="closeFolder:" destination="-2" id="close-folder-action"/>
-                <action selector="openBugReport:" destination="-2" id="open-bug-report-action"/>
-                <action selector="openDiscussions:" destination="-2" id="open-discussions-action"/>
-                <action selector="openFolder:" destination="-2" id="open-folder-action"/>
-                <action selector="openGitHubRepository:" destination="-2" id="open-github-repository-action"/>
-                <action selector="quit:" destination="-2" id="quit-action"/>
-                <action selector="settings:" destination="-2" id="settings-action"/>
-            </connections>
-        </customObject>
+        <customObject id="-2" userLabel="File's Owner" customClass="AppDelegate"/>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSApplication">
             <connections>
@@ -28,164 +15,164 @@
         </customObject>
         <menu id="main-menu" systemMenu="main">
             <items>
-                <menuItem>
-                    <menu systemMenu="apple">
+                <menuItem id="apple-menu-item">
+                    <menu key="submenu" systemMenu="apple" id="apple-menu">
                         <items>
                             <menuItem id="about-menu-item">
                                 <connections>
-                                    <action selector="about:" target="-2"/>
+                                    <action selector="about:" target="-2" id="about-menu-item-action"/>
                                 </connections>
                             </menuItem>
                             <menuItem id="check-for-updates-menu-item">
                                 <connections>
-                                    <action selector="checkForUpdates:" target="-2"/>
+                                    <action selector="checkForUpdates:" target="-2" id="check-for-updates-menu-item-action"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES"/>
-                            <menuItem id="settings-menu-item" keyEquivalent=",">
+                            <menuItem keyEquivalent="," id="settings-menu-item">
                                 <connections>
-                                    <action selector="settings:" target="-2"/>
+                                    <action selector="settings:" target="-2" id="settings-menu-item-action"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES"/>
                             <menuItem id="services-menu-item">
-                                <menu id="services-menu" systemMenu="services"/>
+                                <menu key="submenu" systemMenu="services" id="services-menu"/>
                             </menuItem>
                             <menuItem isSeparatorItem="YES"/>
-                            <menuItem id="hide-menu-item" keyEquivalent="h">
+                            <menuItem keyEquivalent="h" id="hide-menu-item">
                                 <connections>
-                                    <action selector="hide:" target="-1"/>
+                                    <action selector="hide:" target="-1" id="hide-menu-item-action"/>
                                 </connections>
                             </menuItem>
-                            <menuItem id="hide-others-menu-item" keyEquivalent="h">
+                            <menuItem keyEquivalent="h" id="hide-others-menu-item">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>
-                                    <action selector="hideOtherApplications:" target="-1"/>
+                                    <action selector="hideOtherApplications:" target="-1" id="hide-others-menu-item-action"/>
                                 </connections>
                             </menuItem>
-                            <menuItem id="show-all-menu-item" title="Show All">
+                            <menuItem id="show-all-menu-item">
                                 <connections>
-                                    <action selector="unhideAllApplications:" target="-1"/>
+                                    <action selector="unhideAllApplications:" target="-1" id="show-all-menu-item-action"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES"/>
-                            <menuItem id="quit-menu-item" keyEquivalent="q">
+                            <menuItem keyEquivalent="q" id="quit-menu-item">
                                 <connections>
-                                    <action selector="terminate:" target="-1"/>
+                                    <action selector="terminate:" target="-1" id="quit-menu-item-action"/>
                                 </connections>
                             </menuItem>
                         </items>
                     </menu>
                 </menuItem>
-                <menuItem>
-                    <menu id="file-menu">
+                <menuItem id="file-menu-item">
+                    <menu key="submenu" id="file-menu">
                         <items>
-                            <menuItem id="open-folder-menu-item" keyEquivalent="o">
+                            <menuItem keyEquivalent="o" id="open-folder-menu-item">
                                 <connections>
-                                    <action selector="openFolder:" target="-2"/>
+                                    <action selector="openFolder:" target="-2" id="open-folder-menu-item-action"/>
                                 </connections>
                             </menuItem>
-                            <menuItem id="close-folder-menu-item">
+                            <menuItem keyEquivalent="W" id="close-folder-menu-item">
                                 <connections>
-                                    <action selector="closeFolder:" target="-2"/>
+                                    <action selector="closeFolder:" target="-2" id="close-folder-menu-item-action"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES"/>
-                            <menuItem id="close-window-menu-item" keyEquivalent="w">
+                            <menuItem keyEquivalent="w" id="close-window-menu-item">
                                 <connections>
-                                    <action selector="performClose:" target="-1"/>
+                                    <action selector="performClose:" target="-1" id="close-window-menu-item-action"/>
                                 </connections>
                             </menuItem>
                         </items>
                     </menu>
                 </menuItem>
-                 <menuItem>
-                    <menu id="edit-menu">
+                <menuItem id="edit-menu-item">
+                    <menu key="submenu" id="edit-menu">
                         <items>
-                            <menuItem id="undo-menu-item" keyEquivalent="z">
+                            <menuItem keyEquivalent="z" id="undo-menu-item">
                                 <connections>
-                                    <action selector="undo:" target="-1"/>
+                                    <action selector="undo:" target="-1" id="undo-menu-item-action"/>
                                 </connections>
                             </menuItem>
-                            <menuItem id="redo-menu-item" keyEquivalent="Z">
+                            <menuItem keyEquivalent="Z" id="redo-menu-item">
                                 <connections>
-                                    <action selector="redo:" target="-1"/>
+                                    <action selector="redo:" target="-1" id="redo-menu-item-action"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES"/>
-                            <menuItem id="cut-menu-item" keyEquivalent="x">
+                            <menuItem keyEquivalent="x" id="cut-menu-item">
                                 <connections>
-                                    <action selector="cut:" target="-1"/>
+                                    <action selector="cut:" target="-1" id="cut-menu-item-action"/>
                                 </connections>
                             </menuItem>
-                            <menuItem id="copy-menu-item" keyEquivalent="c">
+                            <menuItem keyEquivalent="c" id="copy-menu-item">
                                 <connections>
-                                    <action selector="copy:" target="-1"/>
+                                    <action selector="copy:" target="-1" id="copy-menu-item-action"/>
                                 </connections>
                             </menuItem>
-                            <menuItem id="paste-menu-item" keyEquivalent="v">
+                            <menuItem keyEquivalent="v" id="paste-menu-item">
                                 <connections>
-                                    <action selector="paste:" target="-1"/>
+                                    <action selector="paste:" target="-1" id="paste-menu-item-action"/>
                                 </connections>
                             </menuItem>
-                            <menuItem id="select-all-menu-item" keyEquivalent="a">
+                            <menuItem keyEquivalent="a" id="select-all-menu-item">
                                 <connections>
-                                    <action selector="selectAll:" target="-1"/>
+                                    <action selector="selectAll:" target="-1" id="select-all-menu-item-action"/>
                                 </connections>
                             </menuItem>
                         </items>
                     </menu>
                 </menuItem>
-                <menuItem>
-                    <menu id="view-menu">
+                <menuItem id="view-menu-item">
+                    <menu key="submenu" id="view-menu">
                         <items>
-                            <menuItem id="enter-full-screen-menu-item" keyEquivalent="f">
+                            <menuItem keyEquivalent="f" id="enter-full-screen-menu-item">
                                 <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                 <connections>
-                                    <action selector="toggleFullScreen:" target="-1"/>
+                                    <action selector="toggleFullScreen:" target="-1" id="enter-full-screen-menu-item-action"/>
                                 </connections>
                             </menuItem>
                         </items>
                     </menu>
                 </menuItem>
-                <menuItem>
-                    <menu id="windows-menu" systemMenu="window">
+                <menuItem id="windows-menu-item">
+                    <menu key="submenu" systemMenu="window" id="windows-menu">
                         <items>
-                            <menuItem id="minimize-menu-item" keyEquivalent="m">
+                            <menuItem keyEquivalent="m" id="minimize-menu-item">
                                 <connections>
-                                    <action selector="performMiniaturize:" target="-1"/>
+                                    <action selector="performMiniaturize:" target="-1" id="minimize-menu-item-action"/>
                                 </connections>
                             </menuItem>
                             <menuItem id="zoom-menu-item">
                                 <connections>
-                                    <action selector="performZoom:" target="-1"/>
+                                    <action selector="performZoom:" target="-1" id="zoom-menu-item-action"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES"/>
                             <menuItem id="bring-all-to-front-menu-item">
                                 <connections>
-                                    <action selector="arrangeInFront:" target="-1"/>
+                                    <action selector="arrangeInFront:" target="-1" id="bring-all-to-front-menu-item-action"/>
                                 </connections>
                             </menuItem>
                         </items>
                     </menu>
                 </menuItem>
-                <menuItem>
-                    <menu id="help-menu" systemMenu="help">
+                <menuItem id="help-menu-item">
+                    <menu key="submenu" systemMenu="help" id="help-menu">
                         <items>
                             <menuItem id="github-repo-menu-item">
                                 <connections>
-                                    <action selector="openGitHubRepository:" target="-2"/>
+                                    <action selector="openGitHubRepository:" target="-2" id="github-repo-menu-item-action"/>
                                 </connections>
                             </menuItem>
                             <menuItem id="report-a-bug-menu-item">
                                 <connections>
-                                    <action selector="openBugReport:" target="-2"/>
+                                    <action selector="openBugReport:" target="-2" id="report-a-bug-menu-item-action"/>
                                 </connections>
                             </menuItem>
                             <menuItem id="discussions-menu-item">
                                 <connections>
-                                    <action selector="openDiscussions:" target="-2"/>
+                                    <action selector="openDiscussions:" target="-2" id="discussions-menu-item-action"/>
                                 </connections>
                             </menuItem>
                         </items>

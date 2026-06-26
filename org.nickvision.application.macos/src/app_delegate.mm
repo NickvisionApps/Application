@@ -55,6 +55,47 @@ static void appendPeople(NSMutableAttributedString* credits, NSDictionary* boldA
 
 - (void)applicationDidFinishLaunching:(NSNotification*)notification
 {
+	NSMenu* mainMenu{ [[NSApplication sharedApplication] mainMenu] };
+	mainMenu.itemArray[1].title = @(m_translation_service->_("File"));
+	mainMenu.itemArray[2].title = @(m_translation_service->_("Edit"));
+	mainMenu.itemArray[3].title = @(m_translation_service->_("View"));
+	mainMenu.itemArray[4].title = @(m_translation_service->_("Window"));
+	mainMenu.itemArray[5].title = @(m_translation_service->_("Help"));
+	NSMenu* appMenu{ mainMenu.itemArray[0].submenu };
+	appMenu.itemArray[0].title = @(m_translation_service->_("About {}", m_app_info->get_short_name()).c_str());
+	appMenu.itemArray[1].title = @(m_translation_service->_("Check for Updates\u2026"));
+	appMenu.itemArray[3].title = @(m_translation_service->_("Settings\u2026"));
+	appMenu.itemArray[5].title = @(m_translation_service->_("Services"));
+	appMenu.itemArray[7].title = @(m_translation_service->_("Hide {}", m_app_info->get_short_name()).c_str());
+	appMenu.itemArray[8].title = @(m_translation_service->_("Hide Others"));
+	appMenu.itemArray[9].title = @(m_translation_service->_("Show All"));
+	appMenu.itemArray[11].title = @(m_translation_service->_("Quit {}", m_app_info->get_short_name()).c_str());
+	NSMenu* fileMenu{ mainMenu.itemArray[1].submenu };
+	fileMenu.title = @(m_translation_service->_("File"));
+	fileMenu.itemArray[0].title = @(m_translation_service->_("Open Folder\u2026"));
+	fileMenu.itemArray[1].title = @(m_translation_service->_("Close Folder"));
+	fileMenu.itemArray[3].title = @(m_translation_service->_("Close Window"));
+	NSMenu* editMenu{ mainMenu.itemArray[2].submenu };
+	editMenu.title = @(m_translation_service->_("Edit"));
+	editMenu.itemArray[0].title = @(m_translation_service->_("Undo"));
+	editMenu.itemArray[1].title = @(m_translation_service->_("Redo"));
+	editMenu.itemArray[3].title = @(m_translation_service->_("Cut"));
+	editMenu.itemArray[4].title = @(m_translation_service->_("Copy"));
+	editMenu.itemArray[5].title = @(m_translation_service->_("Paste"));
+	editMenu.itemArray[6].title = @(m_translation_service->_("Select All"));
+	NSMenu* viewMenu{ mainMenu.itemArray[3].submenu };
+	viewMenu.title = @(m_translation_service->_("View"));
+	viewMenu.itemArray[0].title = @(m_translation_service->_("Enter Full Screen"));
+	NSMenu* windowMenu{ mainMenu.itemArray[4].submenu };
+	windowMenu.title = @(m_translation_service->_("Window"));
+	windowMenu.itemArray[0].title = @(m_translation_service->_("Minimize"));
+	windowMenu.itemArray[1].title = @(m_translation_service->_("Zoom"));
+	windowMenu.itemArray[3].title = @(m_translation_service->_("Bring All to Front"));
+	NSMenu* helpMenu{ mainMenu.itemArray[5].submenu };
+	helpMenu.title = @(m_translation_service->_("Help"));
+	helpMenu.itemArray[0].title = @(m_translation_service->_("GitHub Repo"));
+	helpMenu.itemArray[1].title = @(m_translation_service->_("Report a Bug"));
+	helpMenu.itemArray[2].title = @(m_translation_service->_("Discussions"));
 	m_main_window = [[MainWindow alloc] initWithServiceProvider:m_service_provider];
 	[m_main_window showWindow:nil];
 	[[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
