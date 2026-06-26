@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24765" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24765"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="MainWindow">
+            <connections>
+                <outlet property="window" destination="window" id="window-outlet"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSApplication"/>
+        <window allowsToolTipsWhenApplicationIsInactive="NO" animationBehavior="default" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" titlebarAppearsTransparent="YES" titlebarSeparatorStyle="none" toolbarStyle="unified" id="window">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" fullSizeContentView="YES"/>
+            <windowCollectionBehavior key="collectionBehavior" managed="YES" fullScreenNone="YES"/>
+            <rect key="contentRect" x="0.0" y="0.0" width="800" height="600"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1410"/>
+            <toolbar key="toolbar" implicitIdentifier="MainToolbar" displayMode="iconOnly" sizeMode="regular" id="main-toolbar">
+                <allowedToolbarItems/>
+                <defaultToolbarItems/>
+            </toolbar>
+            <view key="contentView" id="contentView">
+                <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
+                <autoresizingMask key="autoresizingMask"/>
+            </view>
+        </window>
+    </objects>
+</document>

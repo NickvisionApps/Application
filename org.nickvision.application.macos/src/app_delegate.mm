@@ -1,6 +1,5 @@
 #import "app_delegate.h"
 #import "views/main_window.h"
-#import "views/settings_dialog.h"
 
 using namespace desktop::app;
 using namespace desktop::hosting;
@@ -39,7 +38,6 @@ static void appendPeople(NSMutableAttributedString* credits, NSDictionary* boldA
 	std::shared_ptr<lifetime_service> m_lifetime_service;
 	std::shared_ptr<translation_service> m_translation_service;
 	MainWindow* m_main_window;
-	SettingsDialog* m_settings_dialog;
 }
 
 - (instancetype)initWithServiceProvider:(std::shared_ptr<service_provider>)serviceProvider
@@ -56,53 +54,64 @@ static void appendPeople(NSMutableAttributedString* credits, NSDictionary* boldA
 
 - (void)applicationDidFinishLaunching:(NSNotification*)notification
 {
-	NSMenu* menuBar{ [[NSMenu alloc] init] };
-	[[NSApplication sharedApplication] setMainMenu:menuBar];
-	NSMenuItem* appMenuItem{ [[NSMenuItem alloc] init] };
-	[menuBar addItem:appMenuItem];
 	NSMenu* appMenu{ [[NSMenu alloc] init] };
-	[appMenuItem setSubmenu:appMenu];
-	[appMenu addItemWithTitle:@(m_translation_service->_("About {}", m_app_info->get_short_name()).c_str())
-	                   action:@selector(showAboutPanel:)
-	            keyEquivalent:@""];
+	[appMenu addItemWithTitle:@(m_translation_service->_("About {}", m_app_info->get_short_name()).c_str()) action:@selector(about:) keyEquivalent:@""];
 	[appMenu addItemWithTitle:@(m_translation_service->_("Check for Updates\u2026")) action:@selector(checkForUpdates:) keyEquivalent:@""];
 	[appMenu addItem:[NSMenuItem separatorItem]];
-	[appMenu addItemWithTitle:@(m_translation_service->_("Settings\u2026")) action:@selector(showSettingsDialog:) keyEquivalent:@","];
+	[appMenu addItemWithTitle:@(m_translation_service->_("Settings\u2026")) action:@selector(settings:) keyEquivalent:@","];
+	[appMenu addItem:[NSMenuItem separatorItem]];
+	NSMenuItem* servicesItem{ [[NSMenuItem alloc] initWithTitle:@"Services" action:nil keyEquivalent:@""] };
+	NSMenu* servicesMenu{ [[NSMenu alloc] initWithTitle:@"Services"] };
+	[servicesItem setSubmenu:servicesMenu];
+	[appMenu addItem:servicesItem];
+	[appMenu addItem:[NSMenuItem separatorItem]];
+	[appMenu addItemWithTitle:@(m_translation_service->_("Hide {}", m_app_info->get_short_name()).c_str()) action:@selector(hide:) keyEquivalent:@"h"];
+	NSMenuItem* hideOthersItem
+	{
+		[[NSMenuItem alloc] initWithTitle:@(m_translation_service->_("Hide Others")) action:@selector(hideOtherApplications:) keyEquivalent:@"h"]
+	};
+	hideOthersItem.keyEquivalentModifierMask = NSEventModifierFlagOption | NSEventModifierFlagCommand;
+	[appMenu addItem:hideOthersItem];
+	[appMenu addItemWithTitle:@(m_translation_service->_("Show All")) action:@selector(unhideAllApplications:) keyEquivalent:@""];
 	[appMenu addItem:[NSMenuItem separatorItem]];
 	[appMenu addItemWithTitle:@(m_translation_service->_("Quit {}", m_app_info->get_short_name()).c_str()) action:@selector(quit:) keyEquivalent:@"q"];
-	NSMenuItem* fileMenuItem{ [[NSMenuItem alloc] init] };
-	[menuBar addItem:fileMenuItem];
 	NSMenu* fileMenu
 	{
 		[[NSMenu alloc] initWithTitle:@(m_translation_service->_("File"))]
 	};
-	[fileMenuItem setSubmenu:fileMenu];
 	[fileMenu addItemWithTitle:@(m_translation_service->_("Open Folder\u2026")) action:@selector(openFolder:) keyEquivalent:@"o"];
-	[fileMenu addItemWithTitle:@(m_translation_service->_("Close Folder")) action:@selector(closeFolder:) keyEquivalent:@"w"];
+	[fileMenu addItemWithTitle:@(m_translation_service->_("Close Folder")) action:@selector(closeFolder:) keyEquivalent:@"W"];
 	[fileMenu addItem:[NSMenuItem separatorItem]];
-	[fileMenu addItemWithTitle:@(m_translation_service->_("Close")) action:@selector(performClose:) keyEquivalent:@"w"];
-	NSMenuItem* windowMenuItem{ [[NSMenuItem alloc] init] };
-	[menuBar addItem:windowMenuItem];
+	[fileMenu addItemWithTitle:@(m_translation_service->_("Close Window")) action:@selector(performClose:) keyEquivalent:@"w"];
 	NSMenu* windowMenu
 	{
 		[[NSMenu alloc] initWithTitle:@(m_translation_service->_("Window"))]
 	};
-	[windowMenuItem setSubmenu:windowMenu];
 	[windowMenu addItemWithTitle:@(m_translation_service->_("Minimize")) action:@selector(performMiniaturize:) keyEquivalent:@"m"];
 	[windowMenu addItemWithTitle:@(m_translation_service->_("Zoom")) action:@selector(performZoom:) keyEquivalent:@""];
-	[[NSApplication sharedApplication] setWindowsMenu:windowMenu];
-	NSMenuItem* helpMenuItem{ [[NSMenuItem alloc] init] };
-	[menuBar addItem:helpMenuItem];
+	[windowMenu addItem:[NSMenuItem separatorItem]];
+	[windowMenu addItemWithTitle:@(m_translation_service->_("Bring All to Front")) action:@selector(arrangeInFront:) keyEquivalent:@""];
 	NSMenu* helpMenu
 	{
 		[[NSMenu alloc] initWithTitle:@(m_translation_service->_("Help"))]
 	};
-	[helpMenuItem setSubmenu:helpMenu];
 	[helpMenu addItemWithTitle:@(m_translation_service->_("GitHub Repo")) action:@selector(openGitHubRepository:) keyEquivalent:@""];
 	[helpMenu addItemWithTitle:@(m_translation_service->_("Report a Bug")) action:@selector(openBugReport:) keyEquivalent:@""];
 	[helpMenu addItemWithTitle:@(m_translation_service->_("Discussions")) action:@selector(openDiscussions:) keyEquivalent:@""];
+	NSMenu* menuBar{ [[NSMenu alloc] init] };
+	[menuBar addItem:[[NSMenuItem alloc] init]];
+	[menuBar.itemArray.lastObject setSubmenu:appMenu];
+	[menuBar addItem:[[NSMenuItem alloc] init]];
+	[menuBar.itemArray.lastObject setSubmenu:fileMenu];
+	[menuBar addItem:[[NSMenuItem alloc] init]];
+	[menuBar.itemArray.lastObject setSubmenu:windowMenu];
+	[menuBar addItem:[[NSMenuItem alloc] init]];
+	[menuBar.itemArray.lastObject setSubmenu:helpMenu];
+	[[NSApplication sharedApplication] setMainMenu:menuBar];
+	[[NSApplication sharedApplication] setServicesMenu:servicesMenu];
+	[[NSApplication sharedApplication] setWindowsMenu:windowMenu];
 	m_main_window = [[MainWindow alloc] initWithServiceProvider:m_service_provider];
-	[m_main_window makeKeyAndOrderFront:nil];
+	[m_main_window showWindow:nil];
 	[[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
 }
 
@@ -121,13 +130,13 @@ static void appendPeople(NSMutableAttributedString* credits, NSDictionary* boldA
 {
 	if (!flag)
 	{
-		[m_main_window makeKeyAndOrderFront:nil];
+		[m_main_window showWindow:nil];
 		[[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
 	}
 	return YES;
 }
 
-- (void)showAboutPanel:(id)sender
+- (IBAction)about:(id)sender
 {
 	NSMutableAttributedString* credits{ [[NSMutableAttributedString alloc] init] };
 	NSDictionary* boldAttrs
@@ -162,63 +171,58 @@ static void appendPeople(NSMutableAttributedString* credits, NSDictionary* boldA
 	}];
 }
 
-- (void)checkForUpdates:(id)sender
+- (IBAction)checkForUpdates:(id)sender
 {
 	if (!m_main_window)
 	{
 		return;
 	}
-	[m_main_window makeKeyAndOrderFront:nil];
+	[m_main_window showWindow:nil];
 	[m_main_window closeFolder];
 }
 
-- (void)showSettingsDialog:(id)sender
-{
-	if (!m_settings_dialog)
-	{
-		m_settings_dialog = [[SettingsDialog alloc] initWithServiceProvider:m_service_provider];
-	}
-	[m_settings_dialog show];
-}
-
-- (void)quit:(id)sender
-{
-	m_lifetime_service->request_stop();
-}
-
-- (void)openFolder:(id)sender
+- (IBAction)closeFolder:(id)sender
 {
 	if (!m_main_window)
 	{
 		return;
 	}
-	[m_main_window makeKeyAndOrderFront:nil];
-	[m_main_window openFolder];
-}
-
-- (void)closeFolder:(id)sender
-{
-	if (!m_main_window)
-	{
-		return;
-	}
-	[m_main_window makeKeyAndOrderFront:nil];
+	[m_main_window showWindow:nil];
 	[m_main_window closeFolder];
 }
 
-- (void)openGitHubRepository:(id)sender
-{
-	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@(m_app_info->get_source_url().c_str())]];
-}
-
-- (void)openBugReport:(id)sender
+- (IBAction)openBugReport:(id)sender
 {
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@(m_app_info->get_issues_url().c_str())]];
 }
 
-- (void)openDiscussions:(id)sender
+- (IBAction)openDiscussions:(id)sender
 {
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@(m_app_info->get_discussions_url().c_str())]];
+}
+
+- (IBAction)openFolder:(id)sender
+{
+	if (!m_main_window)
+	{
+		return;
+	}
+	[m_main_window showWindow:nil];
+	[m_main_window openFolder];
+}
+
+- (IBAction)openGitHubRepository:(id)sender
+{
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@(m_app_info->get_source_url().c_str())]];
+}
+
+- (IBAction)quit:(id)sender
+{
+	m_lifetime_service->request_stop();
+}
+
+- (IBAction)settings:(id)sender
+{
 }
 
 @end

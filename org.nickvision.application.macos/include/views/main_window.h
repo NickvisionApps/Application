@@ -5,7 +5,7 @@
 #include <libdesktop.h>
 #include <memory>
 
-@interface MainWindow : NSWindow
+@interface MainWindow : NSWindowController
 - (instancetype)initWithServiceProvider:(std::shared_ptr<desktop::services::service_provider>)serviceProvider;
 - (void)checkForUpdates;
 - (void)openFolder;

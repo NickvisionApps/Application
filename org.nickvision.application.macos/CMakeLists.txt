@@ -4,6 +4,9 @@ if(APPLE)
     set(ICON_PNG "${CMAKE_SOURCE_DIR}/resources/${PROJECT_NAME}.macos.png")
     set(ICONSET_DIR "${CMAKE_CURRENT_BINARY_DIR}/AppIcon.iconset")
     set(ICNS_FILE "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.icns")
+    set(CMAKE_XCODE_ATTRIBUTE_ENABLE_HARDENED_RUNTIME YES)
+    file(GLOB XIB_FILES CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/resources/*.xib")
+    find_program(IBTOOL ibtool REQUIRED)
 
     add_custom_command(
         OUTPUT "${ICNS_FILE}"
@@ -23,26 +26,35 @@ if(APPLE)
         COMMENT "Generating ${PROJECT_NAME}.icns"
         VERBATIM)
 
-    set_source_files_properties("${ICNS_FILE}" PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
+    set(NIB_FILES)
+    foreach(XIB ${XIB_FILES})
+        get_filename_component(XIB_NAME "${XIB}" NAME_WE)
+        set(NIB_OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/${XIB_NAME}.nib")
+        add_custom_command(
+            OUTPUT "${NIB_OUTPUT}"
+            COMMAND ${IBTOOL} --compile "${NIB_OUTPUT}" "${XIB}"
+            DEPENDS "${XIB}"
+            COMMENT "Compiling ${XIB_NAME}.xib"
+            VERBATIM)
+        list(APPEND NIB_FILES "${NIB_OUTPUT}")
+    endforeach()
+
+    set_source_files_properties(${ICNS_FILE} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
+    set_source_files_properties(${NIB_FILES} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
 
     add_executable(${PLATFORM_PROJECT_NAME} MACOSX_BUNDLE
         "${ICNS_FILE}"
-        "include/controls/settings_sidebar_cell_view.h"
-        "include/controls/settings_sidebar_item.h"
+        "${NIB_FILES}"
         "include/views/main_window.h"
-        "include/views/settings_dialog.h"
         "include/app_delegate.h"
         "include/cocoa_lifetime_service.h"
-        "src/controls/settings_sidebar_cell_view.mm"
-        "src/controls/settings_sidebar_item.mm"
         "src/views/main_window.mm"
-        "src/views/settings_dialog.mm"
         "src/app_delegate.mm"
         "src/cocoa_lifetime_service.mm"
         "src/main.mm")
 
     if(ENABLE_CLANG_TIDY AND CLANG_TIDY)
-        set_target_properties(${PLATFORM_PROJECT_NAME} PROPERTIES CXX_CLANG_TIDY "${CLANG_TIDY};--extra-arg=-fexceptions")
+        set_target_properties(${PLATFORM_PROJECT_NAME} PROPERTIES CXX_CLANG_TIDY "${CLANG_TIDY};--extra-arg=-fexceptions;--extra-arg=-Wno-elaborated-enum-base")
     endif()
 
     if(ENABLE_CLANG_FORMAT AND CLANG_FORMAT)
@@ -70,7 +82,7 @@ if(APPLE)
         MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_BINARY_DIR}/Info.plist")
     set_property(TARGET ${PLATFORM_PROJECT_NAME} APPEND PROPERTY COMPATIBLE_INTERFACE_STRING "${PROJECT_VERSION}")
 
-    target_compile_options(${PLATFORM_PROJECT_NAME} PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(${PLATFORM_PROJECT_NAME} PRIVATE -Wall -Wextra -Wpedantic -Wno-deprecated-declarations)
 
     find_package(libdesktop CONFIG REQUIRED)
     target_link_libraries(${PLATFORM_PROJECT_NAME} PRIVATE ${LIBRARY_PROJECT_NAME} libdesktop::libdesktop "-framework AppKit" "-framework Foundation")
