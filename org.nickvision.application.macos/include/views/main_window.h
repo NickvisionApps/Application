@@ -6,10 +6,12 @@
 #include <memory>
 
 @interface MainWindow : NSWindowController
+@property(strong) IBOutlet NSToolbarItem* openFolderToolbarItem;
+@property(strong) IBOutlet NSToolbarItem* closeFolderToolbarItem;
 - (instancetype)initWithServiceProvider:(std::shared_ptr<desktop::services::service_provider>)serviceProvider;
-- (void)checkForUpdates;
-- (void)openFolder;
-- (void)closeFolder;
+- (IBAction)checkForUpdates:(id)sender;
+- (IBAction)openFolder:(id)sender;
+- (IBAction)closeFolder:(id)sender;
 @end
 
 #endif

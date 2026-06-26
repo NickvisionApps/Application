@@ -7,6 +7,8 @@
         <customObject id="-2" userLabel="File's Owner" customClass="MainWindow">
             <connections>
                 <outlet property="window" destination="window" id="window-outlet"/>
+                <outlet property="openFolderToolbarItem" destination="open-folder-toolbar-item" id="open-folder-outlet"/>
+                <outlet property="closeFolderToolbarItem" destination="close-folder-toolbar-item" id="close-folder-outlet"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
@@ -17,8 +19,24 @@
             <rect key="contentRect" x="0.0" y="0.0" width="800" height="600"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1410"/>
             <toolbar key="toolbar" implicitIdentifier="MainToolbar" displayMode="iconOnly" sizeMode="regular" id="main-toolbar">
-                <allowedToolbarItems/>
-                <defaultToolbarItems/>
+                <allowedToolbarItems>
+                    <toolbarItem tag="-1" bordered="YES" id="open-folder-toolbar-item">
+                        <imageReference key="image" image="folder.badge.plus" catalog="system" symbolScale="regular"/>
+                        <connections>
+                            <action selector="openFolder:" target="-2" id="open-folder-action"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem tag="-1" bordered="YES" id="close-folder-toolbar-item">
+                        <imageReference key="image" image="folder.badge.minus" catalog="system" symbolScale="regular"/>
+                        <connections>
+                            <action selector="closeFolder:" target="-2" id="close-folder-action"/>
+                        </connections>
+                    </toolbarItem>
+                </allowedToolbarItems>
+                <defaultToolbarItems>
+                    <toolbarItem reference="open-folder-toolbar-item"/>
+                    <toolbarItem reference="close-folder-toolbar-item"/>
+                </defaultToolbarItems>
             </toolbar>
             <view key="contentView" id="content-view">
                 <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>

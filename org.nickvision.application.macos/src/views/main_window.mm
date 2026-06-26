@@ -28,18 +28,26 @@ using namespace desktop::services;
 {
 	[super windowDidLoad];
 	self.window.title = [NSString stringWithUTF8String:m_app_info->get_short_name().c_str()];
+	if (m_app_info->get_version().is_preview())
+	{
+		self.window.subtitle = @(m_translation_service->_("Preview"));
+	}
+	self.openFolderToolbarItem.label = @(m_translation_service->_("Open"));
+	self.openFolderToolbarItem.toolTip = @(m_translation_service->_("Open Folder"));
+	self.closeFolderToolbarItem.label = @(m_translation_service->_("Close"));
+	self.closeFolderToolbarItem.toolTip = @(m_translation_service->_("Close Folder"));
 	[self.window center];
 }
 
-- (void)checkForUpdates
+- (IBAction)checkForUpdates:(id)sender
 {
 }
 
-- (void)openFolder
+- (IBAction)openFolder:(id)sender
 {
 }
 
-- (void)closeFolder
+- (IBAction)closeFolder:(id)sender
 {
 }
 

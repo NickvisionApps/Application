@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-25 21:14-0400\n"
+"POT-Creation-Date: 2026-06-25 21:55-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -136,6 +136,7 @@ msgstr ""
 
 #: org.nickvision.application.linux/resources/main_window.blp:27
 #: org.nickvision.application.linux/resources/main_window.blp:62
+#: org.nickvision.application.macos/src/views/main_window.mm:35
 msgid "Open"
 msgstr ""
 
@@ -182,11 +183,13 @@ msgstr ""
 
 #: org.nickvision.application.linux/resources/shortcuts_dialog.blp:33
 #: org.nickvision.application.linux/src/views/main_window.cpp:210
+#: org.nickvision.application.macos/src/views/main_window.mm:36
 msgid "Open Folder"
 msgstr ""
 
 #: org.nickvision.application.linux/resources/shortcuts_dialog.blp:38
 #: org.nickvision.application.macos/src/app_delegate.mm:76
+#: org.nickvision.application.macos/src/views/main_window.mm:38
 msgid "Close Folder"
 msgstr ""
 
@@ -196,6 +199,7 @@ msgid "GitHub Repo"
 msgstr ""
 
 #: org.nickvision.application.linux/src/views/main_window.cpp:173
+#: org.nickvision.application.macos/src/views/main_window.mm:37
 msgid "Close"
 msgstr ""
 
@@ -320,4 +324,8 @@ msgstr ""
 
 #: org.nickvision.application.macos/src/app_delegate.mm:98
 msgid "Discussions"
+msgstr ""
+
+#: org.nickvision.application.macos/src/views/main_window.mm:33
+msgid "Preview"
 msgstr ""

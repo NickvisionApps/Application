@@ -164,7 +164,7 @@ static void appendPeople(NSMutableAttributedString* credits, NSDictionary* boldA
 		return;
 	}
 	[m_main_window showWindow:nil];
-	[m_main_window closeFolder];
+	[m_main_window checkForUpdates:nil];
 }
 
 - (IBAction)closeFolder:(id)sender
@@ -174,7 +174,7 @@ static void appendPeople(NSMutableAttributedString* credits, NSDictionary* boldA
 		return;
 	}
 	[m_main_window showWindow:nil];
-	[m_main_window closeFolder];
+	[m_main_window closeFolder:nil];
 }
 
 - (IBAction)openBugReport:(id)sender
@@ -194,7 +194,7 @@ static void appendPeople(NSMutableAttributedString* credits, NSDictionary* boldA
 		return;
 	}
 	[m_main_window showWindow:nil];
-	[m_main_window openFolder];
+	[m_main_window openFolder:nil];
 }
 
 - (IBAction)openGitHubRepository:(id)sender
