@@ -48,68 +48,13 @@ static void appendPeople(NSMutableAttributedString* credits, NSDictionary* boldA
 		m_app_info = m_service_provider->get_required<app_info>();
 		m_lifetime_service = m_service_provider->get_required<lifetime_service>();
 		m_translation_service = m_service_provider->get_required<translation_service>();
+		[[NSBundle mainBundle] loadNibNamed:@"main_menu" owner:self topLevelObjects:nil];
 	}
 	return self;
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification*)notification
 {
-	NSMenu* appMenu{ [[NSMenu alloc] init] };
-	[appMenu addItemWithTitle:@(m_translation_service->_("About {}", m_app_info->get_short_name()).c_str()) action:@selector(about:) keyEquivalent:@""];
-	[appMenu addItemWithTitle:@(m_translation_service->_("Check for Updates\u2026")) action:@selector(checkForUpdates:) keyEquivalent:@""];
-	[appMenu addItem:[NSMenuItem separatorItem]];
-	[appMenu addItemWithTitle:@(m_translation_service->_("Settings\u2026")) action:@selector(settings:) keyEquivalent:@","];
-	[appMenu addItem:[NSMenuItem separatorItem]];
-	NSMenuItem* servicesItem{ [[NSMenuItem alloc] initWithTitle:@"Services" action:nil keyEquivalent:@""] };
-	NSMenu* servicesMenu{ [[NSMenu alloc] initWithTitle:@"Services"] };
-	[servicesItem setSubmenu:servicesMenu];
-	[appMenu addItem:servicesItem];
-	[appMenu addItem:[NSMenuItem separatorItem]];
-	[appMenu addItemWithTitle:@(m_translation_service->_("Hide {}", m_app_info->get_short_name()).c_str()) action:@selector(hide:) keyEquivalent:@"h"];
-	NSMenuItem* hideOthersItem
-	{
-		[[NSMenuItem alloc] initWithTitle:@(m_translation_service->_("Hide Others")) action:@selector(hideOtherApplications:) keyEquivalent:@"h"]
-	};
-	hideOthersItem.keyEquivalentModifierMask = NSEventModifierFlagOption | NSEventModifierFlagCommand;
-	[appMenu addItem:hideOthersItem];
-	[appMenu addItemWithTitle:@(m_translation_service->_("Show All")) action:@selector(unhideAllApplications:) keyEquivalent:@""];
-	[appMenu addItem:[NSMenuItem separatorItem]];
-	[appMenu addItemWithTitle:@(m_translation_service->_("Quit {}", m_app_info->get_short_name()).c_str()) action:@selector(quit:) keyEquivalent:@"q"];
-	NSMenu* fileMenu
-	{
-		[[NSMenu alloc] initWithTitle:@(m_translation_service->_("File"))]
-	};
-	[fileMenu addItemWithTitle:@(m_translation_service->_("Open Folder\u2026")) action:@selector(openFolder:) keyEquivalent:@"o"];
-	[fileMenu addItemWithTitle:@(m_translation_service->_("Close Folder")) action:@selector(closeFolder:) keyEquivalent:@"W"];
-	[fileMenu addItem:[NSMenuItem separatorItem]];
-	[fileMenu addItemWithTitle:@(m_translation_service->_("Close Window")) action:@selector(performClose:) keyEquivalent:@"w"];
-	NSMenu* windowMenu
-	{
-		[[NSMenu alloc] initWithTitle:@(m_translation_service->_("Window"))]
-	};
-	[windowMenu addItemWithTitle:@(m_translation_service->_("Minimize")) action:@selector(performMiniaturize:) keyEquivalent:@"m"];
-	[windowMenu addItemWithTitle:@(m_translation_service->_("Zoom")) action:@selector(performZoom:) keyEquivalent:@""];
-	[windowMenu addItem:[NSMenuItem separatorItem]];
-	[windowMenu addItemWithTitle:@(m_translation_service->_("Bring All to Front")) action:@selector(arrangeInFront:) keyEquivalent:@""];
-	NSMenu* helpMenu
-	{
-		[[NSMenu alloc] initWithTitle:@(m_translation_service->_("Help"))]
-	};
-	[helpMenu addItemWithTitle:@(m_translation_service->_("GitHub Repo")) action:@selector(openGitHubRepository:) keyEquivalent:@""];
-	[helpMenu addItemWithTitle:@(m_translation_service->_("Report a Bug")) action:@selector(openBugReport:) keyEquivalent:@""];
-	[helpMenu addItemWithTitle:@(m_translation_service->_("Discussions")) action:@selector(openDiscussions:) keyEquivalent:@""];
-	NSMenu* menuBar{ [[NSMenu alloc] init] };
-	[menuBar addItem:[[NSMenuItem alloc] init]];
-	[menuBar.itemArray.lastObject setSubmenu:appMenu];
-	[menuBar addItem:[[NSMenuItem alloc] init]];
-	[menuBar.itemArray.lastObject setSubmenu:fileMenu];
-	[menuBar addItem:[[NSMenuItem alloc] init]];
-	[menuBar.itemArray.lastObject setSubmenu:windowMenu];
-	[menuBar addItem:[[NSMenuItem alloc] init]];
-	[menuBar.itemArray.lastObject setSubmenu:helpMenu];
-	[[NSApplication sharedApplication] setMainMenu:menuBar];
-	[[NSApplication sharedApplication] setServicesMenu:servicesMenu];
-	[[NSApplication sharedApplication] setWindowsMenu:windowMenu];
 	m_main_window = [[MainWindow alloc] initWithServiceProvider:m_service_provider];
 	[m_main_window showWindow:nil];
 	[[NSApplication sharedApplication] activateIgnoringOtherApps:YES];

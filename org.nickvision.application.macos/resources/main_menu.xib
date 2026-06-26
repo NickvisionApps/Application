@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24765" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24765"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="AppDelegate">
+            <connections>
+                <action selector="about:" destination="-2" id="about-action"/>
+                <action selector="checkForUpdates:" destination="-2" id="check-for-updates-action"/>
+                <action selector="closeFolder:" destination="-2" id="close-folder-action"/>
+                <action selector="openBugReport:" destination="-2" id="open-bug-report-action"/>
+                <action selector="openDiscussions:" destination="-2" id="open-discussions-action"/>
+                <action selector="openFolder:" destination="-2" id="open-folder-action"/>
+                <action selector="openGitHubRepository:" destination="-2" id="open-github-repository-action"/>
+                <action selector="quit:" destination="-2" id="quit-action"/>
+                <action selector="settings:" destination="-2" id="settings-action"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSApplication">
+            <connections>
+                <outlet property="mainMenu" destination="main-menu" id="main-menu-outlet"/>
+                <outlet property="servicesMenu" destination="services-menu" id="services-menu-outlet"/>
+                <outlet property="windowsMenu" destination="windows-menu" id="windows-menu-outlet"/>
+            </connections>
+        </customObject>
+        <menu id="main-menu" systemMenu="main">
+            <items>
+                <menuItem>
+                    <menu systemMenu="apple">
+                        <items>
+                            <menuItem id="about-menu-item">
+                                <connections>
+                                    <action selector="about:" target="-2"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem id="check-for-updates-menu-item">
+                                <connections>
+                                    <action selector="checkForUpdates:" target="-2"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES"/>
+                            <menuItem id="settings-menu-item" keyEquivalent=",">
+                                <connections>
+                                    <action selector="settings:" target="-2"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES"/>
+                            <menuItem id="services-menu-item">
+                                <menu id="services-menu" systemMenu="services"/>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES"/>
+                            <menuItem id="hide-menu-item" keyEquivalent="h">
+                                <connections>
+                                    <action selector="hide:" target="-1"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem id="hide-others-menu-item" keyEquivalent="h">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="hideOtherApplications:" target="-1"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem id="show-all-menu-item" title="Show All">
+                                <connections>
+                                    <action selector="unhideAllApplications:" target="-1"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES"/>
+                            <menuItem id="quit-menu-item" keyEquivalent="q">
+                                <connections>
+                                    <action selector="terminate:" target="-1"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem>
+                    <menu id="file-menu">
+                        <items>
+                            <menuItem id="open-folder-menu-item" keyEquivalent="o">
+                                <connections>
+                                    <action selector="openFolder:" target="-2"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem id="close-folder-menu-item">
+                                <connections>
+                                    <action selector="closeFolder:" target="-2"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES"/>
+                            <menuItem id="close-window-menu-item" keyEquivalent="w">
+                                <connections>
+                                    <action selector="performClose:" target="-1"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                 <menuItem>
+                    <menu id="edit-menu">
+                        <items>
+                            <menuItem id="undo-menu-item" keyEquivalent="z">
+                                <connections>
+                                    <action selector="undo:" target="-1"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem id="redo-menu-item" keyEquivalent="Z">
+                                <connections>
+                                    <action selector="redo:" target="-1"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES"/>
+                            <menuItem id="cut-menu-item" keyEquivalent="x">
+                                <connections>
+                                    <action selector="cut:" target="-1"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem id="copy-menu-item" keyEquivalent="c">
+                                <connections>
+                                    <action selector="copy:" target="-1"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem id="paste-menu-item" keyEquivalent="v">
+                                <connections>
+                                    <action selector="paste:" target="-1"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem id="select-all-menu-item" keyEquivalent="a">
+                                <connections>
+                                    <action selector="selectAll:" target="-1"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem>
+                    <menu id="view-menu">
+                        <items>
+                            <menuItem id="enter-full-screen-menu-item" keyEquivalent="f">
+                                <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                                <connections>
+                                    <action selector="toggleFullScreen:" target="-1"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem>
+                    <menu id="windows-menu" systemMenu="window">
+                        <items>
+                            <menuItem id="minimize-menu-item" keyEquivalent="m">
+                                <connections>
+                                    <action selector="performMiniaturize:" target="-1"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem id="zoom-menu-item">
+                                <connections>
+                                    <action selector="performZoom:" target="-1"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES"/>
+                            <menuItem id="bring-all-to-front-menu-item">
+                                <connections>
+                                    <action selector="arrangeInFront:" target="-1"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem>
+                    <menu id="help-menu" systemMenu="help">
+                        <items>
+                            <menuItem id="github-repo-menu-item">
+                                <connections>
+                                    <action selector="openGitHubRepository:" target="-2"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem id="report-a-bug-menu-item">
+                                <connections>
+                                    <action selector="openBugReport:" target="-2"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem id="discussions-menu-item">
+                                <connections>
+                                    <action selector="openDiscussions:" target="-2"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+            </items>
+        </menu>
+    </objects>
+</document>

@@ -21,7 +21,7 @@
                 <allowedToolbarItems/>
                 <defaultToolbarItems/>
             </toolbar>
-            <view key="contentView" id="contentView">
+            <view key="contentView" id="content-view">
                 <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
                 <autoresizingMask key="autoresizingMask"/>
             </view>

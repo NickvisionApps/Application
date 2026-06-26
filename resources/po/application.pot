@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-25 20:12-0400\n"
+"POT-Creation-Date: 2026-06-25 20:32-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -186,12 +186,10 @@ msgid "Open Folder"
 msgstr ""
 
 #: org.nickvision.application.linux/resources/shortcuts_dialog.blp:38
-#: org.nickvision.application.macos/src/app_delegate.mm:83
 msgid "Close Folder"
 msgstr ""
 
 #: org.nickvision.application.linux/src/views/main_window.cpp:130
-#: org.nickvision.application.macos/src/app_delegate.mm:98
 msgid "GitHub Repo"
 msgstr ""
 
@@ -205,74 +203,3 @@ msgid "{} file"
 msgid_plural "{} files"
 msgstr[0] ""
 msgstr[1] ""
-
-#: org.nickvision.application.macos/src/app_delegate.mm:58
-#, c++-format
-msgid "About {}"
-msgstr ""
-
-#: org.nickvision.application.macos/src/app_delegate.mm:59
-msgid "Check for Updates…"
-msgstr ""
-
-#: org.nickvision.application.macos/src/app_delegate.mm:61
-msgid "Settings…"
-msgstr ""
-
-#: org.nickvision.application.macos/src/app_delegate.mm:68
-#, c++-format
-msgid "Hide {}"
-msgstr ""
-
-#: org.nickvision.application.macos/src/app_delegate.mm:71
-msgid "Hide Others"
-msgstr ""
-
-#: org.nickvision.application.macos/src/app_delegate.mm:75
-msgid "Show All"
-msgstr ""
-
-#: org.nickvision.application.macos/src/app_delegate.mm:77
-#, c++-format
-msgid "Quit {}"
-msgstr ""
-
-#: org.nickvision.application.macos/src/app_delegate.mm:80
-msgid "File"
-msgstr ""
-
-#: org.nickvision.application.macos/src/app_delegate.mm:82
-msgid "Open Folder…"
-msgstr ""
-
-#: org.nickvision.application.macos/src/app_delegate.mm:85
-msgid "Close Window"
-msgstr ""
-
-#: org.nickvision.application.macos/src/app_delegate.mm:88
-msgid "Window"
-msgstr ""
-
-#: org.nickvision.application.macos/src/app_delegate.mm:90
-msgid "Minimize"
-msgstr ""
-
-#: org.nickvision.application.macos/src/app_delegate.mm:91
-msgid "Zoom"
-msgstr ""
-
-#: org.nickvision.application.macos/src/app_delegate.mm:93
-msgid "Bring All to Front"
-msgstr ""
-
-#: org.nickvision.application.macos/src/app_delegate.mm:96
-msgid "Help"
-msgstr ""
-
-#: org.nickvision.application.macos/src/app_delegate.mm:99
-msgid "Report a Bug"
-msgstr ""
-
-#: org.nickvision.application.macos/src/app_delegate.mm:100
-msgid "Discussions"
-msgstr ""
