@@ -26,7 +26,22 @@ using namespace desktop::services;
 {
 	[super windowDidLoad];
 	self.window.title = @(m_translation_service->_("General"));
+	self.generalToolbarItem.label = @(m_translation_service->_("General"));
+	self.advancedToolbarItem.label = @(m_translation_service->_("Advanced"));
+	self.toolbar.selectedItemIdentifier = self.generalToolbarItem.itemIdentifier;
 	[self.window center];
+}
+
+- (IBAction)toolbarItemClicked:(id)sender
+{
+	if (sender == self.generalToolbarItem)
+	{
+		self.window.title = @(m_translation_service->_("General"));
+	}
+	else if (sender == self.advancedToolbarItem)
+	{
+		self.window.title = @(m_translation_service->_("Advanced"));
+	}
 }
 
 @end

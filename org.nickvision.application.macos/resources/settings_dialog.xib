@@ -1,30 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24765" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
-	<dependencies>
-		<plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24765"/>
-	</dependencies>
-	<objects>
-		<customObject id="-2" userLabel="File's Owner" customClass="SettingsDialog">
-			<connections>
-				<outlet property="window" destination="window" id="window-outlet"/>
-			</connections>
-		</customObject>
-		<customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-		<customObject id="-3" userLabel="Application" customClass="NSApplication"/>
-		<window allowsToolTipsWhenApplicationIsInactive="NO" animationBehavior="default" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" toolbarStyle="preference" id="window">
-			<windowStyleMask key="styleMask" titled="YES" closable="YES" resizable="NO" fullSizeContentView="YES"/>
-			<rect key="contentRect" x="0.0" y="0.0" width="560" height="340"/>
-			<rect key="screenRect" x="0.0" y="0.0" width="2560" height="1410"/>
-			<toolbar key="toolbar" displayMode="iconAndLabel" sizeMode="regular" id="settings-toolbar">
-				<allowedToolbarItems>
-				</allowedToolbarItems>
-				<defaultToolbarItems>
-				</defaultToolbarItems>
-			</toolbar>
-			<view key="contentView" id="content-view">
-				<rect key="frame" x="0.0" y="0.0" width="560" height="340"/>
-				<autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-			</view>
-		</window>
-	</objects>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24765"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="SettingsDialog">
+            <connections>
+                <outlet property="advancedToolbarItem" destination="advanced-toolbar-item" id="advanced-toolbar-outlet"/>
+                <outlet property="generalToolbarItem" destination="general-toolbar-item" id="general-toolbar-outlet"/>
+                <outlet property="toolbar" destination="toolbar" id="toolbar-outlet"/>
+                <outlet property="window" destination="window" id="window-outlet"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" toolbarStyle="preference" id="window">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" fullSizeContentView="YES"/>
+            <rect key="contentRect" x="0.0" y="0.0" width="651" height="451"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1050"/>
+            <view key="contentView" id="content-view">
+                <rect key="frame" x="0.0" y="0.0" width="651" height="451"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            </view>
+            <toolbar key="toolbar" implicitIdentifier="6F892BE8-ED87-48E5-A6DB-91E1D4CC1456" showsBaselineSeparator="NO" displayMode="iconAndLabel" sizeMode="regular" id="toolbar">
+                <allowedToolbarItems>
+                    <toolbarItem implicitItemIdentifier="639D1EBF-FAFE-4C72-A188-DEB04790CBF2" label="" paletteLabel="" tag="-1" image="gearshape" catalog="system" selectable="YES" id="general-toolbar-item">
+                        <size key="minSize" width="32" height="24"/>
+                        <size key="maxSize" width="32" height="24"/>
+                        <connections>
+                            <action selector="toolbarItemClicked:" target="-2" id="toolbar-item-clicked-action"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="4D1B2FD3-2536-4123-8A6E-CE62DD6D2982" label="" paletteLabel="" tag="-1" image="wrench" catalog="system" selectable="YES" id="advanced-toolbar-item">
+                        <size key="minSize" width="35" height="24"/>
+                        <size key="maxSize" width="35" height="24"/>
+                        <connections>
+                            <action selector="toolbarItemClicked:" target="-2" id="toolbar-item-clicked-action-2"/>
+                        </connections>
+                    </toolbarItem>
+                </allowedToolbarItems>
+                <defaultToolbarItems>
+                    <toolbarItem reference="general-toolbar-item"/>
+                    <toolbarItem reference="advanced-toolbar-item"/>
+                </defaultToolbarItems>
+            </toolbar>
+            <point key="canvasLocation" x="224.5" y="128.5"/>
+        </window>
+    </objects>
+    <resources>
+        <image name="gearshape" catalog="system" width="16" height="16"/>
+        <image name="wrench" catalog="system" width="18" height="18"/>
+    </resources>
 </document>

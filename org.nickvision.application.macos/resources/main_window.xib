@@ -2,32 +2,39 @@
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24765" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24765"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MainWindow">
             <connections>
-                <outlet property="window" destination="window" id="window-outlet"/>
-                <outlet property="openFolderToolbarItem" destination="open-folder-toolbar-item" id="open-folder-outlet"/>
                 <outlet property="closeFolderToolbarItem" destination="close-folder-toolbar-item" id="close-folder-outlet"/>
+                <outlet property="openFolderToolbarItem" destination="open-folder-toolbar-item" id="open-folder-outlet"/>
+                <outlet property="window" destination="window" id="window-outlet"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application" customClass="NSApplication"/>
-        <window allowsToolTipsWhenApplicationIsInactive="NO" animationBehavior="default" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" titlebarAppearsTransparent="YES" titlebarSeparatorStyle="none" toolbarStyle="unified" id="window">
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" titlebarAppearsTransparent="YES" toolbarStyle="unified" id="window">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" fullSizeContentView="YES"/>
             <windowCollectionBehavior key="collectionBehavior" managed="YES" fullScreenNone="YES"/>
             <rect key="contentRect" x="0.0" y="0.0" width="800" height="600"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1410"/>
-            <toolbar key="toolbar" implicitIdentifier="MainToolbar" displayMode="iconOnly" sizeMode="regular" id="main-toolbar">
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1050"/>
+            <view key="contentView" id="content-view">
+                <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            </view>
+            <toolbar key="toolbar" implicitIdentifier="MainToolbar" showsBaselineSeparator="NO" displayMode="iconOnly" sizeMode="regular" id="main-toolbar">
                 <allowedToolbarItems>
-                    <toolbarItem tag="-1" bordered="YES" id="open-folder-toolbar-item">
-                        <imageReference key="image" image="folder.badge.plus" catalog="system" symbolScale="regular"/>
+                    <toolbarItem implicitItemIdentifier="CE4D8B95-48F5-42E2-8955-6C8A05DB98E6" label="" paletteLabel="" tag="-1" image="folder.badge.plus" catalog="system" bordered="YES" id="open-folder-toolbar-item">
+                        <size key="minSize" width="36" height="24"/>
+                        <size key="maxSize" width="36" height="24"/>
                         <connections>
                             <action selector="openFolder:" target="-2" id="open-folder-action"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem tag="-1" bordered="YES" id="close-folder-toolbar-item">
-                        <imageReference key="image" image="folder.badge.minus" catalog="system" symbolScale="regular"/>
+                    <toolbarItem implicitItemIdentifier="96D07E3B-C70D-4B78-B2B3-DDF79C2CCF1D" label="" paletteLabel="" tag="-1" image="folder.badge.minus" catalog="system" bordered="YES" id="close-folder-toolbar-item">
+                        <size key="minSize" width="36" height="24"/>
+                        <size key="maxSize" width="36" height="24"/>
                         <connections>
                             <action selector="closeFolder:" target="-2" id="close-folder-action"/>
                         </connections>
@@ -38,10 +45,11 @@
                     <toolbarItem reference="close-folder-toolbar-item"/>
                 </defaultToolbarItems>
             </toolbar>
-            <view key="contentView" id="content-view">
-                <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
-                <autoresizingMask key="autoresizingMask"/>
-            </view>
+            <point key="canvasLocation" x="-211" y="121"/>
         </window>
     </objects>
+    <resources>
+        <image name="folder.badge.minus" catalog="system" width="20" height="15"/>
+        <image name="folder.badge.plus" catalog="system" width="20" height="15"/>
+    </resources>
 </document>
