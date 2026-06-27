@@ -26,7 +26,7 @@ namespace application::linux
 		void on_stop_requested() noexcept override;
 
 	private:
-        std::shared_ptr<desktop::app::logger> m_logger;
+		std::shared_ptr<desktop::app::logger> m_logger;
 		std::shared_ptr<desktop::services::service_provider> m_service_provider;
 		AdwApplication* m_application{ nullptr };
 	};
