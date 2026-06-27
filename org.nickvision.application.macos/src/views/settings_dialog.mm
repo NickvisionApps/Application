@@ -25,9 +25,7 @@ using namespace desktop::services;
 - (void)windowDidLoad
 {
 	[super windowDidLoad];
-	self.window.title = @(m_translation_service->_("Settings"));
-	self.themeLabel.stringValue = @(m_translation_service->_("Theme"));
-	self.translationLanguageLabel.stringValue = @(m_translation_service->_("Translation Language"));
+	self.window.title = @(m_translation_service->_("General"));
 	[self.window center];
 }
 
