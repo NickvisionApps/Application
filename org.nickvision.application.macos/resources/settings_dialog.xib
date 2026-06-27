@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24765" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+	<dependencies>
+		<plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24765"/>
+	</dependencies>
+	<objects>
+		<customObject id="-2" userLabel="File's Owner" customClass="SettingsDialog">
+			<connections>
+				<outlet property="window" destination="settings-window" id="settings-window-outlet"/>
+                <outlet property="themeLabel" destination="theme-label" id="theme-label-outlet"/>
+				<outlet property="themeComboBox" destination="theme-combo-box" id="theme-combo-box-outlet"/>
+				<outlet property="translationLanguageLabel" destination="translation-language-label" id="translation-language-label-outlet"/>
+				<outlet property="translationLanguageComboBox" destination="translation-language-combo-box" id="translation-language-combo-box-outlet"/>
+			</connections>
+		</customObject>
+		<customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+		<customObject id="-3" userLabel="Application" customClass="NSApplication"/>
+		<window allowsToolTipsWhenApplicationIsInactive="NO" animationBehavior="default" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" toolbarStyle="preference" id="settings-window">
+			<windowStyleMask key="styleMask" titled="YES" closable="YES" resizable="YES" fullSizeContentView="YES"/>
+			<rect key="contentRect" x="0.0" y="0.0" width="480" height="270"/>
+			<rect key="screenRect" x="0.0" y="0.0" width="2560" height="1410"/>
+			<toolbar key="toolbar" implicitIdentifier="settings-toolbar" displayMode="iconAndLabel" sizeMode="regular" id="settings-toolbar">
+				<allowedToolbarItems>
+					<toolbarItem tag="-1" label="" paletteLabel="" toolTip="" bordered="YES" id="general-toolbar-item">
+						<imageReference key="image" image="gearshape" catalog="system" symbolScale="large"/>
+						<connections>
+							<action selector="showGeneralTab:" target="-2" id="general-toolbar-action"/>
+						</connections>
+					</toolbarItem>
+				</allowedToolbarItems>
+				<defaultToolbarItems>
+					<toolbarItem reference="general-toolbar-item"/>
+				</defaultToolbarItems>
+			</toolbar>
+			<view key="contentView" id="settings-content-view">
+				<rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+				<autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+				<subviews>
+					<gridView id="general-grid-view">
+						<rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+						<autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+						<columns>
+							<gridColumn id="label-column">
+								<gridColumnSizingOptions xPriority="defaultLow" xPlacement="trailing"/>
+							</gridColumn>
+							<gridColumn id="control-column">
+								<gridColumnSizingOptions xPriority="defaultHigh" xPlacement="leading"/>
+							</gridColumn>
+						</columns>
+						<rows>
+							<gridRow id="theme-row">
+								<gridCell columnPlacement="trailing" rowPlacement="center" id="theme-label-cell-grid">
+									<textField translatesAutoresizingMaskIntoConstraints="NO" id="theme-label">
+										<textFieldCell key="cell" lineBreakMode="clipping" alignment="right" id="theme-label-cell">
+											<font key="font" metaFont="system"/>
+											<color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+											<color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+										</textFieldCell>
+									</textField>
+								</gridCell>
+								<gridCell columnPlacement="leading" rowPlacement="center" id="theme-combo-cell-grid">
+									<comboBox translatesAutoresizingMaskIntoConstraints="NO" id="theme-combo-box">
+										<rect key="frame" x="0.0" y="0.0" width="240" height="26"/>
+										<comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" id="theme-combo-box-cell">
+											<font key="font" metaFont="system"/>
+											<color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+											<color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+										</comboBoxCell>
+									</comboBox>
+								</gridCell>
+							</gridRow>
+							<gridRow id="translation-language-row">
+								<gridCell columnPlacement="trailing" rowPlacement="center" id="translation-language-label-cell-grid">
+									<textField translatesAutoresizingMaskIntoConstraints="NO" id="translation-language-label">
+										<textFieldCell key="cell" lineBreakMode="clipping" alignment="right" id="translation-language-label-cell">
+											<font key="font" metaFont="system"/>
+											<color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+											<color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+										</textFieldCell>
+									</textField>
+								</gridCell>
+								<gridCell columnPlacement="leading" rowPlacement="center" id="translation-language-combo-cell-grid">
+									<comboBox translatesAutoresizingMaskIntoConstraints="NO" id="translation-language-combo-box">
+										<rect key="frame" x="0.0" y="0.0" width="240" height="26"/>
+										<comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" id="translation-language-combo-box-cell">
+											<font key="font" metaFont="system"/>
+											<color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+											<color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+										</comboBoxCell>
+									</comboBox>
+								</gridCell>
+							</gridRow>
+						</rows>
+					</gridView>
+				</subviews>
+			</view>
+		</window>
+	</objects>
+</document>

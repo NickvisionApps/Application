@@ -6,8 +6,8 @@
 #include <memory>
 
 @interface MainWindow : NSWindowController
-@property(strong) IBOutlet NSToolbarItem* openFolderToolbarItem;
-@property(strong) IBOutlet NSToolbarItem* closeFolderToolbarItem;
+@property(nonatomic, assign) IBOutlet NSToolbarItem* openFolderToolbarItem;
+@property(nonatomic, assign) IBOutlet NSToolbarItem* closeFolderToolbarItem;
 - (instancetype)initWithServiceProvider:(std::shared_ptr<desktop::services::service_provider>)serviceProvider;
 - (IBAction)checkForUpdates:(id)sender;
 - (IBAction)openFolder:(id)sender;

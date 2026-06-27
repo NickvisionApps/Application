@@ -1,5 +1,6 @@
 #import "app_delegate.h"
 #import "views/main_window.h"
+#import "views/settings_dialog.h"
 
 using namespace desktop::app;
 using namespace desktop::hosting;
@@ -209,6 +210,8 @@ static void appendPeople(NSMutableAttributedString* credits, NSDictionary* boldA
 
 - (IBAction)settings:(id)sender
 {
+	SettingsDialog* settingsDialog{ [[SettingsDialog alloc] initWithServiceProvider:m_service_provider] };
+	[settingsDialog showWindow:nil];
 }
 
 @end

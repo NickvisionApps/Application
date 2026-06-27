@@ -46,9 +46,11 @@ if(APPLE)
         "${ICNS_FILE}"
         "${NIB_FILES}"
         "include/views/main_window.h"
+        "include/views/settings_dialog.h"
         "include/app_delegate.h"
         "include/cocoa_lifetime_service.h"
         "src/views/main_window.mm"
+        "src/views/settings_dialog.mm"
         "src/app_delegate.mm"
         "src/cocoa_lifetime_service.mm"
         "src/main.mm")
