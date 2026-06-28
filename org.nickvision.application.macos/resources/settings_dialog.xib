@@ -23,35 +23,35 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" fullSizeContentView="YES"/>
             <rect key="contentRect" x="0.0" y="0.0" width="686" height="431"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1512" height="949"/>
-            <view key="contentView" misplaced="YES" id="Wc1-Og-3Bz">
-                <rect key="frame" x="0.0" y="0.0" width="703" height="431"/>
+            <view key="contentView" id="Wc1-Og-3Bz">
+                <rect key="frame" x="0.0" y="0.0" width="686" height="431"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <tabView drawsBackground="NO" type="noTabsNoBorder" initialItem="tY8-XG-gZb" translatesAutoresizingMaskIntoConstraints="NO" id="jgM-J2-dwq">
-                        <rect key="frame" x="0.0" y="0.0" width="759" height="331"/>
+                        <rect key="frame" x="0.0" y="0.0" width="686" height="331"/>
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
                             <tabViewItem label="General" id="tY8-XG-gZb">
                                 <view key="view" id="yMp-nJ-xT3">
-                                    <rect key="frame" x="0.0" y="0.0" width="759" height="331"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="686" height="331"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ASQ-Bg-HxU">
-                                            <rect key="frame" x="280" y="275" width="200" height="56"/>
+                                            <rect key="frame" x="285" y="275" width="116" height="56"/>
                                             <subviews>
-                                                <stackView distribution="equalCentering" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" ambiguous="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FVy-z4-b0k">
-                                                    <rect key="frame" x="0.0" y="32" width="112" height="24"/>
+                                                <stackView distribution="equalCentering" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FVy-z4-b0k">
+                                                    <rect key="frame" x="0.0" y="32" width="116" height="24"/>
                                                     <subviews>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="t5O-xW-DMV">
-                                                            <rect key="frame" x="-2" y="4" width="50" height="16"/>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" title="Theme:" id="kpE-AT-jwq">
+                                                            <rect key="frame" x="-2" y="4" width="54" height="16"/>
+                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" id="kpE-AT-jwq">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                         </textField>
-                                                        <popUpButton verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kKh-iG-i6A">
-                                                            <rect key="frame" x="54" y="0.0" width="58" height="24"/>
+                                                        <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kKh-iG-i6A">
+                                                            <rect key="frame" x="58" y="0.0" width="58" height="24"/>
                                                             <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="X02-Ns-Qxg">
                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                                 <font key="font" metaFont="message"/>
@@ -68,19 +68,19 @@
                                                         <real value="3.4028234663852886e+38"/>
                                                     </customSpacing>
                                                 </stackView>
-                                                <stackView distribution="equalCentering" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" ambiguous="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="goo-mY-mTe">
-                                                    <rect key="frame" x="0.0" y="0.0" width="200" height="24"/>
+                                                <stackView distribution="equalCentering" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="goo-mY-mTe">
+                                                    <rect key="frame" x="0.0" y="0.0" width="116" height="24"/>
                                                     <subviews>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5rt-zZ-Wwp">
-                                                            <rect key="frame" x="-2" y="4" width="138" height="16"/>
-                                                            <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Translation Language:" id="NeP-OT-FCV">
+                                                            <rect key="frame" x="-2" y="4" width="54" height="16"/>
+                                                            <textFieldCell key="cell" lineBreakMode="clipping" id="NeP-OT-FCV">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                         </textField>
-                                                        <popUpButton verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CMa-B8-Va8">
-                                                            <rect key="frame" x="142" y="0.0" width="58" height="24"/>
+                                                        <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CMa-B8-Va8">
+                                                            <rect key="frame" x="58" y="0.0" width="58" height="24"/>
                                                             <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="ylB-CV-vYM">
                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                                 <font key="font" metaFont="message"/>
@@ -109,9 +109,8 @@
                                         </stackView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="ASQ-Bg-HxU" firstAttribute="leading" secondItem="yMp-nJ-xT3" secondAttribute="leading" constant="280" id="Rzf-BM-vUq"/>
-                                        <constraint firstItem="ASQ-Bg-HxU" firstAttribute="top" secondItem="yMp-nJ-xT3" secondAttribute="top" id="n5A-Fk-giF"/>
-                                        <constraint firstAttribute="trailing" secondItem="ASQ-Bg-HxU" secondAttribute="trailing" constant="279" id="qPk-pL-Vwe"/>
+                                        <constraint firstItem="ASQ-Bg-HxU" firstAttribute="centerX" secondItem="yMp-nJ-xT3" secondAttribute="centerX" id="2ux-av-4d2"/>
+                                        <constraint firstItem="ASQ-Bg-HxU" firstAttribute="top" secondItem="yMp-nJ-xT3" secondAttribute="top" id="eJr-Qy-jsC"/>
                                     </constraints>
                                 </view>
                             </tabViewItem>
@@ -139,7 +138,7 @@
                     <toolbarItem reference="Vf3-Cj-9Wr"/>
                 </defaultToolbarItems>
             </toolbar>
-            <point key="canvasLocation" x="231" y="196"/>
+            <point key="canvasLocation" x="231" y="230"/>
         </window>
     </objects>
     <resources>
