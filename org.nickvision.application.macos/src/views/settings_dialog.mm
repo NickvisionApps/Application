@@ -28,6 +28,17 @@ using namespace desktop::services;
 	self.window.title = @(m_translation_service->_("General"));
 	self.generalToolbarItem.label = @(m_translation_service->_("General"));
 	self.toolbar.selectedItemIdentifier = self.generalToolbarItem.itemIdentifier;
+	self.themeLabel.stringValue = @(m_translation_service->_("Theme:"));
+	for (const std::string& theme : m_controller->get_available_themes())
+	{
+		[self.themePopupButton addItemWithTitle:@(theme.c_str())];
+	}
+	self.languageLabel.stringValue = @(m_translation_service->_("Translation Language:"));
+	for (const std::string& language : m_controller->get_available_translation_languages())
+	{
+		[self.languagePopupButton addItemWithTitle:@(language.c_str())];
+	}
+	[self.tabView selectTabViewItemAtIndex:0];
 	[self.window center];
 }
 
@@ -36,6 +47,7 @@ using namespace desktop::services;
 	if (sender == self.generalToolbarItem)
 	{
 		self.window.title = @(m_translation_service->_("General"));
+		[self.tabView selectTabViewItemAtIndex:0];
 	}
 }
 

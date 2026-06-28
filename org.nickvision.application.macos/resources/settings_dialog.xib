@@ -8,6 +8,11 @@
         <customObject id="-2" userLabel="File's Owner" customClass="SettingsDialog">
             <connections>
                 <outlet property="generalToolbarItem" destination="Vf3-Cj-9Wr" id="Nt8-Yd-5Gp"/>
+                <outlet property="languageLabel" destination="5rt-zZ-Wwp" id="0g6-3A-1kH"/>
+                <outlet property="languagePopupButton" destination="CMa-B8-Va8" id="0g6-3A-1kI"/>
+                <outlet property="tabView" destination="jgM-J2-dwq" id="Yk7-3A-0Q9"/>
+                <outlet property="themeLabel" destination="t5O-xW-DMV" id="Q6g-0A-1kG"/>
+                <outlet property="themePopupButton" destination="kKh-iG-i6A" id="0g6-3A-1kG"/>
                 <outlet property="toolbar" destination="Mk2-Rz-7Th" id="Aj6-Xe-4Nv"/>
                 <outlet property="window" destination="Db9-Fu-1Sc" id="Rq5-Lp-8Ew"/>
             </connections>
@@ -18,18 +23,96 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" fullSizeContentView="YES"/>
             <rect key="contentRect" x="0.0" y="0.0" width="686" height="431"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1512" height="949"/>
-            <view key="contentView" id="Wc1-Og-3Bz">
-                <rect key="frame" x="0.0" y="0.0" width="686" height="431"/>
+            <view key="contentView" misplaced="YES" id="Wc1-Og-3Bz">
+                <rect key="frame" x="0.0" y="0.0" width="703" height="431"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <tabView drawsBackground="NO" type="noTabsNoBorder" initialItem="tY8-XG-gZb" translatesAutoresizingMaskIntoConstraints="NO" id="jgM-J2-dwq">
-                        <rect key="frame" x="0.0" y="0.0" width="686" height="345"/>
+                        <rect key="frame" x="0.0" y="0.0" width="759" height="331"/>
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
                             <tabViewItem label="General" id="tY8-XG-gZb">
                                 <view key="view" id="yMp-nJ-xT3">
-                                    <rect key="frame" x="0.0" y="0.0" width="686" height="345"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="759" height="331"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ASQ-Bg-HxU">
+                                            <rect key="frame" x="280" y="275" width="200" height="56"/>
+                                            <subviews>
+                                                <stackView distribution="equalCentering" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" ambiguous="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FVy-z4-b0k">
+                                                    <rect key="frame" x="0.0" y="32" width="112" height="24"/>
+                                                    <subviews>
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="t5O-xW-DMV">
+                                                            <rect key="frame" x="-2" y="4" width="50" height="16"/>
+                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" title="Theme:" id="kpE-AT-jwq">
+                                                                <font key="font" metaFont="system"/>
+                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                        </textField>
+                                                        <popUpButton verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kKh-iG-i6A">
+                                                            <rect key="frame" x="54" y="0.0" width="58" height="24"/>
+                                                            <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="X02-Ns-Qxg">
+                                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                                <font key="font" metaFont="message"/>
+                                                                <menu key="menu" id="nta-Lg-YgA"/>
+                                                            </popUpButtonCell>
+                                                        </popUpButton>
+                                                    </subviews>
+                                                    <visibilityPriorities>
+                                                        <integer value="1000"/>
+                                                        <integer value="1000"/>
+                                                    </visibilityPriorities>
+                                                    <customSpacing>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                    </customSpacing>
+                                                </stackView>
+                                                <stackView distribution="equalCentering" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" ambiguous="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="goo-mY-mTe">
+                                                    <rect key="frame" x="0.0" y="0.0" width="200" height="24"/>
+                                                    <subviews>
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5rt-zZ-Wwp">
+                                                            <rect key="frame" x="-2" y="4" width="138" height="16"/>
+                                                            <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Translation Language:" id="NeP-OT-FCV">
+                                                                <font key="font" metaFont="system"/>
+                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                        </textField>
+                                                        <popUpButton verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CMa-B8-Va8">
+                                                            <rect key="frame" x="142" y="0.0" width="58" height="24"/>
+                                                            <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="ylB-CV-vYM">
+                                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                                <font key="font" metaFont="message"/>
+                                                                <menu key="menu" id="jWC-Qm-S0y"/>
+                                                            </popUpButtonCell>
+                                                        </popUpButton>
+                                                    </subviews>
+                                                    <visibilityPriorities>
+                                                        <integer value="1000"/>
+                                                        <integer value="1000"/>
+                                                    </visibilityPriorities>
+                                                    <customSpacing>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                    </customSpacing>
+                                                </stackView>
+                                            </subviews>
+                                            <visibilityPriorities>
+                                                <integer value="1000"/>
+                                                <integer value="1000"/>
+                                            </visibilityPriorities>
+                                            <customSpacing>
+                                                <real value="3.4028234663852886e+38"/>
+                                                <real value="3.4028234663852886e+38"/>
+                                            </customSpacing>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="ASQ-Bg-HxU" firstAttribute="leading" secondItem="yMp-nJ-xT3" secondAttribute="leading" constant="280" id="Rzf-BM-vUq"/>
+                                        <constraint firstItem="ASQ-Bg-HxU" firstAttribute="top" secondItem="yMp-nJ-xT3" secondAttribute="top" id="n5A-Fk-giF"/>
+                                        <constraint firstAttribute="trailing" secondItem="ASQ-Bg-HxU" secondAttribute="trailing" constant="279" id="qPk-pL-Vwe"/>
+                                    </constraints>
                                 </view>
                             </tabViewItem>
                         </tabViewItems>
@@ -37,7 +120,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="jgM-J2-dwq" secondAttribute="bottom" id="GSs-co-0WP"/>
-                    <constraint firstItem="jgM-J2-dwq" firstAttribute="top" secondItem="Wc1-Og-3Bz" secondAttribute="top" constant="86" id="IBh-ve-SH8"/>
+                    <constraint firstItem="jgM-J2-dwq" firstAttribute="top" secondItem="Wc1-Og-3Bz" secondAttribute="top" constant="100" id="IBh-ve-SH8"/>
                     <constraint firstItem="jgM-J2-dwq" firstAttribute="leading" secondItem="Wc1-Og-3Bz" secondAttribute="leading" id="UYl-5i-7OJ"/>
                     <constraint firstAttribute="trailing" secondItem="jgM-J2-dwq" secondAttribute="trailing" id="b6Y-R8-29S"/>
                 </constraints>
@@ -56,7 +139,7 @@
                     <toolbarItem reference="Vf3-Cj-9Wr"/>
                 </defaultToolbarItems>
             </toolbar>
-            <point key="canvasLocation" x="253" y="211.5"/>
+            <point key="canvasLocation" x="231" y="196"/>
         </window>
     </objects>
     <resources>

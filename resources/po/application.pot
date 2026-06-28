@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-28 12:32-0400\n"
+"POT-Creation-Date: 2026-06-28 13:14-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -156,7 +156,7 @@ msgstr ""
 #: org.nickvision.application.linux/resources/preferences_dialog.blp:11
 #: org.nickvision.application.macos/src/views/settings_dialog.mm:28
 #: org.nickvision.application.macos/src/views/settings_dialog.mm:29
-#: org.nickvision.application.macos/src/views/settings_dialog.mm:38
+#: org.nickvision.application.macos/src/views/settings_dialog.mm:49
 msgid "General"
 msgstr ""
 
@@ -331,4 +331,12 @@ msgstr ""
 
 #: org.nickvision.application.macos/src/views/main_window.mm:33
 msgid "Preview"
+msgstr ""
+
+#: org.nickvision.application.macos/src/views/settings_dialog.mm:31
+msgid "Theme:"
+msgstr ""
+
+#: org.nickvision.application.macos/src/views/settings_dialog.mm:36
+msgid "Translation Language:"
 msgstr ""
