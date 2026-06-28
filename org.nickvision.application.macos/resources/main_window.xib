@@ -7,42 +7,42 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MainWindow">
             <connections>
-                <outlet property="closeFolderToolbarItem" destination="close-folder-toolbar-item" id="close-folder-outlet"/>
-                <outlet property="openFolderToolbarItem" destination="open-folder-toolbar-item" id="open-folder-outlet"/>
-                <outlet property="window" destination="window" id="window-outlet"/>
+                <outlet property="closeFolderToolbarItem" destination="Qua-aP-kYs" id="Bx3-mN-9Rp"/>
+                <outlet property="openFolderToolbarItem" destination="Tz8-Lw-4Vj" id="Ym2-Kc-7Xn"/>
+                <outlet property="window" destination="Rj6-Gh-pQ1" id="Fd9-Ue-2Wt"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" titlebarAppearsTransparent="YES" toolbarStyle="unified" id="window">
+        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" titlebarAppearsTransparent="YES" toolbarStyle="unified" id="Rj6-Gh-pQ1">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" fullSizeContentView="YES"/>
             <windowCollectionBehavior key="collectionBehavior" managed="YES" fullScreenNone="YES"/>
             <rect key="contentRect" x="0.0" y="0.0" width="800" height="600"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1050"/>
-            <view key="contentView" id="content-view">
+            <view key="contentView" id="Sv4-Np-3Hq">
                 <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             </view>
-            <toolbar key="toolbar" implicitIdentifier="MainToolbar" showsBaselineSeparator="NO" displayMode="iconOnly" sizeMode="regular" id="main-toolbar">
+            <toolbar key="toolbar" implicitIdentifier="MainToolbar" showsBaselineSeparator="NO" displayMode="iconOnly" sizeMode="regular" id="Ck7-Rb-5Zm">
                 <allowedToolbarItems>
-                    <toolbarItem implicitItemIdentifier="CE4D8B95-48F5-42E2-8955-6C8A05DB98E6" label="" paletteLabel="" tag="-1" image="folder.badge.plus" catalog="system" bordered="YES" id="open-folder-toolbar-item">
+                    <toolbarItem implicitItemIdentifier="CE4D8B95-48F5-42E2-8955-6C8A05DB98E6" label="" paletteLabel="" tag="-1" image="folder.badge.plus" catalog="system" bordered="YES" id="Tz8-Lw-4Vj">
                         <size key="minSize" width="36" height="24"/>
                         <size key="maxSize" width="36" height="24"/>
                         <connections>
-                            <action selector="openFolder:" target="-2" id="open-folder-action"/>
+                            <action selector="openFolder:" target="-2" id="Xp1-Dv-8Fy"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="96D07E3B-C70D-4B78-B2B3-DDF79C2CCF1D" label="" paletteLabel="" tag="-1" image="folder.badge.minus" catalog="system" bordered="YES" id="close-folder-toolbar-item">
+                    <toolbarItem implicitItemIdentifier="96D07E3B-C70D-4B78-B2B3-DDF79C2CCF1D" label="" paletteLabel="" tag="-1" image="folder.badge.minus" catalog="system" bordered="YES" id="Qua-aP-kYs">
                         <size key="minSize" width="36" height="24"/>
                         <size key="maxSize" width="36" height="24"/>
                         <connections>
-                            <action selector="closeFolder:" target="-2" id="close-folder-action"/>
+                            <action selector="closeFolder:" target="-2" id="Wn5-Jt-6Bc"/>
                         </connections>
                     </toolbarItem>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
-                    <toolbarItem reference="open-folder-toolbar-item"/>
-                    <toolbarItem reference="close-folder-toolbar-item"/>
+                    <toolbarItem reference="Tz8-Lw-4Vj"/>
+                    <toolbarItem reference="Qua-aP-kYs"/>
                 </defaultToolbarItems>
             </toolbar>
             <point key="canvasLocation" x="-211" y="121"/>

@@ -7,49 +7,59 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SettingsDialog">
             <connections>
-                <outlet property="advancedToolbarItem" destination="advanced-toolbar-item" id="advanced-toolbar-outlet"/>
-                <outlet property="generalToolbarItem" destination="general-toolbar-item" id="general-toolbar-outlet"/>
-                <outlet property="toolbar" destination="toolbar" id="toolbar-outlet"/>
-                <outlet property="window" destination="window" id="window-outlet"/>
+                <outlet property="generalToolbarItem" destination="Vf3-Cj-9Wr" id="Nt8-Yd-5Gp"/>
+                <outlet property="toolbar" destination="Mk2-Rz-7Th" id="Aj6-Xe-4Nv"/>
+                <outlet property="window" destination="Db9-Fu-1Sc" id="Rq5-Lp-8Ew"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" toolbarStyle="preference" id="window">
+        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" toolbarStyle="preference" id="Db9-Fu-1Sc">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" fullSizeContentView="YES"/>
-            <rect key="contentRect" x="0.0" y="0.0" width="651" height="451"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1050"/>
-            <view key="contentView" id="content-view">
-                <rect key="frame" x="0.0" y="0.0" width="651" height="451"/>
+            <rect key="contentRect" x="0.0" y="0.0" width="686" height="431"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1512" height="949"/>
+            <view key="contentView" id="Wc1-Og-3Bz">
+                <rect key="frame" x="0.0" y="0.0" width="686" height="431"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <tabView drawsBackground="NO" type="noTabsNoBorder" initialItem="tY8-XG-gZb" translatesAutoresizingMaskIntoConstraints="NO" id="jgM-J2-dwq">
+                        <rect key="frame" x="0.0" y="0.0" width="686" height="345"/>
+                        <font key="font" metaFont="system"/>
+                        <tabViewItems>
+                            <tabViewItem label="General" id="tY8-XG-gZb">
+                                <view key="view" id="yMp-nJ-xT3">
+                                    <rect key="frame" x="0.0" y="0.0" width="686" height="345"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </tabViewItem>
+                        </tabViewItems>
+                    </tabView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="jgM-J2-dwq" secondAttribute="bottom" id="GSs-co-0WP"/>
+                    <constraint firstItem="jgM-J2-dwq" firstAttribute="top" secondItem="Wc1-Og-3Bz" secondAttribute="top" constant="86" id="IBh-ve-SH8"/>
+                    <constraint firstItem="jgM-J2-dwq" firstAttribute="leading" secondItem="Wc1-Og-3Bz" secondAttribute="leading" id="UYl-5i-7OJ"/>
+                    <constraint firstAttribute="trailing" secondItem="jgM-J2-dwq" secondAttribute="trailing" id="b6Y-R8-29S"/>
+                </constraints>
             </view>
-            <toolbar key="toolbar" implicitIdentifier="6F892BE8-ED87-48E5-A6DB-91E1D4CC1456" showsBaselineSeparator="NO" displayMode="iconAndLabel" sizeMode="regular" id="toolbar">
+            <toolbar key="toolbar" implicitIdentifier="6F892BE8-ED87-48E5-A6DB-91E1D4CC1456" showsBaselineSeparator="NO" displayMode="iconAndLabel" sizeMode="regular" id="Mk2-Rz-7Th">
                 <allowedToolbarItems>
-                    <toolbarItem implicitItemIdentifier="639D1EBF-FAFE-4C72-A188-DEB04790CBF2" label="" paletteLabel="" tag="-1" image="gearshape" catalog="system" selectable="YES" id="general-toolbar-item">
+                    <toolbarItem implicitItemIdentifier="639D1EBF-FAFE-4C72-A188-DEB04790CBF2" label="" paletteLabel="" tag="-1" image="gearshape" catalog="system" selectable="YES" id="Vf3-Cj-9Wr">
                         <size key="minSize" width="32" height="24"/>
                         <size key="maxSize" width="32" height="24"/>
                         <connections>
-                            <action selector="toolbarItemClicked:" target="-2" id="toolbar-item-clicked-action"/>
-                        </connections>
-                    </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="4D1B2FD3-2536-4123-8A6E-CE62DD6D2982" label="" paletteLabel="" tag="-1" image="wrench" catalog="system" selectable="YES" id="advanced-toolbar-item">
-                        <size key="minSize" width="35" height="24"/>
-                        <size key="maxSize" width="35" height="24"/>
-                        <connections>
-                            <action selector="toolbarItemClicked:" target="-2" id="toolbar-item-clicked-action-2"/>
+                            <action selector="toolbarItemClicked:" target="-2" id="Ux5-Kn-2Fp"/>
                         </connections>
                     </toolbarItem>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
-                    <toolbarItem reference="general-toolbar-item"/>
-                    <toolbarItem reference="advanced-toolbar-item"/>
+                    <toolbarItem reference="Vf3-Cj-9Wr"/>
                 </defaultToolbarItems>
             </toolbar>
-            <point key="canvasLocation" x="224.5" y="128.5"/>
+            <point key="canvasLocation" x="253" y="211.5"/>
         </window>
     </objects>
     <resources>
         <image name="gearshape" catalog="system" width="16" height="16"/>
-        <image name="wrench" catalog="system" width="18" height="18"/>
     </resources>
 </document>

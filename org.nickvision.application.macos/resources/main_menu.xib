@@ -6,179 +6,180 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="AppDelegate"/>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application" customClass="NSApplication">
+        <customObject id="-3" userLabel="Application" customClass="NSObject">
             <connections>
-                <outlet property="mainMenu" destination="main-menu" id="main-menu-outlet"/>
-                <outlet property="servicesMenu" destination="services-menu" id="services-menu-outlet"/>
-                <outlet property="windowsMenu" destination="windows-menu" id="windows-menu-outlet"/>
+                <outlet property="mainMenu" destination="Td3-Kx-8Nq" id="Yw6-Hp-2Rc"/>
+                <outlet property="servicesMenu" destination="Bm9-Vj-4Lf" id="Cx1-Ua-7Gt"/>
+                <outlet property="windowsMenu" destination="Pz5-Dn-3Ws" id="Qe8-Mb-6Jv"/>
             </connections>
         </customObject>
-        <menu id="main-menu" systemMenu="main">
+        <menu systemMenu="main" id="Td3-Kx-8Nq">
             <items>
-                <menuItem id="apple-menu-item">
-                    <menu key="submenu" systemMenu="apple" id="apple-menu">
+                <menuItem id="Fg2-Rp-5Yz">
+                    <menu key="submenu" systemMenu="apple" id="Sh7-Wc-1Xb">
                         <items>
-                            <menuItem id="about-menu-item">
+                            <menuItem id="Nk4-Tv-9Ld">
                                 <connections>
-                                    <action selector="about:" target="-2" id="about-menu-item-action"/>
+                                    <action selector="about:" target="-2" id="Ju3-Qf-6Em"/>
                                 </connections>
                             </menuItem>
-                            <menuItem id="check-for-updates-menu-item">
+                            <menuItem id="Oa8-Bg-2Ph">
                                 <connections>
-                                    <action selector="checkForUpdates:" target="-2" id="check-for-updates-menu-item-action"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES"/>
-                            <menuItem keyEquivalent="," id="settings-menu-item">
-                                <connections>
-                                    <action selector="settings:" target="-2" id="settings-menu-item-action"/>
+                                    <action selector="checkForUpdates:" target="-2" id="Xr5-Hn-7Ck"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES"/>
-                            <menuItem id="services-menu-item">
-                                <menu key="submenu" systemMenu="services" id="services-menu"/>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES"/>
-                            <menuItem keyEquivalent="h" id="hide-menu-item">
+                            <menuItem keyEquivalent="," id="Wv1-Ls-4Mj">
                                 <connections>
-                                    <action selector="hide:" target="-1" id="hide-menu-item-action"/>
+                                    <action selector="settings:" target="-2" id="Zt9-Fy-8Ub"/>
                                 </connections>
                             </menuItem>
-                            <menuItem keyEquivalent="h" id="hide-others-menu-item">
+                            <menuItem isSeparatorItem="YES"/>
+                            <menuItem id="Iq6-Dc-3Vn">
+                                <menu key="submenu" systemMenu="services" id="Bm9-Vj-4Lf"/>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES"/>
+                            <menuItem keyEquivalent="h" id="Rg4-Aw-7Tp">
+                                <connections>
+                                    <action selector="hide:" target="-1" id="Ke2-Nx-5Qs"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem keyEquivalent="h" id="Lf7-Oj-9Rb">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>
-                                    <action selector="hideOtherApplications:" target="-1" id="hide-others-menu-item-action"/>
+                                    <action selector="hideOtherApplications:" target="-1" id="Mc3-Pu-6Yw"/>
                                 </connections>
                             </menuItem>
-                            <menuItem id="show-all-menu-item">
+                            <menuItem id="Vb8-Ek-2Zd">
                                 <connections>
-                                    <action selector="unhideAllApplications:" target="-1" id="show-all-menu-item-action"/>
+                                    <action selector="unhideAllApplications:" target="-1" id="Th5-Gi-4Nc"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES"/>
-                            <menuItem keyEquivalent="q" id="quit-menu-item">
+                            <menuItem keyEquivalent="q" id="Ux9-Cf-1Hm">
                                 <connections>
-                                    <action selector="terminate:" target="-1" id="quit-menu-item-action"/>
+                                    <action selector="terminate:" target="-1" id="Sp6-Jw-8Kl"/>
                                 </connections>
                             </menuItem>
                         </items>
                     </menu>
                 </menuItem>
-                <menuItem id="file-menu-item">
-                    <menu key="submenu" id="file-menu">
+                <menuItem id="Dq2-Yt-5Xv">
+                    <menu key="submenu" id="Ar7-Bn-3Fw">
                         <items>
-                            <menuItem keyEquivalent="o" id="open-folder-menu-item">
+                            <menuItem keyEquivalent="o" id="Gm4-Lc-9Ej">
                                 <connections>
-                                    <action selector="openFolder:" target="-2" id="open-folder-menu-item-action"/>
+                                    <action selector="openFolder:" target="-2" id="Hk1-Vr-6Zp"/>
                                 </connections>
                             </menuItem>
-                            <menuItem keyEquivalent="W" id="close-folder-menu-item">
+                            <menuItem keyEquivalent="W" id="Jt8-Qa-2Ys">
                                 <connections>
-                                    <action selector="closeFolder:" target="-2" id="close-folder-menu-item-action"/>
+                                    <action selector="closeFolder:" target="-2" id="Nd5-Xb-7Um"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES"/>
-                            <menuItem keyEquivalent="w" id="close-window-menu-item">
+                            <menuItem keyEquivalent="w" id="Pb3-Wf-4Rg">
                                 <connections>
-                                    <action selector="performClose:" target="-1" id="close-window-menu-item-action"/>
+                                    <action selector="performClose:" target="-1" id="Ql6-Th-8Ik"/>
                                 </connections>
                             </menuItem>
                         </items>
                     </menu>
                 </menuItem>
-                <menuItem id="edit-menu-item">
-                    <menu key="submenu" id="edit-menu">
+                <menuItem id="Rs9-Ej-1Ov">
+                    <menu key="submenu" id="Tc2-Mk-5Nb">
                         <items>
-                            <menuItem keyEquivalent="z" id="undo-menu-item">
+                            <menuItem keyEquivalent="z" id="Uf7-Pw-3Ld">
                                 <connections>
-                                    <action selector="undo:" target="-1" id="undo-menu-item-action"/>
+                                    <action selector="undo:" target="-1" id="Vg4-Qx-9Hc"/>
                                 </connections>
                             </menuItem>
-                            <menuItem keyEquivalent="Z" id="redo-menu-item">
+                            <menuItem keyEquivalent="Z" id="Wh1-Rz-6Ym">
                                 <connections>
-                                    <action selector="redo:" target="-1" id="redo-menu-item-action"/>
+                                    <action selector="redo:" target="-1" id="Xi8-Sa-2Kf"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES"/>
-                            <menuItem keyEquivalent="x" id="cut-menu-item">
+                            <menuItem keyEquivalent="x" id="Yj5-Tb-7Gn">
                                 <connections>
-                                    <action selector="cut:" target="-1" id="cut-menu-item-action"/>
+                                    <action selector="cut:" target="-1" id="Zk2-Uc-4Hp"/>
                                 </connections>
                             </menuItem>
-                            <menuItem keyEquivalent="c" id="copy-menu-item">
+                            <menuItem keyEquivalent="c" id="Al9-Vd-1Iq">
                                 <connections>
-                                    <action selector="copy:" target="-1" id="copy-menu-item-action"/>
+                                    <action selector="copy:" target="-1" id="Bm6-We-8Jr"/>
                                 </connections>
                             </menuItem>
-                            <menuItem keyEquivalent="v" id="paste-menu-item">
+                            <menuItem keyEquivalent="v" id="Cn3-Xf-5Ks">
                                 <connections>
-                                    <action selector="paste:" target="-1" id="paste-menu-item-action"/>
+                                    <action selector="paste:" target="-1" id="Do4-Yg-2Lt"/>
                                 </connections>
                             </menuItem>
-                            <menuItem keyEquivalent="a" id="select-all-menu-item">
+                            <menuItem keyEquivalent="a" id="Ep7-Zh-9Mu">
                                 <connections>
-                                    <action selector="selectAll:" target="-1" id="select-all-menu-item-action"/>
+                                    <action selector="selectAll:" target="-1" id="Fq8-Ai-6Nv"/>
                                 </connections>
                             </menuItem>
                         </items>
                     </menu>
                 </menuItem>
-                <menuItem id="view-menu-item">
-                    <menu key="submenu" id="view-menu">
+                <menuItem id="Gr5-Bj-3Ow">
+                    <menu key="submenu" id="Hs2-Ck-7Px">
                         <items>
-                            <menuItem keyEquivalent="f" id="enter-full-screen-menu-item">
+                            <menuItem keyEquivalent="f" id="It9-Dl-4Qy">
                                 <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                 <connections>
-                                    <action selector="toggleFullScreen:" target="-1" id="enter-full-screen-menu-item-action"/>
+                                    <action selector="toggleFullScreen:" target="-1" id="Ju6-Em-1Rz"/>
                                 </connections>
                             </menuItem>
                         </items>
                     </menu>
                 </menuItem>
-                <menuItem id="windows-menu-item">
-                    <menu key="submenu" systemMenu="window" id="windows-menu">
+                <menuItem id="Kv3-Fn-8Sa">
+                    <menu key="submenu" systemMenu="window" id="Pz5-Dn-3Ws">
                         <items>
-                            <menuItem keyEquivalent="m" id="minimize-menu-item">
+                            <menuItem keyEquivalent="m" id="Lw4-Go-5Tb">
                                 <connections>
-                                    <action selector="performMiniaturize:" target="-1" id="minimize-menu-item-action"/>
+                                    <action selector="performMiniaturize:" target="-1" id="Mx1-Hp-2Uc"/>
                                 </connections>
                             </menuItem>
-                            <menuItem id="zoom-menu-item">
+                            <menuItem id="Ny8-Iq-9Vd">
                                 <connections>
-                                    <action selector="performZoom:" target="-1" id="zoom-menu-item-action"/>
+                                    <action selector="performZoom:" target="-1" id="Oz5-Jr-6We"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES"/>
-                            <menuItem id="bring-all-to-front-menu-item">
+                            <menuItem id="Pa2-Ks-3Xf">
                                 <connections>
-                                    <action selector="arrangeInFront:" target="-1" id="bring-all-to-front-menu-item-action"/>
+                                    <action selector="arrangeInFront:" target="-1" id="Qb9-Lt-7Yg"/>
                                 </connections>
                             </menuItem>
                         </items>
                     </menu>
                 </menuItem>
-                <menuItem id="help-menu-item">
-                    <menu key="submenu" systemMenu="help" id="help-menu">
+                <menuItem id="Rc6-Mu-4Zh">
+                    <menu key="submenu" systemMenu="help" id="Sd3-Nv-1Ai">
                         <items>
-                            <menuItem id="github-repo-menu-item">
+                            <menuItem id="Te4-Ow-8Bj">
                                 <connections>
-                                    <action selector="openGitHubRepository:" target="-2" id="github-repo-menu-item-action"/>
+                                    <action selector="openGitHubRepository:" target="-2" id="Uf1-Px-5Ck"/>
                                 </connections>
                             </menuItem>
-                            <menuItem id="report-a-bug-menu-item">
+                            <menuItem id="Vg8-Qy-2Dl">
                                 <connections>
-                                    <action selector="openBugReport:" target="-2" id="report-a-bug-menu-item-action"/>
+                                    <action selector="openBugReport:" target="-2" id="Wh5-Rz-9Em"/>
                                 </connections>
                             </menuItem>
-                            <menuItem id="discussions-menu-item">
+                            <menuItem id="Xi2-Sa-6Fn">
                                 <connections>
-                                    <action selector="openDiscussions:" target="-2" id="discussions-menu-item-action"/>
+                                    <action selector="openDiscussions:" target="-2" id="Yj9-Tb-3Go"/>
                                 </connections>
                             </menuItem>
                         </items>
                     </menu>
                 </menuItem>
             </items>
+            <point key="canvasLocation" x="140" y="154"/>
         </menu>
     </objects>
 </document>
