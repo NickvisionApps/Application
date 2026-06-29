@@ -110,8 +110,7 @@ namespace application::linux::views
 
 	void main_window::about()
 	{
-		std::string extra;
-		extra += std::format("gtk {}.{}.{}\n", gtk_get_major_version(), gtk_get_minor_version(), gtk_get_micro_version());
+		std::string extra{ std::format("gtk {}.{}.{}\n", gtk_get_major_version(), gtk_get_minor_version(), gtk_get_micro_version()) };
 		extra += std::format("libadwaita {}.{}.{}", adw_get_major_version(), adw_get_minor_version(), adw_get_micro_version());
 		AdwAboutDialog* dialog{ ADW_ABOUT_DIALOG(adw_about_dialog_new()) };
 		adw_about_dialog_set_application_name(dialog, m_app_info->get_short_name().c_str());

@@ -15,6 +15,7 @@
 @property(nonatomic, assign) IBOutlet NSPopUpButton* languagePopupButton;
 - (instancetype)initWithServiceProvider:(std::shared_ptr<desktop::services::service_provider>)serviceProvider;
 - (IBAction)toolbarItemClicked:(id)sender;
+- (IBAction)popupButtonChanged:(id)sender;
 @end
 
 #endif

@@ -1,4 +1,5 @@
 #import "views/main_window.h"
+#include <format>
 #include "controllers/main_window_controller.h"
 
 using namespace application::controllers;
@@ -49,6 +50,20 @@ using namespace desktop::services;
 
 - (IBAction)closeFolder:(id)sender
 {
+}
+
+- (IBAction)viewDebuggingInformation:(id)sender
+{
+	std::string extra{ std::format("AppKit {}", NSAppKitVersionNumber) };
+	std::string info{ m_controller->get_debugging_information(extra) };
+	NSPasteboard* pasteboard{ [NSPasteboard generalPasteboard] };
+	[pasteboard clearContents];
+	[pasteboard setString:@(info.c_str()) forType:NSPasteboardTypeString];
+	NSAlert* alert{ [[NSAlert alloc] init] };
+	alert.messageText = @(m_translation_service->_("Debugging Information"));
+	alert.informativeText = @(m_translation_service->_("The following information has been copied:\n\n{}", info).c_str());
+	[alert addButtonWithTitle:@(m_translation_service->_("OK"))];
+	[alert runModal];
 }
 
 @end

@@ -1,7 +1,10 @@
 #import "app_delegate.h"
+#include "services/app_config_service.h"
 #import "views/main_window.h"
 #import "views/settings_dialog.h"
 
+using namespace application::models;
+using namespace application::services;
 using namespace desktop::app;
 using namespace desktop::hosting;
 using namespace desktop::services;
@@ -56,6 +59,19 @@ static void appendPeople(NSMutableAttributedString* credits, NSDictionary* boldA
 
 - (void)applicationDidFinishLaunching:(NSNotification*)notification
 {
+	std::shared_ptr<app_config_service> config_service{ m_service_provider->get_required<app_config_service>() };
+	switch (config_service->get_theme())
+	{
+	case theme::light:
+		[[NSApplication sharedApplication] setAppearance:[NSAppearance appearanceNamed:NSAppearanceNameAqua]];
+		break;
+	case theme::dark:
+		[[NSApplication sharedApplication] setAppearance:[NSAppearance appearanceNamed:NSAppearanceNameDarkAqua]];
+		break;
+	default:
+		[[NSApplication sharedApplication] setAppearance:nil];
+		break;
+	}
 	NSMenu* mainMenu{ [[NSApplication sharedApplication] mainMenu] };
 	mainMenu.itemArray[1].title = @(m_translation_service->_("File"));
 	mainMenu.itemArray[2].title = @(m_translation_service->_("Edit"));
@@ -86,7 +102,8 @@ static void appendPeople(NSMutableAttributedString* credits, NSDictionary* boldA
 	editMenu.itemArray[6].title = @(m_translation_service->_("Select All"));
 	NSMenu* viewMenu{ mainMenu.itemArray[3].submenu };
 	viewMenu.title = @(m_translation_service->_("View"));
-	viewMenu.itemArray[0].title = @(m_translation_service->_("Enter Full Screen"));
+	viewMenu.itemArray[0].title = @(m_translation_service->_("Debugging Information"));
+	viewMenu.itemArray[2].title = @(m_translation_service->_("Enter Full Screen"));
 	NSMenu* windowMenu{ mainMenu.itemArray[4].submenu };
 	windowMenu.title = @(m_translation_service->_("Window"));
 	windowMenu.itemArray[0].title = @(m_translation_service->_("Minimize"));
@@ -212,6 +229,16 @@ static void appendPeople(NSMutableAttributedString* credits, NSDictionary* boldA
 {
 	SettingsDialog* settingsDialog{ [[SettingsDialog alloc] initWithServiceProvider:m_service_provider] };
 	[settingsDialog showWindow:nil];
+}
+
+- (IBAction)viewDebuggingInformation:(id)sender
+{
+	if (!m_main_window)
+	{
+		return;
+	}
+	[m_main_window showWindow:nil];
+	[m_main_window viewDebuggingInformation:nil];
 }
 
 @end

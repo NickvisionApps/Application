@@ -12,6 +12,7 @@
 - (IBAction)checkForUpdates:(id)sender;
 - (IBAction)openFolder:(id)sender;
 - (IBAction)closeFolder:(id)sender;
+- (IBAction)viewDebuggingInformation:(id)sender;
 @end
 
 #endif

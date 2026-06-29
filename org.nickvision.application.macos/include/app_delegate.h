@@ -16,6 +16,7 @@
 - (IBAction)openGitHubRepository:(id)sender;
 - (IBAction)quit:(id)sender;
 - (IBAction)settings:(id)sender;
+- (IBAction)viewDebuggingInformation:(id)sender;
 @end
 
 #endif

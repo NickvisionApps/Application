@@ -42,7 +42,7 @@
                                                 <stackView distribution="equalCentering" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FVy-z4-b0k">
                                                     <rect key="frame" x="0.0" y="32" width="116" height="24"/>
                                                     <subviews>
-                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="t5O-xW-DMV">
+                                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="t5O-xW-DMV">
                                                             <rect key="frame" x="-2" y="4" width="54" height="16"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" id="kpE-AT-jwq">
                                                                 <font key="font" metaFont="system"/>
@@ -57,6 +57,9 @@
                                                                 <font key="font" metaFont="message"/>
                                                                 <menu key="menu" id="nta-Lg-YgA"/>
                                                             </popUpButtonCell>
+                                                            <connections>
+                                                                <action selector="popupButtonChanged:" target="-2" id="0g6-3A-1kJ"/>
+                                                            </connections>
                                                         </popUpButton>
                                                     </subviews>
                                                     <visibilityPriorities>
@@ -71,7 +74,7 @@
                                                 <stackView distribution="equalCentering" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="goo-mY-mTe">
                                                     <rect key="frame" x="0.0" y="0.0" width="116" height="24"/>
                                                     <subviews>
-                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5rt-zZ-Wwp">
+                                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5rt-zZ-Wwp">
                                                             <rect key="frame" x="-2" y="4" width="54" height="16"/>
                                                             <textFieldCell key="cell" lineBreakMode="clipping" id="NeP-OT-FCV">
                                                                 <font key="font" metaFont="system"/>
@@ -86,6 +89,9 @@
                                                                 <font key="font" metaFont="message"/>
                                                                 <menu key="menu" id="jWC-Qm-S0y"/>
                                                             </popUpButtonCell>
+                                                            <connections>
+                                                                <action selector="popupButtonChanged:" target="-2" id="0g6-3A-1kK"/>
+                                                            </connections>
                                                         </popUpButton>
                                                     </subviews>
                                                     <visibilityPriorities>
@@ -109,8 +115,8 @@
                                         </stackView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="ASQ-Bg-HxU" firstAttribute="centerX" secondItem="yMp-nJ-xT3" secondAttribute="centerX" id="2ux-av-4d2"/>
-                                        <constraint firstItem="ASQ-Bg-HxU" firstAttribute="top" secondItem="yMp-nJ-xT3" secondAttribute="top" id="eJr-Qy-jsC"/>
+                                        <constraint firstItem="ASQ-Bg-HxU" firstAttribute="top" secondItem="yMp-nJ-xT3" secondAttribute="top" id="7X2-4v-fJx"/>
+                                        <constraint firstItem="ASQ-Bg-HxU" firstAttribute="centerX" secondItem="yMp-nJ-xT3" secondAttribute="centerX" id="Dul-BG-gzd"/>
                                     </constraints>
                                 </view>
                             </tabViewItem>

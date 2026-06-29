@@ -126,6 +126,12 @@
                 <menuItem id="Gr5-Bj-3Ow">
                     <menu key="submenu" id="Hs2-Ck-7Px">
                         <items>
+                            <menuItem id="Zk5-Uc-1Hp">
+                                <connections>
+                                    <action selector="viewDebuggingInformation:" target="-2" id="Al2-Vd-7Iq"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES"/>
                             <menuItem keyEquivalent="f" id="It9-Dl-4Qy">
                                 <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                 <connections>
