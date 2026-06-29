@@ -56,7 +56,7 @@ using namespace desktop::services;
 
 - (IBAction)popupButtonChanged:(id)sender
 {
-    switch (static_cast<theme>(self.themePopupButton.indexOfSelectedItem))
+	switch (static_cast<theme>(self.themePopupButton.indexOfSelectedItem))
 	{
 	case theme::light:
 		[[NSApplication sharedApplication] setAppearance:[NSAppearance appearanceNamed:NSAppearanceNameAqua]];

@@ -21,102 +21,84 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" toolbarStyle="preference" id="Db9-Fu-1Sc">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" fullSizeContentView="YES"/>
-            <rect key="contentRect" x="0.0" y="0.0" width="686" height="431"/>
+            <rect key="contentRect" x="0.0" y="0.0" width="583" height="336"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1512" height="949"/>
             <view key="contentView" id="Wc1-Og-3Bz">
-                <rect key="frame" x="0.0" y="0.0" width="686" height="431"/>
+                <rect key="frame" x="0.0" y="0.0" width="583" height="336"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <tabView drawsBackground="NO" type="noTabsNoBorder" initialItem="tY8-XG-gZb" translatesAutoresizingMaskIntoConstraints="NO" id="jgM-J2-dwq">
-                        <rect key="frame" x="0.0" y="0.0" width="686" height="331"/>
+                        <rect key="frame" x="0.0" y="0.0" width="583" height="236"/>
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
                             <tabViewItem label="General" id="tY8-XG-gZb">
                                 <view key="view" id="yMp-nJ-xT3">
-                                    <rect key="frame" x="0.0" y="0.0" width="686" height="331"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="583" height="236"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ASQ-Bg-HxU">
-                                            <rect key="frame" x="285" y="275" width="116" height="56"/>
-                                            <subviews>
-                                                <stackView distribution="equalCentering" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FVy-z4-b0k">
-                                                    <rect key="frame" x="0.0" y="32" width="116" height="24"/>
-                                                    <subviews>
-                                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="t5O-xW-DMV">
-                                                            <rect key="frame" x="-2" y="4" width="54" height="16"/>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" id="kpE-AT-jwq">
-                                                                <font key="font" metaFont="system"/>
-                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                            </textFieldCell>
-                                                        </textField>
-                                                        <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kKh-iG-i6A">
-                                                            <rect key="frame" x="58" y="0.0" width="58" height="24"/>
-                                                            <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="X02-Ns-Qxg">
-                                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                                <font key="font" metaFont="message"/>
-                                                                <menu key="menu" id="nta-Lg-YgA"/>
-                                                            </popUpButtonCell>
-                                                            <connections>
-                                                                <action selector="popupButtonChanged:" target="-2" id="0g6-3A-1kJ"/>
-                                                            </connections>
-                                                        </popUpButton>
-                                                    </subviews>
-                                                    <visibilityPriorities>
-                                                        <integer value="1000"/>
-                                                        <integer value="1000"/>
-                                                    </visibilityPriorities>
-                                                    <customSpacing>
-                                                        <real value="3.4028234663852886e+38"/>
-                                                        <real value="3.4028234663852886e+38"/>
-                                                    </customSpacing>
-                                                </stackView>
-                                                <stackView distribution="equalCentering" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="goo-mY-mTe">
-                                                    <rect key="frame" x="0.0" y="0.0" width="116" height="24"/>
-                                                    <subviews>
-                                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5rt-zZ-Wwp">
-                                                            <rect key="frame" x="-2" y="4" width="54" height="16"/>
-                                                            <textFieldCell key="cell" lineBreakMode="clipping" id="NeP-OT-FCV">
-                                                                <font key="font" metaFont="system"/>
-                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                            </textFieldCell>
-                                                        </textField>
-                                                        <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CMa-B8-Va8">
-                                                            <rect key="frame" x="58" y="0.0" width="58" height="24"/>
-                                                            <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="ylB-CV-vYM">
-                                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                                <font key="font" metaFont="message"/>
-                                                                <menu key="menu" id="jWC-Qm-S0y"/>
-                                                            </popUpButtonCell>
-                                                            <connections>
-                                                                <action selector="popupButtonChanged:" target="-2" id="0g6-3A-1kK"/>
-                                                            </connections>
-                                                        </popUpButton>
-                                                    </subviews>
-                                                    <visibilityPriorities>
-                                                        <integer value="1000"/>
-                                                        <integer value="1000"/>
-                                                    </visibilityPriorities>
-                                                    <customSpacing>
-                                                        <real value="3.4028234663852886e+38"/>
-                                                        <real value="3.4028234663852886e+38"/>
-                                                    </customSpacing>
-                                                </stackView>
-                                            </subviews>
-                                            <visibilityPriorities>
-                                                <integer value="1000"/>
-                                                <integer value="1000"/>
-                                            </visibilityPriorities>
-                                            <customSpacing>
-                                                <real value="3.4028234663852886e+38"/>
-                                                <real value="3.4028234663852886e+38"/>
-                                            </customSpacing>
-                                        </stackView>
+                                        <gridView xPlacement="trailing" yPlacement="center" rowAlignment="none" translatesAutoresizingMaskIntoConstraints="NO" id="4A5-Hp-F8M">
+                                            <rect key="frame" x="210" y="182" width="163" height="54"/>
+                                            <rows>
+                                                <gridRow id="scq-RS-K2c"/>
+                                                <gridRow id="6Ab-02-I7D"/>
+                                            </rows>
+                                            <columns>
+                                                <gridColumn id="mRP-eW-TaF"/>
+                                                <gridColumn id="lc4-Nb-xg1"/>
+                                            </columns>
+                                            <gridCells>
+                                                <gridCell row="scq-RS-K2c" column="mRP-eW-TaF" id="S1x-yp-oN9">
+                                                    <textField key="contentView" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="t5O-xW-DMV">
+                                                        <rect key="frame" x="-2" y="34" width="104" height="16"/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" id="kpE-AT-jwq">
+                                                            <font key="font" metaFont="system"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                </gridCell>
+                                                <gridCell row="scq-RS-K2c" column="lc4-Nb-xg1" id="3vj-sx-KXF">
+                                                    <popUpButton key="contentView" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kKh-iG-i6A">
+                                                        <rect key="frame" x="106" y="30" width="57" height="24"/>
+                                                        <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="X02-Ns-Qxg">
+                                                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="message"/>
+                                                            <menu key="menu" id="nta-Lg-YgA"/>
+                                                        </popUpButtonCell>
+                                                        <connections>
+                                                            <action selector="popupButtonChanged:" target="-2" id="0g6-3A-1kJ"/>
+                                                        </connections>
+                                                    </popUpButton>
+                                                </gridCell>
+                                                <gridCell row="6Ab-02-I7D" column="mRP-eW-TaF" id="NWC-PL-PuZ">
+                                                    <textField key="contentView" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5rt-zZ-Wwp">
+                                                        <rect key="frame" x="-2" y="4" width="104" height="16"/>
+                                                        <textFieldCell key="cell" lineBreakMode="clipping" id="NeP-OT-FCV">
+                                                            <font key="font" metaFont="system"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                </gridCell>
+                                                <gridCell row="6Ab-02-I7D" column="lc4-Nb-xg1" id="X0w-GW-eR6">
+                                                    <popUpButton key="contentView" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CMa-B8-Va8">
+                                                        <rect key="frame" x="106" y="0.0" width="57" height="24"/>
+                                                        <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="ylB-CV-vYM">
+                                                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="message"/>
+                                                            <menu key="menu" id="jWC-Qm-S0y"/>
+                                                        </popUpButtonCell>
+                                                        <connections>
+                                                            <action selector="popupButtonChanged:" target="-2" id="0g6-3A-1kK"/>
+                                                        </connections>
+                                                    </popUpButton>
+                                                </gridCell>
+                                            </gridCells>
+                                        </gridView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="ASQ-Bg-HxU" firstAttribute="top" secondItem="yMp-nJ-xT3" secondAttribute="top" id="7X2-4v-fJx"/>
-                                        <constraint firstItem="ASQ-Bg-HxU" firstAttribute="centerX" secondItem="yMp-nJ-xT3" secondAttribute="centerX" id="Dul-BG-gzd"/>
+                                        <constraint firstItem="4A5-Hp-F8M" firstAttribute="centerX" secondItem="yMp-nJ-xT3" secondAttribute="centerX" id="BJ4-5T-Vfp"/>
+                                        <constraint firstItem="4A5-Hp-F8M" firstAttribute="top" secondItem="yMp-nJ-xT3" secondAttribute="top" id="OMH-xw-odf"/>
                                     </constraints>
                                 </view>
                             </tabViewItem>
@@ -144,7 +126,7 @@
                     <toolbarItem reference="Vf3-Cj-9Wr"/>
                 </defaultToolbarItems>
             </toolbar>
-            <point key="canvasLocation" x="231" y="230"/>
+            <point key="canvasLocation" x="205" y="227"/>
         </window>
     </objects>
     <resources>
