@@ -60,7 +60,7 @@ using namespace desktop::services;
 	self.closeFolderToolbarItem.toolTip = @(m_translation_service->_("Close Folder"));
 	self.openFolderToolbarItem.label = @(m_translation_service->_("Open"));
 	self.openFolderToolbarItem.toolTip = @(m_translation_service->_("Open Folder"));
-	m_split_view = [[MainWindowSplitView alloc] initWithTranslationService:m_translation_service];
+	m_split_view = [[MainWindowSplitView alloc] initWithController:m_controller translationService:m_translation_service];
 	self.window.contentViewController = m_split_view;
 	[self.window center];
 }

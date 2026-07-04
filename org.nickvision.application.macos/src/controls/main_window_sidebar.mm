@@ -36,7 +36,7 @@ using namespace desktop::app;
 
 - (NSView*)tableView:(NSTableView*)tableView viewForTableColumn:(NSTableColumn*)tableColumn row:(NSInteger)row
 {
-	NSTableCellView* cell = [tableView makeViewWithIdentifier:tableColumn.identifier owner:self];
+	NSTableCellView* cell{ [tableView makeViewWithIdentifier:tableColumn.identifier owner:self] };
 	cell.textField.stringValue = m_items[row];
 	cell.imageView.image = [NSImage imageWithSystemSymbolName:m_icons[row] accessibilityDescription:m_items[row]];
 	return cell;
