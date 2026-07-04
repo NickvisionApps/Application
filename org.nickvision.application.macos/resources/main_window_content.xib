@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24765" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24765"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="MainWindowContent">
+            <connections>
+                <outlet property="view" destination="Ajf-vv-Vzh" id="1kA-0r-2gE"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <visualEffectView blendingMode="behindWindow" material="windowBackground" state="followsWindowActiveState" id="Ajf-vv-Vzh">
+            <rect key="frame" x="0.0" y="0.0" width="452" height="396"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <tabView drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="yKv-ll-ow1">
+                    <rect key="frame" x="0.0" y="0.0" width="452" height="396"/>
+                    <font key="font" metaFont="system"/>
+                    <tabViewItems>
+                        <tabViewItem label="Home" identifier="" id="BP5-ou-hWx">
+                            <view key="view" id="hbT-Ct-Lia">
+                                <rect key="frame" x="0.0" y="0.0" width="452" height="396"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                        </tabViewItem>
+                        <tabViewItem label="Files" identifier="" id="pY5-hC-0dt">
+                            <view key="view" id="3Mc-KG-BIS">
+                                <rect key="frame" x="0.0" y="0.0" width="580" height="600"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                        </tabViewItem>
+                    </tabViewItems>
+                </tabView>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="yKv-ll-ow1" secondAttribute="trailing" id="JLb-FF-Bj4"/>
+                <constraint firstItem="yKv-ll-ow1" firstAttribute="leading" secondItem="Ajf-vv-Vzh" secondAttribute="leading" id="NtS-OP-aHz"/>
+                <constraint firstItem="yKv-ll-ow1" firstAttribute="top" secondItem="Ajf-vv-Vzh" secondAttribute="top" id="kkw-PS-vjV"/>
+                <constraint firstAttribute="bottom" secondItem="yKv-ll-ow1" secondAttribute="bottom" id="x77-Nm-2AR"/>
+            </constraints>
+            <point key="canvasLocation" x="112" y="-276"/>
+        </visualEffectView>
+    </objects>
+</document>

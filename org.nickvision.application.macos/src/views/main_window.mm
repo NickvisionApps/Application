@@ -1,6 +1,7 @@
 #import "views/main_window.h"
 #include <format>
 #include "controllers/main_window_controller.h"
+#import "controls/main_window_split_view.h"
 #include "services/events_service.h"
 
 using namespace application::controllers;
@@ -17,6 +18,7 @@ using namespace desktop::services;
 	std::shared_ptr<app_info> m_app_info;
 	std::shared_ptr<events_service> m_events_service;
 	std::shared_ptr<translation_service> m_translation_service;
+	MainWindowSplitView* m_split_view;
 }
 
 - (instancetype)initWithServiceProvider:(std::shared_ptr<service_provider>)serviceProvider
@@ -58,6 +60,8 @@ using namespace desktop::services;
 	self.closeFolderToolbarItem.toolTip = @(m_translation_service->_("Close Folder"));
 	self.openFolderToolbarItem.label = @(m_translation_service->_("Open"));
 	self.openFolderToolbarItem.toolTip = @(m_translation_service->_("Open Folder"));
+	m_split_view = [[MainWindowSplitView alloc] initWithTranslationService:m_translation_service];
+	self.window.contentViewController = m_split_view;
 	[self.window center];
 }
 

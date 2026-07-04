@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-29 21:28-0400\n"
+"POT-Creation-Date: 2026-07-04 00:08-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -143,7 +143,7 @@ msgstr "Открыть папку (Ctrl+O)"
 
 #: org.nickvision.application.linux/resources/main_window.blp:27
 #: org.nickvision.application.linux/resources/main_window.blp:62
-#: org.nickvision.application.macos/src/views/main_window.mm:59
+#: org.nickvision.application.macos/src/views/main_window.mm:61
 msgid "Open"
 msgstr "Открыть"
 
@@ -195,14 +195,14 @@ msgstr "Выход"
 
 #: org.nickvision.application.linux/resources/shortcuts_dialog.blp:33
 #: org.nickvision.application.linux/src/views/main_window.cpp:209
-#: org.nickvision.application.macos/src/views/main_window.mm:60
+#: org.nickvision.application.macos/src/views/main_window.mm:62
 #, fuzzy
 msgid "Open Folder"
 msgstr "Открыть Папку"
 
 #: org.nickvision.application.linux/resources/shortcuts_dialog.blp:38
 #: org.nickvision.application.macos/src/app_delegate.mm:93
-#: org.nickvision.application.macos/src/views/main_window.mm:58
+#: org.nickvision.application.macos/src/views/main_window.mm:60
 msgid "Close Folder"
 msgstr "Закрыть папку"
 
@@ -212,8 +212,8 @@ msgid "GitHub Repo"
 msgstr "Репозиторий GitHub"
 
 #: org.nickvision.application.linux/src/views/main_window.cpp:172
-#: org.nickvision.application.macos/src/views/main_window.mm:57
-#: org.nickvision.application.macos/src/views/main_window.mm:111
+#: org.nickvision.application.macos/src/views/main_window.mm:59
+#: org.nickvision.application.macos/src/views/main_window.mm:115
 msgid "Close"
 msgstr "Закрыть"
 
@@ -319,7 +319,7 @@ msgid "Select All"
 msgstr ""
 
 #: org.nickvision.application.macos/src/app_delegate.mm:105
-#: org.nickvision.application.macos/src/views/main_window.mm:132
+#: org.nickvision.application.macos/src/views/main_window.mm:136
 msgid "Debugging Information"
 msgstr ""
 
@@ -347,32 +347,40 @@ msgstr ""
 msgid "Discussions"
 msgstr ""
 
-#: org.nickvision.application.macos/src/views/main_window.mm:55
+#: org.nickvision.application.macos/src/controls/main_window_sidebar.mm:18
+msgid "Home"
+msgstr ""
+
+#: org.nickvision.application.macos/src/controls/main_window_sidebar.mm:18
+msgid "Files"
+msgstr ""
+
+#: org.nickvision.application.macos/src/views/main_window.mm:57
 msgid "Preview"
 msgstr ""
 
-#: org.nickvision.application.macos/src/views/main_window.mm:91
+#: org.nickvision.application.macos/src/views/main_window.mm:95
 msgid "Success"
 msgstr ""
 
-#: org.nickvision.application.macos/src/views/main_window.mm:95
+#: org.nickvision.application.macos/src/views/main_window.mm:99
 msgid "Warning"
 msgstr ""
 
-#: org.nickvision.application.macos/src/views/main_window.mm:99
+#: org.nickvision.application.macos/src/views/main_window.mm:103
 msgid "Error"
 msgstr ""
 
-#: org.nickvision.application.macos/src/views/main_window.mm:103
+#: org.nickvision.application.macos/src/views/main_window.mm:107
 msgid "Information"
 msgstr ""
 
-#: org.nickvision.application.macos/src/views/main_window.mm:108
-#: org.nickvision.application.macos/src/views/main_window.mm:134
+#: org.nickvision.application.macos/src/views/main_window.mm:112
+#: org.nickvision.application.macos/src/views/main_window.mm:138
 msgid "OK"
 msgstr ""
 
-#: org.nickvision.application.macos/src/views/main_window.mm:133
+#: org.nickvision.application.macos/src/views/main_window.mm:137
 #, c++-format
 msgid ""
 "The following information has been copied:\n"

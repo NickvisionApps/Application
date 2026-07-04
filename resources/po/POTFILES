@@ -6,5 +6,6 @@ org.nickvision.application.linux/resources/preferences_dialog.blp
 org.nickvision.application.linux/resources/shortcuts_dialog.blp
 org.nickvision.application.linux/src/views/main_window.cpp
 org.nickvision.application.macos/src/app_delegate.mm
+org.nickvision.application.macos/src/controls/main_window_sidebar.mm
 org.nickvision.application.macos/src/views/main_window.mm
 org.nickvision.application.macos/src/views/settings_dialog.mm

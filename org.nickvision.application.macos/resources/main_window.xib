@@ -19,10 +19,6 @@
             <windowCollectionBehavior key="collectionBehavior" managed="YES" fullScreenNone="YES"/>
             <rect key="contentRect" x="0.0" y="0.0" width="800" height="600"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1512" height="949"/>
-            <view key="contentView" id="Sv4-Np-3Hq">
-                <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
-                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            </view>
             <toolbar key="toolbar" implicitIdentifier="MainToolbar" showsBaselineSeparator="NO" displayMode="iconOnly" sizeMode="regular" id="Ck7-Rb-5Zm">
                 <allowedToolbarItems>
                     <toolbarItem implicitItemIdentifier="CE4D8B95-48F5-42E2-8955-6C8A05DB98E6" label="" paletteLabel="" tag="-1" image="folder.badge.plus" catalog="system" bordered="YES" id="Tz8-Lw-4Vj">
