@@ -54,10 +54,10 @@ using namespace desktop::services;
 	{
 		self.window.subtitle = @(m_translation_service->_("Preview"));
 	}
-	self.openFolderToolbarItem.label = @(m_translation_service->_("Open"));
-	self.openFolderToolbarItem.toolTip = @(m_translation_service->_("Open Folder"));
 	self.closeFolderToolbarItem.label = @(m_translation_service->_("Close"));
 	self.closeFolderToolbarItem.toolTip = @(m_translation_service->_("Close Folder"));
+	self.openFolderToolbarItem.label = @(m_translation_service->_("Open"));
+	self.openFolderToolbarItem.toolTip = @(m_translation_service->_("Open Folder"));
 	[self.window center];
 }
 

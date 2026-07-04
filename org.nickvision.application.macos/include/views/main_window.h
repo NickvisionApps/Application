@@ -7,8 +7,8 @@
 #include "events/folder_changed_event_args.h"
 
 @interface MainWindow : NSWindowController
-@property(nonatomic, assign) IBOutlet NSToolbarItem* openFolderToolbarItem;
 @property(nonatomic, assign) IBOutlet NSToolbarItem* closeFolderToolbarItem;
+@property(nonatomic, assign) IBOutlet NSToolbarItem* openFolderToolbarItem;
 - (instancetype)initWithServiceProvider:(std::shared_ptr<desktop::services::service_provider>)serviceProvider;
 - (IBAction)checkForUpdates:(id)sender;
 - (IBAction)openFolder:(id)sender;
