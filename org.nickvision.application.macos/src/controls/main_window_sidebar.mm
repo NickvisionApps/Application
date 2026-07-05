@@ -21,6 +21,13 @@ using namespace desktop::app;
 	return self;
 }
 
+- (void)awakeFromNib
+{
+	[super awakeFromNib];
+	self.glassEffectView.contentView = self.tableView.enclosingScrollView;
+	self.glassEffectView.style = NSGlassEffectViewStyleRegular;
+}
+
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
