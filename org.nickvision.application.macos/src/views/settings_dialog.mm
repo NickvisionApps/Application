@@ -1,10 +1,27 @@
 #import "views/settings_dialog.h"
-#include "controllers/preferences_view_controller.h"
 
 using namespace application::controllers;
 using namespace application::models;
 using namespace desktop::app;
-using namespace desktop::services;
+
+namespace application::macos::views
+{
+	settings_dialog::settings_dialog(std::shared_ptr<application::controllers::preferences_view_controller> controller,
+	                                 std::shared_ptr<desktop::app::translation_service> translation_service)
+	    : m_dialog{ [[SettingsDialog alloc] initWithDependencies:std::move(controller) translationService:std::move(translation_service)] }
+	{
+	}
+
+	settings_dialog::~settings_dialog()
+	{
+		[m_dialog release];
+	}
+
+	SettingsDialog* settings_dialog::objc() const
+	{
+		return m_dialog;
+	}
+}
 
 @implementation SettingsDialog
 {
@@ -12,13 +29,14 @@ using namespace desktop::services;
 	std::shared_ptr<translation_service> m_translation_service;
 }
 
-- (instancetype)initWithServiceProvider:(std::shared_ptr<service_provider>)serviceProvider
+- (instancetype)initWithDependencies:(std::shared_ptr<preferences_view_controller>)controller
+                  translationService:(std::shared_ptr<translation_service>)translationService
 {
 	self = [super initWithWindowNibName:@"settings_dialog"];
 	if (self)
 	{
-		m_controller = serviceProvider->get_required<preferences_view_controller>();
-		m_translation_service = serviceProvider->get_required<translation_service>();
+		m_controller = std::move(controller);
+		m_translation_service = std::move(translationService);
 	}
 	return self;
 }

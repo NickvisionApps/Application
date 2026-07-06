@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-05 16:35-0400\n"
+"POT-Creation-Date: 2026-07-05 20:01-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -136,7 +136,7 @@ msgstr ""
 
 #: org.nickvision.application.linux/resources/main_window.blp:27
 #: org.nickvision.application.linux/resources/main_window.blp:62
-#: org.nickvision.application.macos/src/views/main_window.mm:61
+#: org.nickvision.application.macos/src/views/main_window.mm:88
 msgid "Open"
 msgstr ""
 
@@ -154,9 +154,9 @@ msgid "Open a folder to get started"
 msgstr ""
 
 #: org.nickvision.application.linux/resources/preferences_dialog.blp:11
-#: org.nickvision.application.macos/src/views/settings_dialog.mm:29
-#: org.nickvision.application.macos/src/views/settings_dialog.mm:30
-#: org.nickvision.application.macos/src/views/settings_dialog.mm:52
+#: org.nickvision.application.macos/src/views/settings_dialog.mm:47
+#: org.nickvision.application.macos/src/views/settings_dialog.mm:48
+#: org.nickvision.application.macos/src/views/settings_dialog.mm:70
 msgid "General"
 msgstr ""
 
@@ -186,24 +186,24 @@ msgstr ""
 
 #: org.nickvision.application.linux/resources/shortcuts_dialog.blp:33
 #: org.nickvision.application.linux/src/views/main_window.cpp:209
-#: org.nickvision.application.macos/src/views/main_window.mm:62
+#: org.nickvision.application.macos/src/views/main_window.mm:89
 msgid "Open Folder"
 msgstr ""
 
 #: org.nickvision.application.linux/resources/shortcuts_dialog.blp:38
-#: org.nickvision.application.macos/src/app_delegate.mm:93
-#: org.nickvision.application.macos/src/views/main_window.mm:60
+#: org.nickvision.application.macos/src/app_delegate.mm:133
+#: org.nickvision.application.macos/src/views/main_window.mm:87
 msgid "Close Folder"
 msgstr ""
 
 #: org.nickvision.application.linux/src/views/main_window.cpp:129
-#: org.nickvision.application.macos/src/app_delegate.mm:114
+#: org.nickvision.application.macos/src/app_delegate.mm:154
 msgid "GitHub Repo"
 msgstr ""
 
 #: org.nickvision.application.linux/src/views/main_window.cpp:172
-#: org.nickvision.application.macos/src/views/main_window.mm:59
-#: org.nickvision.application.macos/src/views/main_window.mm:115
+#: org.nickvision.application.macos/src/views/main_window.mm:86
+#: org.nickvision.application.macos/src/views/main_window.mm:142
 msgid "Close"
 msgstr ""
 
@@ -214,161 +214,161 @@ msgid_plural "{} files"
 msgstr[0] ""
 msgstr[1] ""
 
-#: org.nickvision.application.macos/src/app_delegate.mm:76
-#: org.nickvision.application.macos/src/app_delegate.mm:91
+#: org.nickvision.application.macos/src/app_delegate.mm:116
+#: org.nickvision.application.macos/src/app_delegate.mm:131
 msgid "File"
 msgstr ""
 
-#: org.nickvision.application.macos/src/app_delegate.mm:77
-#: org.nickvision.application.macos/src/app_delegate.mm:96
+#: org.nickvision.application.macos/src/app_delegate.mm:117
+#: org.nickvision.application.macos/src/app_delegate.mm:136
 msgid "Edit"
 msgstr ""
 
-#: org.nickvision.application.macos/src/app_delegate.mm:78
-#: org.nickvision.application.macos/src/app_delegate.mm:104
+#: org.nickvision.application.macos/src/app_delegate.mm:118
+#: org.nickvision.application.macos/src/app_delegate.mm:144
 msgid "View"
 msgstr ""
 
-#: org.nickvision.application.macos/src/app_delegate.mm:79
-#: org.nickvision.application.macos/src/app_delegate.mm:108
+#: org.nickvision.application.macos/src/app_delegate.mm:119
+#: org.nickvision.application.macos/src/app_delegate.mm:148
 msgid "Window"
 msgstr ""
 
-#: org.nickvision.application.macos/src/app_delegate.mm:80
-#: org.nickvision.application.macos/src/app_delegate.mm:113
+#: org.nickvision.application.macos/src/app_delegate.mm:120
+#: org.nickvision.application.macos/src/app_delegate.mm:153
 msgid "Help"
 msgstr ""
 
-#: org.nickvision.application.macos/src/app_delegate.mm:82
+#: org.nickvision.application.macos/src/app_delegate.mm:122
 #, c++-format
 msgid "About {}"
 msgstr ""
 
-#: org.nickvision.application.macos/src/app_delegate.mm:83
+#: org.nickvision.application.macos/src/app_delegate.mm:123
 msgid "Check for Updates…"
 msgstr ""
 
-#: org.nickvision.application.macos/src/app_delegate.mm:84
+#: org.nickvision.application.macos/src/app_delegate.mm:124
 msgid "Settings…"
 msgstr ""
 
-#: org.nickvision.application.macos/src/app_delegate.mm:85
+#: org.nickvision.application.macos/src/app_delegate.mm:125
 msgid "Services"
 msgstr ""
 
-#: org.nickvision.application.macos/src/app_delegate.mm:86
+#: org.nickvision.application.macos/src/app_delegate.mm:126
 #, c++-format
 msgid "Hide {}"
 msgstr ""
 
-#: org.nickvision.application.macos/src/app_delegate.mm:87
+#: org.nickvision.application.macos/src/app_delegate.mm:127
 msgid "Hide Others"
 msgstr ""
 
-#: org.nickvision.application.macos/src/app_delegate.mm:88
+#: org.nickvision.application.macos/src/app_delegate.mm:128
 msgid "Show All"
 msgstr ""
 
-#: org.nickvision.application.macos/src/app_delegate.mm:89
+#: org.nickvision.application.macos/src/app_delegate.mm:129
 #, c++-format
 msgid "Quit {}"
 msgstr ""
 
-#: org.nickvision.application.macos/src/app_delegate.mm:92
+#: org.nickvision.application.macos/src/app_delegate.mm:132
 msgid "Open Folder…"
 msgstr ""
 
-#: org.nickvision.application.macos/src/app_delegate.mm:94
+#: org.nickvision.application.macos/src/app_delegate.mm:134
 msgid "Close Window"
 msgstr ""
 
-#: org.nickvision.application.macos/src/app_delegate.mm:97
+#: org.nickvision.application.macos/src/app_delegate.mm:137
 msgid "Undo"
 msgstr ""
 
-#: org.nickvision.application.macos/src/app_delegate.mm:98
+#: org.nickvision.application.macos/src/app_delegate.mm:138
 msgid "Redo"
 msgstr ""
 
-#: org.nickvision.application.macos/src/app_delegate.mm:99
+#: org.nickvision.application.macos/src/app_delegate.mm:139
 msgid "Cut"
 msgstr ""
 
-#: org.nickvision.application.macos/src/app_delegate.mm:100
+#: org.nickvision.application.macos/src/app_delegate.mm:140
 msgid "Copy"
 msgstr ""
 
-#: org.nickvision.application.macos/src/app_delegate.mm:101
+#: org.nickvision.application.macos/src/app_delegate.mm:141
 msgid "Paste"
 msgstr ""
 
-#: org.nickvision.application.macos/src/app_delegate.mm:102
+#: org.nickvision.application.macos/src/app_delegate.mm:142
 msgid "Select All"
 msgstr ""
 
-#: org.nickvision.application.macos/src/app_delegate.mm:105
-#: org.nickvision.application.macos/src/views/main_window.mm:136
+#: org.nickvision.application.macos/src/app_delegate.mm:145
+#: org.nickvision.application.macos/src/views/main_window.mm:163
 msgid "Debugging Information"
 msgstr ""
 
-#: org.nickvision.application.macos/src/app_delegate.mm:106
+#: org.nickvision.application.macos/src/app_delegate.mm:146
 msgid "Enter Full Screen"
 msgstr ""
 
-#: org.nickvision.application.macos/src/app_delegate.mm:109
+#: org.nickvision.application.macos/src/app_delegate.mm:149
 msgid "Minimize"
 msgstr ""
 
-#: org.nickvision.application.macos/src/app_delegate.mm:110
+#: org.nickvision.application.macos/src/app_delegate.mm:150
 msgid "Zoom"
 msgstr ""
 
-#: org.nickvision.application.macos/src/app_delegate.mm:111
+#: org.nickvision.application.macos/src/app_delegate.mm:151
 msgid "Bring All to Front"
 msgstr ""
 
-#: org.nickvision.application.macos/src/app_delegate.mm:115
+#: org.nickvision.application.macos/src/app_delegate.mm:155
 msgid "Report a Bug"
 msgstr ""
 
-#: org.nickvision.application.macos/src/app_delegate.mm:116
+#: org.nickvision.application.macos/src/app_delegate.mm:156
 msgid "Discussions"
 msgstr ""
 
-#: org.nickvision.application.macos/src/controls/main_window_sidebar.mm:18
+#: org.nickvision.application.macos/src/controls/main_window_sidebar.mm:36
 msgid "Home"
 msgstr ""
 
-#: org.nickvision.application.macos/src/controls/main_window_sidebar.mm:18
+#: org.nickvision.application.macos/src/controls/main_window_sidebar.mm:36
 msgid "Files"
 msgstr ""
 
-#: org.nickvision.application.macos/src/views/main_window.mm:57
+#: org.nickvision.application.macos/src/views/main_window.mm:84
 msgid "Preview"
 msgstr ""
 
-#: org.nickvision.application.macos/src/views/main_window.mm:95
+#: org.nickvision.application.macos/src/views/main_window.mm:122
 msgid "Success"
 msgstr ""
 
-#: org.nickvision.application.macos/src/views/main_window.mm:99
+#: org.nickvision.application.macos/src/views/main_window.mm:126
 msgid "Warning"
 msgstr ""
 
-#: org.nickvision.application.macos/src/views/main_window.mm:103
+#: org.nickvision.application.macos/src/views/main_window.mm:130
 msgid "Error"
 msgstr ""
 
-#: org.nickvision.application.macos/src/views/main_window.mm:107
+#: org.nickvision.application.macos/src/views/main_window.mm:134
 msgid "Information"
 msgstr ""
 
-#: org.nickvision.application.macos/src/views/main_window.mm:112
-#: org.nickvision.application.macos/src/views/main_window.mm:138
+#: org.nickvision.application.macos/src/views/main_window.mm:139
+#: org.nickvision.application.macos/src/views/main_window.mm:165
 msgid "OK"
 msgstr ""
 
-#: org.nickvision.application.macos/src/views/main_window.mm:137
+#: org.nickvision.application.macos/src/views/main_window.mm:164
 #, c++-format
 msgid ""
 "The following information has been copied:\n"
@@ -376,10 +376,10 @@ msgid ""
 "{}"
 msgstr ""
 
-#: org.nickvision.application.macos/src/views/settings_dialog.mm:32
+#: org.nickvision.application.macos/src/views/settings_dialog.mm:50
 msgid "Theme:"
 msgstr ""
 
-#: org.nickvision.application.macos/src/views/settings_dialog.mm:37
+#: org.nickvision.application.macos/src/views/settings_dialog.mm:55
 msgid "Translation Language:"
 msgstr ""

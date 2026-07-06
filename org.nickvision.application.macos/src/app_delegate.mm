@@ -1,8 +1,10 @@
 #import "app_delegate.h"
+#include <unordered_map>
 #include "services/app_config_service.h"
 #import "views/main_window.h"
 #import "views/settings_dialog.h"
 
+using namespace application::macos::views;
 using namespace application::models;
 using namespace application::services;
 using namespace desktop::app;
@@ -35,23 +37,62 @@ static void appendPeople(NSMutableAttributedString* credits, NSDictionary* boldA
 	[credits appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:normalAttrs]];
 }
 
+namespace application::macos
+{
+	app_delegate::app_delegate(std::shared_ptr<desktop::app::app_info> app_info, std::shared_ptr<desktop::hosting::lifetime_service> lifetime_service,
+	                           std::shared_ptr<desktop::app::translation_service> translation_service,
+	                           std::shared_ptr<application::services::app_config_service> app_config_service,
+	                           std::shared_ptr<desktop::services::service_provider> service_provider, std::shared_ptr<views::main_window> main_window)
+	    : m_delegate([[AppDelegate alloc] initWithDependencies:std::move(app_info)
+	                                           lifetimeService:std::move(lifetime_service)
+	                                        translationService:std::move(translation_service)
+	                                          appConfigService:std::move(app_config_service)
+	                                           serviceProvider:std::move(service_provider)
+	                                                mainWindow:main_window->objc()])
+	{
+		[[NSApplication sharedApplication] setDelegate:m_delegate];
+	}
+
+	app_delegate::~app_delegate()
+	{
+		if ([NSApplication sharedApplication].delegate == m_delegate)
+		{
+			[[NSApplication sharedApplication] setDelegate:nil];
+		}
+		[m_delegate release];
+	}
+
+	AppDelegate* app_delegate::objc() const
+	{
+		return m_delegate;
+	}
+}
+
 @implementation AppDelegate
 {
-	std::shared_ptr<service_provider> m_service_provider;
 	std::shared_ptr<app_info> m_app_info;
 	std::shared_ptr<lifetime_service> m_lifetime_service;
 	std::shared_ptr<translation_service> m_translation_service;
+	std::shared_ptr<app_config_service> m_app_config_service;
+	std::shared_ptr<service_provider> m_service_provider;
 	MainWindow* m_main_window;
 }
 
-- (instancetype)initWithServiceProvider:(std::shared_ptr<service_provider>)serviceProvider
+- (instancetype)initWithDependencies:(std::shared_ptr<desktop::app::app_info>)appInfo
+                     lifetimeService:(std::shared_ptr<desktop::hosting::lifetime_service>)lifetimeService
+                  translationService:(std::shared_ptr<desktop::app::translation_service>)translationService
+                    appConfigService:(std::shared_ptr<application::services::app_config_service>)appConfigService
+                     serviceProvider:(std::shared_ptr<desktop::services::service_provider>)serviceProvider
+                          mainWindow:(MainWindow*)mainWindow
 {
 	if (self = [super init])
 	{
+		m_app_info = std::move(appInfo);
+		m_lifetime_service = std::move(lifetimeService);
+		m_translation_service = std::move(translationService);
+		m_app_config_service = std::move(appConfigService);
 		m_service_provider = std::move(serviceProvider);
-		m_app_info = m_service_provider->get_required<app_info>();
-		m_lifetime_service = m_service_provider->get_required<lifetime_service>();
-		m_translation_service = m_service_provider->get_required<translation_service>();
+		m_main_window = mainWindow;
 		[[NSBundle mainBundle] loadNibNamed:@"main_menu" owner:self topLevelObjects:nil];
 	}
 	return self;
@@ -59,8 +100,7 @@ static void appendPeople(NSMutableAttributedString* credits, NSDictionary* boldA
 
 - (void)applicationDidFinishLaunching:(NSNotification*)notification
 {
-	std::shared_ptr<app_config_service> config_service{ m_service_provider->get_required<app_config_service>() };
-	switch (config_service->get_theme())
+	switch (m_app_config_service->get_theme())
 	{
 	case theme::light:
 		[[NSApplication sharedApplication] setAppearance:[NSAppearance appearanceNamed:NSAppearanceNameAqua]];
@@ -114,7 +154,6 @@ static void appendPeople(NSMutableAttributedString* credits, NSDictionary* boldA
 	helpMenu.itemArray[0].title = @(m_translation_service->_("GitHub Repo"));
 	helpMenu.itemArray[1].title = @(m_translation_service->_("Report a Bug"));
 	helpMenu.itemArray[2].title = @(m_translation_service->_("Discussions"));
-	m_main_window = [[MainWindow alloc] initWithServiceProvider:m_service_provider];
 	[m_main_window showWindow:nil];
 	[[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
 }
@@ -227,8 +266,8 @@ static void appendPeople(NSMutableAttributedString* credits, NSDictionary* boldA
 
 - (IBAction)settings:(id)sender
 {
-	SettingsDialog* settingsDialog{ [[SettingsDialog alloc] initWithServiceProvider:m_service_provider] };
-	[settingsDialog showWindow:nil];
+	std::shared_ptr<settings_dialog> dialog{ m_service_provider->get_required<settings_dialog>() };
+	[dialog->objc() showWindow:nil];
 }
 
 - (IBAction)viewDebuggingInformation:(id)sender

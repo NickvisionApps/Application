@@ -1,8 +1,5 @@
 #import "views/main_window.h"
 #include <format>
-#include "controllers/main_window_controller.h"
-#import "controls/main_window_split_view.h"
-#include "services/events_service.h"
 
 using namespace application::controllers;
 using namespace application::events;
@@ -11,6 +8,31 @@ using namespace application::services;
 using namespace desktop::app;
 using namespace desktop::notifications;
 using namespace desktop::services;
+
+namespace application::macos::views
+{
+	main_window::main_window(std::shared_ptr<application::controllers::main_window_controller> controller, std::shared_ptr<desktop::app::app_info> app_info,
+	                         std::shared_ptr<application::services::events_service> events_service,
+	                         std::shared_ptr<desktop::app::translation_service> translation_service,
+	                         std::shared_ptr<application::macos::controls::main_window_split_view> split_view)
+	    : m_window{ [[MainWindow alloc] initWithDependencies:std::move(controller)
+		                                             appInfo:std::move(app_info)
+		                                       eventsService:std::move(events_service)
+		                                  translationService:std::move(translation_service)
+		                                           splitView:split_view->objc()] }
+	{
+	}
+
+	main_window::~main_window()
+	{
+		[m_window release];
+	}
+
+	MainWindow* main_window::objc() const
+	{
+		return m_window;
+	}
+}
 
 @implementation MainWindow
 {
@@ -21,15 +43,20 @@ using namespace desktop::services;
 	MainWindowSplitView* m_split_view;
 }
 
-- (instancetype)initWithServiceProvider:(std::shared_ptr<service_provider>)serviceProvider
+- (instancetype)initWithDependencies:(std::shared_ptr<main_window_controller>)controller
+                             appInfo:(std::shared_ptr<app_info>)appInfo
+                       eventsService:(std::shared_ptr<events_service>)eventsService
+                  translationService:(std::shared_ptr<translation_service>)translationService
+                           splitView:(MainWindowSplitView*)splitView
 {
 	self = [super initWithWindowNibName:@"main_window"];
 	if (self)
 	{
-		m_controller = serviceProvider->get_required<main_window_controller>();
-		m_app_info = serviceProvider->get_required<app_info>();
-		m_events_service = serviceProvider->get_required<events_service>();
-		m_translation_service = serviceProvider->get_required<translation_service>();
+		m_controller = std::move(controller);
+		m_app_info = std::move(appInfo);
+		m_events_service = std::move(eventsService);
+		m_translation_service = std::move(translationService);
+		m_split_view = splitView;
 		m_events_service->get_app_notification_sent_event() += [self](const notification_service& /* unused */, const app_notification_sent_event_args& args)
 		{
 			if ([NSThread isMainThread])
@@ -60,9 +87,9 @@ using namespace desktop::services;
 	self.closeFolderToolbarItem.toolTip = @(m_translation_service->_("Close Folder"));
 	self.openFolderToolbarItem.label = @(m_translation_service->_("Open"));
 	self.openFolderToolbarItem.toolTip = @(m_translation_service->_("Open Folder"));
-	m_split_view = [[MainWindowSplitView alloc] initWithController:m_controller translationService:m_translation_service];
 	self.window.contentViewController = m_split_view;
 	[self.window center];
+	m_controller->queue_check_for_updates(false);
 }
 
 - (IBAction)checkForUpdates:(id)sender

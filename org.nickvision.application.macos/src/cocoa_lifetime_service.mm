@@ -18,12 +18,8 @@ namespace application::macos
 	void cocoa_lifetime_service::on_startup_and_run()
 	{
 		m_logger->info("Starting macOS application lifetime service...");
-		@autoreleasepool
-		{
-			AppDelegate* delegate{ [[AppDelegate alloc] initWithServiceProvider:m_service_provider] };
-			[[NSApplication sharedApplication] setDelegate:delegate];
-			[[NSApplication sharedApplication] run];
-		}
+		m_service_provider->get_required<app_delegate>();
+		[[NSApplication sharedApplication] run];
 	}
 
 	void cocoa_lifetime_service::on_shutdown() noexcept

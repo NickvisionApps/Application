@@ -2,6 +2,24 @@
 
 using namespace desktop::app;
 
+namespace application::macos::controls
+{
+	main_window_sidebar::main_window_sidebar(std::shared_ptr<desktop::app::translation_service> translation_service)
+	    : m_sidebar{ [[MainWindowSidebar alloc] initWithDependencies:std::move(translation_service)] }
+	{
+	}
+
+	main_window_sidebar::~main_window_sidebar()
+	{
+		[m_sidebar release];
+	}
+
+	MainWindowSidebar* main_window_sidebar::objc() const
+	{
+		return m_sidebar;
+	}
+}
+
 @implementation MainWindowSidebar
 {
 	std::shared_ptr<translation_service> m_translation_service;
@@ -9,7 +27,7 @@ using namespace desktop::app;
 	NSArray<NSString*>* m_icons;
 }
 
-- (instancetype)initWithTranslationService:(std::shared_ptr<translation_service>)translationService
+- (instancetype)initWithDependencies:(std::shared_ptr<translation_service>)translationService
 {
 	self = [super initWithNibName:@"main_window_sidebar" bundle:nil];
 	if (self)
