@@ -14,7 +14,6 @@
 
 @interface MainWindowSidebar : NSViewController <NSTableViewDataSource, NSTableViewDelegate>
 @property(nonatomic, assign) id<MainWindowSidebarDelegate> delegate;
-@property(nonatomic, assign) IBOutlet NSGlassEffectView* glassEffectView;
 @property(nonatomic, assign) IBOutlet NSTableView* tableView;
 - (instancetype)initWithDependencies:(std::shared_ptr<desktop::app::translation_service>)translationService;
 @end

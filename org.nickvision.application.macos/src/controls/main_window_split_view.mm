@@ -47,7 +47,7 @@ namespace application::macos::controls
 	NSSplitViewItem* sidebarItem{ [NSSplitViewItem sidebarWithViewController:m_sidebar] };
 	sidebarItem.minimumThickness = 180;
 	sidebarItem.maximumThickness = 320;
-	sidebarItem.canCollapse = YES;
+	sidebarItem.canCollapse = NO;
 	sidebarItem.allowsFullHeightLayout = YES;
 	NSSplitViewItem* contentItem{ [NSSplitViewItem splitViewItemWithViewController:m_content] };
 	contentItem.minimumThickness = 400;

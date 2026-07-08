@@ -42,8 +42,6 @@ namespace application::macos::controls
 - (void)awakeFromNib
 {
 	[super awakeFromNib];
-	self.glassEffectView.contentView = self.tableView.enclosingScrollView;
-	self.glassEffectView.style = NSGlassEffectViewStyleRegular;
 }
 
 - (void)viewDidLoad
