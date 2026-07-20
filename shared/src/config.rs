@@ -125,15 +125,15 @@ impl Configuration {
     pub fn load() -> Result<Self, Box<dyn std::error::Error>> {
         let info = AppInfo::default();
         let path = if info.is_portable() {
+            std::env::current_exe()?
+                .parent()
+                .unwrap()
+                .join("config.json")
+        } else {
             BaseDirs::new()
                 .expect("Unable to load base directories")
                 .config_dir()
                 .join(info.name())
-                .join("config.json")
-        } else {
-            std::env::current_exe()?
-                .parent()
-                .unwrap()
                 .join("config.json")
         };
         std::fs::create_dir_all(path.parent().unwrap())?;
@@ -196,6 +196,16 @@ mod tests {
     use super::*;
 
     #[test]
+    fn window_geometry_default() {
+        let geometry = WindowGeometry::default();
+        assert_eq!(geometry.x(), 100);
+        assert_eq!(geometry.y(), 100);
+        assert_eq!(geometry.width(), 800);
+        assert_eq!(geometry.height(), 600);
+        assert!(!geometry.is_maximized());
+    }
+
+    #[test]
     fn window_geometry_builder() {
         let geometry = WindowGeometry::builder()
             .x(200)
@@ -235,5 +245,25 @@ mod tests {
         let json = serde_json::to_string(&config).unwrap();
         let deserialized: Configuration = serde_json::from_str(&json).unwrap();
         assert_eq!(config, deserialized);
+    }
+
+    #[test]
+    fn configuration_save_load() {
+        let mut config = Configuration::default();
+        config.set_allow_preview_updates(true);
+        config.set_theme(ApplicationTheme::Dark);
+        config.set_translation_language("en".to_string());
+        config.set_window_geometry(WindowGeometry::new(200, 150, 1024, 768, true));
+        config.save().unwrap();
+        let loaded_config = Configuration::load().unwrap();
+        assert_eq!(config, loaded_config);
+        std::fs::remove_file(
+            BaseDirs::new()
+                .expect("Unable to load base directories")
+                .config_dir()
+                .join(AppInfo::default().name())
+                .join("config.json"),
+        )
+        .unwrap();
     }
 }
