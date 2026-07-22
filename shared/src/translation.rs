@@ -11,65 +11,72 @@ impl Translator {
     pub fn new<T: Into<String>>(language: T) -> Self {
         let mut language = language.into();
         if language.is_empty() || language == "C" {
-            language = std::env::var("LC_ALL")
-                .or_else(|_| std::env::var("LC_MESSAGES"))
-                .or_else(|_| std::env::var("LANG"))
-                .ok()
-                .or_else(sys_locale::get_locale)
-                .unwrap_or_else(|| "en_US".to_string());
+            language = Self::detect_language();
+        } else {
+            language = Self::normalize_language(&language);
         }
-        language = language
+        let mo_name = format!("{}.mo", AppInfo::default().short_name().to_lowercase());
+        Translator {
+            language: language.clone(),
+            catalog: match std::env::current_exe()
+                .ok()
+                .and_then(|path| path.parent().map(|p| p.to_path_buf()))
+                .or_else(|| std::env::current_dir().ok())
+            {
+                Some(current_dir) => {
+                    if language == "en_US" {
+                        Catalog::empty()
+                    } else {
+                        File::open(
+                            current_dir
+                                .join(&language)
+                                .join("LC_MESSAGES")
+                                .join(&mo_name),
+                        )
+                        .ok()
+                        .and_then(|f| Catalog::parse(f).ok())
+                        .or_else(|| {
+                            let base_language = language.split('_').next().unwrap_or("en_US");
+                            File::open(
+                                current_dir
+                                    .join(base_language)
+                                    .join("LC_MESSAGES")
+                                    .join(&mo_name),
+                            )
+                            .ok()
+                            .and_then(|f| Catalog::parse(f).ok())
+                        })
+                        .unwrap_or_else(Catalog::empty)
+                    }
+                }
+                None => Catalog::empty(),
+            },
+        }
+    }
+
+    fn detect_language() -> String {
+        std::env::var("LC_ALL")
+            .or_else(|_| std::env::var("LC_MESSAGES"))
+            .or_else(|_| std::env::var("LANG"))
+            .ok()
+            .or_else(sys_locale::get_locale)
+            .map(|lang| Self::normalize_language(&lang))
+            .unwrap_or_else(|| "en_US".to_string())
+    }
+
+    fn normalize_language(language: &str) -> String {
+        let normalized = language
             .split('.')
             .next()
             .unwrap_or("en_US")
             .split('@')
             .next()
             .unwrap_or("en_US")
-            .replace("-", "_");
-        if language == "C" || language == "POSIX" {
-            language = "en_US".to_string();
-        }
-        match std::env::current_exe()
-            .ok()
-            .and_then(|path| path.parent().map(|p| p.to_path_buf()))
-            .or_else(|| std::env::current_dir().ok())
-        {
-            Some(current_dir) => Translator {
-                language: language.clone(),
-                catalog: if language == "en_US" {
-                    Catalog::empty()
-                } else {
-                    File::open(
-                        current_dir
-                            .join(&language)
-                            .join("LC_MESSAGES")
-                            .join(format!(
-                                "{}.mo",
-                                AppInfo::default().short_name().to_lowercase()
-                            )),
-                    )
-                    .ok()
-                    .and_then(|f| Catalog::parse(f).ok())
-                    .or_else(|| {
-                        File::open(
-                            current_dir
-                                .join(language.split('_').next().unwrap_or("en_US"))
-                                .join("LC_MESSAGES")
-                                .join(format!(
-                                    "{}.mo",
-                                    AppInfo::default().short_name().to_lowercase()
-                                )),
-                        )
-                        .ok()
-                        .and_then(|f| Catalog::parse(f).ok())
-                    })
-                    .unwrap_or_else(Catalog::empty)
-                },
-            },
-            None => Translator {
-                language: language.clone(),
-                catalog: Catalog::empty(),
-            },
+            .replace('-', "_");
+        if normalized.is_empty() || normalized == "C" || normalized == "POSIX" {
+            "en_US".to_string()
+        } else {
+            normalized
         }
     }
 
@@ -140,5 +147,40 @@ impl Translator {
             result = result.replace(&placeholder, arg);
         }
         result
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn language_normalization() {
+        assert_eq!(Translator::normalize_language("pt-BR.UTF-8@foo"), "pt_BR");
+        assert_eq!(Translator::normalize_language("ru_RU.UTF-8"), "ru_RU");
+        assert_eq!(Translator::normalize_language("C"), "en_US");
+        assert_eq!(Translator::normalize_language("POSIX"), "en_US");
+        assert_eq!(Translator::normalize_language("C.UTF-8"), "en_US");
+    }
+
+    #[test]
+    fn language_detection() {
+        let language = Translator::detect_language();
+        assert!(!language.is_empty());
+        assert_ne!(language, "C");
+    }
+
+    #[test]
+    fn translator_language_normalization() {
+        let translator = Translator::new("fr-CA.UTF-8@foo");
+        assert_eq!(translator.language(), "fr_CA");
+    }
+
+    #[test]
+    fn translator_missing_catalog() {
+        let translator = Translator::new("zz_ZZ");
+        assert_eq!(translator.language(), "zz_ZZ");
+        assert_eq!(translator._g("Hello"), "Hello");
+        assert_eq!(translator._f("Hello {0}", &["World"]), "Hello World");
     }
 }
