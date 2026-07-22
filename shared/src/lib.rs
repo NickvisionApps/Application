@@ -3,5 +3,7 @@ compile_error!("armoire only supports Windows, macOS, and Linux");
 
 pub mod config;
 mod info;
+mod translation;
 
 pub use info::AppInfo;
+pub use translation::Translator;
