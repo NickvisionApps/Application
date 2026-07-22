@@ -11,35 +11,64 @@ impl Translator {
     pub fn new<T: Into<String>>(language: T) -> Self {
         let mut language = language.into();
         if language.is_empty() || language == "C" {
-            language = std::env::var("LANG")
-                .unwrap_or_else(|_| "C".to_string())
-                .split('.')
-                .next()
-                .unwrap_or("C")
-                .to_string();
+            language = std::env::var("LC_ALL")
+                .or_else(|_| std::env::var("LC_MESSAGES"))
+                .or_else(|_| std::env::var("LANG"))
+                .ok()
+                .or_else(sys_locale::get_locale)
+                .unwrap_or_else(|| "en_US".to_string());
         }
-        if language == "C" {
+        language = language
+            .split('.')
+            .next()
+            .unwrap_or("en_US")
+            .split('@')
+            .next()
+            .unwrap_or("en_US")
+            .replace("-", "_");
+        if language == "C" || language == "POSIX" {
             language = "en_US".to_string();
         }
-        Translator {
-            language: language.clone(),
-            catalog: if language == "en_US" {
-                Catalog::empty()
-            } else {
-                let file = File::open(
-                    std::env::current_exe()
-                        .unwrap()
-                        .parent()
-                        .unwrap()
-                        .join(&language)
-                        .join("LC_MESSAGES")
-                        .join(format!(
-                            "{}.mo",
-                            AppInfo::default().short_name().to_lowercase()
-                        )),
-                )
-                .unwrap();
-                Catalog::parse(file).unwrap()
+        match std::env::current_exe()
+            .ok()
+            .and_then(|path| path.parent().map(|p| p.to_path_buf()))
+            .or_else(|| std::env::current_dir().ok())
+        {
+            Some(current_dir) => Translator {
+                language: language.clone(),
+                catalog: if language == "en_US" {
+                    Catalog::empty()
+                } else {
+                    File::open(
+                        current_dir
+                            .join(&language)
+                            .join("LC_MESSAGES")
+                            .join(format!(
+                                "{}.mo",
+                                AppInfo::default().short_name().to_lowercase()
+                            )),
+                    )
+                    .ok()
+                    .and_then(|f| Catalog::parse(f).ok())
+                    .or_else(|| {
+                        File::open(
+                            current_dir
+                                .join(language.split('_').next().unwrap_or("en_US"))
+                                .join("LC_MESSAGES")
+                                .join(format!(
+                                    "{}.mo",
+                                    AppInfo::default().short_name().to_lowercase()
+                                )),
+                        )
+                        .ok()
+                        .and_then(|f| Catalog::parse(f).ok())
+                    })
+                    .unwrap_or_else(Catalog::empty)
+                },
+            },
+            None => Translator {
+                language: language.clone(),
+                catalog: Catalog::empty(),
             },
         }
     }
