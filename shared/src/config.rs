@@ -1,8 +1,10 @@
 use crate::app_info;
 use directories::BaseDirs;
 use serde::{Deserialize, Serialize};
+use serde_repr::{Deserialize_repr, Serialize_repr};
 
-#[derive(Debug, Clone, Default, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Debug, Clone, Default, PartialEq, Eq, Serialize_repr, Deserialize_repr)]
+#[repr(u8)]
 pub enum ApplicationTheme {
     Light,
     Dark,
@@ -11,6 +13,7 @@ pub enum ApplicationTheme {
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "PascalCase")]
 pub struct WindowGeometry {
     x: i32,
     y: i32,
@@ -29,6 +32,7 @@ pub struct WindowGeometryBuilder {
 }
 
 #[derive(Debug, Clone, Default, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "PascalCase")]
 pub struct Configuration {
     allow_preview_updates: bool,
     theme: ApplicationTheme,
