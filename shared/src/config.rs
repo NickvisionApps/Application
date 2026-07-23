@@ -89,6 +89,10 @@ impl Default for WindowGeometry {
 }
 
 impl WindowGeometryBuilder {
+    pub fn new() -> Self {
+        WindowGeometryBuilder::default()
+    }
+
     pub fn x(mut self, x: i32) -> Self {
         self.x = Some(x);
         self
