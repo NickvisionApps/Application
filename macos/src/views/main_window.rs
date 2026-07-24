@@ -2,7 +2,8 @@ use objc2::rc::Retained;
 use objc2::runtime::ProtocolObject;
 use objc2::{DefinedClass, MainThreadOnly, define_class, msg_send};
 use objc2_app_kit::{
-    NSBackingStoreType, NSWindow, NSWindowController, NSWindowDelegate, NSWindowStyleMask,
+    NSBackingStoreType, NSToolbar, NSWindow, NSWindowController, NSWindowDelegate,
+    NSWindowStyleMask, NSWindowToolbarStyle,
 };
 use objc2_foundation::{MainThreadMarker, NSObjectProtocol, NSPoint, NSRect, NSSize, NSString};
 use shared::AppState;
@@ -38,6 +39,7 @@ impl MainWindow {
         let this: Retained<Self> = unsafe { msg_send![super(this), init] };
         let state_ref = this.ivars().state.borrow();
         let geometry = state_ref.configuration().window_geometry();
+        let toolbar = NSToolbar::initWithIdentifier(NSToolbar::alloc(mtm), &NSString::from_str("MainToolbar"));
         let window = unsafe {
             NSWindow::initWithContentRect_styleMask_backing_defer(
                 NSWindow::alloc(mtm),
@@ -48,23 +50,25 @@ impl MainWindow {
                 NSWindowStyleMask::Titled
                     | NSWindowStyleMask::Closable
                     | NSWindowStyleMask::Miniaturizable
-                    | NSWindowStyleMask::Resizable,
+                    | NSWindowStyleMask::Resizable
+                    | NSWindowStyleMask::UnifiedTitleAndToolbar
+                    | NSWindowStyleMask::FullSizeContentView,
                 NSBackingStoreType::Buffered,
                 false,
             )
         };
+        this.setWindow(Some(&window));
         window.setDelegate(Some(ProtocolObject::from_ref(&*this)));
         unsafe { window.setReleasedWhenClosed(false) };
         window.setTitle(&NSString::from_str(
             &state_ref.translator()._g("Application"),
         ));
-        window.setContentMinSize(NSSize::new(
-            geometry.width() as f64,
-            geometry.height() as f64,
-        ));
+        window.setTitlebarAppearsTransparent(true);
+        window.setContentMinSize(NSSize::new(600.0, 400.0));
+        window.setToolbar(Some(&toolbar));
+        window.setToolbarStyle(NSWindowToolbarStyle::Unified);
         window.center();
         drop(state_ref);
-        this.setWindow(Some(&window));
         this
     }
 
