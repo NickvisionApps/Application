@@ -66,6 +66,12 @@ while IFS= read -r dep; do
     cp "${dep}" "${MACOS_DIR}/$(basename "${dep}")"
 done < <(find "${TARGET_DIR}" -maxdepth 1 -type f \( -name "*.dylib" -o -name "*.so" \))
 
+while IFS= read -r -d '' lc_messages_dir; do
+    LANGUAGE="$(basename "$(dirname "${lc_messages_dir}")")"
+    mkdir -p "${MACOS_DIR}/${LANGUAGE}/LC_MESSAGES"
+    cp "${lc_messages_dir}"/*.mo "${MACOS_DIR}/${LANGUAGE}/LC_MESSAGES/"
+done < <(find "${TARGET_DIR}" -mindepth 2 -maxdepth 2 -type d -name "LC_MESSAGES" -print0)
+
 cat > "${CONTENTS_DIR}/Info.plist" <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
