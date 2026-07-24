@@ -1,9 +1,10 @@
 use crate::views::MainWindow;
 use objc2::rc::Retained;
-use objc2::{DefinedClass, MainThreadOnly, define_class, msg_send, sel};
+use objc2::runtime::AnyObject;
+use objc2::{ClassType, DefinedClass, MainThreadOnly, define_class, msg_send, sel};
 use objc2_app_kit::{
     NSApplication, NSApplicationActivationPolicy, NSApplicationDelegate, NSEventModifierFlags,
-    NSMenu, NSMenuItem,
+    NSImage, NSMenu, NSMenuItem,
 };
 use objc2_foundation::{
     MainThreadMarker, NSNotification, NSObject, NSObjectProtocol, NSString, ns_string,
@@ -24,6 +25,13 @@ define_class!(
     #[thread_kind = MainThreadOnly]
     #[ivars = DelegateState]
     pub struct Delegate;
+
+    impl Delegate {
+        #[unsafe(method(showSettings:))]
+        fn show_settings(&self, _sender: Option<&AnyObject>) {
+            // TODO: Present the settings window once it is implemented.
+        }
+    }
 
     unsafe impl NSObjectProtocol for Delegate {}
 
@@ -50,6 +58,21 @@ define_class!(
                     Some(sel!(orderFrontStandardAboutPanel:)),
                     ns_string!(""),
                 );
+            }
+            app_menu.addItem(&NSMenuItem::separatorItem(self.mtm()));
+            let settings_item = unsafe {
+                app_menu.addItemWithTitle_action_keyEquivalent(
+                    &NSString::from_str(&state_ref.translator()._g("Settings\u{2026}")),
+                    Some(sel!(showSettings:)),
+                    ns_string!(","),
+                )
+            };
+            unsafe { settings_item.setTarget(Some(self.as_super().as_super())) };
+            if let Some(gear_image) = NSImage::imageWithSystemSymbolName_accessibilityDescription(
+                ns_string!("gearshape"),
+                None,
+            ) {
+                settings_item.setImage(Some(&gear_image));
             }
             app_menu.addItem(&NSMenuItem::separatorItem(self.mtm()));
             let services_menu_item = unsafe {
