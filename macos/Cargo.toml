@@ -2,7 +2,6 @@
 name = "macos"
 version = "2026.7.0"
 edition = "2024"
-build = "build.rs"
 
 [dependencies]
 objc2 = "0.6.4"
