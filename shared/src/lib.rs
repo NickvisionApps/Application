@@ -29,11 +29,19 @@ impl AppState {
         }
     }
 
-    pub fn configuration(&mut self) -> &mut Configuration {
+    pub fn configuration(&self) -> &Configuration {
+        &self.configuration
+    }
+
+    pub fn configuration_mut(&mut self) -> &mut Configuration {
         &mut self.configuration
     }
 
-    pub fn folder_browser(&mut self) -> &mut FolderBrowser {
+    pub fn folder_browser(&self) -> &FolderBrowser {
+        &self.folder_browser
+    }
+
+    pub fn folder_browser_mut(&mut self) -> &mut FolderBrowser {
         &mut self.folder_browser
     }
 

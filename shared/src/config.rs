@@ -15,19 +15,19 @@ pub enum ApplicationTheme {
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct WindowGeometry {
-    x: i32,
-    y: i32,
-    width: u32,
-    height: u32,
+    x: i64,
+    y: i64,
+    width: u64,
+    height: u64,
     is_maximized: bool,
 }
 
 #[derive(Debug, Clone, Default, PartialEq, Eq)]
 pub struct WindowGeometryBuilder {
-    x: Option<i32>,
-    y: Option<i32>,
-    width: Option<u32>,
-    height: Option<u32>,
+    x: Option<i64>,
+    y: Option<i64>,
+    width: Option<u64>,
+    height: Option<u64>,
     is_maximized: Option<bool>,
 }
 
@@ -41,7 +41,7 @@ pub struct Configuration {
 }
 
 impl WindowGeometry {
-    pub fn new(x: i32, y: i32, width: u32, height: u32, is_maximized: bool) -> Self {
+    pub fn new(x: i64, y: i64, width: u64, height: u64, is_maximized: bool) -> Self {
         WindowGeometry {
             x,
             y,
@@ -55,19 +55,19 @@ impl WindowGeometry {
         WindowGeometryBuilder::default()
     }
 
-    pub fn x(&self) -> i32 {
+    pub fn x(&self) -> i64 {
         self.x
     }
 
-    pub fn y(&self) -> i32 {
+    pub fn y(&self) -> i64 {
         self.y
     }
 
-    pub fn width(&self) -> u32 {
+    pub fn width(&self) -> u64 {
         self.width
     }
 
-    pub fn height(&self) -> u32 {
+    pub fn height(&self) -> u64 {
         self.height
     }
 
@@ -93,22 +93,22 @@ impl WindowGeometryBuilder {
         WindowGeometryBuilder::default()
     }
 
-    pub fn x(mut self, x: i32) -> Self {
+    pub fn x(mut self, x: i64) -> Self {
         self.x = Some(x);
         self
     }
 
-    pub fn y(mut self, y: i32) -> Self {
+    pub fn y(mut self, y: i64) -> Self {
         self.y = Some(y);
         self
     }
 
-    pub fn width(mut self, width: u32) -> Self {
+    pub fn width(mut self, width: u64) -> Self {
         self.width = Some(width);
         self
     }
 
-    pub fn height(mut self, height: u32) -> Self {
+    pub fn height(mut self, height: u64) -> Self {
         self.height = Some(height);
         self
     }
@@ -271,6 +271,6 @@ mod tests {
                 .join(app_info::NAME)
                 .join("config.json"),
         )
-        .unwrap();
+            .unwrap();
     }
 }
