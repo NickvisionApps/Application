@@ -27,9 +27,12 @@ define_class!(
     pub struct Delegate;
 
     impl Delegate {
+        #[unsafe(method(checkForUpdates:))]
+        fn check_for_updates(&self, _sender: Option<&AnyObject>) {
+        }
+
         #[unsafe(method(showSettings:))]
         fn show_settings(&self, _sender: Option<&AnyObject>) {
-            // TODO: Present the settings window once it is implemented.
         }
     }
 
@@ -56,6 +59,11 @@ define_class!(
                 app_menu.addItemWithTitle_action_keyEquivalent(
                     &NSString::from_str(&state_ref.translator()._g("About Application")),
                     Some(sel!(orderFrontStandardAboutPanel:)),
+                    ns_string!(""),
+                );
+                app_menu.addItemWithTitle_action_keyEquivalent(
+                    &NSString::from_str(&state_ref.translator()._g("Check for Updates")),
+                    Some(sel!(checkForUpdates:)),
                     ns_string!(""),
                 );
             }

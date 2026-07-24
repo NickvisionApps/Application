@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-23 23:43-0400\n"
+"POT-Creation-Date: 2026-07-23 23:56-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -18,105 +18,109 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: macos/src/app.rs:53
+#: macos/src/app.rs:56
 msgid "Application"
 msgstr "Application"
 
-#: macos/src/app.rs:57
+#: macos/src/app.rs:60
 msgid "About Application"
 msgstr "О приложении"
 
 #: macos/src/app.rs:65
+msgid "Check for Updates"
+msgstr ""
+
+#: macos/src/app.rs:73
 msgid "Settings…"
 msgstr ""
 
-#: macos/src/app.rs:80 macos/src/app.rs:87
+#: macos/src/app.rs:88 macos/src/app.rs:95
 msgid "Services"
 msgstr ""
 
-#: macos/src/app.rs:94
+#: macos/src/app.rs:102
 #, fuzzy
 msgid "Hide Application"
 msgstr "Application"
 
-#: macos/src/app.rs:101
+#: macos/src/app.rs:109
 msgid "Hide Others"
 msgstr ""
 
-#: macos/src/app.rs:111
+#: macos/src/app.rs:119
 msgid "Show All"
 msgstr ""
 
-#: macos/src/app.rs:119
+#: macos/src/app.rs:127
 #, fuzzy
 msgid "Quit Application"
 msgstr "О приложении"
 
-#: macos/src/app.rs:129
+#: macos/src/app.rs:137
 msgid "File"
 msgstr ""
 
-#: macos/src/app.rs:133
+#: macos/src/app.rs:141
 msgid "Close"
 msgstr "Закрыть"
 
-#: macos/src/app.rs:143
+#: macos/src/app.rs:151
 msgid "Edit"
 msgstr ""
 
-#: macos/src/app.rs:147
+#: macos/src/app.rs:155
 msgid "Undo"
 msgstr ""
 
-#: macos/src/app.rs:152
+#: macos/src/app.rs:160
 msgid "Redo"
 msgstr ""
 
-#: macos/src/app.rs:160
+#: macos/src/app.rs:168
 msgid "Cut"
 msgstr ""
 
-#: macos/src/app.rs:165
+#: macos/src/app.rs:173
 msgid "Copy"
 msgstr ""
 
-#: macos/src/app.rs:170
+#: macos/src/app.rs:178
 msgid "Paste"
 msgstr ""
 
-#: macos/src/app.rs:175
+#: macos/src/app.rs:183
 msgid "Select All"
 msgstr ""
 
-#: macos/src/app.rs:185
+#: macos/src/app.rs:193
 msgid "View"
 msgstr ""
 
-#: macos/src/app.rs:189
+#: macos/src/app.rs:197
 msgid "Enter Full Screen"
 msgstr ""
 
-#: macos/src/app.rs:202
+#: macos/src/app.rs:210
 msgid "Window"
 msgstr ""
 
-#: macos/src/app.rs:206
+#: macos/src/app.rs:214
 msgid "Minimize"
 msgstr ""
 
-#: macos/src/app.rs:211
+#: macos/src/app.rs:219
 msgid "Zoom"
 msgstr ""
 
-#: macos/src/app.rs:219
+#: macos/src/app.rs:227
 msgid "Bring All to Front"
 msgstr ""
 
-#: macos/src/app.rs:230
+#: macos/src/app.rs:238
 msgid "Help"
 msgstr ""
 
-#: macos/src/app.rs:234
+#: macos/src/app.rs:242
 #, fuzzy
 msgid "Application Help"
 msgstr "Application"
