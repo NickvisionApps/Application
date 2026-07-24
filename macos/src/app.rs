@@ -34,12 +34,7 @@ define_class!(
                 .window
                 .set(MainWindow::new(self.mtm(), Rc::clone(&self.ivars().state)))
                 .unwrap();
-            self.ivars()
-                .window
-                .get()
-                .unwrap()
-                .ns_window()
-                .makeKeyAndOrderFront(None);
+            self.ivars().window.get().unwrap().show();
             app.setActivationPolicy(NSApplicationActivationPolicy::Regular);
             app.activate();
         }
