@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-23 22:29-0400\n"
+"POT-Creation-Date: 2026-07-23 23:37-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,46 +25,90 @@ msgstr ""
 msgid "About Application"
 msgstr ""
 
-#: macos/src/app.rs:57
+#: macos/src/app.rs:57 macos/src/app.rs:64
+msgid "Services"
+msgstr ""
+
+#: macos/src/app.rs:71
 msgid "Hide Application"
 msgstr ""
 
-#: macos/src/app.rs:64
+#: macos/src/app.rs:78
 msgid "Hide Others"
 msgstr ""
 
-#: macos/src/app.rs:74
+#: macos/src/app.rs:88
 msgid "Show All"
 msgstr ""
 
-#: macos/src/app.rs:82
+#: macos/src/app.rs:96
 msgid "Quit Application"
 msgstr ""
 
-#: macos/src/app.rs:92
+#: macos/src/app.rs:106
+msgid "File"
+msgstr ""
+
+#: macos/src/app.rs:110
+msgid "Close"
+msgstr ""
+
+#: macos/src/app.rs:120
 msgid "Edit"
 msgstr ""
 
-#: macos/src/app.rs:96
+#: macos/src/app.rs:124
 msgid "Undo"
 msgstr ""
 
-#: macos/src/app.rs:101
+#: macos/src/app.rs:129
 msgid "Redo"
 msgstr ""
 
-#: macos/src/app.rs:109
+#: macos/src/app.rs:137
 msgid "Cut"
 msgstr ""
 
-#: macos/src/app.rs:114
+#: macos/src/app.rs:142
 msgid "Copy"
 msgstr ""
 
-#: macos/src/app.rs:119
+#: macos/src/app.rs:147
 msgid "Paste"
 msgstr ""
 
-#: macos/src/app.rs:124
+#: macos/src/app.rs:152
 msgid "Select All"
+msgstr ""
+
+#: macos/src/app.rs:162
+msgid "View"
+msgstr ""
+
+#: macos/src/app.rs:166
+msgid "Enter Full Screen"
+msgstr ""
+
+#: macos/src/app.rs:179
+msgid "Window"
+msgstr ""
+
+#: macos/src/app.rs:183
+msgid "Minimize"
+msgstr ""
+
+#: macos/src/app.rs:188
+msgid "Zoom"
+msgstr ""
+
+#: macos/src/app.rs:196
+msgid "Bring All to Front"
+msgstr ""
+
+#: macos/src/app.rs:207
+msgid "Help"
+msgstr ""
+
+#: macos/src/app.rs:211
+msgid "Application Help"
 msgstr ""

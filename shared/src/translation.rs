@@ -55,30 +55,27 @@ impl Translator {
         }
     }
 
-    fn detect_language() -> String {
-        std::env::var("LC_ALL")
-            .or_else(|_| std::env::var("LC_MESSAGES"))
-            .or_else(|_| std::env::var("LANG"))
+    pub fn available_languages() -> Vec<String> {
+        let mut languages = vec![];
+        let mo_name = format!("{}.mo", app_info::ENGLISH_SHORT_NAME.to_lowercase());
+        if let Some(current_dir) = std::env::current_exe()
             .ok()
-            .or_else(sys_locale::get_locale)
-            .map(|lang| Self::normalize_language(&lang))
-            .unwrap_or_else(|| "en_US".to_string())
-    }
-
-    fn normalize_language(language: &str) -> String {
-        let normalized = language
-            .split('.')
-            .next()
-            .unwrap_or("en_US")
-            .split('@')
-            .next()
-            .unwrap_or("en_US")
-            .replace('-', "_");
-        if normalized.is_empty() || normalized == "C" || normalized == "POSIX" {
-            "en_US".to_string()
-        } else {
-            normalized
+            .and_then(|path| path.parent().map(|p| p.to_path_buf()))
+            .or_else(|| std::env::current_dir().ok())
+            && let Ok(entries) = std::fs::read_dir(current_dir)
+        {
+            for entry in entries.flatten() {
+                let path = entry.path();
+                if path.is_dir()
+                    && path.join("LC_MESSAGES").join(&mo_name).exists()
+                    && let Some(name) = path.file_name().and_then(|n| n.to_str())
+                {
+                    languages.push(name.to_string());
+                }
+            }
         }
+        languages.sort();
+        languages
     }
 
     pub fn language(&self) -> &str {
@@ -148,6 +145,32 @@ impl Translator {
             result = result.replace(&placeholder, arg);
         }
         result
+    }
+
+    fn detect_language() -> String {
+        std::env::var("LC_ALL")
+            .or_else(|_| std::env::var("LC_MESSAGES"))
+            .or_else(|_| std::env::var("LANG"))
+            .ok()
+            .or_else(sys_locale::get_locale)
+            .map(|lang| Self::normalize_language(&lang))
+            .unwrap_or_else(|| "en_US".to_string())
+    }
+
+    fn normalize_language(language: &str) -> String {
+        let normalized = language
+            .split('.')
+            .next()
+            .unwrap_or("en_US")
+            .split('@')
+            .next()
+            .unwrap_or("en_US")
+            .replace('-', "_");
+        if normalized.is_empty() || normalized == "C" || normalized == "POSIX" {
+            "en_US".to_string()
+        } else {
+            normalized
+        }
     }
 }
 

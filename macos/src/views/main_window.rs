@@ -2,12 +2,9 @@ use objc2::rc::Retained;
 use objc2::runtime::ProtocolObject;
 use objc2::{DefinedClass, MainThreadOnly, define_class, msg_send};
 use objc2_app_kit::{
-    NSApplication, NSBackingStoreType, NSWindow, NSWindowController, NSWindowDelegate,
-    NSWindowStyleMask,
+    NSBackingStoreType, NSWindow, NSWindowController, NSWindowDelegate, NSWindowStyleMask,
 };
-use objc2_foundation::{
-    MainThreadMarker, NSNotification, NSObjectProtocol, NSPoint, NSRect, NSSize, NSString,
-};
+use objc2_foundation::{MainThreadMarker, NSObjectProtocol, NSPoint, NSRect, NSSize, NSString};
 use shared::AppState;
 use std::cell::RefCell;
 use std::rc::Rc;
@@ -26,12 +23,7 @@ define_class!(
 
     unsafe impl NSObjectProtocol for MainWindow {}
 
-    unsafe impl NSWindowDelegate for MainWindow {
-        #[unsafe(method(windowWillClose:))]
-        fn window_will_close(&self, _notification: &NSNotification) {
-            NSApplication::sharedApplication(self.mtm()).terminate(None)
-        }
-    }
+    unsafe impl NSWindowDelegate for MainWindow {}
 );
 
 impl MainWindowState {
@@ -62,6 +54,7 @@ impl MainWindow {
             )
         };
         window.setDelegate(Some(ProtocolObject::from_ref(&*this)));
+        unsafe { window.setReleasedWhenClosed(false) };
         window.setTitle(&NSString::from_str(
             &state_ref.translator()._g("Application"),
         ));

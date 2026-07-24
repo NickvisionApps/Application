@@ -52,6 +52,20 @@ define_class!(
                 );
             }
             app_menu.addItem(&NSMenuItem::separatorItem(self.mtm()));
+            let services_menu_item = unsafe {
+                app_menu.addItemWithTitle_action_keyEquivalent(
+                    &NSString::from_str(&state_ref.translator()._g("Services")),
+                    None,
+                    ns_string!(""),
+                )
+            };
+            let services_menu = NSMenu::initWithTitle(
+                NSMenu::alloc(self.mtm()),
+                &NSString::from_str(&state_ref.translator()._g("Services")),
+            );
+            services_menu_item.setSubmenu(Some(&services_menu));
+            app.setServicesMenu(Some(&services_menu));
+            app_menu.addItem(&NSMenuItem::separatorItem(self.mtm()));
             unsafe {
                 app_menu.addItemWithTitle_action_keyEquivalent(
                     &NSString::from_str(&state_ref.translator()._g("Hide Application")),
@@ -85,6 +99,20 @@ define_class!(
                 );
             }
             app_menu_item.setSubmenu(Some(&app_menu));
+            let file_menu_item = NSMenuItem::new(self.mtm());
+            main_menu.addItem(&file_menu_item);
+            let file_menu = NSMenu::initWithTitle(
+                NSMenu::alloc(self.mtm()),
+                &NSString::from_str(&state_ref.translator()._g("File")),
+            );
+            unsafe {
+                file_menu.addItemWithTitle_action_keyEquivalent(
+                    &NSString::from_str(&state_ref.translator()._g("Close")),
+                    Some(sel!(performClose:)),
+                    ns_string!("w"),
+                );
+            }
+            file_menu_item.setSubmenu(Some(&file_menu));
             let edit_menu_item = NSMenuItem::new(self.mtm());
             main_menu.addItem(&edit_menu_item);
             let edit_menu = NSMenu::initWithTitle(
@@ -127,6 +155,66 @@ define_class!(
                 );
             }
             edit_menu_item.setSubmenu(Some(&edit_menu));
+            let view_menu_item = NSMenuItem::new(self.mtm());
+            main_menu.addItem(&view_menu_item);
+            let view_menu = NSMenu::initWithTitle(
+                NSMenu::alloc(self.mtm()),
+                &NSString::from_str(&state_ref.translator()._g("View")),
+            );
+            let full_screen_item = unsafe {
+                view_menu.addItemWithTitle_action_keyEquivalent(
+                    &NSString::from_str(&state_ref.translator()._g("Enter Full Screen")),
+                    Some(sel!(toggleFullScreen:)),
+                    ns_string!("f"),
+                )
+            };
+            full_screen_item.setKeyEquivalentModifierMask(
+                NSEventModifierFlags::Command | NSEventModifierFlags::Control,
+            );
+            view_menu_item.setSubmenu(Some(&view_menu));
+            let window_menu_item = NSMenuItem::new(self.mtm());
+            main_menu.addItem(&window_menu_item);
+            let window_menu = NSMenu::initWithTitle(
+                NSMenu::alloc(self.mtm()),
+                &NSString::from_str(&state_ref.translator()._g("Window")),
+            );
+            unsafe {
+                window_menu.addItemWithTitle_action_keyEquivalent(
+                    &NSString::from_str(&state_ref.translator()._g("Minimize")),
+                    Some(sel!(performMiniaturize:)),
+                    ns_string!("m"),
+                );
+                window_menu.addItemWithTitle_action_keyEquivalent(
+                    &NSString::from_str(&state_ref.translator()._g("Zoom")),
+                    Some(sel!(performZoom:)),
+                    ns_string!(""),
+                );
+            }
+            window_menu.addItem(&NSMenuItem::separatorItem(self.mtm()));
+            unsafe {
+                window_menu.addItemWithTitle_action_keyEquivalent(
+                    &NSString::from_str(&state_ref.translator()._g("Bring All to Front")),
+                    Some(sel!(arrangeInFront:)),
+                    ns_string!(""),
+                );
+            }
+            window_menu_item.setSubmenu(Some(&window_menu));
+            app.setWindowsMenu(Some(&window_menu));
+            let help_menu_item = NSMenuItem::new(self.mtm());
+            main_menu.addItem(&help_menu_item);
+            let help_menu = NSMenu::initWithTitle(
+                NSMenu::alloc(self.mtm()),
+                &NSString::from_str(&state_ref.translator()._g("Help")),
+            );
+            unsafe {
+                help_menu.addItemWithTitle_action_keyEquivalent(
+                    &NSString::from_str(&state_ref.translator()._g("Application Help")),
+                    Some(sel!(showHelp:)),
+                    ns_string!("?"),
+                );
+            }
+            help_menu_item.setSubmenu(Some(&help_menu));
+            app.setHelpMenu(Some(&help_menu));
             app.setMainMenu(Some(&main_menu));
             drop(state_ref);
             self.ivars()
@@ -136,6 +224,22 @@ define_class!(
             self.ivars().window.get().unwrap().show();
             app.setActivationPolicy(NSApplicationActivationPolicy::Regular);
             app.activate();
+        }
+
+        #[unsafe(method(applicationShouldTerminateAfterLastWindowClosed:))]
+        fn should_terminate_after_last_window_closed(&self, _sender: &NSApplication) -> bool {
+            false
+        }
+
+        #[unsafe(method(applicationShouldHandleReopen:hasVisibleWindows:))]
+        fn should_handle_reopen(&self, _sender: &NSApplication, has_visible_windows: bool) -> bool {
+            if !has_visible_windows {
+                if let Some(window) = self.ivars().window.get() {
+                    window.show();
+                }
+                NSApplication::sharedApplication(self.mtm()).activate();
+            }
+            true
         }
     }
 );

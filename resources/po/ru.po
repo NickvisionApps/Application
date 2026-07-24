@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-23 22:29-0400\n"
+"POT-Creation-Date: 2026-07-23 23:35-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -26,51 +26,96 @@ msgstr "Application"
 msgid "About Application"
 msgstr "О приложении"
 
-#: macos/src/app.rs:57
+#: macos/src/app.rs:57 macos/src/app.rs:64
+msgid "Services"
+msgstr ""
+
+#: macos/src/app.rs:71
 #, fuzzy
 msgid "Hide Application"
 msgstr "Application"
 
-#: macos/src/app.rs:64
+#: macos/src/app.rs:78
 msgid "Hide Others"
 msgstr ""
 
-#: macos/src/app.rs:74
+#: macos/src/app.rs:88
 msgid "Show All"
 msgstr ""
 
-#: macos/src/app.rs:82
+#: macos/src/app.rs:96
 #, fuzzy
 msgid "Quit Application"
 msgstr "О приложении"
 
-#: macos/src/app.rs:92
+#: macos/src/app.rs:106
+msgid "File"
+msgstr ""
+
+#: macos/src/app.rs:110
+msgid "Close"
+msgstr "Закрыть"
+
+#: macos/src/app.rs:120
 msgid "Edit"
 msgstr ""
 
-#: macos/src/app.rs:96
+#: macos/src/app.rs:124
 msgid "Undo"
 msgstr ""
 
-#: macos/src/app.rs:101
+#: macos/src/app.rs:129
 msgid "Redo"
 msgstr ""
 
-#: macos/src/app.rs:109
+#: macos/src/app.rs:137
 msgid "Cut"
 msgstr ""
 
-#: macos/src/app.rs:114
+#: macos/src/app.rs:142
 msgid "Copy"
 msgstr ""
 
-#: macos/src/app.rs:119
+#: macos/src/app.rs:147
 msgid "Paste"
 msgstr ""
 
-#: macos/src/app.rs:124
+#: macos/src/app.rs:152
 msgid "Select All"
 msgstr ""
+
+#: macos/src/app.rs:162
+msgid "View"
+msgstr ""
+
+#: macos/src/app.rs:166
+msgid "Enter Full Screen"
+msgstr ""
+
+#: macos/src/app.rs:179
+msgid "Window"
+msgstr ""
+
+#: macos/src/app.rs:183
+msgid "Minimize"
+msgstr ""
+
+#: macos/src/app.rs:188
+msgid "Zoom"
+msgstr ""
+
+#: macos/src/app.rs:196
+msgid "Bring All to Front"
+msgstr ""
+
+#: macos/src/app.rs:207
+msgid "Help"
+msgstr ""
+
+#: macos/src/app.rs:211
+#, fuzzy
+msgid "Application Help"
+msgstr "Application"
 
 #~ msgid "Preferences"
 #~ msgstr "Параметры"
@@ -120,9 +165,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Open in Files"
 #~ msgstr "Открыть Папку"
-
-#~ msgid "Close"
-#~ msgstr "Закрыть"
 
 #, fuzzy, csharp-format
 #~ msgid "There is {0} file in the folder."
