@@ -12,16 +12,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "app"
-version = "2026.7.0"
-dependencies = [
- "linux",
- "macos",
- "shared",
- "windows",
-]
-
-[[package]]
 name = "arc-swap"
 version = "1.9.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1222,6 +1212,9 @@ dependencies = [
 [[package]]
 name = "linux"
 version = "2026.7.0"
+dependencies = [
+ "shared",
+]
 
 [[package]]
 name = "litemap"
@@ -1244,6 +1237,9 @@ checksum = "112b39cec0b298b6c1999fee3e31427f74f676e4cb9879ed1a121b43661a4154"
 [[package]]
 name = "macos"
 version = "2026.7.0"
+dependencies = [
+ "shared",
+]
 
 [[package]]
 name = "memchr"
@@ -2609,6 +2605,9 @@ dependencies = [
 [[package]]
 name = "windows"
 version = "2026.7.0"
+dependencies = [
+ "shared",
+]
 
 [[package]]
 name = "windows-core"
