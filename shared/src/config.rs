@@ -271,6 +271,6 @@ mod tests {
                 .join(app_info::NAME)
                 .join("config.json"),
         )
-            .unwrap();
+        .unwrap();
     }
 }

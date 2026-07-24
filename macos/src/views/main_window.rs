@@ -44,21 +44,15 @@ impl MainWindow {
     pub fn new(mtm: MainThreadMarker, state: Rc<RefCell<AppState>>) -> Retained<Self> {
         let this = Self::alloc(mtm).set_ivars(MainWindowState::new(state));
         let this: Retained<Self> = unsafe { msg_send![super(this), init] };
-        let (title, x, y, width, height) = {
-            let state_ref = this.ivars().state.borrow();
-            let geometry = state_ref.configuration().window_geometry();
-            (
-                state_ref.translator()._g("Application"),
-                geometry.x() as f64,
-                geometry.y() as f64,
-                geometry.width() as f64,
-                geometry.height() as f64,
-            )
-        };
+        let state_ref = this.ivars().state.borrow();
+        let geometry = state_ref.configuration().window_geometry();
         let window = unsafe {
             NSWindow::initWithContentRect_styleMask_backing_defer(
                 NSWindow::alloc(mtm),
-                NSRect::new(NSPoint::new(x, y), NSSize::new(width, height)),
+                NSRect::new(
+                    NSPoint::new(geometry.x() as f64, geometry.y() as f64),
+                    NSSize::new(geometry.width() as f64, geometry.height() as f64),
+                ),
                 NSWindowStyleMask::Titled
                     | NSWindowStyleMask::Closable
                     | NSWindowStyleMask::Miniaturizable
@@ -68,10 +62,15 @@ impl MainWindow {
             )
         };
         window.setDelegate(Some(ProtocolObject::from_ref(&*this)));
-        unsafe { window.setReleasedWhenClosed(false) };
-        window.setTitle(&NSString::from_str(&title));
-        window.setContentMinSize(NSSize::new(width, height));
+        window.setTitle(&NSString::from_str(
+            &state_ref.translator()._g("Application"),
+        ));
+        window.setContentMinSize(NSSize::new(
+            geometry.width() as f64,
+            geometry.height() as f64,
+        ));
         window.center();
+        drop(state_ref);
         this.setWindow(Some(&window));
         this
     }

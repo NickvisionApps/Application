@@ -19,14 +19,7 @@ pub struct AppState {
 
 impl AppState {
     pub fn new() -> Self {
-        let configuration = Configuration::load().unwrap();
-        let folder_browser = FolderBrowser::default();
-        let translator = Translator::new(configuration.translation_language());
-        AppState {
-            configuration,
-            folder_browser,
-            translator,
-        }
+        AppState::default()
     }
 
     pub fn configuration(&self) -> &Configuration {
@@ -52,6 +45,13 @@ impl AppState {
 
 impl Default for AppState {
     fn default() -> Self {
-        AppState::new()
+        let configuration = Configuration::load().unwrap();
+        let folder_browser = FolderBrowser::default();
+        let translator = Translator::new(configuration.translation_language());
+        AppState {
+            configuration,
+            folder_browser,
+            translator,
+        }
     }
 }
