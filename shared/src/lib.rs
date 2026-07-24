@@ -10,6 +10,7 @@ pub use config::{ApplicationTheme, Configuration, WindowGeometry, WindowGeometry
 pub use folder::FolderBrowser;
 pub use translation::Translator;
 
+#[derive(Debug)]
 pub struct AppState {
     configuration: Configuration,
     folder_browser: FolderBrowser,

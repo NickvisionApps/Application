@@ -1,0 +1,13 @@
+[package]
+name = "app"
+version = "2026.7.0"
+edition = "2024"
+
+[target.'cfg(target_os = "windows")'.dependencies]
+windows = { path = "../windows" }
+
+[target.'cfg(target_os = "macos")'.dependencies]
+macos = { path = "../macos" }
+
+[target.'cfg(target_os = "linux")'.dependencies]
+linux = { path = "../linux" }

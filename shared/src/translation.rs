@@ -2,6 +2,7 @@ use crate::app_info;
 use gettext::Catalog;
 use std::fs::File;
 
+#[derive(Debug)]
 pub struct Translator {
     language: String,
     catalog: Catalog,
@@ -15,7 +16,7 @@ impl Translator {
         } else {
             language = Self::normalize_language(&language);
         }
-        let mo_name = format!("{}.mo", app_info::SHORT_NAME.to_lowercase());
+        let mo_name = format!("{}.mo", app_info::ENGLISH_SHORT_NAME.to_lowercase());
         Translator {
             language: language.clone(),
             catalog: match std::env::current_exe()

@@ -5,7 +5,6 @@ pub const ID: &str = "org.nickvision.application";
 pub const NAME: &str = "Nickvision Application";
 pub const DESCRIPTION: &str = "Create new Nickvision applications";
 pub const ENGLISH_SHORT_NAME: &str = "Application";
-pub const SHORT_NAME: &str = "Application";
 pub const CHANGELOG: &str = "- Initial release";
 pub const REPO_URL: &str = "https://github.com/NickvisionApps/Application";
 pub const ISSUES_URL: &str = "https://github.com/NickvisionApps/Application/issues";

@@ -1,4 +1,4 @@
 [workspace]
 resolver = "3"
-members = ["linux", "macos", "shared", "windows"]
-default-members = ["shared"]
+members = ["app", "linux", "macos", "shared", "windows"]
+default-members = ["app"]

@@ -1,6 +1,6 @@
 use shared::AppState;
 
-fn main() {
+pub fn run() {
     let _state = AppState::new();
-    println!("Hello macOS!");
+    println!("Hello, Linux!");
 }
