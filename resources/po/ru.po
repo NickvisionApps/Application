@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-27 00:05-0400\n"
+"POT-Creation-Date: 2026-07-27 00:45-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: macos/src/controls/main_menu.rs:78 macos/src/views/main_window.rs:73
+#: macos/src/controls/main_menu.rs:78 macos/src/views/main_window.rs:76
 msgid "Application"
 msgstr "Application"
 
@@ -132,6 +132,15 @@ msgstr ""
 #, fuzzy
 msgid "Application Help"
 msgstr "Application"
+
+#: macos/src/views/settings_dialog.rs:39 macos/src/views/settings_dialog.rs:86
+#: macos/src/views/settings_dialog.rs:147
+msgid "General"
+msgstr ""
+
+#: macos/src/views/settings_dialog.rs:41 macos/src/views/settings_dialog.rs:88
+msgid "Advanced"
+msgstr ""
 
 #~ msgid "Close"
 #~ msgstr "Закрыть"

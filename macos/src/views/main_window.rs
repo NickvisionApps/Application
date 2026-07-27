@@ -1,7 +1,10 @@
 use objc2::rc::Retained;
 use objc2::runtime::ProtocolObject;
 use objc2::{DefinedClass, MainThreadOnly, define_class, msg_send};
-use objc2_app_kit::{NSBackingStoreType, NSToolbar, NSToolbarDelegate, NSToolbarDisplayMode, NSView, NSWindow, NSWindowController, NSWindowDelegate, NSWindowStyleMask, NSWindowToolbarStyle};
+use objc2_app_kit::{
+    NSBackingStoreType, NSToolbar, NSToolbarDelegate, NSToolbarDisplayMode, NSView, NSWindow,
+    NSWindowController, NSWindowDelegate, NSWindowStyleMask, NSWindowToolbarStyle,
+};
 use objc2_foundation::{MainThreadMarker, NSObjectProtocol, NSPoint, NSRect, NSSize, NSString};
 use shared::AppState;
 use std::cell::RefCell;
