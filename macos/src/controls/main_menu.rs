@@ -1,3 +1,4 @@
+use crate::views::MainWindow;
 use objc2::rc::Retained;
 use objc2::runtime::AnyObject;
 use objc2::{
@@ -12,6 +13,7 @@ use std::rc::Rc;
 #[derive(Debug)]
 pub struct MainMenuState {
     state: Rc<RefCell<AppState>>,
+    window: Retained<MainWindow>,
 }
 
 define_class!(
@@ -26,6 +28,18 @@ define_class!(
         fn check_for_updates(&self, _sender: Option<&AnyObject>) {
         }
 
+        #[unsafe(method(closeFolder:))]
+        fn close_folder(&self, _sender: Option<&AnyObject>) {
+            self.ivars().window.show();
+            self.ivars().window.close_folder();
+        }
+
+        #[unsafe(method(openFolder:))]
+        fn open_folder(&self, _sender: Option<&AnyObject>) {
+            self.ivars().window.show();
+            self.ivars().window.open_folder();
+        }
+
         #[unsafe(method(showSettings:))]
         fn show_settings(&self, _sender: Option<&AnyObject>) {
         }
@@ -35,14 +49,14 @@ define_class!(
 );
 
 impl MainMenuState {
-    pub fn new(state: Rc<RefCell<AppState>>) -> Self {
-        MainMenuState { state }
+    pub fn new(state: Rc<RefCell<AppState>>, window: Retained<MainWindow>) -> Self {
+        MainMenuState { state, window }
     }
 }
 
 impl MainMenu {
-    pub fn new(mtm: MainThreadMarker, state: Rc<RefCell<AppState>>) -> Retained<Self> {
-        let this = Self::alloc(mtm).set_ivars(MainMenuState::new(state));
+    pub fn new(mtm: MainThreadMarker, state: Rc<RefCell<AppState>>, window: Retained<MainWindow>) -> Retained<Self> {
+        let this = Self::alloc(mtm).set_ivars(MainMenuState::new(state, window));
         let this: Retained<Self> =
             unsafe { msg_send![super(this), initWithTitle: ns_string!("MainMenu")] };
         let state_ref = this.ivars().state.borrow();
@@ -134,8 +148,23 @@ impl MainMenu {
             &NSString::from_str(&state_ref.translator()._g("File")),
         );
         unsafe {
+            let open_folder_item = file_menu.addItemWithTitle_action_keyEquivalent(
+                &NSString::from_str(&state_ref.translator()._g("Open Folder")),
+                Some(sel!(openFolder:)),
+                ns_string!("o"),
+            );
+            let close_folder_item = file_menu.addItemWithTitle_action_keyEquivalent(
+                &NSString::from_str(&state_ref.translator()._g("Close Folder")),
+                Some(sel!(closeFolder:)),
+                ns_string!("W"),
+            );
+            open_folder_item.setTarget(Some(this.as_super().as_super()));
+            close_folder_item.setTarget(Some(this.as_super().as_super()));
+        }
+        file_menu.addItem(&NSMenuItem::separatorItem(mtm));
+        unsafe {
             file_menu.addItemWithTitle_action_keyEquivalent(
-                &NSString::from_str(&state_ref.translator()._g("Close")),
+                &NSString::from_str(&state_ref.translator()._g("Close Window")),
                 Some(sel!(performClose:)),
                 ns_string!("w"),
             );

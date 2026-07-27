@@ -84,4 +84,8 @@ impl MainWindow {
     pub fn show(&self) {
         unsafe { self.showWindow(None) };
     }
+
+    pub fn close_folder(&self) {}
+
+    pub fn open_folder(&self) {}
 }

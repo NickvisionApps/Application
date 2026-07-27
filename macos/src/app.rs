@@ -45,13 +45,14 @@ define_class!(
                 },
                 ApplicationTheme::System => None,
             };
+            let window = MainWindow::new(self.mtm(), Rc::clone(&self.ivars().state));
             self.ivars()
                 .main_menu
-                .set(MainMenu::new(self.mtm(), Rc::clone(&self.ivars().state)))
+                .set(MainMenu::new(self.mtm(), Rc::clone(&self.ivars().state), Retained::clone(&window)))
                 .unwrap();
             self.ivars()
                 .window
-                .set(MainWindow::new(self.mtm(), Rc::clone(&self.ivars().state)))
+                .set(window)
                 .unwrap();
             app.setActivationPolicy(NSApplicationActivationPolicy::Regular);
             app.setAppearance(theme.as_deref());
