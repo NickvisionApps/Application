@@ -1,4 +1,4 @@
-use crate::app_info;
+use crate::info;
 use gettext::Catalog;
 use std::fs::File;
 
@@ -16,7 +16,7 @@ impl Translator {
         } else {
             language = Self::normalize_language(&language);
         }
-        let mo_name = format!("{}.mo", app_info::ENGLISH_SHORT_NAME.to_lowercase());
+        let mo_name = format!("{}.mo", info::APP_ENGLISH_SHORT_NAME.to_lowercase());
         Translator {
             language: language.clone(),
             catalog: match std::env::current_exe()
@@ -57,7 +57,7 @@ impl Translator {
 
     pub fn available_languages() -> Vec<String> {
         let mut languages = vec![];
-        let mo_name = format!("{}.mo", app_info::ENGLISH_SHORT_NAME.to_lowercase());
+        let mo_name = format!("{}.mo", info::APP_ENGLISH_SHORT_NAME.to_lowercase());
         if let Some(current_dir) = std::env::current_exe()
             .ok()
             .and_then(|path| path.parent().map(|p| p.to_path_buf()))

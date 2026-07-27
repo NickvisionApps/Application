@@ -74,7 +74,7 @@ fn generate_translations() {
     xgettext_command
         .current_dir(&root_dir)
         .arg("--from-code=utf-8")
-        .arg("--language=Rust")
+        .arg("--language=C")
         .arg("--force-po")
         .arg(format!("--output={}", template_path.display()))
         .arg("--width=80");

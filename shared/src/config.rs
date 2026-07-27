@@ -1,4 +1,4 @@
-use crate::app_info;
+use crate::info;
 use directories::BaseDirs;
 use serde::{Deserialize, Serialize};
 use serde_repr::{Deserialize_repr, Serialize_repr};
@@ -131,7 +131,7 @@ impl WindowGeometryBuilder {
 
 impl Configuration {
     pub fn load() -> Result<Self, Box<dyn std::error::Error>> {
-        let path = if app_info::is_portable() {
+        let path = if info::is_app_portable() {
             std::env::current_exe()?
                 .parent()
                 .unwrap()
@@ -140,7 +140,7 @@ impl Configuration {
             BaseDirs::new()
                 .expect("Unable to load base directories")
                 .config_dir()
-                .join(app_info::NAME)
+                .join(info::APP_NAME)
                 .join("config.json")
         };
         std::fs::create_dir_all(path.parent().unwrap())?;
@@ -157,7 +157,7 @@ impl Configuration {
         let path = BaseDirs::new()
             .expect("Unable to load base directories")
             .config_dir()
-            .join(app_info::NAME)
+            .join(info::APP_NAME)
             .join("config.json");
         std::fs::create_dir_all(path.parent().unwrap())?;
         let json = serde_json::to_string_pretty(self)?;
@@ -268,7 +268,7 @@ mod tests {
             BaseDirs::new()
                 .expect("Unable to load base directories")
                 .config_dir()
-                .join(app_info::NAME)
+                .join(info::APP_NAME)
                 .join("config.json"),
         )
         .unwrap();

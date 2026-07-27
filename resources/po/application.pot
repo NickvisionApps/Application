@@ -8,115 +8,115 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-24 08:53-0400\n"
+"POT-Creation-Date: 2026-07-26 22:49-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: macos/src/app.rs:56
+#: macos/src/app.rs:97 macos/src/views/main_window.rs:67
 msgid "Application"
 msgstr ""
 
-#: macos/src/app.rs:60
+#: macos/src/app.rs:101
 msgid "About Application"
 msgstr ""
 
-#: macos/src/app.rs:65
+#: macos/src/app.rs:106
 msgid "Check for Updates"
 msgstr ""
 
-#: macos/src/app.rs:73
-msgid "Settings…"
+#: macos/src/app.rs:114
+msgid "Settings\\u{2026}"
 msgstr ""
 
-#: macos/src/app.rs:88 macos/src/app.rs:95
+#: macos/src/app.rs:129 macos/src/app.rs:136
 msgid "Services"
 msgstr ""
 
-#: macos/src/app.rs:102
+#: macos/src/app.rs:143
 msgid "Hide Application"
 msgstr ""
 
-#: macos/src/app.rs:109
+#: macos/src/app.rs:150
 msgid "Hide Others"
 msgstr ""
 
-#: macos/src/app.rs:119
+#: macos/src/app.rs:160
 msgid "Show All"
 msgstr ""
 
-#: macos/src/app.rs:127
+#: macos/src/app.rs:168
 msgid "Quit Application"
 msgstr ""
 
-#: macos/src/app.rs:137
+#: macos/src/app.rs:178
 msgid "File"
 msgstr ""
 
-#: macos/src/app.rs:141
+#: macos/src/app.rs:182
 msgid "Close"
 msgstr ""
 
-#: macos/src/app.rs:151
+#: macos/src/app.rs:192
 msgid "Edit"
 msgstr ""
 
-#: macos/src/app.rs:155
+#: macos/src/app.rs:196
 msgid "Undo"
 msgstr ""
 
-#: macos/src/app.rs:160
+#: macos/src/app.rs:201
 msgid "Redo"
 msgstr ""
 
-#: macos/src/app.rs:168
+#: macos/src/app.rs:209
 msgid "Cut"
 msgstr ""
 
-#: macos/src/app.rs:173
+#: macos/src/app.rs:214
 msgid "Copy"
 msgstr ""
 
-#: macos/src/app.rs:178
+#: macos/src/app.rs:219
 msgid "Paste"
 msgstr ""
 
-#: macos/src/app.rs:183
+#: macos/src/app.rs:224
 msgid "Select All"
 msgstr ""
 
-#: macos/src/app.rs:193
+#: macos/src/app.rs:234
 msgid "View"
 msgstr ""
 
-#: macos/src/app.rs:197
+#: macos/src/app.rs:238
 msgid "Enter Full Screen"
 msgstr ""
 
-#: macos/src/app.rs:210
+#: macos/src/app.rs:251
 msgid "Window"
 msgstr ""
 
-#: macos/src/app.rs:214
+#: macos/src/app.rs:255
 msgid "Minimize"
 msgstr ""
 
-#: macos/src/app.rs:219
+#: macos/src/app.rs:260
 msgid "Zoom"
 msgstr ""
 
-#: macos/src/app.rs:227
+#: macos/src/app.rs:268
 msgid "Bring All to Front"
 msgstr ""
 
-#: macos/src/app.rs:238
+#: macos/src/app.rs:279
 msgid "Help"
 msgstr ""
 
-#: macos/src/app.rs:242
+#: macos/src/app.rs:283
 msgid "Application Help"
 msgstr ""

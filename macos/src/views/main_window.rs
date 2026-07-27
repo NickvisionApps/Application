@@ -39,7 +39,10 @@ impl MainWindow {
         let this: Retained<Self> = unsafe { msg_send![super(this), init] };
         let state_ref = this.ivars().state.borrow();
         let geometry = state_ref.configuration().window_geometry();
-        let toolbar = NSToolbar::initWithIdentifier(NSToolbar::alloc(mtm), &NSString::from_str("MainToolbar"));
+        let toolbar = NSToolbar::initWithIdentifier(
+            NSToolbar::alloc(mtm),
+            &NSString::from_str("MainToolbar"),
+        );
         let window = unsafe {
             NSWindow::initWithContentRect_styleMask_backing_defer(
                 NSWindow::alloc(mtm),
