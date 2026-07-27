@@ -4,9 +4,12 @@ use objc2::runtime::AnyObject;
 use objc2::{
     ClassType, DeclaredClass, MainThreadMarker, MainThreadOnly, define_class, msg_send, sel,
 };
-use objc2_app_kit::{NSApplication, NSEventModifierFlags, NSImage, NSMenu, NSMenuItem};
+use objc2_app_kit::{NSAlert, NSApplication, NSEventModifierFlags, NSImage, NSMenu, NSMenuItem};
 use objc2_foundation::{NSObjectProtocol, NSString, ns_string};
-use shared::AppState;
+use shared::{
+    APP_CHANGELOG, APP_DESCRIPTION, AppState, app_artist_names, app_designer_names,
+    app_developer_names,
+};
 use std::cell::RefCell;
 use std::rc::Rc;
 
@@ -39,6 +42,24 @@ define_class!(
         fn open_folder(&self, _sender: Option<&AnyObject>) {
             self.ivars().window.show();
             self.ivars().window.open_folder();
+        }
+
+        #[unsafe(method(showChangelog:))]
+        fn show_changelog(&self, _sender: Option<&AnyObject>) {
+            let state_ref = self.ivars().state.borrow();
+            let dialog = NSAlert::new(self.mtm());
+            dialog.setMessageText(&NSString::from_str(&state_ref.translator()._f("{0}\n\nWhat's New?", &[APP_DESCRIPTION])));
+            dialog.setInformativeText(&NSString::from_str(APP_CHANGELOG));
+            dialog.runModal();
+        }
+
+        #[unsafe(method(showCredits:))]
+        fn show_credits(&self, _sender: Option<&AnyObject>) {
+            let state_ref = self.ivars().state.borrow();
+            let dialog = NSAlert::new(self.mtm());
+            dialog.setMessageText(&NSString::from_str(&state_ref.translator()._g("Credits")));
+            dialog.setInformativeText(&NSString::from_str(&state_ref.translator()._f("Developers:\n{0}\n\nDesigners:\n{1}\n\nArtists:\n{2}", &[app_developer_names(), app_designer_names(), app_artist_names()])));
+            dialog.runModal();
         }
 
         #[unsafe(method(showSettings:))]
@@ -276,11 +297,18 @@ impl MainMenu {
             &NSString::from_str(&state_ref.translator()._g("Help")),
         );
         unsafe {
-            help_menu.addItemWithTitle_action_keyEquivalent(
-                &NSString::from_str(&state_ref.translator()._g("Application Help")),
-                Some(sel!(showHelp:)),
-                ns_string!("?"),
+            let whats_new_item = help_menu.addItemWithTitle_action_keyEquivalent(
+                &NSString::from_str(&state_ref.translator()._g("What's New")),
+                Some(sel!(showChangelog:)),
+                ns_string!(""),
             );
+            let credits_item = help_menu.addItemWithTitle_action_keyEquivalent(
+                &NSString::from_str(&state_ref.translator()._g("Credits")),
+                Some(sel!(showCredits:)),
+                ns_string!(""),
+            );
+            whats_new_item.setTarget(Some(this.as_super().as_super()));
+            credits_item.setTarget(Some(this.as_super().as_super()));
         }
         help_menu_item.setSubmenu(Some(&help_menu));
         NSApplication::sharedApplication(mtm).setHelpMenu(Some(&help_menu));

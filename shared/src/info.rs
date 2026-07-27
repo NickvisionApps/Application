@@ -25,6 +25,30 @@ pub const APP_DESIGNERS: &[(&str, &str)] = &[
 ];
 pub const APP_ARTISTS: &[(&str, &str)] = &[("David Lapshin", "https://github.com/daudix")];
 
+pub fn app_artist_names() -> String {
+    APP_ARTISTS
+        .iter()
+        .map(|(key, _)| *key)
+        .collect::<Vec<&str>>()
+        .join("\n")
+}
+
+pub fn app_designer_names() -> String {
+    APP_DESIGNERS
+        .iter()
+        .map(|(key, _)| *key)
+        .collect::<Vec<&str>>()
+        .join("\n")
+}
+
+pub fn app_developer_names() -> String {
+    APP_DEVELOPERS
+        .iter()
+        .map(|(key, _)| *key)
+        .collect::<Vec<&str>>()
+        .join("\n")
+}
+
 pub fn app_version() -> &'static Version {
     static VERSION: OnceLock<Version> = OnceLock::new();
     VERSION.get_or_init(|| Version::parse(&format!("{}-next", env!("CARGO_PKG_VERSION"))).unwrap())

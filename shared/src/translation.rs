@@ -35,20 +35,20 @@ impl Translator {
                                 .join("LC_MESSAGES")
                                 .join(&mo_name),
                         )
-                        .ok()
-                        .and_then(|f| Catalog::parse(f).ok())
-                        .or_else(|| {
-                            let base_language = language.split('_').next().unwrap_or("en_US");
-                            File::open(
-                                current_dir
-                                    .join(base_language)
-                                    .join("LC_MESSAGES")
-                                    .join(&mo_name),
-                            )
                             .ok()
                             .and_then(|f| Catalog::parse(f).ok())
-                        })
-                        .unwrap_or_else(Catalog::empty)
+                            .or_else(|| {
+                                let base_language = language.split('_').next().unwrap_or("en_US");
+                                File::open(
+                                    current_dir
+                                        .join(base_language)
+                                        .join("LC_MESSAGES")
+                                        .join(&mo_name),
+                                )
+                                    .ok()
+                                    .and_then(|f| Catalog::parse(f).ok())
+                            })
+                            .unwrap_or_else(Catalog::empty)
                     }
                 }
                 None => Catalog::empty(),
@@ -59,7 +59,7 @@ impl Translator {
     pub fn available_languages() -> &'static Vec<String> {
         static LANGUAGES: OnceLock<Vec<String>> = OnceLock::new();
         LANGUAGES.get_or_init(|| {
-            let mut languages = vec![];
+            let mut languages = vec!["en_US".to_string()];
             let mo_name = format!("{}.mo", APP_ENGLISH_SHORT_NAME.to_lowercase());
             if let Some(current_dir) = std::env::current_exe()
                 .ok()
@@ -78,7 +78,6 @@ impl Translator {
                 }
             }
             languages.sort();
-            languages.insert(0, "en_US".to_string());
             languages
         })
     }
@@ -91,12 +90,12 @@ impl Translator {
         self.catalog.gettext(msgid).to_string()
     }
 
-    pub fn _f(&self, msgid: &str, args: &[&str]) -> String {
+    pub fn _f<A: AsRef<str>>(&self, msgid: &str, args: &[A]) -> String {
         let translated = self.catalog.gettext(msgid);
         let mut result = translated.to_string();
         for (i, arg) in args.iter().enumerate() {
             let placeholder = format!("{{{}}}", i);
-            result = result.replace(&placeholder, arg);
+            result = result.replace(&placeholder, arg.as_ref());
         }
         result
     }
@@ -105,12 +104,18 @@ impl Translator {
         self.catalog.ngettext(msgid, msgid_plural, n).to_string()
     }
 
-    pub fn _nf(&self, msgid: &str, msgid_plural: &str, n: u64, args: &[&str]) -> String {
+    pub fn _nf<A: AsRef<str>>(
+        &self,
+        msgid: &str,
+        msgid_plural: &str,
+        n: u64,
+        args: &[A],
+    ) -> String {
         let translated = self.catalog.ngettext(msgid, msgid_plural, n);
         let mut result = translated.to_string();
         for (i, arg) in args.iter().enumerate() {
             let placeholder = format!("{{{}}}", i);
-            result = result.replace(&placeholder, arg);
+            result = result.replace(&placeholder, arg.as_ref());
         }
         result
     }
@@ -119,12 +124,12 @@ impl Translator {
         self.catalog.pgettext(msgctxt, msgid).to_string()
     }
 
-    pub fn _pf(&self, msgctxt: &str, msgid: &str, args: &[&str]) -> String {
+    pub fn _pf<A: AsRef<str>>(&self, msgctxt: &str, msgid: &str, args: &[A]) -> String {
         let translated = self.catalog.pgettext(msgctxt, msgid);
         let mut result = translated.to_string();
         for (i, arg) in args.iter().enumerate() {
             let placeholder = format!("{{{}}}", i);
-            result = result.replace(&placeholder, arg);
+            result = result.replace(&placeholder, arg.as_ref());
         }
         result
     }
@@ -135,19 +140,19 @@ impl Translator {
             .to_string()
     }
 
-    pub fn _npf(
+    pub fn _npf<A: AsRef<str>>(
         &self,
         msgctxt: &str,
         msgid: &str,
         msgid_plural: &str,
         n: u64,
-        args: &[&str],
+        args: &[A],
     ) -> String {
         let translated = self.catalog.npgettext(msgctxt, msgid, msgid_plural, n);
         let mut result = translated.to_string();
         for (i, arg) in args.iter().enumerate() {
             let placeholder = format!("{{{}}}", i);
-            result = result.replace(&placeholder, arg);
+            result = result.replace(&placeholder, arg.as_ref());
         }
         result
     }
