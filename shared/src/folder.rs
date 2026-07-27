@@ -1,6 +1,6 @@
 use std::path::{Path, PathBuf};
 
-#[derive(Debug, Default)]
+#[derive(Debug, Clone, Default)]
 pub struct FolderBrowser {
     path: PathBuf,
     files: Vec<PathBuf>,

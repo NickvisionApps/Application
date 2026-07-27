@@ -3,7 +3,7 @@ use gettext::Catalog;
 use std::fs::File;
 use std::sync::OnceLock;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Translator {
     language: String,
     catalog: Catalog,
@@ -35,20 +35,20 @@ impl Translator {
                                 .join("LC_MESSAGES")
                                 .join(&mo_name),
                         )
+                        .ok()
+                        .and_then(|f| Catalog::parse(f).ok())
+                        .or_else(|| {
+                            let base_language = language.split('_').next().unwrap_or("en_US");
+                            File::open(
+                                current_dir
+                                    .join(base_language)
+                                    .join("LC_MESSAGES")
+                                    .join(&mo_name),
+                            )
                             .ok()
                             .and_then(|f| Catalog::parse(f).ok())
-                            .or_else(|| {
-                                let base_language = language.split('_').next().unwrap_or("en_US");
-                                File::open(
-                                    current_dir
-                                        .join(base_language)
-                                        .join("LC_MESSAGES")
-                                        .join(&mo_name),
-                                )
-                                    .ok()
-                                    .and_then(|f| Catalog::parse(f).ok())
-                            })
-                            .unwrap_or_else(Catalog::empty)
+                        })
+                        .unwrap_or_else(Catalog::empty)
                     }
                 }
                 None => Catalog::empty(),

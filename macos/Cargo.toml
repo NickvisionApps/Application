@@ -4,7 +4,9 @@ version = "2026.7.0"
 edition = "2024"
 
 [dependencies]
+dispatch2 = "0.3.1"
 objc2 = "0.6.4"
 objc2-app-kit = "0.3.2"
 objc2-foundation = "0.3.2"
 shared = { path = "../shared" }
+tokio = { version = "1", features = ["full"] }

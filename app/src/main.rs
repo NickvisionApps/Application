@@ -1,15 +1,27 @@
 #[cfg(target_os = "windows")]
-fn main() {
+#[tokio::main]
+async fn main() {
+    rustls::crypto::ring::default_provider()
+        .install_default()
+        .unwrap();
     windows::run();
 }
 
 #[cfg(target_os = "macos")]
-fn main() {
+#[tokio::main]
+async fn main() {
+    rustls::crypto::ring::default_provider()
+        .install_default()
+        .unwrap();
     macos::run();
 }
 
 #[cfg(target_os = "linux")]
-fn main() {
+#[tokio::main]
+async fn main() {
+    rustls::crypto::ring::default_provider()
+        .install_default()
+        .unwrap();
     linux::run();
 }
 

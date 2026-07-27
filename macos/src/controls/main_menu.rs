@@ -7,8 +7,8 @@ use objc2::{
 use objc2_app_kit::{NSAlert, NSApplication, NSEventModifierFlags, NSImage, NSMenu, NSMenuItem};
 use objc2_foundation::{NSObjectProtocol, NSString, ns_string};
 use shared::{
-    APP_CHANGELOG, APP_DESCRIPTION, AppState, app_artist_names, app_designer_names,
-    app_developer_names,
+    APP_CHANGELOG, APP_DESCRIPTION, APP_ENGLISH_SHORT_NAME, AppState, app_artist_names,
+    app_designer_names, app_developer_names,
 };
 use std::cell::RefCell;
 use std::rc::Rc;
@@ -30,6 +30,23 @@ define_class!(
     impl MainMenu {
         #[unsafe(method(checkForUpdates:))]
         fn check_for_updates(&self, _sender: Option<&AnyObject>) {
+            let state_ref = self.ivars().state.borrow();
+            let future = state_ref.check_for_updates();
+            let translator = state_ref.translator();
+            tokio::spawn(async move {
+                let version = future.await;
+                dispatch2::run_on_main(move |mtm| {
+                    let alert = NSAlert::new(mtm);
+                    if let Some(version) = version {
+                        alert.setMessageText(&NSString::from_str(&translator._g("Update Available")));
+                        alert.setInformativeText(&NSString::from_str(&translator._f("A new update for {0} is available: {1}", &[APP_ENGLISH_SHORT_NAME, &version.to_string()])));
+                    } else {
+                        alert.setMessageText(&NSString::from_str(&translator._g("No Update Available")));
+                        alert.setInformativeText(&NSString::from_str(&translator._f("You are running the latest version of {0}.", &[APP_ENGLISH_SHORT_NAME])));
+                    }
+                    alert.runModal();
+                });
+            });
         }
 
         #[unsafe(method(closeFolder:))]

@@ -4,6 +4,10 @@ version = "2026.7.0"
 edition = "2024"
 build = "build.rs"
 
+[dependencies]
+rustls = { version = "0.23", features = ["ring"] }
+tokio = { version = "1", features = ["full"] }
+
 [target.'cfg(target_os = "windows")'.dependencies]
 windows = { path = "../windows" }
 
