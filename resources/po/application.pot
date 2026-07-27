@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-26 23:28-0400\n"
+"POT-Creation-Date: 2026-07-26 23:33-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,114 +17,114 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: macos/src/controls/main_menu.rs:66 macos/src/views/main_window.rs:73
+#: macos/src/controls/main_menu.rs:78 macos/src/views/main_window.rs:73
 msgid "Application"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:70
+#: macos/src/controls/main_menu.rs:82
 msgid "About Application"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:75
+#: macos/src/controls/main_menu.rs:87
 msgid "Check for Updates"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:84
+#: macos/src/controls/main_menu.rs:96
 msgid "Settings\\u{2026}"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:99 macos/src/controls/main_menu.rs:106
+#: macos/src/controls/main_menu.rs:111 macos/src/controls/main_menu.rs:118
 msgid "Services"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:113
+#: macos/src/controls/main_menu.rs:125
 msgid "Hide Application"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:120
+#: macos/src/controls/main_menu.rs:132
 msgid "Hide Others"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:130
+#: macos/src/controls/main_menu.rs:142
 msgid "Show All"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:138
+#: macos/src/controls/main_menu.rs:150
 msgid "Quit Application"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:148
+#: macos/src/controls/main_menu.rs:160
 msgid "File"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:152
+#: macos/src/controls/main_menu.rs:164
 msgid "Open Folder"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:157
+#: macos/src/controls/main_menu.rs:169
 msgid "Close Folder"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:167
+#: macos/src/controls/main_menu.rs:179
 msgid "Close Window"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:177
+#: macos/src/controls/main_menu.rs:189
 msgid "Edit"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:181
+#: macos/src/controls/main_menu.rs:193
 msgid "Undo"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:186
+#: macos/src/controls/main_menu.rs:198
 msgid "Redo"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:194
+#: macos/src/controls/main_menu.rs:206
 msgid "Cut"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:199
+#: macos/src/controls/main_menu.rs:211
 msgid "Copy"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:204
+#: macos/src/controls/main_menu.rs:216
 msgid "Paste"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:209
+#: macos/src/controls/main_menu.rs:221
 msgid "Select All"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:219
+#: macos/src/controls/main_menu.rs:231
 msgid "View"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:223
+#: macos/src/controls/main_menu.rs:235
 msgid "Enter Full Screen"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:236
+#: macos/src/controls/main_menu.rs:248
 msgid "Window"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:240
+#: macos/src/controls/main_menu.rs:252
 msgid "Minimize"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:245
+#: macos/src/controls/main_menu.rs:257
 msgid "Zoom"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:253
+#: macos/src/controls/main_menu.rs:265
 msgid "Bring All to Front"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:264
+#: macos/src/controls/main_menu.rs:276
 msgid "Help"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:268
+#: macos/src/controls/main_menu.rs:280
 msgid "Application Help"
 msgstr ""

@@ -1,4 +1,4 @@
-use crate::views::MainWindow;
+use crate::views::{MainWindow, SettingsDialog};
 use objc2::rc::Retained;
 use objc2::runtime::AnyObject;
 use objc2::{
@@ -14,6 +14,7 @@ use std::rc::Rc;
 pub struct MainMenuState {
     state: Rc<RefCell<AppState>>,
     window: Retained<MainWindow>,
+    settings_dialog: RefCell<Option<Retained<SettingsDialog>>>,
 }
 
 define_class!(
@@ -42,6 +43,9 @@ define_class!(
 
         #[unsafe(method(showSettings:))]
         fn show_settings(&self, _sender: Option<&AnyObject>) {
+            let dialog = SettingsDialog::new(self.mtm(), Rc::clone(&self.ivars().state));
+            dialog.show();
+            *self.ivars().settings_dialog.borrow_mut() = Some(dialog);
         }
     }
 
@@ -50,12 +54,20 @@ define_class!(
 
 impl MainMenuState {
     pub fn new(state: Rc<RefCell<AppState>>, window: Retained<MainWindow>) -> Self {
-        MainMenuState { state, window }
+        MainMenuState {
+            state,
+            window,
+            settings_dialog: RefCell::new(None),
+        }
     }
 }
 
 impl MainMenu {
-    pub fn new(mtm: MainThreadMarker, state: Rc<RefCell<AppState>>, window: Retained<MainWindow>) -> Retained<Self> {
+    pub fn new(
+        mtm: MainThreadMarker,
+        state: Rc<RefCell<AppState>>,
+        window: Retained<MainWindow>,
+    ) -> Retained<Self> {
         let this = Self::alloc(mtm).set_ivars(MainMenuState::new(state, window));
         let this: Retained<Self> =
             unsafe { msg_send![super(this), initWithTitle: ns_string!("MainMenu")] };

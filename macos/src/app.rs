@@ -48,12 +48,13 @@ define_class!(
             let window = MainWindow::new(self.mtm(), Rc::clone(&self.ivars().state));
             self.ivars()
                 .main_menu
-                .set(MainMenu::new(self.mtm(), Rc::clone(&self.ivars().state), Retained::clone(&window)))
+                .set(MainMenu::new(
+                    self.mtm(),
+                    Rc::clone(&self.ivars().state),
+                    Retained::clone(&window),
+                ))
                 .unwrap();
-            self.ivars()
-                .window
-                .set(window)
-                .unwrap();
+            self.ivars().window.set(window).unwrap();
             app.setActivationPolicy(NSApplicationActivationPolicy::Regular);
             app.setAppearance(theme.as_deref());
             app.setMainMenu(Some(self.ivars().main_menu.get().unwrap()));
