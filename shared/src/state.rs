@@ -1,6 +1,10 @@
-use crate::{APP_REPO_NAME, APP_REPO_OWNER, Configuration, FolderBrowser, Translator, app_version};
+use crate::{
+    APP_NAME, APP_REPO_NAME, APP_REPO_OWNER, Configuration, FolderBrowser, Translator, app_version,
+};
+use directories::BaseDirs;
 use reup::{GitHubUpdater, UpdateProvider, UpdateType};
 use semver::Version;
+use std::path::PathBuf;
 use std::sync::Arc;
 
 #[derive(Debug)]
@@ -47,6 +51,24 @@ impl AppState {
 
     pub fn folder_browser_mut(&mut self) -> &mut FolderBrowser {
         &mut self.folder_browser
+    }
+
+    pub fn install_update(&self) -> impl Future<Output = Option<PathBuf>> + Send + 'static {
+        let updater = self.updater();
+        let update_type = if self.configuration.allow_preview_updates() {
+            UpdateType::Preview
+        } else {
+            UpdateType::Stable
+        };
+        async move {
+            let path = BaseDirs::new()
+                .expect("Unable to load base directories")
+                .cache_dir()
+                .join(APP_NAME)
+                .join(updater.target_asset_name());
+            let res = updater.download_update(update_type, &path).await;
+            if res.is_ok() { Some(path) } else { None }
+        }
     }
 
     pub fn translator(&self) -> Arc<Translator> {

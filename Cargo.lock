@@ -596,7 +596,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "39cab71617ae0d63f51a36d69f866391735b51691dbda63cf6f96d042b63efeb"
 dependencies = [
  "libc",
- "windows-sys 0.52.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -1947,9 +1947,9 @@ dependencies = [
 
 [[package]]
 name = "reup"
-version = "0.1.0"
+version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "04006c322d055ce55521065218c8d1b10bcb1267bd8a91d68f3c351d5f8eb3bb"
+checksum = "2450c2ad96b6f262e31985ed4fb9416f0a8862f40809b92b660d73f94d1149b1"
 dependencies = [
  "directories",
  "hex",

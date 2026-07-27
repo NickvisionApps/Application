@@ -33,6 +33,7 @@ define_class!(
             let state_ref = self.ivars().state.borrow();
             let future = state_ref.check_for_updates();
             let translator = state_ref.translator();
+            self.ivars().window.show();
             tokio::spawn(async move {
                 let version = future.await;
                 dispatch2::run_on_main(move |mtm| {
@@ -40,6 +41,8 @@ define_class!(
                     if let Some(version) = version {
                         alert.setMessageText(&NSString::from_str(&translator._g("Update Available")));
                         alert.setInformativeText(&NSString::from_str(&translator._f("A new update for {0} is available: {1}", &[APP_ENGLISH_SHORT_NAME, &version.to_string()])));
+                        alert.addButtonWithTitle(&NSString::from_str(&translator._g("Update")));
+                        alert.addButtonWithTitle(&NSString::from_str(&translator._g("OK")));
                     } else {
                         alert.setMessageText(&NSString::from_str(&translator._g("No Update Available")));
                         alert.setInformativeText(&NSString::from_str(&translator._f("You are running the latest version of {0}.", &[APP_ENGLISH_SHORT_NAME])));
