@@ -4,7 +4,7 @@ use objc2::rc::Retained;
 use objc2::{DefinedClass, MainThreadOnly, define_class, msg_send};
 use objc2_app_kit::{
     NSAppearance, NSAppearanceNameAqua, NSAppearanceNameDarkAqua, NSApplication,
-    NSApplicationActivationPolicy, NSApplicationDelegate,
+    NSApplicationActivationPolicy, NSApplicationDelegate, NSApplicationTerminateReply,
 };
 use objc2_foundation::{MainThreadMarker, NSNotification, NSObject, NSObjectProtocol};
 use shared::{AppState, ApplicationTheme};
@@ -60,6 +60,18 @@ define_class!(
             app.setMainMenu(Some(self.ivars().main_menu.get().unwrap()));
             self.ivars().window.get().unwrap().show();
             app.activate();
+        }
+
+        #[unsafe(method(applicationShouldTerminate:))]
+        fn should_terminate(&self, _sender: &NSApplication) -> NSApplicationTerminateReply {
+            if self.ivars().state.borrow().can_close() {
+                if let Some(window) = self.ivars().window.get() {
+                    window.close();
+                }
+                NSApplicationTerminateReply::TerminateNow
+            } else {
+                NSApplicationTerminateReply::TerminateCancel
+            }
         }
 
         #[unsafe(method(applicationShouldTerminateAfterLastWindowClosed:))]

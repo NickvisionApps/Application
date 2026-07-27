@@ -5,8 +5,10 @@ use objc2_app_kit::{
     NSBackingStoreType, NSToolbar, NSToolbarDelegate, NSToolbarDisplayMode, NSView, NSWindow,
     NSWindowController, NSWindowDelegate, NSWindowStyleMask, NSWindowToolbarStyle,
 };
-use objc2_foundation::{MainThreadMarker, NSObjectProtocol, NSPoint, NSRect, NSSize, NSString};
-use shared::AppState;
+use objc2_foundation::{
+    MainThreadMarker, NSNotification, NSObjectProtocol, NSPoint, NSRect, NSSize, NSString,
+};
+use shared::{AppState, WindowGeometry};
 use std::cell::RefCell;
 use std::rc::Rc;
 
@@ -28,9 +30,30 @@ define_class!(
 
     unsafe impl NSWindowDelegate for MainWindow {
         #[unsafe(method(windowShouldClose:))]
-        fn window_show_close(&self, _sender: &NSWindow) -> bool {
-            let state_ref = self.ivars().state.borrow();
-            state_ref.can_close()
+        fn should_close(&self, _sender: &NSWindow) -> bool {
+            self.ivars().state.borrow().can_close()
+        }
+
+        #[unsafe(method(windowWillClose:))]
+        fn will_close(&self, _notification: &NSNotification) {
+            let mut state_ref = self.ivars().state.borrow_mut();
+            let configuration = state_ref.configuration_mut();
+            let window = self.window().unwrap();
+            if window.isZoomed() {
+                configuration
+                    .set_window_geometry(WindowGeometry::builder().is_maximized(true).build());
+            } else {
+                let frame = window.frame();
+                configuration.set_window_geometry(
+                    WindowGeometry::builder()
+                        .x(frame.origin.x as i64)
+                        .y(frame.origin.y as i64)
+                        .width(frame.size.width as u64)
+                        .height(frame.size.height as u64)
+                        .build(),
+                );
+            }
+            configuration.save().unwrap();
         }
     }
 );
@@ -83,7 +106,9 @@ impl MainWindow {
             let view = NSView::new(mtm);
             content_view.addSubview(&view);
         }
-        window.center();
+        if geometry.is_maximized() {
+            window.setIsZoomed(true);
+        }
         drop(state_ref);
         this.setWindow(Some(&window));
         this

@@ -221,7 +221,7 @@ impl SettingsDialog {
                 language_popup_button.setTarget(Some(this.as_super().as_super()));
                 language_popup_button.setAction(Some(sel!(popupButtonChanged:)));
             }
-            let grid_view = NSGridView::gridViewWithViews(
+            let general_grid_view = NSGridView::gridViewWithViews(
                 &NSArray::from_retained_slice(&[
                     NSArray::from_slice(&[&theme_label as &NSView, &theme_popup_button as &NSView]),
                     NSArray::from_slice(&[
@@ -231,17 +231,17 @@ impl SettingsDialog {
                 ]),
                 mtm,
             );
-            grid_view
+            general_grid_view.setTranslatesAutoresizingMaskIntoConstraints(false);
+            general_grid_view
                 .columnAtIndex(0)
                 .setXPlacement(NSGridCellPlacement::Trailing);
-            grid_view.setYPlacement(NSGridCellPlacement::Center);
-            grid_view.setTranslatesAutoresizingMaskIntoConstraints(false);
-            general_view.addSubview(&grid_view);
+            general_grid_view.setYPlacement(NSGridCellPlacement::Center);
+            general_view.addSubview(&general_grid_view);
             NSLayoutConstraint::activateConstraints(&NSArray::from_retained_slice(&[
-                grid_view
+                general_grid_view
                     .centerXAnchor()
                     .constraintEqualToAnchor(&general_view.centerXAnchor()),
-                grid_view
+                general_grid_view
                     .topAnchor()
                     .constraintEqualToAnchor_constant(&general_view.topAnchor(), 100.0),
             ]));
