@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-27 00:45-0400\n"
+"POT-Creation-Date: 2026-07-27 01:25-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -129,11 +129,31 @@ msgstr ""
 msgid "Application Help"
 msgstr ""
 
-#: macos/src/views/settings_dialog.rs:39 macos/src/views/settings_dialog.rs:86
-#: macos/src/views/settings_dialog.rs:147
+#: macos/src/views/settings_dialog.rs:43 macos/src/views/settings_dialog.rs:116
+#: macos/src/views/settings_dialog.rs:179
 msgid "General"
 msgstr ""
 
-#: macos/src/views/settings_dialog.rs:41 macos/src/views/settings_dialog.rs:88
+#: macos/src/views/settings_dialog.rs:45 macos/src/views/settings_dialog.rs:118
 msgid "Advanced"
+msgstr ""
+
+#: macos/src/views/settings_dialog.rs:189
+msgid "Theme:"
+msgstr ""
+
+#: macos/src/views/settings_dialog.rs:194
+msgid "Light"
+msgstr ""
+
+#: macos/src/views/settings_dialog.rs:196
+msgid "Dark"
+msgstr ""
+
+#: macos/src/views/settings_dialog.rs:198
+msgid "System"
+msgstr ""
+
+#: macos/src/views/settings_dialog.rs:205
+msgid "Translation Language:"
 msgstr ""

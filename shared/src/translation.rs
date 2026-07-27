@@ -1,6 +1,7 @@
 use crate::APP_ENGLISH_SHORT_NAME;
 use gettext::Catalog;
 use std::fs::File;
+use std::sync::OnceLock;
 
 #[derive(Debug)]
 pub struct Translator {
@@ -55,27 +56,31 @@ impl Translator {
         }
     }
 
-    pub fn available_languages() -> Vec<String> {
-        let mut languages = vec![];
-        let mo_name = format!("{}.mo", APP_ENGLISH_SHORT_NAME.to_lowercase());
-        if let Some(current_dir) = std::env::current_exe()
-            .ok()
-            .and_then(|path| path.parent().map(|p| p.to_path_buf()))
-            .or_else(|| std::env::current_dir().ok())
-            && let Ok(entries) = std::fs::read_dir(current_dir)
-        {
-            for entry in entries.flatten() {
-                let path = entry.path();
-                if path.is_dir()
-                    && path.join("LC_MESSAGES").join(&mo_name).exists()
-                    && let Some(name) = path.file_name().and_then(|n| n.to_str())
-                {
-                    languages.push(name.to_string());
+    pub fn available_languages() -> &'static Vec<String> {
+        static LANGUAGES: OnceLock<Vec<String>> = OnceLock::new();
+        LANGUAGES.get_or_init(|| {
+            let mut languages = vec![];
+            let mo_name = format!("{}.mo", APP_ENGLISH_SHORT_NAME.to_lowercase());
+            if let Some(current_dir) = std::env::current_exe()
+                .ok()
+                .and_then(|path| path.parent().map(|p| p.to_path_buf()))
+                .or_else(|| std::env::current_dir().ok())
+                && let Ok(entries) = std::fs::read_dir(current_dir)
+            {
+                for entry in entries.flatten() {
+                    let path = entry.path();
+                    if path.is_dir()
+                        && path.join("LC_MESSAGES").join(&mo_name).exists()
+                        && let Some(name) = path.file_name().and_then(|n| n.to_str())
+                    {
+                        languages.push(name.to_string());
+                    }
                 }
             }
-        }
-        languages.sort();
-        languages
+            languages.sort();
+            languages.insert(0, "en_US".to_string());
+            languages
+        })
     }
 
     pub fn language(&self) -> &str {

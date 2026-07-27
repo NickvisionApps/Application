@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-27 00:45-0400\n"
+"POT-Creation-Date: 2026-07-27 01:25-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -133,13 +133,37 @@ msgstr ""
 msgid "Application Help"
 msgstr "Application"
 
-#: macos/src/views/settings_dialog.rs:39 macos/src/views/settings_dialog.rs:86
-#: macos/src/views/settings_dialog.rs:147
+#: macos/src/views/settings_dialog.rs:43 macos/src/views/settings_dialog.rs:116
+#: macos/src/views/settings_dialog.rs:179
 msgid "General"
 msgstr ""
 
-#: macos/src/views/settings_dialog.rs:41 macos/src/views/settings_dialog.rs:88
+#: macos/src/views/settings_dialog.rs:45 macos/src/views/settings_dialog.rs:118
 msgid "Advanced"
+msgstr ""
+
+#: macos/src/views/settings_dialog.rs:189
+#, fuzzy
+msgid "Theme:"
+msgstr "Тема"
+
+#: macos/src/views/settings_dialog.rs:194
+#, fuzzy
+msgid "Light"
+msgstr "Светлая"
+
+#: macos/src/views/settings_dialog.rs:196
+#, fuzzy
+msgid "Dark"
+msgstr "Тёмная"
+
+#: macos/src/views/settings_dialog.rs:198
+#, fuzzy
+msgid "System"
+msgstr "Системная"
+
+#: macos/src/views/settings_dialog.rs:205
+msgid "Translation Language:"
 msgstr ""
 
 #~ msgid "Close"
@@ -169,9 +193,6 @@ msgstr ""
 
 #~ msgid "User Interface"
 #~ msgstr "Интерфейс"
-
-#~ msgid "Theme"
-#~ msgstr "Тема"
 
 #~ msgctxt "Shortcut"
 #~ msgid "Application"
@@ -250,10 +271,6 @@ msgstr ""
 #~ msgid "No update available"
 #~ msgstr "Application"
 
-#, fuzzy
-#~ msgid "System"
-#~ msgstr "Системная"
-
 #~ msgctxt "Theme"
 #~ msgid "Light"
 #~ msgstr "Светлая"
@@ -297,14 +314,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Open a folder to get started"
 #~ msgstr "Откройте или перетащите папку, чтобы начать."
-
-#, fuzzy
-#~ msgid "Light"
-#~ msgstr "Светлая"
-
-#, fuzzy
-#~ msgid "Dark"
-#~ msgstr "Тёмная"
 
 #~ msgid "No Folder Opened"
 #~ msgstr "Папка не открыта"
