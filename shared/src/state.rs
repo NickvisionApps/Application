@@ -1,4 +1,4 @@
-use crate::{Configuration, FolderBrowser, Translator, info};
+use crate::{APP_REPO_NAME, APP_REPO_OWNER, Configuration, FolderBrowser, Translator};
 use reup::GitHubUpdater;
 
 #[derive(Debug)]
@@ -54,38 +54,34 @@ impl Default for AppState {
             translator,
             #[cfg(all(target_os = "windows", target_arch = "x86_64"))]
             updater: GitHubUpdater::new(
-                info::APP_REPO_OWNER,
-                info::APP_REPO_NAME,
+                APP_REPO_OWNER,
+                APP_REPO_NAME,
                 "NickvisionApplicationSetup.exe",
             ),
             #[cfg(all(target_os = "windows", target_arch = "aarch64"))]
             updater: GitHubUpdater::new(
-                info::APP_REPO_OWNER,
-                info::APP_REPO_NAME,
+                APP_REPO_OWNER,
+                APP_REPO_NAME,
                 "NickvisionApplicationSetup-arm64.exe",
             ),
             #[cfg(all(target_os = "linux", target_arch = "x86_64"))]
             updater: GitHubUpdater::new(
-                info::APP_REPO_OWNER,
-                info::APP_REPO_NAME,
+                APP_REPO_OWNER,
+                APP_REPO_NAME,
                 "org.nickvision.application.x64.flatpak",
             ),
             #[cfg(all(target_os = "linux", target_arch = "aarch64"))]
             updater: GitHubUpdater::new(
-                info::APP_REPO_OWNER,
-                info::APP_REPO_NAME,
+                APP_REPO_OWNER,
+                APP_REPO_NAME,
                 "org.nickvision.application.aarch64.flatpak",
             ),
             #[cfg(all(target_os = "macos", target_arch = "x86_64"))]
-            updater: GitHubUpdater::new(
-                info::APP_REPO_OWNER,
-                info::APP_REPO_NAME,
-                "Application-macOS-x64.zip",
-            ),
+            updater: GitHubUpdater::new(APP_REPO_OWNER, APP_REPO_NAME, "Application-macOS-x64.zip"),
             #[cfg(all(target_os = "macos", target_arch = "aarch64"))]
             updater: GitHubUpdater::new(
-                info::APP_REPO_OWNER,
-                info::APP_REPO_NAME,
+                APP_REPO_OWNER,
+                APP_REPO_NAME,
                 "Application-macOS-arm64.zip",
             ),
         }
