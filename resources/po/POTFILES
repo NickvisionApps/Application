@@ -1,2 +1,3 @@
 macos/src/app.rs
+macos/src/controls/main_menu.rs
 macos/src/views/main_window.rs

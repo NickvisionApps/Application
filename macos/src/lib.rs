@@ -1,4 +1,5 @@
 mod app;
+mod controls;
 mod views;
 
 use crate::app::Delegate;

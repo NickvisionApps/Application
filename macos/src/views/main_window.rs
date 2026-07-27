@@ -24,7 +24,13 @@ define_class!(
 
     unsafe impl NSObjectProtocol for MainWindow {}
 
-    unsafe impl NSWindowDelegate for MainWindow {}
+    unsafe impl NSWindowDelegate for MainWindow {
+        #[unsafe(method(windowShouldClose:))]
+        fn window_show_close(&self, _sender: &NSWindow) -> bool {
+            let state_ref = self.ivars().state.borrow();
+            state_ref.can_close()
+        }
+    }
 );
 
 impl MainWindowState {
