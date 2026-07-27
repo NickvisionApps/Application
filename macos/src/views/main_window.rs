@@ -1,10 +1,7 @@
 use objc2::rc::Retained;
 use objc2::runtime::ProtocolObject;
 use objc2::{DefinedClass, MainThreadOnly, define_class, msg_send};
-use objc2_app_kit::{
-    NSBackingStoreType, NSToolbar, NSWindow, NSWindowController, NSWindowDelegate,
-    NSWindowStyleMask, NSWindowToolbarStyle,
-};
+use objc2_app_kit::{NSBackingStoreType, NSToolbar, NSToolbarDelegate, NSToolbarDisplayMode, NSView, NSWindow, NSWindowController, NSWindowDelegate, NSWindowStyleMask, NSWindowToolbarStyle};
 use objc2_foundation::{MainThreadMarker, NSObjectProtocol, NSPoint, NSRect, NSSize, NSString};
 use shared::AppState;
 use std::cell::RefCell;
@@ -21,6 +18,8 @@ define_class!(
     #[thread_kind = MainThreadOnly]
     #[ivars = MainWindowState]
     pub struct MainWindow;
+
+    unsafe impl NSToolbarDelegate for MainWindow {}
 
     unsafe impl NSObjectProtocol for MainWindow {}
 
@@ -49,6 +48,8 @@ impl MainWindow {
             NSToolbar::alloc(mtm),
             &NSString::from_str("MainToolbar"),
         );
+        toolbar.setDelegate(Some(ProtocolObject::from_ref(&*this)));
+        toolbar.setDisplayMode(NSToolbarDisplayMode::IconOnly);
         let window = unsafe {
             NSWindow::initWithContentRect_styleMask_backing_defer(
                 NSWindow::alloc(mtm),
@@ -66,7 +67,6 @@ impl MainWindow {
                 false,
             )
         };
-        this.setWindow(Some(&window));
         window.setDelegate(Some(ProtocolObject::from_ref(&*this)));
         unsafe { window.setReleasedWhenClosed(false) };
         window.setTitle(&NSString::from_str(
@@ -76,8 +76,13 @@ impl MainWindow {
         window.setContentMinSize(NSSize::new(600.0, 400.0));
         window.setToolbar(Some(&toolbar));
         window.setToolbarStyle(NSWindowToolbarStyle::Unified);
+        if let Some(content_view) = window.contentView() {
+            let view = NSView::new(mtm);
+            content_view.addSubview(&view);
+        }
         window.center();
         drop(state_ref);
+        this.setWindow(Some(&window));
         this
     }
 
