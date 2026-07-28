@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-27 20:44-0400\n"
+"POT-Creation-Date: 2026-07-27 21:16-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,42 +17,18 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: macos/src/controls/main_menu.rs:45
-msgid "Update Available"
-msgstr ""
-
-#: macos/src/controls/main_menu.rs:46
-msgid "A new update for {0} is available: {1}"
-msgstr ""
-
-#: macos/src/controls/main_menu.rs:47
-msgid "Update"
-msgstr ""
-
-#: macos/src/controls/main_menu.rs:48
-msgid "OK"
-msgstr ""
-
-#: macos/src/controls/main_menu.rs:50
-msgid "No Update Available"
-msgstr ""
-
-#: macos/src/controls/main_menu.rs:51
-msgid "You are running the latest version of {0}."
-msgstr ""
-
-#: macos/src/controls/main_menu.rs:82
+#: macos/src/controls/main_menu.rs:53
 msgid ""
 "{0}\n"
 "\n"
 "What's New?"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:91 macos/src/controls/main_menu.rs:337
+#: macos/src/controls/main_menu.rs:62 macos/src/controls/main_menu.rs:308
 msgid "Credits"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:92
+#: macos/src/controls/main_menu.rs:63
 msgid ""
 "Developers:\n"
 "{0}\n"
@@ -64,116 +40,140 @@ msgid ""
 "{2}"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:130 macos/src/views/main_window.rs:99
+#: macos/src/controls/main_menu.rs:101 macos/src/views/main_window.rs:100
 msgid "Application"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:134
+#: macos/src/controls/main_menu.rs:105
 msgid "About Application"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:139
+#: macos/src/controls/main_menu.rs:110
 msgid "Check for Updates"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:148
+#: macos/src/controls/main_menu.rs:119
 msgid "Settings\\u{2026}"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:163 macos/src/controls/main_menu.rs:170
+#: macos/src/controls/main_menu.rs:134 macos/src/controls/main_menu.rs:141
 msgid "Services"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:177
+#: macos/src/controls/main_menu.rs:148
 msgid "Hide Application"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:184
+#: macos/src/controls/main_menu.rs:155
 msgid "Hide Others"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:194
+#: macos/src/controls/main_menu.rs:165
 msgid "Show All"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:202
+#: macos/src/controls/main_menu.rs:173
 msgid "Quit Application"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:212
+#: macos/src/controls/main_menu.rs:183
 msgid "File"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:216
+#: macos/src/controls/main_menu.rs:187
 msgid "Open Folder"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:221
+#: macos/src/controls/main_menu.rs:192
 msgid "Close Folder"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:231
+#: macos/src/controls/main_menu.rs:202
 msgid "Close Window"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:241
+#: macos/src/controls/main_menu.rs:212
 msgid "Edit"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:245
+#: macos/src/controls/main_menu.rs:216
 msgid "Undo"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:250
+#: macos/src/controls/main_menu.rs:221
 msgid "Redo"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:258
+#: macos/src/controls/main_menu.rs:229
 msgid "Cut"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:263
+#: macos/src/controls/main_menu.rs:234
 msgid "Copy"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:268
+#: macos/src/controls/main_menu.rs:239
 msgid "Paste"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:273
+#: macos/src/controls/main_menu.rs:244
 msgid "Select All"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:283
+#: macos/src/controls/main_menu.rs:254
 msgid "View"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:287
+#: macos/src/controls/main_menu.rs:258
 msgid "Enter Full Screen"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:300
+#: macos/src/controls/main_menu.rs:271
 msgid "Window"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:304
+#: macos/src/controls/main_menu.rs:275
 msgid "Minimize"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:309
+#: macos/src/controls/main_menu.rs:280
 msgid "Zoom"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:317
+#: macos/src/controls/main_menu.rs:288
 msgid "Bring All to Front"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:328
+#: macos/src/controls/main_menu.rs:299
 msgid "Help"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:332
+#: macos/src/controls/main_menu.rs:303
 msgid "What's New"
+msgstr ""
+
+#: macos/src/views/main_window.rs:127
+msgid "Update Available"
+msgstr ""
+
+#: macos/src/views/main_window.rs:129
+msgid "A new update for {0} is available: {1}"
+msgstr ""
+
+#: macos/src/views/main_window.rs:132
+msgid "Update"
+msgstr ""
+
+#: macos/src/views/main_window.rs:133
+msgid "OK"
+msgstr ""
+
+#: macos/src/views/main_window.rs:136
+msgid "No Update Available"
+msgstr ""
+
+#: macos/src/views/main_window.rs:138
+msgid "You are running the latest version of {0}."
 msgstr ""
 
 #: macos/src/views/settings_dialog.rs:43 macos/src/views/settings_dialog.rs:116

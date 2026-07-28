@@ -2,13 +2,14 @@ use objc2::rc::Retained;
 use objc2::runtime::ProtocolObject;
 use objc2::{DefinedClass, MainThreadOnly, define_class, msg_send};
 use objc2_app_kit::{
-    NSBackingStoreType, NSToolbar, NSToolbarDelegate, NSToolbarDisplayMode, NSView, NSWindow,
-    NSWindowController, NSWindowDelegate, NSWindowStyleMask, NSWindowToolbarStyle,
+    NSAlert, NSAlertFirstButtonReturn, NSBackingStoreType, NSToolbar, NSToolbarDelegate,
+    NSToolbarDisplayMode, NSView, NSWindow, NSWindowController, NSWindowDelegate,
+    NSWindowStyleMask, NSWindowToolbarStyle,
 };
 use objc2_foundation::{
     MainThreadMarker, NSNotification, NSObjectProtocol, NSPoint, NSRect, NSSize, NSString,
 };
-use shared::{AppState, WindowGeometry};
+use shared::{APP_ENGLISH_SHORT_NAME, AppState, WindowGeometry};
 use std::cell::RefCell;
 use std::rc::Rc;
 
@@ -114,11 +115,48 @@ impl MainWindow {
         this
     }
 
-    pub fn show(&self) {
-        unsafe { self.showWindow(None) };
+    pub fn check_for_updates(&self) {
+        let state_ref = self.ivars().state.borrow();
+        let updater = state_ref.updater();
+        let translator = state_ref.translator();
+        tokio::spawn(async move {
+            let version = updater.check_for_updates().await;
+            dispatch2::run_on_main(move |mtm| {
+                let alert = NSAlert::new(mtm);
+                if let Some(ref version) = version {
+                    alert.setMessageText(&NSString::from_str(&translator._g("Update Available")));
+                    alert.setInformativeText(&NSString::from_str(&translator._f(
+                        "A new update for {0} is available: {1}",
+                        &[APP_ENGLISH_SHORT_NAME, &version.to_string()],
+                    )));
+                    alert.addButtonWithTitle(&NSString::from_str(&translator._g("Update")));
+                    alert.addButtonWithTitle(&NSString::from_str(&translator._g("OK")));
+                } else {
+                    alert
+                        .setMessageText(&NSString::from_str(&translator._g("No Update Available")));
+                    alert.setInformativeText(&NSString::from_str(&translator._f(
+                        "You are running the latest version of {0}.",
+                        &[APP_ENGLISH_SHORT_NAME],
+                    )));
+                }
+                if alert.runModal() == NSAlertFirstButtonReturn && version.is_some() {
+                    tokio::spawn(async move {
+                        updater
+                            .install_update(move |downloaded, total| {
+                                dispatch2::run_on_main(move |mtm| {});
+                            })
+                            .await;
+                    });
+                }
+            });
+        });
     }
 
     pub fn close_folder(&self) {}
 
     pub fn open_folder(&self) {}
+
+    pub fn show(&self) {
+        unsafe { self.showWindow(None) };
+    }
 }
