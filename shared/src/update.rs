@@ -87,6 +87,8 @@ impl Updater {
                 Ok(())
             }
         }
+        #[cfg(target_os = "linux")]
+        return Ok(());
         #[cfg(target_os = "macos")]
         {
             let extract_dir = path.with_extension("");
