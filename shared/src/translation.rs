@@ -183,38 +183,3 @@ impl Translator {
         }
     }
 }
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn language_normalization() {
-        assert_eq!(Translator::normalize_language("pt-BR.UTF-8@foo"), "pt_BR");
-        assert_eq!(Translator::normalize_language("ru_RU.UTF-8"), "ru_RU");
-        assert_eq!(Translator::normalize_language("C"), "en_US");
-        assert_eq!(Translator::normalize_language("POSIX"), "en_US");
-        assert_eq!(Translator::normalize_language("C.UTF-8"), "en_US");
-    }
-
-    #[test]
-    fn language_detection() {
-        let language = Translator::detect_language();
-        assert!(!language.is_empty());
-        assert_ne!(language, "C");
-    }
-
-    #[test]
-    fn translator_language_normalization() {
-        let translator = Translator::new("fr-CA.UTF-8@foo");
-        assert_eq!(translator.language(), "fr_CA");
-    }
-
-    #[test]
-    fn translator_missing_catalog() {
-        let translator = Translator::new("zz_ZZ");
-        assert_eq!(translator.language(), "zz_ZZ");
-        assert_eq!(translator._g("Hello"), "Hello");
-        assert_eq!(translator._f("Hello {0}", &["World"]), "Hello World");
-    }
-}

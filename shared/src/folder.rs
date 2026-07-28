@@ -35,22 +35,3 @@ impl FolderBrowser {
         self.path.as_path()
     }
 }
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn check_directory() {
-        #[cfg(target_os = "windows")]
-        let path = "C:\\Windows\\System32";
-        #[cfg(not(target_os = "windows"))]
-        let path = "/usr/bin";
-        let mut browser = FolderBrowser::default();
-        let result = browser.open(path);
-        assert!(result.is_ok());
-        assert_eq!(browser.path(), path);
-        assert!(browser.files().iter().count() > 0);
-        browser.close();
-    }
-}

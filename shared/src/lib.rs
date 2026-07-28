@@ -6,6 +6,7 @@ mod folder;
 mod info;
 mod state;
 mod translation;
+mod update;
 
 pub use config::{ApplicationTheme, Configuration, WindowGeometry, WindowGeometryBuilder};
 pub use folder::FolderBrowser;
@@ -17,3 +18,4 @@ pub use info::{
 };
 pub use state::AppState;
 pub use translation::Translator;
+pub use update::Updater;

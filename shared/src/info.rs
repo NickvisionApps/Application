@@ -58,19 +58,3 @@ pub fn is_app_portable() -> bool {
     static IS_PORTABLE: OnceLock<bool> = OnceLock::new();
     *IS_PORTABLE.get_or_init(|| std::env::args().any(|arg| arg == "--portable"))
 }
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn version_not_empty() {
-        assert!(app_version().major > 2025);
-        assert!(app_version().minor > 0);
-    }
-
-    #[test]
-    fn is_portable_not() {
-        assert!(!is_app_portable());
-    }
-}

@@ -4,7 +4,10 @@ use objc2::runtime::AnyObject;
 use objc2::{
     ClassType, DeclaredClass, MainThreadMarker, MainThreadOnly, define_class, msg_send, sel,
 };
-use objc2_app_kit::{NSAlert, NSApplication, NSEventModifierFlags, NSImage, NSMenu, NSMenuItem};
+use objc2_app_kit::{
+    NSAlert, NSAlertFirstButtonReturn, NSApplication, NSEventModifierFlags, NSImage, NSMenu,
+    NSMenuItem,
+};
 use objc2_foundation::{NSObjectProtocol, NSString, ns_string};
 use shared::{
     APP_CHANGELOG, APP_DESCRIPTION, APP_ENGLISH_SHORT_NAME, AppState, app_artist_names,
@@ -31,14 +34,14 @@ define_class!(
         #[unsafe(method(checkForUpdates:))]
         fn check_for_updates(&self, _sender: Option<&AnyObject>) {
             let state_ref = self.ivars().state.borrow();
-            let future = state_ref.check_for_updates();
+            let updater = state_ref.updater();
             let translator = state_ref.translator();
             self.ivars().window.show();
             tokio::spawn(async move {
-                let version = future.await;
+                let version = updater.check_for_updates().await;
                 dispatch2::run_on_main(move |mtm| {
                     let alert = NSAlert::new(mtm);
-                    if let Some(version) = version {
+                    if let Some(ref version) = version {
                         alert.setMessageText(&NSString::from_str(&translator._g("Update Available")));
                         alert.setInformativeText(&NSString::from_str(&translator._f("A new update for {0} is available: {1}", &[APP_ENGLISH_SHORT_NAME, &version.to_string()])));
                         alert.addButtonWithTitle(&NSString::from_str(&translator._g("Update")));
@@ -47,7 +50,15 @@ define_class!(
                         alert.setMessageText(&NSString::from_str(&translator._g("No Update Available")));
                         alert.setInformativeText(&NSString::from_str(&translator._f("You are running the latest version of {0}.", &[APP_ENGLISH_SHORT_NAME])));
                     }
-                    alert.runModal();
+                    if alert.runModal() == NSAlertFirstButtonReturn && version.is_some() {
+                        tokio::spawn(async move {
+                            updater.install_update(move |downloaded, total| {
+                                dispatch2::run_on_main(move |mtm| {
+
+                                });
+                            }).await;
+                        });
+                    }
                 });
             });
         }
