@@ -141,13 +141,25 @@ impl MainWindow {
                 }
                 if alert.runModal() == NSAlertFirstButtonReturn && version.is_some() {
                     tokio::spawn(async move {
-                        updater
+                        if let Err(error) = updater
                             .install_update(move |downloaded, total| {
                                 dispatch2::run_on_main(move |mtm| {
-                                    //TODO: Update UI
+                                    //TODO: Update UI with progress
                                 });
                             })
-                            .await;
+                            .await
+                        {
+                            let error_msg = error.to_string();
+                            dispatch2::run_on_main(move |mtm| {
+                                let alert = NSAlert::new(mtm);
+                                alert.setMessageText(&NSString::from_str(&translator._g("Error")));
+                                alert.setInformativeText(&NSString::from_str(
+                                    &translator
+                                        ._f("Unable to install the update: {0}", &[error_msg]),
+                                ));
+                                alert.runModal();
+                            });
+                        }
                     });
                 }
             });
@@ -167,19 +179,24 @@ impl MainWindow {
         open_panel.setAllowsMultipleSelection(false);
         if open_panel.runModal() == NSModalResponseOK {
             let mut state_ref = self.ivars().state.borrow_mut();
-            if state_ref
-                .folder_browser_mut()
-                .open(
-                    open_panel
-                        .URLs()
-                        .firstObject()
-                        .unwrap()
-                        .path()
-                        .unwrap()
-                        .to_string(),
-                )
-                .is_ok()
-            {
+            if let Err(error) = state_ref.folder_browser_mut().open(
+                open_panel
+                    .URLs()
+                    .firstObject()
+                    .unwrap()
+                    .path()
+                    .unwrap()
+                    .to_string(),
+            ) {
+                let alert = NSAlert::new(self.mtm());
+                alert.setMessageText(&NSString::from_str(&state_ref.translator()._g("Error")));
+                alert.setInformativeText(&NSString::from_str(
+                    &state_ref
+                        .translator()
+                        ._f("Unable to open folder: {0}", &[error.to_string()]),
+                ));
+                alert.runModal();
+            } else {
                 //TODO: Update UI
             }
         }

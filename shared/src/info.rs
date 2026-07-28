@@ -1,6 +1,14 @@
 use semver::Version;
 use std::sync::OnceLock;
 
+#[derive(Debug, Clone, Eq, PartialEq)]
+pub enum DeploymentMode {
+    Local,
+    Flatpak,
+    Snap,
+    Wsl,
+}
+
 pub const APP_ID: &str = "org.nickvision.application";
 pub const APP_NAME: &str = "Nickvision Application";
 pub const APP_DESCRIPTION: &str = "Create new Nickvision applications";
@@ -52,6 +60,27 @@ pub fn app_developer_names() -> String {
 pub fn app_version() -> &'static Version {
     static VERSION: OnceLock<Version> = OnceLock::new();
     VERSION.get_or_init(|| Version::parse(&format!("{}-next", env!("CARGO_PKG_VERSION"))).unwrap())
+}
+
+pub fn deployment_mode() -> DeploymentMode {
+    #[cfg(any(target_os = "windows", target_os = "macos"))]
+    return DeploymentMode::Local;
+    #[cfg(target_os = "linux")]
+    {
+        if let Ok(res) = std::fs::exists("./flatpak-info")
+            && res
+        {
+            DeploymentMode::Flatpak
+        } else if let Ok(_) = std::env::var("SNAP") {
+            DeploymentMode::Snap
+        } else if let Ok(res) = std::fs::exists("/proc/sys/fs/binfmt_misc/WSLInterop")
+            && res
+        {
+            DeploymentMode::Wsl
+        } else {
+            DeploymentMode::Local
+        }
+    }
 }
 
 pub fn is_app_portable() -> bool {

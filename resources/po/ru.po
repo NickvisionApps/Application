@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-27 21:39-0400\n"
+"POT-Creation-Date: 2026-07-27 22:43-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -180,6 +180,18 @@ msgstr "Application"
 
 #: macos/src/views/main_window.rs:138
 msgid "You are running the latest version of {0}."
+msgstr ""
+
+#: macos/src/views/main_window.rs:155 macos/src/views/main_window.rs:192
+msgid "Error"
+msgstr ""
+
+#: macos/src/views/main_window.rs:158
+msgid "Unable to install the update: {0}"
+msgstr ""
+
+#: macos/src/views/main_window.rs:196
+msgid "Unable to open folder: {0}"
 msgstr ""
 
 #: macos/src/views/settings_dialog.rs:43 macos/src/views/settings_dialog.rs:116
