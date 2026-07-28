@@ -2,9 +2,9 @@ use objc2::rc::Retained;
 use objc2::runtime::ProtocolObject;
 use objc2::{DefinedClass, MainThreadOnly, define_class, msg_send};
 use objc2_app_kit::{
-    NSAlert, NSAlertFirstButtonReturn, NSBackingStoreType, NSToolbar, NSToolbarDelegate,
-    NSToolbarDisplayMode, NSView, NSWindow, NSWindowController, NSWindowDelegate,
-    NSWindowStyleMask, NSWindowToolbarStyle,
+    NSAlert, NSAlertFirstButtonReturn, NSBackingStoreType, NSModalResponseOK, NSOpenPanel,
+    NSToolbar, NSToolbarDelegate, NSToolbarDisplayMode, NSView, NSWindow, NSWindowController,
+    NSWindowDelegate, NSWindowStyleMask, NSWindowToolbarStyle,
 };
 use objc2_foundation::{
     MainThreadMarker, NSNotification, NSObjectProtocol, NSPoint, NSRect, NSSize, NSString,
@@ -143,7 +143,9 @@ impl MainWindow {
                     tokio::spawn(async move {
                         updater
                             .install_update(move |downloaded, total| {
-                                dispatch2::run_on_main(move |mtm| {});
+                                dispatch2::run_on_main(move |mtm| {
+                                    //TODO: Update UI
+                                });
                             })
                             .await;
                     });
@@ -152,9 +154,36 @@ impl MainWindow {
         });
     }
 
-    pub fn close_folder(&self) {}
+    pub fn close_folder(&self) {
+        let mut state_ref = self.ivars().state.borrow_mut();
+        state_ref.folder_browser_mut().close();
+        //TODO: Update UI
+    }
 
-    pub fn open_folder(&self) {}
+    pub fn open_folder(&self) {
+        let open_panel = NSOpenPanel::new(self.mtm());
+        open_panel.setCanChooseFiles(false);
+        open_panel.setCanChooseDirectories(true);
+        open_panel.setAllowsMultipleSelection(false);
+        if open_panel.runModal() == NSModalResponseOK {
+            let mut state_ref = self.ivars().state.borrow_mut();
+            if state_ref
+                .folder_browser_mut()
+                .open(
+                    open_panel
+                        .URLs()
+                        .firstObject()
+                        .unwrap()
+                        .path()
+                        .unwrap()
+                        .to_string(),
+                )
+                .is_ok()
+            {
+                //TODO: Update UI
+            }
+        }
+    }
 
     pub fn show(&self) {
         unsafe { self.showWindow(None) };

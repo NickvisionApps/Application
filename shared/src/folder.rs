@@ -12,19 +12,21 @@ impl FolderBrowser {
     }
 
     pub fn open(&mut self, path: impl Into<PathBuf>) -> Result<(), std::io::Error> {
-        self.path = path.into();
-        self.files.clear();
-        for entry in std::fs::read_dir(&self.path)? {
+        let mut files = Vec::new();
+        let path = path.into();
+        for entry in std::fs::read_dir(&path)? {
             let path = entry?.path();
             if path.is_file() {
-                self.files.push(path);
+                files.push(path);
             }
         }
+        self.path = path;
+        self.files = files;
         Ok(())
     }
 
     pub fn close(&mut self) {
-        self.path = PathBuf::default()
+        *self = Self::default();
     }
 
     pub fn files(&self) -> &[PathBuf] {

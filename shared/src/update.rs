@@ -71,6 +71,11 @@ impl Updater {
             .updater
             .download_update(self.update_type, &path, on_progress)
             .await;
-        if res.is_ok() { Some(path) } else { None }
+        if res.is_ok() {
+            // TODO: Extract and execute
+            Some(path)
+        } else {
+            None
+        }
     }
 }
