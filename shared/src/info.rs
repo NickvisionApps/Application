@@ -71,7 +71,7 @@ pub fn deployment_mode() -> DeploymentMode {
             && res
         {
             DeploymentMode::Flatpak
-        } else if let Ok(_) = std::env::var("SNAP") {
+        } else if std::env::var("SNAP").is_ok() {
             DeploymentMode::Snap
         } else if let Ok(res) = std::fs::exists("/proc/sys/fs/binfmt_misc/WSLInterop")
             && res

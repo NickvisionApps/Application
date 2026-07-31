@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-28 09:49-0400\n"
+"POT-Creation-Date: 2026-07-31 19:37-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,11 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: linux/src/views/main_window.rs:37 macos/src/controls/main_menu.rs:101
+#: macos/src/views/main_window.rs:100
+msgid "Application"
+msgstr ""
 
 #: macos/src/controls/main_menu.rs:53
 msgid ""
@@ -38,10 +43,6 @@ msgid ""
 "\n"
 "Artists:\n"
 "{2}"
-msgstr ""
-
-#: macos/src/controls/main_menu.rs:101 macos/src/views/main_window.rs:100
-msgid "Application"
 msgstr ""
 
 #: macos/src/controls/main_menu.rs:105
