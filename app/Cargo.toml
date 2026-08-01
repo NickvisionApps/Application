@@ -7,6 +7,10 @@ build = "build.rs"
 [dependencies]
 rustls = { version = "0.23", features = ["ring"] }
 tokio = { version = "1", features = ["full"] }
+linux = { path = "../linux", optional = true }
+
+[features]
+force-gtk-run = ["dep:linux"]
 
 [target.'cfg(target_os = "windows")'.dependencies]
 windows = { path = "../windows" }

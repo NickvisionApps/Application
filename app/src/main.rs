@@ -1,4 +1,4 @@
-#[cfg(target_os = "windows")]
+#[cfg(all(target_os = "windows", not(feature = "force-gtk-run")))]
 #[tokio::main]
 async fn main() {
     rustls::crypto::ring::default_provider()
@@ -7,13 +7,31 @@ async fn main() {
     windows::run();
 }
 
-#[cfg(target_os = "macos")]
+#[cfg(all(target_os = "windows", feature = "force-gtk-run"))]
+#[tokio::main]
+async fn main() {
+    rustls::crypto::ring::default_provider()
+        .install_default()
+        .unwrap();
+    linux::run();
+}
+
+#[cfg(all(target_os = "macos", not(feature = "force-gtk-run")))]
 #[tokio::main]
 async fn main() {
     rustls::crypto::ring::default_provider()
         .install_default()
         .unwrap();
     macos::run();
+}
+
+#[cfg(all(target_os = "macos", feature = "force-gtk-run"))]
+#[tokio::main]
+async fn main() {
+    rustls::crypto::ring::default_provider()
+        .install_default()
+        .unwrap();
+    linux::run();
 }
 
 #[cfg(target_os = "linux")]

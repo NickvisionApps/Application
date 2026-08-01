@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-31 19:37-0400\n"
+"POT-Creation-Date: 2026-08-01 02:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,9 +17,25 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: linux/src/views/main_window.rs:37 macos/src/controls/main_menu.rs:101
+#: linux/src/views/main_window.rs:56
+msgid "Preferences"
+msgstr ""
+
+#: linux/src/views/main_window.rs:60
+msgid "Keyboard Shortcuts"
+msgstr ""
+
+#: linux/src/views/main_window.rs:64 macos/src/controls/main_menu.rs:105
+msgid "About Application"
+msgstr ""
+
+#: linux/src/views/main_window.rs:70 macos/src/controls/main_menu.rs:101
 #: macos/src/views/main_window.rs:100
 msgid "Application"
+msgstr ""
+
+#: linux/src/views/main_window.rs:78
+msgid "Main Menu"
 msgstr ""
 
 #: macos/src/controls/main_menu.rs:53
@@ -43,10 +59,6 @@ msgid ""
 "\n"
 "Artists:\n"
 "{2}"
-msgstr ""
-
-#: macos/src/controls/main_menu.rs:105
-msgid "About Application"
 msgstr ""
 
 #: macos/src/controls/main_menu.rs:110

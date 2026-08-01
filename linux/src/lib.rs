@@ -1,15 +1,10 @@
-mod controls;
 mod views;
 
 use crate::views::MainWindow;
 use adw::{Application, ColorScheme, prelude::*};
-use glib::{Boxed, ExitCode};
+use glib::ExitCode;
 use shared::{APP_ID, AppState, ApplicationTheme};
 use std::sync::Arc;
-
-#[derive(Clone, Boxed)]
-#[boxed_type(name = "BoxedAppState")]
-pub struct BoxedAppState(pub Arc<AppState>);
 
 pub fn run() -> ExitCode {
     let state = Arc::new(AppState::default());
