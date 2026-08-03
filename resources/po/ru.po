@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-03 18:36+0200\n"
+"POT-Creation-Date: 2026-08-03 19:09+0200\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -51,6 +51,11 @@ msgstr "Закрыть папку (Ctrl+W)"
 #: linux/src/views/main_window.rs:101
 msgid "Main Menu"
 msgstr "Главное меню"
+
+#: linux/src/views/main_window.rs:211
+#, fuzzy
+msgid "Folder closed"
+msgstr "Папка закрыта."
 
 #: macos/src/controls/main_menu.rs:53
 msgid ""
@@ -351,10 +356,6 @@ msgstr ""
 #, fuzzy, csharp-format
 #~ msgid "Folder opened: {0}"
 #~ msgstr "Папка открыта: {0}"
-
-#, fuzzy
-#~ msgid "Folder closed"
-#~ msgstr "Папка закрыта."
 
 #, fuzzy
 #~ msgid "On"

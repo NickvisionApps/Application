@@ -1,12 +1,12 @@
-use adw::{
-    Application, ApplicationWindow, ButtonContent, HeaderBar, StatusPage, ToastOverlay,
-    ToolbarView, ViewStack, WindowTitle, prelude::*, subclass::prelude::*,
-};
+use adw::{Application, ApplicationWindow, ButtonContent, HeaderBar, StatusPage, Toast, ToastOverlay, ToolbarView, ViewStack, WindowTitle, prelude::*, subclass::prelude::*};
 use gio::{ActionEntry, Menu};
 use glib::Object;
 use gtk::{Align, ArrowType, Button, MenuButton};
 use shared::AppState;
-use std::{cell::OnceCell, sync::Arc};
+use std::{
+    cell::{OnceCell, RefCell},
+    rc::Rc,
+};
 
 mod imp {
     use super::*;
@@ -14,7 +14,7 @@ mod imp {
 
     #[derive(Default)]
     pub struct MainWindowImpl {
-        pub(super) state: OnceCell<Arc<AppState>>,
+        pub(super) state: OnceCell<Rc<RefCell<AppState>>>,
         pub(super) toast_overlay: OnceCell<ToastOverlay>,
         pub(super) view_stack: OnceCell<ViewStack>,
         pub(super) folder_page: OnceCell<StatusPage>,
@@ -45,7 +45,7 @@ glib::wrapper! {
 }
 
 impl MainWindow {
-    pub fn new(app: &Application, state: Arc<AppState>) -> Self {
+    pub fn new(app: &Application, state: Rc<RefCell<AppState>>) -> Self {
         let this: Self = Object::builder().property("application", app).build();
         this.imp().state.set(state).unwrap();
         this.setup_ui();
@@ -53,35 +53,35 @@ impl MainWindow {
     }
 
     fn setup_ui(&self) {
-        let state = self.imp().state.get().unwrap();
-        let geometry = state.configuration().window_geometry();
+        let state_ref = self.imp().state.get().unwrap().borrow();
+        let geometry = state_ref.configuration().window_geometry();
         let main_menu = Menu::new();
         main_menu.append(
-            Some(&state.translator()._g("Preferences")),
+            Some(&state_ref.translator()._g("Preferences")),
             Some("win.preferences"),
         );
         main_menu.append(
-            Some(&state.translator()._g("Keyboard Shortcuts")),
+            Some(&state_ref.translator()._g("Keyboard Shortcuts")),
             Some("win.shortcuts"),
         );
         main_menu.append(
-            Some(&state.translator()._g("About Application")),
+            Some(&state_ref.translator()._g("About Application")),
             Some("win.about"),
         );
         let header_bar = HeaderBar::builder()
             .title_widget(
                 &WindowTitle::builder()
-                    .title(state.translator()._g("Application"))
+                    .title(state_ref.translator()._g("Application"))
                     .build(),
             )
             .build();
         header_bar.pack_start(
             &Button::builder()
                 .action_name("win.open_folder")
-                .tooltip_text(state.translator()._g("Open Folder (Ctrl+O)"))
+                .tooltip_text(state_ref.translator()._g("Open Folder (Ctrl+O)"))
                 .child(
                     &ButtonContent::builder()
-                        .label(state.translator()._g("Open"))
+                        .label(state_ref.translator()._g("Open"))
                         .icon_name("folder-open-symbolic")
                         .build(),
                 )
@@ -90,7 +90,7 @@ impl MainWindow {
         header_bar.pack_start(
             &Button::builder()
                 .action_name("win.open_folder")
-                .tooltip_text(state.translator()._g("Close Folder (Ctrl+W)"))
+                .tooltip_text(state_ref.translator()._g("Close Folder (Ctrl+W)"))
                 .icon_name("window-close-symbolic")
                 .build(),
         );
@@ -98,7 +98,7 @@ impl MainWindow {
             &MenuButton::builder()
                 .primary(true)
                 .direction(ArrowType::None)
-                .tooltip_text(state.translator()._g("Main Menu"))
+                .tooltip_text(state_ref.translator()._g("Main Menu"))
                 .menu_model(&main_menu)
                 .build(),
         );
@@ -110,9 +110,9 @@ impl MainWindow {
                 .child(
                     &Button::builder()
                         .action_name("win.open_folder")
-                        .tooltip_text(state.translator()._g("Open Folder (Ctrl+O)"))
+                        .tooltip_text(state_ref.translator()._g("Open Folder (Ctrl+O)"))
                         .halign(Align::Center)
-                        .label(state.translator()._g("Open"))
+                        .label(state_ref.translator()._g("Open"))
                         .css_classes(["pill", "suggested-action"])
                         .build(),
                 )
@@ -203,7 +203,13 @@ impl MainWindow {
     fn about(&self) {}
 
     fn close_folder(&self) {
-        //let state_ref = self.imp().state.get_mut().unwrap();
+        let mut state_ref = self.imp().state.get().unwrap().borrow_mut();
+        state_ref.folder_browser_mut().close();
+        self.imp().view_stack.get().unwrap().set_visible_child_name("home");
+        self.imp().toast_overlay.get().unwrap().add_toast(Toast::builder()
+            .use_markup(false)
+            .title(state_ref.translator()._g("Folder closed"))
+            .build());
     }
 
     fn open_folder(&self) {}
