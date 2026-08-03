@@ -8,6 +8,7 @@ use std::sync::Arc;
 
 pub fn run() -> ExitCode {
     let state = Arc::new(AppState::default());
+    gio::resources_register_include!("compiled.gresource").unwrap();
     let app: Application = Application::builder().application_id(APP_ID).build();
     let startup_state = state.clone();
     let activate_state = state.clone();

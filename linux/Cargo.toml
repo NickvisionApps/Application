@@ -2,6 +2,7 @@
 name = "linux"
 version = "2026.7.0"
 edition = "2024"
+build = "build.rs"
 
 [dependencies]
 adw = { package = "libadwaita", version = "0.9", features = ["v1_9"] }
@@ -11,3 +12,6 @@ glib-unix = "0.22"
 gio = "0.22"
 gio-unix = { version = "0.22", features = ["v2_84"] }
 shared = { path = "../shared" }
+
+[build-dependencies]
+glib-build-tools = "0.22"
