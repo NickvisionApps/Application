@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-01 02:19+0200\n"
+"POT-Creation-Date: 2026-08-03 18:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,24 +17,36 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: linux/src/views/main_window.rs:56
+#: linux/src/views/main_window.rs:60
 msgid "Preferences"
 msgstr ""
 
-#: linux/src/views/main_window.rs:60
+#: linux/src/views/main_window.rs:64
 msgid "Keyboard Shortcuts"
 msgstr ""
 
-#: linux/src/views/main_window.rs:64 macos/src/controls/main_menu.rs:105
+#: linux/src/views/main_window.rs:68 macos/src/controls/main_menu.rs:105
 msgid "About Application"
 msgstr ""
 
-#: linux/src/views/main_window.rs:70 macos/src/controls/main_menu.rs:101
+#: linux/src/views/main_window.rs:74 macos/src/controls/main_menu.rs:101
 #: macos/src/views/main_window.rs:100
 msgid "Application"
 msgstr ""
 
-#: linux/src/views/main_window.rs:78
+#: linux/src/views/main_window.rs:81 linux/src/views/main_window.rs:113
+msgid "Open Folder (Ctrl+O)"
+msgstr ""
+
+#: linux/src/views/main_window.rs:84 linux/src/views/main_window.rs:115
+msgid "Open"
+msgstr ""
+
+#: linux/src/views/main_window.rs:93
+msgid "Close Folder (Ctrl+W)"
+msgstr ""
+
+#: linux/src/views/main_window.rs:101
 msgid "Main Menu"
 msgstr ""
 
