@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-04 00:12+0200\n"
+"POT-Creation-Date: 2026-08-04 00:52+0200\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -18,54 +18,63 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: linux/src/views/main_window.rs:63
+#: linux/src/views/main_window.rs:68
 msgid "Preferences"
 msgstr "Параметры"
 
-#: linux/src/views/main_window.rs:67
+#: linux/src/views/main_window.rs:72
 msgid "Keyboard Shortcuts"
 msgstr "Комбинации клавиш"
 
-#: linux/src/views/main_window.rs:71 macos/src/controls/main_menu.rs:105
+#: linux/src/views/main_window.rs:76 macos/src/controls/main_menu.rs:119
 msgid "About Application"
 msgstr "О приложении"
 
-#: linux/src/views/main_window.rs:77 macos/src/controls/main_menu.rs:101
+#: linux/src/views/main_window.rs:82 macos/src/controls/main_menu.rs:115
 #: macos/src/views/main_window.rs:100
 msgid "Application"
 msgstr "Application"
 
-#: linux/src/views/main_window.rs:84 linux/src/views/main_window.rs:116
+#: linux/src/views/main_window.rs:89 linux/src/views/main_window.rs:121
 msgid "Open Folder (Ctrl+O)"
 msgstr "Открыть папку (Ctrl+O)"
 
-#: linux/src/views/main_window.rs:87 linux/src/views/main_window.rs:118
+#: linux/src/views/main_window.rs:92 linux/src/views/main_window.rs:123
 msgid "Open"
 msgstr "Открыть"
 
-#: linux/src/views/main_window.rs:96
+#: linux/src/views/main_window.rs:101
 #, fuzzy
 msgid "Close Folder (Ctrl+W)"
 msgstr "Закрыть папку (Ctrl+W)"
 
-#: linux/src/views/main_window.rs:104
+#: linux/src/views/main_window.rs:109
 msgid "Main Menu"
 msgstr "Главное меню"
 
-#: linux/src/views/main_window.rs:219
+#: linux/src/views/main_window.rs:243 macos/src/controls/main_menu.rs:62
+#, fuzzy
+msgid "translation-credits"
+msgstr "Фёдор Соболев https://github.com/fsobolev"
+
+#: linux/src/views/main_window.rs:244
+msgid "GitHub Repo"
+msgstr "Репозиторий GitHub"
+
+#: linux/src/views/main_window.rs:265
 #, fuzzy
 msgid "Folder closed"
 msgstr "Папка закрыта."
 
-#: linux/src/views/main_window.rs:227 macos/src/controls/main_menu.rs:187
+#: linux/src/views/main_window.rs:273 macos/src/controls/main_menu.rs:201
 msgid "Open Folder"
 msgstr "Открыть Папку"
 
-#: linux/src/views/main_window.rs:247 macos/src/views/main_window.rs:196
+#: linux/src/views/main_window.rs:293 macos/src/views/main_window.rs:196
 msgid "Unable to open folder: {0}"
 msgstr ""
 
-#: linux/src/views/main_window.rs:271
+#: linux/src/views/main_window.rs:317
 msgid "{0} file"
 msgid_plural "{0} files"
 msgstr[0] ""
@@ -79,11 +88,26 @@ msgid ""
 "What's New?"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:62 macos/src/controls/main_menu.rs:308
+#: macos/src/controls/main_menu.rs:63 macos/src/controls/main_menu.rs:322
 msgid "Credits"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:63
+#: macos/src/controls/main_menu.rs:65
+msgid ""
+"Developers:\n"
+"{0}\n"
+"\n"
+"Designers:\n"
+"{1}\n"
+"\n"
+"Artists:\n"
+"{2}\n"
+"\n"
+"Translators:\n"
+"{3}"
+msgstr ""
+
+#: macos/src/controls/main_menu.rs:67
 msgid ""
 "Developers:\n"
 "{0}\n"
@@ -95,105 +119,109 @@ msgid ""
 "{2}"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:110
+#: macos/src/controls/main_menu.rs:76 macos/src/controls/main_menu.rs:332
+msgid "Debugging Information"
+msgstr ""
+
+#: macos/src/controls/main_menu.rs:124
 msgid "Check for Updates"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:119
+#: macos/src/controls/main_menu.rs:133
 msgid "Settings\\u{2026}"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:134 macos/src/controls/main_menu.rs:141
+#: macos/src/controls/main_menu.rs:148 macos/src/controls/main_menu.rs:155
 msgid "Services"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:148
+#: macos/src/controls/main_menu.rs:162
 #, fuzzy
 msgid "Hide Application"
 msgstr "Application"
 
-#: macos/src/controls/main_menu.rs:155
+#: macos/src/controls/main_menu.rs:169
 msgid "Hide Others"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:165
+#: macos/src/controls/main_menu.rs:179
 msgid "Show All"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:173
+#: macos/src/controls/main_menu.rs:187
 #, fuzzy
 msgid "Quit Application"
 msgstr "О приложении"
 
-#: macos/src/controls/main_menu.rs:183
+#: macos/src/controls/main_menu.rs:197
 msgid "File"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:192
+#: macos/src/controls/main_menu.rs:206
 msgid "Close Folder"
 msgstr "Закрыть папку"
 
-#: macos/src/controls/main_menu.rs:202
+#: macos/src/controls/main_menu.rs:216
 msgid "Close Window"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:212
+#: macos/src/controls/main_menu.rs:226
 msgid "Edit"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:216
+#: macos/src/controls/main_menu.rs:230
 msgid "Undo"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:221
+#: macos/src/controls/main_menu.rs:235
 msgid "Redo"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:229
+#: macos/src/controls/main_menu.rs:243
 msgid "Cut"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:234
+#: macos/src/controls/main_menu.rs:248
 msgid "Copy"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:239
+#: macos/src/controls/main_menu.rs:253
 msgid "Paste"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:244
+#: macos/src/controls/main_menu.rs:258
 msgid "Select All"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:254
+#: macos/src/controls/main_menu.rs:268
 msgid "View"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:258
+#: macos/src/controls/main_menu.rs:272
 msgid "Enter Full Screen"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:271
+#: macos/src/controls/main_menu.rs:285
 msgid "Window"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:275
+#: macos/src/controls/main_menu.rs:289
 msgid "Minimize"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:280
+#: macos/src/controls/main_menu.rs:294
 msgid "Zoom"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:288
+#: macos/src/controls/main_menu.rs:302
 msgid "Bring All to Front"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:299
+#: macos/src/controls/main_menu.rs:313
 msgid "Help"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:303
+#: macos/src/controls/main_menu.rs:317
 msgid "What's New"
 msgstr ""
 
@@ -305,9 +333,6 @@ msgstr ""
 #~ msgstr[1] "В папке {0} файла."
 #~ msgstr[2] "В папке {0} файлов."
 
-#~ msgid "GitHub Repo"
-#~ msgstr "Репозиторий GitHub"
-
 #, fuzzy
 #~ msgid "Create new Nickvision applications."
 #~ msgstr "Создавайте новые приложения Nickvision"
@@ -330,10 +355,6 @@ msgstr ""
 
 #~ msgid "David Lapshin"
 #~ msgstr "Давид Лапшин"
-
-#, fuzzy
-#~ msgid "translation-credits"
-#~ msgstr "Фёдор Соболев https://github.com/fsobolev"
 
 #~ msgctxt "Night"
 #~ msgid "Good Morning!"

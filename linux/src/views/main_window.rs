@@ -1,11 +1,16 @@
 use adw::{
-    Application, ApplicationWindow, ButtonContent, HeaderBar, StatusPage, Toast, ToastOverlay,
-    ToolbarView, ViewStack, WindowTitle, prelude::*, subclass::prelude::*,
+    AboutDialog, Application, ApplicationWindow, ButtonContent, HeaderBar, StatusPage, Toast,
+    ToastOverlay, ToolbarView, ViewStack, WindowTitle, prelude::*, subclass::prelude::*,
 };
 use gio::{ActionEntry, Cancellable, Menu};
 use glib::{Object, clone};
-use gtk::{Align, ArrowType, Button, FileDialog, MenuButton};
-use shared::AppState;
+use gtk::{Align, ArrowType, Button, FileDialog, License, MenuButton};
+use markdown::to_html;
+use shared::{
+    APP_ARTISTS, APP_CHANGELOG, APP_DESCRIPTION, APP_DESIGNERS, APP_DEVELOPERS, APP_DISCUSSION_URL,
+    APP_ENGLISH_SHORT_NAME, APP_ID, APP_ISSUES_URL, APP_REPO_URL, AppState, app_version,
+    debugging_information,
+};
 use std::{
     cell::{OnceCell, RefCell},
     rc::Rc,
@@ -203,7 +208,48 @@ impl MainWindow {
             .set_accels_for_action("win.quit", &["<Primary>Q"]);
     }
 
-    fn about(&self) {}
+    fn about(&self) {
+        let state_ref = self.imp().state.get().unwrap().borrow();
+        let about_dialog = AboutDialog::builder()
+            .application_name(APP_ENGLISH_SHORT_NAME)
+            .application_icon(if app_version().pre.is_empty() {
+                APP_ID.to_string()
+            } else {
+                format!("{}-devel", APP_ID)
+            })
+            .developer_name("Nickvision")
+            .version(app_version().to_string())
+            .release_notes(to_html(APP_CHANGELOG))
+            .debug_info(debugging_information())
+            .comments(APP_DESCRIPTION)
+            .license_type(License::MitX11)
+            .copyright("© Nickvision 2021-2026")
+            .website("https://nickvision.org")
+            .issue_url(APP_ISSUES_URL)
+            .support_url(APP_DISCUSSION_URL)
+            .build();
+        let artists: Vec<String> = APP_ARTISTS
+            .iter()
+            .map(|(x, y)| format!("{} {}", x, y))
+            .collect();
+        let designers: Vec<String> = APP_DESIGNERS
+            .iter()
+            .map(|(x, y)| format!("{} {}", x, y))
+            .collect();
+        let developers: Vec<String> = APP_DEVELOPERS
+            .iter()
+            .map(|(x, y)| format!("{} {}", x, y))
+            .collect();
+        let translation_credits = state_ref.translator()._g("translation-credits");
+        about_dialog.add_link(&state_ref.translator()._g("GitHub Repo"), APP_REPO_URL);
+        about_dialog.set_artists(&artists.iter().map(|x| x.as_str()).collect::<Vec<&str>>());
+        about_dialog.set_designers(&designers.iter().map(|x| x.as_str()).collect::<Vec<&str>>());
+        about_dialog.set_developers(&developers.iter().map(|x| x.as_str()).collect::<Vec<&str>>());
+        if !translation_credits.is_empty() && translation_credits != "translation-credits" {
+            about_dialog.set_translator_credits(&translation_credits);
+        }
+        about_dialog.present(Some(self));
+    }
 
     fn close_folder(&self) {
         let mut state_ref = self.imp().state.get().unwrap().borrow_mut();

@@ -11,6 +11,7 @@ glib = "0.22"
 glib-unix = "0.22"
 gio = "0.22"
 gio-unix = { version = "0.22", features = ["v2_84"] }
+markdown = "1.0"
 shared = { path = "../shared" }
 
 [build-dependencies]

@@ -8,7 +8,7 @@ use objc2_app_kit::{NSAlert, NSApplication, NSEventModifierFlags, NSImage, NSMen
 use objc2_foundation::{NSObjectProtocol, NSString, ns_string};
 use shared::{
     APP_CHANGELOG, APP_DESCRIPTION, AppState, app_artist_names, app_designer_names,
-    app_developer_names,
+    app_developer_names, debugging_information,
 };
 use std::cell::RefCell;
 use std::rc::Rc;
@@ -59,8 +59,22 @@ define_class!(
         fn show_credits(&self, _sender: Option<&AnyObject>) {
             let state_ref = self.ivars().state.borrow();
             let dialog = NSAlert::new(self.mtm());
+            let translation_credits = state_ref.translator()._g("translation-credits");
             dialog.setMessageText(&NSString::from_str(&state_ref.translator()._g("Credits")));
-            dialog.setInformativeText(&NSString::from_str(&state_ref.translator()._f("Developers:\n{0}\n\nDesigners:\n{1}\n\nArtists:\n{2}", &[app_developer_names(), app_designer_names(), app_artist_names()])));
+            if !translation_credits.is_empty() && translation_credits != "translation-credits" {
+                dialog.setInformativeText(&NSString::from_str(&state_ref.translator()._f("Developers:\n{0}\n\nDesigners:\n{1}\n\nArtists:\n{2}\n\nTranslators:\n{3}", &[app_developer_names(), app_designer_names(), app_artist_names(), translation_credits])));
+            } else {
+                dialog.setInformativeText(&NSString::from_str(&state_ref.translator()._f("Developers:\n{0}\n\nDesigners:\n{1}\n\nArtists:\n{2}", &[app_developer_names(), app_designer_names(), app_artist_names()])));
+            }
+            dialog.runModal();
+        }
+
+        #[unsafe(method(showDebuggingInformation:))]
+        fn show_debugging_information(&self, _sender: Option<&AnyObject>) {
+            let state_ref = self.ivars().state.borrow();
+            let dialog = NSAlert::new(self.mtm());
+            dialog.setMessageText(&NSString::from_str(&state_ref.translator()._g("Debugging Information")));
+            dialog.setInformativeText(&NSString::from_str(&debugging_information()));
             dialog.runModal();
         }
 
@@ -311,6 +325,15 @@ impl MainMenu {
             );
             whats_new_item.setTarget(Some(this.as_super().as_super()));
             credits_item.setTarget(Some(this.as_super().as_super()));
+        }
+        help_menu.addItem(&NSMenuItem::separatorItem(mtm));
+        unsafe {
+            let debugging_item = help_menu.addItemWithTitle_action_keyEquivalent(
+                &NSString::from_str(&state_ref.translator()._g("Debugging Information")),
+                Some(sel!(showDebuggingInformation:)),
+                ns_string!(""),
+            );
+            debugging_item.setTarget(Some(this.as_super().as_super()));
         }
         help_menu_item.setSubmenu(Some(&help_menu));
         NSApplication::sharedApplication(mtm).setHelpMenu(Some(&help_menu));

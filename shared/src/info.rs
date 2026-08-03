@@ -1,5 +1,6 @@
 use semver::Version;
-use std::sync::OnceLock;
+use std::fmt::Formatter;
+use std::{fmt::Display, sync::OnceLock};
 
 #[derive(Debug, Clone, Eq, PartialEq)]
 pub enum DeploymentMode {
@@ -62,6 +63,45 @@ pub fn app_version() -> &'static Version {
     VERSION.get_or_init(|| Version::parse(&format!("{}-next", env!("CARGO_PKG_VERSION"))).unwrap())
 }
 
+pub fn debugging_information() -> String {
+    let locale = std::env::var("LC_ALL")
+        .or_else(|_| std::env::var("LC_MESSAGES"))
+        .or_else(|_| std::env::var("LANG"))
+        .ok()
+        .or_else(sys_locale::get_locale)
+        .unwrap_or_else(|| "N/A".to_string());
+    let dir = std::env::current_exe()
+        .or_else(|_| std::env::current_dir())
+        .unwrap_or_default();
+    #[cfg(target_os = "windows")]
+    return format!(
+        "{}\n{}\n\nOperating System: Windows\nDeployment Mode: {}\nLocale: {}\nRunning From: {}",
+        APP_NAME,
+        app_version(),
+        deployment_mode(),
+        locale,
+        dir.to_str().unwrap_or("N/A")
+    );
+    #[cfg(target_os = "macos")]
+    return format!(
+        "{}\n{}\n\nOperating System: macOS\nDeployment Mode: {}\nLocale: {}\nRunning From: {}",
+        APP_NAME,
+        app_version(),
+        deployment_mode(),
+        locale,
+        dir.to_str().unwrap_or("N/A")
+    );
+    #[cfg(target_os = "linux")]
+    return format!(
+        "{}\n{}\n\nOperating System: Linux\nDeployment Mode: {}\nLocale: {}\nRunning From: {}",
+        APP_NAME,
+        app_version(),
+        deployment_mode(),
+        locale,
+        dir.to_str().unwrap_or("N/A")
+    );
+}
+
 pub fn deployment_mode() -> DeploymentMode {
     #[cfg(any(target_os = "windows", target_os = "macos"))]
     return DeploymentMode::Local;
@@ -86,4 +126,19 @@ pub fn deployment_mode() -> DeploymentMode {
 pub fn is_app_portable() -> bool {
     static IS_PORTABLE: OnceLock<bool> = OnceLock::new();
     *IS_PORTABLE.get_or_init(|| std::env::args().any(|arg| arg == "--portable"))
+}
+
+impl Display for DeploymentMode {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        write!(
+            f,
+            "{}",
+            match self {
+                DeploymentMode::Local => "Local",
+                DeploymentMode::Flatpak => "Flatpak",
+                DeploymentMode::Snap => "Snap",
+                DeploymentMode::Wsl => "WSL",
+            }
+        )
+    }
 }
