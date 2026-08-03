@@ -103,7 +103,7 @@ impl MainWindow {
                 .build(),
         );
         let view_stack = ViewStack::new();
-        view_stack.add(
+        let home_page = view_stack.add(
             &StatusPage::builder()
                 .icon_name("org.nickvision.application")
                 .description("Open a folder to get started")
@@ -118,16 +118,15 @@ impl MainWindow {
                 )
                 .build(),
         );
+        home_page.set_name(Some("home"));
         let folder_page = view_stack
             .add(
                 &StatusPage::builder()
                     .icon_name("folder-documents-symbolic")
                     .css_classes(["compact"])
                     .build(),
-            )
-            .child()
-            .downcast::<StatusPage>()
-            .unwrap();
+            );
+        folder_page.set_name(Some("folder"));
         let toast_overlay = ToastOverlay::new();
         toast_overlay.set_hexpand(true);
         toast_overlay.set_vexpand(true);
@@ -167,7 +166,9 @@ impl MainWindow {
             .build();
         self.imp().toast_overlay.set(toast_overlay).unwrap();
         self.imp().view_stack.set(view_stack).unwrap();
-        self.imp().folder_page.set(folder_page).unwrap();
+        self.imp().folder_page.set(folder_page.child()
+            .downcast::<StatusPage>()
+            .unwrap()).unwrap();
         self.set_size_request(360, 200);
         self.set_default_size(geometry.width() as i32, geometry.height() as i32);
         self.set_content(Some(&toolbar_view));
@@ -199,17 +200,19 @@ impl MainWindow {
             .set_accels_for_action("win.quit", &["<Primary>Q"]);
     }
 
+    fn about(&self) {}
+
+    fn close_folder(&self) {
+        //let state_ref = self.imp().state.get_mut().unwrap();
+    }
+
     fn open_folder(&self) {}
 
-    fn close_folder(&self) {}
-
     fn preferences(&self) {}
-
-    fn shortcuts(&self) {}
-
-    fn about(&self) {}
 
     fn quit(&self) {
         self.close();
     }
+
+    fn shortcuts(&self) {}
 }
