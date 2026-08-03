@@ -1,7 +1,10 @@
-use adw::{Application, ApplicationWindow, ButtonContent, HeaderBar, StatusPage, Toast, ToastOverlay, ToolbarView, ViewStack, WindowTitle, prelude::*, subclass::prelude::*};
-use gio::{ActionEntry, Menu};
-use glib::Object;
-use gtk::{Align, ArrowType, Button, MenuButton};
+use adw::{
+    Application, ApplicationWindow, ButtonContent, HeaderBar, StatusPage, Toast, ToastOverlay,
+    ToolbarView, ViewStack, WindowTitle, prelude::*, subclass::prelude::*,
+};
+use gio::{ActionEntry, Cancellable, Menu};
+use glib::{Object, clone};
+use gtk::{Align, ArrowType, Button, FileDialog, MenuButton};
 use shared::AppState;
 use std::{
     cell::{OnceCell, RefCell},
@@ -89,7 +92,7 @@ impl MainWindow {
         );
         header_bar.pack_start(
             &Button::builder()
-                .action_name("win.open_folder")
+                .action_name("win.close_folder")
                 .tooltip_text(state_ref.translator()._g("Close Folder (Ctrl+W)"))
                 .icon_name("window-close-symbolic")
                 .build(),
@@ -119,13 +122,12 @@ impl MainWindow {
                 .build(),
         );
         home_page.set_name(Some("home"));
-        let folder_page = view_stack
-            .add(
-                &StatusPage::builder()
-                    .icon_name("folder-documents-symbolic")
-                    .css_classes(["compact"])
-                    .build(),
-            );
+        let folder_page = view_stack.add(
+            &StatusPage::builder()
+                .icon_name("folder-documents-symbolic")
+                .css_classes(["compact"])
+                .build(),
+        );
         folder_page.set_name(Some("folder"));
         let toast_overlay = ToastOverlay::new();
         toast_overlay.set_hexpand(true);
@@ -166,9 +168,10 @@ impl MainWindow {
             .build();
         self.imp().toast_overlay.set(toast_overlay).unwrap();
         self.imp().view_stack.set(view_stack).unwrap();
-        self.imp().folder_page.set(folder_page.child()
-            .downcast::<StatusPage>()
-            .unwrap()).unwrap();
+        self.imp()
+            .folder_page
+            .set(folder_page.child().downcast::<StatusPage>().unwrap())
+            .unwrap();
         self.set_size_request(360, 200);
         self.set_default_size(geometry.width() as i32, geometry.height() as i32);
         self.set_content(Some(&toolbar_view));
@@ -205,14 +208,83 @@ impl MainWindow {
     fn close_folder(&self) {
         let mut state_ref = self.imp().state.get().unwrap().borrow_mut();
         state_ref.folder_browser_mut().close();
-        self.imp().view_stack.get().unwrap().set_visible_child_name("home");
-        self.imp().toast_overlay.get().unwrap().add_toast(Toast::builder()
-            .use_markup(false)
-            .title(state_ref.translator()._g("Folder closed"))
-            .build());
+        self.imp()
+            .view_stack
+            .get()
+            .unwrap()
+            .set_visible_child_name("home");
+        self.imp().toast_overlay.get().unwrap().add_toast(
+            Toast::builder()
+                .use_markup(false)
+                .title(state_ref.translator()._g("Folder closed"))
+                .build(),
+        );
     }
 
-    fn open_folder(&self) {}
+    fn open_folder(&self) {
+        let state_ref = self.imp().state.get().unwrap().borrow();
+        let file_dialog = FileDialog::builder()
+            .title(state_ref.translator()._g("Open Folder"))
+            .build();
+        file_dialog.select_folder(
+            Some(self),
+            Cancellable::NONE,
+            clone!(
+                #[strong(rename_to = window)]
+                self,
+                move |res| {
+                    let mut state_ref = window.imp().state.get().unwrap().borrow_mut();
+                    if let Ok(file) = res {
+                        if let Err(error) =
+                            state_ref.folder_browser_mut().open(file.path().unwrap())
+                        {
+                            window.imp().toast_overlay.get().unwrap().add_toast(
+                                Toast::builder()
+                                    .use_markup(false)
+                                    .title(
+                                        state_ref
+                                            .translator()
+                                            ._f("Unable to open folder: {0}", &[error.to_string()]),
+                                    )
+                                    .build(),
+                            );
+                        } else {
+                            window
+                                .imp()
+                                .view_stack
+                                .get()
+                                .unwrap()
+                                .set_visible_child_name("folder");
+                            window
+                                .imp()
+                                .folder_page
+                                .get()
+                                .unwrap()
+                                .set_title(state_ref.folder_browser().path().to_str().unwrap());
+                            window
+                                .imp()
+                                .folder_page
+                                .get()
+                                .unwrap()
+                                .set_description(Some(
+                                    &state_ref.translator()._nf(
+                                        "{0} file",
+                                        "{0} files",
+                                        state_ref.folder_browser().files().iter().count() as u64,
+                                        &[state_ref
+                                            .folder_browser()
+                                            .files()
+                                            .iter()
+                                            .count()
+                                            .to_string()],
+                                    ),
+                                ))
+                        }
+                    }
+                }
+            ),
+        )
+    }
 
     fn preferences(&self) {}
 

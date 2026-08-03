@@ -10,7 +10,7 @@ pub struct Translator {
 }
 
 impl Translator {
-    pub fn new<T: Into<String>>(language: T) -> Self {
+    pub fn new(language: impl Into<String>) -> Self {
         let mut language = language.into();
         if language.is_empty() || language == "C" {
             language = Self::detect_language();
@@ -100,18 +100,20 @@ impl Translator {
         result
     }
 
-    pub fn _n(&self, msgid: &str, msgid_plural: &str, n: u64) -> String {
-        self.catalog.ngettext(msgid, msgid_plural, n).to_string()
+    pub fn _n(&self, msgid: &str, msgid_plural: &str, n: impl Into<u64>) -> String {
+        self.catalog
+            .ngettext(msgid, msgid_plural, n.into())
+            .to_string()
     }
 
     pub fn _nf<A: AsRef<str>>(
         &self,
         msgid: &str,
         msgid_plural: &str,
-        n: u64,
+        n: impl Into<u64>,
         args: &[A],
     ) -> String {
-        let translated = self.catalog.ngettext(msgid, msgid_plural, n);
+        let translated = self.catalog.ngettext(msgid, msgid_plural, n.into());
         let mut result = translated.to_string();
         for (i, arg) in args.iter().enumerate() {
             let placeholder = format!("{{{}}}", i);

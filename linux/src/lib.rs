@@ -11,7 +11,8 @@ pub fn run() -> ExitCode {
     gio::resources_register_include!("compiled.gresource").unwrap();
     let app: Application = Application::builder().application_id(APP_ID).build();
     app.connect_startup(clone!(
-        #[strong] state,
+        #[strong]
+        state,
         move |app| {
             let state_ref = state.borrow();
             app.style_manager()

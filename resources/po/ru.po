@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-03 19:09+0200\n"
+"POT-Creation-Date: 2026-08-04 00:12+0200\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -18,44 +18,59 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: linux/src/views/main_window.rs:60
+#: linux/src/views/main_window.rs:63
 msgid "Preferences"
 msgstr "Параметры"
 
-#: linux/src/views/main_window.rs:64
+#: linux/src/views/main_window.rs:67
 msgid "Keyboard Shortcuts"
 msgstr "Комбинации клавиш"
 
-#: linux/src/views/main_window.rs:68 macos/src/controls/main_menu.rs:105
+#: linux/src/views/main_window.rs:71 macos/src/controls/main_menu.rs:105
 msgid "About Application"
 msgstr "О приложении"
 
-#: linux/src/views/main_window.rs:74 macos/src/controls/main_menu.rs:101
+#: linux/src/views/main_window.rs:77 macos/src/controls/main_menu.rs:101
 #: macos/src/views/main_window.rs:100
 msgid "Application"
 msgstr "Application"
 
-#: linux/src/views/main_window.rs:81 linux/src/views/main_window.rs:113
+#: linux/src/views/main_window.rs:84 linux/src/views/main_window.rs:116
 msgid "Open Folder (Ctrl+O)"
 msgstr "Открыть папку (Ctrl+O)"
 
-#: linux/src/views/main_window.rs:84 linux/src/views/main_window.rs:115
+#: linux/src/views/main_window.rs:87 linux/src/views/main_window.rs:118
 msgid "Open"
 msgstr "Открыть"
 
-#: linux/src/views/main_window.rs:93
+#: linux/src/views/main_window.rs:96
 #, fuzzy
 msgid "Close Folder (Ctrl+W)"
 msgstr "Закрыть папку (Ctrl+W)"
 
-#: linux/src/views/main_window.rs:101
+#: linux/src/views/main_window.rs:104
 msgid "Main Menu"
 msgstr "Главное меню"
 
-#: linux/src/views/main_window.rs:211
+#: linux/src/views/main_window.rs:219
 #, fuzzy
 msgid "Folder closed"
 msgstr "Папка закрыта."
+
+#: linux/src/views/main_window.rs:227 macos/src/controls/main_menu.rs:187
+msgid "Open Folder"
+msgstr "Открыть Папку"
+
+#: linux/src/views/main_window.rs:247 macos/src/views/main_window.rs:196
+msgid "Unable to open folder: {0}"
+msgstr ""
+
+#: linux/src/views/main_window.rs:271
+msgid "{0} file"
+msgid_plural "{0} files"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 #: macos/src/controls/main_menu.rs:53
 msgid ""
@@ -113,10 +128,6 @@ msgstr "О приложении"
 #: macos/src/controls/main_menu.rs:183
 msgid "File"
 msgstr ""
-
-#: macos/src/controls/main_menu.rs:187
-msgid "Open Folder"
-msgstr "Открыть Папку"
 
 #: macos/src/controls/main_menu.rs:192
 msgid "Close Folder"
@@ -221,10 +232,6 @@ msgstr ""
 msgid "Unable to install the update: {0}"
 msgstr ""
 
-#: macos/src/views/main_window.rs:196
-msgid "Unable to open folder: {0}"
-msgstr ""
-
 #: macos/src/views/settings_dialog.rs:43 macos/src/views/settings_dialog.rs:116
 #: macos/src/views/settings_dialog.rs:179
 msgid "General"
@@ -257,6 +264,10 @@ msgstr "Системная"
 #: macos/src/views/settings_dialog.rs:205
 msgid "Translation Language:"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Error: {0}"
+#~ msgstr "Папка"
 
 #, fuzzy
 #~ msgid "Application Help"
@@ -383,10 +394,6 @@ msgstr ""
 
 #~ msgid "No Folder Opened"
 #~ msgstr "Папка не открыта"
-
-#, fuzzy
-#~ msgid "Folder: {}"
-#~ msgstr "Папка"
 
 #~ msgctxt "Shortcut"
 #~ msgid "Folder"
