@@ -114,6 +114,7 @@ impl MainWindow {
         let home_page = view_stack.add(
             &StatusPage::builder()
                 .icon_name("org.nickvision.application")
+                .title(state_ref.greeting())
                 .description("Open a folder to get started")
                 .child(
                     &Button::builder()
@@ -312,19 +313,12 @@ impl MainWindow {
                                 .folder_page
                                 .get()
                                 .unwrap()
-                                .set_description(Some(
-                                    &state_ref.translator()._nf(
-                                        "{0} file",
-                                        "{0} files",
-                                        state_ref.folder_browser().files().iter().count() as u64,
-                                        &[state_ref
-                                            .folder_browser()
-                                            .files()
-                                            .iter()
-                                            .count()
-                                            .to_string()],
-                                    ),
-                                ))
+                                .set_description(Some(&state_ref.translator()._nf(
+                                    "{0} file",
+                                    "{0} files",
+                                    state_ref.folder_browser().files().len() as u64,
+                                    &[state_ref.folder_browser().files().len().to_string()],
+                                )))
                         }
                     }
                 }

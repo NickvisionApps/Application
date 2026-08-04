@@ -3,3 +3,4 @@ macos/src/app.rs
 macos/src/controls/main_menu.rs
 macos/src/views/main_window.rs
 macos/src/views/settings_dialog.rs
+shared/src/state.rs

@@ -4,6 +4,7 @@ version = "2026.7.0"
 edition = "2024"
 
 [dependencies]
+chrono = "0.4"
 directories = "6.0"
 gettext = "0.4"
 reup = "0.3"

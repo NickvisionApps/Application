@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-04 00:52+0200\n"
+"POT-Creation-Date: 2026-08-05 00:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,11 +35,11 @@ msgstr ""
 msgid "Application"
 msgstr ""
 
-#: linux/src/views/main_window.rs:89 linux/src/views/main_window.rs:121
+#: linux/src/views/main_window.rs:89 linux/src/views/main_window.rs:122
 msgid "Open Folder (Ctrl+O)"
 msgstr ""
 
-#: linux/src/views/main_window.rs:92 linux/src/views/main_window.rs:123
+#: linux/src/views/main_window.rs:92 linux/src/views/main_window.rs:124
 msgid "Open"
 msgstr ""
 
@@ -51,23 +51,23 @@ msgstr ""
 msgid "Main Menu"
 msgstr ""
 
-#: linux/src/views/main_window.rs:243 macos/src/controls/main_menu.rs:62
+#: linux/src/views/main_window.rs:244 macos/src/controls/main_menu.rs:62
 msgid "translation-credits"
 msgstr ""
 
-#: linux/src/views/main_window.rs:244
+#: linux/src/views/main_window.rs:245
 msgid "GitHub Repo"
 msgstr ""
 
-#: linux/src/views/main_window.rs:265
+#: linux/src/views/main_window.rs:266
 msgid "Folder closed"
 msgstr ""
 
-#: linux/src/views/main_window.rs:273 macos/src/controls/main_menu.rs:201
+#: linux/src/views/main_window.rs:274 macos/src/controls/main_menu.rs:201
 msgid "Open Folder"
 msgstr ""
 
-#: linux/src/views/main_window.rs:293 macos/src/views/main_window.rs:196
+#: linux/src/views/main_window.rs:294 macos/src/views/main_window.rs:196
 msgid "Unable to open folder: {0}"
 msgstr ""
 
@@ -278,4 +278,22 @@ msgstr ""
 
 #: macos/src/views/settings_dialog.rs:205
 msgid "Translation Language:"
+msgstr ""
+
+#: shared/src/state.rs:41
+msgctxt "Night"
+msgid "Good Morning!"
+msgstr ""
+
+#: shared/src/state.rs:43
+msgctxt "Morning"
+msgid "Good Morning!"
+msgstr ""
+
+#: shared/src/state.rs:45
+msgid "Good Afternoon!"
+msgstr ""
+
+#: shared/src/state.rs:47
+msgid "Good Evening!"
 msgstr ""

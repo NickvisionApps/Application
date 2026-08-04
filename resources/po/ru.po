@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-04 00:52+0200\n"
+"POT-Creation-Date: 2026-08-05 00:58+0200\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -35,11 +35,11 @@ msgstr "О приложении"
 msgid "Application"
 msgstr "Application"
 
-#: linux/src/views/main_window.rs:89 linux/src/views/main_window.rs:121
+#: linux/src/views/main_window.rs:89 linux/src/views/main_window.rs:122
 msgid "Open Folder (Ctrl+O)"
 msgstr "Открыть папку (Ctrl+O)"
 
-#: linux/src/views/main_window.rs:92 linux/src/views/main_window.rs:123
+#: linux/src/views/main_window.rs:92 linux/src/views/main_window.rs:124
 msgid "Open"
 msgstr "Открыть"
 
@@ -52,25 +52,25 @@ msgstr "Закрыть папку (Ctrl+W)"
 msgid "Main Menu"
 msgstr "Главное меню"
 
-#: linux/src/views/main_window.rs:243 macos/src/controls/main_menu.rs:62
+#: linux/src/views/main_window.rs:244 macos/src/controls/main_menu.rs:62
 #, fuzzy
 msgid "translation-credits"
 msgstr "Фёдор Соболев https://github.com/fsobolev"
 
-#: linux/src/views/main_window.rs:244
+#: linux/src/views/main_window.rs:245
 msgid "GitHub Repo"
 msgstr "Репозиторий GitHub"
 
-#: linux/src/views/main_window.rs:265
+#: linux/src/views/main_window.rs:266
 #, fuzzy
 msgid "Folder closed"
 msgstr "Папка закрыта."
 
-#: linux/src/views/main_window.rs:273 macos/src/controls/main_menu.rs:201
+#: linux/src/views/main_window.rs:274 macos/src/controls/main_menu.rs:201
 msgid "Open Folder"
 msgstr "Открыть Папку"
 
-#: linux/src/views/main_window.rs:293 macos/src/views/main_window.rs:196
+#: linux/src/views/main_window.rs:294 macos/src/views/main_window.rs:196
 msgid "Unable to open folder: {0}"
 msgstr ""
 
@@ -293,6 +293,27 @@ msgstr "Системная"
 msgid "Translation Language:"
 msgstr ""
 
+#: shared/src/state.rs:41
+msgctxt "Night"
+msgid "Good Morning!"
+msgstr "Доброй ночи!"
+
+#: shared/src/state.rs:43
+msgctxt "Morning"
+msgid "Good Morning!"
+msgstr "Доброе утро!"
+
+#: shared/src/state.rs:45
+msgid "Good Afternoon!"
+msgstr "Добрый день!"
+
+#: shared/src/state.rs:47
+msgid "Good Evening!"
+msgstr "Добрый вечер!"
+
+#~ msgid "Good Day!"
+#~ msgstr "Здравствуйте!"
+
 #, fuzzy
 #~ msgid "Error: {0}"
 #~ msgstr "Папка"
@@ -355,23 +376,6 @@ msgstr ""
 
 #~ msgid "David Lapshin"
 #~ msgstr "Давид Лапшин"
-
-#~ msgctxt "Night"
-#~ msgid "Good Morning!"
-#~ msgstr "Доброй ночи!"
-
-#~ msgctxt "Morning"
-#~ msgid "Good Morning!"
-#~ msgstr "Доброе утро!"
-
-#~ msgid "Good Afternoon!"
-#~ msgstr "Добрый день!"
-
-#~ msgid "Good Evening!"
-#~ msgstr "Добрый вечер!"
-
-#~ msgid "Good Day!"
-#~ msgstr "Здравствуйте!"
 
 #~ msgctxt "Theme"
 #~ msgid "Light"

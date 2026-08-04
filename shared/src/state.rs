@@ -1,4 +1,5 @@
 use crate::{Configuration, FolderBrowser, Translator, Updater};
+use chrono::{Local, Timelike};
 use std::sync::Arc;
 
 #[derive(Debug, Clone)]
@@ -32,6 +33,19 @@ impl AppState {
 
     pub fn folder_browser_mut(&mut self) -> &mut FolderBrowser {
         &mut self.folder_browser
+    }
+
+    pub fn greeting(&self) -> String {
+        let hours = Local::now().hour();
+        if hours < 6 {
+            self.translator._p("Night", "Good Morning!")
+        } else if hours < 12 {
+            self.translator._p("Morning", "Good Morning!")
+        } else if hours < 18 {
+            self.translator._g("Good Afternoon!")
+        } else {
+            self.translator._g("Good Evening!")
+        }
     }
 
     pub fn translator(&self) -> Arc<Translator> {

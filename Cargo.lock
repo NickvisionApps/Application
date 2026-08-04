@@ -2733,6 +2733,7 @@ dependencies = [
 name = "shared"
 version = "2026.7.0"
 dependencies = [
+ "chrono",
  "directories",
  "gettext",
  "reup",
