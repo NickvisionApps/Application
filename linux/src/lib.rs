@@ -1,6 +1,6 @@
-mod views;
+mod widgets;
 
-use crate::views::MainWindow;
+use crate::widgets::MainWindow;
 use adw::{Application, ColorScheme, prelude::*};
 use glib::{ExitCode, clone};
 use shared::{APP_ID, AppState, ApplicationTheme};

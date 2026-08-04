@@ -1,6 +1,7 @@
 use adw::{
-    AboutDialog, Application, ApplicationWindow, ButtonContent, HeaderBar, StatusPage, Toast,
-    ToastOverlay, ToolbarView, ViewStack, WindowTitle, prelude::*, subclass::prelude::*,
+    AboutDialog, Application, ApplicationWindow, ButtonContent, HeaderBar, ShortcutsDialog,
+    ShortcutsItem, ShortcutsSection, StatusPage, Toast, ToastOverlay, ToolbarView, ViewStack,
+    WindowTitle, prelude::*, subclass::prelude::*,
 };
 use gio::{ActionEntry, Cancellable, Menu};
 use glib::{Object, clone};
@@ -18,7 +19,6 @@ use std::{
 
 mod imp {
     use super::*;
-    use adw::ToastOverlay;
 
     #[derive(Default)]
     pub struct MainWindowImpl {
@@ -332,5 +332,37 @@ impl MainWindow {
         self.close();
     }
 
-    fn shortcuts(&self) {}
+    fn shortcuts(&self) {
+        let state_ref = self.imp().state.get().unwrap().borrow();
+        let app_section = ShortcutsSection::new(Some(&state_ref.translator()._g("App")));
+        app_section.add(ShortcutsItem::new(
+            &state_ref.translator()._g("Preferences"),
+            "<Primary>comma",
+        ));
+        app_section.add(ShortcutsItem::new(
+            &state_ref.translator()._g("Keyboard Shortcuts"),
+            "<Primary>question",
+        ));
+        app_section.add(ShortcutsItem::new(
+            &state_ref.translator()._g("About Application"),
+            "F1",
+        ));
+        app_section.add(ShortcutsItem::new(
+            &state_ref.translator()._g("Quit"),
+            "<Primary>q",
+        ));
+        let folder_section = ShortcutsSection::new(Some(&state_ref.translator()._g("Folder")));
+        folder_section.add(ShortcutsItem::new(
+            &state_ref.translator()._g("Open Folder"),
+            "<Primary>o",
+        ));
+        folder_section.add(ShortcutsItem::new(
+            &state_ref.translator()._g("Close Folder"),
+            "<Primary>w",
+        ));
+        let dialog = ShortcutsDialog::new();
+        dialog.add(app_section);
+        dialog.add(folder_section);
+        dialog.present(Some(self));
+    }
 }
