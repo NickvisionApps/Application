@@ -18,85 +18,85 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: linux/src/widgets/main_window.rs:68 linux/src/widgets/main_window.rs:339
+#: linux/src/views/main_window.rs:68 linux/src/views/main_window.rs:339
 msgid "Preferences"
 msgstr "Параметры"
 
-#: linux/src/widgets/main_window.rs:72 linux/src/widgets/main_window.rs:343
+#: linux/src/views/main_window.rs:72 linux/src/views/main_window.rs:343
 msgid "Keyboard Shortcuts"
 msgstr "Комбинации клавиш"
 
-#: linux/src/widgets/main_window.rs:76 linux/src/widgets/main_window.rs:347
+#: linux/src/views/main_window.rs:76 linux/src/views/main_window.rs:347
 #: macos/src/controls/main_menu.rs:119
 msgid "About Application"
 msgstr "О приложении"
 
-#: linux/src/widgets/main_window.rs:82 macos/src/controls/main_menu.rs:115
+#: linux/src/views/main_window.rs:82 macos/src/controls/main_menu.rs:115
 #: macos/src/views/main_window.rs:100
 msgid "Application"
 msgstr "Application"
 
-#: linux/src/widgets/main_window.rs:89 linux/src/widgets/main_window.rs:122
+#: linux/src/views/main_window.rs:89 linux/src/views/main_window.rs:122
 msgid "Open Folder (Ctrl+O)"
 msgstr "Открыть папку (Ctrl+O)"
 
-#: linux/src/widgets/main_window.rs:92 linux/src/widgets/main_window.rs:124
+#: linux/src/views/main_window.rs:92 linux/src/views/main_window.rs:124
 msgid "Open"
 msgstr "Открыть"
 
-#: linux/src/widgets/main_window.rs:101
+#: linux/src/views/main_window.rs:101
 #, fuzzy
 msgid "Close Folder (Ctrl+W)"
 msgstr "Закрыть папку (Ctrl+W)"
 
-#: linux/src/widgets/main_window.rs:109
+#: linux/src/views/main_window.rs:109
 msgid "Main Menu"
 msgstr "Главное меню"
 
-#: linux/src/widgets/main_window.rs:244 macos/src/controls/main_menu.rs:62
+#: linux/src/views/main_window.rs:244 macos/src/controls/main_menu.rs:62
 #, fuzzy
 msgid "translation-credits"
 msgstr "Фёдор Соболев https://github.com/fsobolev"
 
-#: linux/src/widgets/main_window.rs:245
+#: linux/src/views/main_window.rs:245
 msgid "GitHub Repo"
 msgstr "Репозиторий GitHub"
 
-#: linux/src/widgets/main_window.rs:266
+#: linux/src/views/main_window.rs:266
 #, fuzzy
 msgid "Folder closed"
 msgstr "Папка закрыта."
 
-#: linux/src/widgets/main_window.rs:274 linux/src/widgets/main_window.rs:356
+#: linux/src/views/main_window.rs:274 linux/src/views/main_window.rs:356
 #: macos/src/controls/main_menu.rs:201
 msgid "Open Folder"
 msgstr "Открыть Папку"
 
-#: linux/src/widgets/main_window.rs:294 macos/src/views/main_window.rs:196
+#: linux/src/views/main_window.rs:294 macos/src/views/main_window.rs:196
 msgid "Unable to open folder: {0}"
 msgstr ""
 
-#: linux/src/widgets/main_window.rs:317
+#: linux/src/views/main_window.rs:317
 msgid "{0} file"
 msgid_plural "{0} files"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: linux/src/widgets/main_window.rs:337
+#: linux/src/views/main_window.rs:337
 msgid "App"
 msgstr ""
 
-#: linux/src/widgets/main_window.rs:351
+#: linux/src/views/main_window.rs:351
 msgid "Quit"
 msgstr "Выход"
 
-#: linux/src/widgets/main_window.rs:354
+#: linux/src/views/main_window.rs:354
 #, fuzzy
 msgid "Folder"
 msgstr "Папка"
 
-#: linux/src/widgets/main_window.rs:360 macos/src/controls/main_menu.rs:206
+#: linux/src/views/main_window.rs:360 macos/src/controls/main_menu.rs:206
 msgid "Close Folder"
 msgstr "Закрыть папку"
 
