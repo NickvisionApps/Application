@@ -1,5 +1,5 @@
-linux/src/views/app_preferences_dialog.rs
 linux/src/views/main_window.rs
+linux/src/views/settings_dialog.rs
 macos/src/app.rs
 macos/src/controls/main_menu.rs
 macos/src/views/main_window.rs

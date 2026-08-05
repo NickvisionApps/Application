@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-06 01:15+0200\n"
+"POT-Creation-Date: 2026-08-06 01:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,46 +18,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: linux/src/views/app_preferences_dialog.rs:61
-msgid "Theme"
-msgstr ""
-
-#: linux/src/views/app_preferences_dialog.rs:63
-#: macos/src/views/settings_dialog.rs:182
-msgid "Light"
-msgstr ""
-
-#: linux/src/views/app_preferences_dialog.rs:64
-#: macos/src/views/settings_dialog.rs:187
-msgid "Dark"
-msgstr ""
-
-#: linux/src/views/app_preferences_dialog.rs:65
-#: macos/src/views/settings_dialog.rs:192
-msgid "System"
-msgstr ""
-
-#: linux/src/views/app_preferences_dialog.rs:70
-msgid "Translation Language"
-msgstr ""
-
-#: linux/src/views/app_preferences_dialog.rs:74
-#: macos/src/views/settings_dialog.rs:241
-msgid "An application restart is required for change to take effect"
-msgstr ""
-
-#: linux/src/views/app_preferences_dialog.rs:79
-msgid "User Interface"
-msgstr ""
-
-#: linux/src/views/app_preferences_dialog.rs:84
-#: macos/src/views/settings_dialog.rs:45 macos/src/views/settings_dialog.rs:102
-#: macos/src/views/settings_dialog.rs:166
-msgid "General"
-msgstr ""
-
-#: linux/src/views/app_preferences_dialog.rs:89
 #: linux/src/views/main_window.rs:77 linux/src/views/main_window.rs:351
+#: linux/src/views/settings_dialog.rs:89
 msgid "Preferences"
 msgstr ""
 
@@ -132,6 +94,39 @@ msgstr ""
 
 #: linux/src/views/main_window.rs:372 macos/src/controls/main_menu.rs:206
 msgid "Close Folder"
+msgstr ""
+
+#: linux/src/views/settings_dialog.rs:61
+msgid "Theme"
+msgstr ""
+
+#: linux/src/views/settings_dialog.rs:63 macos/src/views/settings_dialog.rs:182
+msgid "Light"
+msgstr ""
+
+#: linux/src/views/settings_dialog.rs:64 macos/src/views/settings_dialog.rs:187
+msgid "Dark"
+msgstr ""
+
+#: linux/src/views/settings_dialog.rs:65 macos/src/views/settings_dialog.rs:192
+msgid "System"
+msgstr ""
+
+#: linux/src/views/settings_dialog.rs:70
+msgid "Translation Language"
+msgstr ""
+
+#: linux/src/views/settings_dialog.rs:74 macos/src/views/settings_dialog.rs:241
+msgid "An application restart is required for change to take effect"
+msgstr ""
+
+#: linux/src/views/settings_dialog.rs:79
+msgid "User Interface"
+msgstr ""
+
+#: linux/src/views/settings_dialog.rs:84 macos/src/views/settings_dialog.rs:45
+#: macos/src/views/settings_dialog.rs:102 macos/src/views/settings_dialog.rs:166
+msgid "General"
 msgstr ""
 
 #: macos/src/controls/main_menu.rs:53

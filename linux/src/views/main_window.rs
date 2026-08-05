@@ -1,4 +1,4 @@
-use crate::views::AppPreferencesDialog;
+use crate::views::SettingsDialog;
 use adw::{
     AboutDialog, Application, ApplicationWindow, ButtonContent, HeaderBar, ShortcutsDialog,
     ShortcutsItem, ShortcutsSection, StatusPage, Toast, ToastOverlay, ToolbarView, ViewStack,
@@ -336,7 +336,7 @@ impl MainWindow {
     }
 
     fn preferences(&self) {
-        let dialog = AppPreferencesDialog::new(self.imp().state.get().unwrap().clone());
+        let dialog = SettingsDialog::new(self.imp().state.get().unwrap().clone());
         dialog.present(Some(self));
     }
 

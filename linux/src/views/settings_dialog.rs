@@ -14,40 +14,40 @@ mod imp {
     use super::*;
 
     #[derive(Default)]
-    pub struct AppPreferencesDialogImpl {
+    pub struct SettingsDialogImpl {
         pub(super) state: OnceCell<Rc<RefCell<AppState>>>,
         pub(super) theme_row: OnceCell<ComboRow>,
         pub(super) language_row: OnceCell<ComboRow>,
     }
 
     #[glib::object_subclass]
-    impl ObjectSubclass for AppPreferencesDialogImpl {
-        const NAME: &'static str = "AppPreferencesDialogImpl";
-        type Type = AppPreferencesDialog;
+    impl ObjectSubclass for SettingsDialogImpl {
+        const NAME: &'static str = "SettingsDialogImpl";
+        type Type = SettingsDialog;
         type ParentType = PreferencesDialog;
     }
 
-    impl ObjectImpl for AppPreferencesDialogImpl {}
+    impl ObjectImpl for SettingsDialogImpl {}
 
-    impl WidgetImpl for AppPreferencesDialogImpl {}
+    impl WidgetImpl for SettingsDialogImpl {}
 
-    impl AdwDialogImpl for AppPreferencesDialogImpl {
+    impl AdwDialogImpl for SettingsDialogImpl {
         fn closed(&self) {
             let state_ref = self.state.get().unwrap().borrow();
             state_ref.configuration().save().unwrap();
         }
     }
 
-    impl PreferencesDialogImpl for AppPreferencesDialogImpl {}
+    impl PreferencesDialogImpl for SettingsDialogImpl {}
 }
 
 glib::wrapper! {
-    pub struct AppPreferencesDialog(ObjectSubclass<imp::AppPreferencesDialogImpl>)
+    pub struct SettingsDialog(ObjectSubclass<imp::SettingsDialogImpl>)
         @extends adw::PreferencesDialog, adw::Dialog, gtk::Widget,
         @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget, gtk::Native, gtk::Root, gtk::ShortcutManager;
 }
 
-impl AppPreferencesDialog {
+impl SettingsDialog {
     pub fn new(state: Rc<RefCell<AppState>>) -> Self {
         let this: Self = Object::builder().build();
         this.imp().state.set(state).unwrap();
