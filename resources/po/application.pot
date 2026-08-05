@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-06 01:22+0200\n"
+"POT-Creation-Date: 2026-08-06 01:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: linux/src/views/main_window.rs:77 linux/src/views/main_window.rs:351
-#: linux/src/views/settings_dialog.rs:89
+#: linux/src/views/settings_dialog.rs:152
 msgid "Preferences"
 msgstr ""
 
@@ -96,37 +96,50 @@ msgstr ""
 msgid "Close Folder"
 msgstr ""
 
-#: linux/src/views/settings_dialog.rs:61
+#: linux/src/views/settings_dialog.rs:62
 msgid "Theme"
 msgstr ""
 
-#: linux/src/views/settings_dialog.rs:63 macos/src/views/settings_dialog.rs:182
+#: linux/src/views/settings_dialog.rs:64 macos/src/views/settings_dialog.rs:182
 msgid "Light"
 msgstr ""
 
-#: linux/src/views/settings_dialog.rs:64 macos/src/views/settings_dialog.rs:187
+#: linux/src/views/settings_dialog.rs:65 macos/src/views/settings_dialog.rs:187
 msgid "Dark"
 msgstr ""
 
-#: linux/src/views/settings_dialog.rs:65 macos/src/views/settings_dialog.rs:192
+#: linux/src/views/settings_dialog.rs:66 macos/src/views/settings_dialog.rs:192
 msgid "System"
 msgstr ""
 
-#: linux/src/views/settings_dialog.rs:70
+#: linux/src/views/settings_dialog.rs:84
 msgid "Translation Language"
 msgstr ""
 
-#: linux/src/views/settings_dialog.rs:74 macos/src/views/settings_dialog.rs:241
+#: linux/src/views/settings_dialog.rs:88 macos/src/views/settings_dialog.rs:241
 msgid "An application restart is required for change to take effect"
 msgstr ""
 
-#: linux/src/views/settings_dialog.rs:79
+#: linux/src/views/settings_dialog.rs:112
 msgid "User Interface"
 msgstr ""
 
-#: linux/src/views/settings_dialog.rs:84 macos/src/views/settings_dialog.rs:45
+#: linux/src/views/settings_dialog.rs:117 macos/src/views/settings_dialog.rs:45
 #: macos/src/views/settings_dialog.rs:102 macos/src/views/settings_dialog.rs:166
 msgid "General"
+msgstr ""
+
+#: linux/src/views/settings_dialog.rs:122 macos/src/views/settings_dialog.rs:284
+msgid "Allow Preview Updates"
+msgstr ""
+
+#: linux/src/views/settings_dialog.rs:138
+msgid "Updates"
+msgstr ""
+
+#: linux/src/views/settings_dialog.rs:142 macos/src/views/settings_dialog.rs:47
+#: macos/src/views/settings_dialog.rs:104
+msgid "Advanced"
 msgstr ""
 
 #: macos/src/controls/main_menu.rs:53
@@ -299,20 +312,12 @@ msgstr ""
 msgid "Unable to install the update: {0}"
 msgstr ""
 
-#: macos/src/views/settings_dialog.rs:47 macos/src/views/settings_dialog.rs:104
-msgid "Advanced"
-msgstr ""
-
 #: macos/src/views/settings_dialog.rs:176
 msgid "Theme:"
 msgstr ""
 
 #: macos/src/views/settings_dialog.rs:211
 msgid "Translation Language:"
-msgstr ""
-
-#: macos/src/views/settings_dialog.rs:284
-msgid "Allow Preview Updates"
 msgstr ""
 
 #: shared/src/state.rs:41

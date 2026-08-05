@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-06 01:22+0200\n"
+"POT-Creation-Date: 2026-08-06 01:29+0200\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -19,7 +19,7 @@ msgstr ""
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 #: linux/src/views/main_window.rs:77 linux/src/views/main_window.rs:351
-#: linux/src/views/settings_dialog.rs:89
+#: linux/src/views/settings_dialog.rs:152
 msgid "Preferences"
 msgstr "Параметры"
 
@@ -101,42 +101,56 @@ msgstr "Папка"
 msgid "Close Folder"
 msgstr "Закрыть папку"
 
-#: linux/src/views/settings_dialog.rs:61
+#: linux/src/views/settings_dialog.rs:62
 #, fuzzy
 msgid "Theme"
 msgstr "Тема"
 
-#: linux/src/views/settings_dialog.rs:63 macos/src/views/settings_dialog.rs:182
+#: linux/src/views/settings_dialog.rs:64 macos/src/views/settings_dialog.rs:182
 #, fuzzy
 msgid "Light"
 msgstr "Светлая"
 
-#: linux/src/views/settings_dialog.rs:64 macos/src/views/settings_dialog.rs:187
+#: linux/src/views/settings_dialog.rs:65 macos/src/views/settings_dialog.rs:187
 #, fuzzy
 msgid "Dark"
 msgstr "Тёмная"
 
-#: linux/src/views/settings_dialog.rs:65 macos/src/views/settings_dialog.rs:192
+#: linux/src/views/settings_dialog.rs:66 macos/src/views/settings_dialog.rs:192
 #, fuzzy
 msgid "System"
 msgstr "Системная"
 
-#: linux/src/views/settings_dialog.rs:70
+#: linux/src/views/settings_dialog.rs:84
 msgid "Translation Language"
 msgstr ""
 
-#: linux/src/views/settings_dialog.rs:74 macos/src/views/settings_dialog.rs:241
+#: linux/src/views/settings_dialog.rs:88 macos/src/views/settings_dialog.rs:241
 msgid "An application restart is required for change to take effect"
 msgstr ""
 
-#: linux/src/views/settings_dialog.rs:79
+#: linux/src/views/settings_dialog.rs:112
 msgid "User Interface"
 msgstr "Интерфейс"
 
-#: linux/src/views/settings_dialog.rs:84 macos/src/views/settings_dialog.rs:45
+#: linux/src/views/settings_dialog.rs:117 macos/src/views/settings_dialog.rs:45
 #: macos/src/views/settings_dialog.rs:102
 #: macos/src/views/settings_dialog.rs:166
 msgid "General"
+msgstr ""
+
+#: linux/src/views/settings_dialog.rs:122
+#: macos/src/views/settings_dialog.rs:284
+msgid "Allow Preview Updates"
+msgstr ""
+
+#: linux/src/views/settings_dialog.rs:138
+msgid "Updates"
+msgstr ""
+
+#: linux/src/views/settings_dialog.rs:142 macos/src/views/settings_dialog.rs:47
+#: macos/src/views/settings_dialog.rs:104
+msgid "Advanced"
 msgstr ""
 
 #: macos/src/controls/main_menu.rs:53
@@ -314,10 +328,6 @@ msgstr ""
 msgid "Unable to install the update: {0}"
 msgstr ""
 
-#: macos/src/views/settings_dialog.rs:47 macos/src/views/settings_dialog.rs:104
-msgid "Advanced"
-msgstr ""
-
 #: macos/src/views/settings_dialog.rs:176
 #, fuzzy
 msgid "Theme:"
@@ -325,10 +335,6 @@ msgstr "Тема"
 
 #: macos/src/views/settings_dialog.rs:211
 msgid "Translation Language:"
-msgstr ""
-
-#: macos/src/views/settings_dialog.rs:284
-msgid "Allow Preview Updates"
 msgstr ""
 
 #: shared/src/state.rs:41
