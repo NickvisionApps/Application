@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-05 01:12+0200\n"
+"POT-Creation-Date: 2026-08-06 00:40+0200\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -18,85 +18,86 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: linux/src/views/main_window.rs:68 linux/src/views/main_window.rs:339
+#: linux/src/views/app_preferences_dialog.rs:49
+#: linux/src/views/main_window.rs:69 linux/src/views/main_window.rs:343
 msgid "Preferences"
 msgstr "Параметры"
 
-#: linux/src/views/main_window.rs:72 linux/src/views/main_window.rs:343
+#: linux/src/views/main_window.rs:73 linux/src/views/main_window.rs:347
 msgid "Keyboard Shortcuts"
 msgstr "Комбинации клавиш"
 
-#: linux/src/views/main_window.rs:76 linux/src/views/main_window.rs:347
+#: linux/src/views/main_window.rs:77 linux/src/views/main_window.rs:351
 #: macos/src/controls/main_menu.rs:119
 msgid "About Application"
 msgstr "О приложении"
 
-#: linux/src/views/main_window.rs:82 macos/src/controls/main_menu.rs:115
+#: linux/src/views/main_window.rs:83 macos/src/controls/main_menu.rs:115
 #: macos/src/views/main_window.rs:100
 msgid "Application"
 msgstr "Application"
 
-#: linux/src/views/main_window.rs:89 linux/src/views/main_window.rs:122
+#: linux/src/views/main_window.rs:90 linux/src/views/main_window.rs:123
 msgid "Open Folder (Ctrl+O)"
 msgstr "Открыть папку (Ctrl+O)"
 
-#: linux/src/views/main_window.rs:92 linux/src/views/main_window.rs:124
+#: linux/src/views/main_window.rs:93 linux/src/views/main_window.rs:125
 msgid "Open"
 msgstr "Открыть"
 
-#: linux/src/views/main_window.rs:101
+#: linux/src/views/main_window.rs:102
 #, fuzzy
 msgid "Close Folder (Ctrl+W)"
 msgstr "Закрыть папку (Ctrl+W)"
 
-#: linux/src/views/main_window.rs:109
+#: linux/src/views/main_window.rs:110
 msgid "Main Menu"
 msgstr "Главное меню"
 
-#: linux/src/views/main_window.rs:244 macos/src/controls/main_menu.rs:62
+#: linux/src/views/main_window.rs:245 macos/src/controls/main_menu.rs:62
 #, fuzzy
 msgid "translation-credits"
 msgstr "Фёдор Соболев https://github.com/fsobolev"
 
-#: linux/src/views/main_window.rs:245
+#: linux/src/views/main_window.rs:246
 msgid "GitHub Repo"
 msgstr "Репозиторий GitHub"
 
-#: linux/src/views/main_window.rs:266
+#: linux/src/views/main_window.rs:267
 #, fuzzy
 msgid "Folder closed"
 msgstr "Папка закрыта."
 
-#: linux/src/views/main_window.rs:274 linux/src/views/main_window.rs:356
+#: linux/src/views/main_window.rs:275 linux/src/views/main_window.rs:360
 #: macos/src/controls/main_menu.rs:201
 msgid "Open Folder"
 msgstr "Открыть Папку"
 
-#: linux/src/views/main_window.rs:294 macos/src/views/main_window.rs:196
+#: linux/src/views/main_window.rs:295 macos/src/views/main_window.rs:196
 msgid "Unable to open folder: {0}"
 msgstr ""
 
-#: linux/src/views/main_window.rs:317
+#: linux/src/views/main_window.rs:318
 msgid "{0} file"
 msgid_plural "{0} files"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: linux/src/views/main_window.rs:337
+#: linux/src/views/main_window.rs:341
 msgid "App"
 msgstr ""
 
-#: linux/src/views/main_window.rs:351
+#: linux/src/views/main_window.rs:355
 msgid "Quit"
 msgstr "Выход"
 
-#: linux/src/views/main_window.rs:354
+#: linux/src/views/main_window.rs:358
 #, fuzzy
 msgid "Folder"
 msgstr "Папка"
 
-#: linux/src/views/main_window.rs:360 macos/src/controls/main_menu.rs:206
+#: linux/src/views/main_window.rs:364 macos/src/controls/main_menu.rs:206
 msgid "Close Folder"
 msgstr "Закрыть папку"
 

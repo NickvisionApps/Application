@@ -1,3 +1,4 @@
+linux/src/views/app_preferences_dialog.rs
 linux/src/views/main_window.rs
 macos/src/app.rs
 macos/src/controls/main_menu.rs

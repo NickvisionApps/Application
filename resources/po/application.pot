@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-05 01:12+0200\n"
+"POT-Creation-Date: 2026-08-06 00:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,80 +18,81 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: linux/src/views/main_window.rs:68 linux/src/views/main_window.rs:339
+#: linux/src/views/app_preferences_dialog.rs:49
+#: linux/src/views/main_window.rs:69 linux/src/views/main_window.rs:343
 msgid "Preferences"
 msgstr ""
 
-#: linux/src/views/main_window.rs:72 linux/src/views/main_window.rs:343
+#: linux/src/views/main_window.rs:73 linux/src/views/main_window.rs:347
 msgid "Keyboard Shortcuts"
 msgstr ""
 
-#: linux/src/views/main_window.rs:76 linux/src/views/main_window.rs:347
+#: linux/src/views/main_window.rs:77 linux/src/views/main_window.rs:351
 #: macos/src/controls/main_menu.rs:119
 msgid "About Application"
 msgstr ""
 
-#: linux/src/views/main_window.rs:82 macos/src/controls/main_menu.rs:115
+#: linux/src/views/main_window.rs:83 macos/src/controls/main_menu.rs:115
 #: macos/src/views/main_window.rs:100
 msgid "Application"
 msgstr ""
 
-#: linux/src/views/main_window.rs:89 linux/src/views/main_window.rs:122
+#: linux/src/views/main_window.rs:90 linux/src/views/main_window.rs:123
 msgid "Open Folder (Ctrl+O)"
 msgstr ""
 
-#: linux/src/views/main_window.rs:92 linux/src/views/main_window.rs:124
+#: linux/src/views/main_window.rs:93 linux/src/views/main_window.rs:125
 msgid "Open"
 msgstr ""
 
-#: linux/src/views/main_window.rs:101
+#: linux/src/views/main_window.rs:102
 msgid "Close Folder (Ctrl+W)"
 msgstr ""
 
-#: linux/src/views/main_window.rs:109
+#: linux/src/views/main_window.rs:110
 msgid "Main Menu"
 msgstr ""
 
-#: linux/src/views/main_window.rs:244 macos/src/controls/main_menu.rs:62
+#: linux/src/views/main_window.rs:245 macos/src/controls/main_menu.rs:62
 msgid "translation-credits"
 msgstr ""
 
-#: linux/src/views/main_window.rs:245
+#: linux/src/views/main_window.rs:246
 msgid "GitHub Repo"
 msgstr ""
 
-#: linux/src/views/main_window.rs:266
+#: linux/src/views/main_window.rs:267
 msgid "Folder closed"
 msgstr ""
 
-#: linux/src/views/main_window.rs:274 linux/src/views/main_window.rs:356
+#: linux/src/views/main_window.rs:275 linux/src/views/main_window.rs:360
 #: macos/src/controls/main_menu.rs:201
 msgid "Open Folder"
 msgstr ""
 
-#: linux/src/views/main_window.rs:294 macos/src/views/main_window.rs:196
+#: linux/src/views/main_window.rs:295 macos/src/views/main_window.rs:196
 msgid "Unable to open folder: {0}"
 msgstr ""
 
-#: linux/src/views/main_window.rs:317
+#: linux/src/views/main_window.rs:318
 msgid "{0} file"
 msgid_plural "{0} files"
 msgstr[0] ""
 msgstr[1] ""
 
-#: linux/src/views/main_window.rs:337
+#: linux/src/views/main_window.rs:341
 msgid "App"
 msgstr ""
 
-#: linux/src/views/main_window.rs:351
+#: linux/src/views/main_window.rs:355
 msgid "Quit"
 msgstr ""
 
-#: linux/src/views/main_window.rs:354
+#: linux/src/views/main_window.rs:358
 msgid "Folder"
 msgstr ""
 
-#: linux/src/views/main_window.rs:360 macos/src/controls/main_menu.rs:206
+#: linux/src/views/main_window.rs:364 macos/src/controls/main_menu.rs:206
 msgid "Close Folder"
 msgstr ""
 
