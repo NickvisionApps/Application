@@ -4,7 +4,7 @@ use objc2::runtime::{AnyObject, ProtocolObject};
 use objc2::{ClassType, DefinedClass, MainThreadOnly, define_class, msg_send, sel};
 use objc2_app_kit::{
     NSAppearance, NSAppearanceNameAqua, NSAppearanceNameDarkAqua, NSApplication,
-    NSBackingStoreType, NSButton, NSControlStateValueOff, NSControlStateValueOn,
+    NSBackingStoreType, NSButton, NSColor, NSControlStateValueOff, NSControlStateValueOn, NSFont,
     NSGridCellPlacement, NSGridView, NSImage, NSLayoutConstraint, NSMenu, NSPopUpButton, NSTabView,
     NSTabViewItem, NSTabViewType, NSTextField, NSToolbar, NSToolbarDelegate, NSToolbarDisplayMode,
     NSToolbarItem, NSToolbarItemIdentifier, NSView, NSWindow, NSWindowController, NSWindowDelegate,
@@ -234,12 +234,29 @@ impl SettingsDialog {
                     .position(|language| language == state_ref.translator().language())
                     .unwrap_or(0) as NSInteger,
             );
+            let restart_notice_label = NSTextField::wrappingLabelWithString(
+                &NSString::from_str(
+                    &state_ref
+                        .translator()
+                        ._g("An application restart is required for change to take effect"),
+                ),
+                mtm,
+            );
+            restart_notice_label.setFont(Some(&NSFont::systemFontOfSize(
+                NSFont::smallSystemFontSize(),
+            )));
+            restart_notice_label.setTextColor(Some(&NSColor::secondaryLabelColor()));
+            restart_notice_label.setPreferredMaxLayoutWidth(200.0);
             let general_grid_view = NSGridView::gridViewWithViews(
                 &NSArray::from_retained_slice(&[
                     NSArray::from_slice(&[&theme_label as &NSView, &theme_popup_button as &NSView]),
                     NSArray::from_slice(&[
                         &language_label as &NSView,
                         &language_popup_button as &NSView,
+                    ]),
+                    NSArray::from_slice(&[
+                        &NSView::new(mtm) as &NSView,
+                        &restart_notice_label as &NSView,
                     ]),
                 ]),
                 mtm,
