@@ -3,6 +3,7 @@ use adw::{
     subclass::prelude::*,
 };
 use glib::Object;
+use gtk::Image;
 use shared::AppState;
 use std::{
     cell::{OnceCell, RefCell},
@@ -59,6 +60,7 @@ impl AppPreferencesDialog {
         let theme_row = ComboRow::builder()
             .title(state_ref.translator()._g("Theme"))
             .build();
+        theme_row.add_prefix(&Image::builder().icon_name("dark-mode-symbolic").build());
         let language_row = ComboRow::builder()
             .title(state_ref.translator()._g("Translation Language"))
             .subtitle(
@@ -67,6 +69,7 @@ impl AppPreferencesDialog {
                     ._g("An application restart is required for a change to take effect"),
             )
             .build();
+        language_row.add_prefix(&Image::builder().icon_name("translate-symbolic").build());
         let user_interface_group = PreferencesGroup::builder()
             .title(state_ref.translator()._g("User Interface"))
             .build();

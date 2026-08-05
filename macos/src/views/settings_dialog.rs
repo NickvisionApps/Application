@@ -5,7 +5,7 @@ use objc2::{ClassType, DefinedClass, MainThreadOnly, define_class, msg_send, sel
 use objc2_app_kit::{
     NSAppearance, NSAppearanceNameAqua, NSAppearanceNameDarkAqua, NSApplication,
     NSBackingStoreType, NSButton, NSControlStateValueOff, NSControlStateValueOn,
-    NSGridCellPlacement, NSGridView, NSImage, NSLayoutConstraint, NSPopUpButton, NSTabView,
+    NSGridCellPlacement, NSGridView, NSImage, NSLayoutConstraint, NSMenu, NSPopUpButton, NSTabView,
     NSTabViewItem, NSTabViewType, NSTextField, NSToolbar, NSToolbarDelegate, NSToolbarDisplayMode,
     NSToolbarItem, NSToolbarItemIdentifier, NSView, NSWindow, NSWindowController, NSWindowDelegate,
     NSWindowStyleMask, NSWindowToolbarStyle,
@@ -176,13 +176,31 @@ impl SettingsDialog {
                 &NSString::from_str(&state_ref.translator()._g("Theme:")),
                 mtm,
             );
-            let theme_popup_button = NSPopUpButton::new(mtm);
-            theme_popup_button
-                .addItemWithTitle(&NSString::from_str(&state_ref.translator()._g("Light")));
-            theme_popup_button
-                .addItemWithTitle(&NSString::from_str(&state_ref.translator()._g("Dark")));
-            theme_popup_button
-                .addItemWithTitle(&NSString::from_str(&state_ref.translator()._g("System")));
+            let theme_menu = NSMenu::new(mtm);
+            unsafe {
+                theme_menu.addItemWithTitle_action_keyEquivalent(
+                    &NSString::from_str(&state_ref.translator()._g("Light")),
+                    None,
+                    ns_string!(""),
+                );
+                theme_menu.addItemWithTitle_action_keyEquivalent(
+                    &NSString::from_str(&state_ref.translator()._g("Dark")),
+                    None,
+                    ns_string!(""),
+                );
+                theme_menu.addItemWithTitle_action_keyEquivalent(
+                    &NSString::from_str(&state_ref.translator()._g("System")),
+                    None,
+                    ns_string!(""),
+                );
+            }
+            let theme_popup_button = unsafe {
+                NSPopUpButton::popUpButtonWithMenu_target_action(
+                    &theme_menu,
+                    Some(this.as_super().as_super()),
+                    Some(sel!(popupButtonChanged:)),
+                )
+            };
             theme_popup_button.selectItemAtIndex(
                 ApplicationTheme::ALL
                     .iter()
@@ -193,22 +211,29 @@ impl SettingsDialog {
                 &NSString::from_str(&state_ref.translator()._g("Translation Language:")),
                 mtm,
             );
-            let language_popup_button = NSPopUpButton::new(mtm);
-            for language in Translator::available_languages() {
-                language_popup_button.addItemWithTitle(&NSString::from_str(language));
+            let language_menu = NSMenu::new(mtm);
+            unsafe {
+                for language in Translator::available_languages() {
+                    language_menu.addItemWithTitle_action_keyEquivalent(
+                        &NSString::from_str(language),
+                        None,
+                        ns_string!(""),
+                    );
+                }
             }
+            let language_popup_button = unsafe {
+                NSPopUpButton::popUpButtonWithMenu_target_action(
+                    &language_menu,
+                    Some(this.as_super().as_super()),
+                    Some(sel!(popupButtonChanged:)),
+                )
+            };
             language_popup_button.selectItemAtIndex(
                 Translator::available_languages()
                     .iter()
                     .position(|language| language == state_ref.translator().language())
                     .unwrap_or(0) as NSInteger,
             );
-            unsafe {
-                theme_popup_button.setTarget(Some(this.as_super().as_super()));
-                theme_popup_button.setAction(Some(sel!(popupButtonChanged:)));
-                language_popup_button.setTarget(Some(this.as_super().as_super()));
-                language_popup_button.setAction(Some(sel!(popupButtonChanged:)));
-            }
             let general_grid_view = NSGridView::gridViewWithViews(
                 &NSArray::from_retained_slice(&[
                     NSArray::from_slice(&[&theme_label as &NSView, &theme_popup_button as &NSView]),

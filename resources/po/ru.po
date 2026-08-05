@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-06 01:03+0200\n"
+"POT-Creation-Date: 2026-08-06 01:07+0200\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -18,30 +18,30 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: linux/src/views/app_preferences_dialog.rs:60
+#: linux/src/views/app_preferences_dialog.rs:61
 #, fuzzy
 msgid "Theme"
 msgstr "Тема"
 
-#: linux/src/views/app_preferences_dialog.rs:63
+#: linux/src/views/app_preferences_dialog.rs:65
 msgid "Translation Language"
 msgstr ""
 
-#: linux/src/views/app_preferences_dialog.rs:67
+#: linux/src/views/app_preferences_dialog.rs:69
 msgid "An application restart is required for a change to take effect"
 msgstr ""
 
-#: linux/src/views/app_preferences_dialog.rs:71
+#: linux/src/views/app_preferences_dialog.rs:74
 msgid "User Interface"
 msgstr "Интерфейс"
 
-#: linux/src/views/app_preferences_dialog.rs:76
+#: linux/src/views/app_preferences_dialog.rs:79
 #: macos/src/views/settings_dialog.rs:45 macos/src/views/settings_dialog.rs:102
 #: macos/src/views/settings_dialog.rs:166
 msgid "General"
 msgstr ""
 
-#: linux/src/views/app_preferences_dialog.rs:81
+#: linux/src/views/app_preferences_dialog.rs:84
 #: linux/src/views/main_window.rs:77 linux/src/views/main_window.rs:351
 msgid "Preferences"
 msgstr "Параметры"
@@ -308,26 +308,26 @@ msgstr ""
 msgid "Theme:"
 msgstr "Тема"
 
-#: macos/src/views/settings_dialog.rs:181
+#: macos/src/views/settings_dialog.rs:182
 #, fuzzy
 msgid "Light"
 msgstr "Светлая"
 
-#: macos/src/views/settings_dialog.rs:183
+#: macos/src/views/settings_dialog.rs:187
 #, fuzzy
 msgid "Dark"
 msgstr "Тёмная"
 
-#: macos/src/views/settings_dialog.rs:185
+#: macos/src/views/settings_dialog.rs:192
 #, fuzzy
 msgid "System"
 msgstr "Системная"
 
-#: macos/src/views/settings_dialog.rs:193
+#: macos/src/views/settings_dialog.rs:211
 msgid "Translation Language:"
 msgstr ""
 
-#: macos/src/views/settings_dialog.rs:242
+#: macos/src/views/settings_dialog.rs:267
 msgid "Allow Preview Updates"
 msgstr ""
 
