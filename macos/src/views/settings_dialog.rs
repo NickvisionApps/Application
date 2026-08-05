@@ -4,10 +4,11 @@ use objc2::runtime::{AnyObject, ProtocolObject};
 use objc2::{ClassType, DefinedClass, MainThreadOnly, define_class, msg_send, sel};
 use objc2_app_kit::{
     NSAppearance, NSAppearanceNameAqua, NSAppearanceNameDarkAqua, NSApplication,
-    NSBackingStoreType, NSGridCellPlacement, NSGridView, NSImage, NSLayoutConstraint,
-    NSPopUpButton, NSTabView, NSTabViewItem, NSTabViewType, NSTextField, NSToolbar,
-    NSToolbarDelegate, NSToolbarDisplayMode, NSToolbarItem, NSToolbarItemIdentifier, NSView,
-    NSWindow, NSWindowController, NSWindowDelegate, NSWindowStyleMask, NSWindowToolbarStyle,
+    NSBackingStoreType, NSButton, NSControlStateValueOff, NSControlStateValueOn,
+    NSGridCellPlacement, NSGridView, NSImage, NSLayoutConstraint, NSPopUpButton, NSTabView,
+    NSTabViewItem, NSTabViewType, NSTextField, NSToolbar, NSToolbarDelegate, NSToolbarDisplayMode,
+    NSToolbarItem, NSToolbarItemIdentifier, NSView, NSWindow, NSWindowController, NSWindowDelegate,
+    NSWindowStyleMask, NSWindowToolbarStyle,
 };
 use objc2_foundation::{
     MainThreadMarker, NSArray, NSObjectProtocol, NSPoint, NSRect, NSSize, NSString, ns_string,
@@ -22,6 +23,7 @@ pub struct SettingsDialogState {
     tab_view: OnceCell<Retained<NSTabView>>,
     theme_popup_button: OnceCell<Retained<NSPopUpButton>>,
     language_popup_button: OnceCell<Retained<NSPopUpButton>>,
+    preview_updates_checkbox: OnceCell<Retained<NSButton>>,
 }
 
 define_class!(
@@ -54,28 +56,12 @@ define_class!(
 
         #[unsafe(method(popupButtonChanged:))]
         fn popup_button_changed(&self, _sender: Option<&AnyObject>) {
-            let appearance = match self.ivars().theme_popup_button.get().unwrap().indexOfSelectedItem() {
-                0 => unsafe { NSAppearance::appearanceNamed(NSAppearanceNameAqua) },
-                1 => unsafe { NSAppearance::appearanceNamed(NSAppearanceNameDarkAqua) },
-                _ => None,
-            };
-            NSApplication::sharedApplication(self.mtm()).setAppearance(appearance.as_deref());
-            let mut state_ref = self.ivars().state.borrow_mut();
-            let configuration = state_ref.configuration_mut();
-            configuration.set_theme(match self.ivars().theme_popup_button.get().unwrap().indexOfSelectedItem() {
-                0 => ApplicationTheme::Light,
-                1 => ApplicationTheme::Dark,
-                _ => ApplicationTheme::System,
-            });
-            configuration.set_translation_language(Translator::available_languages()
-                .get(self
-                .ivars()
-                .language_popup_button
-                .get()
-                .unwrap()
-                .indexOfSelectedItem() as usize)
-                .cloned()
-            .unwrap_or_default());
+            self.update_configuration();
+        }
+
+        #[unsafe(method(checkboxChanged:))]
+        fn checkbox_changed(&self, _sender: Option<&AnyObject>) {
+            self.update_configuration();
         }
     }
 
@@ -148,6 +134,7 @@ impl SettingsDialogState {
             tab_view: OnceCell::new(),
             theme_popup_button: OnceCell::new(),
             language_popup_button: OnceCell::new(),
+            preview_updates_checkbox: OnceCell::new(),
         }
     }
 }
@@ -196,11 +183,12 @@ impl SettingsDialog {
                 .addItemWithTitle(&NSString::from_str(&state_ref.translator()._g("Dark")));
             theme_popup_button
                 .addItemWithTitle(&NSString::from_str(&state_ref.translator()._g("System")));
-            theme_popup_button.selectItemAtIndex(match state_ref.configuration().theme() {
-                ApplicationTheme::Light => 0,
-                ApplicationTheme::Dark => 1,
-                ApplicationTheme::System => 2,
-            });
+            theme_popup_button.selectItemAtIndex(
+                ApplicationTheme::ALL
+                    .iter()
+                    .position(|theme| theme == state_ref.configuration().theme())
+                    .unwrap_or(0) as NSInteger,
+            );
             let language_label = NSTextField::labelWithString(
                 &NSString::from_str(&state_ref.translator()._g("Translation Language:")),
                 mtm,
@@ -249,6 +237,38 @@ impl SettingsDialog {
             general_tab.setView(Some(&general_view));
             tab_view.addTabViewItem(&general_tab);
             let advanced_view = NSView::new(mtm);
+            let preview_updates_checkbox = unsafe {
+                NSButton::checkboxWithTitle_target_action(
+                    &NSString::from_str(&state_ref.translator()._g("Allow Preview Updates")),
+                    Some(this.as_super().as_super()),
+                    Some(sel!(checkboxChanged:)),
+                    mtm,
+                )
+            };
+            preview_updates_checkbox.setState(
+                if state_ref.configuration().allow_preview_updates() {
+                    NSControlStateValueOn
+                } else {
+                    NSControlStateValueOff
+                },
+            );
+            let advanced_grid_view = NSGridView::gridViewWithViews(
+                &NSArray::from_retained_slice(&[NSArray::from_slice(&[
+                    &preview_updates_checkbox as &NSView
+                ])]),
+                mtm,
+            );
+            advanced_grid_view.setTranslatesAutoresizingMaskIntoConstraints(false);
+            advanced_grid_view.setYPlacement(NSGridCellPlacement::Center);
+            advanced_view.addSubview(&advanced_grid_view);
+            NSLayoutConstraint::activateConstraints(&NSArray::from_retained_slice(&[
+                advanced_grid_view
+                    .centerXAnchor()
+                    .constraintEqualToAnchor(&advanced_view.centerXAnchor()),
+                advanced_grid_view
+                    .topAnchor()
+                    .constraintEqualToAnchor_constant(&advanced_view.topAnchor(), 100.0),
+            ]));
             let advanced_tab = NSTabViewItem::new();
             advanced_tab.setView(Some(&advanced_view));
             tab_view.addTabViewItem(&advanced_tab);
@@ -277,6 +297,10 @@ impl SettingsDialog {
                 .language_popup_button
                 .set(language_popup_button)
                 .unwrap();
+            this.ivars()
+                .preview_updates_checkbox
+                .set(preview_updates_checkbox)
+                .unwrap();
         }
         window.center();
         drop(state_ref);
@@ -286,5 +310,49 @@ impl SettingsDialog {
 
     pub fn show(&self) {
         unsafe { self.showWindow(None) };
+    }
+
+    fn update_configuration(&self) {
+        let appearance = match self
+            .ivars()
+            .theme_popup_button
+            .get()
+            .unwrap()
+            .indexOfSelectedItem()
+        {
+            0 => unsafe { NSAppearance::appearanceNamed(NSAppearanceNameAqua) },
+            1 => unsafe { NSAppearance::appearanceNamed(NSAppearanceNameDarkAqua) },
+            _ => None,
+        };
+        NSApplication::sharedApplication(self.mtm()).setAppearance(appearance.as_deref());
+        let mut state_ref = self.ivars().state.borrow_mut();
+        let configuration = state_ref.configuration_mut();
+        configuration.set_theme(
+            ApplicationTheme::ALL
+                .get(
+                    self.ivars()
+                        .theme_popup_button
+                        .get()
+                        .unwrap()
+                        .indexOfSelectedItem() as usize,
+                )
+                .cloned()
+                .unwrap_or_default(),
+        );
+        configuration.set_translation_language(
+            Translator::available_languages()
+                .get(
+                    self.ivars()
+                        .language_popup_button
+                        .get()
+                        .unwrap()
+                        .indexOfSelectedItem() as usize,
+                )
+                .cloned()
+                .unwrap_or_default(),
+        );
+        configuration.set_allow_preview_updates(
+            self.ivars().preview_updates_checkbox.get().unwrap().state() == NSControlStateValueOn,
+        );
     }
 }

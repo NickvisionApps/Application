@@ -5,7 +5,7 @@ use adw::{
     WindowTitle, prelude::*, subclass::prelude::*,
 };
 use gio::{ActionEntry, Cancellable, Menu};
-use glib::{Object, clone};
+use glib::{Object, Propagation, clone};
 use gtk::{Align, ArrowType, Button, FileDialog, License, MenuButton};
 use markdown::to_html;
 use shared::{
@@ -40,7 +40,15 @@ mod imp {
 
     impl WidgetImpl for MainWindowImpl {}
 
-    impl WindowImpl for MainWindowImpl {}
+    impl WindowImpl for MainWindowImpl {
+        fn close_request(&self) -> Propagation {
+            if self.state.get().unwrap().borrow().can_close() {
+                Propagation::Proceed
+            } else {
+                Propagation::Stop
+            }
+        }
+    }
 
     impl ApplicationWindowImpl for MainWindowImpl {}
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-06 00:40+0200\n"
+"POT-Creation-Date: 2026-08-06 01:03+0200\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -18,86 +18,109 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: linux/src/views/app_preferences_dialog.rs:49
-#: linux/src/views/main_window.rs:69 linux/src/views/main_window.rs:343
+#: linux/src/views/app_preferences_dialog.rs:60
+#, fuzzy
+msgid "Theme"
+msgstr "Тема"
+
+#: linux/src/views/app_preferences_dialog.rs:63
+msgid "Translation Language"
+msgstr ""
+
+#: linux/src/views/app_preferences_dialog.rs:67
+msgid "An application restart is required for a change to take effect"
+msgstr ""
+
+#: linux/src/views/app_preferences_dialog.rs:71
+msgid "User Interface"
+msgstr "Интерфейс"
+
+#: linux/src/views/app_preferences_dialog.rs:76
+#: macos/src/views/settings_dialog.rs:45 macos/src/views/settings_dialog.rs:102
+#: macos/src/views/settings_dialog.rs:166
+msgid "General"
+msgstr ""
+
+#: linux/src/views/app_preferences_dialog.rs:81
+#: linux/src/views/main_window.rs:77 linux/src/views/main_window.rs:351
 msgid "Preferences"
 msgstr "Параметры"
 
-#: linux/src/views/main_window.rs:73 linux/src/views/main_window.rs:347
+#: linux/src/views/main_window.rs:81 linux/src/views/main_window.rs:355
 msgid "Keyboard Shortcuts"
 msgstr "Комбинации клавиш"
 
-#: linux/src/views/main_window.rs:77 linux/src/views/main_window.rs:351
+#: linux/src/views/main_window.rs:85 linux/src/views/main_window.rs:359
 #: macos/src/controls/main_menu.rs:119
 msgid "About Application"
 msgstr "О приложении"
 
-#: linux/src/views/main_window.rs:83 macos/src/controls/main_menu.rs:115
+#: linux/src/views/main_window.rs:91 macos/src/controls/main_menu.rs:115
 #: macos/src/views/main_window.rs:100
 msgid "Application"
 msgstr "Application"
 
-#: linux/src/views/main_window.rs:90 linux/src/views/main_window.rs:123
+#: linux/src/views/main_window.rs:98 linux/src/views/main_window.rs:131
 msgid "Open Folder (Ctrl+O)"
 msgstr "Открыть папку (Ctrl+O)"
 
-#: linux/src/views/main_window.rs:93 linux/src/views/main_window.rs:125
+#: linux/src/views/main_window.rs:101 linux/src/views/main_window.rs:133
 msgid "Open"
 msgstr "Открыть"
 
-#: linux/src/views/main_window.rs:102
+#: linux/src/views/main_window.rs:110
 #, fuzzy
 msgid "Close Folder (Ctrl+W)"
 msgstr "Закрыть папку (Ctrl+W)"
 
-#: linux/src/views/main_window.rs:110
+#: linux/src/views/main_window.rs:118
 msgid "Main Menu"
 msgstr "Главное меню"
 
-#: linux/src/views/main_window.rs:245 macos/src/controls/main_menu.rs:62
+#: linux/src/views/main_window.rs:253 macos/src/controls/main_menu.rs:62
 #, fuzzy
 msgid "translation-credits"
 msgstr "Фёдор Соболев https://github.com/fsobolev"
 
-#: linux/src/views/main_window.rs:246
+#: linux/src/views/main_window.rs:254
 msgid "GitHub Repo"
 msgstr "Репозиторий GitHub"
 
-#: linux/src/views/main_window.rs:267
+#: linux/src/views/main_window.rs:275
 #, fuzzy
 msgid "Folder closed"
 msgstr "Папка закрыта."
 
-#: linux/src/views/main_window.rs:275 linux/src/views/main_window.rs:360
+#: linux/src/views/main_window.rs:283 linux/src/views/main_window.rs:368
 #: macos/src/controls/main_menu.rs:201
 msgid "Open Folder"
 msgstr "Открыть Папку"
 
-#: linux/src/views/main_window.rs:295 macos/src/views/main_window.rs:196
+#: linux/src/views/main_window.rs:303 macos/src/views/main_window.rs:196
 msgid "Unable to open folder: {0}"
 msgstr ""
 
-#: linux/src/views/main_window.rs:318
+#: linux/src/views/main_window.rs:326
 msgid "{0} file"
 msgid_plural "{0} files"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: linux/src/views/main_window.rs:341
+#: linux/src/views/main_window.rs:349
 msgid "App"
 msgstr ""
 
-#: linux/src/views/main_window.rs:355
+#: linux/src/views/main_window.rs:363
 msgid "Quit"
 msgstr "Выход"
 
-#: linux/src/views/main_window.rs:358
+#: linux/src/views/main_window.rs:366
 #, fuzzy
 msgid "Folder"
 msgstr "Папка"
 
-#: linux/src/views/main_window.rs:364 macos/src/controls/main_menu.rs:206
+#: linux/src/views/main_window.rs:372 macos/src/controls/main_menu.rs:206
 msgid "Close Folder"
 msgstr "Закрыть папку"
 
@@ -276,37 +299,36 @@ msgstr ""
 msgid "Unable to install the update: {0}"
 msgstr ""
 
-#: macos/src/views/settings_dialog.rs:43 macos/src/views/settings_dialog.rs:116
-#: macos/src/views/settings_dialog.rs:179
-msgid "General"
-msgstr ""
-
-#: macos/src/views/settings_dialog.rs:45 macos/src/views/settings_dialog.rs:118
+#: macos/src/views/settings_dialog.rs:47 macos/src/views/settings_dialog.rs:104
 msgid "Advanced"
 msgstr ""
 
-#: macos/src/views/settings_dialog.rs:189
+#: macos/src/views/settings_dialog.rs:176
 #, fuzzy
 msgid "Theme:"
 msgstr "Тема"
 
-#: macos/src/views/settings_dialog.rs:194
+#: macos/src/views/settings_dialog.rs:181
 #, fuzzy
 msgid "Light"
 msgstr "Светлая"
 
-#: macos/src/views/settings_dialog.rs:196
+#: macos/src/views/settings_dialog.rs:183
 #, fuzzy
 msgid "Dark"
 msgstr "Тёмная"
 
-#: macos/src/views/settings_dialog.rs:198
+#: macos/src/views/settings_dialog.rs:185
 #, fuzzy
 msgid "System"
 msgstr "Системная"
 
-#: macos/src/views/settings_dialog.rs:205
+#: macos/src/views/settings_dialog.rs:193
 msgid "Translation Language:"
+msgstr ""
+
+#: macos/src/views/settings_dialog.rs:242
+msgid "Allow Preview Updates"
 msgstr ""
 
 #: shared/src/state.rs:41
@@ -344,9 +366,6 @@ msgstr "Добрый вечер!"
 #, fuzzy
 #~ msgid "Open a folder (or drag one into the app) to get started"
 #~ msgstr "Откройте или перетащите папку, чтобы начать."
-
-#~ msgid "User Interface"
-#~ msgstr "Интерфейс"
 
 #~ msgctxt "Shortcut"
 #~ msgid "Application"

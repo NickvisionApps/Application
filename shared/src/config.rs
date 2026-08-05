@@ -2,6 +2,7 @@ use crate::{APP_NAME, is_app_portable};
 use directories::BaseDirs;
 use serde::{Deserialize, Serialize};
 use serde_repr::{Deserialize_repr, Serialize_repr};
+use std::path::PathBuf;
 
 #[derive(Debug, Clone, Default, PartialEq, Eq, Serialize_repr, Deserialize_repr)]
 #[repr(u8)]
@@ -38,6 +39,14 @@ pub struct Configuration {
     theme: ApplicationTheme,
     translation_language: String,
     window_geometry: WindowGeometry,
+}
+
+impl ApplicationTheme {
+    pub const ALL: [ApplicationTheme; 3] = [
+        ApplicationTheme::Light,
+        ApplicationTheme::Dark,
+        ApplicationTheme::System,
+    ];
 }
 
 impl WindowGeometry {
@@ -131,18 +140,7 @@ impl WindowGeometryBuilder {
 
 impl Configuration {
     pub fn load() -> Result<Self, Box<dyn std::error::Error>> {
-        let path = if is_app_portable() {
-            std::env::current_exe()?
-                .parent()
-                .unwrap()
-                .join("config.json")
-        } else {
-            BaseDirs::new()
-                .expect("Unable to load base directories")
-                .config_dir()
-                .join(APP_NAME)
-                .join("config.json")
-        };
+        let path = Self::config_path()?;
         std::fs::create_dir_all(path.parent().unwrap())?;
         if path.exists() {
             let json = std::fs::read_to_string(&path)?;
@@ -154,11 +152,7 @@ impl Configuration {
     }
 
     pub fn save(&self) -> Result<(), Box<dyn std::error::Error>> {
-        let path = BaseDirs::new()
-            .expect("Unable to load base directories")
-            .config_dir()
-            .join(APP_NAME)
-            .join("config.json");
+        let path = Self::config_path()?;
         std::fs::create_dir_all(path.parent().unwrap())?;
         let json = serde_json::to_string_pretty(self)?;
         std::fs::write(&path, json)?;
@@ -195,5 +189,20 @@ impl Configuration {
 
     pub fn set_window_geometry(&mut self, geometry: WindowGeometry) {
         self.window_geometry = geometry;
+    }
+
+    fn config_path() -> Result<PathBuf, Box<dyn std::error::Error>> {
+        Ok(if is_app_portable() {
+            std::env::current_exe()?
+                .parent()
+                .unwrap()
+                .join("config.json")
+        } else {
+            BaseDirs::new()
+                .expect("Unable to load base directories")
+                .config_dir()
+                .join(APP_NAME)
+                .join("config.json")
+        })
     }
 }

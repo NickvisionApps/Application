@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-06 00:40+0200\n"
+"POT-Creation-Date: 2026-08-06 01:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,81 +18,103 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: linux/src/views/app_preferences_dialog.rs:49
-#: linux/src/views/main_window.rs:69 linux/src/views/main_window.rs:343
+#: linux/src/views/app_preferences_dialog.rs:60
+msgid "Theme"
+msgstr ""
+
+#: linux/src/views/app_preferences_dialog.rs:63
+msgid "Translation Language"
+msgstr ""
+
+#: linux/src/views/app_preferences_dialog.rs:67
+msgid "An application restart is required for a change to take effect"
+msgstr ""
+
+#: linux/src/views/app_preferences_dialog.rs:71
+msgid "User Interface"
+msgstr ""
+
+#: linux/src/views/app_preferences_dialog.rs:76
+#: macos/src/views/settings_dialog.rs:45 macos/src/views/settings_dialog.rs:102
+#: macos/src/views/settings_dialog.rs:166
+msgid "General"
+msgstr ""
+
+#: linux/src/views/app_preferences_dialog.rs:81
+#: linux/src/views/main_window.rs:77 linux/src/views/main_window.rs:351
 msgid "Preferences"
 msgstr ""
 
-#: linux/src/views/main_window.rs:73 linux/src/views/main_window.rs:347
+#: linux/src/views/main_window.rs:81 linux/src/views/main_window.rs:355
 msgid "Keyboard Shortcuts"
 msgstr ""
 
-#: linux/src/views/main_window.rs:77 linux/src/views/main_window.rs:351
+#: linux/src/views/main_window.rs:85 linux/src/views/main_window.rs:359
 #: macos/src/controls/main_menu.rs:119
 msgid "About Application"
 msgstr ""
 
-#: linux/src/views/main_window.rs:83 macos/src/controls/main_menu.rs:115
+#: linux/src/views/main_window.rs:91 macos/src/controls/main_menu.rs:115
 #: macos/src/views/main_window.rs:100
 msgid "Application"
 msgstr ""
 
-#: linux/src/views/main_window.rs:90 linux/src/views/main_window.rs:123
+#: linux/src/views/main_window.rs:98 linux/src/views/main_window.rs:131
 msgid "Open Folder (Ctrl+O)"
 msgstr ""
 
-#: linux/src/views/main_window.rs:93 linux/src/views/main_window.rs:125
+#: linux/src/views/main_window.rs:101 linux/src/views/main_window.rs:133
 msgid "Open"
 msgstr ""
 
-#: linux/src/views/main_window.rs:102
+#: linux/src/views/main_window.rs:110
 msgid "Close Folder (Ctrl+W)"
 msgstr ""
 
-#: linux/src/views/main_window.rs:110
+#: linux/src/views/main_window.rs:118
 msgid "Main Menu"
 msgstr ""
 
-#: linux/src/views/main_window.rs:245 macos/src/controls/main_menu.rs:62
+#: linux/src/views/main_window.rs:253 macos/src/controls/main_menu.rs:62
 msgid "translation-credits"
 msgstr ""
 
-#: linux/src/views/main_window.rs:246
+#: linux/src/views/main_window.rs:254
 msgid "GitHub Repo"
 msgstr ""
 
-#: linux/src/views/main_window.rs:267
+#: linux/src/views/main_window.rs:275
 msgid "Folder closed"
 msgstr ""
 
-#: linux/src/views/main_window.rs:275 linux/src/views/main_window.rs:360
+#: linux/src/views/main_window.rs:283 linux/src/views/main_window.rs:368
 #: macos/src/controls/main_menu.rs:201
 msgid "Open Folder"
 msgstr ""
 
-#: linux/src/views/main_window.rs:295 macos/src/views/main_window.rs:196
+#: linux/src/views/main_window.rs:303 macos/src/views/main_window.rs:196
 msgid "Unable to open folder: {0}"
 msgstr ""
 
-#: linux/src/views/main_window.rs:318
+#: linux/src/views/main_window.rs:326
 msgid "{0} file"
 msgid_plural "{0} files"
 msgstr[0] ""
 msgstr[1] ""
 
-#: linux/src/views/main_window.rs:341
+#: linux/src/views/main_window.rs:349
 msgid "App"
 msgstr ""
 
-#: linux/src/views/main_window.rs:355
+#: linux/src/views/main_window.rs:363
 msgid "Quit"
 msgstr ""
 
-#: linux/src/views/main_window.rs:358
+#: linux/src/views/main_window.rs:366
 msgid "Folder"
 msgstr ""
 
-#: linux/src/views/main_window.rs:364 macos/src/controls/main_menu.rs:206
+#: linux/src/views/main_window.rs:372 macos/src/controls/main_menu.rs:206
 msgid "Close Folder"
 msgstr ""
 
@@ -266,33 +288,32 @@ msgstr ""
 msgid "Unable to install the update: {0}"
 msgstr ""
 
-#: macos/src/views/settings_dialog.rs:43 macos/src/views/settings_dialog.rs:116
-#: macos/src/views/settings_dialog.rs:179
-msgid "General"
-msgstr ""
-
-#: macos/src/views/settings_dialog.rs:45 macos/src/views/settings_dialog.rs:118
+#: macos/src/views/settings_dialog.rs:47 macos/src/views/settings_dialog.rs:104
 msgid "Advanced"
 msgstr ""
 
-#: macos/src/views/settings_dialog.rs:189
+#: macos/src/views/settings_dialog.rs:176
 msgid "Theme:"
 msgstr ""
 
-#: macos/src/views/settings_dialog.rs:194
+#: macos/src/views/settings_dialog.rs:181
 msgid "Light"
 msgstr ""
 
-#: macos/src/views/settings_dialog.rs:196
+#: macos/src/views/settings_dialog.rs:183
 msgid "Dark"
 msgstr ""
 
-#: macos/src/views/settings_dialog.rs:198
+#: macos/src/views/settings_dialog.rs:185
 msgid "System"
 msgstr ""
 
-#: macos/src/views/settings_dialog.rs:205
+#: macos/src/views/settings_dialog.rs:193
 msgid "Translation Language:"
+msgstr ""
+
+#: macos/src/views/settings_dialog.rs:242
+msgid "Allow Preview Updates"
 msgstr ""
 
 #: shared/src/state.rs:41
