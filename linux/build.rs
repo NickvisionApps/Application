@@ -1,3 +1,5 @@
+const ID: &str = "org.nickvision.application";
+
 fn main() {
     glib_build_tools::compile_resources(
         &["../resources/linux"],
