@@ -43,7 +43,7 @@ The recommended method is to use the flatpak available on Flathub.
 
 However, you can also build a flatpak of the app manually using the [flatpak manifest file](flatpak/org.nickvision.application.json).
 
-You can also install the application locally from source using the [linux install script](resources/linux/publish-and-install.sh).
+You can also install the application locally from source using the [linux install script](resources/linux/install.sh).
 
 ## Code of Conduct
 

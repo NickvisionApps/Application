@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-06 01:29+0200\n"
+"POT-Creation-Date: 2026-08-06 02:02+0200\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -18,86 +18,86 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: linux/src/views/main_window.rs:77 linux/src/views/main_window.rs:351
+#: linux/src/views/main_window.rs:90 linux/src/views/main_window.rs:364
 #: linux/src/views/settings_dialog.rs:152
 msgid "Preferences"
 msgstr "Параметры"
 
-#: linux/src/views/main_window.rs:81 linux/src/views/main_window.rs:355
+#: linux/src/views/main_window.rs:94 linux/src/views/main_window.rs:368
 msgid "Keyboard Shortcuts"
 msgstr "Комбинации клавиш"
 
-#: linux/src/views/main_window.rs:85 linux/src/views/main_window.rs:359
+#: linux/src/views/main_window.rs:98 linux/src/views/main_window.rs:372
 #: macos/src/controls/main_menu.rs:119
 msgid "About Application"
 msgstr "О приложении"
 
-#: linux/src/views/main_window.rs:91 macos/src/controls/main_menu.rs:115
+#: linux/src/views/main_window.rs:104 macos/src/controls/main_menu.rs:115
 #: macos/src/views/main_window.rs:100
 msgid "Application"
 msgstr "Application"
 
-#: linux/src/views/main_window.rs:98 linux/src/views/main_window.rs:131
+#: linux/src/views/main_window.rs:111 linux/src/views/main_window.rs:144
 msgid "Open Folder (Ctrl+O)"
 msgstr "Открыть папку (Ctrl+O)"
 
-#: linux/src/views/main_window.rs:101 linux/src/views/main_window.rs:133
+#: linux/src/views/main_window.rs:114 linux/src/views/main_window.rs:146
 msgid "Open"
 msgstr "Открыть"
 
-#: linux/src/views/main_window.rs:110
+#: linux/src/views/main_window.rs:123
 #, fuzzy
 msgid "Close Folder (Ctrl+W)"
 msgstr "Закрыть папку (Ctrl+W)"
 
-#: linux/src/views/main_window.rs:118
+#: linux/src/views/main_window.rs:131
 msgid "Main Menu"
 msgstr "Главное меню"
 
-#: linux/src/views/main_window.rs:253 macos/src/controls/main_menu.rs:62
+#: linux/src/views/main_window.rs:266 macos/src/controls/main_menu.rs:62
 #, fuzzy
 msgid "translation-credits"
 msgstr "Фёдор Соболев https://github.com/fsobolev"
 
-#: linux/src/views/main_window.rs:254
+#: linux/src/views/main_window.rs:267
 msgid "GitHub Repo"
 msgstr "Репозиторий GitHub"
 
-#: linux/src/views/main_window.rs:275
+#: linux/src/views/main_window.rs:288
 #, fuzzy
 msgid "Folder closed"
 msgstr "Папка закрыта."
 
-#: linux/src/views/main_window.rs:283 linux/src/views/main_window.rs:368
+#: linux/src/views/main_window.rs:296 linux/src/views/main_window.rs:381
 #: macos/src/controls/main_menu.rs:201
 msgid "Open Folder"
 msgstr "Открыть Папку"
 
-#: linux/src/views/main_window.rs:303 macos/src/views/main_window.rs:196
+#: linux/src/views/main_window.rs:316 macos/src/views/main_window.rs:196
 msgid "Unable to open folder: {0}"
 msgstr ""
 
-#: linux/src/views/main_window.rs:326
+#: linux/src/views/main_window.rs:339
 msgid "{0} file"
 msgid_plural "{0} files"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: linux/src/views/main_window.rs:349
+#: linux/src/views/main_window.rs:362
 msgid "App"
 msgstr ""
 
-#: linux/src/views/main_window.rs:363
+#: linux/src/views/main_window.rs:376
 msgid "Quit"
 msgstr "Выход"
 
-#: linux/src/views/main_window.rs:366
+#: linux/src/views/main_window.rs:379
 #, fuzzy
 msgid "Folder"
 msgstr "Папка"
 
-#: linux/src/views/main_window.rs:372 macos/src/controls/main_menu.rs:206
+#: linux/src/views/main_window.rs:385 macos/src/controls/main_menu.rs:206
 msgid "Close Folder"
 msgstr "Закрыть папку"
 
@@ -355,6 +355,10 @@ msgstr "Добрый день!"
 msgid "Good Evening!"
 msgstr "Добрый вечер!"
 
+#, fuzzy
+#~ msgid "Open a folder to get started"
+#~ msgstr "Откройте или перетащите папку, чтобы начать."
+
 #~ msgid "Good Day!"
 #~ msgstr "Здравствуйте!"
 
@@ -446,10 +450,6 @@ msgstr "Добрый вечер!"
 #, fuzzy
 #~ msgid "Notifications"
 #~ msgstr "О приложении"
-
-#, fuzzy
-#~ msgid "Open a folder to get started"
-#~ msgstr "Откройте или перетащите папку, чтобы начать."
 
 #~ msgid "No Folder Opened"
 #~ msgstr "Папка не открыта"
