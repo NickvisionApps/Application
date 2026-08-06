@@ -10,8 +10,8 @@ use gtk::{Align, ArrowType, Button, FileDialog, License, MenuButton};
 use markdown::to_html;
 use shared::{
     APP_ARTISTS, APP_CHANGELOG, APP_DESCRIPTION, APP_DESIGNERS, APP_DEVELOPERS, APP_DISCUSSION_URL,
-    APP_ENGLISH_SHORT_NAME, APP_ID, APP_ISSUES_URL, APP_REPO_URL, AppState, app_version,
-    debugging_information,
+    APP_ENGLISH_SHORT_NAME, APP_ID, APP_ISSUES_URL, APP_REPO_URL, AppState, WindowGeometry,
+    app_version, debugging_information,
 };
 use std::{
     cell::{OnceCell, RefCell},
@@ -42,11 +42,24 @@ mod imp {
 
     impl WindowImpl for MainWindowImpl {
         fn close_request(&self) -> Propagation {
-            if self.state.get().unwrap().borrow().can_close() {
-                Propagation::Proceed
-            } else {
-                Propagation::Stop
+            let mut state_ref = self.state.get().unwrap().borrow_mut();
+            if !state_ref.can_close() {
+                return Propagation::Stop;
             }
+            let configuration = state_ref.configuration_mut();
+            if self.obj().is_maximized() {
+                configuration
+                    .set_window_geometry(WindowGeometry::builder().is_maximized(true).build());
+            } else {
+                configuration.set_window_geometry(
+                    WindowGeometry::builder()
+                        .width(self.obj().default_width() as u64)
+                        .height(self.obj().default_height() as u64)
+                        .build(),
+                );
+            }
+            configuration.save().unwrap();
+            Propagation::Proceed
         }
     }
 

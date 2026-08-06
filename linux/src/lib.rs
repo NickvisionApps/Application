@@ -8,7 +8,7 @@ use std::{cell::RefCell, rc::Rc};
 
 pub fn run() -> ExitCode {
     let state = Rc::new(RefCell::new(AppState::default()));
-    gio::resources_register_include!("compiled.gresource").unwrap();
+    gio::resources_register_include!("org.nickvision.application.gresource").unwrap();
     let app: Application = Application::builder().application_id(APP_ID).build();
     app.connect_startup(clone!(
         #[strong]
