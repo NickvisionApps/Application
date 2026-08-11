@@ -1,4 +1,3 @@
-use objc2::ffi::NSInteger;
 use objc2::rc::Retained;
 use objc2::runtime::{AnyObject, ProtocolObject};
 use objc2::{ClassType, DefinedClass, MainThreadOnly, define_class, msg_send, sel};
@@ -11,7 +10,8 @@ use objc2_app_kit::{
     NSWindowStyleMask, NSWindowToolbarStyle,
 };
 use objc2_foundation::{
-    MainThreadMarker, NSArray, NSObjectProtocol, NSPoint, NSRect, NSSize, NSString, ns_string,
+    MainThreadMarker, NSArray, NSNotification, NSObjectProtocol, NSPoint, NSRect, NSSize, NSString,
+    ns_string,
 };
 use shared::{AppState, ApplicationTheme, Translator};
 use std::cell::{OnceCell, RefCell};
@@ -69,7 +69,7 @@ define_class!(
         #[unsafe(method_id(toolbarDefaultItemIdentifiers:))]
         fn toolbar_default_item_identifiers(
             &self,
-            toolbar: &NSToolbar,
+            _toolbar: &NSToolbar,
         ) -> Retained<NSArray<NSToolbarItemIdentifier>> {
             NSArray::from_retained_slice(&[NSString::from_str("General"), NSString::from_str("Advanced")])
         }
@@ -77,7 +77,7 @@ define_class!(
         #[unsafe(method_id(toolbarAllowedItemIdentifiers:))]
         fn toolbar_allowed_item_identifiers(
             &self,
-            toolbar: &NSToolbar,
+            _toolbar: &NSToolbar,
         ) -> Retained<NSArray<NSToolbarItemIdentifier>> {
             NSArray::from_retained_slice(&[NSString::from_str("General"), NSString::from_str("Advanced")])
         }
@@ -85,7 +85,7 @@ define_class!(
         #[unsafe(method_id(toolbarSelectableItemIdentifiers:))]
         fn toolbar_selectable_item_identifiers(
             &self,
-            toolbar: &NSToolbar,
+            _toolbar: &NSToolbar,
         ) -> Retained<NSArray<NSToolbarItemIdentifier>> {
             NSArray::from_retained_slice(&[NSString::from_str("General"), NSString::from_str("Advanced")])
         }
@@ -120,7 +120,7 @@ define_class!(
 
     unsafe impl NSWindowDelegate for SettingsDialog {
         #[unsafe(method(windowWillClose:))]
-        fn window_will_close(&self, _sender: &NSWindow) {
+        fn window_will_close(&self, _notification: &NSNotification) {
             let state_ref = self.ivars().state.borrow();
             state_ref.configuration().save().unwrap();
         }
@@ -205,7 +205,7 @@ impl SettingsDialog {
                 ApplicationTheme::ALL
                     .iter()
                     .position(|theme| theme == state_ref.configuration().theme())
-                    .unwrap_or(0) as NSInteger,
+                    .unwrap_or(0) as isize,
             );
             let language_label = NSTextField::labelWithString(
                 &NSString::from_str(&state_ref.translator()._g("Translation Language:")),
@@ -232,7 +232,7 @@ impl SettingsDialog {
                 Translator::available_languages()
                     .iter()
                     .position(|language| language == state_ref.translator().language())
-                    .unwrap_or(0) as NSInteger,
+                    .unwrap_or(0) as isize,
             );
             let restart_notice_label = NSTextField::wrappingLabelWithString(
                 &NSString::from_str(

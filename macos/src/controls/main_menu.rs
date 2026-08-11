@@ -2,7 +2,7 @@ use crate::views::{MainWindow, SettingsDialog};
 use objc2::rc::Retained;
 use objc2::runtime::AnyObject;
 use objc2::{
-    ClassType, DeclaredClass, MainThreadMarker, MainThreadOnly, define_class, msg_send, sel,
+    ClassType, DefinedClass, MainThreadMarker, MainThreadOnly, define_class, msg_send, sel,
 };
 use objc2_app_kit::{NSAlert, NSApplication, NSEventModifierFlags, NSImage, NSMenu, NSMenuItem};
 use objc2_foundation::{NSObjectProtocol, NSString, ns_string};
@@ -10,14 +10,14 @@ use shared::{
     APP_CHANGELOG, APP_DESCRIPTION, AppState, app_artist_names, app_designer_names,
     app_developer_names, debugging_information,
 };
-use std::cell::RefCell;
+use std::cell::{OnceCell, RefCell};
 use std::rc::Rc;
 
 #[derive(Debug)]
 pub struct MainMenuState {
     state: Rc<RefCell<AppState>>,
     window: Retained<MainWindow>,
-    settings_dialog: RefCell<Option<Retained<SettingsDialog>>>,
+    settings_dialog: OnceCell<Retained<SettingsDialog>>,
 }
 
 define_class!(
@@ -80,9 +80,9 @@ define_class!(
 
         #[unsafe(method(showSettings:))]
         fn show_settings(&self, _sender: Option<&AnyObject>) {
-            let dialog = SettingsDialog::new(self.mtm(), Rc::clone(&self.ivars().state));
-            dialog.show();
-            *self.ivars().settings_dialog.borrow_mut() = Some(dialog);
+            self.ivars().settings_dialog.get_or_init(|| {
+                SettingsDialog::new(self.mtm(), Rc::clone(&self.ivars().state))
+            }).show();
         }
     }
 
@@ -94,7 +94,7 @@ impl MainMenuState {
         MainMenuState {
             state,
             window,
-            settings_dialog: RefCell::new(None),
+            settings_dialog: OnceCell::default(),
         }
     }
 }

@@ -31,12 +31,12 @@ define_class!(
 
     unsafe impl NSWindowDelegate for MainWindow {
         #[unsafe(method(windowShouldClose:))]
-        fn should_close(&self, _sender: &NSWindow) -> bool {
+        fn window_should_close(&self, _sender: &NSWindow) -> bool {
             self.ivars().state.borrow().can_close()
         }
 
         #[unsafe(method(windowWillClose:))]
-        fn will_close(&self, _notification: &NSNotification) {
+        fn window_will_close(&self, _notification: &NSNotification) {
             let mut state_ref = self.ivars().state.borrow_mut();
             let configuration = state_ref.configuration_mut();
             let window = self.window().unwrap();
@@ -142,8 +142,8 @@ impl MainWindow {
                 if alert.runModal() == NSAlertFirstButtonReturn && version.is_some() {
                     tokio::spawn(async move {
                         if let Err(error) = updater
-                            .install_update(move |downloaded, total| {
-                                dispatch2::run_on_main(move |mtm| {
+                            .install_update(move |_downloaded, _total| {
+                                dispatch2::run_on_main(move |_mtm| {
                                     //TODO: Update UI with progress
                                 });
                             })
