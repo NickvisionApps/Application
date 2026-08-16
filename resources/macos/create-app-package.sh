@@ -28,7 +28,7 @@ MINIMUM_MACOS_VERSION="14.0"
 COPYRIGHT="Copyright © 2021-2026 Nickvision. All rights reserved."
 ICON_PNG="${REPO_ROOT}/resources/${APP_ID}.png"
 
-PROFILE="${1:-debug}"
+PROFILE="${1:-release}"
 if [[ "${PROFILE}" != "debug" && "${PROFILE}" != "release" ]]; then
     error "Usage: $0 [debug|release]"
 fi
