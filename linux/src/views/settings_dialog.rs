@@ -4,7 +4,7 @@ use adw::{
 };
 use glib::{Object, clone};
 use gtk::{Image, StringList};
-use shared::{AppState, ApplicationTheme, Translator};
+use shared::{AppController, ApplicationTheme, Translator};
 use std::{
     cell::{OnceCell, RefCell},
     rc::Rc,
@@ -15,7 +15,7 @@ mod imp {
 
     #[derive(Default)]
     pub struct SettingsDialogImpl {
-        pub(super) state: OnceCell<Rc<RefCell<AppState>>>,
+        pub(super) controller: OnceCell<Rc<RefCell<AppController>>>,
         pub(super) theme_row: OnceCell<ComboRow>,
         pub(super) language_row: OnceCell<ComboRow>,
         pub(super) preview_updates_row: OnceCell<SwitchRow>,
@@ -34,8 +34,7 @@ mod imp {
 
     impl AdwDialogImpl for SettingsDialogImpl {
         fn closed(&self) {
-            let state_ref = self.state.get().unwrap().borrow();
-            state_ref.configuration().save().unwrap();
+            self.controller.get().unwrap().borrow().save().unwrap();
         }
     }
 
@@ -49,26 +48,26 @@ glib::wrapper! {
 }
 
 impl SettingsDialog {
-    pub fn new(state: Rc<RefCell<AppState>>) -> Self {
+    pub fn new(controller: Rc<RefCell<AppController>>) -> Self {
         let this: Self = Object::builder().build();
-        this.imp().state.set(state).unwrap();
+        this.imp().controller.set(controller).unwrap();
         this.setup_ui();
         this
     }
 
     fn setup_ui(&self) {
-        let state_ref = self.imp().state.get().unwrap().borrow();
+        let controller = self.imp().controller.get().unwrap().borrow();
         let theme_row = ComboRow::builder()
-            .title(state_ref.translator()._g("Theme"))
+            .title(controller.translator()._g("Theme"))
             .model(&StringList::new(&[
-                &state_ref.translator()._g("Light"),
-                &state_ref.translator()._g("Dark"),
-                &state_ref.translator()._g("System"),
+                &controller.translator()._g("Light"),
+                &controller.translator()._g("Dark"),
+                &controller.translator()._g("System"),
             ]))
             .selected(
                 ApplicationTheme::ALL
                     .iter()
-                    .position(|theme| theme == state_ref.configuration().theme())
+                    .position(|theme| theme == controller.theme())
                     .unwrap_or(0) as u32,
             )
             .build();
@@ -81,9 +80,9 @@ impl SettingsDialog {
             }
         ));
         let language_row = ComboRow::builder()
-            .title(state_ref.translator()._g("Translation Language"))
+            .title(controller.translator()._g("Translation Language"))
             .subtitle(
-                state_ref
+                controller
                     .translator()
                     ._g("An application restart is required for change to take effect"),
             )
@@ -96,7 +95,7 @@ impl SettingsDialog {
             .selected(
                 Translator::available_languages()
                     .iter()
-                    .position(|language| language == state_ref.translator().language())
+                    .position(|language| language == controller.translator().language())
                     .unwrap_or(0) as u32,
             )
             .build();
@@ -109,18 +108,18 @@ impl SettingsDialog {
             }
         ));
         let user_interface_group = PreferencesGroup::builder()
-            .title(state_ref.translator()._g("User Interface"))
+            .title(controller.translator()._g("User Interface"))
             .build();
         user_interface_group.add(&theme_row);
         user_interface_group.add(&language_row);
         let general_page = PreferencesPage::builder()
-            .title(state_ref.translator()._g("General"))
+            .title(controller.translator()._g("General"))
             .icon_name("settings-symbolic")
             .build();
         general_page.add(&user_interface_group);
         let preview_updates_row = SwitchRow::builder()
-            .title(state_ref.translator()._g("Allow Preview Updates"))
-            .active(state_ref.configuration().allow_preview_updates())
+            .title(controller.translator()._g("Allow Preview Updates"))
+            .active(controller.configuration().allow_preview_updates())
             .build();
         preview_updates_row.add_prefix(
             &Image::builder()
@@ -135,11 +134,11 @@ impl SettingsDialog {
             }
         ));
         let updates_group = PreferencesGroup::builder()
-            .title(state_ref.translator()._g("Updates"))
+            .title(controller.translator()._g("Updates"))
             .build();
         updates_group.add(&preview_updates_row);
         let advanced_page = PreferencesPage::builder()
-            .title(state_ref.translator()._g("Advanced"))
+            .title(controller.translator()._g("Advanced"))
             .icon_name("wrench-wide-symbolic")
             .build();
         advanced_page.add(&updates_group);
@@ -149,7 +148,7 @@ impl SettingsDialog {
             .preview_updates_row
             .set(preview_updates_row)
             .unwrap();
-        self.set_title(&state_ref.translator()._g("Preferences"));
+        self.set_title(&controller.translator()._g("Preferences"));
         self.set_content_width(600);
         self.set_content_height(600);
         self.set_search_enabled(true);
@@ -167,16 +166,15 @@ impl SettingsDialog {
             ApplicationTheme::Dark => ColorScheme::ForceDark,
             ApplicationTheme::System => ColorScheme::Default,
         });
-        let mut state_ref = self.imp().state.get().unwrap().borrow_mut();
-        let configuration = state_ref.configuration_mut();
-        configuration.set_theme(theme);
-        configuration.set_translation_language(
+        let mut controller = self.imp().controller.get().unwrap().borrow_mut();
+        controller.set_theme(theme);
+        controller.set_translation_language(
             Translator::available_languages()
                 .get(self.imp().language_row.get().unwrap().selected() as usize)
                 .cloned()
                 .unwrap_or_default(),
         );
-        configuration
+        controller
             .set_allow_preview_updates(self.imp().preview_updates_row.get().unwrap().is_active());
     }
 }

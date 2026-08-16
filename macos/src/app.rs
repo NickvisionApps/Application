@@ -7,13 +7,13 @@ use objc2_app_kit::{
     NSApplicationActivationPolicy, NSApplicationDelegate, NSApplicationTerminateReply,
 };
 use objc2_foundation::{MainThreadMarker, NSNotification, NSObject, NSObjectProtocol};
-use shared::{AppState, ApplicationTheme};
+use shared::{AppController, ApplicationTheme};
 use std::cell::{OnceCell, RefCell};
 use std::rc::Rc;
 
 #[derive(Debug, Default)]
 pub struct DelegateState {
-    state: Rc<RefCell<AppState>>,
+    controller: Rc<RefCell<AppController>>,
     main_menu: OnceCell<Retained<MainMenu>>,
     window: OnceCell<Retained<MainWindow>>,
 }
@@ -35,8 +35,7 @@ define_class!(
                 .unwrap()
                 .downcast::<NSApplication>()
                 .unwrap();
-            let state_ref = self.ivars().state.borrow();
-            let theme = match state_ref.configuration().theme() {
+            let theme = match self.ivars().controller.borrow().theme() {
                 ApplicationTheme::Light => unsafe {
                     NSAppearance::appearanceNamed(NSAppearanceNameAqua)
                 },
@@ -45,13 +44,13 @@ define_class!(
                 },
                 ApplicationTheme::System => None,
             };
-            let window = MainWindow::new(self.mtm(), Rc::clone(&self.ivars().state));
+            let window = MainWindow::new(self.mtm(), self.ivars().controller.clone());
             self.ivars()
                 .main_menu
                 .set(MainMenu::new(
                     self.mtm(),
-                    Rc::clone(&self.ivars().state),
-                    Retained::clone(&window),
+                    self.ivars().controller.clone(),
+                    window.clone(),
                 ))
                 .unwrap();
             self.ivars().window.set(window).unwrap();
@@ -64,7 +63,7 @@ define_class!(
 
         #[unsafe(method(applicationShouldTerminate:))]
         fn should_terminate(&self, _sender: &NSApplication) -> NSApplicationTerminateReply {
-            if self.ivars().state.borrow().can_close() {
+            if self.ivars().controller.borrow().can_close() {
                 if let Some(window) = self.ivars().window.get() {
                     window.close();
                 }

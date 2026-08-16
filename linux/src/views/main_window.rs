@@ -10,7 +10,7 @@ use gtk::{Align, ArrowType, Button, FileDialog, License, MenuButton};
 use markdown::to_html;
 use shared::{
     APP_ARTISTS, APP_CHANGELOG, APP_DESCRIPTION, APP_DESIGNERS, APP_DEVELOPERS, APP_DISCUSSION_URL,
-    APP_ENGLISH_SHORT_NAME, APP_ID, APP_ISSUES_URL, APP_REPO_URL, AppState, WindowGeometry,
+    APP_ENGLISH_SHORT_NAME, APP_ID, APP_ISSUES_URL, APP_REPO_URL, AppController, WindowGeometry,
     app_version, debugging_information,
 };
 use std::{
@@ -23,7 +23,7 @@ mod imp {
 
     #[derive(Default)]
     pub struct MainWindowImpl {
-        pub(super) state: OnceCell<Rc<RefCell<AppState>>>,
+        pub(super) controller: OnceCell<Rc<RefCell<AppController>>>,
         pub(super) toast_overlay: OnceCell<ToastOverlay>,
         pub(super) view_stack: OnceCell<ViewStack>,
         pub(super) folder_page: OnceCell<StatusPage>,
@@ -42,11 +42,11 @@ mod imp {
 
     impl WindowImpl for MainWindowImpl {
         fn close_request(&self) -> Propagation {
-            let mut state_ref = self.state.get().unwrap().borrow_mut();
-            if !state_ref.can_close() {
+            let mut controller = self.controller.get().unwrap().borrow_mut();
+            if !controller.can_close() {
                 return Propagation::Stop;
             }
-            let configuration = state_ref.configuration_mut();
+            let configuration = controller.configuration_mut();
             if self.obj().is_maximized() {
                 configuration
                     .set_window_geometry(WindowGeometry::builder().is_maximized(true).build());
@@ -75,43 +75,43 @@ glib::wrapper! {
 }
 
 impl MainWindow {
-    pub fn new(app: &Application, state: Rc<RefCell<AppState>>) -> Self {
+    pub fn new(app: &Application, controller: Rc<RefCell<AppController>>) -> Self {
         let this: Self = Object::builder().property("application", app).build();
-        this.imp().state.set(state).unwrap();
+        this.imp().controller.set(controller).unwrap();
         this.setup_ui();
         this
     }
 
     fn setup_ui(&self) {
-        let state_ref = self.imp().state.get().unwrap().borrow();
-        let geometry = state_ref.configuration().window_geometry();
+        let controller = self.imp().controller.get().unwrap().borrow();
+        let geometry = controller.configuration().window_geometry();
         let main_menu = Menu::new();
         main_menu.append(
-            Some(&state_ref.translator()._g("Preferences")),
+            Some(&controller.translator()._g("Preferences")),
             Some("win.preferences"),
         );
         main_menu.append(
-            Some(&state_ref.translator()._g("Keyboard Shortcuts")),
+            Some(&controller.translator()._g("Keyboard Shortcuts")),
             Some("win.shortcuts"),
         );
         main_menu.append(
-            Some(&state_ref.translator()._g("About Application")),
+            Some(&controller.translator()._g("About Application")),
             Some("win.about"),
         );
         let header_bar = HeaderBar::builder()
             .title_widget(
                 &WindowTitle::builder()
-                    .title(state_ref.translator()._g("Application"))
+                    .title(controller.translator()._g("Application"))
                     .build(),
             )
             .build();
         header_bar.pack_start(
             &Button::builder()
                 .action_name("win.open_folder")
-                .tooltip_text(state_ref.translator()._g("Open Folder (Ctrl+O)"))
+                .tooltip_text(controller.translator()._g("Open Folder (Ctrl+O)"))
                 .child(
                     &ButtonContent::builder()
-                        .label(state_ref.translator()._g("Open"))
+                        .label(controller.translator()._g("Open"))
                         .icon_name("folder-open-symbolic")
                         .build(),
                 )
@@ -120,7 +120,7 @@ impl MainWindow {
         header_bar.pack_start(
             &Button::builder()
                 .action_name("win.close_folder")
-                .tooltip_text(state_ref.translator()._g("Close Folder (Ctrl+W)"))
+                .tooltip_text(controller.translator()._g("Close Folder (Ctrl+W)"))
                 .icon_name("window-close-symbolic")
                 .build(),
         );
@@ -128,35 +128,33 @@ impl MainWindow {
             &MenuButton::builder()
                 .primary(true)
                 .direction(ArrowType::None)
-                .tooltip_text(state_ref.translator()._g("Main Menu"))
+                .tooltip_text(controller.translator()._g("Main Menu"))
                 .menu_model(&main_menu)
                 .build(),
         );
         let view_stack = ViewStack::new();
-        let home_page = view_stack.add(
+        view_stack.add_named(
             &StatusPage::builder()
                 .icon_name("org.nickvision.application")
-                .title(state_ref.greeting())
+                .title(controller.greeting())
                 .description("Open a folder to get started")
                 .child(
                     &Button::builder()
                         .action_name("win.open_folder")
-                        .tooltip_text(state_ref.translator()._g("Open Folder (Ctrl+O)"))
+                        .tooltip_text(controller.translator()._g("Open Folder (Ctrl+O)"))
                         .halign(Align::Center)
-                        .label(state_ref.translator()._g("Open"))
+                        .label(controller.translator()._g("Open"))
                         .css_classes(["pill", "suggested-action"])
                         .build(),
                 )
                 .build(),
+            Some("home"),
         );
-        home_page.set_name(Some("home"));
-        let folder_page = view_stack.add(
-            &StatusPage::builder()
-                .icon_name("folder-documents-symbolic")
-                .css_classes(["compact"])
-                .build(),
-        );
-        folder_page.set_name(Some("folder"));
+        let folder_page = StatusPage::builder()
+            .icon_name("folder-documents-symbolic")
+            .css_classes(["compact"])
+            .build();
+        view_stack.add_named(&folder_page, Some("folder"));
         let toast_overlay = ToastOverlay::new();
         toast_overlay.set_hexpand(true);
         toast_overlay.set_vexpand(true);
@@ -196,10 +194,7 @@ impl MainWindow {
             .build();
         self.imp().toast_overlay.set(toast_overlay).unwrap();
         self.imp().view_stack.set(view_stack).unwrap();
-        self.imp()
-            .folder_page
-            .set(folder_page.child().downcast::<StatusPage>().unwrap())
-            .unwrap();
+        self.imp().folder_page.set(folder_page).unwrap();
         self.set_size_request(360, 200);
         self.set_default_size(geometry.width() as i32, geometry.height() as i32);
         self.set_content(Some(&toolbar_view));
@@ -232,7 +227,7 @@ impl MainWindow {
     }
 
     fn about(&self) {
-        let state_ref = self.imp().state.get().unwrap().borrow();
+        let controller = self.imp().controller.get().unwrap().borrow();
         let about_dialog = AboutDialog::builder()
             .application_name(APP_ENGLISH_SHORT_NAME)
             .application_icon(if app_version().pre.is_empty() {
@@ -263,8 +258,8 @@ impl MainWindow {
             .iter()
             .map(|(x, y)| format!("{} {}", x, y))
             .collect();
-        let translation_credits = state_ref.translator()._g("translation-credits");
-        about_dialog.add_link(&state_ref.translator()._g("GitHub Repo"), APP_REPO_URL);
+        let translation_credits = controller.translator()._g("translation-credits");
+        about_dialog.add_link(&controller.translator()._g("GitHub Repo"), APP_REPO_URL);
         about_dialog.set_artists(&artists.iter().map(|x| x.as_str()).collect::<Vec<&str>>());
         about_dialog.set_designers(&designers.iter().map(|x| x.as_str()).collect::<Vec<&str>>());
         about_dialog.set_developers(&developers.iter().map(|x| x.as_str()).collect::<Vec<&str>>());
@@ -275,8 +270,8 @@ impl MainWindow {
     }
 
     fn close_folder(&self) {
-        let mut state_ref = self.imp().state.get().unwrap().borrow_mut();
-        state_ref.folder_browser_mut().close();
+        let mut controller = self.imp().controller.get().unwrap().borrow_mut();
+        controller.folder_browser_mut().close();
         self.imp()
             .view_stack
             .get()
@@ -285,15 +280,15 @@ impl MainWindow {
         self.imp().toast_overlay.get().unwrap().add_toast(
             Toast::builder()
                 .use_markup(false)
-                .title(state_ref.translator()._g("Folder closed"))
+                .title(controller.translator()._g("Folder closed"))
                 .build(),
         );
     }
 
     fn open_folder(&self) {
-        let state_ref = self.imp().state.get().unwrap().borrow();
+        let controller = self.imp().controller.get().unwrap().borrow();
         let file_dialog = FileDialog::builder()
-            .title(state_ref.translator()._g("Open Folder"))
+            .title(controller.translator()._g("Open Folder"))
             .build();
         file_dialog.select_folder(
             Some(self),
@@ -302,16 +297,16 @@ impl MainWindow {
                 #[strong(rename_to = window)]
                 self,
                 move |res| {
-                    let mut state_ref = window.imp().state.get().unwrap().borrow_mut();
+                    let mut controller = window.imp().controller.get().unwrap().borrow_mut();
                     if let Ok(file) = res {
                         if let Err(error) =
-                            state_ref.folder_browser_mut().open(file.path().unwrap())
+                            controller.folder_browser_mut().open(file.path().unwrap())
                         {
                             window.imp().toast_overlay.get().unwrap().add_toast(
                                 Toast::builder()
                                     .use_markup(false)
                                     .title(
-                                        state_ref
+                                        controller
                                             .translator()
                                             ._f("Unable to open folder: {0}", &[error.to_string()]),
                                     )
@@ -329,17 +324,17 @@ impl MainWindow {
                                 .folder_page
                                 .get()
                                 .unwrap()
-                                .set_title(state_ref.folder_browser().path().to_str().unwrap());
+                                .set_title(controller.folder_browser().path().to_str().unwrap());
                             window
                                 .imp()
                                 .folder_page
                                 .get()
                                 .unwrap()
-                                .set_description(Some(&state_ref.translator()._nf(
+                                .set_description(Some(&controller.translator()._nf(
                                     "{0} file",
                                     "{0} files",
-                                    state_ref.folder_browser().files().len() as u64,
-                                    &[state_ref.folder_browser().files().len().to_string()],
+                                    controller.folder_browser().files().len() as u64,
+                                    &[controller.folder_browser().files().len().to_string()],
                                 )))
                         }
                     }
@@ -349,7 +344,7 @@ impl MainWindow {
     }
 
     fn preferences(&self) {
-        let dialog = SettingsDialog::new(self.imp().state.get().unwrap().clone());
+        let dialog = SettingsDialog::new(self.imp().controller.get().unwrap().clone());
         dialog.present(Some(self));
     }
 
@@ -358,31 +353,31 @@ impl MainWindow {
     }
 
     fn shortcuts(&self) {
-        let state_ref = self.imp().state.get().unwrap().borrow();
-        let app_section = ShortcutsSection::new(Some(&state_ref.translator()._g("App")));
+        let controller = self.imp().controller.get().unwrap().borrow();
+        let app_section = ShortcutsSection::new(Some(&controller.translator()._g("App")));
         app_section.add(ShortcutsItem::new(
-            &state_ref.translator()._g("Preferences"),
+            &controller.translator()._g("Preferences"),
             "<Primary>comma",
         ));
         app_section.add(ShortcutsItem::new(
-            &state_ref.translator()._g("Keyboard Shortcuts"),
+            &controller.translator()._g("Keyboard Shortcuts"),
             "<Primary>question",
         ));
         app_section.add(ShortcutsItem::new(
-            &state_ref.translator()._g("About Application"),
+            &controller.translator()._g("About Application"),
             "F1",
         ));
         app_section.add(ShortcutsItem::new(
-            &state_ref.translator()._g("Quit"),
+            &controller.translator()._g("Quit"),
             "<Primary>q",
         ));
-        let folder_section = ShortcutsSection::new(Some(&state_ref.translator()._g("Folder")));
+        let folder_section = ShortcutsSection::new(Some(&controller.translator()._g("Folder")));
         folder_section.add(ShortcutsItem::new(
-            &state_ref.translator()._g("Open Folder"),
+            &controller.translator()._g("Open Folder"),
             "<Primary>o",
         ));
         folder_section.add(ShortcutsItem::new(
-            &state_ref.translator()._g("Close Folder"),
+            &controller.translator()._g("Close Folder"),
             "<Primary>w",
         ));
         let dialog = ShortcutsDialog::new();

@@ -9,13 +9,13 @@ use objc2_app_kit::{
 use objc2_foundation::{
     MainThreadMarker, NSNotification, NSObjectProtocol, NSPoint, NSRect, NSSize, NSString,
 };
-use shared::{APP_ENGLISH_SHORT_NAME, AppState, WindowGeometry};
+use shared::{APP_ENGLISH_SHORT_NAME, AppController, Updater, WindowGeometry};
 use std::cell::RefCell;
 use std::rc::Rc;
 
 #[derive(Debug)]
 pub struct MainWindowState {
-    state: Rc<RefCell<AppState>>,
+    controller: Rc<RefCell<AppController>>,
 }
 
 define_class!(
@@ -32,20 +32,19 @@ define_class!(
     unsafe impl NSWindowDelegate for MainWindow {
         #[unsafe(method(windowShouldClose:))]
         fn window_should_close(&self, _sender: &NSWindow) -> bool {
-            self.ivars().state.borrow().can_close()
+            self.ivars().controller.borrow().can_close()
         }
 
         #[unsafe(method(windowWillClose:))]
         fn window_will_close(&self, _notification: &NSNotification) {
-            let mut state_ref = self.ivars().state.borrow_mut();
-            let configuration = state_ref.configuration_mut();
+            let mut controller = self.ivars().controller.borrow_mut();
             let window = self.window().unwrap();
             if window.isZoomed() {
-                configuration
+                controller
                     .set_window_geometry(WindowGeometry::builder().is_maximized(true).build());
             } else {
                 let frame = window.frame();
-                configuration.set_window_geometry(
+                controller.set_window_geometry(
                     WindowGeometry::builder()
                         .x(frame.origin.x as i64)
                         .y(frame.origin.y as i64)
@@ -54,23 +53,23 @@ define_class!(
                         .build(),
                 );
             }
-            configuration.save().unwrap();
+            controller.save().unwrap();
         }
     }
 );
 
 impl MainWindowState {
-    pub fn new(state: Rc<RefCell<AppState>>) -> Self {
-        MainWindowState { state }
+    pub fn new(controller: Rc<RefCell<AppController>>) -> Self {
+        MainWindowState { controller }
     }
 }
 
 impl MainWindow {
-    pub fn new(mtm: MainThreadMarker, state: Rc<RefCell<AppState>>) -> Retained<Self> {
-        let this = Self::alloc(mtm).set_ivars(MainWindowState::new(state));
+    pub fn new(mtm: MainThreadMarker, controller: Rc<RefCell<AppController>>) -> Retained<Self> {
+        let this = Self::alloc(mtm).set_ivars(MainWindowState::new(controller));
         let this: Retained<Self> = unsafe { msg_send![super(this), init] };
-        let state_ref = this.ivars().state.borrow();
-        let geometry = state_ref.configuration().window_geometry();
+        let controller = this.ivars().controller.borrow();
+        let geometry = controller.window_geometry();
         let toolbar = NSToolbar::initWithIdentifier(
             NSToolbar::alloc(mtm),
             &NSString::from_str("MainToolbar"),
@@ -97,7 +96,7 @@ impl MainWindow {
         window.setDelegate(Some(ProtocolObject::from_ref(&*this)));
         unsafe { window.setReleasedWhenClosed(false) };
         window.setTitle(&NSString::from_str(
-            &state_ref.translator()._g("Application"),
+            &controller.translator()._g("Application"),
         ));
         window.setTitlebarAppearsTransparent(true);
         window.setContentMinSize(NSSize::new(600.0, 400.0));
@@ -110,15 +109,15 @@ impl MainWindow {
         if geometry.is_maximized() {
             window.setIsZoomed(true);
         }
-        drop(state_ref);
+        drop(controller);
         this.setWindow(Some(&window));
         this
     }
 
     pub fn check_for_updates(&self) {
-        let state_ref = self.ivars().state.borrow();
-        let updater = state_ref.updater();
-        let translator = state_ref.translator();
+        let controller = self.ivars().controller.borrow();
+        let updater = controller.updater().clone();
+        let translator = controller.translator().clone();
         tokio::spawn(async move {
             let version = updater.check_for_updates().await;
             dispatch2::run_on_main(move |mtm| {
@@ -167,8 +166,8 @@ impl MainWindow {
     }
 
     pub fn close_folder(&self) {
-        let mut state_ref = self.ivars().state.borrow_mut();
-        state_ref.folder_browser_mut().close();
+        let mut controller = self.ivars().controller.borrow_mut();
+        controller.folder_browser_mut().close();
         //TODO: Update UI
     }
 
@@ -178,8 +177,8 @@ impl MainWindow {
         open_panel.setCanChooseDirectories(true);
         open_panel.setAllowsMultipleSelection(false);
         if open_panel.runModal() == NSModalResponseOK {
-            let mut state_ref = self.ivars().state.borrow_mut();
-            if let Err(error) = state_ref.folder_browser_mut().open(
+            let mut controller = self.ivars().controller.borrow_mut();
+            if let Err(error) = controller.folder_browser_mut().open(
                 open_panel
                     .URLs()
                     .firstObject()
@@ -189,9 +188,9 @@ impl MainWindow {
                     .to_string(),
             ) {
                 let alert = NSAlert::new(self.mtm());
-                alert.setMessageText(&NSString::from_str(&state_ref.translator()._g("Error")));
+                alert.setMessageText(&NSString::from_str(&controller.translator()._g("Error")));
                 alert.setInformativeText(&NSString::from_str(
-                    &state_ref
+                    &controller
                         .translator()
                         ._f("Unable to open folder: {0}", &[error.to_string()]),
                 ));

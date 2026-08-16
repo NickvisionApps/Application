@@ -1,6 +1,6 @@
-use shared::AppState;
+use shared::AppController;
 
 pub fn run() {
-    let _state = AppState::new();
+    let _controller = AppController::new();
     println!("Hello, Windows!");
 }
