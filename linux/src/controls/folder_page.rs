@@ -1,7 +1,7 @@
 use adw::{StatusPage, subclass::prelude::*};
 use glib::Object;
 use gtk::{BinLayout, Widget, prelude::*};
-use shared::_nf;
+use shared::translation;
 use std::{cell::OnceCell, path::Path};
 
 mod imp {
@@ -63,7 +63,7 @@ impl FolderPage {
             .status_page
             .get()
             .unwrap()
-            .set_description(Some(&_nf(
+            .set_description(Some(&translation::_nf(
                 "{0} file",
                 "{0} files",
                 file_count,

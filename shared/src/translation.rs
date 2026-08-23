@@ -1,4 +1,4 @@
-use crate::APP_ENGLISH_SHORT_NAME;
+use crate::info;
 use gettext::Catalog;
 use std::fs::File;
 use std::sync::OnceLock;
@@ -115,11 +115,11 @@ pub fn _npf<A: AsRef<str>>(
     result
 }
 
-pub fn available_translation_languages() -> &'static Vec<String> {
+pub fn available_languages() -> &'static Vec<String> {
     static LANGUAGES: OnceLock<Vec<String>> = OnceLock::new();
     LANGUAGES.get_or_init(|| {
         let mut languages = vec!["en_US".to_string()];
-        let mo_name = format!("{}.mo", APP_ENGLISH_SHORT_NAME.to_lowercase());
+        let mo_name = format!("{}.mo", info::APP_ENGLISH_SHORT_NAME.to_lowercase());
         if let Some(current_dir) = std::env::current_exe()
             .ok()
             .and_then(|path| path.parent().map(|p| p.to_path_buf()))
@@ -141,7 +141,7 @@ pub fn available_translation_languages() -> &'static Vec<String> {
     })
 }
 
-pub fn translation_language() -> &'static str {
+pub fn language() -> &'static str {
     if let Some(language) = LANGUAGE.get() {
         language.as_str()
     } else {
@@ -149,7 +149,7 @@ pub fn translation_language() -> &'static str {
     }
 }
 
-pub fn set_translation_language(language: impl Into<String>) {
+pub fn set_language(language: impl Into<String>) {
     if LANGUAGE.get().is_some() {
         return;
     }
@@ -159,7 +159,7 @@ pub fn set_translation_language(language: impl Into<String>) {
     } else {
         language = normalize_language(&language);
     }
-    let mo_name = format!("{}.mo", APP_ENGLISH_SHORT_NAME.to_lowercase());
+    let mo_name = format!("{}.mo", info::APP_ENGLISH_SHORT_NAME.to_lowercase());
     CATALOG
         .set(
             match std::env::current_exe()

@@ -7,7 +7,7 @@ use objc2_app_kit::{
     NSApplicationActivationPolicy, NSApplicationDelegate, NSApplicationTerminateReply,
 };
 use objc2_foundation::{MainThreadMarker, NSNotification, NSObject, NSObjectProtocol};
-use shared::{AppController, ApplicationTheme};
+use shared::{config::ApplicationTheme, controller::AppController};
 use std::cell::{OnceCell, RefCell};
 use std::rc::Rc;
 

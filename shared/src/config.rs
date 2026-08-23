@@ -1,4 +1,4 @@
-use crate::{APP_NAME, is_app_portable};
+use crate::info;
 use directories::BaseDirs;
 use serde::{Deserialize, Serialize};
 use serde_repr::{Deserialize_repr, Serialize_repr};
@@ -192,7 +192,7 @@ impl Configuration {
     }
 
     fn config_path() -> Result<PathBuf, Box<dyn std::error::Error>> {
-        Ok(if is_app_portable() {
+        Ok(if info::is_app_portable() {
             std::env::current_exe()?
                 .parent()
                 .unwrap()
@@ -201,7 +201,7 @@ impl Configuration {
             BaseDirs::new()
                 .expect("Unable to load base directories")
                 .config_dir()
-                .join(APP_NAME)
+                .join(info::APP_NAME)
                 .join("config.json")
         })
     }

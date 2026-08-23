@@ -1,7 +1,7 @@
 use adw::{StatusPage, subclass::prelude::*};
 use glib::Object;
 use gtk::{Align, BinLayout, Button, Widget, prelude::*};
-use shared::_g;
+use shared::translation;
 use std::cell::OnceCell;
 mod imp {
     use super::*;
@@ -44,9 +44,9 @@ impl HomePage {
             .child(
                 &Button::builder()
                     .action_name("win.open_folder")
-                    .tooltip_text(_g("Open Folder (Ctrl+O)"))
+                    .tooltip_text(translation::_g("Open Folder (Ctrl+O)"))
                     .halign(Align::Center)
-                    .label(_g("Open"))
+                    .label(translation::_g("Open"))
                     .css_classes(["pill", "suggested-action"])
                     .build(),
             )

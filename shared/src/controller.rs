@@ -1,4 +1,4 @@
-use crate::{_g, _p, Configuration, FolderBrowser, Updater, set_translation_language};
+use crate::{config::Configuration, folder::FolderBrowser, translation, update::Updater};
 use chrono::{Local, Timelike};
 use std::ops::{Deref, DerefMut};
 
@@ -37,13 +37,13 @@ impl AppController {
     pub fn greeting(&self) -> String {
         let hours = Local::now().hour();
         if hours < 6 {
-            _p("Night", "Good Morning!")
+            translation::_p("Night", "Good Morning!")
         } else if hours < 12 {
-            _p("Morning", "Good Morning!")
+            translation::_p("Morning", "Good Morning!")
         } else if hours < 18 {
-            _g("Good Afternoon!")
+            translation::_g("Good Afternoon!")
         } else {
-            _g("Good Evening!")
+            translation::_g("Good Evening!")
         }
     }
 
@@ -57,7 +57,7 @@ impl Default for AppController {
         let configuration = Configuration::load().unwrap_or_else(|_| Configuration::default());
         let folder_browser = FolderBrowser::default();
         let updater = Updater::new(configuration.allow_preview_updates());
-        set_translation_language(configuration.translation_language());
+        translation::set_language(configuration.translation_language());
         AppController {
             configuration,
             folder_browser,

@@ -9,7 +9,7 @@ use objc2_app_kit::{
 use objc2_foundation::{
     MainThreadMarker, NSNotification, NSObjectProtocol, NSPoint, NSRect, NSSize, NSString,
 };
-use shared::{_f, _g, APP_ENGLISH_SHORT_NAME, AppController, WindowGeometry};
+use shared::{config::WindowGeometry, controller::AppController, info, translation};
 use std::{cell::RefCell, rc::Rc};
 
 #[derive(Debug)]
@@ -94,7 +94,7 @@ impl MainWindow {
         };
         window.setDelegate(Some(ProtocolObject::from_ref(&*this)));
         unsafe { window.setReleasedWhenClosed(false) };
-        window.setTitle(&NSString::from_str(&_g("Application")));
+        window.setTitle(&NSString::from_str(&translation::_g("Application")));
         window.setTitlebarAppearsTransparent(true);
         window.setContentMinSize(NSSize::new(600.0, 400.0));
         window.setToolbar(Some(&toolbar));
@@ -119,18 +119,20 @@ impl MainWindow {
             dispatch2::run_on_main(move |mtm| {
                 let alert = NSAlert::new(mtm);
                 if let Some(ref version) = version {
-                    alert.setMessageText(&NSString::from_str(&_g("Update Available")));
-                    alert.setInformativeText(&NSString::from_str(&_f(
+                    alert.setMessageText(&NSString::from_str(&translation::_g("Update Available")));
+                    alert.setInformativeText(&NSString::from_str(&translation::_f(
                         "A new update for {0} is available: {1}",
-                        &[APP_ENGLISH_SHORT_NAME, &version.to_string()],
+                        &[info::APP_ENGLISH_SHORT_NAME, &version.to_string()],
                     )));
-                    alert.addButtonWithTitle(&NSString::from_str(&_g("Update")));
-                    alert.addButtonWithTitle(&NSString::from_str(&_g("OK")));
+                    alert.addButtonWithTitle(&NSString::from_str(&translation::_g("Update")));
+                    alert.addButtonWithTitle(&NSString::from_str(&translation::_g("OK")));
                 } else {
-                    alert.setMessageText(&NSString::from_str(&_g("No Update Available")));
-                    alert.setInformativeText(&NSString::from_str(&_f(
+                    alert.setMessageText(&NSString::from_str(&translation::_g(
+                        "No Update Available",
+                    )));
+                    alert.setInformativeText(&NSString::from_str(&translation::_f(
                         "You are running the latest version of {0}.",
-                        &[APP_ENGLISH_SHORT_NAME],
+                        &[info::APP_ENGLISH_SHORT_NAME],
                     )));
                 }
                 if alert.runModal() == NSAlertFirstButtonReturn && version.is_some() {
@@ -146,8 +148,9 @@ impl MainWindow {
                             let error_msg = error.to_string();
                             dispatch2::run_on_main(move |mtm| {
                                 let alert = NSAlert::new(mtm);
-                                alert.setMessageText(&NSString::from_str(&_g("Error")));
-                                alert.setInformativeText(&NSString::from_str(&_f(
+                                alert
+                                    .setMessageText(&NSString::from_str(&translation::_g("Error")));
+                                alert.setInformativeText(&NSString::from_str(&translation::_f(
                                     "Unable to install the update: {0}",
                                     &[error_msg],
                                 )));
@@ -183,8 +186,8 @@ impl MainWindow {
                     .to_string(),
             ) {
                 let alert = NSAlert::new(self.mtm());
-                alert.setMessageText(&NSString::from_str(&_g("Error")));
-                alert.setInformativeText(&NSString::from_str(&_f(
+                alert.setMessageText(&NSString::from_str(&translation::_g("Error")));
+                alert.setInformativeText(&NSString::from_str(&translation::_f(
                     "Unable to open folder: {0}",
                     &[error.to_string()],
                 )));

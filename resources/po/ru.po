@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-23 16:36-0400\n"
+"POT-Creation-Date: 2026-08-23 16:53-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -25,146 +25,146 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: linux/src/controls/home_page.rs:47 linux/src/views/main_window.rs:100
+#: linux/src/controls/home_page.rs:47 linux/src/views/main_window.rs:109
 msgid "Open Folder (Ctrl+O)"
 msgstr "Открыть папку (Ctrl+O)"
 
-#: linux/src/controls/home_page.rs:49 linux/src/views/main_window.rs:103
+#: linux/src/controls/home_page.rs:49 linux/src/views/main_window.rs:112
 msgid "Open"
 msgstr "Открыть"
 
-#: linux/src/views/main_window.rs:91 linux/src/views/main_window.rs:309
+#: linux/src/views/main_window.rs:88 linux/src/views/main_window.rs:323
 #: linux/src/views/settings_dialog.rs:149
 msgid "Preferences"
 msgstr "Параметры"
 
-#: linux/src/views/main_window.rs:92 linux/src/views/main_window.rs:311
+#: linux/src/views/main_window.rs:92 linux/src/views/main_window.rs:327
 msgid "Keyboard Shortcuts"
 msgstr "Комбинации клавиш"
 
-#: linux/src/views/main_window.rs:93 linux/src/views/main_window.rs:314
-#: macos/src/controls/main_menu.rs:115
+#: linux/src/views/main_window.rs:96 linux/src/views/main_window.rs:331
+#: macos/src/controls/main_menu.rs:114
 msgid "About Application"
 msgstr "О приложении"
 
-#: linux/src/views/main_window.rs:95 macos/src/controls/main_menu.rs:112
+#: linux/src/views/main_window.rs:102 macos/src/controls/main_menu.rs:110
 #: macos/src/views/main_window.rs:97
 msgid "Application"
 msgstr "Application"
 
-#: linux/src/views/main_window.rs:112
+#: linux/src/views/main_window.rs:121
 #, fuzzy
 msgid "Close Folder (Ctrl+W)"
 msgstr "Закрыть папку (Ctrl+W)"
 
-#: linux/src/views/main_window.rs:120
+#: linux/src/views/main_window.rs:129
 msgid "Main Menu"
 msgstr "Главное меню"
 
-#: linux/src/views/main_window.rs:232 macos/src/controls/main_menu.rs:62
+#: linux/src/views/main_window.rs:241 macos/src/controls/main_menu.rs:59
 #, fuzzy
 msgid "translation-credits"
 msgstr "Фёдор Соболев https://github.com/fsobolev"
 
-#: linux/src/views/main_window.rs:233
+#: linux/src/views/main_window.rs:242
 msgid "GitHub Repo"
 msgstr "Репозиторий GitHub"
 
-#: linux/src/views/main_window.rs:254
+#: linux/src/views/main_window.rs:263
 #, fuzzy
 msgid "Folder closed"
 msgstr "Папка закрыта."
 
-#: linux/src/views/main_window.rs:261 linux/src/views/main_window.rs:317
-#: macos/src/controls/main_menu.rs:192
+#: linux/src/views/main_window.rs:270 linux/src/views/main_window.rs:337
+#: macos/src/controls/main_menu.rs:196
 msgid "Open Folder"
 msgstr "Открыть Папку"
 
-#: linux/src/views/main_window.rs:277 macos/src/views/main_window.rs:188
+#: linux/src/views/main_window.rs:288 macos/src/views/main_window.rs:191
 msgid "Unable to open folder: {0}"
 msgstr ""
 
-#: linux/src/views/main_window.rs:308
+#: linux/src/views/main_window.rs:321
 msgid "App"
 msgstr ""
 
-#: linux/src/views/main_window.rs:315
+#: linux/src/views/main_window.rs:334
 msgid "Quit"
 msgstr "Выход"
 
-#: linux/src/views/main_window.rs:316
+#: linux/src/views/main_window.rs:335
 #, fuzzy
 msgid "Folder"
 msgstr "Папка"
 
-#: linux/src/views/main_window.rs:318 macos/src/controls/main_menu.rs:197
+#: linux/src/views/main_window.rs:341 macos/src/controls/main_menu.rs:201
 msgid "Close Folder"
 msgstr "Закрыть папку"
 
-#: linux/src/views/settings_dialog.rs:63
+#: linux/src/views/settings_dialog.rs:61
 #, fuzzy
 msgid "Theme"
 msgstr "Тема"
 
-#: linux/src/views/settings_dialog.rs:65 macos/src/views/settings_dialog.rs:183
+#: linux/src/views/settings_dialog.rs:63 macos/src/views/settings_dialog.rs:180
 #, fuzzy
 msgid "Light"
 msgstr "Светлая"
 
-#: linux/src/views/settings_dialog.rs:66 macos/src/views/settings_dialog.rs:188
+#: linux/src/views/settings_dialog.rs:64 macos/src/views/settings_dialog.rs:185
 #, fuzzy
 msgid "Dark"
 msgstr "Тёмная"
 
-#: linux/src/views/settings_dialog.rs:67 macos/src/views/settings_dialog.rs:193
+#: linux/src/views/settings_dialog.rs:65 macos/src/views/settings_dialog.rs:190
 #, fuzzy
 msgid "System"
 msgstr "Системная"
 
-#: linux/src/views/settings_dialog.rs:85
+#: linux/src/views/settings_dialog.rs:83
 msgid "Translation Language"
 msgstr ""
 
-#: linux/src/views/settings_dialog.rs:87 macos/src/views/settings_dialog.rs:240
+#: linux/src/views/settings_dialog.rs:85 macos/src/views/settings_dialog.rs:237
 msgid "An application restart is required for change to take effect"
 msgstr ""
 
-#: linux/src/views/settings_dialog.rs:111
+#: linux/src/views/settings_dialog.rs:109
 msgid "User Interface"
 msgstr "Интерфейс"
 
-#: linux/src/views/settings_dialog.rs:116 macos/src/views/settings_dialog.rs:49
-#: macos/src/views/settings_dialog.rs:106
-#: macos/src/views/settings_dialog.rs:170
+#: linux/src/views/settings_dialog.rs:114 macos/src/views/settings_dialog.rs:46
+#: macos/src/views/settings_dialog.rs:102
+#: macos/src/views/settings_dialog.rs:166
 msgid "General"
 msgstr ""
 
-#: linux/src/views/settings_dialog.rs:121
-#: macos/src/views/settings_dialog.rs:283
+#: linux/src/views/settings_dialog.rs:119
+#: macos/src/views/settings_dialog.rs:280
 msgid "Allow Preview Updates"
 msgstr ""
 
-#: linux/src/views/settings_dialog.rs:136
+#: linux/src/views/settings_dialog.rs:135
 msgid "Updates"
 msgstr ""
 
-#: linux/src/views/settings_dialog.rs:139 macos/src/views/settings_dialog.rs:51
-#: macos/src/views/settings_dialog.rs:108
+#: linux/src/views/settings_dialog.rs:139 macos/src/views/settings_dialog.rs:48
+#: macos/src/views/settings_dialog.rs:104
 msgid "Advanced"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:54
+#: macos/src/controls/main_menu.rs:51
 msgid ""
 "{0}\n"
 "\n"
 "What's New?"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:63 macos/src/controls/main_menu.rs:302
+#: macos/src/controls/main_menu.rs:60 macos/src/controls/main_menu.rs:317
 msgid "Credits"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:65
+#: macos/src/controls/main_menu.rs:62
 msgid ""
 "Developers:\n"
 "{0}\n"
@@ -179,7 +179,7 @@ msgid ""
 "{3}"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:67
+#: macos/src/controls/main_menu.rs:64
 msgid ""
 "Developers:\n"
 "{0}\n"
@@ -191,105 +191,105 @@ msgid ""
 "{2}"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:75 macos/src/controls/main_menu.rs:312
+#: macos/src/controls/main_menu.rs:72 macos/src/controls/main_menu.rs:327
 msgid "Debugging Information"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:120
+#: macos/src/controls/main_menu.rs:119
 msgid "Check for Updates"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:129
+#: macos/src/controls/main_menu.rs:128
 msgid "Settings\\u{2026}"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:144 macos/src/controls/main_menu.rs:150
+#: macos/src/controls/main_menu.rs:143 macos/src/controls/main_menu.rs:150
 msgid "Services"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:156
+#: macos/src/controls/main_menu.rs:157
 #, fuzzy
 msgid "Hide Application"
 msgstr "Application"
 
-#: macos/src/controls/main_menu.rs:163
+#: macos/src/controls/main_menu.rs:164
 msgid "Hide Others"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:173
+#: macos/src/controls/main_menu.rs:174
 msgid "Show All"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:181
+#: macos/src/controls/main_menu.rs:182
 #, fuzzy
 msgid "Quit Application"
 msgstr "О приложении"
 
-#: macos/src/controls/main_menu.rs:189
+#: macos/src/controls/main_menu.rs:192
 msgid "File"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:207
+#: macos/src/controls/main_menu.rs:211
 msgid "Close Window"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:215
+#: macos/src/controls/main_menu.rs:221
 msgid "Edit"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:218
+#: macos/src/controls/main_menu.rs:225
 msgid "Undo"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:223
+#: macos/src/controls/main_menu.rs:230
 msgid "Redo"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:231
+#: macos/src/controls/main_menu.rs:238
 msgid "Cut"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:236
+#: macos/src/controls/main_menu.rs:243
 msgid "Copy"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:241
+#: macos/src/controls/main_menu.rs:248
 msgid "Paste"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:246
+#: macos/src/controls/main_menu.rs:253
 msgid "Select All"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:254
+#: macos/src/controls/main_menu.rs:263
 msgid "View"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:257
+#: macos/src/controls/main_menu.rs:267
 msgid "Enter Full Screen"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:269
+#: macos/src/controls/main_menu.rs:280
 msgid "Window"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:272
+#: macos/src/controls/main_menu.rs:284
 msgid "Minimize"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:277
+#: macos/src/controls/main_menu.rs:289
 msgid "Zoom"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:285
+#: macos/src/controls/main_menu.rs:297
 msgid "Bring All to Front"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:294
+#: macos/src/controls/main_menu.rs:308
 msgid "Help"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:297
+#: macos/src/controls/main_menu.rs:312
 msgid "What's New"
 msgstr ""
 
@@ -311,29 +311,29 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: macos/src/views/main_window.rs:130
+#: macos/src/views/main_window.rs:131
 #, fuzzy
 msgid "No Update Available"
 msgstr "Application"
 
-#: macos/src/views/main_window.rs:132
+#: macos/src/views/main_window.rs:134
 msgid "You are running the latest version of {0}."
 msgstr ""
 
-#: macos/src/views/main_window.rs:149 macos/src/views/main_window.rs:186
+#: macos/src/views/main_window.rs:152 macos/src/views/main_window.rs:189
 msgid "Error"
 msgstr ""
 
-#: macos/src/views/main_window.rs:151
+#: macos/src/views/main_window.rs:154
 msgid "Unable to install the update: {0}"
 msgstr ""
 
-#: macos/src/views/settings_dialog.rs:179
+#: macos/src/views/settings_dialog.rs:176
 #, fuzzy
 msgid "Theme:"
 msgstr "Тема"
 
-#: macos/src/views/settings_dialog.rs:212
+#: macos/src/views/settings_dialog.rs:209
 msgid "Translation Language:"
 msgstr ""
 

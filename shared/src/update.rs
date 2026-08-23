@@ -1,7 +1,4 @@
-use crate::{
-    APP_NAME, APP_REPO_NAME, APP_REPO_OWNER, app_version, info::DeploymentMode,
-    info::deployment_mode,
-};
+use crate::{info, info::DeploymentMode};
 use directories::BaseDirs;
 use reup::{GitHubUpdater, UpdateProvider, UpdateType};
 use semver::Version;
@@ -48,8 +45,8 @@ impl Updater {
             updater: GitHubUpdater::new(APP_REPO_OWNER, APP_REPO_NAME, "Application-macOS-x64.zip"),
             #[cfg(all(target_os = "macos", target_arch = "aarch64"))]
             updater: GitHubUpdater::new(
-                APP_REPO_OWNER,
-                APP_REPO_NAME,
+                info::APP_REPO_OWNER,
+                info::APP_REPO_NAME,
                 "Application-macOS-arm64.zip",
             ),
         }
@@ -60,20 +57,20 @@ impl Updater {
             .get_latest_version(self.update_type)
             .await
             .ok()
-            .filter(|version| *version > *app_version())
+            .filter(|version| *version > *info::app_version())
     }
 
     pub async fn install_update(
         &self,
         on_progress: impl Fn(u64, u64) + Send,
     ) -> Result<(), Box<dyn std::error::Error>> {
-        if deployment_mode() != DeploymentMode::Local {
+        if info::deployment_mode() != DeploymentMode::Local {
             return Err("Unable to install update on non-local installations".into());
         }
         let path = BaseDirs::new()
             .expect("Unable to load base directories")
             .cache_dir()
-            .join(APP_NAME)
+            .join(info::APP_NAME)
             .join(self.updater.target_asset_name());
         self.updater
             .download_update(self.update_type, &path, on_progress)

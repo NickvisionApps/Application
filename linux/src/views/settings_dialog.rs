@@ -4,9 +4,7 @@ use adw::{
 };
 use glib::{Object, clone};
 use gtk::{Image, StringList};
-use shared::{
-    _g, AppController, ApplicationTheme, available_translation_languages, translation_language,
-};
+use shared::{config::ApplicationTheme, controller::AppController, translation};
 use std::{
     cell::{OnceCell, RefCell},
     rc::Rc,
@@ -60,11 +58,11 @@ impl SettingsDialog {
     fn setup_ui(&self) {
         let controller = self.imp().controller.get().unwrap().borrow();
         let theme_row = ComboRow::builder()
-            .title(_g("Theme"))
+            .title(translation::_g("Theme"))
             .model(&StringList::new(&[
-                &_g("Light"),
-                &_g("Dark"),
-                &_g("System"),
+                &translation::_g("Light"),
+                &translation::_g("Dark"),
+                &translation::_g("System"),
             ]))
             .selected(
                 ApplicationTheme::ALL
@@ -82,20 +80,20 @@ impl SettingsDialog {
             }
         ));
         let language_row = ComboRow::builder()
-            .title(_g("Translation Language"))
-            .subtitle(_g(
+            .title(translation::_g("Translation Language"))
+            .subtitle(translation::_g(
                 "An application restart is required for change to take effect",
             ))
             .model(&StringList::new(
-                &available_translation_languages()
+                &translation::available_languages()
                     .iter()
                     .map(String::as_str)
                     .collect::<Vec<&str>>(),
             ))
             .selected(
-                available_translation_languages()
+                translation::available_languages()
                     .iter()
-                    .position(|language| language == translation_language())
+                    .position(|language| language == translation::language())
                     .unwrap_or(0) as u32,
             )
             .build();
@@ -108,17 +106,17 @@ impl SettingsDialog {
             }
         ));
         let user_interface_group = PreferencesGroup::builder()
-            .title(_g("User Interface"))
+            .title(translation::_g("User Interface"))
             .build();
         user_interface_group.add(&theme_row);
         user_interface_group.add(&language_row);
         let general_page = PreferencesPage::builder()
-            .title(_g("General"))
+            .title(translation::_g("General"))
             .icon_name("settings-symbolic")
             .build();
         general_page.add(&user_interface_group);
         let preview_updates_row = SwitchRow::builder()
-            .title(_g("Allow Preview Updates"))
+            .title(translation::_g("Allow Preview Updates"))
             .active(controller.configuration().allow_preview_updates())
             .build();
         preview_updates_row.add_prefix(
@@ -133,10 +131,12 @@ impl SettingsDialog {
                 dialog.update_configuration();
             }
         ));
-        let updates_group = PreferencesGroup::builder().title(_g("Updates")).build();
+        let updates_group = PreferencesGroup::builder()
+            .title(translation::_g("Updates"))
+            .build();
         updates_group.add(&preview_updates_row);
         let advanced_page = PreferencesPage::builder()
-            .title(_g("Advanced"))
+            .title(translation::_g("Advanced"))
             .icon_name("wrench-wide-symbolic")
             .build();
         advanced_page.add(&updates_group);
@@ -146,7 +146,7 @@ impl SettingsDialog {
             .preview_updates_row
             .set(preview_updates_row)
             .unwrap();
-        self.set_title(&_g("Preferences"));
+        self.set_title(&translation::_g("Preferences"));
         self.set_content_width(600);
         self.set_content_height(600);
         self.set_search_enabled(true);
@@ -167,7 +167,7 @@ impl SettingsDialog {
         let mut controller = self.imp().controller.get().unwrap().borrow_mut();
         controller.set_theme(theme);
         controller.set_translation_language(
-            available_translation_languages()
+            translation::available_languages()
                 .get(self.imp().language_row.get().unwrap().selected() as usize)
                 .cloned()
                 .unwrap_or_default(),
