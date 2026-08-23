@@ -4,7 +4,9 @@ use adw::{
 };
 use glib::{Object, clone};
 use gtk::{Image, StringList};
-use shared::{AppController, ApplicationTheme, Translator};
+use shared::{
+    _g, AppController, ApplicationTheme, available_translation_languages, translation_language,
+};
 use std::{
     cell::{OnceCell, RefCell},
     rc::Rc,
@@ -58,11 +60,11 @@ impl SettingsDialog {
     fn setup_ui(&self) {
         let controller = self.imp().controller.get().unwrap().borrow();
         let theme_row = ComboRow::builder()
-            .title(controller.translator()._g("Theme"))
+            .title(_g("Theme"))
             .model(&StringList::new(&[
-                &controller.translator()._g("Light"),
-                &controller.translator()._g("Dark"),
-                &controller.translator()._g("System"),
+                &_g("Light"),
+                &_g("Dark"),
+                &_g("System"),
             ]))
             .selected(
                 ApplicationTheme::ALL
@@ -80,22 +82,20 @@ impl SettingsDialog {
             }
         ));
         let language_row = ComboRow::builder()
-            .title(controller.translator()._g("Translation Language"))
-            .subtitle(
-                controller
-                    .translator()
-                    ._g("An application restart is required for change to take effect"),
-            )
+            .title(_g("Translation Language"))
+            .subtitle(_g(
+                "An application restart is required for change to take effect",
+            ))
             .model(&StringList::new(
-                &Translator::available_languages()
+                &available_translation_languages()
                     .iter()
                     .map(String::as_str)
                     .collect::<Vec<&str>>(),
             ))
             .selected(
-                Translator::available_languages()
+                available_translation_languages()
                     .iter()
-                    .position(|language| language == controller.translator().language())
+                    .position(|language| language == translation_language())
                     .unwrap_or(0) as u32,
             )
             .build();
@@ -108,17 +108,17 @@ impl SettingsDialog {
             }
         ));
         let user_interface_group = PreferencesGroup::builder()
-            .title(controller.translator()._g("User Interface"))
+            .title(_g("User Interface"))
             .build();
         user_interface_group.add(&theme_row);
         user_interface_group.add(&language_row);
         let general_page = PreferencesPage::builder()
-            .title(controller.translator()._g("General"))
+            .title(_g("General"))
             .icon_name("settings-symbolic")
             .build();
         general_page.add(&user_interface_group);
         let preview_updates_row = SwitchRow::builder()
-            .title(controller.translator()._g("Allow Preview Updates"))
+            .title(_g("Allow Preview Updates"))
             .active(controller.configuration().allow_preview_updates())
             .build();
         preview_updates_row.add_prefix(
@@ -133,12 +133,10 @@ impl SettingsDialog {
                 dialog.update_configuration();
             }
         ));
-        let updates_group = PreferencesGroup::builder()
-            .title(controller.translator()._g("Updates"))
-            .build();
+        let updates_group = PreferencesGroup::builder().title(_g("Updates")).build();
         updates_group.add(&preview_updates_row);
         let advanced_page = PreferencesPage::builder()
-            .title(controller.translator()._g("Advanced"))
+            .title(_g("Advanced"))
             .icon_name("wrench-wide-symbolic")
             .build();
         advanced_page.add(&updates_group);
@@ -148,7 +146,7 @@ impl SettingsDialog {
             .preview_updates_row
             .set(preview_updates_row)
             .unwrap();
-        self.set_title(&controller.translator()._g("Preferences"));
+        self.set_title(&_g("Preferences"));
         self.set_content_width(600);
         self.set_content_height(600);
         self.set_search_enabled(true);
@@ -169,7 +167,7 @@ impl SettingsDialog {
         let mut controller = self.imp().controller.get().unwrap().borrow_mut();
         controller.set_theme(theme);
         controller.set_translation_language(
-            Translator::available_languages()
+            available_translation_languages()
                 .get(self.imp().language_row.get().unwrap().selected() as usize)
                 .cloned()
                 .unwrap_or_default(),

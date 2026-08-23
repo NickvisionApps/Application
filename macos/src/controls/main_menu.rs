@@ -7,11 +7,13 @@ use objc2::{
 use objc2_app_kit::{NSAlert, NSApplication, NSEventModifierFlags, NSImage, NSMenu, NSMenuItem};
 use objc2_foundation::{NSObjectProtocol, NSString, ns_string};
 use shared::{
-    APP_CHANGELOG, APP_DESCRIPTION, AppController, app_artist_names, app_designer_names,
+    _f, _g, APP_CHANGELOG, APP_DESCRIPTION, AppController, app_artist_names, app_designer_names,
     app_developer_names, debugging_information,
 };
-use std::cell::{OnceCell, RefCell};
-use std::rc::Rc;
+use std::{
+    cell::{OnceCell, RefCell},
+    rc::Rc,
+};
 
 #[derive(Debug)]
 pub struct MainMenuState {
@@ -48,32 +50,29 @@ define_class!(
 
         #[unsafe(method(showChangelog:))]
         fn show_changelog(&self, _sender: Option<&AnyObject>) {
-            let controller = self.ivars().controller.borrow();
             let dialog = NSAlert::new(self.mtm());
-            dialog.setMessageText(&NSString::from_str(&controller.translator()._f("{0}\n\nWhat's New?", &[APP_DESCRIPTION])));
+            dialog.setMessageText(&NSString::from_str(&_f("{0}\n\nWhat's New?", &[APP_DESCRIPTION])));
             dialog.setInformativeText(&NSString::from_str(APP_CHANGELOG));
             dialog.runModal();
         }
 
         #[unsafe(method(showCredits:))]
         fn show_credits(&self, _sender: Option<&AnyObject>) {
-            let controller = self.ivars().controller.borrow();
             let dialog = NSAlert::new(self.mtm());
-            let translation_credits = controller.translator()._g("translation-credits");
-            dialog.setMessageText(&NSString::from_str(&controller.translator()._g("Credits")));
+            let translation_credits = _g("translation-credits");
+            dialog.setMessageText(&NSString::from_str(&_g("Credits")));
             if !translation_credits.is_empty() && translation_credits != "translation-credits" {
-                dialog.setInformativeText(&NSString::from_str(&controller.translator()._f("Developers:\n{0}\n\nDesigners:\n{1}\n\nArtists:\n{2}\n\nTranslators:\n{3}", &[app_developer_names(), app_designer_names(), app_artist_names(), translation_credits])));
+                dialog.setInformativeText(&NSString::from_str(&_f("Developers:\n{0}\n\nDesigners:\n{1}\n\nArtists:\n{2}\n\nTranslators:\n{3}", &[app_developer_names(), app_designer_names(), app_artist_names(), translation_credits])));
             } else {
-                dialog.setInformativeText(&NSString::from_str(&controller.translator()._f("Developers:\n{0}\n\nDesigners:\n{1}\n\nArtists:\n{2}", &[app_developer_names(), app_designer_names(), app_artist_names()])));
+                dialog.setInformativeText(&NSString::from_str(&_f("Developers:\n{0}\n\nDesigners:\n{1}\n\nArtists:\n{2}", &[app_developer_names(), app_designer_names(), app_artist_names()])));
             }
             dialog.runModal();
         }
 
         #[unsafe(method(showDebuggingInformation:))]
         fn show_debugging_information(&self, _sender: Option<&AnyObject>) {
-            let controller = self.ivars().controller.borrow();
             let dialog = NSAlert::new(self.mtm());
-            dialog.setMessageText(&NSString::from_str(&controller.translator()._g("Debugging Information")));
+            dialog.setMessageText(&NSString::from_str(&_g("Debugging Information")));
             dialog.setInformativeText(&NSString::from_str(&debugging_information()));
             dialog.runModal();
         }
@@ -108,20 +107,17 @@ impl MainMenu {
         let this = Self::alloc(mtm).set_ivars(MainMenuState::new(controller, window));
         let this: Retained<Self> =
             unsafe { msg_send![super(this), initWithTitle: ns_string!("MainMenu")] };
-        let controller = this.ivars().controller.borrow();
         let app_menu_item = NSMenuItem::new(mtm);
-        let app_menu = NSMenu::initWithTitle(
-            NSMenu::alloc(mtm),
-            &NSString::from_str(&controller.translator()._g("Application")),
-        );
+        let app_menu =
+            NSMenu::initWithTitle(NSMenu::alloc(mtm), &NSString::from_str(&_g("Application")));
         unsafe {
             app_menu.addItemWithTitle_action_keyEquivalent(
-                &NSString::from_str(&controller.translator()._g("About Application")),
+                &NSString::from_str(&_g("About Application")),
                 Some(sel!(orderFrontStandardAboutPanel:)),
                 ns_string!(""),
             );
             let updates_item = app_menu.addItemWithTitle_action_keyEquivalent(
-                &NSString::from_str(&controller.translator()._g("Check for Updates")),
+                &NSString::from_str(&_g("Check for Updates")),
                 Some(sel!(checkForUpdates:)),
                 ns_string!(""),
             );
@@ -130,7 +126,7 @@ impl MainMenu {
         app_menu.addItem(&NSMenuItem::separatorItem(mtm));
         let settings_item = unsafe {
             app_menu.addItemWithTitle_action_keyEquivalent(
-                &NSString::from_str(&controller.translator()._g("Settings\u{2026}")),
+                &NSString::from_str(&_g("Settings\u{2026}")),
                 Some(sel!(showSettings:)),
                 ns_string!(","),
             )
@@ -145,28 +141,26 @@ impl MainMenu {
         app_menu.addItem(&NSMenuItem::separatorItem(mtm));
         let services_menu_item = unsafe {
             app_menu.addItemWithTitle_action_keyEquivalent(
-                &NSString::from_str(&controller.translator()._g("Services")),
+                &NSString::from_str(&_g("Services")),
                 None,
                 ns_string!(""),
             )
         };
-        let services_menu = NSMenu::initWithTitle(
-            NSMenu::alloc(mtm),
-            &NSString::from_str(&controller.translator()._g("Services")),
-        );
+        let services_menu =
+            NSMenu::initWithTitle(NSMenu::alloc(mtm), &NSString::from_str(&_g("Services")));
         services_menu_item.setSubmenu(Some(&services_menu));
         NSApplication::sharedApplication(mtm).setServicesMenu(Some(&services_menu));
         app_menu.addItem(&NSMenuItem::separatorItem(mtm));
         unsafe {
             app_menu.addItemWithTitle_action_keyEquivalent(
-                &NSString::from_str(&controller.translator()._g("Hide Application")),
+                &NSString::from_str(&_g("Hide Application")),
                 Some(sel!(hide:)),
                 ns_string!("h"),
             );
         }
         let hide_others_item = unsafe {
             app_menu.addItemWithTitle_action_keyEquivalent(
-                &NSString::from_str(&controller.translator()._g("Hide Others")),
+                &NSString::from_str(&_g("Hide Others")),
                 Some(sel!(hideOtherApplications:)),
                 ns_string!("h"),
             )
@@ -176,7 +170,7 @@ impl MainMenu {
         );
         unsafe {
             app_menu.addItemWithTitle_action_keyEquivalent(
-                &NSString::from_str(&controller.translator()._g("Show All")),
+                &NSString::from_str(&_g("Show All")),
                 Some(sel!(unhideAllApplications:)),
                 ns_string!(""),
             );
@@ -184,7 +178,7 @@ impl MainMenu {
         app_menu.addItem(&NSMenuItem::separatorItem(mtm));
         unsafe {
             app_menu.addItemWithTitle_action_keyEquivalent(
-                &NSString::from_str(&controller.translator()._g("Quit Application")),
+                &NSString::from_str(&_g("Quit Application")),
                 Some(sel!(terminate:)),
                 ns_string!("q"),
             );
@@ -192,18 +186,15 @@ impl MainMenu {
         app_menu_item.setSubmenu(Some(&app_menu));
         this.addItem(&app_menu_item);
         let file_menu_item = NSMenuItem::new(mtm);
-        let file_menu = NSMenu::initWithTitle(
-            NSMenu::alloc(mtm),
-            &NSString::from_str(&controller.translator()._g("File")),
-        );
+        let file_menu = NSMenu::initWithTitle(NSMenu::alloc(mtm), &NSString::from_str(&_g("File")));
         unsafe {
             let open_folder_item = file_menu.addItemWithTitle_action_keyEquivalent(
-                &NSString::from_str(&controller.translator()._g("Open Folder")),
+                &NSString::from_str(&_g("Open Folder")),
                 Some(sel!(openFolder:)),
                 ns_string!("o"),
             );
             let close_folder_item = file_menu.addItemWithTitle_action_keyEquivalent(
-                &NSString::from_str(&controller.translator()._g("Close Folder")),
+                &NSString::from_str(&_g("Close Folder")),
                 Some(sel!(closeFolder:)),
                 ns_string!("W"),
             );
@@ -213,7 +204,7 @@ impl MainMenu {
         file_menu.addItem(&NSMenuItem::separatorItem(mtm));
         unsafe {
             file_menu.addItemWithTitle_action_keyEquivalent(
-                &NSString::from_str(&controller.translator()._g("Close Window")),
+                &NSString::from_str(&_g("Close Window")),
                 Some(sel!(performClose:)),
                 ns_string!("w"),
             );
@@ -221,18 +212,15 @@ impl MainMenu {
         file_menu_item.setSubmenu(Some(&file_menu));
         this.addItem(&file_menu_item);
         let edit_menu_item = NSMenuItem::new(mtm);
-        let edit_menu = NSMenu::initWithTitle(
-            NSMenu::alloc(mtm),
-            &NSString::from_str(&controller.translator()._g("Edit")),
-        );
+        let edit_menu = NSMenu::initWithTitle(NSMenu::alloc(mtm), &NSString::from_str(&_g("Edit")));
         unsafe {
             edit_menu.addItemWithTitle_action_keyEquivalent(
-                &NSString::from_str(&controller.translator()._g("Undo")),
+                &NSString::from_str(&_g("Undo")),
                 Some(sel!(undo:)),
                 ns_string!("z"),
             );
             edit_menu.addItemWithTitle_action_keyEquivalent(
-                &NSString::from_str(&controller.translator()._g("Redo")),
+                &NSString::from_str(&_g("Redo")),
                 Some(sel!(redo:)),
                 ns_string!("Z"),
             );
@@ -240,22 +228,22 @@ impl MainMenu {
         edit_menu.addItem(&NSMenuItem::separatorItem(mtm));
         unsafe {
             edit_menu.addItemWithTitle_action_keyEquivalent(
-                &NSString::from_str(&controller.translator()._g("Cut")),
+                &NSString::from_str(&_g("Cut")),
                 Some(sel!(cut:)),
                 ns_string!("x"),
             );
             edit_menu.addItemWithTitle_action_keyEquivalent(
-                &NSString::from_str(&controller.translator()._g("Copy")),
+                &NSString::from_str(&_g("Copy")),
                 Some(sel!(copy:)),
                 ns_string!("c"),
             );
             edit_menu.addItemWithTitle_action_keyEquivalent(
-                &NSString::from_str(&controller.translator()._g("Paste")),
+                &NSString::from_str(&_g("Paste")),
                 Some(sel!(paste:)),
                 ns_string!("v"),
             );
             edit_menu.addItemWithTitle_action_keyEquivalent(
-                &NSString::from_str(&controller.translator()._g("Select All")),
+                &NSString::from_str(&_g("Select All")),
                 Some(sel!(selectAll:)),
                 ns_string!("a"),
             );
@@ -263,13 +251,10 @@ impl MainMenu {
         edit_menu_item.setSubmenu(Some(&edit_menu));
         this.addItem(&edit_menu_item);
         let view_menu_item = NSMenuItem::new(mtm);
-        let view_menu = NSMenu::initWithTitle(
-            NSMenu::alloc(mtm),
-            &NSString::from_str(&controller.translator()._g("View")),
-        );
+        let view_menu = NSMenu::initWithTitle(NSMenu::alloc(mtm), &NSString::from_str(&_g("View")));
         let full_screen_item = unsafe {
             view_menu.addItemWithTitle_action_keyEquivalent(
-                &NSString::from_str(&controller.translator()._g("Enter Full Screen")),
+                &NSString::from_str(&_g("Enter Full Screen")),
                 Some(sel!(toggleFullScreen:)),
                 ns_string!("f"),
             )
@@ -280,18 +265,16 @@ impl MainMenu {
         view_menu_item.setSubmenu(Some(&view_menu));
         this.addItem(&view_menu_item);
         let window_menu_item = NSMenuItem::new(mtm);
-        let window_menu = NSMenu::initWithTitle(
-            NSMenu::alloc(mtm),
-            &NSString::from_str(&controller.translator()._g("Window")),
-        );
+        let window_menu =
+            NSMenu::initWithTitle(NSMenu::alloc(mtm), &NSString::from_str(&_g("Window")));
         unsafe {
             window_menu.addItemWithTitle_action_keyEquivalent(
-                &NSString::from_str(&controller.translator()._g("Minimize")),
+                &NSString::from_str(&_g("Minimize")),
                 Some(sel!(performMiniaturize:)),
                 ns_string!("m"),
             );
             window_menu.addItemWithTitle_action_keyEquivalent(
-                &NSString::from_str(&controller.translator()._g("Zoom")),
+                &NSString::from_str(&_g("Zoom")),
                 Some(sel!(performZoom:)),
                 ns_string!(""),
             );
@@ -299,7 +282,7 @@ impl MainMenu {
         window_menu.addItem(&NSMenuItem::separatorItem(mtm));
         unsafe {
             window_menu.addItemWithTitle_action_keyEquivalent(
-                &NSString::from_str(&controller.translator()._g("Bring All to Front")),
+                &NSString::from_str(&_g("Bring All to Front")),
                 Some(sel!(arrangeInFront:)),
                 ns_string!(""),
             );
@@ -308,18 +291,15 @@ impl MainMenu {
         NSApplication::sharedApplication(mtm).setWindowsMenu(Some(&window_menu));
         this.addItem(&window_menu_item);
         let help_menu_item = NSMenuItem::new(mtm);
-        let help_menu = NSMenu::initWithTitle(
-            NSMenu::alloc(mtm),
-            &NSString::from_str(&controller.translator()._g("Help")),
-        );
+        let help_menu = NSMenu::initWithTitle(NSMenu::alloc(mtm), &NSString::from_str(&_g("Help")));
         unsafe {
             let whats_new_item = help_menu.addItemWithTitle_action_keyEquivalent(
-                &NSString::from_str(&controller.translator()._g("What's New")),
+                &NSString::from_str(&_g("What's New")),
                 Some(sel!(showChangelog:)),
                 ns_string!(""),
             );
             let credits_item = help_menu.addItemWithTitle_action_keyEquivalent(
-                &NSString::from_str(&controller.translator()._g("Credits")),
+                &NSString::from_str(&_g("Credits")),
                 Some(sel!(showCredits:)),
                 ns_string!(""),
             );
@@ -329,7 +309,7 @@ impl MainMenu {
         help_menu.addItem(&NSMenuItem::separatorItem(mtm));
         unsafe {
             let debugging_item = help_menu.addItemWithTitle_action_keyEquivalent(
-                &NSString::from_str(&controller.translator()._g("Debugging Information")),
+                &NSString::from_str(&_g("Debugging Information")),
                 Some(sel!(showDebuggingInformation:)),
                 ns_string!(""),
             );
@@ -338,7 +318,6 @@ impl MainMenu {
         help_menu_item.setSubmenu(Some(&help_menu));
         NSApplication::sharedApplication(mtm).setHelpMenu(Some(&help_menu));
         this.addItem(&help_menu_item);
-        drop(controller);
         this
     }
 }

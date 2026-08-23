@@ -13,9 +13,13 @@ use objc2_foundation::{
     MainThreadMarker, NSArray, NSNotification, NSObjectProtocol, NSPoint, NSRect, NSSize, NSString,
     ns_string,
 };
-use shared::{AppController, ApplicationTheme, Translator};
-use std::cell::{OnceCell, RefCell};
-use std::rc::Rc;
+use shared::{
+    _g, AppController, ApplicationTheme, available_translation_languages, translation_language,
+};
+use std::{
+    cell::{OnceCell, RefCell},
+    rc::Rc,
+};
 
 #[derive(Debug)]
 pub struct SettingsDialogState {
@@ -42,9 +46,9 @@ define_class!(
                 .unwrap();
             let controller = self.ivars().controller.borrow();
             let (label, index) = if &*item.itemIdentifier() == ns_string!("General") {
-                (controller.translator()._g("General"), 0)
+                (_g("General"), 0)
             } else {
-                (controller.translator()._g("Advanced"), 1)
+                (_g("Advanced"), 1)
             };
             if let Some(window) = self.window() {
                 window.setTitle(&NSString::from_str(&label));
@@ -99,9 +103,9 @@ define_class!(
         ) -> Option<Retained<NSToolbarItem>> {
             let controller = self.ivars().controller.borrow();
             let (label, symbol) = if item_identifier == ns_string!("General") {
-                (controller.translator()._g("General"), "gearshape")
+                (_g("General"), "gearshape")
             } else {
-                (controller.translator()._g("Advanced"), "slider.horizontal.3")
+                (_g("Advanced"), "slider.horizontal.3")
             };
             let item = NSToolbarItem::initWithItemIdentifier(NSToolbarItem::alloc(self.mtm()), item_identifier);
             item.setLabel(&NSString::from_str(&label));
@@ -163,7 +167,7 @@ impl SettingsDialog {
         };
         window.setDelegate(Some(ProtocolObject::from_ref(&*this)));
         unsafe { window.setReleasedWhenClosed(false) };
-        window.setTitle(&NSString::from_str(&controller.translator()._g("General")));
+        window.setTitle(&NSString::from_str(&_g("General")));
         window.setTitlebarAppearsTransparent(true);
         window.setToolbar(Some(&toolbar));
         window.setToolbarStyle(NSWindowToolbarStyle::Preference);
@@ -172,24 +176,21 @@ impl SettingsDialog {
             tab_view.setTranslatesAutoresizingMaskIntoConstraints(false);
             tab_view.setTabViewType(NSTabViewType::NoTabsNoBorder);
             let general_view = NSView::new(mtm);
-            let theme_label = NSTextField::labelWithString(
-                &NSString::from_str(&controller.translator()._g("Theme:")),
-                mtm,
-            );
+            let theme_label = NSTextField::labelWithString(&NSString::from_str(&_g("Theme:")), mtm);
             let theme_menu = NSMenu::new(mtm);
             unsafe {
                 theme_menu.addItemWithTitle_action_keyEquivalent(
-                    &NSString::from_str(&controller.translator()._g("Light")),
+                    &NSString::from_str(&_g("Light")),
                     None,
                     ns_string!(""),
                 );
                 theme_menu.addItemWithTitle_action_keyEquivalent(
-                    &NSString::from_str(&controller.translator()._g("Dark")),
+                    &NSString::from_str(&_g("Dark")),
                     None,
                     ns_string!(""),
                 );
                 theme_menu.addItemWithTitle_action_keyEquivalent(
-                    &NSString::from_str(&controller.translator()._g("System")),
+                    &NSString::from_str(&_g("System")),
                     None,
                     ns_string!(""),
                 );
@@ -208,12 +209,12 @@ impl SettingsDialog {
                     .unwrap_or(0) as isize,
             );
             let language_label = NSTextField::labelWithString(
-                &NSString::from_str(&controller.translator()._g("Translation Language:")),
+                &NSString::from_str(&_g("Translation Language:")),
                 mtm,
             );
             let language_menu = NSMenu::new(mtm);
             unsafe {
-                for language in Translator::available_languages() {
+                for language in available_translation_languages() {
                     language_menu.addItemWithTitle_action_keyEquivalent(
                         &NSString::from_str(language),
                         None,
@@ -229,17 +230,15 @@ impl SettingsDialog {
                 )
             };
             language_popup_button.selectItemAtIndex(
-                Translator::available_languages()
+                available_translation_languages()
                     .iter()
-                    .position(|language| language == controller.translator().language())
+                    .position(|language| language == translation_language())
                     .unwrap_or(0) as isize,
             );
             let restart_notice_label = NSTextField::wrappingLabelWithString(
-                &NSString::from_str(
-                    &controller
-                        .translator()
-                        ._g("An application restart is required for change to take effect"),
-                ),
+                &NSString::from_str(&_g(
+                    "An application restart is required for change to take effect",
+                )),
                 mtm,
             );
             restart_notice_label.setFont(Some(&NSFont::systemFontOfSize(
@@ -281,7 +280,7 @@ impl SettingsDialog {
             let advanced_view = NSView::new(mtm);
             let preview_updates_checkbox = unsafe {
                 NSButton::checkboxWithTitle_target_action(
-                    &NSString::from_str(&controller.translator()._g("Allow Preview Updates")),
+                    &NSString::from_str(&_g("Allow Preview Updates")),
                     Some(this.as_super().as_super()),
                     Some(sel!(checkboxChanged:)),
                     mtm,
@@ -379,7 +378,7 @@ impl SettingsDialog {
                 .unwrap_or_default(),
         );
         controller.set_translation_language(
-            Translator::available_languages()
+            available_translation_languages()
                 .get(
                     self.ivars()
                         .language_popup_button

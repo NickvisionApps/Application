@@ -1,17 +1,18 @@
-use crate::views::SettingsDialog;
+use crate::controls::FolderPage;
+use crate::{controls::HomePage, views::SettingsDialog};
 use adw::{
     AboutDialog, Application, ApplicationWindow, ButtonContent, HeaderBar, ShortcutsDialog,
-    ShortcutsItem, ShortcutsSection, StatusPage, Toast, ToastOverlay, ToolbarView, ViewStack,
-    WindowTitle, prelude::*, subclass::prelude::*,
+    ShortcutsItem, ShortcutsSection, Toast, ToastOverlay, ToolbarView, ViewStack, WindowTitle,
+    prelude::*, subclass::prelude::*,
 };
 use gio::{ActionEntry, Cancellable, Menu};
 use glib::{Object, Propagation, clone};
-use gtk::{Align, ArrowType, Button, FileDialog, License, MenuButton};
+use gtk::{ArrowType, Button, FileDialog, License, MenuButton};
 use markdown::to_html;
 use shared::{
-    APP_ARTISTS, APP_CHANGELOG, APP_DESCRIPTION, APP_DESIGNERS, APP_DEVELOPERS, APP_DISCUSSION_URL,
-    APP_ENGLISH_SHORT_NAME, APP_ID, APP_ISSUES_URL, APP_REPO_URL, AppController, WindowGeometry,
-    app_version, debugging_information,
+    _f, _g, APP_ARTISTS, APP_CHANGELOG, APP_DESCRIPTION, APP_DESIGNERS, APP_DEVELOPERS,
+    APP_DISCUSSION_URL, APP_ENGLISH_SHORT_NAME, APP_ID, APP_ISSUES_URL, APP_REPO_URL,
+    AppController, WindowGeometry, app_version, debugging_information,
 };
 use std::{
     cell::{OnceCell, RefCell},
@@ -26,7 +27,8 @@ mod imp {
         pub(super) controller: OnceCell<Rc<RefCell<AppController>>>,
         pub(super) toast_overlay: OnceCell<ToastOverlay>,
         pub(super) view_stack: OnceCell<ViewStack>,
-        pub(super) folder_page: OnceCell<StatusPage>,
+        pub(super) home_page: OnceCell<HomePage>,
+        pub(super) folder_page: OnceCell<FolderPage>,
     }
 
     #[glib::object_subclass]
@@ -86,32 +88,19 @@ impl MainWindow {
         let controller = self.imp().controller.get().unwrap().borrow();
         let geometry = controller.configuration().window_geometry();
         let main_menu = Menu::new();
-        main_menu.append(
-            Some(&controller.translator()._g("Preferences")),
-            Some("win.preferences"),
-        );
-        main_menu.append(
-            Some(&controller.translator()._g("Keyboard Shortcuts")),
-            Some("win.shortcuts"),
-        );
-        main_menu.append(
-            Some(&controller.translator()._g("About Application")),
-            Some("win.about"),
-        );
+        main_menu.append(Some(&_g("Preferences")), Some("win.preferences"));
+        main_menu.append(Some(&_g("Keyboard Shortcuts")), Some("win.shortcuts"));
+        main_menu.append(Some(&_g("About Application")), Some("win.about"));
         let header_bar = HeaderBar::builder()
-            .title_widget(
-                &WindowTitle::builder()
-                    .title(controller.translator()._g("Application"))
-                    .build(),
-            )
+            .title_widget(&WindowTitle::builder().title(_g("Application")).build())
             .build();
         header_bar.pack_start(
             &Button::builder()
                 .action_name("win.open_folder")
-                .tooltip_text(controller.translator()._g("Open Folder (Ctrl+O)"))
+                .tooltip_text(_g("Open Folder (Ctrl+O)"))
                 .child(
                     &ButtonContent::builder()
-                        .label(controller.translator()._g("Open"))
+                        .label(_g("Open"))
                         .icon_name("folder-open-symbolic")
                         .build(),
                 )
@@ -120,7 +109,7 @@ impl MainWindow {
         header_bar.pack_start(
             &Button::builder()
                 .action_name("win.close_folder")
-                .tooltip_text(controller.translator()._g("Close Folder (Ctrl+W)"))
+                .tooltip_text(_g("Close Folder (Ctrl+W)"))
                 .icon_name("window-close-symbolic")
                 .build(),
         );
@@ -128,33 +117,16 @@ impl MainWindow {
             &MenuButton::builder()
                 .primary(true)
                 .direction(ArrowType::None)
-                .tooltip_text(controller.translator()._g("Main Menu"))
+                .tooltip_text(_g("Main Menu"))
                 .menu_model(&main_menu)
                 .build(),
         );
+        let home_page = HomePage::new();
+        home_page.set_greeting(controller.greeting().as_str());
+        let folder_page = FolderPage::new();
         let view_stack = ViewStack::new();
-        view_stack.add_named(
-            &StatusPage::builder()
-                .icon_name("org.nickvision.application")
-                .title(controller.greeting())
-                .description("Open a folder to get started")
-                .child(
-                    &Button::builder()
-                        .action_name("win.open_folder")
-                        .tooltip_text(controller.translator()._g("Open Folder (Ctrl+O)"))
-                        .halign(Align::Center)
-                        .label(controller.translator()._g("Open"))
-                        .css_classes(["pill", "suggested-action"])
-                        .build(),
-                )
-                .build(),
-            Some("home"),
-        );
-        let folder_page = StatusPage::builder()
-            .icon_name("folder-documents-symbolic")
-            .css_classes(["compact"])
-            .build();
-        view_stack.add_named(&folder_page, Some("folder"));
+        view_stack.add_named(&home_page, Some(HomePage::page_name()));
+        view_stack.add_named(&folder_page, Some(FolderPage::page_name()));
         let toast_overlay = ToastOverlay::new();
         toast_overlay.set_hexpand(true);
         toast_overlay.set_vexpand(true);
@@ -227,7 +199,6 @@ impl MainWindow {
     }
 
     fn about(&self) {
-        let controller = self.imp().controller.get().unwrap().borrow();
         let about_dialog = AboutDialog::builder()
             .application_name(APP_ENGLISH_SHORT_NAME)
             .application_icon(if app_version().pre.is_empty() {
@@ -258,8 +229,8 @@ impl MainWindow {
             .iter()
             .map(|(x, y)| format!("{} {}", x, y))
             .collect();
-        let translation_credits = controller.translator()._g("translation-credits");
-        about_dialog.add_link(&controller.translator()._g("GitHub Repo"), APP_REPO_URL);
+        let translation_credits = _g("translation-credits");
+        about_dialog.add_link(&_g("GitHub Repo"), APP_REPO_URL);
         about_dialog.set_artists(&artists.iter().map(|x| x.as_str()).collect::<Vec<&str>>());
         about_dialog.set_designers(&designers.iter().map(|x| x.as_str()).collect::<Vec<&str>>());
         about_dialog.set_developers(&developers.iter().map(|x| x.as_str()).collect::<Vec<&str>>());
@@ -276,20 +247,18 @@ impl MainWindow {
             .view_stack
             .get()
             .unwrap()
-            .set_visible_child_name("home");
+            .set_visible_child_name(HomePage::page_name());
         self.imp().toast_overlay.get().unwrap().add_toast(
             Toast::builder()
                 .use_markup(false)
-                .title(controller.translator()._g("Folder closed"))
+                .title(_g("Folder closed"))
                 .build(),
         );
     }
 
     fn open_folder(&self) {
         let controller = self.imp().controller.get().unwrap().borrow();
-        let file_dialog = FileDialog::builder()
-            .title(controller.translator()._g("Open Folder"))
-            .build();
+        let file_dialog = FileDialog::builder().title(_g("Open Folder")).build();
         file_dialog.select_folder(
             Some(self),
             Cancellable::NONE,
@@ -305,11 +274,7 @@ impl MainWindow {
                             window.imp().toast_overlay.get().unwrap().add_toast(
                                 Toast::builder()
                                     .use_markup(false)
-                                    .title(
-                                        controller
-                                            .translator()
-                                            ._f("Unable to open folder: {0}", &[error.to_string()]),
-                                    )
+                                    .title(_f("Unable to open folder: {0}", &[error.to_string()]))
                                     .build(),
                             );
                         } else {
@@ -318,24 +283,11 @@ impl MainWindow {
                                 .view_stack
                                 .get()
                                 .unwrap()
-                                .set_visible_child_name("folder");
-                            window
-                                .imp()
-                                .folder_page
-                                .get()
-                                .unwrap()
-                                .set_title(controller.folder_browser().path().to_str().unwrap());
-                            window
-                                .imp()
-                                .folder_page
-                                .get()
-                                .unwrap()
-                                .set_description(Some(&controller.translator()._nf(
-                                    "{0} file",
-                                    "{0} files",
-                                    controller.folder_browser().files().len() as u64,
-                                    &[controller.folder_browser().files().len().to_string()],
-                                )))
+                                .set_visible_child_name(FolderPage::page_name());
+                            window.imp().folder_page.get().unwrap().show_folder(
+                                controller.folder_browser().path(),
+                                controller.folder_browser().files().len() as u64,
+                            );
                         }
                     }
                 }
@@ -353,33 +305,17 @@ impl MainWindow {
     }
 
     fn shortcuts(&self) {
-        let controller = self.imp().controller.get().unwrap().borrow();
-        let app_section = ShortcutsSection::new(Some(&controller.translator()._g("App")));
+        let app_section = ShortcutsSection::new(Some(&_g("App")));
+        app_section.add(ShortcutsItem::new(&_g("Preferences"), "<Primary>comma"));
         app_section.add(ShortcutsItem::new(
-            &controller.translator()._g("Preferences"),
-            "<Primary>comma",
-        ));
-        app_section.add(ShortcutsItem::new(
-            &controller.translator()._g("Keyboard Shortcuts"),
+            &_g("Keyboard Shortcuts"),
             "<Primary>question",
         ));
-        app_section.add(ShortcutsItem::new(
-            &controller.translator()._g("About Application"),
-            "F1",
-        ));
-        app_section.add(ShortcutsItem::new(
-            &controller.translator()._g("Quit"),
-            "<Primary>q",
-        ));
-        let folder_section = ShortcutsSection::new(Some(&controller.translator()._g("Folder")));
-        folder_section.add(ShortcutsItem::new(
-            &controller.translator()._g("Open Folder"),
-            "<Primary>o",
-        ));
-        folder_section.add(ShortcutsItem::new(
-            &controller.translator()._g("Close Folder"),
-            "<Primary>w",
-        ));
+        app_section.add(ShortcutsItem::new(&_g("About Application"), "F1"));
+        app_section.add(ShortcutsItem::new(&_g("Quit"), "<Primary>q"));
+        let folder_section = ShortcutsSection::new(Some(&_g("Folder")));
+        folder_section.add(ShortcutsItem::new(&_g("Open Folder"), "<Primary>o"));
+        folder_section.add(ShortcutsItem::new(&_g("Close Folder"), "<Primary>w"));
         let dialog = ShortcutsDialog::new();
         dialog.add(app_section);
         dialog.add(folder_section);

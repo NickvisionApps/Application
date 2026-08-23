@@ -17,5 +17,8 @@ pub use info::{
     APP_REPO_URL, app_artist_names, app_designer_names, app_developer_names, app_version,
     debugging_information, is_app_portable,
 };
-pub use translation::Translator;
+pub use translation::{
+    _f, _g, _n, _nf, _np, _npf, _p, _pf, available_translation_languages, set_translation_language,
+    translation_language,
+};
 pub use update::Updater;

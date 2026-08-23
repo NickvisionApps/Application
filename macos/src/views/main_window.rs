@@ -9,9 +9,8 @@ use objc2_app_kit::{
 use objc2_foundation::{
     MainThreadMarker, NSNotification, NSObjectProtocol, NSPoint, NSRect, NSSize, NSString,
 };
-use shared::{APP_ENGLISH_SHORT_NAME, AppController, Updater, WindowGeometry};
-use std::cell::RefCell;
-use std::rc::Rc;
+use shared::{_f, _g, APP_ENGLISH_SHORT_NAME, AppController, WindowGeometry};
+use std::{cell::RefCell, rc::Rc};
 
 #[derive(Debug)]
 pub struct MainWindowState {
@@ -95,9 +94,7 @@ impl MainWindow {
         };
         window.setDelegate(Some(ProtocolObject::from_ref(&*this)));
         unsafe { window.setReleasedWhenClosed(false) };
-        window.setTitle(&NSString::from_str(
-            &controller.translator()._g("Application"),
-        ));
+        window.setTitle(&NSString::from_str(&_g("Application")));
         window.setTitlebarAppearsTransparent(true);
         window.setContentMinSize(NSSize::new(600.0, 400.0));
         window.setToolbar(Some(&toolbar));
@@ -117,23 +114,21 @@ impl MainWindow {
     pub fn check_for_updates(&self) {
         let controller = self.ivars().controller.borrow();
         let updater = controller.updater().clone();
-        let translator = controller.translator().clone();
         tokio::spawn(async move {
             let version = updater.check_for_updates().await;
             dispatch2::run_on_main(move |mtm| {
                 let alert = NSAlert::new(mtm);
                 if let Some(ref version) = version {
-                    alert.setMessageText(&NSString::from_str(&translator._g("Update Available")));
-                    alert.setInformativeText(&NSString::from_str(&translator._f(
+                    alert.setMessageText(&NSString::from_str(&_g("Update Available")));
+                    alert.setInformativeText(&NSString::from_str(&_f(
                         "A new update for {0} is available: {1}",
                         &[APP_ENGLISH_SHORT_NAME, &version.to_string()],
                     )));
-                    alert.addButtonWithTitle(&NSString::from_str(&translator._g("Update")));
-                    alert.addButtonWithTitle(&NSString::from_str(&translator._g("OK")));
+                    alert.addButtonWithTitle(&NSString::from_str(&_g("Update")));
+                    alert.addButtonWithTitle(&NSString::from_str(&_g("OK")));
                 } else {
-                    alert
-                        .setMessageText(&NSString::from_str(&translator._g("No Update Available")));
-                    alert.setInformativeText(&NSString::from_str(&translator._f(
+                    alert.setMessageText(&NSString::from_str(&_g("No Update Available")));
+                    alert.setInformativeText(&NSString::from_str(&_f(
                         "You are running the latest version of {0}.",
                         &[APP_ENGLISH_SHORT_NAME],
                     )));
@@ -151,11 +146,11 @@ impl MainWindow {
                             let error_msg = error.to_string();
                             dispatch2::run_on_main(move |mtm| {
                                 let alert = NSAlert::new(mtm);
-                                alert.setMessageText(&NSString::from_str(&translator._g("Error")));
-                                alert.setInformativeText(&NSString::from_str(
-                                    &translator
-                                        ._f("Unable to install the update: {0}", &[error_msg]),
-                                ));
+                                alert.setMessageText(&NSString::from_str(&_g("Error")));
+                                alert.setInformativeText(&NSString::from_str(&_f(
+                                    "Unable to install the update: {0}",
+                                    &[error_msg],
+                                )));
                                 alert.runModal();
                             });
                         }
@@ -188,12 +183,11 @@ impl MainWindow {
                     .to_string(),
             ) {
                 let alert = NSAlert::new(self.mtm());
-                alert.setMessageText(&NSString::from_str(&controller.translator()._g("Error")));
-                alert.setInformativeText(&NSString::from_str(
-                    &controller
-                        .translator()
-                        ._f("Unable to open folder: {0}", &[error.to_string()]),
-                ));
+                alert.setMessageText(&NSString::from_str(&_g("Error")));
+                alert.setInformativeText(&NSString::from_str(&_f(
+                    "Unable to open folder: {0}",
+                    &[error.to_string()],
+                )));
                 alert.runModal();
             } else {
                 //TODO: Update UI

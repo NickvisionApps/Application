@@ -1,3 +1,4 @@
+mod controls;
 mod views;
 
 use crate::views::MainWindow;

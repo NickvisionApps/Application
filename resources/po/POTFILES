@@ -1,3 +1,5 @@
+linux/src/controls/folder_page.rs
+linux/src/controls/home_page.rs
 linux/src/views/main_window.rs
 linux/src/views/settings_dialog.rs
 macos/src/app.rs
