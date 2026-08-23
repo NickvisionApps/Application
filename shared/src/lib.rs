@@ -6,4 +6,3 @@ pub mod controller;
 pub mod folder;
 pub mod info;
 pub mod translation;
-pub mod update;

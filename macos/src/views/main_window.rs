@@ -112,10 +112,8 @@ impl MainWindow {
     }
 
     pub fn check_for_updates(&self) {
-        let controller = self.ivars().controller.borrow();
-        let updater = controller.updater().clone();
         tokio::spawn(async move {
-            let version = updater.check_for_updates().await;
+            let version = self.ivars().controller.borrow().check_for_updates().await;
             dispatch2::run_on_main(move |mtm| {
                 let alert = NSAlert::new(mtm);
                 if let Some(ref version) = version {
@@ -137,7 +135,7 @@ impl MainWindow {
                 }
                 if alert.runModal() == NSAlertFirstButtonReturn && version.is_some() {
                     tokio::spawn(async move {
-                        if let Err(error) = updater
+                        if let Err(error) = controller
                             .install_update(move |_downloaded, _total| {
                                 dispatch2::run_on_main(move |_mtm| {
                                     //TODO: Update UI with progress

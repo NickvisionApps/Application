@@ -141,15 +141,7 @@ pub fn available_languages() -> &'static Vec<String> {
     })
 }
 
-pub fn language() -> &'static str {
-    if let Some(language) = LANGUAGE.get() {
-        language.as_str()
-    } else {
-        ""
-    }
-}
-
-pub fn set_language(language: impl Into<String>) {
+pub fn init(language: impl Into<String>) {
     if LANGUAGE.get().is_some() {
         return;
     }
@@ -198,6 +190,14 @@ pub fn set_language(language: impl Into<String>) {
         )
         .unwrap();
     LANGUAGE.set(language).unwrap();
+}
+
+pub fn language() -> &'static str {
+    if let Some(language) = LANGUAGE.get() {
+        language.as_str()
+    } else {
+        ""
+    }
 }
 
 fn detect_language() -> String {

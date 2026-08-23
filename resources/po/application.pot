@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-23 16:53-0400\n"
+"POT-Creation-Date: 2026-08-23 17:02-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -76,7 +76,7 @@ msgstr ""
 msgid "Open Folder"
 msgstr ""
 
-#: linux/src/views/main_window.rs:288 macos/src/views/main_window.rs:191
+#: linux/src/views/main_window.rs:288 macos/src/views/main_window.rs:189
 msgid "Unable to open folder: {0}"
 msgstr ""
 
@@ -280,35 +280,35 @@ msgstr ""
 msgid "What's New"
 msgstr ""
 
-#: macos/src/views/main_window.rs:122
+#: macos/src/views/main_window.rs:120
 msgid "Update Available"
 msgstr ""
 
-#: macos/src/views/main_window.rs:124
+#: macos/src/views/main_window.rs:122
 msgid "A new update for {0} is available: {1}"
 msgstr ""
 
-#: macos/src/views/main_window.rs:127
+#: macos/src/views/main_window.rs:125
 msgid "Update"
 msgstr ""
 
-#: macos/src/views/main_window.rs:128
+#: macos/src/views/main_window.rs:126
 msgid "OK"
 msgstr ""
 
-#: macos/src/views/main_window.rs:131
+#: macos/src/views/main_window.rs:129
 msgid "No Update Available"
 msgstr ""
 
-#: macos/src/views/main_window.rs:134
+#: macos/src/views/main_window.rs:132
 msgid "You are running the latest version of {0}."
 msgstr ""
 
-#: macos/src/views/main_window.rs:152 macos/src/views/main_window.rs:189
+#: macos/src/views/main_window.rs:150 macos/src/views/main_window.rs:187
 msgid "Error"
 msgstr ""
 
-#: macos/src/views/main_window.rs:154
+#: macos/src/views/main_window.rs:152
 msgid "Unable to install the update: {0}"
 msgstr ""
 
@@ -320,20 +320,20 @@ msgstr ""
 msgid "Translation Language:"
 msgstr ""
 
-#: shared/src/controller.rs:40
+#: shared/src/controller.rs:52
 msgctxt "Night"
 msgid "Good Morning!"
 msgstr ""
 
-#: shared/src/controller.rs:42
+#: shared/src/controller.rs:54
 msgctxt "Morning"
 msgid "Good Morning!"
 msgstr ""
 
-#: shared/src/controller.rs:44
+#: shared/src/controller.rs:56
 msgid "Good Afternoon!"
 msgstr ""
 
-#: shared/src/controller.rs:46
+#: shared/src/controller.rs:58
 msgid "Good Evening!"
 msgstr ""

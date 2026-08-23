@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-23 16:53-0400\n"
+"POT-Creation-Date: 2026-08-23 17:01-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -80,7 +80,7 @@ msgstr "Папка закрыта."
 msgid "Open Folder"
 msgstr "Открыть Папку"
 
-#: linux/src/views/main_window.rs:288 macos/src/views/main_window.rs:191
+#: linux/src/views/main_window.rs:288 macos/src/views/main_window.rs:189
 msgid "Unable to open folder: {0}"
 msgstr ""
 
@@ -293,38 +293,38 @@ msgstr ""
 msgid "What's New"
 msgstr ""
 
-#: macos/src/views/main_window.rs:122
+#: macos/src/views/main_window.rs:120
 #, fuzzy
 msgid "Update Available"
 msgstr "Application"
 
-#: macos/src/views/main_window.rs:124
+#: macos/src/views/main_window.rs:122
 #, fuzzy
 msgid "A new update for {0} is available: {1}"
 msgstr "Application"
 
-#: macos/src/views/main_window.rs:127
+#: macos/src/views/main_window.rs:125
 msgid "Update"
 msgstr ""
 
-#: macos/src/views/main_window.rs:128
+#: macos/src/views/main_window.rs:126
 msgid "OK"
 msgstr ""
 
-#: macos/src/views/main_window.rs:131
+#: macos/src/views/main_window.rs:129
 #, fuzzy
 msgid "No Update Available"
 msgstr "Application"
 
-#: macos/src/views/main_window.rs:134
+#: macos/src/views/main_window.rs:132
 msgid "You are running the latest version of {0}."
 msgstr ""
 
-#: macos/src/views/main_window.rs:152 macos/src/views/main_window.rs:189
+#: macos/src/views/main_window.rs:150 macos/src/views/main_window.rs:187
 msgid "Error"
 msgstr ""
 
-#: macos/src/views/main_window.rs:154
+#: macos/src/views/main_window.rs:152
 msgid "Unable to install the update: {0}"
 msgstr ""
 
@@ -337,21 +337,21 @@ msgstr "Тема"
 msgid "Translation Language:"
 msgstr ""
 
-#: shared/src/controller.rs:40
+#: shared/src/controller.rs:52
 msgctxt "Night"
 msgid "Good Morning!"
 msgstr "Доброй ночи!"
 
-#: shared/src/controller.rs:42
+#: shared/src/controller.rs:54
 msgctxt "Morning"
 msgid "Good Morning!"
 msgstr "Доброе утро!"
 
-#: shared/src/controller.rs:44
+#: shared/src/controller.rs:56
 msgid "Good Afternoon!"
 msgstr "Добрый день!"
 
-#: shared/src/controller.rs:46
+#: shared/src/controller.rs:58
 msgid "Good Evening!"
 msgstr "Добрый вечер!"
 
