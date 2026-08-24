@@ -30,14 +30,6 @@ impl AppController {
             .filter(|version| *version > *info::app_version())
     }
 
-    pub fn configuration(&self) -> &Configuration {
-        &self.configuration
-    }
-
-    pub fn configuration_mut(&mut self) -> &mut Configuration {
-        &mut self.configuration
-    }
-
     pub fn folder_browser(&self) -> &FolderBrowser {
         &self.folder_browser
     }
@@ -127,7 +119,7 @@ impl AppController {
                         .ok_or("Unable to get exe file name")?,
                 ),
             )
-            .spawn()?;
+                .spawn()?;
             std::process::exit(0);
         }
     }

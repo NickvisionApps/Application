@@ -44,19 +44,18 @@ mod imp {
             if !controller.can_close() {
                 return Propagation::Stop;
             }
-            let configuration = controller.configuration_mut();
             if self.obj().is_maximized() {
-                configuration
+                controller
                     .set_window_geometry(WindowGeometry::builder().is_maximized(true).build());
             } else {
-                configuration.set_window_geometry(
+                controller.set_window_geometry(
                     WindowGeometry::builder()
                         .width(self.obj().default_width() as u64)
                         .height(self.obj().default_height() as u64)
                         .build(),
                 );
             }
-            configuration.save().unwrap();
+            controller.save().unwrap();
             Propagation::Proceed
         }
     }

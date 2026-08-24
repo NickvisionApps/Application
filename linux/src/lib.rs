@@ -16,7 +16,7 @@ pub fn run() -> ExitCode {
         controller,
         move |app| {
             app.style_manager().set_color_scheme(
-                match controller.borrow().configuration().theme() {
+                match controller.borrow().theme() {
                     ApplicationTheme::Light => ColorScheme::ForceLight,
                     ApplicationTheme::Dark => ColorScheme::ForceDark,
                     _ => ColorScheme::Default,
