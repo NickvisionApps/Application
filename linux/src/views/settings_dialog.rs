@@ -51,12 +51,7 @@ impl SettingsDialog {
     pub fn new(controller: Rc<RefCell<AppController>>) -> Self {
         let this: Self = Object::builder().build();
         this.imp().controller.set(controller).unwrap();
-        this.setup_ui();
-        this
-    }
-
-    fn setup_ui(&self) {
-        let controller = self.imp().controller.get().unwrap().borrow();
+        let controller = this.imp().controller.get().unwrap().borrow();
         let theme_row = ComboRow::builder()
             .title(translation::_g("Theme"))
             .model(&StringList::new(&[
@@ -73,10 +68,10 @@ impl SettingsDialog {
             .build();
         theme_row.add_prefix(&Image::builder().icon_name("dark-mode-symbolic").build());
         theme_row.connect_selected_notify(clone!(
-            #[strong(rename_to = dialog)]
-            self,
+            #[strong]
+            this,
             move |_| {
-                dialog.update_configuration();
+                this.update_configuration();
             }
         ));
         let language_row = ComboRow::builder()
@@ -99,10 +94,10 @@ impl SettingsDialog {
             .build();
         language_row.add_prefix(&Image::builder().icon_name("translate-symbolic").build());
         language_row.connect_selected_notify(clone!(
-            #[strong(rename_to = dialog)]
-            self,
+            #[strong]
+            this,
             move |_| {
-                dialog.update_configuration();
+                this.update_configuration();
             }
         ));
         let user_interface_group = PreferencesGroup::builder()
@@ -117,7 +112,7 @@ impl SettingsDialog {
         general_page.add(&user_interface_group);
         let preview_updates_row = SwitchRow::builder()
             .title(translation::_g("Allow Preview Updates"))
-            .active(controller.configuration().allow_preview_updates())
+            .active(controller.allow_preview_updates())
             .build();
         preview_updates_row.add_prefix(
             &Image::builder()
@@ -125,10 +120,10 @@ impl SettingsDialog {
                 .build(),
         );
         preview_updates_row.connect_active_notify(clone!(
-            #[strong(rename_to = dialog)]
-            self,
+            #[strong]
+            this,
             move |_| {
-                dialog.update_configuration();
+                this.update_configuration();
             }
         ));
         let updates_group = PreferencesGroup::builder()
@@ -140,18 +135,20 @@ impl SettingsDialog {
             .icon_name("wrench-wide-symbolic")
             .build();
         advanced_page.add(&updates_group);
-        self.imp().theme_row.set(theme_row).unwrap();
-        self.imp().language_row.set(language_row).unwrap();
-        self.imp()
+        this.imp().theme_row.set(theme_row).unwrap();
+        this.imp().language_row.set(language_row).unwrap();
+        this.imp()
             .preview_updates_row
             .set(preview_updates_row)
             .unwrap();
-        self.set_title(&translation::_g("Preferences"));
-        self.set_content_width(600);
-        self.set_content_height(600);
-        self.set_search_enabled(true);
-        self.add(&general_page);
-        self.add(&advanced_page);
+        this.set_title(&translation::_g("Preferences"));
+        this.set_content_width(600);
+        this.set_content_height(600);
+        this.set_search_enabled(true);
+        this.add(&general_page);
+        this.add(&advanced_page);
+        drop(controller);
+        this
     }
 
     fn update_configuration(&self) {

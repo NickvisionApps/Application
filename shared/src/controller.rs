@@ -6,7 +6,7 @@ use reup::{GitHubUpdater, UpdateProvider, UpdateType};
 use semver::Version;
 use std::ops::{Deref, DerefMut};
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct AppController {
     configuration: Configuration,
     folder_browser: FolderBrowser,
@@ -127,7 +127,7 @@ impl AppController {
                         .ok_or("Unable to get exe file name")?,
                 ),
             )
-                .spawn()?;
+            .spawn()?;
             std::process::exit(0);
         }
     }

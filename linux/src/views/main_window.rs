@@ -76,13 +76,8 @@ impl MainWindow {
     pub fn new(app: &Application, controller: Rc<RefCell<AppController>>) -> Self {
         let this: Self = Object::builder().property("application", app).build();
         this.imp().controller.set(controller).unwrap();
-        this.setup_ui();
-        this
-    }
-
-    fn setup_ui(&self) {
-        let controller = self.imp().controller.get().unwrap().borrow();
-        let geometry = controller.configuration().window_geometry();
+        let controller = this.imp().controller.get().unwrap().borrow();
+        let geometry = controller.window_geometry();
         let main_menu = Menu::new();
         main_menu.append(
             Some(&translation::_g("Preferences")),
@@ -173,13 +168,13 @@ impl MainWindow {
                 window.quit();
             })
             .build();
-        self.imp().toast_overlay.set(toast_overlay).unwrap();
-        self.imp().view_stack.set(view_stack).unwrap();
-        self.imp().folder_page.set(folder_page).unwrap();
-        self.set_size_request(360, 200);
-        self.set_default_size(geometry.width() as i32, geometry.height() as i32);
-        self.set_content(Some(&toolbar_view));
-        self.add_action_entries([
+        this.imp().toast_overlay.set(toast_overlay).unwrap();
+        this.imp().view_stack.set(view_stack).unwrap();
+        this.imp().folder_page.set(folder_page).unwrap();
+        this.set_size_request(360, 200);
+        this.set_default_size(geometry.width() as i32, geometry.height() as i32);
+        this.set_content(Some(&toolbar_view));
+        this.add_action_entries([
             action_open_folder,
             action_close_folder,
             action_preferences,
@@ -187,24 +182,26 @@ impl MainWindow {
             action_about,
             action_quit,
         ]);
-        self.application()
+        this.application()
             .unwrap()
             .set_accels_for_action("win.open_folder", &["<Primary>O"]);
-        self.application()
+        this.application()
             .unwrap()
             .set_accels_for_action("win.close_folder", &["<Primary>W"]);
-        self.application()
+        this.application()
             .unwrap()
             .set_accels_for_action("win.preferences", &["<Primary>comma"]);
-        self.application()
+        this.application()
             .unwrap()
             .set_accels_for_action("win.shortcuts", &["<Primary>question"]);
-        self.application()
+        this.application()
             .unwrap()
             .set_accels_for_action("win.about", &["F1"]);
-        self.application()
+        this.application()
             .unwrap()
             .set_accels_for_action("win.quit", &["<Primary>Q"]);
+        drop(controller);
+        this
     }
 
     fn about(&self) {

@@ -112,8 +112,9 @@ impl MainWindow {
     }
 
     pub fn check_for_updates(&self) {
+        let controller = self.ivars().controller.borrow().clone();
         tokio::spawn(async move {
-            let version = self.ivars().controller.borrow().check_for_updates().await;
+            let version = controller.check_for_updates().await;
             dispatch2::run_on_main(move |mtm| {
                 let alert = NSAlert::new(mtm);
                 if let Some(ref version) = version {
