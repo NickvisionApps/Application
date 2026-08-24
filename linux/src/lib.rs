@@ -15,13 +15,12 @@ pub fn run() -> ExitCode {
         #[strong]
         controller,
         move |app| {
-            app.style_manager().set_color_scheme(
-                match controller.borrow().theme() {
+            app.style_manager()
+                .set_color_scheme(match controller.borrow().theme() {
                     ApplicationTheme::Light => ColorScheme::ForceLight,
                     ApplicationTheme::Dark => ColorScheme::ForceDark,
                     _ => ColorScheme::Default,
-                },
-            );
+                });
         }
     ));
     app.connect_activate(move |app| {

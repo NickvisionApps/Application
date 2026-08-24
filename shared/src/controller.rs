@@ -119,7 +119,7 @@ impl AppController {
                         .ok_or("Unable to get exe file name")?,
                 ),
             )
-                .spawn()?;
+            .spawn()?;
             std::process::exit(0);
         }
     }
