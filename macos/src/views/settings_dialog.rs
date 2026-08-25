@@ -1,10 +1,11 @@
+use crate::helpers::EasyToolbarItem;
 use objc2::rc::Retained;
 use objc2::runtime::{AnyObject, ProtocolObject};
 use objc2::{ClassType, DefinedClass, MainThreadOnly, define_class, msg_send, sel};
 use objc2_app_kit::{
     NSAppearance, NSAppearanceNameAqua, NSAppearanceNameDarkAqua, NSApplication,
     NSBackingStoreType, NSButton, NSColor, NSControlStateValueOff, NSControlStateValueOn, NSFont,
-    NSGridCellPlacement, NSGridView, NSImage, NSLayoutConstraint, NSMenu, NSPopUpButton, NSTabView,
+    NSGridCellPlacement, NSGridView, NSLayoutConstraint, NSMenu, NSPopUpButton, NSTabView,
     NSTabViewItem, NSTabViewType, NSTextField, NSToolbar, NSToolbarDelegate, NSToolbarDisplayMode,
     NSToolbarItem, NSToolbarItemIdentifier, NSView, NSWindow, NSWindowController, NSWindowDelegate,
     NSWindowStyleMask, NSWindowToolbarStyle,
@@ -42,16 +43,14 @@ define_class!(
                 .unwrap()
                 .downcast_ref::<NSToolbarItem>()
                 .unwrap();
-            let (label, index) = if &*item.itemIdentifier() == ns_string!("General") {
-                (translation::_g("General"), 0)
-            } else {
-                (translation::_g("Advanced"), 1)
-            };
-            if let Some(window) = self.window() {
-                window.setTitle(&NSString::from_str(&label));
-            }
-            if let Some(tab_view) = self.ivars().tab_view.get() {
-                tab_view.selectTabViewItemAtIndex(index);
+            if let Some(window) = self.window() && let Some(tab_view) = self.ivars().tab_view.get() {
+                if item.itemIdentifier() == NSToolbarItemIdentifier::from_str("Advanced") {
+                    window.setTitle(&NSString::from_str(&translation::_g("Advanced")));
+                    tab_view.selectTabViewItemAtIndex(1);
+                } else if item.itemIdentifier() == NSToolbarItemIdentifier::from_str("General") {
+                    window.setTitle(&NSString::from_str(&translation::_g("General")));
+                    tab_view.selectTabViewItemAtIndex(0);
+                }
             }
         }
 
@@ -72,7 +71,10 @@ define_class!(
             &self,
             _toolbar: &NSToolbar,
         ) -> Retained<NSArray<NSToolbarItemIdentifier>> {
-            NSArray::from_retained_slice(&[NSString::from_str("General"), NSString::from_str("Advanced")])
+            NSArray::from_retained_slice(&[
+                NSToolbarItemIdentifier::from_str("General"),
+                NSToolbarItemIdentifier::from_str("Advanced")
+            ])
         }
 
         #[unsafe(method_id(toolbarAllowedItemIdentifiers:))]
@@ -80,7 +82,10 @@ define_class!(
             &self,
             _toolbar: &NSToolbar,
         ) -> Retained<NSArray<NSToolbarItemIdentifier>> {
-            NSArray::from_retained_slice(&[NSString::from_str("General"), NSString::from_str("Advanced")])
+            NSArray::from_retained_slice(&[
+                NSToolbarItemIdentifier::from_str("General"),
+                NSToolbarItemIdentifier::from_str("Advanced")
+            ])
         }
 
         #[unsafe(method_id(toolbarSelectableItemIdentifiers:))]
@@ -88,7 +93,10 @@ define_class!(
             &self,
             _toolbar: &NSToolbar,
         ) -> Retained<NSArray<NSToolbarItemIdentifier>> {
-            NSArray::from_retained_slice(&[NSString::from_str("General"), NSString::from_str("Advanced")])
+            NSArray::from_retained_slice(&[
+                NSToolbarItemIdentifier::from_str("General"),
+                NSToolbarItemIdentifier::from_str("Advanced")
+            ])
         }
 
         #[unsafe(method_id(toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar:))]
@@ -98,21 +106,27 @@ define_class!(
             item_identifier: &NSToolbarItemIdentifier,
             will_be_inserted: bool,
         ) -> Option<Retained<NSToolbarItem>> {
-            let (label, symbol) = if item_identifier == ns_string!("General") {
-                (translation::_g("General"), "gearshape")
+            if item_identifier == ns_string!("Advanced") {
+                NSToolbarItem::init_easy(
+                    self.mtm(),
+                    item_identifier,
+                    translation::_g("Advanced"),
+                    "slider.horizontal.3",
+                    Some(self.as_super().as_super()),
+                    sel!(toolbarItemClicked:)
+                )
+            } else if item_identifier == ns_string!("General") {
+                NSToolbarItem::init_easy(
+                    self.mtm(),
+                    item_identifier,
+                    translation::_g("General"),
+                    "gearshape",
+                    Some(self.as_super().as_super()),
+                    sel!(toolbarItemClicked:)
+                )
             } else {
-                (translation::_g("Advanced"), "slider.horizontal.3")
-            };
-            let item = NSToolbarItem::initWithItemIdentifier(NSToolbarItem::alloc(self.mtm()), item_identifier);
-            item.setLabel(&NSString::from_str(&label));
-            if let Some(image) = NSImage::imageWithSystemSymbolName_accessibilityDescription(&NSString::from_str(symbol), None) {
-                item.setImage(Some(&image));
+                None
             }
-            unsafe {
-                item.setTarget(Some(self.as_super().as_super()));
-                item.setAction(Some(sel!(toolbarItemClicked:)));
-            }
-            Some(item)
         }
     }
 

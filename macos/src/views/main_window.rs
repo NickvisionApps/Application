@@ -1,13 +1,16 @@
+use crate::helpers::EasyToolbarItem;
 use objc2::rc::Retained;
-use objc2::runtime::ProtocolObject;
-use objc2::{DefinedClass, MainThreadOnly, define_class, msg_send};
+use objc2::runtime::{AnyObject, ProtocolObject};
+use objc2::{ClassType, DefinedClass, MainThreadOnly, Message, define_class, msg_send, sel};
 use objc2_app_kit::{
     NSAlert, NSAlertFirstButtonReturn, NSBackingStoreType, NSModalResponseOK, NSOpenPanel,
-    NSToolbar, NSToolbarDelegate, NSToolbarDisplayMode, NSView, NSWindow, NSWindowController,
-    NSWindowDelegate, NSWindowStyleMask, NSWindowToolbarStyle,
+    NSToolbar, NSToolbarDelegate, NSToolbarDisplayMode, NSToolbarFlexibleSpaceItemIdentifier,
+    NSToolbarItem, NSToolbarItemIdentifier, NSToolbarSpaceItemIdentifier, NSView, NSWindow,
+    NSWindowController, NSWindowDelegate, NSWindowStyleMask, NSWindowToolbarStyle,
 };
 use objc2_foundation::{
-    MainThreadMarker, NSNotification, NSObjectProtocol, NSPoint, NSRect, NSSize, NSString,
+    MainThreadMarker, NSArray, NSNotification, NSObjectProtocol, NSPoint, NSRect, NSSize, NSString,
+    ns_string,
 };
 use shared::{config::WindowGeometry, controller::AppController, info, translation};
 use std::{cell::RefCell, rc::Rc};
@@ -24,7 +27,73 @@ define_class!(
     #[ivars = MainWindowState]
     pub struct MainWindow;
 
-    unsafe impl NSToolbarDelegate for MainWindow {}
+    impl MainWindow {
+        #[unsafe(method(closeFolderClicked:))]
+        fn close_folder_clicked(&self, sender: Option<&AnyObject>) {
+            self.close_folder();
+        }
+
+        #[unsafe(method(openFolderClicked:))]
+        fn open_folder_clicked(&self, sender: Option<&AnyObject>) {
+            self.open_folder();
+        }
+    }
+
+    unsafe impl NSToolbarDelegate for MainWindow {
+        #[unsafe(method_id(toolbarDefaultItemIdentifiers:))]
+        fn toolbar_default_item_identifiers(
+            &self,
+            _toolbar: &NSToolbar,
+        ) -> Retained<NSArray<NSToolbarItemIdentifier>> {
+            NSArray::from_retained_slice(&[
+                NSToolbarItemIdentifier::from_str("OpenFolder"),
+                NSToolbarItemIdentifier::from_str("CloseFolder"),
+            ])
+        }
+
+        #[unsafe(method_id(toolbarAllowedItemIdentifiers:))]
+        fn toolbar_allowed_item_identifiers(
+            &self,
+            _toolbar: &NSToolbar,
+        ) -> Retained<NSArray<NSToolbarItemIdentifier>> {
+            NSArray::from_retained_slice(&[
+                unsafe { NSToolbarSpaceItemIdentifier.retain() },
+                unsafe { NSToolbarFlexibleSpaceItemIdentifier.retain() },
+                NSToolbarItemIdentifier::from_str("OpenFolder"),
+                NSToolbarItemIdentifier::from_str("CloseFolder"),
+            ])
+        }
+
+        #[unsafe(method_id(toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar:))]
+        fn toolbar_item_for_item_identifier(
+            &self,
+            toolbar: &NSToolbar,
+            item_identifier: &NSToolbarItemIdentifier,
+            will_be_inserted: bool,
+        ) -> Option<Retained<NSToolbarItem>> {
+            if item_identifier == ns_string!("CloseFolder") {
+                NSToolbarItem::init_easy(
+                    self.mtm(),
+                    item_identifier,
+                    translation::_g("Close Folder"),
+                    "folder.badge.minus",
+                    Some(self.as_super().as_super()),
+                    sel!(closeFolderClicked:)
+                )
+            } else if item_identifier == ns_string!("OpenFolder") {
+                NSToolbarItem::init_easy(
+                    self.mtm(),
+                    item_identifier,
+                    translation::_g("Open Folder"),
+                    "folder.badge.plus",
+                    Some(self.as_super().as_super()),
+                    sel!(openFolderClicked:)
+                )
+            } else {
+                None
+            }
+        }
+    }
 
     unsafe impl NSObjectProtocol for MainWindow {}
 
@@ -75,6 +144,9 @@ impl MainWindow {
         );
         toolbar.setDelegate(Some(ProtocolObject::from_ref(&*this)));
         toolbar.setDisplayMode(NSToolbarDisplayMode::IconOnly);
+        toolbar.setAutosavesConfiguration(true);
+        toolbar.setAllowsUserCustomization(true);
+        toolbar.setAllowsDisplayModeCustomization(false);
         let window = unsafe {
             NSWindow::initWithContentRect_styleMask_backing_defer(
                 NSWindow::alloc(mtm),
