@@ -1,4 +1,4 @@
-use crate::helpers::EasyToolbarItem;
+use crate::helpers::{EasyMenu, EasyToolbarItem};
 use objc2::rc::Retained;
 use objc2::runtime::{AnyObject, ProtocolObject};
 use objc2::{ClassType, DefinedClass, MainThreadOnly, define_class, msg_send, sel};
@@ -112,6 +112,7 @@ define_class!(
                     item_identifier,
                     translation::_g("Advanced"),
                     "slider.horizontal.3",
+                    translation::_g("Advanced"),
                     Some(self.as_super().as_super()),
                     sel!(toolbarItemClicked:)
                 )
@@ -121,6 +122,7 @@ define_class!(
                     item_identifier,
                     translation::_g("General"),
                     "gearshape",
+                    translation::_g("General"),
                     Some(self.as_super().as_super()),
                     sel!(toolbarItemClicked:)
                 )
@@ -189,23 +191,9 @@ impl SettingsDialog {
             let theme_label =
                 NSTextField::labelWithString(&NSString::from_str(&translation::_g("Theme:")), mtm);
             let theme_menu = NSMenu::new(mtm);
-            unsafe {
-                theme_menu.addItemWithTitle_action_keyEquivalent(
-                    &NSString::from_str(&translation::_g("Light")),
-                    None,
-                    ns_string!(""),
-                );
-                theme_menu.addItemWithTitle_action_keyEquivalent(
-                    &NSString::from_str(&translation::_g("Dark")),
-                    None,
-                    ns_string!(""),
-                );
-                theme_menu.addItemWithTitle_action_keyEquivalent(
-                    &NSString::from_str(&translation::_g("System")),
-                    None,
-                    ns_string!(""),
-                );
-            }
+            theme_menu.add_item_easy(translation::_g("Light"), None, "", None, None);
+            theme_menu.add_item_easy(translation::_g("Dark"), None, "", None, None);
+            theme_menu.add_item_easy(translation::_g("System"), None, "", None, None);
             let theme_popup_button = unsafe {
                 NSPopUpButton::popUpButtonWithMenu_target_action(
                     &theme_menu,
@@ -224,14 +212,8 @@ impl SettingsDialog {
                 mtm,
             );
             let language_menu = NSMenu::new(mtm);
-            unsafe {
-                for language in translation::available_languages() {
-                    language_menu.addItemWithTitle_action_keyEquivalent(
-                        &NSString::from_str(language),
-                        None,
-                        ns_string!(""),
-                    );
-                }
+            for language in translation::available_languages() {
+                language_menu.add_item_easy(language, None, "", None, None);
             }
             let language_popup_button = unsafe {
                 NSPopUpButton::popUpButtonWithMenu_target_action(

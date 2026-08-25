@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-24 23:53-0400\n"
+"POT-Creation-Date: 2026-08-25 00:13-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -48,7 +48,7 @@ msgid "About Application"
 msgstr "О приложении"
 
 #: linux/src/views/main_window.rs:96 macos/src/controls/main_menu.rs:111
-#: macos/src/views/main_window.rs:169
+#: macos/src/views/main_window.rs:171
 msgid "Application"
 msgstr "Application"
 
@@ -76,11 +76,11 @@ msgid "Folder closed"
 msgstr "Папка закрыта."
 
 #: linux/src/views/main_window.rs:266 linux/src/views/main_window.rs:333
-#: macos/src/controls/main_menu.rs:178 macos/src/views/main_window.rs:87
+#: macos/src/controls/main_menu.rs:178 macos/src/views/main_window.rs:88
 msgid "Open Folder"
 msgstr "Открыть Папку"
 
-#: linux/src/views/main_window.rs:284 macos/src/views/main_window.rs:262
+#: linux/src/views/main_window.rs:284 macos/src/views/main_window.rs:264
 msgid "Unable to open folder: {0}"
 msgstr ""
 
@@ -112,12 +112,12 @@ msgstr "Тема"
 msgid "Light"
 msgstr "Светлая"
 
-#: linux/src/views/settings_dialog.rs:59 macos/src/views/settings_dialog.rs:199
+#: linux/src/views/settings_dialog.rs:59 macos/src/views/settings_dialog.rs:195
 #, fuzzy
 msgid "Dark"
 msgstr "Тёмная"
 
-#: linux/src/views/settings_dialog.rs:60 macos/src/views/settings_dialog.rs:204
+#: linux/src/views/settings_dialog.rs:60 macos/src/views/settings_dialog.rs:196
 #, fuzzy
 msgid "System"
 msgstr "Системная"
@@ -126,7 +126,7 @@ msgstr "Системная"
 msgid "Translation Language"
 msgstr ""
 
-#: linux/src/views/settings_dialog.rs:80 macos/src/views/settings_dialog.rs:251
+#: linux/src/views/settings_dialog.rs:80 macos/src/views/settings_dialog.rs:233
 msgid "An application restart is required for change to take effect"
 msgstr ""
 
@@ -135,13 +135,14 @@ msgid "User Interface"
 msgstr "Интерфейс"
 
 #: linux/src/views/settings_dialog.rs:109 macos/src/views/settings_dialog.rs:51
-#: macos/src/views/settings_dialog.rs:122
-#: macos/src/views/settings_dialog.rs:180
+#: macos/src/views/settings_dialog.rs:123
+#: macos/src/views/settings_dialog.rs:125
+#: macos/src/views/settings_dialog.rs:182
 msgid "General"
 msgstr ""
 
 #: linux/src/views/settings_dialog.rs:114
-#: macos/src/views/settings_dialog.rs:294
+#: macos/src/views/settings_dialog.rs:276
 msgid "Allow Preview Updates"
 msgstr ""
 
@@ -151,6 +152,7 @@ msgstr ""
 
 #: linux/src/views/settings_dialog.rs:134 macos/src/views/settings_dialog.rs:48
 #: macos/src/views/settings_dialog.rs:113
+#: macos/src/views/settings_dialog.rs:115
 msgid "Advanced"
 msgstr ""
 
@@ -161,7 +163,7 @@ msgid ""
 "What's New?"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:61 macos/src/controls/main_menu.rs:287
+#: macos/src/controls/main_menu.rs:61 macos/src/controls/main_menu.rs:301
 msgid "Credits"
 msgstr ""
 
@@ -192,7 +194,7 @@ msgid ""
 "{2}"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:73 macos/src/controls/main_menu.rs:295
+#: macos/src/controls/main_menu.rs:73 macos/src/controls/main_menu.rs:309
 msgid "Debugging Information"
 msgstr ""
 
@@ -267,74 +269,92 @@ msgid "View"
 msgstr ""
 
 #: macos/src/controls/main_menu.rs:233
-msgid "Enter Full Screen"
+msgid "Hide Toolbar"
+msgstr ""
+
+#: macos/src/controls/main_menu.rs:240
+msgid "Customize Toolbar\\u{2026}"
 msgstr ""
 
 #: macos/src/controls/main_menu.rs:247
+msgid "Enter Full Screen"
+msgstr ""
+
+#: macos/src/controls/main_menu.rs:261
 msgid "Window"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:250
+#: macos/src/controls/main_menu.rs:264
 msgid "Minimize"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:257
+#: macos/src/controls/main_menu.rs:271
 msgid "Zoom"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:265
+#: macos/src/controls/main_menu.rs:279
 msgid "Bring All to Front"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:277
+#: macos/src/controls/main_menu.rs:291
 msgid "Help"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:280
+#: macos/src/controls/main_menu.rs:294
 msgid "What's New"
 msgstr ""
 
-#: macos/src/views/main_window.rs:193
+#: macos/src/views/main_window.rs:80
+#, fuzzy
+msgid "Close Folder (⇧⌘W)"
+msgstr "Закрыть папку (Ctrl+W)"
+
+#: macos/src/views/main_window.rs:90
+#, fuzzy
+msgid "Open Folder (⌘O)"
+msgstr "Закрыть папку (Ctrl+W)"
+
+#: macos/src/views/main_window.rs:195
 #, fuzzy
 msgid "Update Available"
 msgstr "Application"
 
-#: macos/src/views/main_window.rs:195
+#: macos/src/views/main_window.rs:197
 #, fuzzy
 msgid "A new update for {0} is available: {1}"
 msgstr "Application"
 
-#: macos/src/views/main_window.rs:198
+#: macos/src/views/main_window.rs:200
 msgid "Update"
 msgstr ""
 
-#: macos/src/views/main_window.rs:199
+#: macos/src/views/main_window.rs:201
 msgid "OK"
 msgstr ""
 
-#: macos/src/views/main_window.rs:202
+#: macos/src/views/main_window.rs:204
 #, fuzzy
 msgid "No Update Available"
 msgstr "Application"
 
-#: macos/src/views/main_window.rs:205
+#: macos/src/views/main_window.rs:207
 msgid "You are running the latest version of {0}."
 msgstr ""
 
-#: macos/src/views/main_window.rs:223 macos/src/views/main_window.rs:260
+#: macos/src/views/main_window.rs:225 macos/src/views/main_window.rs:262
 msgid "Error"
 msgstr ""
 
-#: macos/src/views/main_window.rs:225
+#: macos/src/views/main_window.rs:227
 msgid "Unable to install the update: {0}"
 msgstr ""
 
-#: macos/src/views/settings_dialog.rs:190
+#: macos/src/views/settings_dialog.rs:192
 #, fuzzy
 msgid "Theme:"
 msgstr "Тема"
 
-#: macos/src/views/settings_dialog.rs:223
+#: macos/src/views/settings_dialog.rs:211
 msgid "Translation Language:"
 msgstr ""
 
@@ -355,6 +375,10 @@ msgstr "Добрый день!"
 #: shared/src/controller.rs:50
 msgid "Good Evening!"
 msgstr "Добрый вечер!"
+
+#, fuzzy
+#~ msgid "Close Folder (C"
+#~ msgstr "Закрыть папку"
 
 #, fuzzy
 #~ msgid "Quit All"

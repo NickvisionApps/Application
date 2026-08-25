@@ -10,6 +10,7 @@ pub trait EasyToolbarItem {
         id: &NSToolbarItemIdentifier,
         label: impl AsRef<str>,
         image: &str,
+        tooltip: impl AsRef<str>,
         target: Option<&AnyObject>,
         action: Sel,
     ) -> Option<Retained<NSToolbarItem>>;
@@ -21,17 +22,20 @@ impl EasyToolbarItem for NSToolbarItem {
         id: &NSToolbarItemIdentifier,
         label: impl AsRef<str>,
         image: &str,
+        tooltip: impl AsRef<str>,
         target: Option<&AnyObject>,
         action: Sel,
     ) -> Option<Retained<Self>> {
         let item = NSToolbarItem::initWithItemIdentifier(NSToolbarItem::alloc(mtm), id);
         item.setLabel(&NSString::from_str(label.as_ref()));
+        item.setPaletteLabel(&NSString::from_str(label.as_ref()));
         if let Some(image) = NSImage::imageWithSystemSymbolName_accessibilityDescription(
             &NSString::from_str(image),
             None,
         ) {
             item.setImage(Some(&image))
         }
+        item.setToolTip(Some(&NSString::from_str(tooltip.as_ref())));
         unsafe {
             item.setTarget(target);
             item.setAction(Some(action));

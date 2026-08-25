@@ -229,6 +229,20 @@ impl MainMenu {
             NSMenu::alloc(mtm),
             &NSString::from_str(&translation::_g("View")),
         );
+        view_menu.add_item_easy(
+            translation::_g("Hide Toolbar"),
+            None,
+            "",
+            None,
+            Some(sel!(toggleToolbarShown:)),
+        );
+        view_menu.add_item_easy(
+            translation::_g("Customize Toolbar\u{2026}"),
+            None,
+            "",
+            None,
+            Some(sel!(runToolbarCustomizationPalette:)),
+        );
         let full_screen_item = view_menu.add_item_easy(
             translation::_g("Enter Full Screen"),
             None,

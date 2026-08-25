@@ -77,6 +77,7 @@ define_class!(
                     item_identifier,
                     translation::_g("Close Folder"),
                     "folder.badge.minus",
+                    translation::_g("Close Folder (⇧⌘W)"),
                     Some(self.as_super().as_super()),
                     sel!(closeFolderClicked:)
                 )
@@ -86,6 +87,7 @@ define_class!(
                     item_identifier,
                     translation::_g("Open Folder"),
                     "folder.badge.plus",
+                    translation::_g("Open Folder (⌘O)"),
                     Some(self.as_super().as_super()),
                     sel!(openFolderClicked:)
                 )
