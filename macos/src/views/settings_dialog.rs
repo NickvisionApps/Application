@@ -184,7 +184,6 @@ impl SettingsDialog {
         window.setToolbarStyle(NSWindowToolbarStyle::Preference);
         if let Some(content_view) = window.contentView() {
             let tab_view = NSTabView::new(mtm);
-            tab_view.setTranslatesAutoresizingMaskIntoConstraints(false);
             tab_view.setTabViewType(NSTabViewType::NoTabsNoBorder);
             let general_view = NSView::new(mtm);
             let theme_label =
@@ -252,7 +251,6 @@ impl SettingsDialog {
                 ]),
                 mtm,
             );
-            general_grid_view.setTranslatesAutoresizingMaskIntoConstraints(false);
             general_grid_view
                 .columnAtIndex(0)
                 .setXPlacement(NSGridCellPlacement::Trailing);
@@ -282,7 +280,6 @@ impl SettingsDialog {
                 ])]),
                 mtm,
             );
-            advanced_grid_view.setTranslatesAutoresizingMaskIntoConstraints(false);
             advanced_grid_view.setYPlacement(NSGridCellPlacement::Center);
             advanced_view.addSubview(&advanced_grid_view);
             advanced_grid_view.constrain_center_horizontally(&advanced_view, Some(100.0), None);

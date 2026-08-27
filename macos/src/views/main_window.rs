@@ -181,7 +181,6 @@ impl MainWindow {
         window.setToolbarStyle(NSWindowToolbarStyle::Unified);
         if let Some(content_view) = window.contentView() {
             let tab_view = NSTabView::new(mtm);
-            tab_view.setTranslatesAutoresizingMaskIntoConstraints(false);
             tab_view.setTabViewType(NSTabViewType::NoTabsNoBorder);
             content_view.addSubview(&tab_view);
             tab_view.constrain_fill(&content_view);
