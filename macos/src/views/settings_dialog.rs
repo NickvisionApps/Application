@@ -21,12 +21,17 @@ use std::{
 };
 
 #[derive(Debug)]
+struct SettingsDialogControls {
+    tab_view: Retained<NSTabView>,
+    theme_popup_button: Retained<NSPopUpButton>,
+    language_popup_button: Retained<NSPopUpButton>,
+    preview_updates_checkbox: Retained<NSButton>,
+}
+
+#[derive(Debug)]
 pub struct SettingsDialogState {
     controller: Rc<RefCell<AppController>>,
-    tab_view: OnceCell<Retained<NSTabView>>,
-    theme_popup_button: OnceCell<Retained<NSPopUpButton>>,
-    language_popup_button: OnceCell<Retained<NSPopUpButton>>,
-    preview_updates_checkbox: OnceCell<Retained<NSButton>>,
+    controls: OnceCell<SettingsDialogControls>,
 }
 
 define_class!(
@@ -43,13 +48,13 @@ define_class!(
                 .unwrap()
                 .downcast_ref::<NSToolbarItem>()
                 .unwrap();
-            if let Some(window) = self.window() && let Some(tab_view) = self.ivars().tab_view.get() {
+            if let Some(window) = self.window() && let Some(controls) = self.ivars().controls.get() {
                 if item.itemIdentifier() == NSToolbarItemIdentifier::from_str("Advanced") {
                     window.setTitle(&NSString::from_str(&translation::_g("Advanced")));
-                    tab_view.selectTabViewItemAtIndex(1);
+                    controls.tab_view.selectTabViewItemAtIndex(1);
                 } else if item.itemIdentifier() == NSToolbarItemIdentifier::from_str("General") {
                     window.setTitle(&NSString::from_str(&translation::_g("General")));
-                    tab_view.selectTabViewItemAtIndex(0);
+                    controls.tab_view.selectTabViewItemAtIndex(0);
                 }
             }
         }
@@ -147,10 +152,7 @@ impl SettingsDialogState {
     pub fn new(controller: Rc<RefCell<AppController>>) -> Self {
         SettingsDialogState {
             controller,
-            tab_view: OnceCell::new(),
-            theme_popup_button: OnceCell::new(),
-            language_popup_button: OnceCell::new(),
-            preview_updates_checkbox: OnceCell::new(),
+            controls: OnceCell::new(),
         }
     }
 }
@@ -289,18 +291,14 @@ impl SettingsDialog {
             tab_view.selectTabViewItemAtIndex(0);
             content_view.addSubview(&tab_view);
             tab_view.constrain_fill(&content_view);
-            this.ivars().tab_view.set(tab_view).unwrap();
             this.ivars()
-                .theme_popup_button
-                .set(theme_popup_button)
-                .unwrap();
-            this.ivars()
-                .language_popup_button
-                .set(language_popup_button)
-                .unwrap();
-            this.ivars()
-                .preview_updates_checkbox
-                .set(preview_updates_checkbox)
+                .controls
+                .set(SettingsDialogControls {
+                    tab_view,
+                    theme_popup_button,
+                    language_popup_button,
+                    preview_updates_checkbox,
+                })
                 .unwrap();
         }
         window.center();
@@ -314,13 +312,8 @@ impl SettingsDialog {
     }
 
     fn update_configuration(&self) {
-        let appearance = match self
-            .ivars()
-            .theme_popup_button
-            .get()
-            .unwrap()
-            .indexOfSelectedItem()
-        {
+        let controls = self.ivars().controls.get().unwrap();
+        let appearance = match controls.theme_popup_button.indexOfSelectedItem() {
             0 => unsafe { NSAppearance::appearanceNamed(NSAppearanceNameAqua) },
             1 => unsafe { NSAppearance::appearanceNamed(NSAppearanceNameDarkAqua) },
             _ => None,
@@ -329,30 +322,18 @@ impl SettingsDialog {
         let mut controller = self.ivars().controller.borrow_mut();
         controller.set_theme(
             ApplicationTheme::ALL
-                .get(
-                    self.ivars()
-                        .theme_popup_button
-                        .get()
-                        .unwrap()
-                        .indexOfSelectedItem() as usize,
-                )
+                .get(controls.theme_popup_button.indexOfSelectedItem() as usize)
                 .cloned()
                 .unwrap_or_default(),
         );
         controller.set_translation_language(
             translation::available_languages()
-                .get(
-                    self.ivars()
-                        .language_popup_button
-                        .get()
-                        .unwrap()
-                        .indexOfSelectedItem() as usize,
-                )
+                .get(controls.language_popup_button.indexOfSelectedItem() as usize)
                 .cloned()
                 .unwrap_or_default(),
         );
         controller.set_allow_preview_updates(
-            self.ivars().preview_updates_checkbox.get().unwrap().state() == NSControlStateValueOn,
+            controls.preview_updates_checkbox.state() == NSControlStateValueOn,
         );
     }
 }
