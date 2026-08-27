@@ -40,7 +40,7 @@ impl HomePage {
         let this: Self = Object::builder().build();
         let status_page = StatusPage::builder()
             .icon_name("org.nickvision.application")
-            .description("Open a folder to get started")
+            .description(translation::_g("Open a folder to get started"))
             .child(
                 &Button::builder()
                     .action_name("win.open_folder")

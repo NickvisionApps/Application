@@ -3,6 +3,8 @@ linux/src/controls/home_page.rs
 linux/src/views/main_window.rs
 linux/src/views/settings_dialog.rs
 macos/src/app.rs
+macos/src/controls/folder_page.rs
+macos/src/controls/home_page.rs
 macos/src/controls/main_menu.rs
 macos/src/views/main_window.rs
 macos/src/views/settings_dialog.rs

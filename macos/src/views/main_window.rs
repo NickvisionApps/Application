@@ -1,10 +1,11 @@
+use crate::controls::{FolderPage, HomePage};
 use crate::helpers::{EasyLayout, EasyToolbarItem};
 use objc2::rc::Retained;
 use objc2::runtime::{AnyObject, ProtocolObject};
 use objc2::{ClassType, DefinedClass, MainThreadOnly, Message, define_class, msg_send, sel};
 use objc2_app_kit::{
     NSAlert, NSAlertFirstButtonReturn, NSBackingStoreType, NSModalResponseOK, NSOpenPanel,
-    NSTabView, NSTabViewType, NSToolbar, NSToolbarDelegate, NSToolbarDisplayMode,
+    NSTabView, NSTabViewItem, NSTabViewType, NSToolbar, NSToolbarDelegate, NSToolbarDisplayMode,
     NSToolbarFlexibleSpaceItemIdentifier, NSToolbarItem, NSToolbarItemIdentifier,
     NSToolbarSpaceItemIdentifier, NSWindow, NSWindowController, NSWindowDelegate,
     NSWindowStyleMask, NSWindowToolbarStyle,
@@ -20,6 +21,8 @@ use std::{cell::RefCell, rc::Rc};
 #[derive(Debug)]
 pub struct MainWindowControls {
     tab_view: Retained<NSTabView>,
+    home_page: Retained<HomePage>,
+    folder_page: Retained<FolderPage>,
 }
 
 #[derive(Debug)]
@@ -187,11 +190,29 @@ impl MainWindow {
         if let Some(content_view) = window.contentView() {
             let tab_view = NSTabView::new(mtm);
             tab_view.setTabViewType(NSTabViewType::NoTabsNoBorder);
+            let home_page = HomePage::new(
+                mtm,
+                &controller.greeting(),
+                Some(this.as_super().as_super()),
+                sel!(openFolderClicked:),
+            );
+            let folder_page = FolderPage::new(mtm);
+            let home_tab = NSTabViewItem::new();
+            home_tab.setView(Some(home_page.as_super()));
+            tab_view.addTabViewItem(&home_tab);
+            let folder_tab = NSTabViewItem::new();
+            folder_tab.setView(Some(folder_page.as_super()));
+            tab_view.addTabViewItem(&folder_tab);
+            tab_view.selectTabViewItemAtIndex(0);
             content_view.addSubview(&tab_view);
             tab_view.constrain_fill(&content_view);
             this.ivars()
                 .controls
-                .set(MainWindowControls { tab_view })
+                .set(MainWindowControls {
+                    tab_view,
+                    home_page,
+                    folder_page,
+                })
                 .unwrap();
         }
         if geometry.is_maximized() {
@@ -257,6 +278,12 @@ impl MainWindow {
         let mut controller = self.ivars().controller.borrow_mut();
         controller.folder_browser_mut().close();
         self.window().unwrap().setSubtitle(ns_string!(""));
+        self.ivars()
+            .controls
+            .get()
+            .unwrap()
+            .tab_view
+            .selectTabViewItemAtIndex(0);
     }
 
     pub fn open_folder(&self) {
@@ -286,6 +313,12 @@ impl MainWindow {
                 self.window().unwrap().setSubtitle(&NSString::from_str(
                     controller.folder_browser().path().to_str().unwrap(),
                 ));
+                let controls = self.ivars().controls.get().unwrap();
+                controls.folder_page.show_folder(
+                    controller.folder_browser().path(),
+                    controller.folder_browser().files().len() as u64,
+                );
+                controls.tab_view.selectTabViewItemAtIndex(1);
             }
         }
     }
