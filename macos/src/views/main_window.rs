@@ -1,23 +1,26 @@
-use crate::helpers::EasyToolbarItem;
+use crate::helpers::{EasyLayout, EasyToolbarItem};
 use objc2::rc::Retained;
 use objc2::runtime::{AnyObject, ProtocolObject};
 use objc2::{ClassType, DefinedClass, MainThreadOnly, Message, define_class, msg_send, sel};
 use objc2_app_kit::{
     NSAlert, NSAlertFirstButtonReturn, NSBackingStoreType, NSModalResponseOK, NSOpenPanel,
-    NSToolbar, NSToolbarDelegate, NSToolbarDisplayMode, NSToolbarFlexibleSpaceItemIdentifier,
-    NSToolbarItem, NSToolbarItemIdentifier, NSToolbarSpaceItemIdentifier, NSView, NSWindow,
-    NSWindowController, NSWindowDelegate, NSWindowStyleMask, NSWindowToolbarStyle,
+    NSTabView, NSTabViewType, NSToolbar, NSToolbarDelegate, NSToolbarDisplayMode,
+    NSToolbarFlexibleSpaceItemIdentifier, NSToolbarItem, NSToolbarItemIdentifier,
+    NSToolbarSpaceItemIdentifier, NSWindow, NSWindowController, NSWindowDelegate,
+    NSWindowStyleMask, NSWindowToolbarStyle,
 };
 use objc2_foundation::{
     MainThreadMarker, NSArray, NSNotification, NSObjectProtocol, NSPoint, NSRect, NSSize, NSString,
     ns_string,
 };
 use shared::{config::WindowGeometry, controller::AppController, info, translation};
+use std::cell::OnceCell;
 use std::{cell::RefCell, rc::Rc};
 
 #[derive(Debug)]
 pub struct MainWindowState {
     controller: Rc<RefCell<AppController>>,
+    tab_view: OnceCell<Retained<NSTabView>>,
 }
 
 define_class!(
@@ -130,7 +133,10 @@ define_class!(
 
 impl MainWindowState {
     pub fn new(controller: Rc<RefCell<AppController>>) -> Self {
-        MainWindowState { controller }
+        MainWindowState {
+            controller,
+            tab_view: OnceCell::new(),
+        }
     }
 }
 
@@ -174,8 +180,12 @@ impl MainWindow {
         window.setToolbar(Some(&toolbar));
         window.setToolbarStyle(NSWindowToolbarStyle::Unified);
         if let Some(content_view) = window.contentView() {
-            let view = NSView::new(mtm);
-            content_view.addSubview(&view);
+            let tab_view = NSTabView::new(mtm);
+            tab_view.setTranslatesAutoresizingMaskIntoConstraints(false);
+            tab_view.setTabViewType(NSTabViewType::NoTabsNoBorder);
+            content_view.addSubview(&tab_view);
+            tab_view.constrain_fill(&content_view);
+            this.ivars().tab_view.set(tab_view).unwrap();
         }
         if geometry.is_maximized() {
             window.setIsZoomed(true);
@@ -239,7 +249,7 @@ impl MainWindow {
     pub fn close_folder(&self) {
         let mut controller = self.ivars().controller.borrow_mut();
         controller.folder_browser_mut().close();
-        //TODO: Update UI
+        self.window().unwrap().setSubtitle(ns_string!(""));
     }
 
     pub fn open_folder(&self) {
@@ -266,7 +276,9 @@ impl MainWindow {
                 )));
                 alert.runModal();
             } else {
-                //TODO: Update UI
+                self.window().unwrap().setSubtitle(&NSString::from_str(
+                    controller.folder_browser().path().to_str().unwrap(),
+                ));
             }
         }
     }

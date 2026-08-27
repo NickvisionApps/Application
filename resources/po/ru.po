@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 00:13-0400\n"
+"POT-Creation-Date: 2026-08-26 21:51-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -48,7 +48,7 @@ msgid "About Application"
 msgstr "О приложении"
 
 #: linux/src/views/main_window.rs:96 macos/src/controls/main_menu.rs:111
-#: macos/src/views/main_window.rs:171
+#: macos/src/views/main_window.rs:177
 msgid "Application"
 msgstr "Application"
 
@@ -76,11 +76,11 @@ msgid "Folder closed"
 msgstr "Папка закрыта."
 
 #: linux/src/views/main_window.rs:266 linux/src/views/main_window.rs:333
-#: macos/src/controls/main_menu.rs:178 macos/src/views/main_window.rs:88
+#: macos/src/controls/main_menu.rs:178 macos/src/views/main_window.rs:91
 msgid "Open Folder"
 msgstr "Открыть Папку"
 
-#: linux/src/views/main_window.rs:284 macos/src/views/main_window.rs:264
+#: linux/src/views/main_window.rs:284 macos/src/views/main_window.rs:274
 msgid "Unable to open folder: {0}"
 msgstr ""
 
@@ -98,7 +98,7 @@ msgid "Folder"
 msgstr "Папка"
 
 #: linux/src/views/main_window.rs:337 macos/src/controls/main_menu.rs:185
-#: macos/src/views/main_window.rs:78
+#: macos/src/views/main_window.rs:81
 msgid "Close Folder"
 msgstr "Закрыть папку"
 
@@ -107,17 +107,17 @@ msgstr "Закрыть папку"
 msgid "Theme"
 msgstr "Тема"
 
-#: linux/src/views/settings_dialog.rs:58 macos/src/views/settings_dialog.rs:194
+#: linux/src/views/settings_dialog.rs:58 macos/src/views/settings_dialog.rs:193
 #, fuzzy
 msgid "Light"
 msgstr "Светлая"
 
-#: linux/src/views/settings_dialog.rs:59 macos/src/views/settings_dialog.rs:195
+#: linux/src/views/settings_dialog.rs:59 macos/src/views/settings_dialog.rs:194
 #, fuzzy
 msgid "Dark"
 msgstr "Тёмная"
 
-#: linux/src/views/settings_dialog.rs:60 macos/src/views/settings_dialog.rs:196
+#: linux/src/views/settings_dialog.rs:60 macos/src/views/settings_dialog.rs:195
 #, fuzzy
 msgid "System"
 msgstr "Системная"
@@ -126,7 +126,7 @@ msgstr "Системная"
 msgid "Translation Language"
 msgstr ""
 
-#: linux/src/views/settings_dialog.rs:80 macos/src/views/settings_dialog.rs:233
+#: linux/src/views/settings_dialog.rs:80 macos/src/views/settings_dialog.rs:232
 msgid "An application restart is required for change to take effect"
 msgstr ""
 
@@ -137,12 +137,12 @@ msgstr "Интерфейс"
 #: linux/src/views/settings_dialog.rs:109 macos/src/views/settings_dialog.rs:51
 #: macos/src/views/settings_dialog.rs:123
 #: macos/src/views/settings_dialog.rs:125
-#: macos/src/views/settings_dialog.rs:182
+#: macos/src/views/settings_dialog.rs:181
 msgid "General"
 msgstr ""
 
 #: linux/src/views/settings_dialog.rs:114
-#: macos/src/views/settings_dialog.rs:276
+#: macos/src/views/settings_dialog.rs:268
 msgid "Allow Preview Updates"
 msgstr ""
 
@@ -304,57 +304,57 @@ msgstr ""
 msgid "What's New"
 msgstr ""
 
-#: macos/src/views/main_window.rs:80
+#: macos/src/views/main_window.rs:83
 #, fuzzy
 msgid "Close Folder (⇧⌘W)"
 msgstr "Закрыть папку (Ctrl+W)"
 
-#: macos/src/views/main_window.rs:90
+#: macos/src/views/main_window.rs:93
 #, fuzzy
 msgid "Open Folder (⌘O)"
 msgstr "Закрыть папку (Ctrl+W)"
 
-#: macos/src/views/main_window.rs:195
+#: macos/src/views/main_window.rs:205
 #, fuzzy
 msgid "Update Available"
 msgstr "Application"
 
-#: macos/src/views/main_window.rs:197
+#: macos/src/views/main_window.rs:207
 #, fuzzy
 msgid "A new update for {0} is available: {1}"
 msgstr "Application"
 
-#: macos/src/views/main_window.rs:200
+#: macos/src/views/main_window.rs:210
 msgid "Update"
 msgstr ""
 
-#: macos/src/views/main_window.rs:201
+#: macos/src/views/main_window.rs:211
 msgid "OK"
 msgstr ""
 
-#: macos/src/views/main_window.rs:204
+#: macos/src/views/main_window.rs:214
 #, fuzzy
 msgid "No Update Available"
 msgstr "Application"
 
-#: macos/src/views/main_window.rs:207
+#: macos/src/views/main_window.rs:217
 msgid "You are running the latest version of {0}."
 msgstr ""
 
-#: macos/src/views/main_window.rs:225 macos/src/views/main_window.rs:262
+#: macos/src/views/main_window.rs:235 macos/src/views/main_window.rs:272
 msgid "Error"
 msgstr ""
 
-#: macos/src/views/main_window.rs:227
+#: macos/src/views/main_window.rs:237
 msgid "Unable to install the update: {0}"
 msgstr ""
 
-#: macos/src/views/settings_dialog.rs:192
+#: macos/src/views/settings_dialog.rs:191
 #, fuzzy
 msgid "Theme:"
 msgstr "Тема"
 
-#: macos/src/views/settings_dialog.rs:211
+#: macos/src/views/settings_dialog.rs:210
 msgid "Translation Language:"
 msgstr ""
 

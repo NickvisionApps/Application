@@ -1,13 +1,13 @@
-use crate::helpers::{EasyMenu, EasyToolbarItem};
+use crate::helpers::{EasyLayout, EasyMenu, EasyToolbarItem};
 use objc2::rc::Retained;
 use objc2::runtime::{AnyObject, ProtocolObject};
 use objc2::{ClassType, DefinedClass, MainThreadOnly, define_class, msg_send, sel};
 use objc2_app_kit::{
     NSAppearance, NSAppearanceNameAqua, NSAppearanceNameDarkAqua, NSApplication,
     NSBackingStoreType, NSButton, NSColor, NSControlStateValueOff, NSControlStateValueOn, NSFont,
-    NSGridCellPlacement, NSGridView, NSLayoutConstraint, NSMenu, NSPopUpButton, NSTabView,
-    NSTabViewItem, NSTabViewType, NSTextField, NSToolbar, NSToolbarDelegate, NSToolbarDisplayMode,
-    NSToolbarItem, NSToolbarItemIdentifier, NSView, NSWindow, NSWindowController, NSWindowDelegate,
+    NSGridCellPlacement, NSGridView, NSMenu, NSPopUpButton, NSTabView, NSTabViewItem,
+    NSTabViewType, NSTextField, NSToolbar, NSToolbarDelegate, NSToolbarDisplayMode, NSToolbarItem,
+    NSToolbarItemIdentifier, NSView, NSWindow, NSWindowController, NSWindowDelegate,
     NSWindowStyleMask, NSWindowToolbarStyle,
 };
 use objc2_foundation::{
@@ -171,7 +171,6 @@ impl SettingsDialog {
                 NSRect::new(NSPoint::new(0.0, 0.0), NSSize::new(600.0, 400.0)),
                 NSWindowStyleMask::Titled
                     | NSWindowStyleMask::Closable
-                    | NSWindowStyleMask::Miniaturizable
                     | NSWindowStyleMask::FullSizeContentView,
                 NSBackingStoreType::Buffered,
                 false,
@@ -259,14 +258,7 @@ impl SettingsDialog {
                 .setXPlacement(NSGridCellPlacement::Trailing);
             general_grid_view.setYPlacement(NSGridCellPlacement::Center);
             general_view.addSubview(&general_grid_view);
-            NSLayoutConstraint::activateConstraints(&NSArray::from_retained_slice(&[
-                general_grid_view
-                    .centerXAnchor()
-                    .constraintEqualToAnchor(&general_view.centerXAnchor()),
-                general_grid_view
-                    .topAnchor()
-                    .constraintEqualToAnchor_constant(&general_view.topAnchor(), 100.0),
-            ]));
+            general_grid_view.constrain_center_horizontally(&general_view, Some(100.0), None);
             let general_tab = NSTabViewItem::new();
             general_tab.setView(Some(&general_view));
             tab_view.addTabViewItem(&general_tab);
@@ -293,33 +285,13 @@ impl SettingsDialog {
             advanced_grid_view.setTranslatesAutoresizingMaskIntoConstraints(false);
             advanced_grid_view.setYPlacement(NSGridCellPlacement::Center);
             advanced_view.addSubview(&advanced_grid_view);
-            NSLayoutConstraint::activateConstraints(&NSArray::from_retained_slice(&[
-                advanced_grid_view
-                    .centerXAnchor()
-                    .constraintEqualToAnchor(&advanced_view.centerXAnchor()),
-                advanced_grid_view
-                    .topAnchor()
-                    .constraintEqualToAnchor_constant(&advanced_view.topAnchor(), 100.0),
-            ]));
+            advanced_grid_view.constrain_center_horizontally(&advanced_view, Some(100.0), None);
             let advanced_tab = NSTabViewItem::new();
             advanced_tab.setView(Some(&advanced_view));
             tab_view.addTabViewItem(&advanced_tab);
             tab_view.selectTabViewItemAtIndex(0);
             content_view.addSubview(&tab_view);
-            NSLayoutConstraint::activateConstraints(&NSArray::from_retained_slice(&[
-                tab_view
-                    .leadingAnchor()
-                    .constraintEqualToAnchor(&content_view.leadingAnchor()),
-                tab_view
-                    .trailingAnchor()
-                    .constraintEqualToAnchor(&content_view.trailingAnchor()),
-                tab_view
-                    .topAnchor()
-                    .constraintEqualToAnchor(&content_view.topAnchor()),
-                tab_view
-                    .bottomAnchor()
-                    .constraintEqualToAnchor(&content_view.bottomAnchor()),
-            ]));
+            tab_view.constrain_fill(&content_view);
             this.ivars().tab_view.set(tab_view).unwrap();
             this.ivars()
                 .theme_popup_button
