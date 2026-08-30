@@ -16,6 +16,8 @@ const XGETTEXT_KEYWORDS: &[&str] = &[
 ];
 
 fn main() {
+    #[cfg(all(target_os = "windows", not(feature = "force-gtk-run")))]
+    windows_reactor_setup::as_self_contained();
     generate_translations();
 }
 

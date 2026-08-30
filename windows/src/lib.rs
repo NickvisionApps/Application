@@ -1,6 +1,10 @@
-use shared::controller::AppController;
+#![windows_subsystem = "windows"]
+
+mod views;
+
+use crate::views::MainWindow;
+use windows_reactor::App;
 
 pub fn run() {
-    let _controller = AppController::new();
-    println!("Hello, Windows!");
+    App::run_component::<MainWindow>(()).unwrap();
 }

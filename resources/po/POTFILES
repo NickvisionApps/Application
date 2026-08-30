@@ -9,3 +9,4 @@ macos/src/controls/main_menu.rs
 macos/src/views/main_window.rs
 macos/src/views/settings_dialog.rs
 shared/src/controller.rs
+windows/src/views/main_window.rs

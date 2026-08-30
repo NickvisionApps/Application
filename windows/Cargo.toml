@@ -5,3 +5,4 @@ edition = "2024"
 
 [dependencies]
 shared = { path = "../shared" }
+windows-reactor = { git = "https://github.com/microsoft/windows-rs", rev = "dc720b3674c46ceb82d758ed20959977b32e60a9" }

@@ -15,6 +15,9 @@ force-gtk-run = ["dep:linux"]
 [target.'cfg(target_os = "windows")'.dependencies]
 windows = { path = "../windows" }
 
+[target.'cfg(target_os = "windows")'.build-dependencies]
+windows-reactor-setup = { git = "https://github.com/microsoft/windows-rs", rev = "dc720b3674c46ceb82d758ed20959977b32e60a9" }
+
 [target.'cfg(target_os = "macos")'.dependencies]
 macos = { path = "../macos" }
 

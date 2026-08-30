@@ -1,5 +1,6 @@
-use crate::info::DeploymentMode;
-use crate::{config::Configuration, folder::FolderBrowser, info, translation};
+use crate::{
+    config::Configuration, folder::FolderBrowser, info, info::DeploymentMode, translation,
+};
 use chrono::{Local, Timelike};
 use directories::BaseDirs;
 use reup::{GitHubUpdater, UpdateProvider, UpdateType};
@@ -143,26 +144,26 @@ impl Default for AppController {
             folder_browser,
             #[cfg(all(target_os = "windows", target_arch = "x86_64"))]
             updater: GitHubUpdater::new(
-                APP_REPO_OWNER,
-                APP_REPO_NAME,
+                info::APP_REPO_OWNER,
+                info::APP_REPO_NAME,
                 "NickvisionApplicationSetup.exe",
             ),
             #[cfg(all(target_os = "windows", target_arch = "aarch64"))]
             updater: GitHubUpdater::new(
-                APP_REPO_OWNER,
-                APP_REPO_NAME,
+                info::APP_REPO_OWNER,
+                info::APP_REPO_NAME,
                 "NickvisionApplicationSetup-arm64.exe",
             ),
             #[cfg(all(target_os = "linux", target_arch = "x86_64"))]
             updater: GitHubUpdater::new(
-                APP_REPO_OWNER,
-                APP_REPO_NAME,
+                info::APP_REPO_OWNER,
+                info::APP_REPO_NAME,
                 "org.nickvision.application.x64.flatpak",
             ),
             #[cfg(all(target_os = "linux", target_arch = "aarch64"))]
             updater: GitHubUpdater::new(
-                APP_REPO_OWNER,
-                APP_REPO_NAME,
+                info::APP_REPO_OWNER,
+                info::APP_REPO_NAME,
                 "org.nickvision.application.aarch64.flatpak",
             ),
             #[cfg(all(target_os = "macos", target_arch = "x86_64"))]

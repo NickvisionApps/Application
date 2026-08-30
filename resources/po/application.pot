@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-26 22:35-0400\n"
+"POT-Creation-Date: 2026-08-30 11:09-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,7 +52,8 @@ msgid "About Application"
 msgstr ""
 
 #: linux/src/views/main_window.rs:96 macos/src/controls/main_menu.rs:111
-#: macos/src/views/main_window.rs:185
+#: macos/src/views/main_window.rs:185 windows/src/views/main_window.rs:46
+#: windows/src/views/main_window.rs:61
 msgid "Application"
 msgstr ""
 
@@ -343,20 +344,20 @@ msgstr ""
 msgid "Translation Language:"
 msgstr ""
 
-#: shared/src/controller.rs:44
+#: shared/src/controller.rs:45
 msgctxt "Night"
 msgid "Good Morning!"
 msgstr ""
 
-#: shared/src/controller.rs:46
+#: shared/src/controller.rs:47
 msgctxt "Morning"
 msgid "Good Morning!"
 msgstr ""
 
-#: shared/src/controller.rs:48
+#: shared/src/controller.rs:49
 msgid "Good Afternoon!"
 msgstr ""
 
-#: shared/src/controller.rs:50
+#: shared/src/controller.rs:51
 msgid "Good Evening!"
 msgstr ""
