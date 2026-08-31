@@ -1,10 +1,11 @@
 use crate::helpers::EasyLayout;
 use objc2::rc::Retained;
-use objc2::{ClassType, DefinedClass, MainThreadOnly, define_class, msg_send};
+use objc2::runtime::NSObject;
+use objc2::{DefinedClass, MainThreadOnly, define_class, msg_send};
 use objc2_app_kit::{
     NSColor, NSFont, NSFontWeightRegular, NSImage, NSImageSymbolConfiguration, NSImageView,
     NSLayoutAttribute, NSStackView, NSTextAlignment, NSTextField, NSUserInterfaceLayoutOrientation,
-    NSView,
+    NSView, NSViewController,
 };
 use objc2_foundation::{MainThreadMarker, NSArray, NSObjectProtocol, NSRect, NSString};
 use shared::translation;
@@ -24,7 +25,7 @@ pub struct FolderPageState {
 
 define_class!(
     #[derive(Debug)]
-    #[unsafe(super = NSView)]
+    #[unsafe(super = NSViewController)]
     #[thread_kind = MainThreadOnly]
     #[ivars = FolderPageState]
     pub struct FolderPage;
@@ -35,7 +36,10 @@ define_class!(
 impl FolderPage {
     pub fn new(mtm: MainThreadMarker) -> Retained<Self> {
         let this = Self::alloc(mtm).set_ivars(FolderPageState::default());
-        let this: Retained<Self> = unsafe { msg_send![super(this), initWithFrame: NSRect::ZERO] };
+        let this: Retained<Self> = unsafe {
+            msg_send![super(this), initWithNibName: std::ptr::null::<NSObject>(), bundle: std::ptr::null::<NSObject>()]
+        };
+        let view = NSView::initWithFrame(NSView::alloc(mtm), NSRect::ZERO);
         let icon_view = NSImageView::imageViewWithImage(
             &NSImage::imageWithSystemSymbolName_accessibilityDescription(
                 &NSString::from_str("folder"),
@@ -69,8 +73,8 @@ impl FolderPage {
         stack_view.setOrientation(NSUserInterfaceLayoutOrientation::Vertical);
         stack_view.setAlignment(NSLayoutAttribute::CenterX);
         stack_view.setSpacing(8.0);
-        this.addSubview(&stack_view);
-        stack_view.constrain_center(this.as_super());
+        view.addSubview(&stack_view);
+        stack_view.constrain_center(&view);
         this.ivars()
             .controls
             .set(FolderPageControls {
@@ -78,6 +82,7 @@ impl FolderPage {
                 description_label,
             })
             .unwrap();
+        this.setView(&view);
         this
     }
 

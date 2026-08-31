@@ -23,10 +23,9 @@ impl AppController {
         true
     }
 
-    pub async fn check_for_updates(&self) -> Option<Version> {
+    pub fn check_for_updates(&self) -> Option<Version> {
         self.updater
             .get_latest_version(self.update_type())
-            .await
             .ok()
             .filter(|version| *version > *info::app_version())
     }
@@ -52,9 +51,9 @@ impl AppController {
         }
     }
 
-    pub async fn install_update(
+    pub fn install_update(
         &self,
-        on_progress: impl Fn(u64, u64) + Send,
+        on_progress: impl Fn(u64, u64),
     ) -> Result<(), Box<dyn std::error::Error>> {
         if info::deployment_mode() != DeploymentMode::Local {
             return Err("Unable to install update on non-local installations".into());
@@ -65,8 +64,7 @@ impl AppController {
             .join(info::APP_NAME)
             .join(self.updater.target_asset_name());
         self.updater
-            .download_update(self.update_type(), &path, on_progress)
-            .await?;
+            .download_update(self.update_type(), &path, on_progress)?;
         #[cfg(target_os = "windows")]
         {
             let status = std::process::Command::new(&path).status()?;

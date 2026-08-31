@@ -118,6 +118,7 @@ define_class!(
                     translation::_g("Advanced"),
                     "slider.horizontal.3",
                     translation::_g("Advanced"),
+                    false,
                     Some(self.as_super().as_super()),
                     sel!(toolbarItemClicked:)
                 )
@@ -128,6 +129,7 @@ define_class!(
                     translation::_g("General"),
                     "gearshape",
                     translation::_g("General"),
+                    false,
                     Some(self.as_super().as_super()),
                     sel!(toolbarItemClicked:)
                 )

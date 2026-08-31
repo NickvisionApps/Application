@@ -1,10 +1,10 @@
 use crate::helpers::EasyLayout;
 use objc2::rc::Retained;
-use objc2::runtime::{AnyObject, Sel};
+use objc2::runtime::{AnyObject, NSObject, Sel};
 use objc2::{ClassType, MainThreadOnly, define_class, msg_send};
 use objc2_app_kit::{
     NSApplication, NSButton, NSColor, NSFont, NSImageView, NSLayoutAttribute, NSStackView,
-    NSTextAlignment, NSTextField, NSUserInterfaceLayoutOrientation, NSView,
+    NSTextAlignment, NSTextField, NSUserInterfaceLayoutOrientation, NSView, NSViewController,
 };
 use objc2_foundation::{MainThreadMarker, NSArray, NSObjectProtocol, NSRect, NSString};
 use shared::translation;
@@ -14,7 +14,7 @@ pub struct HomePageState;
 
 define_class!(
     #[derive(Debug)]
-    #[unsafe(super = NSView)]
+    #[unsafe(super = NSViewController)]
     #[thread_kind = MainThreadOnly]
     #[ivars = HomePageState]
     pub struct HomePage;
@@ -30,7 +30,10 @@ impl HomePage {
         action: Sel,
     ) -> Retained<Self> {
         let this = Self::alloc(mtm).set_ivars(HomePageState);
-        let this: Retained<Self> = unsafe { msg_send![super(this), initWithFrame: NSRect::ZERO] };
+        let this: Retained<Self> = unsafe {
+            msg_send![super(this), initWithNibName: std::ptr::null::<NSObject>(), bundle: std::ptr::null::<NSObject>()]
+        };
+        let view = NSView::initWithFrame(NSView::alloc(mtm), NSRect::ZERO);
         let icon_view = NSImageView::imageViewWithImage(
             &NSApplication::sharedApplication(mtm)
                 .applicationIconImage()
@@ -73,8 +76,9 @@ impl HomePage {
         stack_view.setOrientation(NSUserInterfaceLayoutOrientation::Vertical);
         stack_view.setAlignment(NSLayoutAttribute::CenterX);
         stack_view.setSpacing(12.0);
-        this.addSubview(&stack_view);
-        stack_view.constrain_center(this.as_super());
+        view.addSubview(&stack_view);
+        stack_view.constrain_center(&view);
+        this.setView(&view);
         this
     }
 }

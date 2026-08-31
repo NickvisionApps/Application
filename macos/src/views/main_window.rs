@@ -4,15 +4,15 @@ use objc2::rc::Retained;
 use objc2::runtime::{AnyObject, ProtocolObject};
 use objc2::{ClassType, DefinedClass, MainThreadOnly, Message, define_class, msg_send, sel};
 use objc2_app_kit::{
-    NSAlert, NSAlertFirstButtonReturn, NSBackingStoreType, NSModalResponseOK, NSOpenPanel,
-    NSTabView, NSTabViewItem, NSTabViewType, NSToolbar, NSToolbarDelegate, NSToolbarDisplayMode,
-    NSToolbarFlexibleSpaceItemIdentifier, NSToolbarItem, NSToolbarItemIdentifier,
-    NSToolbarSpaceItemIdentifier, NSWindow, NSWindowController, NSWindowDelegate,
-    NSWindowStyleMask, NSWindowToolbarStyle,
+    NSAlert, NSAlertFirstButtonReturn, NSBackingStoreType, NSButton, NSModalResponseOK,
+    NSOpenPanel, NSPopover, NSPopoverBehavior, NSTabView, NSTabViewItem, NSTabViewType, NSToolbar,
+    NSToolbarDelegate, NSToolbarDisplayMode, NSToolbarFlexibleSpaceItemIdentifier,
+    NSToolbarIdentifier, NSToolbarItem, NSToolbarItemIdentifier, NSToolbarSpaceItemIdentifier,
+    NSWindow, NSWindowController, NSWindowDelegate, NSWindowStyleMask, NSWindowToolbarStyle,
 };
 use objc2_foundation::{
-    MainThreadMarker, NSArray, NSNotification, NSObjectProtocol, NSPoint, NSRect, NSSize, NSString,
-    ns_string,
+    MainThreadMarker, NSArray, NSNotification, NSObjectProtocol, NSPoint, NSRect, NSRectEdge,
+    NSSize, NSString, ns_string,
 };
 use shared::{config::WindowGeometry, controller::AppController, info, translation};
 use std::cell::OnceCell;
@@ -20,6 +20,8 @@ use std::{cell::RefCell, rc::Rc};
 
 #[derive(Debug)]
 pub struct MainWindowControls {
+    update_progress_popover: Retained<NSPopover>,
+    toolbar: Retained<NSToolbar>,
     tab_view: Retained<NSTabView>,
     home_page: Retained<HomePage>,
     folder_page: Retained<FolderPage>,
@@ -48,6 +50,19 @@ define_class!(
         fn open_folder_clicked(&self, sender: Option<&AnyObject>) {
             self.open_folder();
         }
+
+        #[unsafe(method(updateProgressClicked:))]
+        fn update_progress_clicked(&self, sender: Option<&AnyObject>) {
+            let controls = self.ivars().controls.get().unwrap();
+            if controls.update_progress_popover.isShown() {
+                unsafe { controls.update_progress_popover.performClose(sender) };
+            } else if let Some(sender) = sender {
+                let button = sender.downcast_ref::<NSButton>().unwrap();
+                controls
+                    .update_progress_popover
+                    .showRelativeToRect_ofView_preferredEdge(button.bounds(), button, NSRectEdge::MinY);
+            }
+        }
     }
 
     unsafe impl NSToolbarDelegate for MainWindow {
@@ -57,6 +72,7 @@ define_class!(
             _toolbar: &NSToolbar,
         ) -> Retained<NSArray<NSToolbarItemIdentifier>> {
             NSArray::from_retained_slice(&[
+                unsafe { NSToolbarSpaceItemIdentifier.retain() },
                 NSToolbarItemIdentifier::from_str("OpenFolder"),
                 NSToolbarItemIdentifier::from_str("CloseFolder"),
             ])
@@ -70,8 +86,9 @@ define_class!(
             NSArray::from_retained_slice(&[
                 unsafe { NSToolbarSpaceItemIdentifier.retain() },
                 unsafe { NSToolbarFlexibleSpaceItemIdentifier.retain() },
-                NSToolbarItemIdentifier::from_str("OpenFolder"),
                 NSToolbarItemIdentifier::from_str("CloseFolder"),
+                NSToolbarItemIdentifier::from_str("OpenFolder"),
+                NSToolbarItemIdentifier::from_str("UpdateProgress"),
             ])
         }
 
@@ -89,6 +106,7 @@ define_class!(
                     translation::_g("Close Folder"),
                     "folder.badge.minus",
                     translation::_g("Close Folder (⇧⌘W)"),
+                    false,
                     Some(self.as_super().as_super()),
                     sel!(closeFolderClicked:)
                 )
@@ -99,8 +117,20 @@ define_class!(
                     translation::_g("Open Folder"),
                     "folder.badge.plus",
                     translation::_g("Open Folder (⌘O)"),
+                    false,
                     Some(self.as_super().as_super()),
                     sel!(openFolderClicked:)
+                )
+            } else if item_identifier == ns_string!("UpdateProgress") {
+                NSToolbarItem::init_easy(
+                    self.mtm(),
+                    item_identifier,
+                    translation::_g("Update Progress"),
+                    "arrow.down.circle",
+                    "",
+                    true,
+                    Some(self.as_super().as_super()),
+                    sel!(updateProgressClicked:)
                 )
             } else {
                 None
@@ -187,6 +217,9 @@ impl MainWindow {
         window.setContentMinSize(NSSize::new(600.0, 400.0));
         window.setToolbar(Some(&toolbar));
         window.setToolbarStyle(NSWindowToolbarStyle::Unified);
+        let update_progress_popover = NSPopover::new(mtm);
+        update_progress_popover.setBehavior(NSPopoverBehavior::Transient);
+        update_progress_popover.setAnimates(true);
         if let Some(content_view) = window.contentView() {
             let tab_view = NSTabView::new(mtm);
             tab_view.setTabViewType(NSTabViewType::NoTabsNoBorder);
@@ -198,10 +231,10 @@ impl MainWindow {
             );
             let folder_page = FolderPage::new(mtm);
             let home_tab = NSTabViewItem::new();
-            home_tab.setView(Some(home_page.as_super()));
+            home_tab.setView(Some(&home_page.view()));
             tab_view.addTabViewItem(&home_tab);
             let folder_tab = NSTabViewItem::new();
-            folder_tab.setView(Some(folder_page.as_super()));
+            folder_tab.setView(Some(&folder_page.view()));
             tab_view.addTabViewItem(&folder_tab);
             tab_view.selectTabViewItemAtIndex(0);
             content_view.addSubview(&tab_view);
@@ -209,6 +242,8 @@ impl MainWindow {
             this.ivars()
                 .controls
                 .set(MainWindowControls {
+                    update_progress_popover,
+                    toolbar,
                     tab_view,
                     home_page,
                     folder_page,
@@ -225,53 +260,43 @@ impl MainWindow {
 
     pub fn check_for_updates(&self) {
         let controller = self.ivars().controller.borrow().clone();
-        tokio::spawn(async move {
-            let version = controller.check_for_updates().await;
-            dispatch2::run_on_main(move |mtm| {
-                let alert = NSAlert::new(mtm);
-                if let Some(ref version) = version {
-                    alert.setMessageText(&NSString::from_str(&translation::_g("Update Available")));
-                    alert.setInformativeText(&NSString::from_str(&translation::_f(
-                        "A new update for {0} is available: {1}",
-                        &[info::APP_ENGLISH_SHORT_NAME, &version.to_string()],
-                    )));
-                    alert.addButtonWithTitle(&NSString::from_str(&translation::_g("Update")));
-                    alert.addButtonWithTitle(&NSString::from_str(&translation::_g("OK")));
-                } else {
-                    alert.setMessageText(&NSString::from_str(&translation::_g(
-                        "No Update Available",
-                    )));
-                    alert.setInformativeText(&NSString::from_str(&translation::_f(
-                        "You are running the latest version of {0}.",
-                        &[info::APP_ENGLISH_SHORT_NAME],
-                    )));
-                }
-                if alert.runModal() == NSAlertFirstButtonReturn && version.is_some() {
-                    tokio::spawn(async move {
-                        if let Err(error) = controller
-                            .install_update(move |_downloaded, _total| {
-                                dispatch2::run_on_main(move |_mtm| {
-                                    //TODO: Update UI with progress
-                                });
-                            })
-                            .await
-                        {
-                            let error_msg = error.to_string();
-                            dispatch2::run_on_main(move |mtm| {
-                                let alert = NSAlert::new(mtm);
-                                alert
-                                    .setMessageText(&NSString::from_str(&translation::_g("Error")));
-                                alert.setInformativeText(&NSString::from_str(&translation::_f(
-                                    "Unable to install the update: {0}",
-                                    &[error_msg],
-                                )));
-                                alert.runModal();
-                            });
-                        }
-                    });
-                }
+        let version = controller.check_for_updates();
+        let alert = NSAlert::new(self.mtm());
+        if let Some(ref version) = version {
+            alert.setMessageText(&NSString::from_str(&translation::_g("Update Available")));
+            alert.setInformativeText(&NSString::from_str(&translation::_f(
+                "A new update for {0} is available: {1}",
+                &[info::APP_ENGLISH_SHORT_NAME, &version.to_string()],
+            )));
+            alert.addButtonWithTitle(&NSString::from_str(&translation::_g("Update")));
+            alert.addButtonWithTitle(&NSString::from_str(&translation::_g("OK")));
+        } else {
+            alert.setMessageText(&NSString::from_str(&translation::_g("No Update Available")));
+            alert.setInformativeText(&NSString::from_str(&translation::_f(
+                "You are running the latest version of {0}.",
+                &[info::APP_ENGLISH_SHORT_NAME],
+            )));
+        }
+        if alert.runModal() == NSAlertFirstButtonReturn && version.is_some() {
+            let controls = self.ivars().controls.get().unwrap();
+            controls.toolbar.insertItemWithItemIdentifier_atIndex(
+                &NSToolbarIdentifier::from_str("UpdateProgress"),
+                0,
+            );
+            let result = controller.install_update(move |downloaded, total| {
+                //TODO
             });
-        });
+            controls.toolbar.removeItemAtIndex(0);
+            if let Err(error) = result {
+                let alert = NSAlert::new(self.mtm());
+                alert.setMessageText(&NSString::from_str(&translation::_g("Error")));
+                alert.setInformativeText(&NSString::from_str(&translation::_f(
+                    "Unable to install the update: {0}",
+                    &[error.to_string()],
+                )));
+                alert.runModal();
+            }
+        }
     }
 
     pub fn close_folder(&self) {
