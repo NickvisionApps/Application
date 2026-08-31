@@ -3,8 +3,8 @@ use objc2::rc::Retained;
 use objc2::runtime::{AnyObject, Sel};
 use objc2::{ClassType, MainThreadOnly, define_class, msg_send};
 use objc2_app_kit::{
-    NSApplication, NSBezelStyle, NSButton, NSColor, NSFont, NSImageView, NSLayoutAttribute,
-    NSStackView, NSTextAlignment, NSTextField, NSUserInterfaceLayoutOrientation, NSView,
+    NSApplication, NSButton, NSColor, NSFont, NSImageView, NSLayoutAttribute, NSStackView,
+    NSTextAlignment, NSTextField, NSUserInterfaceLayoutOrientation, NSView,
 };
 use objc2_foundation::{MainThreadMarker, NSArray, NSObjectProtocol, NSRect, NSString};
 use shared::translation;
@@ -37,15 +37,7 @@ impl HomePage {
                 .unwrap(),
             mtm,
         );
-        icon_view.setTranslatesAutoresizingMaskIntoConstraints(false);
-        icon_view
-            .widthAnchor()
-            .constraintEqualToConstant(64.0)
-            .setActive(true);
-        icon_view
-            .heightAnchor()
-            .constraintEqualToConstant(64.0)
-            .setActive(true);
+        icon_view.set_size(64.0, 64.0);
         let title_label = NSTextField::labelWithString(&NSString::from_str(greeting), mtm);
         title_label.setFont(Some(&NSFont::boldSystemFontOfSize(
             NSFont::systemFontSize() * 2.0,
@@ -65,7 +57,6 @@ impl HomePage {
                 mtm,
             )
         };
-        open_button.setBezelStyle(NSBezelStyle::Rounded);
         open_button.setKeyEquivalent(&NSString::from_str("\r"));
         open_button.setToolTip(Some(&NSString::from_str(&translation::_g(
             "Open Folder (⌘O)",

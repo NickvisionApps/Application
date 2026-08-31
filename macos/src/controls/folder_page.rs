@@ -45,19 +45,11 @@ impl FolderPage {
             mtm,
         );
         icon_view.setSymbolConfiguration(Some(
-            &NSImageSymbolConfiguration::configurationWithPointSize_weight(32.0, unsafe {
+            &NSImageSymbolConfiguration::configurationWithPointSize_weight(64.0, unsafe {
                 NSFontWeightRegular
             }),
         ));
-        icon_view.setTranslatesAutoresizingMaskIntoConstraints(false);
-        icon_view
-            .widthAnchor()
-            .constraintEqualToConstant(40.0)
-            .setActive(true);
-        icon_view
-            .heightAnchor()
-            .constraintEqualToConstant(40.0)
-            .setActive(true);
+        icon_view.set_size(64.0, 64.0);
         let title_label = NSTextField::labelWithString(&NSString::from_str(""), mtm);
         title_label.setFont(Some(
             &NSFont::boldSystemFontOfSize(NSFont::systemFontSize()),

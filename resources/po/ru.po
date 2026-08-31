@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 11:08-0400\n"
+"POT-Creation-Date: 2026-08-30 21:57-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -18,14 +18,14 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: linux/src/controls/folder_page.rs:67 macos/src/controls/folder_page.rs:100
+#: linux/src/controls/folder_page.rs:67 macos/src/controls/folder_page.rs:92
 msgid "{0} file"
 msgid_plural "{0} files"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: linux/src/controls/home_page.rs:43 macos/src/controls/home_page.rs:55
+#: linux/src/controls/home_page.rs:43 macos/src/controls/home_page.rs:47
 #, fuzzy
 msgid "Open a folder to get started"
 msgstr "Откройте или перетащите папку, чтобы начать."
@@ -35,7 +35,7 @@ msgid "Open Folder (Ctrl+O)"
 msgstr "Открыть папку (Ctrl+O)"
 
 #: linux/src/controls/home_page.rs:49 linux/src/views/main_window.rs:106
-#: macos/src/controls/home_page.rs:62
+#: macos/src/controls/home_page.rs:54
 msgid "Open"
 msgstr "Открыть"
 
@@ -163,7 +163,7 @@ msgstr ""
 msgid "Advanced"
 msgstr ""
 
-#: macos/src/controls/home_page.rs:71 macos/src/views/main_window.rs:101
+#: macos/src/controls/home_page.rs:62 macos/src/views/main_window.rs:101
 #, fuzzy
 msgid "Open Folder (⌘O)"
 msgstr "Закрыть папку (Ctrl+W)"

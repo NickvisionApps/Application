@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 11:09-0400\n"
+"POT-Creation-Date: 2026-08-30 21:57-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,13 +18,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: linux/src/controls/folder_page.rs:67 macos/src/controls/folder_page.rs:100
+#: linux/src/controls/folder_page.rs:67 macos/src/controls/folder_page.rs:92
 msgid "{0} file"
 msgid_plural "{0} files"
 msgstr[0] ""
 msgstr[1] ""
 
-#: linux/src/controls/home_page.rs:43 macos/src/controls/home_page.rs:55
+#: linux/src/controls/home_page.rs:43 macos/src/controls/home_page.rs:47
 msgid "Open a folder to get started"
 msgstr ""
 
@@ -33,7 +33,7 @@ msgid "Open Folder (Ctrl+O)"
 msgstr ""
 
 #: linux/src/controls/home_page.rs:49 linux/src/views/main_window.rs:106
-#: macos/src/controls/home_page.rs:62
+#: macos/src/controls/home_page.rs:54
 msgid "Open"
 msgstr ""
 
@@ -150,7 +150,7 @@ msgstr ""
 msgid "Advanced"
 msgstr ""
 
-#: macos/src/controls/home_page.rs:71 macos/src/views/main_window.rs:101
+#: macos/src/controls/home_page.rs:62 macos/src/views/main_window.rs:101
 msgid "Open Folder (⌘O)"
 msgstr ""
 

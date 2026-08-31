@@ -34,6 +34,7 @@ pub trait EasyLayout {
         left: Option<CGFloat>,
         right: Option<CGFloat>,
     );
+    fn set_size(&self, width: CGFloat, height: CGFloat);
 }
 
 impl EasyLayout for NSView {
@@ -144,5 +145,15 @@ impl EasyLayout for NSView {
             );
         }
         NSLayoutConstraint::activateConstraints(&NSArray::from_retained_slice(&constraints));
+    }
+
+    fn set_size(&self, width: CGFloat, height: CGFloat) {
+        self.setTranslatesAutoresizingMaskIntoConstraints(false);
+        self.widthAnchor()
+            .constraintEqualToConstant(width)
+            .setActive(true);
+        self.heightAnchor()
+            .constraintEqualToConstant(height)
+            .setActive(true);
     }
 }
