@@ -1,14 +1,16 @@
-use crate::controls::{FolderPage, HomePage};
+use crate::controls::{FolderPage, HomePage, UpdateProgressPage};
 use crate::helpers::{EasyLayout, EasyToolbarItem};
+use dispatch2::{MainThreadBound, run_on_main};
 use objc2::rc::Retained;
 use objc2::runtime::{AnyObject, ProtocolObject};
 use objc2::{ClassType, DefinedClass, MainThreadOnly, Message, define_class, msg_send, sel};
 use objc2_app_kit::{
-    NSAlert, NSAlertFirstButtonReturn, NSBackingStoreType, NSButton, NSModalResponseOK,
-    NSOpenPanel, NSPopover, NSPopoverBehavior, NSTabView, NSTabViewItem, NSTabViewType, NSToolbar,
-    NSToolbarDelegate, NSToolbarDisplayMode, NSToolbarFlexibleSpaceItemIdentifier,
-    NSToolbarIdentifier, NSToolbarItem, NSToolbarItemIdentifier, NSToolbarSpaceItemIdentifier,
-    NSWindow, NSWindowController, NSWindowDelegate, NSWindowStyleMask, NSWindowToolbarStyle,
+    NSAlert, NSAlertFirstButtonReturn, NSBackingStoreType, NSButton, NSColor, NSImage, NSImageView,
+    NSModalResponseOK, NSOpenPanel, NSPopover, NSPopoverBehavior, NSTabView, NSTabViewItem,
+    NSTabViewType, NSToolbar, NSToolbarDelegate, NSToolbarDisplayMode,
+    NSToolbarFlexibleSpaceItemIdentifier, NSToolbarIdentifier, NSToolbarItem,
+    NSToolbarItemIdentifier, NSToolbarSpaceItemIdentifier, NSWindow, NSWindowController,
+    NSWindowDelegate, NSWindowStyleMask, NSWindowToolbarStyle,
 };
 use objc2_foundation::{
     MainThreadMarker, NSArray, NSNotification, NSObjectProtocol, NSPoint, NSRect, NSRectEdge,
@@ -21,6 +23,7 @@ use std::{cell::RefCell, rc::Rc};
 #[derive(Debug)]
 pub struct MainWindowControls {
     update_progress_popover: Retained<NSPopover>,
+    update_progress_page: Retained<UpdateProgressPage>,
     toolbar: Retained<NSToolbar>,
     tab_view: Retained<NSTabView>,
     home_page: Retained<HomePage>,
@@ -220,6 +223,8 @@ impl MainWindow {
         let update_progress_popover = NSPopover::new(mtm);
         update_progress_popover.setBehavior(NSPopoverBehavior::Transient);
         update_progress_popover.setAnimates(true);
+        let update_progress_page = UpdateProgressPage::new(mtm);
+        update_progress_popover.setContentViewController(Some(&update_progress_page));
         if let Some(content_view) = window.contentView() {
             let tab_view = NSTabView::new(mtm);
             tab_view.setTabViewType(NSTabViewType::NoTabsNoBorder);
@@ -243,6 +248,7 @@ impl MainWindow {
                 .controls
                 .set(MainWindowControls {
                     update_progress_popover,
+                    update_progress_page,
                     toolbar,
                     tab_view,
                     home_page,
@@ -283,19 +289,63 @@ impl MainWindow {
                 &NSToolbarIdentifier::from_str("UpdateProgress"),
                 0,
             );
-            let result = controller.install_update(move |downloaded, total| {
-                //TODO
-            });
-            controls.toolbar.removeItemAtIndex(0);
-            if let Err(error) = result {
-                let alert = NSAlert::new(self.mtm());
-                alert.setMessageText(&NSString::from_str(&translation::_g("Error")));
-                alert.setInformativeText(&NSString::from_str(&translation::_f(
-                    "Unable to install the update: {0}",
-                    &[error.to_string()],
-                )));
-                alert.runModal();
+            if let Some(button_view) = controls
+                .toolbar
+                .items()
+                .iter()
+                .find(|item| &*item.itemIdentifier() == ns_string!("UpdateProgress"))
+                .and_then(|item| item.view())
+            {
+                let badge = NSImageView::imageViewWithImage(
+                    &NSImage::imageWithSystemSymbolName_accessibilityDescription(
+                        &NSString::from_str("circle.fill"),
+                        None,
+                    )
+                    .unwrap(),
+                    self.mtm(),
+                );
+                badge.setContentTintColor(Some(&NSColor::systemRedColor()));
+                badge.set_size(8.0, 8.0);
+                button_view.addSubview(&badge);
+                badge.constrain_margin(&button_view, None, Some(2.0), Some(2.0), None);
             }
+            controls.update_progress_page.set_progress(0, 0);
+            let controller = self.ivars().controller.borrow().clone();
+            let window_bound = MainThreadBound::new(self.retain(), self.mtm());
+            std::thread::spawn(move || {
+                let result = controller.install_update(|downloaded, total| {
+                    run_on_main(|mtm| {
+                        window_bound
+                            .get(mtm)
+                            .ivars()
+                            .controls
+                            .get()
+                            .unwrap()
+                            .update_progress_page
+                            .set_progress(downloaded, total)
+                    });
+                });
+                let error = result.err().map(|error| error.to_string());
+                run_on_main(move |mtm| {
+                    let window = window_bound.get(mtm);
+                    window
+                        .ivars()
+                        .controls
+                        .get()
+                        .unwrap()
+                        .toolbar
+                        .removeItemAtIndex(0);
+                    if let Some(error) = error {
+                        let alert = NSAlert::new(mtm);
+                        alert.setMessageText(&NSString::from_str(&translation::_g("Error")));
+                        alert.setInformativeText(&NSString::from_str(&translation::_f(
+                            "Unable to install the update: {0}",
+                            &[error],
+                        )));
+                        alert.runModal();
+                    }
+                });
+            });
         }
     }
 
