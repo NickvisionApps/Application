@@ -63,6 +63,7 @@ impl AppController {
             .cache_dir()
             .join(info::APP_NAME)
             .join(self.updater.target_asset_name());
+        std::fs::create_dir_all(path.parent().expect("Download path has no parent"))?;
         self.updater
             .download_update(self.update_type(), &path, on_progress)?;
         #[cfg(target_os = "windows")]

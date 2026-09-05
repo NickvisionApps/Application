@@ -5,8 +5,10 @@ use objc2::runtime::AnyObject;
 use objc2::{
     ClassType, DefinedClass, MainThreadMarker, MainThreadOnly, define_class, msg_send, sel,
 };
-use objc2_app_kit::{NSAlert, NSApplication, NSEventModifierFlags, NSMenu, NSMenuItem};
-use objc2_foundation::{NSObjectProtocol, NSString, ns_string};
+use objc2_app_kit::{
+    NSAlert, NSApplication, NSEventModifierFlags, NSMenu, NSMenuItem, NSWorkspace,
+};
+use objc2_foundation::{NSObjectProtocol, NSString, NSURL, ns_string};
 use shared::{controller::AppController, info, translation};
 use std::{
     cell::{OnceCell, RefCell},
@@ -65,6 +67,27 @@ define_class!(
                 dialog.setInformativeText(&NSString::from_str(&translation::_f("Developers:\n{0}\n\nDesigners:\n{1}\n\nArtists:\n{2}", &[info::app_developer_names(), info::app_designer_names(), info::app_artist_names()])));
             }
             dialog.runModal();
+        }
+
+        #[unsafe(method(gitHubRepo:))]
+        fn open_github_repo(&self, _sender: Option<&AnyObject>) {
+            if let Some(url) = unsafe { NSURL::URLWithString(&NSString::from_str(info::APP_REPO_URL)) } {
+                unsafe { NSWorkspace::sharedWorkspace().openURL(&url) };
+            }
+        }
+
+        #[unsafe(method(reportABug:))]
+        fn report_a_bug(&self, _sender: Option<&AnyObject>) {
+            if let Some(url) = unsafe { NSURL::URLWithString(&NSString::from_str(info::APP_ISSUES_URL)) } {
+                unsafe { NSWorkspace::sharedWorkspace().openURL(&url) };
+            }
+        }
+
+        #[unsafe(method(discussions:))]
+        fn open_discussions(&self, _sender: Option<&AnyObject>) {
+            if let Some(url) = unsafe { NSURL::URLWithString(&NSString::from_str(info::APP_DISCUSSION_URL)) } {
+                unsafe { NSWorkspace::sharedWorkspace().openURL(&url) };
+            }
         }
 
         #[unsafe(method(showDebuggingInformation:))]
@@ -303,6 +326,28 @@ impl MainMenu {
             "",
             Some(this.as_super().as_super()),
             Some(sel!(showCredits:)),
+        );
+        help_menu.add_separator_item();
+        help_menu.add_item_easy(
+            translation::_g("GitHub Repository"),
+            Some("books.vertical"),
+            "",
+            Some(this.as_super().as_super()),
+            Some(sel!(gitHubRepo:)),
+        );
+        help_menu.add_item_easy(
+            translation::_g("Report a Bug"),
+            Some("ladybug"),
+            "",
+            Some(this.as_super().as_super()),
+            Some(sel!(reportABug:)),
+        );
+        help_menu.add_item_easy(
+            translation::_g("Discussions"),
+            Some("message"),
+            "",
+            Some(this.as_super().as_super()),
+            Some(sel!(discussions:)),
         );
         help_menu.add_separator_item();
         help_menu.add_item_easy(

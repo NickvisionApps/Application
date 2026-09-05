@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-01 00:48-0400\n"
+"POT-Creation-Date: 2026-09-04 22:05-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -49,11 +49,11 @@ msgid "Keyboard Shortcuts"
 msgstr "Комбинации клавиш"
 
 #: linux/src/views/main_window.rs:90 linux/src/views/main_window.rs:327
-#: macos/src/controls/main_menu.rs:114
+#: macos/src/controls/main_menu.rs:137
 msgid "About Application"
 msgstr "О приложении"
 
-#: linux/src/views/main_window.rs:96 macos/src/controls/main_menu.rs:111
+#: linux/src/views/main_window.rs:96 macos/src/controls/main_menu.rs:134
 #: macos/src/views/main_window.rs:218 windows/src/views/main_window.rs:46
 #: windows/src/views/main_window.rs:61
 msgid "Application"
@@ -68,7 +68,7 @@ msgstr "Закрыть папку (Ctrl+W)"
 msgid "Main Menu"
 msgstr "Главное меню"
 
-#: linux/src/views/main_window.rs:237 macos/src/controls/main_menu.rs:60
+#: linux/src/views/main_window.rs:237 macos/src/controls/main_menu.rs:62
 #, fuzzy
 msgid "translation-credits"
 msgstr "Фёдор Соболев https://github.com/fsobolev"
@@ -83,7 +83,7 @@ msgid "Folder closed"
 msgstr "Папка закрыта."
 
 #: linux/src/views/main_window.rs:266 linux/src/views/main_window.rs:333
-#: macos/src/controls/main_menu.rs:178 macos/src/views/main_window.rs:120
+#: macos/src/controls/main_menu.rs:201 macos/src/views/main_window.rs:120
 msgid "Open Folder"
 msgstr "Открыть Папку"
 
@@ -104,7 +104,7 @@ msgstr "Выход"
 msgid "Folder"
 msgstr "Папка"
 
-#: linux/src/views/main_window.rs:337 macos/src/controls/main_menu.rs:185
+#: linux/src/views/main_window.rs:337 macos/src/controls/main_menu.rs:208
 #: macos/src/views/main_window.rs:109
 msgid "Close Folder"
 msgstr "Закрыть папку"
@@ -168,18 +168,18 @@ msgstr ""
 msgid "Open Folder (⌘O)"
 msgstr "Закрыть папку (Ctrl+W)"
 
-#: macos/src/controls/main_menu.rs:52
+#: macos/src/controls/main_menu.rs:54
 msgid ""
 "{0}\n"
 "\n"
 "What's New?"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:61 macos/src/controls/main_menu.rs:301
+#: macos/src/controls/main_menu.rs:63 macos/src/controls/main_menu.rs:324
 msgid "Credits"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:63
+#: macos/src/controls/main_menu.rs:65
 msgid ""
 "Developers:\n"
 "{0}\n"
@@ -194,7 +194,7 @@ msgid ""
 "{3}"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:65
+#: macos/src/controls/main_menu.rs:67
 msgid ""
 "Developers:\n"
 "{0}\n"
@@ -206,114 +206,127 @@ msgid ""
 "{2}"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:73 macos/src/controls/main_menu.rs:309
+#: macos/src/controls/main_menu.rs:96 macos/src/controls/main_menu.rs:354
 msgid "Debugging Information"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:121
+#: macos/src/controls/main_menu.rs:144
 msgid "Check for Updates"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:129
+#: macos/src/controls/main_menu.rs:152
 msgid "Settings\\u{2026}"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:136
+#: macos/src/controls/main_menu.rs:159
 msgid "Services"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:139
+#: macos/src/controls/main_menu.rs:162
 #, fuzzy
 msgid "Hide Application"
 msgstr "Application"
 
-#: macos/src/controls/main_menu.rs:146
+#: macos/src/controls/main_menu.rs:169
 msgid "Hide Others"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:156
+#: macos/src/controls/main_menu.rs:179
 msgid "Show All"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:164
+#: macos/src/controls/main_menu.rs:187
 #, fuzzy
 msgid "Quit Application"
 msgstr "О приложении"
 
-#: macos/src/controls/main_menu.rs:175
+#: macos/src/controls/main_menu.rs:198
 msgid "File"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:193
+#: macos/src/controls/main_menu.rs:216
 msgid "Close Window"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:204
+#: macos/src/controls/main_menu.rs:227
 msgid "Edit"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:206
+#: macos/src/controls/main_menu.rs:229
 msgid "Undo"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:207
+#: macos/src/controls/main_menu.rs:230
 msgid "Redo"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:209
+#: macos/src/controls/main_menu.rs:232
 msgid "Cut"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:210
+#: macos/src/controls/main_menu.rs:233
 msgid "Copy"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:212
+#: macos/src/controls/main_menu.rs:235
 msgid "Paste"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:219
+#: macos/src/controls/main_menu.rs:242
 msgid "Select All"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:230
+#: macos/src/controls/main_menu.rs:253
 msgid "View"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:233
+#: macos/src/controls/main_menu.rs:256
 msgid "Hide Toolbar"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:240
+#: macos/src/controls/main_menu.rs:263
 msgid "Customize Toolbar\\u{2026}"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:247
+#: macos/src/controls/main_menu.rs:270
 msgid "Enter Full Screen"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:261
+#: macos/src/controls/main_menu.rs:284
 msgid "Window"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:264
+#: macos/src/controls/main_menu.rs:287
 msgid "Minimize"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:271
+#: macos/src/controls/main_menu.rs:294
 msgid "Zoom"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:279
+#: macos/src/controls/main_menu.rs:302
 msgid "Bring All to Front"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:291
+#: macos/src/controls/main_menu.rs:314
 msgid "Help"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:294
+#: macos/src/controls/main_menu.rs:317
 msgid "What's New"
+msgstr ""
+
+#: macos/src/controls/main_menu.rs:332
+#, fuzzy
+msgid "GitHub Repository"
+msgstr "Репозиторий GitHub"
+
+#: macos/src/controls/main_menu.rs:339
+msgid "Report a Bug"
+msgstr ""
+
+#: macos/src/controls/main_menu.rs:346
+msgid "Discussions"
 msgstr ""
 
 #: macos/src/views/main_window.rs:111

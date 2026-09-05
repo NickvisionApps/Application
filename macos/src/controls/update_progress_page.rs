@@ -12,6 +12,7 @@ use std::cell::OnceCell;
 
 #[derive(Debug)]
 struct UpdateProgressPageControls {
+    title_label: Retained<NSTextField>,
     progress_indicator: Retained<NSProgressIndicator>,
     detail_label: Retained<NSTextField>,
 }
@@ -39,7 +40,7 @@ impl UpdateProgressPage {
         };
         let view = NSView::initWithFrame(NSView::alloc(mtm), NSRect::ZERO);
         let title_label = NSTextField::labelWithString(
-            &NSString::from_str(&translation::_g("Downloading Update")),
+            &NSString::from_str(&translation::_g("No update in progress")),
             mtm,
         );
         title_label.setFont(Some(
@@ -52,6 +53,7 @@ impl UpdateProgressPage {
         progress_indicator.setMinValue(0.0);
         progress_indicator.setMaxValue(1.0);
         progress_indicator.setDoubleValue(0.0);
+        progress_indicator.setHidden(true);
         progress_indicator
             .widthAnchor()
             .constraintEqualToConstant(220.0)
@@ -59,6 +61,7 @@ impl UpdateProgressPage {
         let detail_label = NSTextField::labelWithString(&NSString::from_str(""), mtm);
         detail_label.setTextColor(Some(&NSColor::secondaryLabelColor()));
         detail_label.setAlignment(NSTextAlignment::Center);
+        detail_label.setHidden(true);
         let stack_view = NSStackView::stackViewWithViews(
             &NSArray::from_slice(&[
                 &title_label as &NSView,
@@ -75,6 +78,7 @@ impl UpdateProgressPage {
         this.ivars()
             .controls
             .set(UpdateProgressPageControls {
+                title_label,
                 progress_indicator,
                 detail_label,
             })
@@ -85,6 +89,11 @@ impl UpdateProgressPage {
 
     pub fn set_progress(&self, downloaded: u64, total: u64) {
         let controls = self.ivars().controls.get().unwrap();
+        controls
+            .title_label
+            .setStringValue(&NSString::from_str(&translation::_g("Downloading Update")));
+        controls.progress_indicator.setHidden(false);
+        controls.detail_label.setHidden(false);
         if total > 0 {
             controls.progress_indicator.setIndeterminate(false);
             controls
