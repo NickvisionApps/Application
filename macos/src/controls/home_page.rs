@@ -1,7 +1,7 @@
 use crate::helpers::EasyLayout;
 use objc2::rc::Retained;
 use objc2::runtime::{AnyObject, NSObject, Sel};
-use objc2::{ClassType, MainThreadOnly, define_class, msg_send};
+use objc2::{MainThreadOnly, define_class, msg_send};
 use objc2_app_kit::{
     NSApplication, NSButton, NSColor, NSFont, NSImageView, NSLayoutAttribute, NSStackView,
     NSTextAlignment, NSTextField, NSUserInterfaceLayoutOrientation, NSView, NSViewController,

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-04 22:05-0400\n"
+"POT-Creation-Date: 2026-09-04 22:21-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -87,7 +87,7 @@ msgstr "Папка закрыта."
 msgid "Open Folder"
 msgstr "Открыть Папку"
 
-#: linux/src/views/main_window.rs:284 macos/src/views/main_window.rs:383
+#: linux/src/views/main_window.rs:284 macos/src/views/main_window.rs:372
 msgid "Unable to open folder: {0}"
 msgstr ""
 
@@ -365,11 +365,11 @@ msgstr "Application"
 msgid "You are running the latest version of {0}."
 msgstr ""
 
-#: macos/src/views/main_window.rs:340 macos/src/views/main_window.rs:381
+#: macos/src/views/main_window.rs:329 macos/src/views/main_window.rs:370
 msgid "Error"
 msgstr ""
 
-#: macos/src/views/main_window.rs:342
+#: macos/src/views/main_window.rs:331
 msgid "Unable to install the update: {0}"
 msgstr ""
 

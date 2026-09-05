@@ -1,16 +1,15 @@
 use crate::controls::{FolderPage, HomePage, UpdateProgressPage};
-use crate::helpers::{EasyLayout, EasyToolbarItem};
+use crate::helpers::{EasyBadge, EasyLayout, EasyToolbarItem};
 use dispatch2::{MainThreadBound, run_on_main};
 use objc2::rc::Retained;
 use objc2::runtime::{AnyObject, ProtocolObject};
 use objc2::{ClassType, DefinedClass, MainThreadOnly, Message, define_class, msg_send, sel};
 use objc2_app_kit::{
-    NSAlert, NSAlertFirstButtonReturn, NSBackingStoreType, NSButton, NSColor, NSImage, NSImageView,
-    NSModalResponseOK, NSOpenPanel, NSPopover, NSPopoverBehavior, NSTabView, NSTabViewItem,
-    NSTabViewType, NSToolbar, NSToolbarDelegate, NSToolbarDisplayMode,
-    NSToolbarFlexibleSpaceItemIdentifier, NSToolbarIdentifier, NSToolbarItem,
-    NSToolbarItemIdentifier, NSToolbarSpaceItemIdentifier, NSWindow, NSWindowController,
-    NSWindowDelegate, NSWindowStyleMask, NSWindowToolbarStyle,
+    NSAlert, NSAlertFirstButtonReturn, NSBackingStoreType, NSButton, NSModalResponseOK,
+    NSOpenPanel, NSPopover, NSPopoverBehavior, NSTabView, NSTabViewItem, NSTabViewType, NSToolbar,
+    NSToolbarDelegate, NSToolbarDisplayMode, NSToolbarFlexibleSpaceItemIdentifier,
+    NSToolbarIdentifier, NSToolbarItem, NSToolbarItemIdentifier, NSToolbarSpaceItemIdentifier,
+    NSWindow, NSWindowController, NSWindowDelegate, NSWindowStyleMask, NSWindowToolbarStyle,
 };
 use objc2_foundation::{
     MainThreadMarker, NSArray, NSNotification, NSObjectProtocol, NSPoint, NSRect, NSRectEdge,
@@ -296,18 +295,7 @@ impl MainWindow {
                 .find(|item| &*item.itemIdentifier() == ns_string!("UpdateProgress"))
                 .and_then(|item| item.view())
             {
-                let badge = NSImageView::imageViewWithImage(
-                    &NSImage::imageWithSystemSymbolName_accessibilityDescription(
-                        &NSString::from_str("circle.fill"),
-                        None,
-                    )
-                    .unwrap(),
-                    self.mtm(),
-                );
-                badge.setContentTintColor(Some(&NSColor::systemRedColor()));
-                badge.set_size(8.0, 8.0);
-                button_view.addSubview(&badge);
-                badge.constrain_margin(&button_view, None, Some(2.0), Some(2.0), None);
+                button_view.add_badge_to_view(self.mtm());
             }
             controls.update_progress_page.set_progress(0, 0);
             let controller = self.ivars().controller.borrow().clone();
