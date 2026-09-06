@@ -2331,9 +2331,9 @@ dependencies = [
 
 [[package]]
 name = "reup"
-version = "0.4.0"
+version = "0.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c8ae050f131ac66992aefab994d8585742fcd16c57a7e6decb33b70b2f27e9bf"
+checksum = "79c71126d324a0bec64f88d60d6f4c83b03cc0fac17744aee97bf555c8e3448d"
 dependencies = [
  "directories",
  "hex",

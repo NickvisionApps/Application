@@ -33,7 +33,7 @@ define_class!(
         #[unsafe(method(checkForUpdates:))]
         fn check_for_updates(&self, _sender: Option<&AnyObject>) {
             self.ivars().window.show();
-            self.ivars().window.check_for_updates();
+            self.ivars().window.check_for_updates(true);
         }
 
         #[unsafe(method(closeFolder:))]
@@ -71,22 +71,22 @@ define_class!(
 
         #[unsafe(method(gitHubRepo:))]
         fn open_github_repo(&self, _sender: Option<&AnyObject>) {
-            if let Some(url) = unsafe { NSURL::URLWithString(&NSString::from_str(info::APP_REPO_URL)) } {
-                unsafe { NSWorkspace::sharedWorkspace().openURL(&url) };
+            if let Some(url) = NSURL::URLWithString(&NSString::from_str(info::APP_REPO_URL)) {
+                NSWorkspace::sharedWorkspace().openURL(&url);
             }
         }
 
         #[unsafe(method(reportABug:))]
         fn report_a_bug(&self, _sender: Option<&AnyObject>) {
-            if let Some(url) = unsafe { NSURL::URLWithString(&NSString::from_str(info::APP_ISSUES_URL)) } {
-                unsafe { NSWorkspace::sharedWorkspace().openURL(&url) };
+            if let Some(url) = NSURL::URLWithString(&NSString::from_str(info::APP_ISSUES_URL)) {
+                NSWorkspace::sharedWorkspace().openURL(&url);
             }
         }
 
         #[unsafe(method(discussions:))]
         fn open_discussions(&self, _sender: Option<&AnyObject>) {
-            if let Some(url) = unsafe { NSURL::URLWithString(&NSString::from_str(info::APP_DISCUSSION_URL)) } {
-                unsafe { NSWorkspace::sharedWorkspace().openURL(&url) };
+            if let Some(url) = NSURL::URLWithString(&NSString::from_str(info::APP_DISCUSSION_URL)) {
+                NSWorkspace::sharedWorkspace().openURL(&url);
             }
         }
 

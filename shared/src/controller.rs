@@ -5,7 +5,7 @@ use chrono::{Local, Timelike};
 use directories::BaseDirs;
 use reup::{GitHubUpdater, UpdateProvider, UpdateType};
 use semver::Version;
-use std::ops::{Deref, DerefMut};
+use std::ops::{ControlFlow, Deref, DerefMut};
 
 #[derive(Debug, Clone)]
 pub struct AppController {
@@ -53,7 +53,7 @@ impl AppController {
 
     pub fn install_update(
         &self,
-        on_progress: impl Fn(u64, u64),
+        on_progress: impl Fn(u64, u64) -> ControlFlow<()>,
     ) -> Result<(), Box<dyn std::error::Error>> {
         if info::deployment_mode() != DeploymentMode::Local {
             return Err("Unable to install update on non-local installations".into());
