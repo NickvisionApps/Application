@@ -1,7 +1,7 @@
 use shared::{controller::AppController, translation};
 use std::cell::RefCell;
 use std::rc::Rc;
-use windows_reactor::AcceleratorModifiers::Control;
+use windows::Storage::Pickers::FolderPicker;
 use windows_reactor::*;
 
 #[derive(Debug)]
@@ -36,7 +36,9 @@ impl Component for MainWindow {
             MainWindowMessage::NavigationPaneToggleRequested => {
                 self.navigation_pane_open = !self.navigation_pane_open;
             }
-            MainWindowMessage::OpenFolder => {}
+            MainWindowMessage::OpenFolder => {
+                let picker = FolderPicker::new().unwrap();
+            }
         }
     }
 

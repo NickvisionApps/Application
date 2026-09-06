@@ -1,3 +1,8 @@
+#![cfg_attr(
+    all(not(debug_assertions), target_os = "windows"),
+    windows_subsystem = "windows"
+)]
+
 #[cfg(all(target_os = "windows", not(feature = "force-gtk-run")))]
 fn main() {
     rustls::crypto::ring::default_provider()

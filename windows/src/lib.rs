@@ -1,5 +1,3 @@
-#![windows_subsystem = "windows"]
-
 mod views;
 
 use crate::views::MainWindow;

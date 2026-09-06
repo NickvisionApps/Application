@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-04 22:21-0400\n"
+"POT-Creation-Date: 2026-09-06 18:11-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -15,8 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 #: linux/src/controls/folder_page.rs:67 macos/src/controls/folder_page.rs:97
 msgid "{0} file"
@@ -54,8 +54,8 @@ msgid "About Application"
 msgstr "О приложении"
 
 #: linux/src/views/main_window.rs:96 macos/src/controls/main_menu.rs:134
-#: macos/src/views/main_window.rs:218 windows/src/views/main_window.rs:46
-#: windows/src/views/main_window.rs:61
+#: macos/src/views/main_window.rs:217 windows/src/views/main_window.rs:48
+#: windows/src/views/main_window.rs:63
 msgid "Application"
 msgstr "Application"
 
@@ -83,11 +83,11 @@ msgid "Folder closed"
 msgstr "Папка закрыта."
 
 #: linux/src/views/main_window.rs:266 linux/src/views/main_window.rs:333
-#: macos/src/controls/main_menu.rs:201 macos/src/views/main_window.rs:120
+#: macos/src/controls/main_menu.rs:201 macos/src/views/main_window.rs:119
 msgid "Open Folder"
 msgstr "Открыть Папку"
 
-#: linux/src/views/main_window.rs:284 macos/src/views/main_window.rs:372
+#: linux/src/views/main_window.rs:284 macos/src/views/main_window.rs:371
 msgid "Unable to open folder: {0}"
 msgstr ""
 
@@ -105,7 +105,7 @@ msgid "Folder"
 msgstr "Папка"
 
 #: linux/src/views/main_window.rs:337 macos/src/controls/main_menu.rs:208
-#: macos/src/views/main_window.rs:109
+#: macos/src/views/main_window.rs:108
 msgid "Close Folder"
 msgstr "Закрыть папку"
 
@@ -163,7 +163,7 @@ msgstr ""
 msgid "Advanced"
 msgstr ""
 
-#: macos/src/controls/home_page.rs:65 macos/src/views/main_window.rs:122
+#: macos/src/controls/home_page.rs:65 macos/src/views/main_window.rs:121
 #, fuzzy
 msgid "Open Folder (⌘O)"
 msgstr "Закрыть папку (Ctrl+W)"
@@ -329,47 +329,47 @@ msgstr ""
 msgid "Discussions"
 msgstr ""
 
-#: macos/src/views/main_window.rs:111
+#: macos/src/views/main_window.rs:110
 #, fuzzy
 msgid "Close Folder (⇧⌘W)"
 msgstr "Закрыть папку (Ctrl+W)"
 
-#: macos/src/views/main_window.rs:131
+#: macos/src/views/main_window.rs:130
 msgid "Update Progress"
 msgstr ""
 
-#: macos/src/views/main_window.rs:272
+#: macos/src/views/main_window.rs:271
 #, fuzzy
 msgid "Update Available"
 msgstr "Application"
 
-#: macos/src/views/main_window.rs:274
+#: macos/src/views/main_window.rs:273
 #, fuzzy
 msgid "A new update for {0} is available: {1}"
 msgstr "Application"
 
-#: macos/src/views/main_window.rs:277
+#: macos/src/views/main_window.rs:276
 msgid "Update"
 msgstr ""
 
-#: macos/src/views/main_window.rs:278
+#: macos/src/views/main_window.rs:277
 msgid "OK"
 msgstr ""
 
-#: macos/src/views/main_window.rs:280
+#: macos/src/views/main_window.rs:279
 #, fuzzy
 msgid "No Update Available"
 msgstr "Application"
 
-#: macos/src/views/main_window.rs:282
+#: macos/src/views/main_window.rs:281
 msgid "You are running the latest version of {0}."
 msgstr ""
 
-#: macos/src/views/main_window.rs:329 macos/src/views/main_window.rs:370
+#: macos/src/views/main_window.rs:328 macos/src/views/main_window.rs:369
 msgid "Error"
 msgstr ""
 
-#: macos/src/views/main_window.rs:331
+#: macos/src/views/main_window.rs:330
 msgid "Unable to install the update: {0}"
 msgstr ""
 
