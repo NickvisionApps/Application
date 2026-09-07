@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-06 20:06-0400\n"
+"POT-Creation-Date: 2026-09-06 20:10-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -82,7 +82,7 @@ msgstr ""
 msgid "Open Folder"
 msgstr ""
 
-#: linux/src/views/main_window.rs:284 macos/src/views/main_window.rs:426
+#: linux/src/views/main_window.rs:284 macos/src/views/main_window.rs:420
 msgid "Unable to open folder: {0}"
 msgstr ""
 
@@ -320,36 +320,36 @@ msgstr ""
 msgid "Update Progress"
 msgstr ""
 
-#: macos/src/views/main_window.rs:298
-msgid "No Update Available"
-msgstr ""
-
-#: macos/src/views/main_window.rs:301
-msgid "You are running the latest version of {0}."
-msgstr ""
-
-#: macos/src/views/main_window.rs:312
+#: macos/src/views/main_window.rs:295
 msgid "Update Available"
 msgstr ""
 
-#: macos/src/views/main_window.rs:314
+#: macos/src/views/main_window.rs:297
 msgid "A new update for {0} is available: {1}"
 msgstr ""
 
-#: macos/src/views/main_window.rs:317
+#: macos/src/views/main_window.rs:300
 msgid "Update"
 msgstr ""
 
-#: macos/src/views/main_window.rs:318
+#: macos/src/views/main_window.rs:301
 msgid "OK"
 msgstr ""
 
-#: macos/src/views/main_window.rs:384 macos/src/views/main_window.rs:424
+#: macos/src/views/main_window.rs:365 macos/src/views/main_window.rs:418
 msgid "Error"
 msgstr ""
 
-#: macos/src/views/main_window.rs:386
+#: macos/src/views/main_window.rs:367
 msgid "Unable to install the update: {0}"
+msgstr ""
+
+#: macos/src/views/main_window.rs:377
+msgid "No Update Available"
+msgstr ""
+
+#: macos/src/views/main_window.rs:380
+msgid "You are running the latest version of {0}."
 msgstr ""
 
 #: macos/src/views/settings_dialog.rs:194
