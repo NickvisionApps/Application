@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-06 23:43-0400\n"
+"POT-Creation-Date: 2026-09-07 17:22-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -15,8 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 #: linux/src/controls/folder_page.rs:67 macos/src/controls/folder_page.rs:97
 msgid "{0} file"
@@ -54,8 +54,8 @@ msgid "About Application"
 msgstr "О приложении"
 
 #: linux/src/views/main_window.rs:96 macos/src/controls/main_menu.rs:134
-#: macos/src/views/main_window.rs:233 windows/src/views/main_window.rs:93
-#: windows/src/views/main_window.rs:119
+#: macos/src/views/main_window.rs:233 windows/src/views/main_window.rs:128
+#: windows/src/views/main_window.rs:151
 msgid "Application"
 msgstr "Application"
 
@@ -77,7 +77,7 @@ msgstr "Фёдор Соболев https://github.com/fsobolev"
 msgid "GitHub Repo"
 msgstr "Репозиторий GitHub"
 
-#: linux/src/views/main_window.rs:259 windows/src/views/main_window.rs:47
+#: linux/src/views/main_window.rs:259 windows/src/views/main_window.rs:62
 #, fuzzy
 msgid "Folder closed"
 msgstr "Папка закрыта."
@@ -88,7 +88,7 @@ msgid "Open Folder"
 msgstr "Открыть Папку"
 
 #: linux/src/views/main_window.rs:284 macos/src/views/main_window.rs:420
-#: windows/src/views/main_window.rs:82
+#: windows/src/views/main_window.rs:104
 msgid "Unable to open folder: {0}"
 msgstr ""
 
@@ -100,8 +100,8 @@ msgstr ""
 msgid "Quit"
 msgstr "Выход"
 
-#: linux/src/views/main_window.rs:331 windows/src/views/main_window.rs:186
-#: windows/src/views/main_window.rs:201
+#: linux/src/views/main_window.rs:331 windows/src/views/main_window.rs:221
+#: windows/src/views/main_window.rs:236
 #, fuzzy
 msgid "Folder"
 msgstr "Папка"
@@ -359,7 +359,7 @@ msgid "OK"
 msgstr ""
 
 #: macos/src/views/main_window.rs:365 macos/src/views/main_window.rs:418
-#: windows/src/views/main_window.rs:81
+#: windows/src/views/main_window.rs:103
 msgid "Error"
 msgstr ""
 
@@ -403,11 +403,11 @@ msgstr "Добрый день!"
 msgid "Good Evening!"
 msgstr "Добрый вечер!"
 
-#: windows/src/views/main_window.rs:170 windows/src/views/main_window.rs:199
+#: windows/src/views/main_window.rs:205 windows/src/views/main_window.rs:234
 msgid "Home"
 msgstr ""
 
-#: windows/src/views/main_window.rs:203
+#: windows/src/views/main_window.rs:238
 msgid "Settings"
 msgstr ""
 
