@@ -99,6 +99,12 @@ impl Component for MainWindow {
                     ApplicationTheme::System => WindowTheme::System,
                     ApplicationTheme::Light => WindowTheme::Light,
                     ApplicationTheme::Dark => WindowTheme::Dark,
+                })
+                .constraints(WindowConstraints {
+                    min_width: Some(800.0),
+                    min_height: Some(600.0),
+                    max_width: None,
+                    max_height: None,
                 }),
         );
         Grid::new()
