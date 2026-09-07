@@ -1,10 +1,17 @@
 use crate::helpers::InfoBarMessage;
-use shared::{config::ApplicationTheme, controller::AppController, translation};
+use shared::{
+    config::{ApplicationTheme, WindowGeometry},
+    controller::AppController,
+    translation,
+};
 use std::cell::RefCell;
 use std::rc::Rc;
 use windows::{
     Storage::Pickers::{FolderPicker, PickerLocationId, PickerViewMode},
-    Win32::UI::{Shell::IInitializeWithWindow, WindowsAndMessaging::GetForegroundWindow},
+    Win32::UI::{
+        Shell::IInitializeWithWindow,
+        WindowsAndMessaging::{GetForegroundWindow, IsZoomed},
+    },
     core::{Interface, h},
 };
 use windows_reactor::*;
@@ -12,18 +19,22 @@ use windows_reactor::*;
 #[derive(Debug)]
 pub struct MainWindow {
     controller: Rc<RefCell<AppController>>,
+    default_geometry: WindowGeometry,
     info_bar_message: Option<InfoBarMessage>,
     navigation_pane_open: bool,
     navigation_selected_tag: String,
+    navigation_tag_history: Vec<String>,
 }
 
 #[derive(Debug, Clone)]
 pub enum MainWindowMessage {
     CloseFolder,
     InfoBarClosed,
+    NavigationBackRequested,
     NavigationPaneToggleRequested,
     NavigationSelectedTagChanged(Option<String>),
     OpenFolder,
+    WindowSizeChanged(WindowSize),
 }
 
 impl Component for MainWindow {
@@ -31,11 +42,15 @@ impl Component for MainWindow {
     type Input = ();
 
     fn create(_input: &(), _context: &ComponentContext<Self>) -> Self {
+        let controller = Rc::new(RefCell::new(AppController::default()));
+        let geometry = controller.borrow().window_geometry().clone();
         MainWindow {
-            controller: Rc::new(RefCell::new(AppController::default())),
+            controller,
+            default_geometry: geometry,
             info_bar_message: None,
             navigation_pane_open: true,
             navigation_selected_tag: "Home".to_string(),
+            navigation_tag_history: Vec::new(),
         }
     }
 
@@ -52,11 +67,18 @@ impl Component for MainWindow {
             MainWindowMessage::InfoBarClosed => {
                 self.info_bar_message = None;
             }
+            MainWindowMessage::NavigationBackRequested => {
+                if let Some(previous) = self.navigation_tag_history.pop() {
+                    self.navigation_selected_tag = previous;
+                }
+            }
             MainWindowMessage::NavigationPaneToggleRequested => {
                 self.navigation_pane_open = !self.navigation_pane_open;
             }
             MainWindowMessage::NavigationSelectedTagChanged(tag) => {
                 if let Some(tag) = tag {
+                    self.navigation_tag_history
+                        .push(self.navigation_selected_tag.clone());
                     self.navigation_selected_tag = tag;
                 }
             }
@@ -84,23 +106,40 @@ impl Component for MainWindow {
                     ));
                 }
             }
+            MainWindowMessage::WindowSizeChanged(size) => {
+                let mut controller = self.controller.borrow_mut();
+                controller.set_window_geometry(
+                    if unsafe { IsZoomed(GetForegroundWindow()).as_bool() } {
+                        WindowGeometry::builder().is_maximized(true).build()
+                    } else {
+                        WindowGeometry::builder()
+                            .width(size.width as u64)
+                            .height(size.height as u64)
+                            .build()
+                    },
+                );
+                controller.save().unwrap();
+            }
         }
     }
 
     fn view(&self, _input: &(), context: &mut ViewContext<Self>) -> View {
         let controller = self.controller.borrow();
-        let geometry = controller.window_geometry();
         context.window_title(translation::_g("Application"));
         context.window_visuals(
             WindowVisuals::new()
                 .backdrop(WindowBackdrop::Mica)
-                .client_size(geometry.width() as f64, geometry.height() as f64)
+                .client_size(
+                    self.default_geometry.width() as f64,
+                    self.default_geometry.height() as f64,
+                )
                 .theme(match controller.theme() {
                     ApplicationTheme::System => WindowTheme::System,
                     ApplicationTheme::Light => WindowTheme::Light,
                     ApplicationTheme::Dark => WindowTheme::Dark,
                 }),
         );
+        context.on_window_size(context.callback(MainWindowMessage::WindowSizeChanged));
         Grid::new()
             .columns([GridLength::STAR])
             .rows([GridLength::Auto, GridLength::Auto, GridLength::STAR])
@@ -111,8 +150,9 @@ impl Component for MainWindow {
                     .preferred_height(WindowTitleBarHeight::Tall)
                     .height(48.0)
                     .title(translation::_g("Application"))
-                    .is_back_button_visible(false)
+                    .is_back_button_visible(true)
                     .is_pane_toggle_button_visible(true)
+                    .on_back_requested(context.message(MainWindowMessage::NavigationBackRequested))
                     .on_pane_toggle_requested(
                         context.message(MainWindowMessage::NavigationPaneToggleRequested),
                     ),

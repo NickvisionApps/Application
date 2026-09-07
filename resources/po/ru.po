@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-06 22:48-0400\n"
+"POT-Creation-Date: 2026-09-07 17:14-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -54,8 +54,8 @@ msgid "About Application"
 msgstr "О приложении"
 
 #: linux/src/views/main_window.rs:96 macos/src/controls/main_menu.rs:134
-#: macos/src/views/main_window.rs:233 windows/src/views/main_window.rs:93
-#: windows/src/views/main_window.rs:113
+#: macos/src/views/main_window.rs:233 windows/src/views/main_window.rs:128
+#: windows/src/views/main_window.rs:152
 msgid "Application"
 msgstr "Application"
 
@@ -77,7 +77,7 @@ msgstr "Фёдор Соболев https://github.com/fsobolev"
 msgid "GitHub Repo"
 msgstr "Репозиторий GitHub"
 
-#: linux/src/views/main_window.rs:259 windows/src/views/main_window.rs:47
+#: linux/src/views/main_window.rs:259 windows/src/views/main_window.rs:62
 #, fuzzy
 msgid "Folder closed"
 msgstr "Папка закрыта."
@@ -88,7 +88,7 @@ msgid "Open Folder"
 msgstr "Открыть Папку"
 
 #: linux/src/views/main_window.rs:284 macos/src/views/main_window.rs:420
-#: windows/src/views/main_window.rs:82
+#: windows/src/views/main_window.rs:104
 msgid "Unable to open folder: {0}"
 msgstr ""
 
@@ -100,8 +100,8 @@ msgstr ""
 msgid "Quit"
 msgstr "Выход"
 
-#: linux/src/views/main_window.rs:331 windows/src/views/main_window.rs:180
-#: windows/src/views/main_window.rs:195
+#: linux/src/views/main_window.rs:331 windows/src/views/main_window.rs:220
+#: windows/src/views/main_window.rs:235
 #, fuzzy
 msgid "Folder"
 msgstr "Папка"
@@ -359,7 +359,7 @@ msgid "OK"
 msgstr ""
 
 #: macos/src/views/main_window.rs:365 macos/src/views/main_window.rs:418
-#: windows/src/views/main_window.rs:81
+#: windows/src/views/main_window.rs:103
 msgid "Error"
 msgstr ""
 
@@ -403,11 +403,11 @@ msgstr "Добрый день!"
 msgid "Good Evening!"
 msgstr "Добрый вечер!"
 
-#: windows/src/views/main_window.rs:164 windows/src/views/main_window.rs:193
+#: windows/src/views/main_window.rs:204 windows/src/views/main_window.rs:233
 msgid "Home"
 msgstr ""
 
-#: windows/src/views/main_window.rs:197
+#: windows/src/views/main_window.rs:237
 msgid "Settings"
 msgstr ""
 
