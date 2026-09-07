@@ -1,3 +1,4 @@
+mod helpers;
 mod views;
 
 use crate::views::MainWindow;

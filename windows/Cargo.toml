@@ -5,5 +5,11 @@ edition = "2024"
 
 [dependencies]
 shared = { path = "../shared" }
-windows = { version = "0.62", features = ["Storage_Pickers"] }
+windows = { version = "0.62", features = [
+    "Foundation",
+    "Storage_Search",
+    "Storage_Pickers",
+    "Win32_UI_Shell",
+    "Win32_UI_WindowsAndMessaging"
+] }
 windows-reactor = "0.100"
