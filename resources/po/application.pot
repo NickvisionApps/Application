@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-07 17:14-0400\n"
+"POT-Creation-Date: 2026-09-07 17:22-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -53,7 +53,7 @@ msgstr ""
 
 #: linux/src/views/main_window.rs:96 macos/src/controls/main_menu.rs:134
 #: macos/src/views/main_window.rs:233 windows/src/views/main_window.rs:128
-#: windows/src/views/main_window.rs:152
+#: windows/src/views/main_window.rs:151
 msgid "Application"
 msgstr ""
 
@@ -95,8 +95,8 @@ msgstr ""
 msgid "Quit"
 msgstr ""
 
-#: linux/src/views/main_window.rs:331 windows/src/views/main_window.rs:220
-#: windows/src/views/main_window.rs:235
+#: linux/src/views/main_window.rs:331 windows/src/views/main_window.rs:221
+#: windows/src/views/main_window.rs:236
 msgid "Folder"
 msgstr ""
 
@@ -381,10 +381,10 @@ msgstr ""
 msgid "Good Evening!"
 msgstr ""
 
-#: windows/src/views/main_window.rs:204 windows/src/views/main_window.rs:233
+#: windows/src/views/main_window.rs:205 windows/src/views/main_window.rs:234
 msgid "Home"
 msgstr ""
 
-#: windows/src/views/main_window.rs:237
+#: windows/src/views/main_window.rs:238
 msgid "Settings"
 msgstr ""

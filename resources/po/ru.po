@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-07 17:14-0400\n"
+"POT-Creation-Date: 2026-09-07 17:22-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -55,7 +55,7 @@ msgstr "О приложении"
 
 #: linux/src/views/main_window.rs:96 macos/src/controls/main_menu.rs:134
 #: macos/src/views/main_window.rs:233 windows/src/views/main_window.rs:128
-#: windows/src/views/main_window.rs:152
+#: windows/src/views/main_window.rs:151
 msgid "Application"
 msgstr "Application"
 
@@ -100,8 +100,8 @@ msgstr ""
 msgid "Quit"
 msgstr "Выход"
 
-#: linux/src/views/main_window.rs:331 windows/src/views/main_window.rs:220
-#: windows/src/views/main_window.rs:235
+#: linux/src/views/main_window.rs:331 windows/src/views/main_window.rs:221
+#: windows/src/views/main_window.rs:236
 #, fuzzy
 msgid "Folder"
 msgstr "Папка"
@@ -403,11 +403,11 @@ msgstr "Добрый день!"
 msgid "Good Evening!"
 msgstr "Добрый вечер!"
 
-#: windows/src/views/main_window.rs:204 windows/src/views/main_window.rs:233
+#: windows/src/views/main_window.rs:205 windows/src/views/main_window.rs:234
 msgid "Home"
 msgstr ""
 
-#: windows/src/views/main_window.rs:237
+#: windows/src/views/main_window.rs:238
 msgid "Settings"
 msgstr ""
 

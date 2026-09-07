@@ -148,14 +148,15 @@ impl Component for MainWindow {
                     .grid_row(0)
                     .grid_column(0)
                     .preferred_height(WindowTitleBarHeight::Tall)
-                    .height(48.0)
                     .title(translation::_g("Application"))
                     .is_back_button_visible(true)
+                    .is_back_button_enabled(!self.navigation_tag_history.is_empty())
                     .is_pane_toggle_button_visible(true)
                     .on_back_requested(context.message(MainWindowMessage::NavigationBackRequested))
                     .on_pane_toggle_requested(
                         context.message(MainWindowMessage::NavigationPaneToggleRequested),
-                    ),
+                    )
+                    .slots([SlotView::new(TitleBarSlot::Content, TextBlock::new())]),
                 InfoBar::new()
                     .grid_row(1)
                     .grid_column(0)
