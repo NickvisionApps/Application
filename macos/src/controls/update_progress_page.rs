@@ -1,10 +1,11 @@
 use crate::helpers::EasyLayout;
 use objc2::rc::Retained;
-use objc2::runtime::NSObject;
+use objc2::runtime::{AnyObject, NSObject, Sel};
 use objc2::{DefinedClass, MainThreadOnly, define_class, msg_send};
 use objc2_app_kit::{
-    NSColor, NSFont, NSLayoutAttribute, NSProgressIndicator, NSProgressIndicatorStyle, NSStackView,
-    NSTextAlignment, NSTextField, NSUserInterfaceLayoutOrientation, NSView, NSViewController,
+    NSButton, NSFont, NSImage, NSLayoutAttribute, NSProgressIndicator, NSProgressIndicatorStyle,
+    NSStackView, NSTextAlignment, NSTextField, NSUserInterfaceLayoutOrientation, NSView,
+    NSViewController,
 };
 use objc2_foundation::{MainThreadMarker, NSArray, NSObjectProtocol, NSRect, NSString};
 use shared::translation;
@@ -14,7 +15,7 @@ use std::cell::OnceCell;
 struct UpdateProgressPageControls {
     title_label: Retained<NSTextField>,
     progress_indicator: Retained<NSProgressIndicator>,
-    detail_label: Retained<NSTextField>,
+    progress_row: Retained<NSStackView>,
 }
 
 #[derive(Debug, Default)]
@@ -33,7 +34,7 @@ define_class!(
 );
 
 impl UpdateProgressPage {
-    pub fn new(mtm: MainThreadMarker) -> Retained<Self> {
+    pub fn new(mtm: MainThreadMarker, target: Option<&AnyObject>, action: Sel) -> Retained<Self> {
         let this = Self::alloc(mtm).set_ivars(UpdateProgressPageState::default());
         let this: Retained<Self> = unsafe {
             msg_send![super(this), initWithNibName: std::ptr::null::<NSObject>(), bundle: std::ptr::null::<NSObject>()]
@@ -53,21 +54,33 @@ impl UpdateProgressPage {
         progress_indicator.setMinValue(0.0);
         progress_indicator.setMaxValue(1.0);
         progress_indicator.setDoubleValue(0.0);
-        progress_indicator.setHidden(true);
         progress_indicator
             .widthAnchor()
             .constraintEqualToConstant(220.0)
             .setActive(true);
-        let detail_label = NSTextField::labelWithString(&NSString::from_str(""), mtm);
-        detail_label.setTextColor(Some(&NSColor::secondaryLabelColor()));
-        detail_label.setAlignment(NSTextAlignment::Center);
-        detail_label.setHidden(true);
+        let cancel_button = unsafe {
+            NSButton::buttonWithImage_target_action(
+                &NSImage::imageWithSystemSymbolName_accessibilityDescription(
+                    &NSString::from_str("xmark.circle.fill"),
+                    None,
+                )
+                .unwrap(),
+                target,
+                Some(action),
+                mtm,
+            )
+        };
+        cancel_button.setBordered(false);
+        cancel_button.setToolTip(Some(&NSString::from_str(&translation::_g("Cancel"))));
+        let progress_row = NSStackView::stackViewWithViews(
+            &NSArray::from_slice(&[&progress_indicator as &NSView, &cancel_button as &NSView]),
+            mtm,
+        );
+        progress_row.setOrientation(NSUserInterfaceLayoutOrientation::Horizontal);
+        progress_row.setSpacing(8.0);
+        progress_row.setHidden(true);
         let stack_view = NSStackView::stackViewWithViews(
-            &NSArray::from_slice(&[
-                &title_label as &NSView,
-                &progress_indicator as &NSView,
-                &detail_label as &NSView,
-            ]),
+            &NSArray::from_slice(&[&title_label as &NSView, &progress_row as &NSView]),
             mtm,
         );
         stack_view.setOrientation(NSUserInterfaceLayoutOrientation::Vertical);
@@ -80,37 +93,47 @@ impl UpdateProgressPage {
             .set(UpdateProgressPageControls {
                 title_label,
                 progress_indicator,
-                detail_label,
+                progress_row,
             })
             .unwrap();
         this.setView(&view);
         this
     }
 
-    pub fn set_progress(&self, downloaded: u64, total: u64) {
+    pub fn reset(&self) {
         let controls = self.ivars().controls.get().unwrap();
         controls
             .title_label
-            .setStringValue(&NSString::from_str(&translation::_g("Downloading Update")));
-        controls.progress_indicator.setHidden(false);
-        controls.detail_label.setHidden(false);
-        if total > 0 {
-            controls.progress_indicator.setIndeterminate(false);
-            controls
-                .progress_indicator
-                .setDoubleValue(downloaded as f64 / total as f64);
-            controls
-                .detail_label
-                .setStringValue(&NSString::from_str(&translation::_f(
-                    "{0}%",
-                    &[(downloaded * 100 / total).to_string()],
-                )));
-        } else {
-            controls.progress_indicator.setIndeterminate(true);
-            unsafe { controls.progress_indicator.startAnimation(None) };
-            controls
-                .detail_label
-                .setStringValue(&NSString::from_str(&translation::_g("Downloading…")));
+            .setStringValue(&NSString::from_str(&translation::_g(
+                "No update in progress",
+            )));
+        controls.progress_row.setHidden(true);
+        controls.progress_indicator.setDoubleValue(0.0);
+    }
+
+    pub fn set_progress(&self, downloaded: u64, total: u64) {
+        if total > 0 && downloaded >= total {
+            self.reset();
+            return;
         }
+        let controls = self.ivars().controls.get().unwrap();
+        controls
+            .title_label
+            .setStringValue(&NSString::from_str(&translation::_g("Downloading Update…")));
+        controls.progress_row.setHidden(false);
+        controls.progress_indicator.setDoubleValue(if total > 0 {
+            downloaded as f64 / total as f64
+        } else {
+            0.0
+        });
+        controls
+            .progress_indicator
+            .setToolTip(Some(&NSString::from_str(&translation::_f(
+                "{0}%",
+                &[(downloaded * 100)
+                    .checked_div(total)
+                    .unwrap_or(0)
+                    .to_string()],
+            ))));
     }
 }

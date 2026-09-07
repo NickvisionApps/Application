@@ -59,6 +59,7 @@ define_class!(
             app.setMainMenu(Some(self.ivars().main_menu.get().unwrap()));
             self.ivars().window.get().unwrap().show();
             app.activate();
+            self.ivars().window.get().unwrap().check_for_updates(false);
         }
 
         #[unsafe(method(applicationShouldTerminate:))]

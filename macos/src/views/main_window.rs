@@ -17,6 +17,9 @@ use objc2_foundation::{
 };
 use shared::{config::WindowGeometry, controller::AppController, info, translation};
 use std::cell::OnceCell;
+use std::ops::ControlFlow;
+use std::sync::Arc;
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::{cell::RefCell, rc::Rc};
 
 #[derive(Debug)]
@@ -33,6 +36,7 @@ pub struct MainWindowControls {
 pub struct MainWindowState {
     controller: Rc<RefCell<AppController>>,
     controls: OnceCell<MainWindowControls>,
+    cancel_update: Arc<AtomicBool>,
 }
 
 define_class!(
@@ -64,6 +68,17 @@ define_class!(
                     .update_progress_popover
                     .showRelativeToRect_ofView_preferredEdge(button.bounds(), button, NSRectEdge::MinY);
             }
+        }
+
+        #[unsafe(method(cancelUpdateClicked:))]
+        fn cancel_update_clicked(&self, _sender: Option<&AnyObject>) {
+            self.ivars().cancel_update.store(true, Ordering::Relaxed);
+            self.ivars()
+                .controls
+                .get()
+                .unwrap()
+                .update_progress_page
+                .reset();
         }
     }
 
@@ -176,6 +191,7 @@ impl MainWindowState {
         MainWindowState {
             controller,
             controls: OnceCell::new(),
+            cancel_update: Arc::new(AtomicBool::new(false)),
         }
     }
 }
@@ -222,7 +238,11 @@ impl MainWindow {
         let update_progress_popover = NSPopover::new(mtm);
         update_progress_popover.setBehavior(NSPopoverBehavior::Transient);
         update_progress_popover.setAnimates(true);
-        let update_progress_page = UpdateProgressPage::new(mtm);
+        let update_progress_page = UpdateProgressPage::new(
+            mtm,
+            Some(this.as_super().as_super()),
+            sel!(cancelUpdateClicked:),
+        );
         update_progress_popover.setContentViewController(Some(&update_progress_page));
         if let Some(content_view) = window.contentView() {
             let tab_view = NSTabView::new(mtm);
@@ -263,78 +283,113 @@ impl MainWindow {
         this
     }
 
-    pub fn check_for_updates(&self) {
+    pub fn check_for_updates(&self, notify_if_up_to_date: bool) {
         let controller = self.ivars().controller.borrow().clone();
-        let version = controller.check_for_updates();
+        let window_bound = MainThreadBound::new(self.retain(), self.mtm());
+        std::thread::spawn(move || {
+            let version = controller.check_for_updates();
+            run_on_main(move |mtm| {
+                let window = window_bound.get(mtm);
+                if let Some(version) = version {
+                    window.present_update_available(&version.to_string());
+                } else if notify_if_up_to_date {
+                    let alert = NSAlert::new(mtm);
+                    alert.setMessageText(&NSString::from_str(&translation::_g(
+                        "No Update Available",
+                    )));
+                    alert.setInformativeText(&NSString::from_str(&translation::_f(
+                        "You are running the latest version of {0}.",
+                        &[info::APP_ENGLISH_SHORT_NAME],
+                    )));
+                    alert.runModal();
+                }
+            });
+        });
+    }
+
+    fn present_update_available(&self, version: &str) {
         let alert = NSAlert::new(self.mtm());
-        if let Some(ref version) = version {
-            alert.setMessageText(&NSString::from_str(&translation::_g("Update Available")));
-            alert.setInformativeText(&NSString::from_str(&translation::_f(
-                "A new update for {0} is available: {1}",
-                &[info::APP_ENGLISH_SHORT_NAME, &version.to_string()],
-            )));
-            alert.addButtonWithTitle(&NSString::from_str(&translation::_g("Update")));
-            alert.addButtonWithTitle(&NSString::from_str(&translation::_g("OK")));
-        } else {
-            alert.setMessageText(&NSString::from_str(&translation::_g("No Update Available")));
-            alert.setInformativeText(&NSString::from_str(&translation::_f(
-                "You are running the latest version of {0}.",
-                &[info::APP_ENGLISH_SHORT_NAME],
-            )));
+        alert.setMessageText(&NSString::from_str(&translation::_g("Update Available")));
+        alert.setInformativeText(&NSString::from_str(&translation::_f(
+            "A new update for {0} is available: {1}",
+            &[info::APP_ENGLISH_SHORT_NAME, version],
+        )));
+        alert.addButtonWithTitle(&NSString::from_str(&translation::_g("Update")));
+        alert.addButtonWithTitle(&NSString::from_str(&translation::_g("OK")));
+        if alert.runModal() != NSAlertFirstButtonReturn {
+            return;
         }
-        if alert.runModal() == NSAlertFirstButtonReturn && version.is_some() {
-            let controls = self.ivars().controls.get().unwrap();
+        let controls = self.ivars().controls.get().unwrap();
+        if !controls
+            .toolbar
+            .items()
+            .iter()
+            .any(|item| &*item.itemIdentifier() == ns_string!("UpdateProgress"))
+        {
             controls.toolbar.insertItemWithItemIdentifier_atIndex(
                 &NSToolbarIdentifier::from_str("UpdateProgress"),
                 0,
             );
-            if let Some(button_view) = controls
-                .toolbar
-                .items()
-                .iter()
-                .find(|item| &*item.itemIdentifier() == ns_string!("UpdateProgress"))
-                .and_then(|item| item.view())
-            {
-                button_view.add_badge_to_view(self.mtm());
-            }
-            controls.update_progress_page.set_progress(0, 0);
-            let controller = self.ivars().controller.borrow().clone();
-            let window_bound = MainThreadBound::new(self.retain(), self.mtm());
-            std::thread::spawn(move || {
-                let result = controller.install_update(|downloaded, total| {
-                    run_on_main(|mtm| {
-                        window_bound
-                            .get(mtm)
-                            .ivars()
-                            .controls
-                            .get()
-                            .unwrap()
-                            .update_progress_page
-                            .set_progress(downloaded, total)
-                    });
-                });
-                let error = result.err().map(|error| error.to_string());
-                run_on_main(move |mtm| {
-                    let window = window_bound.get(mtm);
-                    window
+        }
+        if let Some(button_view) = controls
+            .toolbar
+            .items()
+            .iter()
+            .find(|item| &*item.itemIdentifier() == ns_string!("UpdateProgress"))
+            .and_then(|item| item.view())
+        {
+            button_view.add_badge_to_view(self.mtm());
+        }
+        controls.update_progress_page.set_progress(0, 0);
+        self.ivars().cancel_update.store(false, Ordering::Relaxed);
+        let cancel_update = self.ivars().cancel_update.clone();
+        let controller = self.ivars().controller.borrow().clone();
+        let window_bound = MainThreadBound::new(self.retain(), self.mtm());
+        std::thread::spawn(move || {
+            let result = controller.install_update(|downloaded, total| {
+                if cancel_update.load(Ordering::Relaxed) {
+                    return ControlFlow::Break(());
+                }
+                run_on_main(|mtm| {
+                    window_bound
+                        .get(mtm)
                         .ivars()
                         .controls
                         .get()
                         .unwrap()
-                        .toolbar
-                        .removeItemAtIndex(0);
-                    if let Some(error) = error {
-                        let alert = NSAlert::new(mtm);
-                        alert.setMessageText(&NSString::from_str(&translation::_g("Error")));
-                        alert.setInformativeText(&NSString::from_str(&translation::_f(
-                            "Unable to install the update: {0}",
-                            &[error],
-                        )));
-                        alert.runModal();
-                    }
+                        .update_progress_page
+                        .set_progress(downloaded, total)
                 });
+                ControlFlow::Continue(())
             });
-        }
+            let cancelled = cancel_update.load(Ordering::Relaxed);
+            let error = result.err().map(|error| error.to_string());
+            run_on_main(move |mtm| {
+                let window = window_bound.get(mtm);
+                let controls = window.ivars().controls.get().unwrap();
+                if let Some(index) = controls
+                    .toolbar
+                    .items()
+                    .iter()
+                    .position(|item| &*item.itemIdentifier() == ns_string!("UpdateProgress"))
+                {
+                    controls.toolbar.removeItemAtIndex(index as isize);
+                }
+                unsafe { controls.update_progress_popover.performClose(None) };
+                if let Some(error) = error {
+                    if cancelled {
+                        return;
+                    }
+                    let alert = NSAlert::new(mtm);
+                    alert.setMessageText(&NSString::from_str(&translation::_g("Error")));
+                    alert.setInformativeText(&NSString::from_str(&translation::_f(
+                        "Unable to install the update: {0}",
+                        &[error],
+                    )));
+                    alert.runModal();
+                }
+            });
+        });
     }
 
     pub fn close_folder(&self) {
