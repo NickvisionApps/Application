@@ -1,19 +1,19 @@
 use crate::controls::{FolderPage, HomePage, UpdateProgressPage};
-use crate::helpers::{EasyBadge, EasyLayout, EasyToolbarItem};
+use crate::helpers::{EasyLayout, EasyToolbarItem};
 use dispatch2::{MainThreadBound, run_on_main};
 use objc2::rc::Retained;
 use objc2::runtime::{AnyObject, ProtocolObject};
 use objc2::{ClassType, DefinedClass, MainThreadOnly, Message, define_class, msg_send, sel};
 use objc2_app_kit::{
-    NSAlert, NSAlertFirstButtonReturn, NSBackingStoreType, NSButton, NSModalResponseOK,
+    NSAlert, NSAlertFirstButtonReturn, NSBackingStoreType, NSItemBadge, NSModalResponseOK,
     NSOpenPanel, NSPopover, NSPopoverBehavior, NSTabView, NSTabViewItem, NSTabViewType, NSToolbar,
     NSToolbarDelegate, NSToolbarDisplayMode, NSToolbarFlexibleSpaceItemIdentifier,
     NSToolbarIdentifier, NSToolbarItem, NSToolbarItemIdentifier, NSToolbarSpaceItemIdentifier,
     NSWindow, NSWindowController, NSWindowDelegate, NSWindowStyleMask, NSWindowToolbarStyle,
 };
 use objc2_foundation::{
-    MainThreadMarker, NSArray, NSNotification, NSObjectProtocol, NSPoint, NSRect, NSRectEdge,
-    NSSize, NSString, ns_string,
+    MainThreadMarker, NSArray, NSNotification, NSObjectProtocol, NSPoint, NSRect, NSSize, NSString,
+    ns_string,
 };
 use shared::{config::WindowGeometry, controller::AppController, info, translation};
 use std::cell::OnceCell;
@@ -63,10 +63,9 @@ define_class!(
             if controls.update_progress_popover.isShown() {
                 unsafe { controls.update_progress_popover.performClose(sender) };
             } else if let Some(sender) = sender {
-                let button = sender.downcast_ref::<NSButton>().unwrap();
                 controls
                     .update_progress_popover
-                    .showRelativeToRect_ofView_preferredEdge(button.bounds(), button, NSRectEdge::MinY);
+                    .showRelativeToToolbarItem(sender.downcast_ref::<NSToolbarItem>().unwrap());
             }
         }
 
@@ -123,7 +122,6 @@ define_class!(
                     translation::_g("Close Folder"),
                     "folder.badge.minus",
                     translation::_g("Close Folder (⇧⌘W)"),
-                    false,
                     Some(self.as_super().as_super()),
                     sel!(closeFolderClicked:)
                 )
@@ -134,7 +132,6 @@ define_class!(
                     translation::_g("Open Folder"),
                     "folder.badge.plus",
                     translation::_g("Open Folder (⌘O)"),
-                    false,
                     Some(self.as_super().as_super()),
                     sel!(openFolderClicked:)
                 )
@@ -145,7 +142,6 @@ define_class!(
                     translation::_g("Update Progress"),
                     "arrow.down.circle",
                     "",
-                    true,
                     Some(self.as_super().as_super()),
                     sel!(updateProgressClicked:)
                 )
@@ -314,14 +310,13 @@ impl MainWindow {
                             0,
                         );
                     }
-                    if let Some(button_view) = controls
+                    if let Some(item) = controls
                         .toolbar
                         .items()
                         .iter()
                         .find(|item| &*item.itemIdentifier() == ns_string!("UpdateProgress"))
-                        .and_then(|item| item.view())
                     {
-                        button_view.add_badge_to_view(mtm);
+                        item.setBadge(Some(&NSItemBadge::indicatorBadge()));
                     }
                     controls.update_progress_page.set_progress(0, 0);
                     window.ivars().cancel_update.store(false, Ordering::Relaxed);

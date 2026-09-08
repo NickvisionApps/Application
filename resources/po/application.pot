@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-07 22:05-0400\n"
+"POT-Creation-Date: 2026-09-07 22:22-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,7 +52,7 @@ msgid "About Application"
 msgstr ""
 
 #: linux/src/views/main_window.rs:96 macos/src/controls/main_menu.rs:134
-#: macos/src/views/main_window.rs:233 windows/src/views/main_window.rs:128
+#: macos/src/views/main_window.rs:229 windows/src/views/main_window.rs:128
 #: windows/src/views/main_window.rs:157
 msgid "Application"
 msgstr ""
@@ -78,11 +78,11 @@ msgid "Folder closed"
 msgstr ""
 
 #: linux/src/views/main_window.rs:266 linux/src/views/main_window.rs:338
-#: macos/src/controls/main_menu.rs:201 macos/src/views/main_window.rs:134
+#: macos/src/controls/main_menu.rs:201 macos/src/views/main_window.rs:132
 msgid "Open Folder"
 msgstr ""
 
-#: linux/src/views/main_window.rs:299 macos/src/views/main_window.rs:422
+#: linux/src/views/main_window.rs:299 macos/src/views/main_window.rs:417
 #: windows/src/views/main_window.rs:104
 msgid "Unable to open folder: {0}"
 msgstr ""
@@ -101,7 +101,7 @@ msgid "Folder"
 msgstr ""
 
 #: linux/src/views/main_window.rs:342 macos/src/controls/main_menu.rs:208
-#: macos/src/views/main_window.rs:123
+#: macos/src/views/main_window.rs:122
 msgid "Close Folder"
 msgstr ""
 
@@ -109,15 +109,15 @@ msgstr ""
 msgid "Theme"
 msgstr ""
 
-#: linux/src/views/settings_dialog.rs:58 macos/src/views/settings_dialog.rs:196
+#: linux/src/views/settings_dialog.rs:58 macos/src/views/settings_dialog.rs:194
 msgid "Light"
 msgstr ""
 
-#: linux/src/views/settings_dialog.rs:59 macos/src/views/settings_dialog.rs:197
+#: linux/src/views/settings_dialog.rs:59 macos/src/views/settings_dialog.rs:195
 msgid "Dark"
 msgstr ""
 
-#: linux/src/views/settings_dialog.rs:60 macos/src/views/settings_dialog.rs:198
+#: linux/src/views/settings_dialog.rs:60 macos/src/views/settings_dialog.rs:196
 msgid "System"
 msgstr ""
 
@@ -125,7 +125,7 @@ msgstr ""
 msgid "Translation Language"
 msgstr ""
 
-#: linux/src/views/settings_dialog.rs:80 macos/src/views/settings_dialog.rs:235
+#: linux/src/views/settings_dialog.rs:80 macos/src/views/settings_dialog.rs:233
 msgid "An application restart is required for change to take effect"
 msgstr ""
 
@@ -134,12 +134,12 @@ msgid "User Interface"
 msgstr ""
 
 #: linux/src/views/settings_dialog.rs:109 macos/src/views/settings_dialog.rs:56
-#: macos/src/views/settings_dialog.rs:129 macos/src/views/settings_dialog.rs:131
-#: macos/src/views/settings_dialog.rs:185
+#: macos/src/views/settings_dialog.rs:128 macos/src/views/settings_dialog.rs:130
+#: macos/src/views/settings_dialog.rs:183
 msgid "General"
 msgstr ""
 
-#: linux/src/views/settings_dialog.rs:114 macos/src/views/settings_dialog.rs:270
+#: linux/src/views/settings_dialog.rs:114 macos/src/views/settings_dialog.rs:268
 msgid "Allow Preview Updates"
 msgstr ""
 
@@ -152,7 +152,7 @@ msgstr ""
 msgid "Advanced"
 msgstr ""
 
-#: macos/src/controls/home_page.rs:69 macos/src/views/main_window.rs:136
+#: macos/src/controls/home_page.rs:69 macos/src/views/main_window.rs:134
 msgid "Open Folder (⌘O)"
 msgstr ""
 
@@ -314,52 +314,52 @@ msgstr ""
 msgid "Discussions"
 msgstr ""
 
-#: macos/src/views/main_window.rs:125
+#: macos/src/views/main_window.rs:124
 msgid "Close Folder (⇧⌘W)"
 msgstr ""
 
-#: macos/src/views/main_window.rs:145
+#: macos/src/views/main_window.rs:142
 msgid "Update Progress"
 msgstr ""
 
-#: macos/src/views/main_window.rs:295
+#: macos/src/views/main_window.rs:291
 msgid "Update Available"
 msgstr ""
 
-#: macos/src/views/main_window.rs:297
+#: macos/src/views/main_window.rs:293
 msgid "A new update for {0} is available: {1}"
 msgstr ""
 
-#: macos/src/views/main_window.rs:300
+#: macos/src/views/main_window.rs:296
 msgid "Update"
 msgstr ""
 
-#: macos/src/views/main_window.rs:301
+#: macos/src/views/main_window.rs:297
 msgid "OK"
 msgstr ""
 
-#: macos/src/views/main_window.rs:365 macos/src/views/main_window.rs:420
+#: macos/src/views/main_window.rs:360 macos/src/views/main_window.rs:415
 #: windows/src/views/main_window.rs:103
 msgid "Error"
 msgstr ""
 
-#: macos/src/views/main_window.rs:367
+#: macos/src/views/main_window.rs:362
 msgid "Unable to install the update: {0}"
 msgstr ""
 
-#: macos/src/views/main_window.rs:377
+#: macos/src/views/main_window.rs:372
 msgid "No Update Available"
 msgstr ""
 
-#: macos/src/views/main_window.rs:380
+#: macos/src/views/main_window.rs:375
 msgid "You are running the latest version of {0}."
 msgstr ""
 
-#: macos/src/views/settings_dialog.rs:194
+#: macos/src/views/settings_dialog.rs:192
 msgid "Theme:"
 msgstr ""
 
-#: macos/src/views/settings_dialog.rs:213
+#: macos/src/views/settings_dialog.rs:211
 msgid "Translation Language:"
 msgstr ""
 
