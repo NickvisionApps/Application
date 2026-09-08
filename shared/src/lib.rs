@@ -3,6 +3,5 @@ compile_error!("Application only supports Windows, macOS, and Linux");
 
 pub mod config;
 pub mod controller;
-pub mod folder;
 pub mod info;
 pub mod translation;

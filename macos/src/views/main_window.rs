@@ -249,10 +249,10 @@ impl MainWindow {
             tab_view.setTabViewType(NSTabViewType::NoTabsNoBorder);
             let home_page = HomePage::new(
                 mtm,
-                &controller.greeting(),
                 Some(this.as_super().as_super()),
                 sel!(openFolderClicked:),
             );
+            home_page.set_greeting(&NSString::from_str(&controller.greeting()));
             let folder_page = FolderPage::new(mtm);
             let home_tab = NSTabViewItem::new();
             home_tab.setView(Some(&home_page.view()));
@@ -260,7 +260,7 @@ impl MainWindow {
             let folder_tab = NSTabViewItem::new();
             folder_tab.setView(Some(&folder_page.view()));
             tab_view.addTabViewItem(&folder_tab);
-            tab_view.selectTabViewItemAtIndex(0);
+            tab_view.selectTabViewItemAtIndex(HomePage::page_index());
             content_view.addSubview(&tab_view);
             tab_view.constrain_fill(&content_view);
             this.ivars()
@@ -388,14 +388,14 @@ impl MainWindow {
 
     pub fn close_folder(&self) {
         let mut controller = self.ivars().controller.borrow_mut();
-        controller.folder_browser_mut().close();
+        controller.close_folder();
         self.window().unwrap().setSubtitle(ns_string!(""));
         self.ivars()
             .controls
             .get()
             .unwrap()
             .tab_view
-            .selectTabViewItemAtIndex(0);
+            .selectTabViewItemAtIndex(HomePage::page_index());
     }
 
     pub fn open_folder(&self) {
@@ -405,32 +405,25 @@ impl MainWindow {
         open_panel.setAllowsMultipleSelection(false);
         if open_panel.runModal() == NSModalResponseOK {
             let mut controller = self.ivars().controller.borrow_mut();
-            if let Err(error) = controller.folder_browser_mut().open(
-                open_panel
-                    .URLs()
-                    .firstObject()
-                    .unwrap()
-                    .path()
-                    .unwrap()
-                    .to_string(),
-            ) {
-                let alert = NSAlert::new(self.mtm());
-                alert.setMessageText(&NSString::from_str(&translation::_g("Error")));
-                alert.setInformativeText(&NSString::from_str(&translation::_f(
-                    "Unable to open folder: {0}",
-                    &[error.to_string()],
-                )));
-                alert.runModal();
-            } else {
-                self.window().unwrap().setSubtitle(&NSString::from_str(
-                    controller.folder_browser().path().to_str().unwrap(),
-                ));
-                let controls = self.ivars().controls.get().unwrap();
-                controls.folder_page.show_folder(
-                    controller.folder_browser().path(),
-                    controller.folder_browser().files().len() as u64,
-                );
-                controls.tab_view.selectTabViewItemAtIndex(1);
+            let path = open_panel.URLs().firstObject().unwrap().path().unwrap();
+            match controller.open_folder(path.to_string()) {
+                Ok(files) => {
+                    self.window().unwrap().setSubtitle(&path);
+                    let controls = self.ivars().controls.get().unwrap();
+                    controls.folder_page.show_folder(&path, files.len());
+                    controls
+                        .tab_view
+                        .selectTabViewItemAtIndex(FolderPage::page_index());
+                }
+                Err(error) => {
+                    let alert = NSAlert::new(self.mtm());
+                    alert.setMessageText(&NSString::from_str(&translation::_g("Error")));
+                    alert.setInformativeText(&NSString::from_str(&translation::_f(
+                        "Unable to open folder: {0}",
+                        &[error.to_string()],
+                    )));
+                    alert.runModal();
+                }
             }
         }
     }

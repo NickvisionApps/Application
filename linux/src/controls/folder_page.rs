@@ -2,7 +2,8 @@ use adw::{StatusPage, subclass::prelude::*};
 use glib::Object;
 use gtk::{BinLayout, Widget, prelude::*};
 use shared::translation;
-use std::{cell::OnceCell, path::Path};
+use std::cell::OnceCell;
+use std::path::PathBuf;
 
 mod imp {
     use super::*;
@@ -53,7 +54,7 @@ impl FolderPage {
         "folder"
     }
 
-    pub fn show_folder(&self, path: &Path, file_count: u64) {
+    pub fn show_folder(&self, path: PathBuf, file_count: usize) {
         self.imp()
             .status_page
             .get()
@@ -66,7 +67,7 @@ impl FolderPage {
             .set_description(Some(&translation::_nf(
                 "{0} file",
                 "{0} files",
-                file_count,
+                file_count as u64,
                 &[file_count.to_string()],
             )));
     }

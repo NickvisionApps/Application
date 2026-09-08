@@ -247,7 +247,7 @@ impl MainWindow {
 
     fn close_folder(&self) {
         let mut controller = self.imp().controller.get().unwrap().borrow_mut();
-        controller.folder_browser_mut().close();
+        controller.close_folder();
         self.imp()
             .view_stack
             .get()
@@ -273,30 +273,35 @@ impl MainWindow {
                 self,
                 move |res| {
                     let mut controller = window.imp().controller.get().unwrap().borrow_mut();
-                    if let Ok(file) = res {
-                        if let Err(error) =
-                            controller.folder_browser_mut().open(file.path().unwrap())
-                        {
-                            window.imp().toast_overlay.get().unwrap().add_toast(
-                                Toast::builder()
-                                    .use_markup(false)
-                                    .title(translation::_f(
-                                        "Unable to open folder: {0}",
-                                        &[error.to_string()],
-                                    ))
-                                    .build(),
-                            );
-                        } else {
-                            window
-                                .imp()
-                                .view_stack
-                                .get()
-                                .unwrap()
-                                .set_visible_child_name(FolderPage::page_name());
-                            window.imp().folder_page.get().unwrap().show_folder(
-                                controller.folder_browser().path(),
-                                controller.folder_browser().files().len() as u64,
-                            );
+                    if let Ok(file) = res
+                        && let Some(path) = file.path()
+                    {
+                        match controller.open_folder(&path) {
+                            Ok(files) => {
+                                window
+                                    .imp()
+                                    .view_stack
+                                    .get()
+                                    .unwrap()
+                                    .set_visible_child_name(FolderPage::page_name());
+                                window
+                                    .imp()
+                                    .folder_page
+                                    .get()
+                                    .unwrap()
+                                    .show_folder(path, files.len());
+                            }
+                            Err(error) => {
+                                window.imp().toast_overlay.get().unwrap().add_toast(
+                                    Toast::builder()
+                                        .use_markup(false)
+                                        .title(translation::_f(
+                                            "Unable to open folder: {0}",
+                                            &[error.to_string()],
+                                        ))
+                                        .build(),
+                                );
+                            }
                         }
                     }
                 }

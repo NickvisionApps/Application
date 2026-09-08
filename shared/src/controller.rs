@@ -1,16 +1,16 @@
-use crate::{
-    config::Configuration, folder::FolderBrowser, info, info::DeploymentMode, translation,
-};
+use crate::{config::Configuration, info, info::DeploymentMode, translation};
 use chrono::{Local, Timelike};
 use directories::BaseDirs;
 use reup::{GitHubUpdater, UpdateProvider, UpdateType};
 use semver::Version;
 use std::ops::{ControlFlow, Deref, DerefMut};
+use std::path::{Path, PathBuf};
 
 #[derive(Debug, Clone)]
 pub struct AppController {
     configuration: Configuration,
-    folder_browser: FolderBrowser,
+    folder_files: Vec<PathBuf>,
+    folder_path: PathBuf,
     updater: GitHubUpdater,
 }
 
@@ -30,12 +30,17 @@ impl AppController {
             .filter(|version| *version > *info::app_version())
     }
 
-    pub fn folder_browser(&self) -> &FolderBrowser {
-        &self.folder_browser
+    pub fn close_folder(&mut self) {
+        self.folder_path.clear();
+        self.folder_files.clear();
     }
 
-    pub fn folder_browser_mut(&mut self) -> &mut FolderBrowser {
-        &mut self.folder_browser
+    pub fn folder_files(&self) -> &[PathBuf] {
+        &self.folder_files
+    }
+
+    pub fn folder_path(&self) -> &Path {
+        &self.folder_path
     }
 
     pub fn greeting(&self) -> String {
@@ -124,6 +129,20 @@ impl AppController {
         }
     }
 
+    pub fn open_folder(&mut self, path: impl Into<PathBuf>) -> Result<&[PathBuf], std::io::Error> {
+        let mut files = Vec::new();
+        let path = path.into();
+        for entry in std::fs::read_dir(&path)? {
+            let path = entry?.path();
+            if path.is_file() {
+                files.push(path);
+            }
+        }
+        self.folder_path = path;
+        self.folder_files = files;
+        Ok(&self.folder_files)
+    }
+
     fn update_type(&self) -> UpdateType {
         if self.configuration.allow_preview_updates() {
             UpdateType::Preview
@@ -136,11 +155,11 @@ impl AppController {
 impl Default for AppController {
     fn default() -> Self {
         let configuration = Configuration::load().unwrap_or_else(|_| Configuration::default());
-        let folder_browser = FolderBrowser::default();
         translation::init(configuration.translation_language());
         AppController {
             configuration,
-            folder_browser,
+            folder_path: PathBuf::default(),
+            folder_files: Vec::default(),
             #[cfg(all(target_os = "windows", target_arch = "x86_64"))]
             updater: GitHubUpdater::new(
                 info::APP_REPO_OWNER,
@@ -188,17 +207,5 @@ impl Deref for AppController {
 impl DerefMut for AppController {
     fn deref_mut(&mut self) -> &mut Self::Target {
         &mut self.configuration
-    }
-}
-
-impl AsRef<Configuration> for AppController {
-    fn as_ref(&self) -> &Configuration {
-        &self.configuration
-    }
-}
-
-impl AsRef<FolderBrowser> for AppController {
-    fn as_ref(&self) -> &FolderBrowser {
-        &self.folder_browser
     }
 }

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-07 17:22-0400\n"
+"POT-Creation-Date: 2026-09-07 22:05-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,13 +18,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: linux/src/controls/folder_page.rs:67 macos/src/controls/folder_page.rs:97
+#: linux/src/controls/folder_page.rs:68 macos/src/controls/folder_page.rs:99
 msgid "{0} file"
 msgid_plural "{0} files"
 msgstr[0] ""
 msgstr[1] ""
 
-#: linux/src/controls/home_page.rs:43 macos/src/controls/home_page.rs:50
+#: linux/src/controls/home_page.rs:43 macos/src/controls/home_page.rs:54
 msgid "Open a folder to get started"
 msgstr ""
 
@@ -33,27 +33,27 @@ msgid "Open Folder (Ctrl+O)"
 msgstr ""
 
 #: linux/src/controls/home_page.rs:49 linux/src/views/main_window.rs:106
-#: macos/src/controls/home_page.rs:57
+#: macos/src/controls/home_page.rs:61
 msgid "Open"
 msgstr ""
 
-#: linux/src/views/main_window.rs:82 linux/src/views/main_window.rs:319
+#: linux/src/views/main_window.rs:82 linux/src/views/main_window.rs:324
 #: linux/src/views/settings_dialog.rs:144
 msgid "Preferences"
 msgstr ""
 
-#: linux/src/views/main_window.rs:86 linux/src/views/main_window.rs:323
+#: linux/src/views/main_window.rs:86 linux/src/views/main_window.rs:328
 msgid "Keyboard Shortcuts"
 msgstr ""
 
-#: linux/src/views/main_window.rs:90 linux/src/views/main_window.rs:327
+#: linux/src/views/main_window.rs:90 linux/src/views/main_window.rs:332
 #: macos/src/controls/main_menu.rs:137
 msgid "About Application"
 msgstr ""
 
 #: linux/src/views/main_window.rs:96 macos/src/controls/main_menu.rs:134
 #: macos/src/views/main_window.rs:233 windows/src/views/main_window.rs:128
-#: windows/src/views/main_window.rs:151
+#: windows/src/views/main_window.rs:157
 msgid "Application"
 msgstr ""
 
@@ -77,30 +77,30 @@ msgstr ""
 msgid "Folder closed"
 msgstr ""
 
-#: linux/src/views/main_window.rs:266 linux/src/views/main_window.rs:333
+#: linux/src/views/main_window.rs:266 linux/src/views/main_window.rs:338
 #: macos/src/controls/main_menu.rs:201 macos/src/views/main_window.rs:134
 msgid "Open Folder"
 msgstr ""
 
-#: linux/src/views/main_window.rs:284 macos/src/views/main_window.rs:420
+#: linux/src/views/main_window.rs:299 macos/src/views/main_window.rs:422
 #: windows/src/views/main_window.rs:104
 msgid "Unable to open folder: {0}"
 msgstr ""
 
-#: linux/src/views/main_window.rs:317
+#: linux/src/views/main_window.rs:322
 msgid "App"
 msgstr ""
 
-#: linux/src/views/main_window.rs:330
+#: linux/src/views/main_window.rs:335
 msgid "Quit"
 msgstr ""
 
-#: linux/src/views/main_window.rs:331 windows/src/views/main_window.rs:221
-#: windows/src/views/main_window.rs:236
+#: linux/src/views/main_window.rs:336 windows/src/views/main_window.rs:227
+#: windows/src/views/main_window.rs:242
 msgid "Folder"
 msgstr ""
 
-#: linux/src/views/main_window.rs:337 macos/src/controls/main_menu.rs:208
+#: linux/src/views/main_window.rs:342 macos/src/controls/main_menu.rs:208
 #: macos/src/views/main_window.rs:123
 msgid "Close Folder"
 msgstr ""
@@ -152,7 +152,7 @@ msgstr ""
 msgid "Advanced"
 msgstr ""
 
-#: macos/src/controls/home_page.rs:65 macos/src/views/main_window.rs:136
+#: macos/src/controls/home_page.rs:69 macos/src/views/main_window.rs:136
 msgid "Open Folder (⌘O)"
 msgstr ""
 
@@ -338,7 +338,7 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: macos/src/views/main_window.rs:365 macos/src/views/main_window.rs:418
+#: macos/src/views/main_window.rs:365 macos/src/views/main_window.rs:420
 #: windows/src/views/main_window.rs:103
 msgid "Error"
 msgstr ""
@@ -363,28 +363,28 @@ msgstr ""
 msgid "Translation Language:"
 msgstr ""
 
-#: shared/src/controller.rs:44
+#: shared/src/controller.rs:49
 msgctxt "Night"
 msgid "Good Morning!"
 msgstr ""
 
-#: shared/src/controller.rs:46
+#: shared/src/controller.rs:51
 msgctxt "Morning"
 msgid "Good Morning!"
 msgstr ""
 
-#: shared/src/controller.rs:48
+#: shared/src/controller.rs:53
 msgid "Good Afternoon!"
 msgstr ""
 
-#: shared/src/controller.rs:50
+#: shared/src/controller.rs:55
 msgid "Good Evening!"
 msgstr ""
 
-#: windows/src/views/main_window.rs:205 windows/src/views/main_window.rs:234
+#: windows/src/views/main_window.rs:211 windows/src/views/main_window.rs:240
 msgid "Home"
 msgstr ""
 
-#: windows/src/views/main_window.rs:238
+#: windows/src/views/main_window.rs:244
 msgid "Settings"
 msgstr ""

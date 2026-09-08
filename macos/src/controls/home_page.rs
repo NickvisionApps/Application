@@ -1,16 +1,25 @@
 use crate::helpers::EasyLayout;
+use objc2::ffi::NSInteger;
 use objc2::rc::Retained;
 use objc2::runtime::{AnyObject, NSObject, Sel};
-use objc2::{MainThreadOnly, define_class, msg_send};
+use objc2::{DefinedClass, MainThreadOnly, define_class, msg_send};
 use objc2_app_kit::{
     NSApplication, NSButton, NSColor, NSFont, NSImageView, NSLayoutAttribute, NSStackView,
     NSTextAlignment, NSTextField, NSUserInterfaceLayoutOrientation, NSView, NSViewController,
 };
-use objc2_foundation::{MainThreadMarker, NSArray, NSObjectProtocol, NSRect, NSString};
+use objc2_foundation::{MainThreadMarker, NSArray, NSObjectProtocol, NSRect, NSString, ns_string};
 use shared::translation;
+use std::cell::OnceCell;
+
+#[derive(Debug)]
+pub struct HomePageControls {
+    title_label: Retained<NSTextField>,
+}
 
 #[derive(Debug, Default)]
-pub struct HomePageState;
+pub struct HomePageState {
+    controls: OnceCell<HomePageControls>,
+}
 
 define_class!(
     #[derive(Debug)]
@@ -23,13 +32,8 @@ define_class!(
 );
 
 impl HomePage {
-    pub fn new(
-        mtm: MainThreadMarker,
-        greeting: &str,
-        target: Option<&AnyObject>,
-        action: Sel,
-    ) -> Retained<Self> {
-        let this = Self::alloc(mtm).set_ivars(HomePageState);
+    pub fn new(mtm: MainThreadMarker, target: Option<&AnyObject>, action: Sel) -> Retained<Self> {
+        let this = Self::alloc(mtm).set_ivars(HomePageState::default());
         let this: Retained<Self> = unsafe {
             msg_send![super(this), initWithNibName: std::ptr::null::<NSObject>(), bundle: std::ptr::null::<NSObject>()]
         };
@@ -41,7 +45,7 @@ impl HomePage {
             mtm,
         );
         icon_view.set_size(64.0, 64.0);
-        let title_label = NSTextField::labelWithString(&NSString::from_str(greeting), mtm);
+        let title_label = NSTextField::labelWithString(ns_string!(""), mtm);
         title_label.setFont(Some(&NSFont::boldSystemFontOfSize(
             NSFont::systemFontSize() * 2.0,
         )));
@@ -78,7 +82,20 @@ impl HomePage {
         stack_view.setSpacing(12.0);
         view.addSubview(&stack_view);
         stack_view.constrain_center(&view);
+        this.ivars()
+            .controls
+            .set(HomePageControls { title_label })
+            .unwrap();
         this.setView(&view);
         this
+    }
+
+    pub fn page_index() -> NSInteger {
+        0
+    }
+
+    pub fn set_greeting(&self, greeting: &NSString) {
+        let controls = self.ivars().controls.get().unwrap();
+        controls.title_label.setStringValue(greeting);
     }
 }

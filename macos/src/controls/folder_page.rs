@@ -1,4 +1,5 @@
 use crate::helpers::EasyLayout;
+use objc2::ffi::NSInteger;
 use objc2::rc::Retained;
 use objc2::runtime::NSObject;
 use objc2::{DefinedClass, MainThreadOnly, define_class, msg_send};
@@ -10,7 +11,6 @@ use objc2_app_kit::{
 use objc2_foundation::{MainThreadMarker, NSArray, NSObjectProtocol, NSRect, NSString};
 use shared::translation;
 use std::cell::OnceCell;
-use std::path::Path;
 
 #[derive(Debug)]
 struct FolderPageControls {
@@ -86,17 +86,19 @@ impl FolderPage {
         this
     }
 
-    pub fn show_folder(&self, path: &Path, file_count: u64) {
+    pub fn page_index() -> NSInteger {
+        1
+    }
+
+    pub fn show_folder(&self, path: &NSString, file_count: usize) {
         let controls = self.ivars().controls.get().unwrap();
-        controls
-            .title_label
-            .setStringValue(&NSString::from_str(path.to_str().unwrap()));
+        controls.title_label.setStringValue(path);
         controls
             .description_label
             .setStringValue(&NSString::from_str(&translation::_nf(
                 "{0} file",
                 "{0} files",
-                file_count,
+                file_count as u64,
                 &[file_count.to_string()],
             )));
     }
