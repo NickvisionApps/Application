@@ -5,10 +5,10 @@
   "sdk": "org.gnome.Sdk",
   "sdk-extensions": [
     "org.freedesktop.Sdk.Extension.rust-stable",
-    "org.freedesktop.Sdk.Extension.node22"
+    "org.freedesktop.Sdk.Extension.node24"
   ],
   "build-options": {
-    "append-path": "/usr/lib/sdk/rust-stable/bin:/usr/lib/sdk/node22/bin",
+    "append-path": "/usr/lib/sdk/rust-stable/bin:/usr/lib/sdk/node24/bin",
     "append-ld-library-path": "/usr/lib/sdk/rust-stable/lib"
   },
   "command": "org.nickvision.application",
