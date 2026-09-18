@@ -58,13 +58,6 @@ export default defineConfig([
         {
           allowConstantExport: true,
           allowCompoundComponents: true,
-          allowExportNames: [
-            "useConfiguration",
-            "useDialog",
-            "useFolderView",
-            "useNavigation",
-            "useTranslation",
-          ],
         },
       ],
     },
