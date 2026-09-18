@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-17 23:32-0400\n"
+"POT-Creation-Date: 2026-09-17 23:35-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -87,7 +87,7 @@ msgid "System"
 msgstr "Системная"
 
 #: src/components/navigation-view.tsx:228
-#: src/components/dialogs/settings-dialog.tsx:20
+#: src/components/dialogs/settings-dialog.tsx:31
 msgid "Settings"
 msgstr ""
 
@@ -102,7 +102,7 @@ msgstr ""
 #: src/components/dialogs/changelog-dialog.tsx:57
 #: src/components/dialogs/debugging-dialog.tsx:68
 #: src/components/dialogs/credits-dialog.tsx:40
-#: src/components/dialogs/settings-dialog.tsx:23
+#: src/components/dialogs/settings-dialog.tsx:34
 #: src/components/pages/folder-page.tsx:73
 msgid "Close"
 msgstr "Закрыть"

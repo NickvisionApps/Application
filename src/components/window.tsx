@@ -1,8 +1,10 @@
 import {NavigationView} from "@/components/navigation-view.tsx";
+import {FolderPage} from "@/components/pages/folder-page.tsx";
+import {HomePage} from "@/components/pages/home-page.tsx";
 import {TitlebarControlEscape} from "@/components/titlebar-control-escape.tsx";
 import {SidebarInset, SidebarTrigger, useSidebar} from "@/components/ui/sidebar.tsx";
 import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip.tsx";
-import {ViewSwitcher} from "@/components/view-switcher.tsx";
+import {useNavigation} from "@/lib/navigation-provider.tsx";
 import {useTranslation} from "@/lib/translation-provider.tsx";
 import {invoke} from "@tauri-apps/api/core";
 import {platform} from "@tauri-apps/plugin-os";
@@ -10,6 +12,7 @@ import {useEffect} from "react";
 
 export function Window() {
   const {_g} = useTranslation();
+  const {page} = useNavigation();
   const {open, isMobile, openMobile} = useSidebar();
 
   useEffect(() => {
@@ -34,7 +37,8 @@ export function Window() {
           </TitlebarControlEscape>
         )}
         <main className="flex-1">
-          <ViewSwitcher/>
+          {page === "home" && <HomePage/>}
+          {page === "folder" && <FolderPage/>}
         </main>
       </SidebarInset>
     </div>
