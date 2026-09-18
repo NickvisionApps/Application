@@ -19,6 +19,14 @@ pub fn run() {
         .plugin(tauri_plugin_os::init())
         .manage(Mutex::new(AppController::default()))
         .setup(|app| {
+            translation::init(app.path().resource_dir()?.join("locale"));
+            translation::set_language(
+                app.state::<Mutex<AppController>>()
+                    .lock()
+                    .unwrap()
+                    .translation_language()
+                    .to_string(),
+            );
             let window = app
                 .get_webview_window("main")
                 .ok_or(tauri::Error::AssetNotFound(
@@ -43,6 +51,7 @@ pub fn run() {
             commands::info::open_discussions,
             commands::info::open_github_repository,
             commands::info::open_report_a_bug,
+            commands::translation::get_available_translation_languages,
             commands::translation::translate_f,
             commands::translation::translate_g,
             commands::translation::translate_n,

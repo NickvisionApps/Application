@@ -3,6 +3,7 @@ import {FolderPage} from "@/components/pages/folder-page.tsx";
 import {HomePage} from "@/components/pages/home-page.tsx";
 import {TitlebarControlEscape} from "@/components/titlebar-control-escape.tsx";
 import {SidebarInset, SidebarTrigger, useSidebar} from "@/components/ui/sidebar.tsx";
+import {Toaster} from "@/components/ui/toast.tsx";
 import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip.tsx";
 import {useNavigation} from "@/lib/navigation-provider.tsx";
 import {useTranslation} from "@/lib/translation-provider.tsx";
@@ -40,7 +41,8 @@ export function Window() {
           {page === "home" && <HomePage/>}
           {page === "folder" && <FolderPage/>}
         </main>
+        <Toaster/>
       </SidebarInset>
     </div>
-  )
+  );
 }

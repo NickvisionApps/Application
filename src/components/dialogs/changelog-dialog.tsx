@@ -19,7 +19,7 @@ let cachedVersion: string | null = null;
 
 export function ChangelogDialog() {
   const {closeDialog} = useDialog();
-  const {_g} = useTranslation();
+  const {_g, _p} = useTranslation();
   const [version, setVersion] = useState(cachedVersion ?? "");
 
   const changelog = `- Initial Release
@@ -54,7 +54,7 @@ export function ChangelogDialog() {
           <Streamdown>{changelog}</Streamdown>
         </ScrollArea>
         <DialogFooter>
-          <DialogClose render={<Button variant="outline"/>}>{_g("Close")}</DialogClose>
+          <DialogClose render={<Button variant="outline"/>}>{_p("Dialog", "Close")}</DialogClose>
         </DialogFooter>
       </DialogContent>
     </Dialog>

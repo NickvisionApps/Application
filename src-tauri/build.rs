@@ -31,6 +31,8 @@ fn main() {
         .expect(
             "translation generation error: unable to locate profile output directory from OUT_DIR",
         )
+        .parent()
+        .expect("translation generation error: unable to locate target directory from OUT_DIR")
         .to_path_buf();
     println!(
         "cargo:rerun-if-changed={}",
@@ -65,6 +67,14 @@ fn main() {
         status.success(),
         "translation generation error: xgettext failed with status {status}"
     );
+    let locale_dir = output_dir.join("locale");
+    let _ = fs::remove_dir_all(&locale_dir);
+    fs::create_dir_all(&locale_dir).unwrap_or_else(|e| {
+        panic!(
+            "translation generation error: failed to create output directory {}: {e}",
+            locale_dir.display()
+        )
+    });
     for language in &fs::read_to_string(po_dir.join("LINGUAS"))
         .unwrap_or_else(|e| {
             panic!(
@@ -85,7 +95,7 @@ fn main() {
             po_path.display()
         );
         println!("cargo:rerun-if-changed={}", po_path.display());
-        let lc_messages_dir = output_dir.join(language).join("LC_MESSAGES");
+        let lc_messages_dir = locale_dir.join(language).join("LC_MESSAGES");
         fs::create_dir_all(&lc_messages_dir).unwrap_or_else(|e| {
             panic!(
                 "translation generation error: failed to create output directory {}: {e}",

@@ -4,6 +4,7 @@ import {Empty, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle} from "@/co
 import {ResizableHandle, ResizablePanel, ResizablePanelGroup} from "@/components/ui/resizable.tsx";
 import {ScrollArea} from "@/components/ui/scroll-area.tsx";
 import {useSidebar} from "@/components/ui/sidebar.tsx";
+import {toast} from "@/components/ui/toast.tsx";
 import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip.tsx";
 import {useFolderView} from "@/lib/folder-view-provider.tsx";
 import {useNavigation} from "@/lib/navigation-provider.tsx";
@@ -22,7 +23,7 @@ interface FolderFile {
 }
 
 export function FolderPage() {
-  const {_g} = useTranslation();
+  const {_g, _p} = useTranslation();
   const {setPage} = useNavigation();
   const {open, isMobile} = useSidebar();
   const {folderView, closeFolder, openFolder} = useFolderView();
@@ -67,10 +68,13 @@ export function FolderPage() {
           <Tooltip>
             <TooltipTrigger render={<Button variant="outline" onClick={async () => {
               await closeFolder();
+              toast.add({
+                title: _g("Folder closed")
+              })
               setPage("home");
             }}>
               <XIcon/>
-              {_g("Close")}
+              {_p("Folder", "Close")}
             </Button>}/>
             <TooltipContent>{_g("Close Folder")}</TooltipContent>
           </Tooltip>

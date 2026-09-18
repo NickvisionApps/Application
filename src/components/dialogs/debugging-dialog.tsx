@@ -21,7 +21,7 @@ let cachedDebuggingInformation: string | null = null;
 
 export function DebuggingDialog() {
   const {closeDialog} = useDialog();
-  const {_g} = useTranslation();
+  const {_g, _p} = useTranslation();
   const [debuggingInformation, setDebuggingInformation] = useState(cachedDebuggingInformation ?? "");
 
   useEffect(() => {
@@ -65,7 +65,7 @@ export function DebuggingDialog() {
         )}
         {!debuggingInformation && <Spinner/>}
         <DialogFooter>
-          <DialogClose render={<Button variant="outline"/>}>{_g("Close")}</DialogClose>
+          <DialogClose render={<Button variant="outline"/>}>{_p("Dialog", "Close")}</DialogClose>
         </DialogFooter>
       </DialogContent>
     </Dialog>

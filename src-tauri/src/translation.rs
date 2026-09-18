@@ -1,10 +1,12 @@
 use crate::info;
 use gettext::Catalog;
 use std::fs::File;
+use std::path::PathBuf;
 use std::sync::{OnceLock, RwLock};
 
 static CATALOG: RwLock<Option<Catalog>> = RwLock::new(None);
 static LANGUAGE: RwLock<String> = RwLock::new(String::new());
+static LOCALE_DIR: OnceLock<PathBuf> = OnceLock::new();
 
 pub fn _g(msgid: &str) -> String {
     if let Some(catalog) = CATALOG.read().unwrap().as_ref() {
@@ -124,11 +126,8 @@ pub fn available_languages() -> &'static Vec<String> {
     LANGUAGES.get_or_init(|| {
         let mut languages = vec!["en_US".to_string()];
         let mo_name = format!("{}.mo", info::APP_ENGLISH_SHORT_NAME.to_lowercase());
-        if let Some(current_dir) = std::env::current_exe()
-            .ok()
-            .and_then(|path| path.parent().map(|p| p.to_path_buf()))
-            .or_else(|| std::env::current_dir().ok())
-            && let Ok(entries) = std::fs::read_dir(current_dir)
+        if let Some(locale_dir) = LOCALE_DIR.get()
+            && let Ok(entries) = std::fs::read_dir(locale_dir)
         {
             for entry in entries.flatten() {
                 let path = entry.path();
@@ -145,6 +144,10 @@ pub fn available_languages() -> &'static Vec<String> {
     })
 }
 
+pub fn init(locale_dir: PathBuf) {
+    let _ = LOCALE_DIR.set(locale_dir);
+}
+
 pub fn set_language(language: impl Into<String>) {
     let mut language = language.into();
     if language.is_empty() || language == "C" {
@@ -159,17 +162,13 @@ pub fn set_language(language: impl Into<String>) {
         language = normalize_language(&language);
     }
     let mo_name = format!("{}.mo", info::APP_ENGLISH_SHORT_NAME.to_lowercase());
-    let catalog = match std::env::current_exe()
-        .ok()
-        .and_then(|path| path.parent().map(|p| p.to_path_buf()))
-        .or_else(|| std::env::current_dir().ok())
-    {
-        Some(current_dir) => {
+    let catalog = match LOCALE_DIR.get() {
+        Some(locale_dir) => {
             if language == "en_US" {
                 Catalog::empty()
             } else {
                 File::open(
-                    current_dir
+                    locale_dir
                         .join(&language)
                         .join("LC_MESSAGES")
                         .join(&mo_name),
@@ -179,7 +178,7 @@ pub fn set_language(language: impl Into<String>) {
                 .or_else(|| {
                     let base_language = language.split('_').next().unwrap_or("en_US");
                     File::open(
-                        current_dir
+                        locale_dir
                             .join(base_language)
                             .join("LC_MESSAGES")
                             .join(&mo_name),

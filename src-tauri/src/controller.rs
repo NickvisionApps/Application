@@ -1,5 +1,5 @@
 use crate::folder::FolderView;
-use crate::{config::Configuration, info, info::DeploymentMode, translation};
+use crate::{config::Configuration, info, info::DeploymentMode};
 use directories::BaseDirs;
 use reup::{GitHubUpdater, UpdateProvider, UpdateType};
 use semver::Version;
@@ -123,10 +123,8 @@ impl AppController {
 
 impl Default for AppController {
     fn default() -> Self {
-        let configuration = Configuration::load().unwrap_or_else(|_| Configuration::default());
-        translation::set_language(configuration.translation_language());
         AppController {
-            configuration,
+            configuration: Configuration::load().unwrap_or_else(|_| Configuration::default()),
             folder_view: None,
             #[cfg(all(target_os = "windows", target_arch = "x86_64"))]
             updater: GitHubUpdater::new(

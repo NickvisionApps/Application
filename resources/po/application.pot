@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-17 23:35-0400\n"
+"POT-Creation-Date: 2026-09-18 00:06-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,7 +29,7 @@ msgstr ""
 msgid "Folder"
 msgstr ""
 
-#: src/components/navigation-view.tsx:116 src/components/window.tsx:32
+#: src/components/navigation-view.tsx:116 src/components/window.tsx:36
 msgid "Hide Sidebar"
 msgstr ""
 
@@ -64,30 +64,34 @@ msgid "Debugging Information"
 msgstr ""
 
 #: src/components/navigation-view.tsx:209
+#: src/components/dialogs/settings-dialog.tsx:83
 msgid "Theme"
 msgstr ""
 
 #: src/components/navigation-view.tsx:219
+#: src/components/dialogs/settings-dialog.tsx:52
 msgctxt "Theme"
 msgid "Light"
 msgstr ""
 
 #: src/components/navigation-view.tsx:220
+#: src/components/dialogs/settings-dialog.tsx:53
 msgctxt "Theme"
 msgid "Dark"
 msgstr ""
 
 #: src/components/navigation-view.tsx:221
+#: src/components/dialogs/settings-dialog.tsx:54
 msgctxt "Theme"
 msgid "System"
 msgstr ""
 
 #: src/components/navigation-view.tsx:228
-#: src/components/dialogs/settings-dialog.tsx:31
+#: src/components/dialogs/settings-dialog.tsx:65
 msgid "Settings"
 msgstr ""
 
-#: src/components/window.tsx:32
+#: src/components/window.tsx:36
 msgid "Show Sidebar"
 msgstr ""
 
@@ -98,8 +102,8 @@ msgstr ""
 #: src/components/dialogs/changelog-dialog.tsx:57
 #: src/components/dialogs/debugging-dialog.tsx:68
 #: src/components/dialogs/credits-dialog.tsx:40
-#: src/components/dialogs/settings-dialog.tsx:34
-#: src/components/pages/folder-page.tsx:73
+#: src/components/dialogs/settings-dialog.tsx:145
+msgctxt "Dialog"
 msgid "Close"
 msgstr ""
 
@@ -111,27 +115,52 @@ msgstr ""
 msgid "Copy Code"
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:63 src/components/pages/home-page.tsx:61
+#: src/components/dialogs/settings-dialog.tsx:41
+msgid "General"
+msgstr ""
+
+#: src/components/dialogs/settings-dialog.tsx:46
+msgid "Advanced"
+msgstr ""
+
+#: src/components/dialogs/settings-dialog.tsx:105
+msgid "Translation Language"
+msgstr ""
+
+#: src/components/dialogs/settings-dialog.tsx:131
+msgid "Allow Preview Updates"
+msgstr ""
+
+#: src/components/pages/folder-page.tsx:64 src/components/pages/home-page.tsx:61
 msgid "Open Folder"
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:75
+#: src/components/pages/folder-page.tsx:72
+msgid "Folder closed"
+msgstr ""
+
+#: src/components/pages/folder-page.tsx:77
+msgctxt "Folder"
+msgid "Close"
+msgstr ""
+
+#: src/components/pages/folder-page.tsx:79
 msgid "Close Folder"
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:99
+#: src/components/pages/folder-page.tsx:103
 msgid "This folder is empty."
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:110
+#: src/components/pages/folder-page.tsx:114
 msgid "No File Selected"
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:111
+#: src/components/pages/folder-page.tsx:115
 msgid "Select a file to preview it here."
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:127
+#: src/components/pages/folder-page.tsx:131
 msgid "No Preview Available"
 msgstr ""
 

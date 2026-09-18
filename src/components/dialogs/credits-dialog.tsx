@@ -7,7 +7,7 @@ import {Streamdown} from "streamdown";
 
 export function CreditsDialog() {
   const {closeDialog} = useDialog();
-  const {_g} = useTranslation();
+  const {_g, _p} = useTranslation();
 
   const credits = `**Developers**
 - [Nick Logozzo](https://github.com/nlogozzo)
@@ -37,7 +37,7 @@ export function CreditsDialog() {
           }}>{credits}</Streamdown>
         </ScrollArea>
         <DialogFooter>
-          <DialogClose render={<Button variant="outline"/>}>{_g("Close")}</DialogClose>
+          <DialogClose render={<Button variant="outline"/>}>{_p("Dialog", "Close")}</DialogClose>
         </DialogFooter>
       </DialogContent>
     </Dialog>
