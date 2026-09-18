@@ -1,9 +1,17 @@
+import {Streamdown} from "streamdown";
+
 import {Button} from "@/components/ui/button.tsx";
-import {Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle} from "@/components/ui/dialog.tsx";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog.tsx";
 import {ScrollArea} from "@/components/ui/scroll-area.tsx";
 import {useDialog} from "@/lib/dialog-provider.tsx";
 import {useTranslation} from "@/lib/translation-provider.tsx";
-import {Streamdown} from "streamdown";
 
 export function CreditsDialog() {
   const {closeDialog} = useDialog();
@@ -22,24 +30,33 @@ export function CreditsDialog() {
 - [David Lapshin](https://github.com/daudix)`;
 
   return (
-    <Dialog open={true} onOpenChange={(open) => {
-      if (!open) {
-        closeDialog();
-      }
-    }}>
+    <Dialog
+      open={true}
+      onOpenChange={(open) => {
+        if (!open) {
+          closeDialog();
+        }
+      }}
+    >
       <DialogContent className="flex max-h-[95vh] flex-col">
         <DialogHeader>
           <DialogTitle>{_g("Credits")}</DialogTitle>
         </DialogHeader>
         <ScrollArea className="min-h-0 flex-1">
-          <Streamdown linkSafety={{
-            enabled: false
-          }}>{credits}</Streamdown>
+          <Streamdown
+            linkSafety={{
+              enabled: false,
+            }}
+          >
+            {credits}
+          </Streamdown>
         </ScrollArea>
         <DialogFooter>
-          <DialogClose render={<Button variant="outline"/>}>{_p("Dialog", "Close")}</DialogClose>
+          <DialogClose render={<Button variant="outline" />}>
+            {_p("Dialog", "Close")}
+          </DialogClose>
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

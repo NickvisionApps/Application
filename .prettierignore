@@ -1,0 +1,10 @@
+node_modules
+dist
+dist-ssr
+src-tauri
+src/components/ui
+package-lock.json
+.github
+.idea
+resources
+README.md

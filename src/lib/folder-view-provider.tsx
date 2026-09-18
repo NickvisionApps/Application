@@ -1,24 +1,31 @@
 import {invoke} from "@tauri-apps/api/core";
-import {createContext, ReactNode, useCallback, useContext, useMemo, useState} from "react";
+import {
+  createContext,
+  ReactNode,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
 
 interface FolderView {
-  path: string,
-  files: string[]
+  path: string;
+  files: string[];
 }
 
 interface FolderViewProviderProps {
-  children: ReactNode
+  children: ReactNode;
 }
 
 interface FolderViewProviderState {
-  folderView: FolderView,
-  openFolder: () => Promise<boolean>,
-  closeFolder: () => Promise<void>
+  folderView: FolderView;
+  openFolder: () => Promise<boolean>;
+  closeFolder: () => Promise<void>;
 }
 
 const DefaultFolderView: FolderView = {
   path: "",
-  files: []
+  files: [],
 };
 
 const FolderViewProviderContext = createContext<FolderViewProviderState>({
@@ -26,11 +33,13 @@ const FolderViewProviderContext = createContext<FolderViewProviderState>({
   openFolder: async () => {
     return false;
   },
-  closeFolder: async () => {
-  }
+  closeFolder: async () => {},
 });
 
-export function FolderViewProvider({children, ...props}: FolderViewProviderProps) {
+export function FolderViewProvider({
+  children,
+  ...props
+}: FolderViewProviderProps) {
   const [folderView, setFolderView] = useState<FolderView>(DefaultFolderView);
 
   const handleOpenFolder = useCallback(async () => {
@@ -48,14 +57,20 @@ export function FolderViewProvider({children, ...props}: FolderViewProviderProps
   }, []);
 
   return (
-    <FolderViewProviderContext.Provider {...props} value={useMemo<FolderViewProviderState>(() => ({
-      folderView: folderView,
-      openFolder: handleOpenFolder,
-      closeFolder: handleCloseFolder
-    }), [folderView, handleOpenFolder, handleCloseFolder])}>
+    <FolderViewProviderContext.Provider
+      {...props}
+      value={useMemo<FolderViewProviderState>(
+        () => ({
+          folderView: folderView,
+          openFolder: handleOpenFolder,
+          closeFolder: handleCloseFolder,
+        }),
+        [folderView, handleOpenFolder, handleCloseFolder],
+      )}
+    >
       {children}
     </FolderViewProviderContext.Provider>
-  )
+  );
 }
 
 export const useFolderView = () => {
@@ -64,4 +79,4 @@ export const useFolderView = () => {
     throw new Error("useFolderView must be used with a FolderViewProvider");
   }
   return context;
-}
+};

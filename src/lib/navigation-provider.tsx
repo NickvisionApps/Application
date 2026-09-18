@@ -3,30 +3,39 @@ import {createContext, ReactNode, useContext, useMemo, useState} from "react";
 export type Page = "home" | "folder";
 
 interface NavigationProviderProps {
-  children: ReactNode
+  children: ReactNode;
 }
 
 interface NavigationProviderState {
-  page: Page,
-  setPage: (newPage: Page) => void
+  page: Page;
+  setPage: (newPage: Page) => void;
 }
 
 const NavigationProviderContext = createContext<NavigationProviderState>({
   page: "home",
-  setPage: () => null
+  setPage: () => null,
 });
 
-export function NavigationProvider({children, ...props}: NavigationProviderProps) {
+export function NavigationProvider({
+  children,
+  ...props
+}: NavigationProviderProps) {
   const [page, setPage] = useState<Page>("home");
 
   return (
-    <NavigationProviderContext.Provider {...props} value={useMemo<NavigationProviderState>(() => ({
-      page,
-      setPage
-    }), [page])}>
+    <NavigationProviderContext.Provider
+      {...props}
+      value={useMemo<NavigationProviderState>(
+        () => ({
+          page,
+          setPage,
+        }),
+        [page],
+      )}
+    >
       {children}
     </NavigationProviderContext.Provider>
-  )
+  );
 }
 
 export const useNavigation = () => {
@@ -35,4 +44,4 @@ export const useNavigation = () => {
     throw new Error("useNavigation must be used with a NavigationProvider");
   }
   return context;
-}
+};

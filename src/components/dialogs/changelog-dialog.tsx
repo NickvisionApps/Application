@@ -1,3 +1,7 @@
+import {invoke} from "@tauri-apps/api/core";
+import {useEffect, useState} from "react";
+import {Streamdown} from "streamdown";
+
 import {Button} from "@/components/ui/button.tsx";
 import {
   Dialog,
@@ -6,14 +10,11 @@ import {
   DialogDescription,
   DialogFooter,
   DialogHeader,
-  DialogTitle
+  DialogTitle,
 } from "@/components/ui/dialog.tsx";
 import {ScrollArea} from "@/components/ui/scroll-area.tsx";
 import {useDialog} from "@/lib/dialog-provider.tsx";
 import {useTranslation} from "@/lib/translation-provider.tsx";
-import {invoke} from "@tauri-apps/api/core";
-import {useEffect, useState} from "react";
-import {Streamdown} from "streamdown";
 
 let cachedVersion: string | null = null;
 
@@ -40,11 +41,14 @@ export function ChangelogDialog() {
   }, []);
 
   return (
-    <Dialog open={true} onOpenChange={(open) => {
-      if (!open) {
-        closeDialog();
-      }
-    }}>
+    <Dialog
+      open={true}
+      onOpenChange={(open) => {
+        if (!open) {
+          closeDialog();
+        }
+      }}
+    >
       <DialogContent className="flex max-h-[95vh] flex-col">
         <DialogHeader>
           <DialogTitle>{_g("Changelog")}</DialogTitle>
@@ -54,9 +58,11 @@ export function ChangelogDialog() {
           <Streamdown>{changelog}</Streamdown>
         </ScrollArea>
         <DialogFooter>
-          <DialogClose render={<Button variant="outline"/>}>{_p("Dialog", "Close")}</DialogClose>
+          <DialogClose render={<Button variant="outline" />}>
+            {_p("Dialog", "Close")}
+          </DialogClose>
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

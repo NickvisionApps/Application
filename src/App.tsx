@@ -16,7 +16,7 @@ export function App() {
             <TooltipProvider>
               <SidebarProvider>
                 <FolderViewProvider>
-                  <Window/>
+                  <Window />
                 </FolderViewProvider>
               </SidebarProvider>
             </TooltipProvider>
@@ -24,5 +24,5 @@ export function App() {
         </DialogProvider>
       </TranslationProvider>
     </ConfigurationProvider>
-  )
+  );
 }
