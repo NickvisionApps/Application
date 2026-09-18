@@ -1,3 +1,4 @@
+import {HStack} from "@/components/layout/stack.tsx";
 import {NavigationView} from "@/components/navigation-view.tsx";
 import {FolderPage} from "@/components/pages/folder-page.tsx";
 import {HomePage} from "@/components/pages/home-page.tsx";
@@ -29,7 +30,7 @@ export function Window() {
   }, []);
 
   return (
-    <div className="flex h-screen w-full">
+    <HStack className="h-screen w-full">
       <NavigationView />
       {(!open || isMobile) && (
         <TitlebarControlEscape renderAbsolute>
@@ -52,6 +53,6 @@ export function Window() {
         {page === "folder" && <FolderPage />}
         <Toaster />
       </main>
-    </div>
+    </HStack>
   );
 }

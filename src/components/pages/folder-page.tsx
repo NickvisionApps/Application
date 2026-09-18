@@ -4,6 +4,7 @@ import {cn} from "cn";
 import {FileIcon, FolderOpenIcon, XIcon} from "lucide-react";
 import {useEffect, useMemo, useState} from "react";
 
+import {HStack, VStack} from "@/components/layout/stack.tsx";
 import {TitlebarControlEscape} from "@/components/titlebar-control-escape.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import {
@@ -80,8 +81,8 @@ export function FolderPage() {
     !imageLoadFailed;
 
   return (
-    <div className="flex h-full w-full flex-col">
-      <div className="flex items-center gap-2 border-b p-2">
+    <VStack className="h-full w-full">
+      <HStack align="center" gap={2} className="border-b p-2">
         <p
           className={
             (!open || isMobile) && platform() === "macos"
@@ -136,11 +137,11 @@ export function FolderPage() {
             <TooltipContent>{_g("Close Folder")}</TooltipContent>
           </Tooltip>
         </TitlebarControlEscape>
-      </div>
+      </HStack>
       <ResizablePanelGroup className="min-h-0 flex-1">
         <ResizablePanel defaultSize="35" minSize="20">
           <ScrollArea className="h-full">
-            <div className="flex flex-col gap-0.5 p-2">
+            <VStack gap={0.5} className="p-2">
               {files.length > 0 ? (
                 files.map((file) => (
                   <button
@@ -164,12 +165,12 @@ export function FolderPage() {
                   {_g("This folder is empty.")}
                 </p>
               )}
-            </div>
+            </VStack>
           </ScrollArea>
         </ResizablePanel>
         <ResizableHandle withHandle />
         <ResizablePanel defaultSize="65" minSize="30">
-          <div className="flex h-full w-full items-center justify-center p-4">
+          <HStack align="center" justify="center" className="h-full w-full p-4">
             {selectedFile === null ? (
               <Empty>
                 <EmptyHeader>
@@ -199,9 +200,9 @@ export function FolderPage() {
                 </EmptyHeader>
               </Empty>
             )}
-          </div>
+          </HStack>
         </ResizablePanel>
       </ResizablePanelGroup>
-    </div>
+    </VStack>
   );
 }

@@ -1,3 +1,4 @@
+import {HStack} from "@/components/layout/stack.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import {
   Empty,
@@ -51,7 +52,7 @@ export function HomePage() {
   }, []);
 
   return (
-    <div className="flex h-full w-full items-center justify-center">
+    <HStack align="center" justify="center" className="h-full w-full">
       <Empty>
         <EmptyHeader>
           <EmptyMedia>
@@ -89,6 +90,6 @@ export function HomePage() {
           <ArrowUpRightIcon />
         </Button>
       </Empty>
-    </div>
+    </HStack>
   );
 }

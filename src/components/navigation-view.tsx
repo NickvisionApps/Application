@@ -1,3 +1,4 @@
+import {HStack} from "@/components/layout/stack.tsx";
 import {TitlebarControlEscape} from "@/components/titlebar-control-escape.tsx";
 import {Avatar, AvatarFallback} from "@/components/ui/avatar.tsx";
 import {
@@ -117,14 +118,14 @@ export function NavigationView() {
     <Sidebar>
       {open && !isMobile && (
         <SidebarHeader>
-          <div className="flex justify-end">
+          <HStack justify="end">
             <TitlebarControlEscape>
               <Tooltip>
                 <TooltipTrigger render={<SidebarTrigger />} />
                 <TooltipContent>{_g("Hide Sidebar")}</TooltipContent>
               </Tooltip>
             </TitlebarControlEscape>
-          </div>
+          </HStack>
         </SidebarHeader>
       )}
       <SidebarContent className={isMobile ? "mt-8" : ""}>

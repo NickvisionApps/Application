@@ -2,6 +2,7 @@ import {invoke} from "@tauri-apps/api/core";
 import {LucideIcon, Settings2, Wrench} from "lucide-react";
 import {useEffect, useState} from "react";
 
+import {HStack, VStack} from "@/components/layout/stack.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import {
   Dialog,
@@ -88,8 +89,8 @@ export function SettingsDialog() {
         <DialogHeader>
           <DialogTitle>{_g("Settings")}</DialogTitle>
         </DialogHeader>
-        <div className="flex h-72 min-h-0 gap-4">
-          <div className="flex w-32 shrink-0 flex-col gap-1">
+        <HStack gap={4} className="h-72">
+          <VStack gap={1} className="w-32 shrink-0">
             {sections.map((section) => (
               <Button
                 key={section.page}
@@ -103,7 +104,7 @@ export function SettingsDialog() {
                 <span>{section.title}</span>
               </Button>
             ))}
-          </div>
+          </VStack>
           <Separator orientation="vertical" />
           <ScrollArea className="min-h-0 flex-1">
             {page === "general" && (
@@ -184,7 +185,7 @@ export function SettingsDialog() {
               </FieldGroup>
             )}
           </ScrollArea>
-        </div>
+        </HStack>
         <DialogFooter>
           <DialogClose render={<Button variant="outline" />}>
             {_p("Dialog", "Close")}
