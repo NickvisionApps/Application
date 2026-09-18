@@ -47,6 +47,24 @@ jobs:
           cache: npm
       - name: "Install frontend dependencies"
         run: npm ci
+      - name: "Compute MSI version"
+        shell: pwsh
+        run: |
+          $version = (Get-Content src-tauri/tauri.conf.json | ConvertFrom-Json).version
+          $parts = $version -split '\.'
+          $wixVersion = "$([int]$parts[0] - 2000).$($parts[1]).$($parts[2])"
+          $conf = [ordered]@{
+            '$schema' = 'https://schema.tauri.app/config/2'
+            bundle = @{
+              targets = @('msi')
+              windows = @{
+                wix = @{
+                  version = $wixVersion
+                }
+              }
+            }
+          }
+          $conf | ConvertTo-Json -Depth 10 | Set-Content -Path src-tauri/tauri.windows.conf.json
       - name: "Build"
         run: npm run tauri build
       - uses: actions/upload-artifact@v7
