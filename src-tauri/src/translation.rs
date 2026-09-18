@@ -1,13 +1,13 @@
 use crate::info;
 use gettext::Catalog;
 use std::fs::File;
-use std::sync::OnceLock;
+use std::sync::{OnceLock, RwLock};
 
-static CATALOG: OnceLock<Catalog> = OnceLock::new();
-static LANGUAGE: OnceLock<String> = OnceLock::new();
+static CATALOG: RwLock<Option<Catalog>> = RwLock::new(None);
+static LANGUAGE: RwLock<String> = RwLock::new(String::new());
 
 pub fn _g(msgid: &str) -> String {
-    if let Some(catalog) = CATALOG.get() {
+    if let Some(catalog) = CATALOG.read().unwrap().as_ref() {
         catalog.gettext(msgid).to_string()
     } else {
         msgid.to_string()
@@ -15,7 +15,8 @@ pub fn _g(msgid: &str) -> String {
 }
 
 pub fn _f<A: AsRef<str>>(msgid: &str, args: &[A]) -> String {
-    let translated = if let Some(catalog) = CATALOG.get() {
+    let catalog = CATALOG.read().unwrap();
+    let translated = if let Some(catalog) = catalog.as_ref() {
         catalog.gettext(msgid)
     } else {
         msgid
@@ -29,7 +30,7 @@ pub fn _f<A: AsRef<str>>(msgid: &str, args: &[A]) -> String {
 }
 
 pub fn _n(msgid: &str, msgid_plural: &str, n: impl Into<u64>) -> String {
-    if let Some(catalog) = CATALOG.get() {
+    if let Some(catalog) = CATALOG.read().unwrap().as_ref() {
         catalog.ngettext(msgid, msgid_plural, n.into()).to_string()
     } else if n.into() == 1 {
         msgid.to_string()
@@ -44,7 +45,8 @@ pub fn _nf<A: AsRef<str>>(
     n: impl Into<u64>,
     args: &[A],
 ) -> String {
-    let translated = if let Some(catalog) = CATALOG.get() {
+    let catalog = CATALOG.read().unwrap();
+    let translated = if let Some(catalog) = catalog.as_ref() {
         catalog.ngettext(msgid, msgid_plural, n.into())
     } else if n.into() == 1 {
         msgid
@@ -60,7 +62,7 @@ pub fn _nf<A: AsRef<str>>(
 }
 
 pub fn _p(msgctxt: &str, msgid: &str) -> String {
-    if let Some(catalog) = CATALOG.get() {
+    if let Some(catalog) = CATALOG.read().unwrap().as_ref() {
         catalog.pgettext(msgctxt, msgid).to_string()
     } else {
         msgid.to_string()
@@ -68,7 +70,8 @@ pub fn _p(msgctxt: &str, msgid: &str) -> String {
 }
 
 pub fn _pf<A: AsRef<str>>(msgctxt: &str, msgid: &str, args: &[A]) -> String {
-    let translated = if let Some(catalog) = CATALOG.get() {
+    let catalog = CATALOG.read().unwrap();
+    let translated = if let Some(catalog) = catalog.as_ref() {
         catalog.pgettext(msgctxt, msgid)
     } else {
         msgid
@@ -82,7 +85,7 @@ pub fn _pf<A: AsRef<str>>(msgctxt: &str, msgid: &str, args: &[A]) -> String {
 }
 
 pub fn _np(msgctxt: &str, msgid: &str, msgid_plural: &str, n: impl Into<u64>) -> String {
-    if let Some(catalog) = CATALOG.get() {
+    if let Some(catalog) = CATALOG.read().unwrap().as_ref() {
         catalog
             .npgettext(msgctxt, msgid, msgid_plural, n.into())
             .to_string()
@@ -100,7 +103,8 @@ pub fn _npf<A: AsRef<str>>(
     n: impl Into<u64>,
     args: &[A],
 ) -> String {
-    let translated = if let Some(catalog) = CATALOG.get() {
+    let catalog = CATALOG.read().unwrap();
+    let translated = if let Some(catalog) = catalog.as_ref() {
         catalog.npgettext(msgctxt, msgid, msgid_plural, n.into())
     } else if n.into() == 1 {
         msgid
@@ -141,10 +145,7 @@ pub fn available_languages() -> &'static Vec<String> {
     })
 }
 
-pub fn init(language: impl Into<String>) {
-    if LANGUAGE.get().is_some() {
-        return;
-    }
+pub fn set_language(language: impl Into<String>) {
     let mut language = language.into();
     if language.is_empty() || language == "C" {
         language = std::env::var("LC_ALL")
@@ -158,52 +159,45 @@ pub fn init(language: impl Into<String>) {
         language = normalize_language(&language);
     }
     let mo_name = format!("{}.mo", info::APP_ENGLISH_SHORT_NAME.to_lowercase());
-    CATALOG
-        .set(
-            match std::env::current_exe()
+    let catalog = match std::env::current_exe()
+        .ok()
+        .and_then(|path| path.parent().map(|p| p.to_path_buf()))
+        .or_else(|| std::env::current_dir().ok())
+    {
+        Some(current_dir) => {
+            if language == "en_US" {
+                Catalog::empty()
+            } else {
+                File::open(
+                    current_dir
+                        .join(&language)
+                        .join("LC_MESSAGES")
+                        .join(&mo_name),
+                )
                 .ok()
-                .and_then(|path| path.parent().map(|p| p.to_path_buf()))
-                .or_else(|| std::env::current_dir().ok())
-            {
-                Some(current_dir) => {
-                    if language == "en_US" {
-                        Catalog::empty()
-                    } else {
-                        File::open(
-                            current_dir
-                                .join(&language)
-                                .join("LC_MESSAGES")
-                                .join(&mo_name),
-                        )
-                        .ok()
-                        .and_then(|f| Catalog::parse(f).ok())
-                        .or_else(|| {
-                            let base_language = language.split('_').next().unwrap_or("en_US");
-                            File::open(
-                                current_dir
-                                    .join(base_language)
-                                    .join("LC_MESSAGES")
-                                    .join(&mo_name),
-                            )
-                            .ok()
-                            .and_then(|f| Catalog::parse(f).ok())
-                        })
-                        .unwrap_or_else(Catalog::empty)
-                    }
-                }
-                None => Catalog::empty(),
-            },
-        )
-        .unwrap();
-    LANGUAGE.set(language).unwrap();
+                .and_then(|f| Catalog::parse(f).ok())
+                .or_else(|| {
+                    let base_language = language.split('_').next().unwrap_or("en_US");
+                    File::open(
+                        current_dir
+                            .join(base_language)
+                            .join("LC_MESSAGES")
+                            .join(&mo_name),
+                    )
+                    .ok()
+                    .and_then(|f| Catalog::parse(f).ok())
+                })
+                .unwrap_or_else(Catalog::empty)
+            }
+        }
+        None => Catalog::empty(),
+    };
+    *CATALOG.write().unwrap() = Some(catalog);
+    *LANGUAGE.write().unwrap() = language;
 }
 
-pub fn language() -> &'static str {
-    if let Some(language) = LANGUAGE.get() {
-        language.as_str()
-    } else {
-        ""
-    }
+pub fn language() -> String {
+    LANGUAGE.read().unwrap().clone()
 }
 
 fn normalize_language(language: &str) -> String {

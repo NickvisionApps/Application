@@ -124,7 +124,7 @@ impl AppController {
 impl Default for AppController {
     fn default() -> Self {
         let configuration = Configuration::load().unwrap_or_else(|_| Configuration::default());
-        translation::init(configuration.translation_language());
+        translation::set_language(configuration.translation_language());
         AppController {
             configuration,
             folder_view: None,

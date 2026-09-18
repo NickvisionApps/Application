@@ -2,6 +2,11 @@ use crate::translation;
 use tauri::command;
 
 #[command]
+pub fn get_available_translation_languages() -> &'static Vec<String> {
+    translation::available_languages()
+}
+
+#[command]
 pub fn translate_f(msgid: String, args: Vec<String>) -> String {
     translation::_f(&msgid, &args)
 }

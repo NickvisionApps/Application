@@ -1,5 +1,6 @@
 use crate::config::Configuration;
 use crate::controller::AppController;
+use crate::translation;
 use std::sync::Mutex;
 use tauri::{State, command};
 
@@ -27,5 +28,6 @@ pub fn set_configuration(
     controller
         .save()
         .map_err(|e| tauri::Error::Setup(e.into()))?;
+    translation::set_language(controller.translation_language());
     Ok(())
 }

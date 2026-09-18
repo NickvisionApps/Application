@@ -1,5 +1,6 @@
+import {useConfiguration} from "@/lib/configuration-provider.tsx";
 import {invoke, InvokeArgs} from "@tauri-apps/api/core";
-import {createContext, ReactNode, useCallback, useContext, useMemo, useState} from "react";
+import {createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState} from "react";
 
 interface TranslationProviderProps {
   children: ReactNode
@@ -28,7 +29,12 @@ const TranslationProviderContext = createContext<TranslationProviderState>({
 });
 
 export function TranslationProvider({children, ...props}: TranslationProviderProps) {
+  const {configuration} = useConfiguration();
   const [cache, setCache] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    setCache({});
+  }, [configuration.translationLanguage]);
 
   const fetchTranslation = useCallback((key: string, cmd: string, args: InvokeArgs) => {
     if (key in cache) {
@@ -47,7 +53,7 @@ export function TranslationProvider({children, ...props}: TranslationProviderPro
       }))
     })
   }, [cache]);
-  
+
   return (
     <TranslationProviderContext.Provider {...props} value={useMemo<TranslationProviderState>(() => ({
       _g: (msgid: string): string => {
