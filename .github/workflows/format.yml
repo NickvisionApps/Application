@@ -1,0 +1,44 @@
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+    types: [ "review_requested", "ready_for_review" ]
+  workflow_dispatch:
+name: Format
+permissions:
+  contents: read
+jobs:
+  rust:
+    name: "Rust"
+    if: ${{ github.event.pull_request.user.login != 'weblate' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: "Setup Environment"
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gettext libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - name: "cargo fmt"
+        working-directory: src-tauri
+        run: cargo fmt --all -- --check
+      - name: "cargo clippy"
+        working-directory: src-tauri
+        run: cargo clippy --all-targets -- -D warnings
+  frontend:
+    name: "Frontend"
+    if: ${{ github.event.pull_request.user.login != 'weblate' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: lts/*
+          cache: npm
+      - name: "Install frontend dependencies"
+        run: npm ci
+      - name: "Format check"
+        run: npm run format:check
