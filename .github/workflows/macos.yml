@@ -29,6 +29,10 @@ jobs:
           brew install gettext
           echo "$(brew --prefix gettext)/bin" >> "$GITHUB_PATH"
       - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri -> target
+          key: ${{ matrix.variant.arch }}
       - uses: actions/setup-node@v7
         with:
           node-version: lts/*
