@@ -53,8 +53,9 @@ success "Created directories."
 
 info "Installing npm dependencies..."
 cd "$ROOT_DIR"
+rm -rf flatpak-node/cache/node-gyp
 bash flatpak-node/setup_sdk_node_headers.sh
-npm install --offline
+npm ci --offline
 success "Installed npm dependencies."
 
 info "Building application..."
