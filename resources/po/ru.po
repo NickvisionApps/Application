@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-07 22:22-0400\n"
+"POT-Creation-Date: 2026-09-17 22:35-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -18,398 +18,231 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: linux/src/controls/folder_page.rs:68 macos/src/controls/folder_page.rs:99
-msgid "{0} file"
-msgid_plural "{0} files"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: linux/src/controls/home_page.rs:43 macos/src/controls/home_page.rs:54
-#, fuzzy
-msgid "Open a folder to get started"
-msgstr "Откройте или перетащите папку, чтобы начать."
-
-#: linux/src/controls/home_page.rs:47 linux/src/views/main_window.rs:103
-msgid "Open Folder (Ctrl+O)"
-msgstr "Открыть папку (Ctrl+O)"
-
-#: linux/src/controls/home_page.rs:49 linux/src/views/main_window.rs:106
-#: macos/src/controls/home_page.rs:61
-msgid "Open"
-msgstr "Открыть"
-
-#: linux/src/views/main_window.rs:82 linux/src/views/main_window.rs:324
-#: linux/src/views/settings_dialog.rs:144
-msgid "Preferences"
-msgstr "Параметры"
-
-#: linux/src/views/main_window.rs:86 linux/src/views/main_window.rs:328
-msgid "Keyboard Shortcuts"
-msgstr "Комбинации клавиш"
-
-#: linux/src/views/main_window.rs:90 linux/src/views/main_window.rs:332
-#: macos/src/controls/main_menu.rs:137
-msgid "About Application"
-msgstr "О приложении"
-
-#: linux/src/views/main_window.rs:96 macos/src/controls/main_menu.rs:134
-#: macos/src/views/main_window.rs:229 windows/src/views/main_window.rs:128
-#: windows/src/views/main_window.rs:157
-msgid "Application"
-msgstr "Application"
-
-#: linux/src/views/main_window.rs:115
-#, fuzzy
-msgid "Close Folder (Ctrl+W)"
-msgstr "Закрыть папку (Ctrl+W)"
-
-#: linux/src/views/main_window.rs:123
-msgid "Main Menu"
-msgstr "Главное меню"
-
-#: linux/src/views/main_window.rs:237 macos/src/controls/main_menu.rs:62
-#, fuzzy
-msgid "translation-credits"
-msgstr "Фёдор Соболев https://github.com/fsobolev"
-
-#: linux/src/views/main_window.rs:238
-msgid "GitHub Repo"
-msgstr "Репозиторий GitHub"
-
-#: linux/src/views/main_window.rs:259 windows/src/views/main_window.rs:62
-#, fuzzy
-msgid "Folder closed"
-msgstr "Папка закрыта."
-
-#: linux/src/views/main_window.rs:266 linux/src/views/main_window.rs:338
-#: macos/src/controls/main_menu.rs:201 macos/src/views/main_window.rs:132
-msgid "Open Folder"
-msgstr "Открыть Папку"
-
-#: linux/src/views/main_window.rs:299 macos/src/views/main_window.rs:417
-#: windows/src/views/main_window.rs:104
-msgid "Unable to open folder: {0}"
+#: src/components/dialogs/changelog-dialog.tsx:50
+msgid "Changelog"
 msgstr ""
 
-#: linux/src/views/main_window.rs:322
-msgid "App"
-msgstr ""
+#: src/components/dialogs/changelog-dialog.tsx:57
+#: src/components/dialogs/credits-dialog.tsx:40
+#: src/components/dialogs/debugging-dialog.tsx:68
+#: src/components/pages/folder-page.tsx:73
+msgid "Close"
+msgstr "Закрыть"
 
-#: linux/src/views/main_window.rs:335
-msgid "Quit"
-msgstr "Выход"
-
-#: linux/src/views/main_window.rs:336 windows/src/views/main_window.rs:227
-#: windows/src/views/main_window.rs:242
-#, fuzzy
-msgid "Folder"
-msgstr "Папка"
-
-#: linux/src/views/main_window.rs:342 macos/src/controls/main_menu.rs:208
-#: macos/src/views/main_window.rs:122
-msgid "Close Folder"
-msgstr "Закрыть папку"
-
-#: linux/src/views/settings_dialog.rs:56
-#, fuzzy
-msgid "Theme"
-msgstr "Тема"
-
-#: linux/src/views/settings_dialog.rs:58 macos/src/views/settings_dialog.rs:194
-#, fuzzy
-msgid "Light"
-msgstr "Светлая"
-
-#: linux/src/views/settings_dialog.rs:59 macos/src/views/settings_dialog.rs:195
-#, fuzzy
-msgid "Dark"
-msgstr "Тёмная"
-
-#: linux/src/views/settings_dialog.rs:60 macos/src/views/settings_dialog.rs:196
-#, fuzzy
-msgid "System"
-msgstr "Системная"
-
-#: linux/src/views/settings_dialog.rs:78
-msgid "Translation Language"
-msgstr ""
-
-#: linux/src/views/settings_dialog.rs:80 macos/src/views/settings_dialog.rs:233
-msgid "An application restart is required for change to take effect"
-msgstr ""
-
-#: linux/src/views/settings_dialog.rs:104
-msgid "User Interface"
-msgstr "Интерфейс"
-
-#: linux/src/views/settings_dialog.rs:109 macos/src/views/settings_dialog.rs:56
-#: macos/src/views/settings_dialog.rs:128
-#: macos/src/views/settings_dialog.rs:130
-#: macos/src/views/settings_dialog.rs:183
-msgid "General"
-msgstr ""
-
-#: linux/src/views/settings_dialog.rs:114
-#: macos/src/views/settings_dialog.rs:268
-msgid "Allow Preview Updates"
-msgstr ""
-
-#: linux/src/views/settings_dialog.rs:130
-msgid "Updates"
-msgstr ""
-
-#: linux/src/views/settings_dialog.rs:134 macos/src/views/settings_dialog.rs:53
-#: macos/src/views/settings_dialog.rs:118
-#: macos/src/views/settings_dialog.rs:120
-msgid "Advanced"
-msgstr ""
-
-#: macos/src/controls/home_page.rs:69 macos/src/views/main_window.rs:134
-#, fuzzy
-msgid "Open Folder (⌘O)"
-msgstr "Закрыть папку (Ctrl+W)"
-
-#: macos/src/controls/main_menu.rs:54
-msgid ""
-"{0}\n"
-"\n"
-"What's New?"
-msgstr ""
-
-#: macos/src/controls/main_menu.rs:63 macos/src/controls/main_menu.rs:324
+#: src/components/dialogs/credits-dialog.tsx:32
+#: src/components/navigation-view.tsx:193
 msgid "Credits"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:65
-msgid ""
-"Developers:\n"
-"{0}\n"
-"\n"
-"Designers:\n"
-"{1}\n"
-"\n"
-"Artists:\n"
-"{2}\n"
-"\n"
-"Translators:\n"
-"{3}"
-msgstr ""
-
-#: macos/src/controls/main_menu.rs:67
-msgid ""
-"Developers:\n"
-"{0}\n"
-"\n"
-"Designers:\n"
-"{1}\n"
-"\n"
-"Artists:\n"
-"{2}"
-msgstr ""
-
-#: macos/src/controls/main_menu.rs:96 macos/src/controls/main_menu.rs:354
+#: src/components/dialogs/debugging-dialog.tsx:49
+#: src/components/navigation-view.tsx:197
 msgid "Debugging Information"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:144
-msgid "Check for Updates"
+#: src/components/dialogs/debugging-dialog.tsx:50
+msgid "Send this information to the developer when reporting issues"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:152
-msgid "Settings\\u{2026}"
+#: src/components/dialogs/debugging-dialog.tsx:61
+msgid "Copy Code"
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:159
-msgid "Services"
+#: src/components/pages/folder-page.tsx:63
+#: src/components/pages/home-page.tsx:61
+msgid "Open Folder"
+msgstr "Открыть Папку"
+
+#: src/components/pages/folder-page.tsx:75
+msgid "Close Folder"
+msgstr "Закрыть папку"
+
+#: src/components/pages/folder-page.tsx:99
+msgid "This folder is empty."
 msgstr ""
 
-#: macos/src/controls/main_menu.rs:162
+#: src/components/pages/folder-page.tsx:110
 #, fuzzy
-msgid "Hide Application"
+msgid "No File Selected"
+msgstr "Папка не открыта"
+
+#: src/components/pages/folder-page.tsx:111
+msgid "Select a file to preview it here."
+msgstr ""
+
+#: src/components/pages/folder-page.tsx:127
+#, fuzzy
+msgid "No Preview Available"
 msgstr "Application"
 
-#: macos/src/controls/main_menu.rs:169
-msgid "Hide Others"
-msgstr ""
+#: src/components/pages/home-page.tsx:21
+msgid "Good Day!"
+msgstr "Здравствуйте!"
 
-#: macos/src/controls/main_menu.rs:179
-msgid "Show All"
-msgstr ""
-
-#: macos/src/controls/main_menu.rs:187
-#, fuzzy
-msgid "Quit Application"
-msgstr "О приложении"
-
-#: macos/src/controls/main_menu.rs:198
-msgid "File"
-msgstr ""
-
-#: macos/src/controls/main_menu.rs:216
-msgid "Close Window"
-msgstr ""
-
-#: macos/src/controls/main_menu.rs:227
-msgid "Edit"
-msgstr ""
-
-#: macos/src/controls/main_menu.rs:229
-msgid "Undo"
-msgstr ""
-
-#: macos/src/controls/main_menu.rs:230
-msgid "Redo"
-msgstr ""
-
-#: macos/src/controls/main_menu.rs:232
-msgid "Cut"
-msgstr ""
-
-#: macos/src/controls/main_menu.rs:233
-msgid "Copy"
-msgstr ""
-
-#: macos/src/controls/main_menu.rs:235
-msgid "Paste"
-msgstr ""
-
-#: macos/src/controls/main_menu.rs:242
-msgid "Select All"
-msgstr ""
-
-#: macos/src/controls/main_menu.rs:253
-msgid "View"
-msgstr ""
-
-#: macos/src/controls/main_menu.rs:256
-msgid "Hide Toolbar"
-msgstr ""
-
-#: macos/src/controls/main_menu.rs:263
-msgid "Customize Toolbar\\u{2026}"
-msgstr ""
-
-#: macos/src/controls/main_menu.rs:270
-msgid "Enter Full Screen"
-msgstr ""
-
-#: macos/src/controls/main_menu.rs:284
-msgid "Window"
-msgstr ""
-
-#: macos/src/controls/main_menu.rs:287
-msgid "Minimize"
-msgstr ""
-
-#: macos/src/controls/main_menu.rs:294
-msgid "Zoom"
-msgstr ""
-
-#: macos/src/controls/main_menu.rs:302
-msgid "Bring All to Front"
-msgstr ""
-
-#: macos/src/controls/main_menu.rs:314
-msgid "Help"
-msgstr ""
-
-#: macos/src/controls/main_menu.rs:317
-msgid "What's New"
-msgstr ""
-
-#: macos/src/controls/main_menu.rs:332
-#, fuzzy
-msgid "GitHub Repository"
-msgstr "Репозиторий GitHub"
-
-#: macos/src/controls/main_menu.rs:339
-msgid "Report a Bug"
-msgstr ""
-
-#: macos/src/controls/main_menu.rs:346
-msgid "Discussions"
-msgstr ""
-
-#: macos/src/views/main_window.rs:124
-#, fuzzy
-msgid "Close Folder (⇧⌘W)"
-msgstr "Закрыть папку (Ctrl+W)"
-
-#: macos/src/views/main_window.rs:142
-msgid "Update Progress"
-msgstr ""
-
-#: macos/src/views/main_window.rs:291
-#, fuzzy
-msgid "Update Available"
-msgstr "Application"
-
-#: macos/src/views/main_window.rs:293
-#, fuzzy
-msgid "A new update for {0} is available: {1}"
-msgstr "Application"
-
-#: macos/src/views/main_window.rs:296
-msgid "Update"
-msgstr ""
-
-#: macos/src/views/main_window.rs:297
-msgid "OK"
-msgstr ""
-
-#: macos/src/views/main_window.rs:360 macos/src/views/main_window.rs:415
-#: windows/src/views/main_window.rs:103
-msgid "Error"
-msgstr ""
-
-#: macos/src/views/main_window.rs:362
-msgid "Unable to install the update: {0}"
-msgstr ""
-
-#: macos/src/views/main_window.rs:372
-#, fuzzy
-msgid "No Update Available"
-msgstr "Application"
-
-#: macos/src/views/main_window.rs:375
-msgid "You are running the latest version of {0}."
-msgstr ""
-
-#: macos/src/views/settings_dialog.rs:192
-#, fuzzy
-msgid "Theme:"
-msgstr "Тема"
-
-#: macos/src/views/settings_dialog.rs:211
-msgid "Translation Language:"
-msgstr ""
-
-#: shared/src/controller.rs:49
+#: src/components/pages/home-page.tsx:30
 msgctxt "Night"
 msgid "Good Morning!"
 msgstr "Доброй ночи!"
 
-#: shared/src/controller.rs:51
+#: src/components/pages/home-page.tsx:33
 msgctxt "Morning"
 msgid "Good Morning!"
 msgstr "Доброе утро!"
 
-#: shared/src/controller.rs:53
+#: src/components/pages/home-page.tsx:35
 msgid "Good Afternoon!"
 msgstr "Добрый день!"
 
-#: shared/src/controller.rs:55
+#: src/components/pages/home-page.tsx:37
 msgid "Good Evening!"
 msgstr "Добрый вечер!"
 
-#: windows/src/views/main_window.rs:211 windows/src/views/main_window.rs:240
+#: src/components/pages/home-page.tsx:65 src/components/navigation-view.tsx:166
+msgid "What's New?"
+msgstr ""
+
+#: src/components/navigation-view.tsx:88
 msgid "Home"
 msgstr ""
 
-#: windows/src/views/main_window.rs:244
+#: src/components/navigation-view.tsx:93
+#, fuzzy
+msgid "Folder"
+msgstr "Папка"
+
+#: src/components/navigation-view.tsx:116 src/components/window.tsx:32
+msgid "Hide Sidebar"
+msgstr ""
+
+#: src/components/navigation-view.tsx:171
+msgid "Help"
+msgstr ""
+
+#: src/components/navigation-view.tsx:178
+#, fuzzy
+msgid "GitHub Repository"
+msgstr "Репозиторий GitHub"
+
+#: src/components/navigation-view.tsx:182
+msgid "Report a Bug"
+msgstr ""
+
+#: src/components/navigation-view.tsx:186
+msgid "Discussions"
+msgstr ""
+
+#: src/components/navigation-view.tsx:209
+#, fuzzy
+msgid "Theme"
+msgstr "Тема"
+
+#: src/components/navigation-view.tsx:219
+msgctxt "Theme"
+msgid "Light"
+msgstr "Светлая"
+
+#: src/components/navigation-view.tsx:220
+msgctxt "Theme"
+msgid "Dark"
+msgstr "Тёмная"
+
+#: src/components/navigation-view.tsx:221
+msgctxt "Theme"
+msgid "System"
+msgstr "Системная"
+
+#: src/components/navigation-view.tsx:228
 msgid "Settings"
 msgstr ""
+
+#: src/components/window.tsx:32
+msgid "Show Sidebar"
+msgstr ""
+
+#, fuzzy
+#~ msgid "Open a folder to get started"
+#~ msgstr "Откройте или перетащите папку, чтобы начать."
+
+#~ msgid "Open Folder (Ctrl+O)"
+#~ msgstr "Открыть папку (Ctrl+O)"
+
+#~ msgid "Open"
+#~ msgstr "Открыть"
+
+#~ msgid "Preferences"
+#~ msgstr "Параметры"
+
+#~ msgid "Keyboard Shortcuts"
+#~ msgstr "Комбинации клавиш"
+
+#~ msgid "About Application"
+#~ msgstr "О приложении"
+
+#~ msgid "Application"
+#~ msgstr "Application"
+
+#, fuzzy
+#~ msgid "Close Folder (Ctrl+W)"
+#~ msgstr "Закрыть папку (Ctrl+W)"
+
+#~ msgid "Main Menu"
+#~ msgstr "Главное меню"
+
+#, fuzzy
+#~ msgid "translation-credits"
+#~ msgstr "Фёдор Соболев https://github.com/fsobolev"
+
+#~ msgid "GitHub Repo"
+#~ msgstr "Репозиторий GitHub"
+
+#, fuzzy
+#~ msgid "Folder closed"
+#~ msgstr "Папка закрыта."
+
+#~ msgid "Quit"
+#~ msgstr "Выход"
+
+#, fuzzy
+#~ msgid "Light"
+#~ msgstr "Светлая"
+
+#, fuzzy
+#~ msgid "Dark"
+#~ msgstr "Тёмная"
+
+#, fuzzy
+#~ msgid "System"
+#~ msgstr "Системная"
+
+#~ msgid "User Interface"
+#~ msgstr "Интерфейс"
+
+#, fuzzy
+#~ msgid "Open Folder (⌘O)"
+#~ msgstr "Закрыть папку (Ctrl+W)"
+
+#, fuzzy
+#~ msgid "Hide Application"
+#~ msgstr "Application"
+
+#, fuzzy
+#~ msgid "Quit Application"
+#~ msgstr "О приложении"
+
+#, fuzzy
+#~ msgid "Close Folder (⇧⌘W)"
+#~ msgstr "Закрыть папку (Ctrl+W)"
+
+#, fuzzy
+#~ msgid "Update Available"
+#~ msgstr "Application"
+
+#, fuzzy
+#~ msgid "A new update for {0} is available: {1}"
+#~ msgstr "Application"
+
+#, fuzzy
+#~ msgid "Theme:"
+#~ msgstr "Тема"
 
 #, fuzzy
 #~ msgid "Folder Closed"
@@ -427,9 +260,6 @@ msgstr ""
 #~ msgid "Show Application"
 #~ msgstr "Application"
 
-#~ msgid "Good Day!"
-#~ msgstr "Здравствуйте!"
-
 #, fuzzy
 #~ msgid "Error: {0}"
 #~ msgstr "Папка"
@@ -437,9 +267,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Application Help"
 #~ msgstr "Application"
-
-#~ msgid "Close"
-#~ msgstr "Закрыть"
 
 #, fuzzy
 #~ msgid "Open a folder (or drag one into the app) to get started"
@@ -483,18 +310,6 @@ msgstr ""
 #~ msgid "David Lapshin"
 #~ msgstr "Давид Лапшин"
 
-#~ msgctxt "Theme"
-#~ msgid "Light"
-#~ msgstr "Светлая"
-
-#~ msgctxt "Theme"
-#~ msgid "Dark"
-#~ msgstr "Тёмная"
-
-#~ msgctxt "Theme"
-#~ msgid "System"
-#~ msgstr "Системная"
-
 #, fuzzy, csharp-format
 #~ msgid "Folder opened: {0}"
 #~ msgstr "Папка открыта: {0}"
@@ -518,9 +333,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Notifications"
 #~ msgstr "О приложении"
-
-#~ msgid "No Folder Opened"
-#~ msgstr "Папка не открыта"
 
 #~ msgctxt "Shortcut"
 #~ msgid "Folder"
