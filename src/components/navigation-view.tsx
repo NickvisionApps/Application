@@ -223,7 +223,7 @@ export function NavigationView() {
                       </DropdownMenuSubContent>
                     </DropdownMenuPortal>
                   </DropdownMenuSub>
-                  <DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => openDialog("settings")}>
                     <Settings/>
                     <span>{_g("Settings")}</span>
                   </DropdownMenuItem>

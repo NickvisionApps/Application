@@ -1,9 +1,10 @@
 import {ChangelogDialog} from "@/components/dialogs/changelog-dialog.tsx";
 import {CreditsDialog} from "@/components/dialogs/credits-dialog.tsx";
 import {DebuggingDialog} from "@/components/dialogs/debugging-dialog.tsx";
+import {SettingsDialog} from "@/components/dialogs/settings-dialog.tsx";
 import {createContext, ReactNode, useCallback, useContext, useMemo, useState} from "react";
 
-export type DialogName = "none" | "changelog" | "credits" | "debugging";
+export type DialogName = "none" | "changelog" | "credits" | "debugging" | "settings";
 
 interface DialogProviderProps {
   children: ReactNode
@@ -35,6 +36,7 @@ export function DialogProvider({children, ...props}: DialogProviderProps) {
       {dialog === "changelog" && <ChangelogDialog/>}
       {dialog === "credits" && <CreditsDialog/>}
       {dialog === "debugging" && <DebuggingDialog/>}
+      {dialog === "settings" && <SettingsDialog/>}
       {children}
     </DialogProviderContext.Provider>
   )
