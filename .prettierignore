@@ -8,3 +8,4 @@ package-lock.json
 .idea
 resources
 README.md
+build-aux

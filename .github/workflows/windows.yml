@@ -27,17 +27,17 @@ jobs:
             type: clang-aarch64
     runs-on: ${{ matrix.variant.runner }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: msys2/setup-msys2@v2
         id: msys2
         with:
           msystem: ${{ matrix.variant.subsys }}
           install: mingw-w64-${{ matrix.variant.type }}-gettext-tools
-      - name: "Setup Environment"
+      - name: "Setup environment"
         shell: pwsh
         run: echo "${{ steps.msys2.outputs.msys2-location }}\${{ matrix.variant.subsys }}\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
       - uses: dtolnay/rust-toolchain@stable
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v7
         with:
           node-version: lts/*
           cache: npm
@@ -45,7 +45,7 @@ jobs:
         run: npm ci
       - name: "Build"
         run: npm run tauri build
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: Application-${{ matrix.variant.arch }}
           path: src-tauri/target/release/bundle/msi/*.msi

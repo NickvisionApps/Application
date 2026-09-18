@@ -4,8 +4,8 @@
   "runtime-version": "51",
   "sdk": "org.gnome.Sdk",
   "sdk-extensions": [
-    "org.freedesktop.Sdk.Extension.rust-stable",
-    "org.freedesktop.Sdk.Extension.node22"
+    "org.freedesktop.Sdk.Extension.rust-stable//26.08",
+    "org.freedesktop.Sdk.Extension.node22//25.08"
   ],
   "build-options": {
     "append-path": "/usr/lib/sdk/rust-stable/bin:/usr/lib/sdk/node22/bin",

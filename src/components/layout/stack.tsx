@@ -69,7 +69,7 @@ function Stack({
           className,
         ),
         "data-slot": "stack",
-      },
+      } as React.ComponentProps<"div">,
       props,
     ),
   });

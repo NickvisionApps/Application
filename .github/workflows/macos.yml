@@ -23,13 +23,13 @@ jobs:
             runner: macos-15-intel
     runs-on: ${{ matrix.variant.runner }}
     steps:
-      - uses: actions/checkout@v6
-      - name: "Setup Environment"
+      - uses: actions/checkout@v7
+      - name: "Setup environment"
         run: |
           brew install gettext
           echo "$(brew --prefix gettext)/bin" >> "$GITHUB_PATH"
       - uses: dtolnay/rust-toolchain@stable
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v7
         with:
           node-version: lts/*
           cache: npm
@@ -37,7 +37,7 @@ jobs:
         run: npm ci
       - name: "Build"
         run: npm run tauri build
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: Application-${{ matrix.variant.arch }}
           path: src-tauri/target/release/bundle/macos/*.app
