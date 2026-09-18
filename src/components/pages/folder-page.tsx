@@ -86,7 +86,7 @@ export function FolderPage() {
         <p
           className={
             (!open || isMobile) && platform() === "macos"
-              ? "ml-30 min-w-0 flex-1 truncate text-sm text-muted-foreground"
+              ? "ml-29 min-w-0 flex-1 truncate text-sm text-muted-foreground"
               : "min-w-0 flex-1 truncate text-sm text-muted-foreground"
           }
           title={folderView.path}
@@ -122,8 +122,10 @@ export function FolderPage() {
           <Tooltip>
             <TooltipTrigger
               render={
-                <Button
-                  variant="outline"
+                <HStack
+                  render={<Button variant="outline" />}
+                  align="center"
+                  gap={1.5}
                   onClick={() => {
                     async function handleCloseFolder() {
                       await closeFolder();
@@ -137,8 +139,8 @@ export function FolderPage() {
                   }}
                 >
                   <XIcon />
-                  {_p("Folder", "Close")}
-                </Button>
+                  {!isMobile && _p("Folder", "Close")}
+                </HStack>
               }
             />
             <TooltipContent>

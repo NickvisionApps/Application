@@ -57,7 +57,7 @@ export function Window() {
   );
 
   return (
-    <HStack className="h-screen w-full">
+    <HStack className="h-screen w-full overflow-hidden">
       <NavigationView />
       {(!open || isMobile) && (
         <TitlebarControlEscape renderAbsolute>
@@ -75,7 +75,7 @@ export function Window() {
           </Tooltip>
         </TitlebarControlEscape>
       )}
-      <main className="flex-1">
+      <main className="min-w-0 flex-1 overflow-hidden">
         {page === "home" && <HomePage />}
         {page === "folder" && <FolderPage />}
         <Toaster />

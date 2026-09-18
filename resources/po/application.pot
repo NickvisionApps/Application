@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-18 01:09-0400\n"
+"POT-Creation-Date: 2026-09-18 01:14-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -91,7 +91,7 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: src/components/window.tsx:50 src/components/pages/folder-page.tsx:131
+#: src/components/window.tsx:50 src/components/pages/folder-page.tsx:133
 msgid "Folder closed"
 msgstr ""
 
@@ -140,28 +140,28 @@ msgstr ""
 msgid "Open Folder"
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:140
+#: src/components/pages/folder-page.tsx:142
 msgctxt "Folder"
 msgid "Close"
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:145
+#: src/components/pages/folder-page.tsx:147
 msgid "Close Folder"
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:184
+#: src/components/pages/folder-page.tsx:186
 msgid "This folder is empty."
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:196
+#: src/components/pages/folder-page.tsx:198
 msgid "No File Selected"
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:198
+#: src/components/pages/folder-page.tsx:200
 msgid "Select a file to preview it here."
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:217
+#: src/components/pages/folder-page.tsx:219
 msgid "No Preview Available"
 msgstr ""
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-18 01:09-0400\n"
+"POT-Creation-Date: 2026-09-18 01:14-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -96,7 +96,7 @@ msgstr "Системная"
 msgid "Settings"
 msgstr ""
 
-#: src/components/window.tsx:50 src/components/pages/folder-page.tsx:131
+#: src/components/window.tsx:50 src/components/pages/folder-page.tsx:133
 #, fuzzy
 msgid "Folder closed"
 msgstr "Папка закрыта."
@@ -147,30 +147,30 @@ msgstr ""
 msgid "Open Folder"
 msgstr "Открыть Папку"
 
-#: src/components/pages/folder-page.tsx:140
+#: src/components/pages/folder-page.tsx:142
 #, fuzzy
 msgctxt "Folder"
 msgid "Close"
 msgstr "Закрыть"
 
-#: src/components/pages/folder-page.tsx:145
+#: src/components/pages/folder-page.tsx:147
 msgid "Close Folder"
 msgstr "Закрыть папку"
 
-#: src/components/pages/folder-page.tsx:184
+#: src/components/pages/folder-page.tsx:186
 msgid "This folder is empty."
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:196
+#: src/components/pages/folder-page.tsx:198
 #, fuzzy
 msgid "No File Selected"
 msgstr "Папка не открыта"
 
-#: src/components/pages/folder-page.tsx:198
+#: src/components/pages/folder-page.tsx:200
 msgid "Select a file to preview it here."
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:217
+#: src/components/pages/folder-page.tsx:219
 #, fuzzy
 msgid "No Preview Available"
 msgstr "Application"
