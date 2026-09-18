@@ -1,6 +1,3 @@
-import {ArrowUpRightIcon, LucideIcon, Moon, MoonStar, Sun} from "lucide-react";
-import {useEffect, useState} from "react";
-
 import {Button} from "@/components/ui/button.tsx";
 import {
   Empty,
@@ -14,6 +11,8 @@ import {useDialog} from "@/lib/dialog-provider.tsx";
 import {useFolderView} from "@/lib/folder-view-provider.tsx";
 import {useNavigation} from "@/lib/navigation-provider.tsx";
 import {useTranslation} from "@/lib/translation-provider.tsx";
+import {ArrowUpRightIcon, LucideIcon, Moon, MoonStar, Sun} from "lucide-react";
+import {useEffect, useState} from "react";
 
 interface Greeting {
   label: string;
@@ -32,7 +31,7 @@ export function HomePage() {
 
   useEffect(() => {
     const hours = new Date().getHours();
-    let label = "";
+    let label: string;
     let icon = Sun;
     if (hours < 6) {
       label = _p("Night", "Good Morning!");
@@ -65,10 +64,14 @@ export function HomePage() {
         </EmptyHeader>
         <EmptyContent>
           <Button
-            onClick={async () => {
-              if (await openFolder()) {
-                setPage("folder");
+            onClick={() => {
+              async function handleOpenFolder() {
+                if (await openFolder()) {
+                  setPage("folder");
+                }
               }
+
+              void handleOpenFolder();
             }}
           >
             {_g("Open Folder")}

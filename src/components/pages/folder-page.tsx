@@ -99,8 +99,8 @@ export function FolderPage() {
                 <Button
                   variant="outline"
                   size="icon"
-                  onClick={async () => {
-                    await openFolder();
+                  onClick={() => {
+                    void openFolder();
                   }}
                 >
                   <FolderOpenIcon />
@@ -116,12 +116,16 @@ export function FolderPage() {
               render={
                 <Button
                   variant="outline"
-                  onClick={async () => {
-                    await closeFolder();
-                    toast.add({
-                      title: _g("Folder closed"),
-                    });
-                    setPage("home");
+                  onClick={() => {
+                    async function handleCloseFolder() {
+                      await closeFolder();
+                      toast.add({
+                        title: _g("Folder closed"),
+                      });
+                      setPage("home");
+                    }
+
+                    void handleCloseFolder();
                   }}
                 >
                   <XIcon />

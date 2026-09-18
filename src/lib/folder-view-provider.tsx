@@ -28,13 +28,9 @@ const DefaultFolderView: FolderView = {
   files: [],
 };
 
-const FolderViewProviderContext = createContext<FolderViewProviderState>({
-  folderView: DefaultFolderView,
-  openFolder: async () => {
-    return false;
-  },
-  closeFolder: async () => {},
-});
+const FolderViewProviderContext = createContext<
+  FolderViewProviderState | undefined
+>(undefined);
 
 export function FolderViewProvider({
   children,

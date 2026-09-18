@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-18 00:10-0400\n"
+"POT-Creation-Date: 2026-09-18 00:44-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,77 +21,77 @@ msgstr ""
 msgid "Application"
 msgstr ""
 
-#: src/components/navigation-view.tsx:94
+#: src/components/navigation-view.tsx:93
 msgid "Home"
 msgstr ""
 
-#: src/components/navigation-view.tsx:100
+#: src/components/navigation-view.tsx:99
 msgid "Folder"
 msgstr ""
 
-#: src/components/navigation-view.tsx:125 src/components/window.tsx:57
+#: src/components/navigation-view.tsx:124 src/components/window.tsx:45
 msgid "Hide Sidebar"
 msgstr ""
 
-#: src/components/navigation-view.tsx:198 src/components/pages/home-page.tsx:85
+#: src/components/navigation-view.tsx:197 src/components/pages/home-page.tsx:88
 msgid "What's New?"
 msgstr ""
 
-#: src/components/navigation-view.tsx:203
+#: src/components/navigation-view.tsx:202
 msgid "Help"
 msgstr ""
 
-#: src/components/navigation-view.tsx:214
+#: src/components/navigation-view.tsx:213
 msgid "GitHub Repository"
 msgstr ""
 
-#: src/components/navigation-view.tsx:222
+#: src/components/navigation-view.tsx:221
 msgid "Report a Bug"
 msgstr ""
 
-#: src/components/navigation-view.tsx:230
+#: src/components/navigation-view.tsx:229
 msgid "Discussions"
 msgstr ""
 
-#: src/components/navigation-view.tsx:241
+#: src/components/navigation-view.tsx:240
 #: src/components/dialogs/credits-dialog.tsx:43
 msgid "Credits"
 msgstr ""
 
-#: src/components/navigation-view.tsx:249
+#: src/components/navigation-view.tsx:248
 #: src/components/dialogs/debugging-dialog.tsx:57
 msgid "Debugging Information"
 msgstr ""
 
-#: src/components/navigation-view.tsx:261
+#: src/components/navigation-view.tsx:260
 #: src/components/dialogs/settings-dialog.tsx:113
 msgid "Theme"
 msgstr ""
 
-#: src/components/navigation-view.tsx:275
+#: src/components/navigation-view.tsx:274
 #: src/components/dialogs/settings-dialog.tsx:73
 msgctxt "Theme"
 msgid "Light"
 msgstr ""
 
-#: src/components/navigation-view.tsx:278
+#: src/components/navigation-view.tsx:277
 #: src/components/dialogs/settings-dialog.tsx:74
 msgctxt "Theme"
 msgid "Dark"
 msgstr ""
 
-#: src/components/navigation-view.tsx:281
+#: src/components/navigation-view.tsx:280
 #: src/components/dialogs/settings-dialog.tsx:75
 msgctxt "Theme"
 msgid "System"
 msgstr ""
 
-#: src/components/navigation-view.tsx:293
+#: src/components/navigation-view.tsx:292
 #: src/components/dialogs/settings-dialog.tsx:89
 msgid "Settings"
 msgstr ""
 
-#: src/components/window.tsx:57
+#: src/components/window.tsx:45
 msgid "Show Sidebar"
 msgstr ""
 
@@ -132,57 +132,57 @@ msgid "Allow Preview Updates"
 msgstr ""
 
 #: src/components/pages/folder-page.tsx:110
-#: src/components/pages/home-page.tsx:74
+#: src/components/pages/home-page.tsx:77
 msgid "Open Folder"
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:122
+#: src/components/pages/folder-page.tsx:123
 msgid "Folder closed"
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:128
+#: src/components/pages/folder-page.tsx:132
 msgctxt "Folder"
 msgid "Close"
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:132
+#: src/components/pages/folder-page.tsx:136
 msgid "Close Folder"
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:160
+#: src/components/pages/folder-page.tsx:164
 msgid "This folder is empty."
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:172
+#: src/components/pages/folder-page.tsx:176
 msgid "No File Selected"
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:174
+#: src/components/pages/folder-page.tsx:178
 msgid "Select a file to preview it here."
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:193
+#: src/components/pages/folder-page.tsx:197
 msgid "No Preview Available"
 msgstr ""
 
-#: src/components/pages/home-page.tsx:29
+#: src/components/pages/home-page.tsx:28
 msgid "Good Day!"
 msgstr ""
 
-#: src/components/pages/home-page.tsx:38
+#: src/components/pages/home-page.tsx:37
 msgctxt "Night"
 msgid "Good Morning!"
 msgstr ""
 
-#: src/components/pages/home-page.tsx:41
+#: src/components/pages/home-page.tsx:40
 msgctxt "Morning"
 msgid "Good Morning!"
 msgstr ""
 
-#: src/components/pages/home-page.tsx:43
+#: src/components/pages/home-page.tsx:42
 msgid "Good Afternoon!"
 msgstr ""
 
-#: src/components/pages/home-page.tsx:45
+#: src/components/pages/home-page.tsx:44
 msgid "Good Evening!"
 msgstr ""

@@ -1,21 +1,3 @@
-import {invoke} from "@tauri-apps/api/core";
-import {
-  BadgeInfo,
-  Bug,
-  ChevronsUpDown,
-  Folder,
-  Home,
-  LifeBuoy,
-  LucideIcon,
-  MessageSquareShare,
-  Settings,
-  Sparkles,
-  SquareLibrary,
-  SunMoon,
-  UserGroup,
-} from "lucide-react";
-import {useEffect, useState} from "react";
-
 import {TitlebarControlEscape} from "@/components/titlebar-control-escape.tsx";
 import {Avatar, AvatarFallback} from "@/components/ui/avatar.tsx";
 import {
@@ -52,11 +34,28 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip.tsx";
-import {useConfiguration} from "@/lib/configuration-provider.tsx";
+import {Theme, useConfiguration} from "@/lib/configuration-provider.tsx";
 import {useDialog} from "@/lib/dialog-provider.tsx";
 import {useFolderView} from "@/lib/folder-view-provider.tsx";
 import {Page, useNavigation} from "@/lib/navigation-provider.tsx";
 import {useTranslation} from "@/lib/translation-provider.tsx";
+import {invoke} from "@tauri-apps/api/core";
+import {
+  BadgeInfo,
+  Bug,
+  ChevronsUpDown,
+  Folder,
+  Home,
+  LifeBuoy,
+  LucideIcon,
+  MessageSquareShare,
+  Settings,
+  Sparkles,
+  SquareLibrary,
+  SunMoon,
+  UserGroup,
+} from "lucide-react";
+import {useEffect, useState} from "react";
 
 interface NavigationViewItem {
   title: string;
@@ -115,7 +114,7 @@ export function NavigationView() {
   }, []);
 
   return (
-    <Sidebar variant="inset">
+    <Sidebar>
       {open && !isMobile && (
         <SidebarHeader>
           <div className="flex justify-end">
@@ -147,7 +146,7 @@ export function NavigationView() {
                           setPage(item.page);
                         }}
                       >
-                        {item.icon && <item.icon />}
+                        <item.icon />
                         <span>{item.title}</span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
@@ -206,24 +205,24 @@ export function NavigationView() {
                       <DropdownMenuSubContent>
                         <DropdownMenuGroup>
                           <DropdownMenuItem
-                            onClick={async () => {
-                              await invoke("open_github_repository");
+                            onClick={() => {
+                              void invoke("open_github_repository");
                             }}
                           >
                             <SquareLibrary />
                             <span>{_g("GitHub Repository")}</span>
                           </DropdownMenuItem>
                           <DropdownMenuItem
-                            onClick={async () => {
-                              await invoke("open_report_a_bug");
+                            onClick={() => {
+                              void invoke("open_report_a_bug");
                             }}
                           >
                             <Bug />
                             <span>{_g("Report a Bug")}</span>
                           </DropdownMenuItem>
                           <DropdownMenuItem
-                            onClick={async () => {
-                              await invoke("open_discussions");
+                            onClick={() => {
+                              void invoke("open_discussions");
                             }}
                           >
                             <MessageSquareShare />
@@ -267,7 +266,7 @@ export function NavigationView() {
                           onValueChange={(value) => {
                             setConfiguration({
                               ...configuration,
-                              theme: value,
+                              theme: value as Theme,
                             });
                           }}
                         >

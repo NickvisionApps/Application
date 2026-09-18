@@ -14,7 +14,7 @@ import {
   useState,
 } from "react";
 
-type Theme = 0 | 1 | 2;
+export type Theme = 0 | 1 | 2;
 
 interface WindowGeometry {
   x: number;
@@ -53,10 +53,9 @@ const DefaultConfiguration: Configuration = {
   },
 };
 
-const ConfigurationProviderContext = createContext<ConfigurationProviderState>({
-  configuration: DefaultConfiguration,
-  setConfiguration: () => null,
-});
+const ConfigurationProviderContext = createContext<
+  ConfigurationProviderState | undefined
+>(undefined);
 
 export function ConfigurationProvider({
   children,

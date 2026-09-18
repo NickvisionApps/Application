@@ -28,6 +28,17 @@ export default defineConfig([
     },
     rules: {
       "no-undef": "off",
+      "@typescript-eslint/restrict-template-expressions": [
+        "error",
+        {
+          allowAny: false,
+          allowBoolean: false,
+          allowNever: false,
+          allowNullish: false,
+          allowNumber: true,
+          allowRegExp: false,
+        },
+      ],
       "simple-import-sort/imports": [
         "error",
         {
@@ -40,9 +51,25 @@ export default defineConfig([
   {
     files: ["src/**/*.{ts,tsx}"],
     extends: [reactHooks.configs.flat.recommended, reactRefresh.configs.vite],
+    rules: {
+      "react-hooks/set-state-in-effect": "off",
+      "react-refresh/only-export-components": [
+        "error",
+        {
+          allowConstantExport: true,
+          allowCompoundComponents: true,
+          allowExportNames: [
+            "useConfiguration",
+            "useDialog",
+            "useFolderView",
+            "useNavigation",
+            "useTranslation",
+          ],
+        },
+      ],
+    },
   },
   {
-    // Not covered by either tsconfig, so it can't join the type-aware block above.
     files: ["eslint.config.js"],
     extends: [js.configs.recommended],
     plugins: {

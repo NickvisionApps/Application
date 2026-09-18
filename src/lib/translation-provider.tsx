@@ -42,23 +42,16 @@ interface TranslationProviderState {
   ) => string;
 }
 
-const TranslationProviderContext = createContext<TranslationProviderState>({
-  _g: () => "",
-  _f: () => "",
-  _n: () => "",
-  _nf: () => "",
-  _p: () => "",
-  _pf: () => "",
-  _np: () => "",
-  _npf: () => "",
-});
+const TranslationProviderContext = createContext<
+  TranslationProviderState | undefined
+>(undefined);
 
 export function TranslationProvider({
   children,
   ...props
 }: TranslationProviderProps) {
   const {configuration} = useConfiguration();
-  const [cache, setCache] = useState<Record<string, string>>({});
+  const [cache, setCache] = useState<Partial<Record<string, string>>>({});
 
   useEffect(() => {
     setCache({});
@@ -77,7 +70,7 @@ export function TranslationProvider({
             [key]: translation,
           }));
         })
-        .catch((_) => {
+        .catch(() => {
           setCache((prev) => ({
             ...prev,
             [key]: key.split("::").pop() || "",

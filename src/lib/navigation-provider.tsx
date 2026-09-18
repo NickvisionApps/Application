@@ -11,10 +11,9 @@ interface NavigationProviderState {
   setPage: (newPage: Page) => void;
 }
 
-const NavigationProviderContext = createContext<NavigationProviderState>({
-  page: "home",
-  setPage: () => null,
-});
+const NavigationProviderContext = createContext<
+  NavigationProviderState | undefined
+>(undefined);
 
 export function NavigationProvider({
   children,

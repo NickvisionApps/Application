@@ -25,11 +25,9 @@ interface DialogProviderState {
   closeDialog: () => void;
 }
 
-const DialogProviderContext = createContext<DialogProviderState>({
-  dialog: "none",
-  openDialog: () => null,
-  closeDialog: () => null,
-});
+const DialogProviderContext = createContext<DialogProviderState | undefined>(
+  undefined,
+);
 
 export function DialogProvider({children, ...props}: DialogProviderProps) {
   const [dialog, setDialog] = useState<DialogName>("none");
