@@ -4,9 +4,10 @@
  **Create new Nickvision applications**
 
 ## Features
-- A template for creating cross-platform desktop apps in C#
-    - Linux support through Gtk4/libadwaita
-    - Windows support through WindowsAppSDK/WinUI
+- A template for creating cross-platform desktop apps with [Tauri](https://tauri.app) (Rust backend) and a React/TypeScript frontend
+    - Windows support
+    - macOS support
+    - Linux support (via Flatpak)
 
 ## Chat
 <a href='https://matrix.to/#/#nickvision:matrix.org'><img width='140' alt='Join our room' src='https://user-images.githubusercontent.com/17648453/196094077-c896527d-af6d-4b43-a5d8-e34a00ffd8f6.png'/></a>
@@ -17,33 +18,48 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for details on how can you help the proje
 
 ## Building
 
-Application is a .NET 10 project and can easily be built on any platform. Besides, .NET 10 the following are required system dependencies for building each project:
+Application is a [Tauri](https://tauri.app) project (Rust backend, React/TypeScript frontend) and can be built on Windows, macOS, and Linux. The following are required system dependencies for building the project:
 
-- Shared
-	- [gettext](https://www.gnu.org/software/gettext/)
-		- Can be installed on Windows using `msys2`
-- WinUI
-	- [WindowsAppSDK](https://learn.microsoft.com/en-us/windows/apps/windows-app-sdk/)
-- GNOME
-	- [Gtk4](https://docs.gtk.org/gtk4/)
-	- [libadwaita](https://gitlab.gnome.org/GNOME/libadwaita)
-	- [blueprint-compiler](https://gitlab.gnome.org/GNOME/blueprint-compiler)
+- [Node.js](https://nodejs.org/) (LTS)
+- [Rust](https://www.rust-lang.org/tools/install) (stable toolchain)
+- [gettext](https://www.gnu.org/software/gettext/)
+    - Can be installed on Windows using `msys2`
+    - Can be installed on macOS using `brew install gettext`
 
-Once all dependencies are available on the system, simply run `dotnet run --project Nickvision.Application.WinUI` or `dotnet run --project Nickvision.Application.GNOME` to run the version of the app for your system.
+Once all dependencies are available on the system, run:
+
+```
+npm install
+npm run tauri dev
+```
+
+to run the app in development mode, or:
+
+```
+npm install
+npm run tauri build
+```
+
+to build a release bundle for your platform.
 
 ## Installing
 
 ### Windows
 The recommended method is to use the pre-built Windows installer from the Releases section.
 
-However, you can also build an installer manually with the [inno installer script](inno/setup.iss).
+However, you can also build an installer manually by running `npm run tauri build`, which produces an `.msi` installer under `src-tauri/target/release/bundle/msi`.
+
+### macOS
+The recommended method is to use the pre-built app from the Releases section.
+
+However, you can also build the app manually by running `npm run tauri build`, which produces a `.app` bundle under `src-tauri/target/release/bundle/macos`. Note that this build is currently unsigned and unnotarized, so on first launch you will need to right-click the app and select "Open" to bypass Gatekeeper.
 
 ### Linux
 The recommended method is to use the flatpak available on Flathub.
 
-However, you can also build a flatpak of the app manually using the [flatpak manifest file](flatpak/org.nickvision.application.json).
+However, you can also build a flatpak of the app manually using the [flatpak manifest file](build-aux/org.nickvision.application.json).
 
-You can also install the application locally from source using the [linux install script](resources/linux/install.sh).
+You can also install the application locally from source using the [linux install script](resources/linux/publish-and-install.sh).
 
 ## Code of Conduct
 
