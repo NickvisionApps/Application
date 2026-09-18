@@ -160,21 +160,24 @@ export function FolderPage() {
             <VStack gap={0.5} className="p-2">
               {files.length > 0 ? (
                 files.map((file) => (
-                  <button
+                  <HStack
                     key={file.path}
-                    type="button"
+                    render={<Button variant="ghost" />}
+                    align="center"
+                    justify="start"
+                    gap={1.5}
                     onClick={() => {
                       setSelectedFile(file);
                     }}
                     className={cn(
-                      "flex w-full items-center gap-1.5 rounded-md px-2 py-1 text-left text-sm hover:bg-muted",
+                      "w-full px-2 py-1 text-left text-sm",
                       selectedFile?.path === file.path &&
                         "bg-muted font-medium",
                     )}
                   >
                     <FileIcon className="size-4 shrink-0 text-muted-foreground" />
                     <span className="truncate">{file.name}</span>
-                  </button>
+                  </HStack>
                 ))
               ) : (
                 <p className="p-2 text-sm text-muted-foreground">

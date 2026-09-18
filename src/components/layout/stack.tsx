@@ -1,3 +1,5 @@
+import {mergeProps} from "@base-ui/react/merge-props";
+import {useRender} from "@base-ui/react/use-render";
 import {cva, type VariantProps} from "class-variance-authority";
 import {cn} from "cn";
 import * as React from "react";
@@ -44,7 +46,8 @@ const stackVariants = cva("flex", {
   },
 });
 
-type StackProps = React.ComponentProps<"div"> &
+type StackProps = useRender.ComponentProps<"div"> &
+  React.ComponentProps<"div"> &
   VariantProps<typeof stackVariants>;
 
 function Stack({
@@ -53,15 +56,23 @@ function Stack({
   align,
   justify,
   gap,
+  render,
   ...props
 }: StackProps) {
-  return (
-    <div
-      data-slot="stack"
-      className={cn(stackVariants({direction, align, justify, gap}), className)}
-      {...props}
-    />
-  );
+  return useRender({
+    defaultTagName: "div",
+    render,
+    props: mergeProps<"div">(
+      {
+        className: cn(
+          stackVariants({direction, align, justify, gap}),
+          className,
+        ),
+        "data-slot": "stack",
+      },
+      props,
+    ),
+  });
 }
 
 export function HStack(props: Omit<StackProps, "direction">) {
