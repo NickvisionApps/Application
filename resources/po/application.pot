@@ -17,25 +17,88 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: src-tauri/src/commands/window.rs:55
+msgid "Application"
+msgstr ""
+
+#: src/components/navigation-view.tsx:88
+msgid "Home"
+msgstr ""
+
+#: src/components/navigation-view.tsx:93
+msgid "Folder"
+msgstr ""
+
+#: src/components/navigation-view.tsx:116 src/components/window.tsx:32
+msgid "Hide Sidebar"
+msgstr ""
+
+#: src/components/navigation-view.tsx:166 src/components/pages/home-page.tsx:65
+msgid "What's New?"
+msgstr ""
+
+#: src/components/navigation-view.tsx:171
+msgid "Help"
+msgstr ""
+
+#: src/components/navigation-view.tsx:178
+msgid "GitHub Repository"
+msgstr ""
+
+#: src/components/navigation-view.tsx:182
+msgid "Report a Bug"
+msgstr ""
+
+#: src/components/navigation-view.tsx:186
+msgid "Discussions"
+msgstr ""
+
+#: src/components/navigation-view.tsx:193
+#: src/components/dialogs/credits-dialog.tsx:32
+msgid "Credits"
+msgstr ""
+
+#: src/components/navigation-view.tsx:197
+#: src/components/dialogs/debugging-dialog.tsx:49
+msgid "Debugging Information"
+msgstr ""
+
+#: src/components/navigation-view.tsx:209
+msgid "Theme"
+msgstr ""
+
+#: src/components/navigation-view.tsx:219
+msgctxt "Theme"
+msgid "Light"
+msgstr ""
+
+#: src/components/navigation-view.tsx:220
+msgctxt "Theme"
+msgid "Dark"
+msgstr ""
+
+#: src/components/navigation-view.tsx:221
+msgctxt "Theme"
+msgid "System"
+msgstr ""
+
+#: src/components/navigation-view.tsx:228
+msgid "Settings"
+msgstr ""
+
+#: src/components/window.tsx:32
+msgid "Show Sidebar"
+msgstr ""
+
 #: src/components/dialogs/changelog-dialog.tsx:50
 msgid "Changelog"
 msgstr ""
 
 #: src/components/dialogs/changelog-dialog.tsx:57
-#: src/components/dialogs/credits-dialog.tsx:40
 #: src/components/dialogs/debugging-dialog.tsx:68
+#: src/components/dialogs/credits-dialog.tsx:40
 #: src/components/pages/folder-page.tsx:73
 msgid "Close"
-msgstr ""
-
-#: src/components/dialogs/credits-dialog.tsx:32
-#: src/components/navigation-view.tsx:193
-msgid "Credits"
-msgstr ""
-
-#: src/components/dialogs/debugging-dialog.tsx:49
-#: src/components/navigation-view.tsx:197
-msgid "Debugging Information"
 msgstr ""
 
 #: src/components/dialogs/debugging-dialog.tsx:50
@@ -90,63 +153,4 @@ msgstr ""
 
 #: src/components/pages/home-page.tsx:37
 msgid "Good Evening!"
-msgstr ""
-
-#: src/components/pages/home-page.tsx:65 src/components/navigation-view.tsx:166
-msgid "What's New?"
-msgstr ""
-
-#: src/components/navigation-view.tsx:88
-msgid "Home"
-msgstr ""
-
-#: src/components/navigation-view.tsx:93
-msgid "Folder"
-msgstr ""
-
-#: src/components/navigation-view.tsx:116 src/components/window.tsx:32
-msgid "Hide Sidebar"
-msgstr ""
-
-#: src/components/navigation-view.tsx:171
-msgid "Help"
-msgstr ""
-
-#: src/components/navigation-view.tsx:178
-msgid "GitHub Repository"
-msgstr ""
-
-#: src/components/navigation-view.tsx:182
-msgid "Report a Bug"
-msgstr ""
-
-#: src/components/navigation-view.tsx:186
-msgid "Discussions"
-msgstr ""
-
-#: src/components/navigation-view.tsx:209
-msgid "Theme"
-msgstr ""
-
-#: src/components/navigation-view.tsx:219
-msgctxt "Theme"
-msgid "Light"
-msgstr ""
-
-#: src/components/navigation-view.tsx:220
-msgctxt "Theme"
-msgid "Dark"
-msgstr ""
-
-#: src/components/navigation-view.tsx:221
-msgctxt "Theme"
-msgid "System"
-msgstr ""
-
-#: src/components/navigation-view.tsx:228
-msgid "Settings"
-msgstr ""
-
-#: src/components/window.tsx:32
-msgid "Show Sidebar"
 msgstr ""

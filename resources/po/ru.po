@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-17 22:35-0400\n"
+"POT-Creation-Date: 2026-09-17 22:48-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -18,26 +18,92 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
+#: src-tauri/src/commands/window.rs:55
+msgid "Application"
+msgstr "Application"
+
+#: src/components/navigation-view.tsx:88
+msgid "Home"
+msgstr ""
+
+#: src/components/navigation-view.tsx:93
+#, fuzzy
+msgid "Folder"
+msgstr "Папка"
+
+#: src/components/navigation-view.tsx:116 src/components/window.tsx:32
+msgid "Hide Sidebar"
+msgstr ""
+
+#: src/components/navigation-view.tsx:166 src/components/pages/home-page.tsx:65
+msgid "What's New?"
+msgstr ""
+
+#: src/components/navigation-view.tsx:171
+msgid "Help"
+msgstr ""
+
+#: src/components/navigation-view.tsx:178
+#, fuzzy
+msgid "GitHub Repository"
+msgstr "Репозиторий GitHub"
+
+#: src/components/navigation-view.tsx:182
+msgid "Report a Bug"
+msgstr ""
+
+#: src/components/navigation-view.tsx:186
+msgid "Discussions"
+msgstr ""
+
+#: src/components/navigation-view.tsx:193
+#: src/components/dialogs/credits-dialog.tsx:32
+msgid "Credits"
+msgstr ""
+
+#: src/components/navigation-view.tsx:197
+#: src/components/dialogs/debugging-dialog.tsx:49
+msgid "Debugging Information"
+msgstr ""
+
+#: src/components/navigation-view.tsx:209
+#, fuzzy
+msgid "Theme"
+msgstr "Тема"
+
+#: src/components/navigation-view.tsx:219
+msgctxt "Theme"
+msgid "Light"
+msgstr "Светлая"
+
+#: src/components/navigation-view.tsx:220
+msgctxt "Theme"
+msgid "Dark"
+msgstr "Тёмная"
+
+#: src/components/navigation-view.tsx:221
+msgctxt "Theme"
+msgid "System"
+msgstr "Системная"
+
+#: src/components/navigation-view.tsx:228
+msgid "Settings"
+msgstr ""
+
+#: src/components/window.tsx:32
+msgid "Show Sidebar"
+msgstr ""
+
 #: src/components/dialogs/changelog-dialog.tsx:50
 msgid "Changelog"
 msgstr ""
 
 #: src/components/dialogs/changelog-dialog.tsx:57
-#: src/components/dialogs/credits-dialog.tsx:40
 #: src/components/dialogs/debugging-dialog.tsx:68
+#: src/components/dialogs/credits-dialog.tsx:40
 #: src/components/pages/folder-page.tsx:73
 msgid "Close"
 msgstr "Закрыть"
-
-#: src/components/dialogs/credits-dialog.tsx:32
-#: src/components/navigation-view.tsx:193
-msgid "Credits"
-msgstr ""
-
-#: src/components/dialogs/debugging-dialog.tsx:49
-#: src/components/navigation-view.tsx:197
-msgid "Debugging Information"
-msgstr ""
 
 #: src/components/dialogs/debugging-dialog.tsx:50
 msgid "Send this information to the developer when reporting issues"
@@ -96,68 +162,6 @@ msgstr "Добрый день!"
 msgid "Good Evening!"
 msgstr "Добрый вечер!"
 
-#: src/components/pages/home-page.tsx:65 src/components/navigation-view.tsx:166
-msgid "What's New?"
-msgstr ""
-
-#: src/components/navigation-view.tsx:88
-msgid "Home"
-msgstr ""
-
-#: src/components/navigation-view.tsx:93
-#, fuzzy
-msgid "Folder"
-msgstr "Папка"
-
-#: src/components/navigation-view.tsx:116 src/components/window.tsx:32
-msgid "Hide Sidebar"
-msgstr ""
-
-#: src/components/navigation-view.tsx:171
-msgid "Help"
-msgstr ""
-
-#: src/components/navigation-view.tsx:178
-#, fuzzy
-msgid "GitHub Repository"
-msgstr "Репозиторий GitHub"
-
-#: src/components/navigation-view.tsx:182
-msgid "Report a Bug"
-msgstr ""
-
-#: src/components/navigation-view.tsx:186
-msgid "Discussions"
-msgstr ""
-
-#: src/components/navigation-view.tsx:209
-#, fuzzy
-msgid "Theme"
-msgstr "Тема"
-
-#: src/components/navigation-view.tsx:219
-msgctxt "Theme"
-msgid "Light"
-msgstr "Светлая"
-
-#: src/components/navigation-view.tsx:220
-msgctxt "Theme"
-msgid "Dark"
-msgstr "Тёмная"
-
-#: src/components/navigation-view.tsx:221
-msgctxt "Theme"
-msgid "System"
-msgstr "Системная"
-
-#: src/components/navigation-view.tsx:228
-msgid "Settings"
-msgstr ""
-
-#: src/components/window.tsx:32
-msgid "Show Sidebar"
-msgstr ""
-
 #, fuzzy
 #~ msgid "Open a folder to get started"
 #~ msgstr "Откройте или перетащите папку, чтобы начать."
@@ -176,9 +180,6 @@ msgstr ""
 
 #~ msgid "About Application"
 #~ msgstr "О приложении"
-
-#~ msgid "Application"
-#~ msgstr "Application"
 
 #, fuzzy
 #~ msgid "Close Folder (Ctrl+W)"

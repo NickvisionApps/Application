@@ -1,7 +1,0 @@
-src/components/dialogs/changelog-dialog.tsx
-src/components/dialogs/credits-dialog.tsx
-src/components/dialogs/debugging-dialog.tsx
-src/components/pages/folder-page.tsx
-src/components/pages/home-page.tsx
-src/components/navigation-view.tsx
-src/components/window.tsx

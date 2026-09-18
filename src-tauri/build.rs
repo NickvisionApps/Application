@@ -19,8 +19,8 @@ fn main() {
     let root_dir =
         PathBuf::from(env::var("CARGO_MANIFEST_DIR").expect("CARGO_MANIFEST_DIR not set"))
             .ancestors()
-            .find(|dir| dir.join("resources").join("po").join("POTFILES").exists())
-            .expect("translation generation error: unable to locate root resources/po/POTFILES")
+            .find(|dir| dir.join("resources").join("po").join("LINGUAS").exists())
+            .expect("translation generation error: unable to locate root resources/po/LINGUAS")
             .to_path_buf();
     let po_dir = root_dir.join("resources").join("po");
     let output_dir = PathBuf::from(env::var("OUT_DIR").expect("OUT_DIR not set"))
@@ -32,12 +32,17 @@ fn main() {
             "translation generation error: unable to locate profile output directory from OUT_DIR",
         )
         .to_path_buf();
-    let sources = read_list_file(&po_dir.join("POTFILES"));
-    println!("cargo:rerun-if-changed={}", po_dir.join("POTFILES").display());
-    println!("cargo:rerun-if-changed={}", po_dir.join("LINGUAS").display());
-    for source in &sources {
-        println!("cargo:rerun-if-changed={}", root_dir.join(source).display());
-    }
+    println!(
+        "cargo:rerun-if-changed={}",
+        root_dir.join("src-tauri").join("src").display()
+    );
+    println!("cargo:rerun-if-changed={}", root_dir.join("src").display());
+    println!(
+        "cargo:rerun-if-changed={}",
+        po_dir.join("LINGUAS").display()
+    );
+    let mut sources = find_files(&root_dir, &root_dir.join("src-tauri").join("src"), &["rs"]);
+    sources.extend(find_files(&root_dir, &root_dir.join("src"), &["ts", "tsx"]));
     let mut xgettext_command = Command::new("xgettext");
     xgettext_command
         .current_dir(&root_dir)
@@ -60,7 +65,19 @@ fn main() {
         status.success(),
         "translation generation error: xgettext failed with status {status}"
     );
-    for language in &read_list_file(&po_dir.join("LINGUAS")) {
+    for language in &fs::read_to_string(po_dir.join("LINGUAS"))
+        .unwrap_or_else(|e| {
+            panic!(
+                "translation generation error: failed to read {}: {e}",
+                po_dir.join("LINGUAS").display()
+            )
+        })
+        .lines()
+        .map(str::trim)
+        .filter(|line| !line.is_empty() && !line.starts_with('#'))
+        .map(ToOwned::to_owned)
+        .collect::<Vec<String>>()
+    {
         let po_path = po_dir.join(format!("{language}.po"));
         assert!(
             po_path.exists(),
@@ -81,7 +98,9 @@ fn main() {
             .arg(&po_path)
             .arg(po_dir.join(format!("{SHORT_NAME}.pot")))
             .status()
-            .unwrap_or_else(|e| panic!("translation generation error: failed to run msgmerge: {e}"));
+            .unwrap_or_else(|e| {
+                panic!("translation generation error: failed to run msgmerge: {e}")
+            });
         assert!(
             status.success(),
             "translation generation error: msgmerge failed with status {status}"
@@ -101,17 +120,30 @@ fn main() {
     tauri_build::build()
 }
 
-fn read_list_file(path: &Path) -> Vec<String> {
-    fs::read_to_string(path)
-        .unwrap_or_else(|e| {
-            panic!(
-                "translation generation error: failed to read {}: {e}",
-                path.display()
-            )
-        })
-        .lines()
-        .map(str::trim)
-        .filter(|line| !line.is_empty() && !line.starts_with('#'))
-        .map(ToOwned::to_owned)
-        .collect()
+fn find_files(root_dir: &Path, dir: &Path, extensions: &[&str]) -> Vec<PathBuf> {
+    let mut files = Vec::new();
+    for entry in fs::read_dir(dir).unwrap_or_else(|e| {
+        panic!(
+            "translation generation error: failed to read directory {}: {e}",
+            dir.display()
+        )
+    }) {
+        let path = entry
+            .unwrap_or_else(|e| {
+                panic!(
+                    "translation generation error: failed to read directory entry in {}: {e}",
+                    dir.display()
+                )
+            })
+            .path();
+        if path.is_dir() {
+            files.extend(find_files(root_dir, &path, extensions));
+        } else if path
+            .extension()
+            .is_some_and(|ext| extensions.contains(&ext.to_str().unwrap_or_default()))
+        {
+            files.push(path.strip_prefix(root_dir).unwrap().to_path_buf());
+        }
+    }
+    files
 }
