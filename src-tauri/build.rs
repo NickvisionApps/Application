@@ -16,11 +16,6 @@ const XGETTEXT_KEYWORDS: &[&str] = &[
 ];
 
 fn main() {
-    generate_translations();
-    tauri_build::build()
-}
-
-fn generate_translations() {
     let root_dir =
         PathBuf::from(env::var("CARGO_MANIFEST_DIR").expect("CARGO_MANIFEST_DIR not set"))
             .ancestors()
@@ -28,9 +23,6 @@ fn generate_translations() {
             .expect("translation generation error: unable to locate root resources/po/POTFILES")
             .to_path_buf();
     let po_dir = root_dir.join("resources").join("po");
-    let potfiles_path = po_dir.join("POTFILES");
-    let linguas_path = po_dir.join("LINGUAS");
-    let template_path = po_dir.join(format!("{SHORT_NAME}.pot"));
     let output_dir = PathBuf::from(env::var("OUT_DIR").expect("OUT_DIR not set"))
         .ancestors()
         .find(|dir| dir.file_name().is_some_and(|name| name == "build"))
@@ -40,9 +32,9 @@ fn generate_translations() {
             "translation generation error: unable to locate profile output directory from OUT_DIR",
         )
         .to_path_buf();
-    let sources = read_list_file(&potfiles_path);
-    println!("cargo:rerun-if-changed={}", potfiles_path.display());
-    println!("cargo:rerun-if-changed={}", linguas_path.display());
+    let sources = read_list_file(&po_dir.join("POTFILES"));
+    println!("cargo:rerun-if-changed={}", po_dir.join("POTFILES").display());
+    println!("cargo:rerun-if-changed={}", po_dir.join("LINGUAS").display());
     for source in &sources {
         println!("cargo:rerun-if-changed={}", root_dir.join(source).display());
     }
@@ -52,14 +44,23 @@ fn generate_translations() {
         .arg("--from-code=utf-8")
         .arg("--language=C")
         .arg("--force-po")
-        .arg(format!("--output={}", template_path.display()))
+        .arg(format!(
+            "--output={}",
+            po_dir.join(format!("{SHORT_NAME}.pot")).display()
+        ))
         .arg("--width=80");
     for keyword in XGETTEXT_KEYWORDS {
         xgettext_command.arg(format!("--keyword={keyword}"));
     }
     xgettext_command.args(&sources);
-    run_command(&mut xgettext_command, "xgettext");
-    for language in &read_list_file(&linguas_path) {
+    let status = xgettext_command
+        .status()
+        .unwrap_or_else(|e| panic!("translation generation error: failed to run xgettext: {e}"));
+    assert!(
+        status.success(),
+        "translation generation error: xgettext failed with status {status}"
+    );
+    for language in &read_list_file(&po_dir.join("LINGUAS")) {
         let po_path = po_dir.join(format!("{language}.po"));
         assert!(
             po_path.exists(),
@@ -74,33 +75,30 @@ fn generate_translations() {
                 lc_messages_dir.display()
             )
         });
-        run_command(
-            Command::new("msgmerge")
-                .current_dir(&root_dir)
-                .args(["--backup=off", "--update"])
-                .arg(&po_path)
-                .arg(&template_path),
-            "msgmerge",
+        let status = Command::new("msgmerge")
+            .current_dir(&root_dir)
+            .args(["--backup=off", "--update"])
+            .arg(&po_path)
+            .arg(po_dir.join(format!("{SHORT_NAME}.pot")))
+            .status()
+            .unwrap_or_else(|e| panic!("translation generation error: failed to run msgmerge: {e}"));
+        assert!(
+            status.success(),
+            "translation generation error: msgmerge failed with status {status}"
         );
-        run_command(
-            Command::new("msgfmt")
-                .current_dir(&root_dir)
-                .arg(&po_path)
-                .arg("--output-file")
-                .arg(lc_messages_dir.join(format!("{SHORT_NAME}.mo"))),
-            "msgfmt",
+        let status = Command::new("msgfmt")
+            .current_dir(&root_dir)
+            .arg(&po_path)
+            .arg("--output-file")
+            .arg(lc_messages_dir.join(format!("{SHORT_NAME}.mo")))
+            .status()
+            .unwrap_or_else(|e| panic!("translation generation error: failed to run msgfmt: {e}"));
+        assert!(
+            status.success(),
+            "translation generation error: msgfmt failed with status {status}"
         );
     }
-}
-
-fn run_command(command: &mut Command, program: &str) {
-    let status = command
-        .status()
-        .unwrap_or_else(|e| panic!("translation generation error: failed to run {program}: {e}"));
-    assert!(
-        status.success(),
-        "translation generation error: {program} failed with status {status}"
-    );
+    tauri_build::build()
 }
 
 fn read_list_file(path: &Path) -> Vec<String> {
