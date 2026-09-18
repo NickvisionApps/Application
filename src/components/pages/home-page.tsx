@@ -8,10 +8,16 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "@/components/ui/empty.tsx";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip.tsx";
 import {useDialog} from "@/lib/dialog-provider.tsx";
 import {useFolderView} from "@/lib/folder-view-provider.tsx";
 import {useNavigation} from "@/lib/navigation-provider.tsx";
 import {useTranslation} from "@/lib/translation-provider.tsx";
+import {platform} from "@tauri-apps/plugin-os";
 import {ArrowUpRightIcon, LucideIcon, Moon, MoonStar, Sun} from "lucide-react";
 import {useEffect, useState} from "react";
 
@@ -64,19 +70,28 @@ export function HomePage() {
           </EmptyDescription>
         </EmptyHeader>
         <EmptyContent>
-          <Button
-            onClick={() => {
-              async function handleOpenFolder() {
-                if (await openFolder()) {
-                  setPage("folder");
-                }
-              }
+          <Tooltip>
+            <TooltipTrigger>
+              <Button
+                onClick={() => {
+                  async function handleOpenFolder() {
+                    if (await openFolder()) {
+                      setPage("folder");
+                    }
+                  }
 
-              void handleOpenFolder();
-            }}
-          >
-            {_g("Open Folder")}
-          </Button>
+                  void handleOpenFolder();
+                }}
+              >
+                {_g("Open Folder")}
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              {platform() === "macos"
+                ? _g("Open Folder (Cmd+O)")
+                : _g("Open Folder (Ctrl+O)")}
+            </TooltipContent>
+          </Tooltip>
         </EmptyContent>
         <Button
           variant="link"

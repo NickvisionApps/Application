@@ -4,12 +4,14 @@ import {FolderPage} from "@/components/pages/folder-page.tsx";
 import {HomePage} from "@/components/pages/home-page.tsx";
 import {TitlebarControlEscape} from "@/components/titlebar-control-escape.tsx";
 import {SidebarTrigger, useSidebar} from "@/components/ui/sidebar.tsx";
-import {Toaster} from "@/components/ui/toast.tsx";
+import {Toaster, toast} from "@/components/ui/toast.tsx";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip.tsx";
+import {useFolderView} from "@/lib/folder-view-provider.tsx";
+import {useKeyboardShortcut} from "@/lib/keyboard-shortcut-provider.tsx";
 import {useNavigation} from "@/lib/navigation-provider.tsx";
 import {useTranslation} from "@/lib/translation-provider.tsx";
 import {invoke} from "@tauri-apps/api/core";
@@ -18,8 +20,9 @@ import {useEffect} from "react";
 
 export function Window() {
   const {_g} = useTranslation();
-  const {page} = useNavigation();
+  const {page, setPage} = useNavigation();
   const {open, isMobile, openMobile} = useSidebar();
+  const {folderView, openFolder, closeFolder} = useFolderView();
 
   useEffect(() => {
     async function startup() {
@@ -28,6 +31,30 @@ export function Window() {
 
     void startup();
   }, []);
+
+  useKeyboardShortcut("o", () => {
+    async function handleOpenFolder() {
+      if (await openFolder()) {
+        setPage("folder");
+      }
+    }
+
+    void handleOpenFolder();
+  });
+
+  useKeyboardShortcut(
+    "w",
+    () => {
+      async function handleCloseFolder() {
+        await closeFolder();
+        toast.add({title: _g("Folder closed")});
+        setPage("home");
+      }
+
+      void handleCloseFolder();
+    },
+    {shift: true, enabled: Boolean(folderView.path)},
+  );
 
   return (
     <HStack className="h-screen w-full">

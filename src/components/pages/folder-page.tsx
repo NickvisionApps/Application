@@ -1,9 +1,3 @@
-import {convertFileSrc} from "@tauri-apps/api/core";
-import {platform} from "@tauri-apps/plugin-os";
-import {cn} from "cn";
-import {FileIcon, FolderOpenIcon, XIcon} from "lucide-react";
-import {useEffect, useMemo, useState} from "react";
-
 import {HStack, VStack} from "@/components/layout/stack.tsx";
 import {TitlebarControlEscape} from "@/components/titlebar-control-escape.tsx";
 import {Button} from "@/components/ui/button.tsx";
@@ -30,6 +24,11 @@ import {
 import {useFolderView} from "@/lib/folder-view-provider.tsx";
 import {useNavigation} from "@/lib/navigation-provider.tsx";
 import {useTranslation} from "@/lib/translation-provider.tsx";
+import {convertFileSrc} from "@tauri-apps/api/core";
+import {platform} from "@tauri-apps/plugin-os";
+import {cn} from "cn";
+import {FileIcon, FolderOpenIcon, XIcon} from "lucide-react";
+import {useEffect, useMemo, useState} from "react";
 
 const IMAGE_EXTENSIONS = new Set([
   "png",
@@ -108,7 +107,11 @@ export function FolderPage() {
                 </Button>
               }
             />
-            <TooltipContent>{_g("Open Folder")}</TooltipContent>
+            <TooltipContent>
+              {platform() === "macos"
+                ? _g("Open Folder (Cmd+O)")
+                : _g("Open Folder (Ctrl+O)")}
+            </TooltipContent>
           </Tooltip>
         </TitlebarControlEscape>
         <TitlebarControlEscape>
@@ -134,7 +137,11 @@ export function FolderPage() {
                 </Button>
               }
             />
-            <TooltipContent>{_g("Close Folder")}</TooltipContent>
+            <TooltipContent>
+              {platform() === "macos"
+                ? _g("Close Folder (Cmd+W)")
+                : _g("Close Folder (Ctrl+W)")}
+            </TooltipContent>
           </Tooltip>
         </TitlebarControlEscape>
       </HStack>
