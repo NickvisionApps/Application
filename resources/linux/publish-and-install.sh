@@ -53,7 +53,8 @@ success "Created directories."
 
 info "Installing npm dependencies..."
 cd "$ROOT_DIR"
-npm ci --offline
+bash flatpak-node/setup_sdk_node_headers.sh
+npm install --offline
 success "Installed npm dependencies."
 
 info "Building application..."

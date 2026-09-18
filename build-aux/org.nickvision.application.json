@@ -26,7 +26,9 @@
       "build-options": {
         "env": {
           "CARGO_HOME": "/run/build/org.nickvision.application/cargo",
-          "CARGO_NET_OFFLINE": "true"
+          "CARGO_NET_OFFLINE": "true",
+          "XDG_CACHE_HOME": "/run/build/org.nickvision.application/flatpak-node/cache",
+          "npm_config_cache": "/run/build/org.nickvision.application/flatpak-node/npm-cache"
         },
         "arch": {
           "aarch64": {
