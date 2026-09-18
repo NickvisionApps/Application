@@ -12,6 +12,7 @@ import {
 interface KeyboardShortcut {
   key: string;
   shift?: boolean;
+  alt?: boolean;
   handler: () => void;
 }
 
@@ -52,9 +53,15 @@ export function KeyboardShortcutProvider({
       }
       for (const shortcut of shortcuts.current.values()) {
         if (
-          event.key.toLowerCase() === shortcut.key &&
-          Boolean(shortcut.shift) === event.shiftKey
+          Boolean(shortcut.shift) !== event.shiftKey ||
+          Boolean(shortcut.alt) !== event.altKey
         ) {
+          continue;
+        }
+        const matchesKey = shortcut.alt
+          ? event.code === `Key${shortcut.key.toUpperCase()}`
+          : event.key.toLowerCase() === shortcut.key;
+        if (matchesKey) {
           event.preventDefault();
           shortcut.handler();
           return;
@@ -82,7 +89,7 @@ export function KeyboardShortcutProvider({
 export function useKeyboardShortcut(
   key: string,
   handler: () => void,
-  options?: {shift?: boolean; enabled?: boolean},
+  options?: {shift?: boolean; alt?: boolean; enabled?: boolean},
 ) {
   const context = useContext(KeyboardShortcutProviderContext);
   if (!context) {
@@ -95,13 +102,19 @@ export function useKeyboardShortcut(
   const handlerRef = useRef(handler);
   handlerRef.current = handler;
   const shift = options?.shift ?? false;
+  const alt = options?.alt ?? false;
   const enabled = options?.enabled ?? true;
 
   useEffect(() => {
     if (!enabled) {
       return;
     }
-    registerShortcut(id, {key, shift, handler: () => handlerRef.current()});
+    registerShortcut(id, {
+      key,
+      shift,
+      alt,
+      handler: () => handlerRef.current(),
+    });
     return () => unregisterShortcut(id);
-  }, [id, key, shift, enabled, registerShortcut, unregisterShortcut]);
+  }, [id, key, shift, alt, enabled, registerShortcut, unregisterShortcut]);
 }

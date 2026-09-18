@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-18 00:59-0400\n"
+"POT-Creation-Date: 2026-09-18 01:08-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,7 +33,7 @@ msgstr ""
 msgid "Hide Sidebar"
 msgstr ""
 
-#: src/components/navigation-view.tsx:198 src/components/pages/home-page.tsx:104
+#: src/components/navigation-view.tsx:198 src/components/pages/home-page.tsx:108
 msgid "What's New?"
 msgstr ""
 
@@ -91,7 +91,7 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: src/components/window.tsx:50 src/components/pages/folder-page.tsx:127
+#: src/components/window.tsx:50 src/components/pages/folder-page.tsx:131
 msgid "Folder closed"
 msgstr ""
 
@@ -136,66 +136,53 @@ msgid "Allow Preview Updates"
 msgstr ""
 
 #: src/components/pages/folder-page.tsx:112
-#: src/components/pages/home-page.tsx:91
-msgid "Open Folder (Cmd+O)"
+#: src/components/pages/home-page.tsx:87 src/components/pages/home-page.tsx:91
+msgid "Open Folder"
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:113
-#: src/components/pages/home-page.tsx:92
-msgid "Open Folder (Ctrl+O)"
-msgstr ""
-
-#: src/components/pages/folder-page.tsx:136
+#: src/components/pages/folder-page.tsx:140
 msgctxt "Folder"
 msgid "Close"
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:142
-msgid "Close Folder (Cmd+W)"
+#: src/components/pages/folder-page.tsx:145
+msgid "Close Folder"
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:143
-msgid "Close Folder (Ctrl+W)"
-msgstr ""
-
-#: src/components/pages/folder-page.tsx:172
+#: src/components/pages/folder-page.tsx:181
 msgid "This folder is empty."
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:184
+#: src/components/pages/folder-page.tsx:193
 msgid "No File Selected"
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:186
+#: src/components/pages/folder-page.tsx:195
 msgid "Select a file to preview it here."
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:205
+#: src/components/pages/folder-page.tsx:214
 msgid "No Preview Available"
 msgstr ""
 
-#: src/components/pages/home-page.tsx:35
+#: src/components/pages/home-page.tsx:36
 msgid "Good Day!"
 msgstr ""
 
-#: src/components/pages/home-page.tsx:44
+#: src/components/pages/home-page.tsx:45
 msgctxt "Night"
 msgid "Good Morning!"
 msgstr ""
 
-#: src/components/pages/home-page.tsx:47
+#: src/components/pages/home-page.tsx:48
 msgctxt "Morning"
 msgid "Good Morning!"
 msgstr ""
 
-#: src/components/pages/home-page.tsx:49
+#: src/components/pages/home-page.tsx:50
 msgid "Good Afternoon!"
 msgstr ""
 
-#: src/components/pages/home-page.tsx:51
+#: src/components/pages/home-page.tsx:52
 msgid "Good Evening!"
-msgstr ""
-
-#: src/components/pages/home-page.tsx:86
-msgid "Open Folder"
 msgstr ""

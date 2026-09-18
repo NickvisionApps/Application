@@ -8,6 +8,7 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "@/components/ui/empty.tsx";
+import {Kbd, KbdGroup} from "@/components/ui/kbd.tsx";
 import {
   ResizableHandle,
   ResizablePanel,
@@ -108,9 +109,12 @@ export function FolderPage() {
               }
             />
             <TooltipContent>
-              {platform() === "macos"
-                ? _g("Open Folder (Cmd+O)")
-                : _g("Open Folder (Ctrl+O)")}
+              {_g("Open Folder")}
+              <KbdGroup>
+                {platform() === "macos" && <Kbd>⌘</Kbd>}
+                {platform() !== "macos" && <Kbd>Ctrl</Kbd>}
+                <Kbd>O</Kbd>
+              </KbdGroup>
             </TooltipContent>
           </Tooltip>
         </TitlebarControlEscape>
@@ -138,9 +142,14 @@ export function FolderPage() {
               }
             />
             <TooltipContent>
-              {platform() === "macos"
-                ? _g("Close Folder (Cmd+W)")
-                : _g("Close Folder (Ctrl+W)")}
+              {_g("Close Folder")}
+              <KbdGroup>
+                {platform() === "macos" && <Kbd>⌘</Kbd>}
+                {platform() !== "macos" && <Kbd>Ctrl</Kbd>}
+                <Kbd>Shift</Kbd>
+                <span>+</span>
+                <Kbd>W</Kbd>
+              </KbdGroup>
             </TooltipContent>
           </Tooltip>
         </TitlebarControlEscape>
