@@ -28,7 +28,7 @@ jobs:
           python-version: "3.x"
       - name: "Install generators"
         run: |
-          pip install requests aiohttp toml
+          pip install tomlkit aiohttp
           git clone --depth 1 https://github.com/flatpak/flatpak-builder-tools.git /tmp/flatpak-builder-tools
           pip install /tmp/flatpak-builder-tools/node
       - name: "Generate cargo-sources.json"
