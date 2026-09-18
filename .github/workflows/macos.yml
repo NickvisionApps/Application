@@ -9,40 +9,35 @@ name: macOS
 permissions:
   id-token: write
   contents: read
-env:
-  PROJECT_NAME: Nickvision.Application.GNOME
-  APP_NAME: Application
 jobs:
-  gnome-macos:
-    name: "GNOME on macOS"
+  tauri-macos:
+    name: "Tauri on macOS"
     if: ${{ github.event.pull_request.user.login != 'weblate' }}
     strategy:
+      fail-fast: false
       matrix:
         variant:
           - arch: arm64
             runner: macos-latest
-            runtime: osx-arm64
           - arch: x64
             runner: macos-15-intel
-            runtime: osx-x64
     runs-on: ${{ matrix.variant.runner }}
     steps:
       - uses: actions/checkout@v6
-        with:
-          submodules: recursive
       - name: "Setup Environment"
-        run: brew install gtk4 libadwaita blueprint-compiler gettext glib
-      - uses: actions/setup-dotnet@v5
-        with:
-          dotnet-version: '10.0.x'
-      - name: "Restore"
-        run: dotnet restore ${{ env.PROJECT_NAME }} --runtime ${{ matrix.variant.runtime }} /p:PublishReadyToRun=true
-      - name: "Package"
-        working-directory: ${{ github.workspace }}
         run: |
-          chmod +x resources/macos/publish-and-package.sh
-          ./resources/macos/publish-and-package.sh ${{ matrix.variant.runtime }}
+          brew install gettext
+          echo "$(brew --prefix gettext)/bin" >> "$GITHUB_PATH"
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: actions/setup-node@v5
+        with:
+          node-version: lts/*
+          cache: npm
+      - name: "Install frontend dependencies"
+        run: npm ci
+      - name: "Build"
+        run: npm run tauri build
       - uses: actions/upload-artifact@v4
         with:
-          path: ${{ github.workspace }}/resources/macos/${{ env.APP_NAME }}.app
-          name: ${{ env.APP_NAME }}-${{ matrix.variant.arch }}
+          name: Application-${{ matrix.variant.arch }}
+          path: src-tauri/target/release/bundle/macos/*.app
