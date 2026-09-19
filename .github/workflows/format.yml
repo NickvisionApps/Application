@@ -1,0 +1,47 @@
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+    types: [ "review_requested", "ready_for_review" ]
+  workflow_dispatch:
+name: Format
+permissions:
+  contents: read
+jobs:
+  rust:
+    name: "Rust"
+    if: ${{ github.event.pull_request.user.login != 'weblate' }}
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: "Setup Environment"
+        run: |
+          brew install gettext
+          echo "$(brew --prefix gettext)/bin" >> "$GITHUB_PATH"
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri -> target
+      - name: "cargo fmt"
+        working-directory: src-tauri
+        run: cargo fmt --all -- --check
+      - name: "cargo clippy"
+        working-directory: src-tauri
+        run: cargo clippy --all-targets -- -D warnings
+  frontend:
+    name: "Frontend"
+    if: ${{ github.event.pull_request.user.login != 'weblate' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: lts/*
+          cache: npm
+      - name: "Install frontend dependencies"
+        run: npm ci
+      - name: "Format check"
+        run: npm run format:check

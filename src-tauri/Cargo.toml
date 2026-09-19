@@ -1,0 +1,37 @@
+[package]
+name = "application"
+version = "2026.9.0"
+description = "Create new Nickvision applications"
+authors = ["Nicholas Logozzo"]
+edition = "2024"
+
+[lib]
+name = "org_nickvision_application_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+directories = "6.0"
+gettext = "0.4"
+reup = "0.5"
+semver = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+serde_repr = "0.1"
+serde_with = "3.23"
+sys-locale = "0.3"
+tauri = { version = "2", features = ["macos-private-api", "protocol-asset"] }
+tauri-plugin-decoration = "3.0.5"
+tauri-plugin-dialog = "2"
+tauri-plugin-opener = "2"
+tauri-plugin-os = "2"
+utente = "0.1"
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = 3
+panic = "abort"
+strip = true

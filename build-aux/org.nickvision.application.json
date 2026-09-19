@@ -1,0 +1,66 @@
+{
+  "app-id": "org.nickvision.application",
+  "runtime": "org.gnome.Platform",
+  "runtime-version": "50",
+  "sdk": "org.gnome.Sdk",
+  "sdk-extensions": [
+    "org.freedesktop.Sdk.Extension.rust-stable",
+    "org.freedesktop.Sdk.Extension.node24"
+  ],
+  "build-options": {
+    "append-path": "/usr/lib/sdk/rust-stable/bin:/usr/lib/sdk/node24/bin",
+    "append-ld-library-path": "/usr/lib/sdk/rust-stable/lib"
+  },
+  "command": "org.nickvision.application",
+  "finish-args": [
+    "--socket=fallback-x11",
+    "--socket=wayland",
+    "--device=dri",
+    "--share=ipc"
+  ],
+  "cleanup": [
+    "/include",
+    "/lib/debug",
+    "/lib/pkgconfig",
+    "/man",
+    "*.a"
+  ],
+  "modules": [
+    {
+      "name": "org.nickvision.application",
+      "buildsystem": "simple",
+      "build-options": {
+        "env": {
+          "CARGO_HOME": "/run/build/org.nickvision.application/cargo",
+          "CARGO_NET_OFFLINE": "true",
+          "XDG_CACHE_HOME": "/run/build/org.nickvision.application/flatpak-node/cache",
+          "npm_config_cache": "/run/build/org.nickvision.application/flatpak-node/npm-cache"
+        },
+        "arch": {
+          "aarch64": {
+            "env": {
+              "RUNTIME": "aarch64"
+            }
+          },
+          "x86_64": {
+            "env": {
+              "RUNTIME": "x86_64"
+            }
+          }
+        }
+      },
+      "build-commands": [
+        "chmod +x ./resources/linux/publish-and-install.sh",
+        "./resources/linux/publish-and-install.sh /app $RUNTIME"
+      ],
+      "sources": [
+        {
+          "type": "dir",
+          "path": ".."
+        },
+        "cargo-sources.json",
+        "node-sources.json"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Application",
+  "version": "2026.9.0",
+  "identifier": "org.nickvision.application",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "visible": false,
+        "width": 800,
+        "height": 600,
+        "resizable": true,
+        "titleBarStyle": "Overlay",
+        "hiddenTitle": true
+      }
+    ],
+    "macOSPrivateApi": true,
+    "security": {
+      "csp": {
+        "default-src": "'self' customprotocol: asset:",
+        "connect-src": "ipc: http://ipc.localhost",
+        "img-src": "'self' asset: http://asset.localhost data:",
+        "style-src": "'self' tauri-plugin-decoration: http://tauri-plugin-decoration.localhost https://tauri-plugin-decoration.localhost",
+        "style-src-elem": "'self' tauri-plugin-decoration: http://tauri-plugin-decoration.localhost https://tauri-plugin-decoration.localhost"
+      },
+      "assetProtocol": {
+        "enable": true
+      }
+    },
+    "withGlobalTauri": true
+  },
+  "bundle": {
+    "active": true,
+    "targets": [],
+    "icon": [
+      "../resources/32x32.png",
+      "../resources/128x128.png",
+      "../resources/128x128@2x.png",
+      "../resources/icon.icns",
+      "../resources/icon.ico",
+      "../resources/org.nickvision.application.icon"
+    ],
+    "resources": {
+      "target/locale": "locale"
+    }
+  }
+}
