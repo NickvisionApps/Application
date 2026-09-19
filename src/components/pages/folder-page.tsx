@@ -14,7 +14,6 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable.tsx";
 import {ScrollArea} from "@/components/ui/scroll-area.tsx";
-import {useSidebar} from "@/components/ui/sidebar.tsx";
 import {toast} from "@/components/ui/toast.tsx";
 import {
   Tooltip,
@@ -50,7 +49,6 @@ interface FolderFile {
 export function FolderPage() {
   const {_g, _p} = useTranslation();
   const {setPage} = useNavigation();
-  const {isMobile} = useSidebar();
   const {folderView, closeFolder, openFolder} = useFolderView();
   const [selectedFile, setSelectedFile] = useState<FolderFile | null>(null);
   const [imageLoadFailed, setImageLoadFailed] = useState(false);
@@ -116,6 +114,7 @@ export function FolderPage() {
                 async function handleCloseFolder() {
                   await closeFolder();
                   toast.add({
+                    type: "info",
                     title: _g("Folder closed"),
                   });
                   setPage("home");
@@ -125,7 +124,7 @@ export function FolderPage() {
               }}
             >
               <XIcon />
-              {!isMobile && _p("Folder", "Close")}
+              {_p("Folder", "Close")}
             </HStack>
           }
         />

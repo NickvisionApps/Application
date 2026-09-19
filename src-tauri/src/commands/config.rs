@@ -1,6 +1,6 @@
 use crate::config::Configuration;
 use crate::controller::AppController;
-use crate::translation;
+use crate::translation::Translator;
 use std::sync::Mutex;
 use tauri::{State, command};
 
@@ -19,6 +19,7 @@ pub fn get_configuration(controller: State<'_, Mutex<AppController>>) -> Configu
 pub fn set_configuration(
     configuration: Configuration,
     controller: State<'_, Mutex<AppController>>,
+    translator: State<'_, Mutex<Translator>>,
 ) -> Result<(), tauri::Error> {
     let mut controller = controller.lock().unwrap();
     controller.set_allow_preview_updates(configuration.allow_preview_updates());
@@ -28,6 +29,9 @@ pub fn set_configuration(
     controller
         .save()
         .map_err(|e| tauri::Error::Setup(e.into()))?;
-    translation::set_language(controller.translation_language());
+    translator
+        .lock()
+        .unwrap()
+        .set_language(controller.translation_language());
     Ok(())
 }

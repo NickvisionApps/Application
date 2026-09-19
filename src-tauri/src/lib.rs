@@ -2,10 +2,11 @@ pub mod commands;
 pub mod config;
 pub mod controller;
 pub mod folder;
-pub mod info;
+pub mod product;
 pub mod translation;
 
 use crate::controller::AppController;
+use crate::translation::Translator;
 use std::sync::Mutex;
 use tauri::Manager;
 
@@ -18,14 +19,15 @@ pub fn run() {
         .plugin(tauri_plugin_os::init())
         .manage(Mutex::new(AppController::default()))
         .setup(|app| {
-            translation::init(app.path().resource_dir()?.join("locale"));
-            translation::set_language(
-                app.state::<Mutex<AppController>>()
-                    .lock()
-                    .unwrap()
-                    .translation_language()
-                    .to_string(),
+            let mutex = app.state::<Mutex<AppController>>();
+            let mut controller = mutex.lock().unwrap();
+            let translator = Translator::new(
+                controller.product_info().short_name(),
+                app.path().resource_dir()?.join("locale"),
+                Some(controller.translation_language()),
             );
+            controller.set_translation_language(translator.language());
+            app.manage(Mutex::new(translator));
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![
@@ -33,12 +35,12 @@ pub fn run() {
             commands::config::set_configuration,
             commands::folder::close_folder,
             commands::folder::open_folder,
-            commands::info::get_debugging_information,
-            commands::info::get_version,
-            commands::info::get_user,
-            commands::info::open_discussions,
-            commands::info::open_github_repository,
-            commands::info::open_report_a_bug,
+            commands::product::get_debugging_information,
+            commands::product::get_product_information,
+            commands::product::get_user,
+            commands::product::open_discussions,
+            commands::product::open_github_repository,
+            commands::product::open_report_a_bug,
             commands::translation::get_available_translation_languages,
             commands::translation::translate_f,
             commands::translation::translate_g,

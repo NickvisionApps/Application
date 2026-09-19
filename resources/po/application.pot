@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-18 21:46-0400\n"
+"POT-Creation-Date: 2026-09-19 11:03-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,8 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src-tauri/src/commands/window.rs:51
+#: src-tauri/src/commands/window.rs:54
+msgctxt "AppName"
 msgid "Application"
 msgstr ""
 
@@ -87,23 +88,23 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: src/components/window.tsx:50 src/components/pages/folder-page.tsx:119
+#: src/components/window.tsx:48 src/components/pages/folder-page.tsx:104
 msgid "Folder closed"
 msgstr ""
 
-#: src/components/window.tsx:66
+#: src/components/window.tsx:65
 msgid "Hide Sidebar"
 msgstr ""
 
-#: src/components/window.tsx:67
+#: src/components/window.tsx:66
 msgid "Show Sidebar"
 msgstr ""
 
-#: src/components/dialogs/changelog-dialog.tsx:54
+#: src/components/dialogs/changelog-dialog.tsx:36
 msgid "Changelog"
 msgstr ""
 
-#: src/components/dialogs/changelog-dialog.tsx:62
+#: src/components/dialogs/changelog-dialog.tsx:46
 #: src/components/dialogs/debugging-dialog.tsx:85
 #: src/components/dialogs/credits-dialog.tsx:56
 #: src/components/dialogs/settings-dialog.tsx:191
@@ -135,33 +136,33 @@ msgstr ""
 msgid "Allow Preview Updates"
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:100
-#: src/components/pages/home-page.tsx:87 src/components/pages/home-page.tsx:91
+#: src/components/pages/folder-page.tsx:84 src/components/pages/home-page.tsx:87
+#: src/components/pages/home-page.tsx:91
 msgid "Open Folder"
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:128
+#: src/components/pages/folder-page.tsx:113
 msgctxt "Folder"
 msgid "Close"
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:133
+#: src/components/pages/folder-page.tsx:118
 msgid "Close Folder"
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:175
+#: src/components/pages/folder-page.tsx:160
 msgid "This folder is empty."
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:187
+#: src/components/pages/folder-page.tsx:172
 msgid "No File Selected"
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:189
+#: src/components/pages/folder-page.tsx:174
 msgid "Select a file to preview it here."
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:208
+#: src/components/pages/folder-page.tsx:193
 msgid "No Preview Available"
 msgstr ""
 

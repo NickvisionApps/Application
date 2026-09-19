@@ -1,5 +1,6 @@
+use crate::config::Configuration;
 use crate::folder::FolderView;
-use crate::{config::Configuration, info, info::DeploymentMode};
+use crate::product::{DeploymentMode, ProductInfo};
 use directories::BaseDirs;
 use reup::{GitHubUpdater, UpdateProvider, UpdateType};
 use semver::Version;
@@ -8,6 +9,7 @@ use std::path::PathBuf;
 
 #[derive(Debug, Clone)]
 pub struct AppController {
+    product: ProductInfo,
     configuration: Configuration,
     folder_view: Option<FolderView>,
     updater: GitHubUpdater,
@@ -26,7 +28,7 @@ impl AppController {
         self.updater
             .get_latest_version(self.update_type())
             .ok()
-            .filter(|version| *version > *info::app_version())
+            .filter(|version| *version > *self.product.version())
     }
 
     pub fn close_folder(&mut self) {
@@ -37,13 +39,13 @@ impl AppController {
         &self,
         on_progress: impl Fn(u64, u64) -> ControlFlow<()>,
     ) -> Result<(), Box<dyn std::error::Error>> {
-        if info::deployment_mode() != DeploymentMode::Local {
+        if ProductInfo::deployment_mode() != DeploymentMode::Local {
             return Err("Unable to install update on non-local installations".into());
         }
         let path = BaseDirs::new()
             .expect("Unable to load base directories")
             .cache_dir()
-            .join(info::APP_NAME)
+            .join(self.product.name())
             .join(self.updater.target_asset_name());
         std::fs::create_dir_all(path.parent().expect("Download path has no parent"))?;
         self.updater
@@ -112,6 +114,10 @@ impl AppController {
         Ok(folder_view)
     }
 
+    pub fn product_info(&self) -> &ProductInfo {
+        &self.product
+    }
+
     fn update_type(&self) -> UpdateType {
         if self.configuration.allow_preview_updates() {
             UpdateType::Preview
@@ -123,45 +129,57 @@ impl AppController {
 
 impl Default for AppController {
     fn default() -> Self {
+        let product = ProductInfo::builder()
+            .id("org.nickvision.application")
+            .name("Nickvision Application")
+            .short_name("Application")
+            .repo_owner("NickvisionApps")
+            .repo_name("Application")
+            .version(Version::parse(&format!("{}-next", env!("CARGO_PKG_VERSION"))).unwrap())
+            .build()
+            .unwrap();
+        let configuration = Configuration::load(product.name()).unwrap_or_default();
+        #[cfg(all(target_os = "windows", target_arch = "x86_64"))]
+        let updater = GitHubUpdater::new(
+            product.repo_owner(),
+            product.repo_name(),
+            "NickvisionApplicationSetup.exe",
+        );
+        #[cfg(all(target_os = "windows", target_arch = "aarch64"))]
+        let updater = GitHubUpdater::new(
+            product.repo_owner(),
+            product.repo_name(),
+            "NickvisionApplicationSetup-arm64.exe",
+        );
+        #[cfg(all(target_os = "linux", target_arch = "x86_64"))]
+        let updater = GitHubUpdater::new(
+            product.repo_owner(),
+            product.repo_name(),
+            "org.nickvision.application.x64.flatpak",
+        );
+        #[cfg(all(target_os = "linux", target_arch = "aarch64"))]
+        let updater = GitHubUpdater::new(
+            product.repo_owner(),
+            product.repo_name(),
+            "org.nickvision.application.aarch64.flatpak",
+        );
+        #[cfg(all(target_os = "macos", target_arch = "x86_64"))]
+        let updater = GitHubUpdater::new(
+            product.repo_owner(),
+            product.repo_name(),
+            "Application-macOS-x64.zip",
+        );
+        #[cfg(all(target_os = "macos", target_arch = "aarch64"))]
+        let updater = GitHubUpdater::new(
+            product.repo_owner(),
+            product.repo_name(),
+            "Application-macOS-arm64.zip",
+        );
         AppController {
-            configuration: Configuration::load().unwrap_or_else(|_| Configuration::default()),
+            product,
+            configuration,
             folder_view: None,
-            #[cfg(all(target_os = "windows", target_arch = "x86_64"))]
-            updater: GitHubUpdater::new(
-                info::APP_REPO_OWNER,
-                info::APP_REPO_NAME,
-                "NickvisionApplicationSetup.exe",
-            ),
-            #[cfg(all(target_os = "windows", target_arch = "aarch64"))]
-            updater: GitHubUpdater::new(
-                info::APP_REPO_OWNER,
-                info::APP_REPO_NAME,
-                "NickvisionApplicationSetup-arm64.exe",
-            ),
-            #[cfg(all(target_os = "linux", target_arch = "x86_64"))]
-            updater: GitHubUpdater::new(
-                info::APP_REPO_OWNER,
-                info::APP_REPO_NAME,
-                "org.nickvision.application.x64.flatpak",
-            ),
-            #[cfg(all(target_os = "linux", target_arch = "aarch64"))]
-            updater: GitHubUpdater::new(
-                info::APP_REPO_OWNER,
-                info::APP_REPO_NAME,
-                "org.nickvision.application.aarch64.flatpak",
-            ),
-            #[cfg(all(target_os = "macos", target_arch = "x86_64"))]
-            updater: GitHubUpdater::new(
-                info::APP_REPO_OWNER,
-                info::APP_REPO_NAME,
-                "Application-macOS-x64.zip",
-            ),
-            #[cfg(all(target_os = "macos", target_arch = "aarch64"))]
-            updater: GitHubUpdater::new(
-                info::APP_REPO_OWNER,
-                info::APP_REPO_NAME,
-                "Application-macOS-arm64.zip",
-            ),
+            updater,
         }
     }
 }

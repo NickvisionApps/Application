@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-18 21:30-0400\n"
+"POT-Creation-Date: 2026-09-19 11:03-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -18,7 +18,9 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: src-tauri/src/commands/window.rs:51
+#: src-tauri/src/commands/window.rs:54
+#, fuzzy
+msgctxt "AppName"
 msgid "Application"
 msgstr "Application"
 
@@ -92,24 +94,24 @@ msgstr "Системная"
 msgid "Settings"
 msgstr ""
 
-#: src/components/window.tsx:50 src/components/pages/folder-page.tsx:119
+#: src/components/window.tsx:48 src/components/pages/folder-page.tsx:104
 #, fuzzy
 msgid "Folder closed"
 msgstr "Папка закрыта."
 
-#: src/components/window.tsx:66
+#: src/components/window.tsx:65
 msgid "Hide Sidebar"
 msgstr ""
 
-#: src/components/window.tsx:67
+#: src/components/window.tsx:66
 msgid "Show Sidebar"
 msgstr ""
 
-#: src/components/dialogs/changelog-dialog.tsx:54
+#: src/components/dialogs/changelog-dialog.tsx:36
 msgid "Changelog"
 msgstr ""
 
-#: src/components/dialogs/changelog-dialog.tsx:62
+#: src/components/dialogs/changelog-dialog.tsx:46
 #: src/components/dialogs/debugging-dialog.tsx:85
 #: src/components/dialogs/credits-dialog.tsx:56
 #: src/components/dialogs/settings-dialog.tsx:191
@@ -142,35 +144,35 @@ msgstr ""
 msgid "Allow Preview Updates"
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:100
+#: src/components/pages/folder-page.tsx:84
 #: src/components/pages/home-page.tsx:87 src/components/pages/home-page.tsx:91
 msgid "Open Folder"
 msgstr "Открыть Папку"
 
-#: src/components/pages/folder-page.tsx:128
+#: src/components/pages/folder-page.tsx:113
 #, fuzzy
 msgctxt "Folder"
 msgid "Close"
 msgstr "Закрыть"
 
-#: src/components/pages/folder-page.tsx:133
+#: src/components/pages/folder-page.tsx:118
 msgid "Close Folder"
 msgstr "Закрыть папку"
 
-#: src/components/pages/folder-page.tsx:175
+#: src/components/pages/folder-page.tsx:160
 msgid "This folder is empty."
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:187
+#: src/components/pages/folder-page.tsx:172
 #, fuzzy
 msgid "No File Selected"
 msgstr "Папка не открыта"
 
-#: src/components/pages/folder-page.tsx:189
+#: src/components/pages/folder-page.tsx:174
 msgid "Select a file to preview it here."
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:208
+#: src/components/pages/folder-page.tsx:193
 #, fuzzy
 msgid "No Preview Available"
 msgstr "Application"

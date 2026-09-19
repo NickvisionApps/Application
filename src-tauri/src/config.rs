@@ -1,8 +1,7 @@
-use crate::info;
+use crate::product::ProductInfo;
 use directories::BaseDirs;
 use serde::{Deserialize, Serialize};
 use serde_repr::{Deserialize_repr, Serialize_repr};
-use std::path::PathBuf;
 
 #[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Serialize_repr, Deserialize_repr)]
 #[repr(u8)]
@@ -26,6 +25,8 @@ pub struct WindowGeometry {
 #[derive(Debug, Clone, Default, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Configuration {
+    #[serde(skip)]
+    app_name: String,
     allow_preview_updates: bool,
     theme: ApplicationTheme,
     translation_language: String,
@@ -84,6 +85,7 @@ impl Configuration {
         window_geometry: WindowGeometry,
     ) -> Self {
         Self {
+            app_name: String::default(),
             allow_preview_updates,
             theme,
             translation_language,
@@ -91,24 +93,52 @@ impl Configuration {
         }
     }
 
-    pub fn load() -> Result<Self, Box<dyn std::error::Error>> {
-        let path = Self::config_path()?;
-        std::fs::create_dir_all(path.parent().unwrap())?;
-        if path.exists() {
-            let json = std::fs::read_to_string(&path)?;
-            let config: Configuration = serde_json::from_str(&json)?;
-            Ok(config)
+    pub fn load(app_name: impl Into<String>) -> Result<Self, Box<dyn std::error::Error>> {
+        let app_name = app_name.into();
+        let path = if ProductInfo::is_portable() {
+            std::env::current_exe()?
+                .parent()
+                .unwrap()
+                .join("config.json")
         } else {
-            Ok(Configuration::default())
-        }
+            BaseDirs::new()
+                .ok_or("Unable to load base directories")?
+                .config_dir()
+                .join(&app_name)
+                .join("config.json")
+        };
+        std::fs::create_dir_all(path.parent().unwrap())?;
+        let mut config = if path.exists() {
+            let json = std::fs::read_to_string(&path)?;
+            serde_json::from_str(&json)?
+        } else {
+            Configuration::default()
+        };
+        config.set_app_name(app_name);
+        Ok(config)
     }
 
     pub fn save(&self) -> Result<(), Box<dyn std::error::Error>> {
-        let path = Self::config_path()?;
+        let path = if ProductInfo::is_portable() {
+            std::env::current_exe()?
+                .parent()
+                .unwrap()
+                .join("config.json")
+        } else {
+            BaseDirs::new()
+                .ok_or("Unable to load base directories")?
+                .config_dir()
+                .join(&self.app_name)
+                .join("config.json")
+        };
         std::fs::create_dir_all(path.parent().unwrap())?;
         let json = serde_json::to_string_pretty(self)?;
         std::fs::write(&path, json)?;
         Ok(())
+    }
+
+    pub fn set_app_name(&mut self, app_name: impl Into<String>) {
+        self.app_name = app_name.into();
     }
 
     pub fn allow_preview_updates(&self) -> bool {
@@ -141,20 +171,5 @@ impl Configuration {
 
     pub fn set_window_geometry(&mut self, geometry: WindowGeometry) {
         self.window_geometry = geometry;
-    }
-
-    fn config_path() -> Result<PathBuf, Box<dyn std::error::Error>> {
-        Ok(if info::is_app_portable() {
-            std::env::current_exe()?
-                .parent()
-                .unwrap()
-                .join("config.json")
-        } else {
-            BaseDirs::new()
-                .ok_or("Unable to load base directories")?
-                .config_dir()
-                .join(info::APP_NAME)
-                .join("config.json")
-        })
     }
 }

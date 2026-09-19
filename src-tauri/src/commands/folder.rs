@@ -5,8 +5,7 @@ use tauri_plugin_dialog::DialogExt;
 
 #[command]
 pub fn close_folder(controller: State<'_, Mutex<AppController>>) {
-    let mut controller = controller.lock().unwrap();
-    controller.close_folder();
+    controller.lock().unwrap().close_folder();
 }
 
 #[command]
@@ -22,9 +21,12 @@ pub async fn open_folder(
         let path = folder
             .into_path()
             .map_err(|_| tauri::Error::Io(std::io::Error::other("Cannot convert to path")))?;
-        let mut controller = controller.lock().unwrap();
         app.asset_protocol_scope().allow_directory(&path, false)?;
-        controller.open_folder(path).map_err(tauri::Error::Io)
+        controller
+            .lock()
+            .unwrap()
+            .open_folder(path)
+            .map_err(tauri::Error::Io)
     } else {
         Err(tauri::Error::Io(std::io::Error::new(
             std::io::ErrorKind::InvalidFilename,

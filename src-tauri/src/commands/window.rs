@@ -1,8 +1,8 @@
 use crate::config::WindowGeometry;
 use crate::controller::AppController;
-use crate::translation::_g;
+use crate::translation::Translator;
 use std::sync::Mutex;
-use tauri::{Manager, WebviewWindow, Window, WindowEvent, command};
+use tauri::{Manager, State, WebviewWindow, Window, WindowEvent, command};
 use tauri_plugin_decoration::WebviewWindowExt;
 
 pub fn handle_window_event(window: &Window, event: &WindowEvent) {
@@ -47,8 +47,11 @@ pub fn handle_window_event(window: &Window, event: &WindowEvent) {
 }
 
 #[command]
-pub async fn show_main_window(window: WebviewWindow) -> Result<(), tauri::Error> {
-    window.set_title(&_g("Application"))?;
+pub async fn show_main_window(
+    window: WebviewWindow,
+    translator: State<'_, Mutex<Translator>>,
+) -> Result<(), tauri::Error> {
+    window.set_title(&translator.lock().unwrap()._p("AppName", "Application"))?;
     if window.activate_decoration().await.is_err() {
         return restore_and_show(&window).await;
     }

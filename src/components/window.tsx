@@ -47,7 +47,10 @@ export function Window() {
     () => {
       async function handleCloseFolder() {
         await closeFolder();
-        toast.add({title: _g("Folder closed")});
+        toast.add({
+          type: "info",
+          title: _g("Folder closed"),
+        });
         setPage("home");
       }
 
