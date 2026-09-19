@@ -1,3 +1,4 @@
+import {HStack, VStack} from "@/components/layout/stack.tsx";
 import {Avatar, AvatarFallback} from "@/components/ui/avatar.tsx";
 import {
   DropdownMenu,
@@ -20,6 +21,7 @@ import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
+  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -30,6 +32,7 @@ import {Theme, useConfiguration} from "@/lib/configuration-provider.tsx";
 import {useDialog} from "@/lib/dialog-provider.tsx";
 import {useFolderView} from "@/lib/folder-view-provider.tsx";
 import {Page, useNavigation} from "@/lib/navigation-provider.tsx";
+import {useProductInfo} from "@/lib/product-info-provider.tsx";
 import {useTranslation} from "@/lib/translation-provider.tsx";
 import {invoke} from "@tauri-apps/api/core";
 import {
@@ -37,6 +40,7 @@ import {
   Bug,
   ChevronsUpDown,
   Folder,
+  GalleryVerticalEnd,
   Home,
   LifeBuoy,
   LucideIcon,
@@ -66,8 +70,9 @@ interface User {
 }
 
 export function NavigationView() {
+  const {productInfo} = useProductInfo();
   const {configuration, setConfiguration} = useConfiguration();
-  const {_g, _p} = useTranslation();
+  const {_f, _g, _p} = useTranslation();
   const {openDialog} = useDialog();
   const {page, setPage} = useNavigation();
   const {isMobile} = useSidebar();
@@ -107,11 +112,38 @@ export function NavigationView() {
 
   return (
     <Sidebar>
-      <SidebarContent
+      <SidebarHeader
         className={
           isMobile ? "mt-8" : "pt-(--tauri-plugin-decoration-titlebar-height)"
         }
       >
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton size="lg">
+              <HStack gap={3} align="center">
+                <VStack
+                  align="center"
+                  justify="center"
+                  className="size-8 rounded-lg bg-sidebar-primary text-sidebar-primary-foreground"
+                >
+                  <GalleryVerticalEnd className="size-4" />
+                </VStack>
+                <VStack gap={0.5}>
+                  <span className="font-medium">
+                    {_p("AppName", "Application")}
+                  </span>
+                  {productInfo.version.includes("-") && (
+                    <span className="text-xs text-muted-foreground">
+                      {_f("Preview ({0})", [productInfo.version])}
+                    </span>
+                  )}
+                </VStack>
+              </HStack>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarHeader>
+      <SidebarContent>
         {items.map((section) => (
           <SidebarGroup key={section.title}>
             {section.title && (

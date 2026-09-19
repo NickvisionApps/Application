@@ -9,13 +9,13 @@ import {
 } from "react";
 
 export type ProductInfo = {
-  id: String;
-  name: String;
-  short_name: String;
-  repo_owner: String;
-  repo_name: String;
-  description: String;
-  version: String;
+  id: string;
+  name: string;
+  short_name: string;
+  repo_owner: string;
+  repo_name: string;
+  description: string;
+  version: string;
 };
 
 interface ProductInfoProviderProps {
