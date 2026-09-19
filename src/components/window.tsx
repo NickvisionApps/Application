@@ -5,7 +5,11 @@ import {HomePage} from "@/components/pages/home-page.tsx";
 import {TitlebarControl} from "@/components/titlebar-control.tsx";
 import {SidebarTrigger, useSidebar} from "@/components/ui/sidebar.tsx";
 import {toast, Toaster} from "@/components/ui/toast.tsx";
-import {Tooltip, TooltipContent, TooltipTrigger,} from "@/components/ui/tooltip.tsx";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip.tsx";
 import {useKeyboardShortcut} from "@/hooks/use-keyboard-shortcut.ts";
 import {useFolderView} from "@/lib/folder-view-provider.tsx";
 import {useNavigation} from "@/lib/navigation-provider.tsx";
@@ -52,10 +56,10 @@ export function Window() {
   );
 
   return (
-    <HStack className="h-screen w-full overflow-hidden">
+    <>
       <TitlebarControl>
         <Tooltip>
-          <TooltipTrigger render={<SidebarTrigger className="mt-2"/>}/>
+          <TooltipTrigger render={<SidebarTrigger className="mt-2" />} />
           <TooltipContent side="right">
             {(isMobile ? openMobile : open)
               ? _g("Hide Sidebar")
@@ -63,12 +67,14 @@ export function Window() {
           </TooltipContent>
         </Tooltip>
       </TitlebarControl>
-      <NavigationView/>
-      <main className="min-w-0 flex-1 overflow-hidden pt-(--tauri-plugin-decoration-titlebar-height)">
-        {page === "home" && <HomePage/>}
-        {page === "folder" && <FolderPage/>}
-        <Toaster/>
-      </main>
-    </HStack>
+      <HStack className="h-screen w-full overflow-hidden">
+        <NavigationView />
+        <main className="min-w-0 flex-1 overflow-hidden pt-(--tauri-plugin-decoration-titlebar-height)">
+          {page === "home" && <HomePage />}
+          {page === "folder" && <FolderPage />}
+          <Toaster />
+        </main>
+      </HStack>
+    </>
   );
 }
