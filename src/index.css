@@ -131,6 +131,11 @@
     @apply bg-background text-foreground;
   }
 
+  html,
+  body {
+    overscroll-behavior: none;
+  }
+
   html {
     @apply font-sans;
     -webkit-font-smoothing: antialiased;
@@ -150,4 +155,5 @@
   padding-right: max(8px, var(--tauri-plugin-decoration-right-clearance, 0px));
   pointer-events: auto;
   user-select: none;
+  -webkit-user-select: none;
 }
