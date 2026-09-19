@@ -84,7 +84,7 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
-  --tauri-plugin-decoration-titlebar-height: 32px;
+  --tauri-plugin-decoration-titlebar-height: 40px;
   --tauri-plugin-decoration-z-index: 20;
 }
 
