@@ -19,7 +19,7 @@ pub fn handle_window_event(window: &Window, event: &WindowEvent) {
                     WindowGeometry::new(10, 10, 800, 600, true)
                 } else {
                     if let Ok(scale) = window.scale_factor()
-                        && let Ok(size) = window.outer_size()
+                        && let Ok(size) = window.inner_size()
                         && let Ok(position) = window.outer_position()
                     {
                         let logical_size = size.to_logical(scale);
@@ -52,7 +52,8 @@ pub async fn show_main_window(
     translator: State<'_, Mutex<Translator>>,
 ) -> Result<(), tauri::Error> {
     window.set_title(&translator.lock().unwrap()._p("AppName", "Application"))?;
-    if window.activate_decoration().await.is_err() {
+    if let Err(error) = window.activate_decoration().await {
+        eprintln!("decoration activation failed: {error}");
         return restore_and_show(&window).await;
     }
     #[cfg(target_os = "macos")]

@@ -8,12 +8,17 @@ pub mod translation;
 use crate::controller::AppController;
 use crate::translation::Translator;
 use std::sync::Mutex;
+use std::time::Duration;
 use tauri::Manager;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     let app = tauri::Builder::default()
-        .plugin(tauri_plugin_decoration::init())
+        .plugin(
+            tauri_plugin_decoration::builder()
+                .activation_timeout(Duration::from_secs(15))
+                .build(),
+        )
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_os::init())

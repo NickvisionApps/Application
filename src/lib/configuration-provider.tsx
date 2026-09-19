@@ -133,7 +133,7 @@ export function ConfigurationProvider({
           };
         } else {
           const scale = await window.scaleFactor();
-          const size = (await window.outerSize()).toLogical(scale);
+          const size = (await window.innerSize()).toLogical(scale);
           const position = (await window.outerPosition()).toLogical(scale);
           newConfiguration = {
             ...newConfiguration,

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-19 12:27-0400\n"
+"POT-Creation-Date: 2026-09-19 12:41-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src-tauri/src/commands/window.rs:54 src/components/navigation-view.tsx:141
+#: src-tauri/src/commands/window.rs:54 src/components/navigation-view.tsx:137
 msgctxt "AppName"
 msgid "Application"
 msgstr ""
@@ -30,64 +30,64 @@ msgstr ""
 msgid "Folder"
 msgstr ""
 
-#: src/components/navigation-view.tsx:145
+#: src/components/navigation-view.tsx:141
 msgid "Preview ({0})"
 msgstr ""
 
-#: src/components/navigation-view.tsx:221 src/components/pages/home-page.tsx:110
+#: src/components/navigation-view.tsx:217 src/components/pages/home-page.tsx:110
 msgid "What's New?"
 msgstr ""
 
-#: src/components/navigation-view.tsx:226
+#: src/components/navigation-view.tsx:222
 msgid "Help"
 msgstr ""
 
-#: src/components/navigation-view.tsx:237
+#: src/components/navigation-view.tsx:233
 msgid "GitHub Repository"
 msgstr ""
 
-#: src/components/navigation-view.tsx:245
+#: src/components/navigation-view.tsx:241
 msgid "Report a Bug"
 msgstr ""
 
-#: src/components/navigation-view.tsx:253
+#: src/components/navigation-view.tsx:249
 msgid "Discussions"
 msgstr ""
 
-#: src/components/navigation-view.tsx:264
+#: src/components/navigation-view.tsx:260
 #: src/components/dialogs/credits-dialog.tsx:43
 msgid "Credits"
 msgstr ""
 
-#: src/components/navigation-view.tsx:272
+#: src/components/navigation-view.tsx:268
 #: src/components/dialogs/debugging-dialog.tsx:57
 msgid "Debugging Information"
 msgstr ""
 
-#: src/components/navigation-view.tsx:284
+#: src/components/navigation-view.tsx:280
 #: src/components/dialogs/settings-dialog.tsx:114
 msgid "Theme"
 msgstr ""
 
-#: src/components/navigation-view.tsx:298
+#: src/components/navigation-view.tsx:294
 #: src/components/dialogs/settings-dialog.tsx:74
 msgctxt "Theme"
 msgid "Light"
 msgstr ""
 
-#: src/components/navigation-view.tsx:301
+#: src/components/navigation-view.tsx:297
 #: src/components/dialogs/settings-dialog.tsx:75
 msgctxt "Theme"
 msgid "Dark"
 msgstr ""
 
-#: src/components/navigation-view.tsx:304
+#: src/components/navigation-view.tsx:300
 #: src/components/dialogs/settings-dialog.tsx:76
 msgctxt "Theme"
 msgid "System"
 msgstr ""
 
-#: src/components/navigation-view.tsx:316
+#: src/components/navigation-view.tsx:312
 #: src/components/dialogs/settings-dialog.tsx:90
 msgid "Settings"
 msgstr ""
