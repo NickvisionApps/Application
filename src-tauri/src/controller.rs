@@ -151,12 +151,16 @@ impl Default for AppController {
                 "org.nickvision.application.aarch64.flatpak",
             ),
             #[cfg(all(target_os = "macos", target_arch = "x86_64"))]
-            updater: GitHubUpdater::new(APP_REPO_OWNER, APP_REPO_NAME, "Application-macOS-x64.zip"),
+            updater: GitHubUpdater::new(
+                info::APP_REPO_OWNER,
+                info::APP_REPO_NAME,
+                "Application-macOS-x64.zip",
+            ),
             #[cfg(all(target_os = "macos", target_arch = "aarch64"))]
             updater: GitHubUpdater::new(
                 info::APP_REPO_OWNER,
                 info::APP_REPO_NAME,
-                "Parabolic-macOS-arm64.zip",
+                "Application-macOS-arm64.zip",
             ),
         }
     }
