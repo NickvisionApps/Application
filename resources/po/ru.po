@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-19 11:57-0400\n"
+"POT-Creation-Date: 2026-09-19 12:24-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -18,82 +18,82 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: src-tauri/src/commands/window.rs:54 src/components/navigation-view.tsx:133
+#: src-tauri/src/commands/window.rs:54 src/components/navigation-view.tsx:141
 #, fuzzy
 msgctxt "AppName"
 msgid "Application"
 msgstr "Application"
 
-#: src/components/navigation-view.tsx:90
+#: src/components/navigation-view.tsx:92
 msgid "Home"
 msgstr ""
 
-#: src/components/navigation-view.tsx:96
+#: src/components/navigation-view.tsx:98
 #, fuzzy
 msgid "Folder"
 msgstr "Папка"
 
-#: src/components/navigation-view.tsx:137
+#: src/components/navigation-view.tsx:145
 msgid "Preview ({0})"
 msgstr ""
 
-#: src/components/navigation-view.tsx:213
+#: src/components/navigation-view.tsx:221
 #: src/components/pages/home-page.tsx:110
 msgid "What's New?"
 msgstr ""
 
-#: src/components/navigation-view.tsx:218
+#: src/components/navigation-view.tsx:226
 msgid "Help"
 msgstr ""
 
-#: src/components/navigation-view.tsx:229
+#: src/components/navigation-view.tsx:237
 #, fuzzy
 msgid "GitHub Repository"
 msgstr "Репозиторий GitHub"
 
-#: src/components/navigation-view.tsx:237
+#: src/components/navigation-view.tsx:245
 msgid "Report a Bug"
 msgstr ""
 
-#: src/components/navigation-view.tsx:245
+#: src/components/navigation-view.tsx:253
 msgid "Discussions"
 msgstr ""
 
-#: src/components/navigation-view.tsx:256
+#: src/components/navigation-view.tsx:264
 #: src/components/dialogs/credits-dialog.tsx:43
 msgid "Credits"
 msgstr ""
 
-#: src/components/navigation-view.tsx:264
+#: src/components/navigation-view.tsx:272
 #: src/components/dialogs/debugging-dialog.tsx:57
 msgid "Debugging Information"
 msgstr ""
 
-#: src/components/navigation-view.tsx:276
+#: src/components/navigation-view.tsx:284
 #: src/components/dialogs/settings-dialog.tsx:114
 #, fuzzy
 msgid "Theme"
 msgstr "Тема"
 
-#: src/components/navigation-view.tsx:290
+#: src/components/navigation-view.tsx:298
 #: src/components/dialogs/settings-dialog.tsx:74
 msgctxt "Theme"
 msgid "Light"
 msgstr "Светлая"
 
-#: src/components/navigation-view.tsx:293
+#: src/components/navigation-view.tsx:301
 #: src/components/dialogs/settings-dialog.tsx:75
 msgctxt "Theme"
 msgid "Dark"
 msgstr "Тёмная"
 
-#: src/components/navigation-view.tsx:296
+#: src/components/navigation-view.tsx:304
 #: src/components/dialogs/settings-dialog.tsx:76
 msgctxt "Theme"
 msgid "System"
 msgstr "Системная"
 
-#: src/components/navigation-view.tsx:308
+#: src/components/navigation-view.tsx:316
 #: src/components/dialogs/settings-dialog.tsx:90
 msgid "Settings"
 msgstr ""

@@ -40,7 +40,6 @@ import {
   Bug,
   ChevronsUpDown,
   Folder,
-  GalleryVerticalEnd,
   Home,
   LifeBuoy,
   LucideIcon,
@@ -52,6 +51,9 @@ import {
   UserGroup,
 } from "lucide-react";
 import {useEffect, useState} from "react";
+
+import logoDevSrc from "../../resources/org.nickvision.application-devel.svg";
+import logoSrc from "../../resources/org.nickvision.application.svg";
 
 interface NavigationViewItem {
   title: string;
@@ -121,12 +123,14 @@ export function NavigationView() {
           <SidebarMenuItem>
             <SidebarMenuButton size="lg">
               <HStack gap={3} align="center">
-                <VStack
-                  align="center"
-                  justify="center"
-                  className="size-8 rounded-lg bg-sidebar-primary text-sidebar-primary-foreground"
-                >
-                  <GalleryVerticalEnd className="size-4" />
+                <VStack align="center" justify="center" className="size-8">
+                  <img
+                    src={
+                      productInfo.version.includes("-") ? logoDevSrc : logoSrc
+                    }
+                    alt=""
+                    className="size-8 rounded-lg"
+                  />
                 </VStack>
                 <VStack gap={0.5}>
                   <span className="font-medium">
