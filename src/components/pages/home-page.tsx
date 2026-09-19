@@ -72,21 +72,23 @@ export function HomePage() {
         </EmptyHeader>
         <EmptyContent>
           <Tooltip>
-            <TooltipTrigger>
-              <Button
-                onClick={() => {
-                  async function handleOpenFolder() {
-                    if (await openFolder()) {
-                      setPage("folder");
+            <TooltipTrigger
+              render={
+                <Button
+                  onClick={() => {
+                    async function handleOpenFolder() {
+                      if (await openFolder()) {
+                        setPage("folder");
+                      }
                     }
-                  }
 
-                  void handleOpenFolder();
-                }}
-              >
-                {_g("Open Folder")}
-              </Button>
-            </TooltipTrigger>
+                    void handleOpenFolder();
+                  }}
+                >
+                  {_g("Open Folder")}
+                </Button>
+              }
+            />
             <TooltipContent>
               {_g("Open Folder")}
               <KbdGroup>
