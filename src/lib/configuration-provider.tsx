@@ -138,10 +138,10 @@ export function ConfigurationProvider({
           newConfiguration = {
             ...newConfiguration,
             windowGeometry: {
-              x: position.x,
-              y: position.y,
-              width: size.width,
-              height: size.height,
+              x: Math.ceil(position.x),
+              y: Math.ceil(position.y),
+              width: Math.ceil(size.width),
+              height: Math.ceil(size.height),
               isMaximized: false,
             },
           };
