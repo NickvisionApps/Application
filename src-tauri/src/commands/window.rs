@@ -2,7 +2,8 @@ use crate::config::WindowGeometry;
 use crate::controller::AppController;
 use crate::translation::_g;
 use std::sync::Mutex;
-use tauri::{Manager, Window, WindowEvent, command};
+use tauri::{Manager, WebviewWindow, Window, WindowEvent, command};
+use tauri_plugin_decoration::WebviewWindowExt;
 
 pub fn handle_window_event(window: &Window, event: &WindowEvent) {
     if let WindowEvent::CloseRequested { api, .. } = event {
@@ -46,13 +47,25 @@ pub fn handle_window_event(window: &Window, event: &WindowEvent) {
 }
 
 #[command]
-pub fn show_main_window(window: Window) -> Result<(), tauri::Error> {
-    let window = window
-        .get_webview_window("main")
-        .ok_or(tauri::Error::AssetNotFound(
-            "Main window not found".to_string(),
-        ))?;
+pub async fn show_main_window(window: WebviewWindow) -> Result<(), tauri::Error> {
     window.set_title(&_g("Application"))?;
+    if window.activate_decoration().await.is_err() {
+        return restore_and_show(&window).await;
+    }
+    #[cfg(target_os = "macos")]
+    if window.set_traffic_lights_inset(16.0, 26.0).await.is_err() {
+        return restore_and_show(&window).await;
+    }
+    window.show()?;
+    window.set_focus()?;
+    Ok(())
+}
+
+async fn restore_and_show(window: &WebviewWindow) -> Result<(), tauri::Error> {
+    window
+        .restore_decoration()
+        .await
+        .map_err(|error| tauri::Error::Io(std::io::Error::other(error.to_string())))?;
     window.show()?;
     window.set_focus()?;
     Ok(())

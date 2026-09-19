@@ -2,20 +2,15 @@ import {HStack} from "@/components/layout/stack.tsx";
 import {NavigationView} from "@/components/navigation-view.tsx";
 import {FolderPage} from "@/components/pages/folder-page.tsx";
 import {HomePage} from "@/components/pages/home-page.tsx";
-import {TitlebarControlEscape} from "@/components/titlebar-control-escape.tsx";
+import {TitlebarControl} from "@/components/titlebar-control.tsx";
 import {SidebarTrigger, useSidebar} from "@/components/ui/sidebar.tsx";
-import {Toaster, toast} from "@/components/ui/toast.tsx";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip.tsx";
+import {toast, Toaster} from "@/components/ui/toast.tsx";
+import {Tooltip, TooltipContent, TooltipTrigger,} from "@/components/ui/tooltip.tsx";
 import {useKeyboardShortcut} from "@/hooks/use-keyboard-shortcut.ts";
 import {useFolderView} from "@/lib/folder-view-provider.tsx";
 import {useNavigation} from "@/lib/navigation-provider.tsx";
 import {useTranslation} from "@/lib/translation-provider.tsx";
 import {invoke} from "@tauri-apps/api/core";
-import {platform} from "@tauri-apps/plugin-os";
 import {useEffect} from "react";
 
 export function Window() {
@@ -58,27 +53,21 @@ export function Window() {
 
   return (
     <HStack className="h-screen w-full overflow-hidden">
-      <NavigationView />
-      {(!open || isMobile) && (
-        <TitlebarControlEscape renderAbsolute>
-          <Tooltip>
-            <TooltipTrigger
-              render={
-                <SidebarTrigger
-                  className={platform() === "macos" ? "ml-22 mt-2.5" : ""}
-                />
-              }
-            />
-            <TooltipContent side="right">
-              {openMobile ? _g("Hide Sidebar") : _g("Show Sidebar")}
-            </TooltipContent>
-          </Tooltip>
-        </TitlebarControlEscape>
-      )}
-      <main className="min-w-0 flex-1 overflow-hidden">
-        {page === "home" && <HomePage />}
-        {page === "folder" && <FolderPage />}
-        <Toaster />
+      <TitlebarControl>
+        <Tooltip>
+          <TooltipTrigger render={<SidebarTrigger className="mt-2"/>}/>
+          <TooltipContent side="right">
+            {(isMobile ? openMobile : open)
+              ? _g("Hide Sidebar")
+              : _g("Show Sidebar")}
+          </TooltipContent>
+        </Tooltip>
+      </TitlebarControl>
+      <NavigationView/>
+      <main className="min-w-0 flex-1 overflow-hidden pt-(--tauri-plugin-decoration-titlebar-height)">
+        {page === "home" && <HomePage/>}
+        {page === "folder" && <FolderPage/>}
+        <Toaster/>
       </main>
     </HStack>
   );

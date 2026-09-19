@@ -17,13 +17,18 @@
         "height": 600,
         "resizable": true,
         "titleBarStyle": "Overlay",
-        "hiddenTitle": true,
-        "transparent": true
+        "hiddenTitle": true
       }
     ],
     "macOSPrivateApi": true,
     "security": {
-      "csp": null,
+      "csp": {
+        "default-src": "'self' customprotocol: asset:",
+        "connect-src": "ipc: http://ipc.localhost",
+        "img-src": "'self' asset: http://asset.localhost data:",
+        "style-src": "'self' tauri-plugin-decoration: http://tauri-plugin-decoration.localhost https://tauri-plugin-decoration.localhost",
+        "style-src-elem": "'self' tauri-plugin-decoration: http://tauri-plugin-decoration.localhost https://tauri-plugin-decoration.localhost"
+      },
       "assetProtocol": {
         "enable": true
       }

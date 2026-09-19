@@ -8,12 +8,11 @@ pub mod translation;
 use crate::controller::AppController;
 use std::sync::Mutex;
 use tauri::Manager;
-use tauri_plugin_decorum::WebviewWindowExt;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     let app = tauri::Builder::default()
-        .plugin(tauri_plugin_decorum::init())
+        .plugin(tauri_plugin_decoration::init())
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_os::init())
@@ -27,17 +26,6 @@ pub fn run() {
                     .translation_language()
                     .to_string(),
             );
-            let window = app
-                .get_webview_window("main")
-                .ok_or(tauri::Error::AssetNotFound(
-                    "Main window not found".to_string(),
-                ))?;
-            window.create_overlay_titlebar()?;
-            #[cfg(target_os = "macos")]
-            {
-                window.set_traffic_lights_inset(16.0, 26.0)?;
-                window.make_transparent()?;
-            }
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![

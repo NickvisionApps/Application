@@ -1,5 +1,4 @@
 import {HStack, VStack} from "@/components/layout/stack.tsx";
-import {TitlebarControlEscape} from "@/components/titlebar-control-escape.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import {
   Empty,
@@ -50,7 +49,7 @@ interface FolderFile {
 export function FolderPage() {
   const {_g, _p} = useTranslation();
   const {setPage} = useNavigation();
-  const {open, isMobile} = useSidebar();
+  const {isMobile} = useSidebar();
   const {folderView, closeFolder, openFolder} = useFolderView();
   const [selectedFile, setSelectedFile] = useState<FolderFile | null>(null);
   const [imageLoadFailed, setImageLoadFailed] = useState(false);
@@ -84,77 +83,69 @@ export function FolderPage() {
     <VStack className="h-full w-full">
       <HStack align="center" gap={2} className="border-b p-2">
         <p
-          className={
-            (!open || isMobile) && platform() === "macos"
-              ? "ml-29 min-w-0 flex-1 truncate text-sm text-muted-foreground"
-              : "min-w-0 flex-1 truncate text-sm text-muted-foreground"
-          }
+          className="min-w-0 flex-1 truncate text-sm text-muted-foreground"
           title={folderView.path}
         >
           {folderView.path}
         </p>
-        <TitlebarControlEscape>
-          <Tooltip>
-            <TooltipTrigger
-              render={
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={() => {
-                    void openFolder();
-                  }}
-                >
-                  <FolderOpenIcon />
-                </Button>
-              }
-            />
-            <TooltipContent>
-              {_g("Open Folder")}
-              <KbdGroup>
-                {platform() === "macos" && <Kbd>⌘</Kbd>}
-                {platform() !== "macos" && <Kbd>Ctrl</Kbd>}
-                <Kbd>O</Kbd>
-              </KbdGroup>
-            </TooltipContent>
-          </Tooltip>
-        </TitlebarControlEscape>
-        <TitlebarControlEscape>
-          <Tooltip>
-            <TooltipTrigger
-              render={
-                <HStack
-                  render={<Button variant="outline" />}
-                  align="center"
-                  gap={1.5}
-                  onClick={() => {
-                    async function handleCloseFolder() {
-                      await closeFolder();
-                      toast.add({
-                        title: _g("Folder closed"),
-                      });
-                      setPage("home");
-                    }
+        <Tooltip>
+          <TooltipTrigger
+            render={
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => {
+                  void openFolder();
+                }}
+              >
+                <FolderOpenIcon />
+              </Button>
+            }
+          />
+          <TooltipContent>
+            {_g("Open Folder")}
+            <KbdGroup>
+              {platform() === "macos" && <Kbd>⌘</Kbd>}
+              {platform() !== "macos" && <Kbd>Ctrl</Kbd>}
+              <Kbd>O</Kbd>
+            </KbdGroup>
+          </TooltipContent>
+        </Tooltip>
+        <Tooltip>
+          <TooltipTrigger
+            render={
+              <HStack
+                render={<Button variant="outline" />}
+                align="center"
+                gap={1.5}
+                onClick={() => {
+                  async function handleCloseFolder() {
+                    await closeFolder();
+                    toast.add({
+                      title: _g("Folder closed"),
+                    });
+                    setPage("home");
+                  }
 
-                    void handleCloseFolder();
-                  }}
-                >
-                  <XIcon />
-                  {!isMobile && _p("Folder", "Close")}
-                </HStack>
-              }
-            />
-            <TooltipContent>
-              {_g("Close Folder")}
-              <KbdGroup>
-                {platform() === "macos" && <Kbd>⌘</Kbd>}
-                {platform() !== "macos" && <Kbd>Ctrl</Kbd>}
-                <Kbd>Shift</Kbd>
-                <span>+</span>
-                <Kbd>W</Kbd>
-              </KbdGroup>
-            </TooltipContent>
-          </Tooltip>
-        </TitlebarControlEscape>
+                  void handleCloseFolder();
+                }}
+              >
+                <XIcon />
+                {!isMobile && _p("Folder", "Close")}
+              </HStack>
+            }
+          />
+          <TooltipContent>
+            {_g("Close Folder")}
+            <KbdGroup>
+              {platform() === "macos" && <Kbd>⌘</Kbd>}
+              {platform() !== "macos" && <Kbd>Ctrl</Kbd>}
+              <Kbd>Shift</Kbd>
+              <span>+</span>
+              <Kbd>W</Kbd>
+            </KbdGroup>
+          </TooltipContent>
+        </Tooltip>
       </HStack>
       <ResizablePanelGroup className="min-h-0 flex-1">
         <ResizablePanel defaultSize="35" minSize="20">

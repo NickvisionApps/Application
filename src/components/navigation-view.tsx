@@ -1,5 +1,3 @@
-import {HStack} from "@/components/layout/stack.tsx";
-import {TitlebarControlEscape} from "@/components/titlebar-control-escape.tsx";
 import {Avatar, AvatarFallback} from "@/components/ui/avatar.tsx";
 import {
   DropdownMenu,
@@ -22,19 +20,12 @@ import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
-  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarTrigger,
   useSidebar,
 } from "@/components/ui/sidebar.tsx";
 import {Spinner} from "@/components/ui/spinner.tsx";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip.tsx";
 import {Theme, useConfiguration} from "@/lib/configuration-provider.tsx";
 import {useDialog} from "@/lib/dialog-provider.tsx";
 import {useFolderView} from "@/lib/folder-view-provider.tsx";
@@ -79,7 +70,7 @@ export function NavigationView() {
   const {_g, _p} = useTranslation();
   const {openDialog} = useDialog();
   const {page, setPage} = useNavigation();
-  const {open, isMobile} = useSidebar();
+  const {isMobile} = useSidebar();
   const {folderView} = useFolderView();
   const [user, setUser] = useState<User>({
     username: "",
@@ -116,19 +107,11 @@ export function NavigationView() {
 
   return (
     <Sidebar>
-      {open && !isMobile && (
-        <SidebarHeader>
-          <HStack justify="end">
-            <TitlebarControlEscape>
-              <Tooltip>
-                <TooltipTrigger render={<SidebarTrigger />} />
-                <TooltipContent>{_g("Hide Sidebar")}</TooltipContent>
-              </Tooltip>
-            </TitlebarControlEscape>
-          </HStack>
-        </SidebarHeader>
-      )}
-      <SidebarContent className={isMobile ? "mt-8" : ""}>
+      <SidebarContent
+        className={
+          isMobile ? "mt-8" : "pt-(--tauri-plugin-decoration-titlebar-height)"
+        }
+      >
         {items.map((section) => (
           <SidebarGroup key={section.title}>
             {section.title && (
