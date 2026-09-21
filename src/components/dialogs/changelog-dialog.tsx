@@ -1,11 +1,8 @@
 import {VStack} from "@/components/layout/stack.tsx";
-import {Button} from "@/components/ui/button.tsx";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog.tsx";
@@ -18,7 +15,7 @@ import {Streamdown} from "streamdown";
 export function ChangelogDialog() {
   const {productInfo} = useProductInfo();
   const {closeDialog} = useDialog();
-  const {_g, _p} = useTranslation();
+  const {_g} = useTranslation();
 
   const changelog = `- Initial Release
 - Rewrote app in Rust and Tauri`;
@@ -44,11 +41,6 @@ export function ChangelogDialog() {
             <Streamdown>{changelog}</Streamdown>
           </ScrollArea>
         </VStack>
-        <DialogFooter>
-          <DialogClose render={<Button variant="outline" />}>
-            {_p("Dialog", "Close")}
-          </DialogClose>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

@@ -1,11 +1,7 @@
 import {VStack} from "@/components/layout/stack.tsx";
-
-import {Button} from "@/components/ui/button.tsx";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog.tsx";
@@ -16,7 +12,7 @@ import {Streamdown} from "streamdown";
 
 export function CreditsDialog() {
   const {closeDialog} = useDialog();
-  const {_g, _p} = useTranslation();
+  const {_g} = useTranslation();
 
   const credits = `**Developers**
 - [Nick Logozzo](https://github.com/nlogozzo)
@@ -54,11 +50,6 @@ export function CreditsDialog() {
             </Streamdown>
           </ScrollArea>
         </VStack>
-        <DialogFooter>
-          <DialogClose render={<Button variant="outline" />}>
-            {_p("Dialog", "Close")}
-          </DialogClose>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-21 00:04-0400\n"
+"POT-Creation-Date: 2026-09-21 00:17-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -55,40 +55,40 @@ msgid "Discussions"
 msgstr ""
 
 #: src/components/navigation-view.tsx:262
-#: src/components/dialogs/credits-dialog.tsx:44
+#: src/components/dialogs/credits-dialog.tsx:40
 msgid "Credits"
 msgstr ""
 
 #: src/components/navigation-view.tsx:270
-#: src/components/dialogs/debugging-dialog.tsx:57
+#: src/components/dialogs/debugging-dialog.tsx:54
 msgid "Debugging Information"
 msgstr ""
 
 #: src/components/navigation-view.tsx:290
-#: src/components/dialogs/settings-dialog.tsx:109
+#: src/components/dialogs/settings-dialog.tsx:102
 msgid "Theme"
 msgstr ""
 
 #: src/components/navigation-view.tsx:304
-#: src/components/dialogs/settings-dialog.tsx:60
+#: src/components/dialogs/settings-dialog.tsx:56
 msgctxt "Theme"
 msgid "Light"
 msgstr ""
 
 #: src/components/navigation-view.tsx:307
-#: src/components/dialogs/settings-dialog.tsx:61
+#: src/components/dialogs/settings-dialog.tsx:57
 msgctxt "Theme"
 msgid "Dark"
 msgstr ""
 
 #: src/components/navigation-view.tsx:310
-#: src/components/dialogs/settings-dialog.tsx:62
+#: src/components/dialogs/settings-dialog.tsx:58
 msgctxt "Theme"
 msgid "System"
 msgstr ""
 
 #: src/components/navigation-view.tsx:322
-#: src/components/dialogs/settings-dialog.tsx:76
+#: src/components/dialogs/settings-dialog.tsx:72
 msgid "Settings"
 msgstr ""
 
@@ -104,59 +104,43 @@ msgstr ""
 msgid "Show Sidebar"
 msgstr ""
 
-#: src/components/dialogs/changelog-dialog.tsx:37
+#: src/components/dialogs/changelog-dialog.tsx:34
 msgid "Changelog"
 msgstr ""
 
-#: src/components/dialogs/changelog-dialog.tsx:49
-#: src/components/dialogs/debugging-dialog.tsx:88
-#: src/components/dialogs/credits-dialog.tsx:59
-#: src/components/dialogs/settings-dialog.tsx:219
-msgctxt "Dialog"
-msgid "Close"
-msgstr ""
-
-#: src/components/dialogs/debugging-dialog.tsx:59
+#: src/components/dialogs/debugging-dialog.tsx:56
 msgid "Send this information to the developer when reporting issues"
 msgstr ""
 
-#: src/components/dialogs/debugging-dialog.tsx:77
+#: src/components/dialogs/debugging-dialog.tsx:74
 msgid "Copy Code"
 msgstr ""
 
-#: src/components/dialogs/settings-dialog.tsx:81
+#: src/components/dialogs/settings-dialog.tsx:77
 msgid "Search..."
 msgstr ""
 
-#: src/components/dialogs/settings-dialog.tsx:94
+#: src/components/dialogs/settings-dialog.tsx:90
 msgid "General"
 msgstr ""
 
-#: src/components/dialogs/settings-dialog.tsx:102
+#: src/components/dialogs/settings-dialog.tsx:98
 msgid "User Interface"
 msgstr ""
 
-#: src/components/dialogs/settings-dialog.tsx:104
-msgid "Customize the look and feel of the app"
-msgstr ""
-
-#: src/components/dialogs/settings-dialog.tsx:142
+#: src/components/dialogs/settings-dialog.tsx:135
 msgid "Language"
 msgstr ""
 
-#: src/components/dialogs/settings-dialog.tsx:173
+#: src/components/dialogs/settings-dialog.tsx:166
 msgid "Updates"
 msgstr ""
 
-#: src/components/dialogs/settings-dialog.tsx:175
-msgid "Configure how updates are handled"
-msgstr ""
-
-#: src/components/dialogs/settings-dialog.tsx:181
+#: src/components/dialogs/settings-dialog.tsx:171
 msgid "Automatically check for updates"
 msgstr ""
 
-#: src/components/dialogs/settings-dialog.tsx:197
+#: src/components/dialogs/settings-dialog.tsx:187
 msgid "Allow preview (beta) updates"
 msgstr ""
 

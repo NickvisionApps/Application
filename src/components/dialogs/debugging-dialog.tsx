@@ -1,11 +1,8 @@
 import {VStack} from "@/components/layout/stack.tsx";
-import {Button} from "@/components/ui/button.tsx";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog.tsx";
@@ -22,7 +19,7 @@ let cachedDebuggingInformation: string | null = null;
 
 export function DebuggingDialog() {
   const {closeDialog} = useDialog();
-  const {_g, _p} = useTranslation();
+  const {_g} = useTranslation();
   const [debuggingInformation, setDebuggingInformation] = useState(
     cachedDebuggingInformation ?? "",
   );
@@ -83,11 +80,6 @@ export function DebuggingDialog() {
           </VStack>
         )}
         {!debuggingInformation && <Spinner />}
-        <DialogFooter>
-          <DialogClose render={<Button variant="outline" />}>
-            {_p("Dialog", "Close")}
-          </DialogClose>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

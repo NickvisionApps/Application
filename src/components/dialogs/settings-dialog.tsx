@@ -1,17 +1,13 @@
 import {HStack, VStack} from "@/components/layout/stack.tsx";
-import {Button} from "@/components/ui/button.tsx";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog.tsx";
 import {
   Field,
   FieldContent,
-  FieldDescription,
   FieldGroup,
   FieldLegend,
   FieldSeparator,
@@ -86,7 +82,7 @@ export function SettingsDialog() {
               orientation="vertical"
               defaultValue={page}
               onValueChange={(value) => setPage(value as SettingsDialogPage)}
-              className="min-h-64"
+              className="min-h-72 border-r border-border"
             >
               <TabsList variant="line">
                 <TabsTrigger value={"general"}>
@@ -100,9 +96,6 @@ export function SettingsDialog() {
                 <FieldGroup className="overflow-hidden">
                   <FieldSet>
                     <FieldLegend>{_g("User Interface")}</FieldLegend>
-                    <FieldDescription>
-                      {_g("Customize the look and feel of the app")}
-                    </FieldDescription>
                     <FieldGroup className="mt-2">
                       <Field orientation="horizontal">
                         <FieldContent>
@@ -171,9 +164,6 @@ export function SettingsDialog() {
                   <FieldSeparator />
                   <FieldSet>
                     <FieldLegend>{_g("Updates")}</FieldLegend>
-                    <FieldDescription>
-                      {_g("Configure how updates are handled")}
-                    </FieldDescription>
                     <FieldGroup className="mt-2">
                       <Field orientation="horizontal">
                         <FieldContent>
@@ -214,11 +204,6 @@ export function SettingsDialog() {
             )}
           </HStack>
         </VStack>
-        <DialogFooter>
-          <DialogClose render={<Button variant="outline" />}>
-            {_p("Dialog", "Close")}
-          </DialogClose>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
