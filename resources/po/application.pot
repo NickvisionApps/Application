@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-19 12:43-0400\n"
+"POT-Creation-Date: 2026-09-20 22:24-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -65,30 +65,30 @@ msgid "Debugging Information"
 msgstr ""
 
 #: src/components/navigation-view.tsx:280
-#: src/components/dialogs/settings-dialog.tsx:114
+#: src/components/dialogs/settings-dialog.tsx:92
 msgid "Theme"
 msgstr ""
 
 #: src/components/navigation-view.tsx:294
-#: src/components/dialogs/settings-dialog.tsx:74
+#: src/components/dialogs/settings-dialog.tsx:55
 msgctxt "Theme"
 msgid "Light"
 msgstr ""
 
 #: src/components/navigation-view.tsx:297
-#: src/components/dialogs/settings-dialog.tsx:75
+#: src/components/dialogs/settings-dialog.tsx:56
 msgctxt "Theme"
 msgid "Dark"
 msgstr ""
 
 #: src/components/navigation-view.tsx:300
-#: src/components/dialogs/settings-dialog.tsx:76
+#: src/components/dialogs/settings-dialog.tsx:57
 msgctxt "Theme"
 msgid "System"
 msgstr ""
 
 #: src/components/navigation-view.tsx:312
-#: src/components/dialogs/settings-dialog.tsx:90
+#: src/components/dialogs/settings-dialog.tsx:71
 msgid "Settings"
 msgstr ""
 
@@ -111,7 +111,7 @@ msgstr ""
 #: src/components/dialogs/changelog-dialog.tsx:46
 #: src/components/dialogs/debugging-dialog.tsx:85
 #: src/components/dialogs/credits-dialog.tsx:56
-#: src/components/dialogs/settings-dialog.tsx:191
+#: src/components/dialogs/settings-dialog.tsx:178
 msgctxt "Dialog"
 msgid "Close"
 msgstr ""
@@ -124,20 +124,24 @@ msgstr ""
 msgid "Copy Code"
 msgstr ""
 
-#: src/components/dialogs/settings-dialog.tsx:63
+#: src/components/dialogs/settings-dialog.tsx:81
 msgid "General"
 msgstr ""
 
-#: src/components/dialogs/settings-dialog.tsx:68
+#: src/components/dialogs/settings-dialog.tsx:85
 msgid "Advanced"
 msgstr ""
 
-#: src/components/dialogs/settings-dialog.tsx:142
-msgid "Translation Language"
+#: src/components/dialogs/settings-dialog.tsx:117
+msgid "Language"
 msgstr ""
 
-#: src/components/dialogs/settings-dialog.tsx:173
-msgid "Allow Preview Updates"
+#: src/components/dialogs/settings-dialog.tsx:144
+msgid "Automatically check for updates"
+msgstr ""
+
+#: src/components/dialogs/settings-dialog.tsx:161
+msgid "Allow preview (beta) updates"
 msgstr ""
 
 #: src/components/pages/folder-page.tsx:98 src/components/pages/home-page.tsx:88

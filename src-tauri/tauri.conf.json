@@ -43,8 +43,7 @@
       "../resources/128x128.png",
       "../resources/128x128@2x.png",
       "../resources/icon.icns",
-      "../resources/icon.ico",
-      "../resources/org.nickvision.application.icon"
+      "../resources/icon.ico"
     ],
     "resources": {
       "target/locale": "locale"

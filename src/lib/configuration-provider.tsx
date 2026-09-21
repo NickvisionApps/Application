@@ -26,6 +26,7 @@ interface WindowGeometry {
 
 interface Configuration {
   allowPreviewUpdates: boolean;
+  automaticallyCheckForUpdates: boolean;
   theme: Theme;
   translationLanguage: string;
   windowGeometry: WindowGeometry;
@@ -42,6 +43,7 @@ interface ConfigurationProviderState {
 
 const DefaultConfiguration: Configuration = {
   allowPreviewUpdates: false,
+  automaticallyCheckForUpdates: true,
   theme: 2,
   translationLanguage: "",
   windowGeometry: {

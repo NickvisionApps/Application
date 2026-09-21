@@ -28,6 +28,8 @@ pub struct Configuration {
     #[serde(skip)]
     app_name: String,
     allow_preview_updates: bool,
+    #[serde(default = "default_true")]
+    automatically_check_for_updates: bool,
     theme: ApplicationTheme,
     translation_language: String,
     window_geometry: WindowGeometry,
@@ -80,6 +82,7 @@ impl Default for WindowGeometry {
 impl Configuration {
     pub fn new(
         allow_preview_updates: bool,
+        automatically_check_for_updates: bool,
         theme: ApplicationTheme,
         translation_language: String,
         window_geometry: WindowGeometry,
@@ -87,6 +90,7 @@ impl Configuration {
         Self {
             app_name: String::default(),
             allow_preview_updates,
+            automatically_check_for_updates,
             theme,
             translation_language,
             window_geometry,
@@ -149,6 +153,14 @@ impl Configuration {
         self.allow_preview_updates = allow;
     }
 
+    pub fn automatically_check_for_updates(&self) -> bool {
+        self.automatically_check_for_updates
+    }
+
+    pub fn set_automatically_check_for_updates(&mut self, check: bool) {
+        self.automatically_check_for_updates = check;
+    }
+
     pub fn theme(&self) -> &ApplicationTheme {
         &self.theme
     }
@@ -172,4 +184,8 @@ impl Configuration {
     pub fn set_window_geometry(&mut self, geometry: WindowGeometry) {
         self.window_geometry = geometry;
     }
+}
+
+const fn default_true() -> bool {
+    true
 }

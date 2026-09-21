@@ -40,7 +40,7 @@ jobs:
       - name: "Install frontend dependencies"
         run: npm ci
       - name: "Build"
-        run: npm run tauri build < /dev/null
+        run: npm run tauri build
       - uses: actions/upload-artifact@v7
         with:
           name: Application-${{ matrix.variant.arch }}
