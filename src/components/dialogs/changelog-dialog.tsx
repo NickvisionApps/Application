@@ -1,3 +1,4 @@
+import {VStack} from "@/components/layout/stack.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import {
   Dialog,
@@ -38,9 +39,11 @@ export function ChangelogDialog() {
             <DialogDescription>{productInfo.version}</DialogDescription>
           )}
         </DialogHeader>
-        <ScrollArea className="min-h-0 flex-1">
-          <Streamdown>{changelog}</Streamdown>
-        </ScrollArea>
+        <VStack className="min-h-0 flex-1 overflow-hidden">
+          <ScrollArea className="flex-1">
+            <Streamdown>{changelog}</Streamdown>
+          </ScrollArea>
+        </VStack>
         <DialogFooter>
           <DialogClose render={<Button variant="outline" />}>
             {_p("Dialog", "Close")}

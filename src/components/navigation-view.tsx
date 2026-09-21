@@ -9,6 +9,7 @@ import {
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
+  DropdownMenuShortcut,
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
@@ -35,6 +36,7 @@ import {Page, useNavigation} from "@/lib/contexts/navigation-context.ts";
 import {useProductInfo} from "@/lib/contexts/product-info-context.ts";
 import {useTranslation} from "@/lib/contexts/translation-context.ts";
 import {invoke} from "@tauri-apps/api/core";
+import {platform} from "@tauri-apps/plugin-os";
 import {
   BadgeInfo,
   Bug,
@@ -266,6 +268,14 @@ export function NavigationView() {
                           >
                             <BadgeInfo />
                             <span>{_g("Debugging Information")}</span>
+                            {platform() === "macos" && (
+                              <DropdownMenuShortcut>⌘⇧D</DropdownMenuShortcut>
+                            )}
+                            {platform() !== "macos" && (
+                              <DropdownMenuShortcut>
+                                Ctrl+Shift+D
+                              </DropdownMenuShortcut>
+                            )}
                           </DropdownMenuItem>
                         </DropdownMenuGroup>
                       </DropdownMenuSubContent>
@@ -310,6 +320,12 @@ export function NavigationView() {
                   >
                     <Settings />
                     <span>{_g("Settings")}</span>
+                    {platform() === "macos" && (
+                      <DropdownMenuShortcut>⌘,</DropdownMenuShortcut>
+                    )}
+                    {platform() !== "macos" && (
+                      <DropdownMenuShortcut>Ctrl+,</DropdownMenuShortcut>
+                    )}
                   </DropdownMenuItem>
                 </DropdownMenuGroup>
               </DropdownMenuContent>

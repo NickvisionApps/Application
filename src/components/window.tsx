@@ -10,6 +10,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip.tsx";
 import {useKeyboardShortcut} from "@/hooks/use-keyboard-shortcut.ts";
+import {useDialog} from "@/lib/contexts/dialog-context.ts";
 import {useFolderView} from "@/lib/contexts/folder-view-context.ts";
 import {useNavigation} from "@/lib/contexts/navigation-context.ts";
 import {useTitlebar} from "@/lib/contexts/titlebar-context.ts";
@@ -20,6 +21,7 @@ import {useEffect} from "react";
 export function Window() {
   const {_g} = useTranslation();
   const {page, setPage} = useNavigation();
+  const {openDialog} = useDialog();
   const {open, isMobile, openMobile} = useSidebar();
   const {folderView, openFolder, closeFolder} = useFolderView();
   const {content} = useTitlebar();
@@ -31,6 +33,18 @@ export function Window() {
 
     void startup();
   }, []);
+
+  useKeyboardShortcut(",", () => {
+    openDialog("settings");
+  });
+
+  useKeyboardShortcut(
+    "d",
+    () => {
+      openDialog("debugging");
+    },
+    {shift: true},
+  );
 
   useKeyboardShortcut("o", () => {
     async function handleOpenFolder() {

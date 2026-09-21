@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-20 23:40-0400\n"
+"POT-Creation-Date: 2026-09-21 00:04-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,101 +17,101 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src-tauri/src/commands/window.rs:54 src/components/navigation-view.tsx:137
+#: src-tauri/src/commands/window.rs:54 src/components/navigation-view.tsx:139
 msgctxt "AppName"
 msgid "Application"
 msgstr ""
 
-#: src/components/navigation-view.tsx:92
+#: src/components/navigation-view.tsx:94
 msgid "Home"
 msgstr ""
 
-#: src/components/navigation-view.tsx:98
+#: src/components/navigation-view.tsx:100
 msgid "Folder"
 msgstr ""
 
-#: src/components/navigation-view.tsx:141
+#: src/components/navigation-view.tsx:143
 msgid "Preview ({0})"
 msgstr ""
 
-#: src/components/navigation-view.tsx:217 src/components/pages/home-page.tsx:110
+#: src/components/navigation-view.tsx:219 src/components/pages/home-page.tsx:110
 msgid "What's New?"
 msgstr ""
 
-#: src/components/navigation-view.tsx:222
+#: src/components/navigation-view.tsx:224
 msgid "Help"
 msgstr ""
 
-#: src/components/navigation-view.tsx:233
+#: src/components/navigation-view.tsx:235
 msgid "GitHub Repository"
 msgstr ""
 
-#: src/components/navigation-view.tsx:241
+#: src/components/navigation-view.tsx:243
 msgid "Report a Bug"
 msgstr ""
 
-#: src/components/navigation-view.tsx:249
+#: src/components/navigation-view.tsx:251
 msgid "Discussions"
 msgstr ""
 
-#: src/components/navigation-view.tsx:260
-#: src/components/dialogs/credits-dialog.tsx:43
+#: src/components/navigation-view.tsx:262
+#: src/components/dialogs/credits-dialog.tsx:44
 msgid "Credits"
 msgstr ""
 
-#: src/components/navigation-view.tsx:268
+#: src/components/navigation-view.tsx:270
 #: src/components/dialogs/debugging-dialog.tsx:57
 msgid "Debugging Information"
 msgstr ""
 
-#: src/components/navigation-view.tsx:280
-#: src/components/dialogs/settings-dialog.tsx:102
+#: src/components/navigation-view.tsx:290
+#: src/components/dialogs/settings-dialog.tsx:109
 msgid "Theme"
 msgstr ""
 
-#: src/components/navigation-view.tsx:294
-#: src/components/dialogs/settings-dialog.tsx:59
+#: src/components/navigation-view.tsx:304
+#: src/components/dialogs/settings-dialog.tsx:60
 msgctxt "Theme"
 msgid "Light"
 msgstr ""
 
-#: src/components/navigation-view.tsx:297
-#: src/components/dialogs/settings-dialog.tsx:60
+#: src/components/navigation-view.tsx:307
+#: src/components/dialogs/settings-dialog.tsx:61
 msgctxt "Theme"
 msgid "Dark"
 msgstr ""
 
-#: src/components/navigation-view.tsx:300
-#: src/components/dialogs/settings-dialog.tsx:61
+#: src/components/navigation-view.tsx:310
+#: src/components/dialogs/settings-dialog.tsx:62
 msgctxt "Theme"
 msgid "System"
 msgstr ""
 
-#: src/components/navigation-view.tsx:312
-#: src/components/dialogs/settings-dialog.tsx:75
+#: src/components/navigation-view.tsx:322
+#: src/components/dialogs/settings-dialog.tsx:76
 msgid "Settings"
 msgstr ""
 
-#: src/components/window.tsx:52 src/components/pages/folder-page.tsx:118
+#: src/components/window.tsx:66 src/components/pages/folder-page.tsx:118
 msgid "Folder closed"
 msgstr ""
 
-#: src/components/window.tsx:69
+#: src/components/window.tsx:83
 msgid "Hide Sidebar"
 msgstr ""
 
-#: src/components/window.tsx:70
+#: src/components/window.tsx:84
 msgid "Show Sidebar"
 msgstr ""
 
-#: src/components/dialogs/changelog-dialog.tsx:36
+#: src/components/dialogs/changelog-dialog.tsx:37
 msgid "Changelog"
 msgstr ""
 
-#: src/components/dialogs/changelog-dialog.tsx:46
-#: src/components/dialogs/debugging-dialog.tsx:85
-#: src/components/dialogs/credits-dialog.tsx:56
-#: src/components/dialogs/settings-dialog.tsx:205
+#: src/components/dialogs/changelog-dialog.tsx:49
+#: src/components/dialogs/debugging-dialog.tsx:88
+#: src/components/dialogs/credits-dialog.tsx:59
+#: src/components/dialogs/settings-dialog.tsx:219
 msgctxt "Dialog"
 msgid "Close"
 msgstr ""
@@ -120,39 +120,43 @@ msgstr ""
 msgid "Send this information to the developer when reporting issues"
 msgstr ""
 
-#: src/components/dialogs/debugging-dialog.tsx:74
+#: src/components/dialogs/debugging-dialog.tsx:77
 msgid "Copy Code"
 msgstr ""
 
-#: src/components/dialogs/settings-dialog.tsx:87
+#: src/components/dialogs/settings-dialog.tsx:81
+msgid "Search..."
+msgstr ""
+
+#: src/components/dialogs/settings-dialog.tsx:94
 msgid "General"
 msgstr ""
 
-#: src/components/dialogs/settings-dialog.tsx:95
+#: src/components/dialogs/settings-dialog.tsx:102
 msgid "User Interface"
 msgstr ""
 
-#: src/components/dialogs/settings-dialog.tsx:97
+#: src/components/dialogs/settings-dialog.tsx:104
 msgid "Customize the look and feel of the app"
 msgstr ""
 
-#: src/components/dialogs/settings-dialog.tsx:129
+#: src/components/dialogs/settings-dialog.tsx:142
 msgid "Language"
 msgstr ""
 
-#: src/components/dialogs/settings-dialog.tsx:160
+#: src/components/dialogs/settings-dialog.tsx:173
 msgid "Updates"
 msgstr ""
 
-#: src/components/dialogs/settings-dialog.tsx:162
+#: src/components/dialogs/settings-dialog.tsx:175
 msgid "Configure how updates are handled"
 msgstr ""
 
-#: src/components/dialogs/settings-dialog.tsx:168
+#: src/components/dialogs/settings-dialog.tsx:181
 msgid "Automatically check for updates"
 msgstr ""
 
-#: src/components/dialogs/settings-dialog.tsx:184
+#: src/components/dialogs/settings-dialog.tsx:197
 msgid "Allow preview (beta) updates"
 msgstr ""
 

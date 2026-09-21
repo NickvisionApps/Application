@@ -1,8 +1,4 @@
-import {code} from "@streamdown/code";
-import {invoke} from "@tauri-apps/api/core";
-import {useEffect, useState} from "react";
-import {Streamdown} from "streamdown";
-
+import {VStack} from "@/components/layout/stack.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import {
   Dialog,
@@ -13,10 +9,14 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog.tsx";
-import {ScrollArea, ScrollBar} from "@/components/ui/scroll-area.tsx";
+import {ScrollArea} from "@/components/ui/scroll-area.tsx";
 import {Spinner} from "@/components/ui/spinner.tsx";
 import {useDialog} from "@/lib/contexts/dialog-context.ts";
 import {useTranslation} from "@/lib/contexts/translation-context.ts";
+import {code} from "@streamdown/code";
+import {invoke} from "@tauri-apps/api/core";
+import {useEffect, useState} from "react";
+import {Streamdown} from "streamdown";
 
 let cachedDebuggingInformation: string | null = null;
 
@@ -52,7 +52,7 @@ export function DebuggingDialog() {
         }
       }}
     >
-      <DialogContent className="flex max-h-[95vh] flex-col">
+      <DialogContent className="flex max-h-[95vh] flex-col sm:max-w-lg">
         <DialogHeader>
           <DialogTitle>{_g("Debugging Information")}</DialogTitle>
           <DialogDescription>
@@ -60,24 +60,27 @@ export function DebuggingDialog() {
           </DialogDescription>
         </DialogHeader>
         {debuggingInformation && (
-          <ScrollArea className="min-h-0 flex-1">
-            <Streamdown
-              plugins={{
-                code: code,
-              }}
-              controls={{
-                code: {
-                  download: false,
-                },
-              }}
-              translations={{
-                copyCode: _g("Copy Code"),
-              }}
-            >
-              {debuggingInformation}
-            </Streamdown>
-            <ScrollBar orientation="horizontal" />
-          </ScrollArea>
+          <VStack className="min-h-0 flex-1 overflow-hidden">
+            <ScrollArea className="h-full w-full">
+              <Streamdown
+                codeBlockMaxHeight={0}
+                tableMaxHeight={0}
+                plugins={{
+                  code: code,
+                }}
+                controls={{
+                  code: {
+                    download: false,
+                  },
+                }}
+                translations={{
+                  copyCode: _g("Copy Code"),
+                }}
+              >
+                {debuggingInformation}
+              </Streamdown>
+            </ScrollArea>
+          </VStack>
         )}
         {!debuggingInformation && <Spinner />}
         <DialogFooter>

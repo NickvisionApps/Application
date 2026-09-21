@@ -1,4 +1,4 @@
-import {Streamdown} from "streamdown";
+import {VStack} from "@/components/layout/stack.tsx";
 
 import {Button} from "@/components/ui/button.tsx";
 import {
@@ -12,6 +12,7 @@ import {
 import {ScrollArea} from "@/components/ui/scroll-area.tsx";
 import {useDialog} from "@/lib/contexts/dialog-context.ts";
 import {useTranslation} from "@/lib/contexts/translation-context.ts";
+import {Streamdown} from "streamdown";
 
 export function CreditsDialog() {
   const {closeDialog} = useDialog();
@@ -42,15 +43,17 @@ export function CreditsDialog() {
         <DialogHeader>
           <DialogTitle>{_g("Credits")}</DialogTitle>
         </DialogHeader>
-        <ScrollArea className="min-h-0 flex-1">
-          <Streamdown
-            linkSafety={{
-              enabled: false,
-            }}
-          >
-            {credits}
-          </Streamdown>
-        </ScrollArea>
+        <VStack className="min-h-0 flex-1 overflow-hidden">
+          <ScrollArea className="flex-1">
+            <Streamdown
+              linkSafety={{
+                enabled: false,
+              }}
+            >
+              {credits}
+            </Streamdown>
+          </ScrollArea>
+        </VStack>
         <DialogFooter>
           <DialogClose render={<Button variant="outline" />}>
             {_p("Dialog", "Close")}
