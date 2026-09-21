@@ -31,19 +31,21 @@ jobs:
           pip install tomlkit aiohttp
           git clone --depth 1 https://github.com/flatpak/flatpak-builder-tools.git /tmp/flatpak-builder-tools
           pip install /tmp/flatpak-builder-tools/node
+      - name: "Update project dependencies"
+        run: npm update && cd src-tauri && cargo update && cd ..
       - name: "Generate cargo-sources.json"
-        run: python3 /tmp/flatpak-builder-tools/cargo/flatpak-cargo-generator.py src-tauri/Cargo.lock -o build-aux/cargo-sources.json
+        run: python3 /tmp/flatpak-builder-tools/cargo/flatpak-cargo-generator.py src-tauri/Cargo.lock -o build-aux/flatpak/cargo-sources.json
       - name: "Generate node-sources.json"
-        run: flatpak-node-generator npm package-lock.json -o build-aux/node-sources.json
+        run: flatpak-node-generator npm package-lock.json -o build-aux/flatpak/node-sources.json
       - name: "Check for changes"
         id: diff
-        run: echo "changed=$(git diff --quiet -- build-aux/cargo-sources.json build-aux/node-sources.json && echo false || echo true)" >> "$GITHUB_OUTPUT"
+        run: echo "changed=$(git diff --quiet -- package-lock.json src-tauri/Cargo.lock build-aux/flatpak/cargo-sources.json build-aux/flatpak/node-sources.json && echo false || echo true)" >> "$GITHUB_OUTPUT"
       - name: "Commit to existing PR"
         if: steps.diff.outputs.changed == 'true' && github.event_name == 'pull_request'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add build-aux/cargo-sources.json build-aux/node-sources.json
+          git add package-lock.json src-tauri/Cargo.lock build-aux/flatpak/cargo-sources.json build-aux/flatpak/node-sources.json
           git commit -m "chore: Sync flatpak sources"
           git push
       - name: "Open PR with sync"
@@ -52,8 +54,10 @@ jobs:
         with:
           commit-message: "chore: Sync flatpak sources"
           title: "chore: Sync flatpak sources"
-          body: "Automated update of build-aux/cargo-sources.json and build-aux/node-sources.json to match the current Cargo.lock/package-lock.json."
+          body: "Automated update of project dependencies (package-lock.json, src-tauri/Cargo.lock) and build-aux/flatpak/cargo-sources.json, build-aux/flatpak/node-sources.json to match."
           branch: sync-flatpak-sources
           add-paths: |
-            build-aux/cargo-sources.json
-            build-aux/node-sources.json
+            package-lock.json
+            src-tauri/Cargo.lock
+            build-aux/flatpak/cargo-sources.json
+            build-aux/flatpak/node-sources.json

@@ -57,9 +57,9 @@ However, you can also build the app manually by running `npm run tauri build`, w
 ### Linux
 The recommended method is to use the flatpak available on Flathub.
 
-However, you can also build a flatpak of the app manually using the [flatpak manifest file](build-aux/org.nickvision.application.json).
+However, you can also build a flatpak of the app manually using the [flatpak manifest file](build-aux/flatpak/org.nickvision.application.json).
 
-You can also install the application locally from source using the [linux install script](resources/linux/publish-and-install.sh).
+You can also install the application locally from source using the [linux install script](build-aux/flatpak/publish-and-install.sh).
 
 ## Code of Conduct
 

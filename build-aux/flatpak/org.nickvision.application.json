@@ -50,13 +50,13 @@
         }
       },
       "build-commands": [
-        "chmod +x ./resources/linux/publish-and-install.sh",
-        "./resources/linux/publish-and-install.sh /app $RUNTIME"
+        "chmod +x ./build-aux/flatpak/publish-and-install.sh",
+        "./build-aux/flatpak/publish-and-install.sh /app $RUNTIME"
       ],
       "sources": [
         {
           "type": "dir",
-          "path": ".."
+          "path": "../.."
         },
         "cargo-sources.json",
         "node-sources.json"

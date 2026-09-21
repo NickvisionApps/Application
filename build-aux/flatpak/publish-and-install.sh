@@ -88,7 +88,7 @@ success "Created launcher script at $LAUNCHER_FILE."
 info "Copying metadata file..."
 METADATA_FILE="$DATA_DIR/metainfo/$APP_ID.metainfo.xml"
 mkdir -p "$(dirname "$METADATA_FILE")"
-cp "$ROOT_DIR/build-aux/$APP_ID.metainfo.xml" "$METADATA_FILE"
+cp "$ROOT_DIR/build-aux/flatpak/$APP_ID.metainfo.xml" "$METADATA_FILE"
 success "Copied metadata file to $METADATA_FILE."
 
 info "Copying icons..."
