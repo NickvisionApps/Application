@@ -1,4 +1,4 @@
-import {useTitlebar} from "@/lib/titlebar-provider.tsx";
+import {useTitlebar} from "@/lib/titlebar-context.ts";
 import {ReactNode, useEffect} from "react";
 
 export function useTitlebarControls(content: ReactNode) {

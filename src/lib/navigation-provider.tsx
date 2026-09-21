@@ -1,19 +1,14 @@
-import {createContext, ReactNode, useContext, useMemo, useState} from "react";
+import {ReactNode, useMemo, useState} from "react";
 
-export type Page = "home" | "folder";
+import {
+  NavigationProviderContext,
+  NavigationProviderState,
+  Page,
+} from "@/lib/navigation-context.ts";
 
 interface NavigationProviderProps {
   children: ReactNode;
 }
-
-interface NavigationProviderState {
-  page: Page;
-  setPage: (newPage: Page) => void;
-}
-
-const NavigationProviderContext = createContext<
-  NavigationProviderState | undefined
->(undefined);
 
 export function NavigationProvider({
   children,
@@ -36,11 +31,3 @@ export function NavigationProvider({
     </NavigationProviderContext.Provider>
   );
 }
-
-export const useNavigation = () => {
-  const context = useContext(NavigationProviderContext);
-  if (!context) {
-    throw new Error("useNavigation must be used with a NavigationProvider");
-  }
-  return context;
-};

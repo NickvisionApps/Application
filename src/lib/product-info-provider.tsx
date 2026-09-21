@@ -1,29 +1,14 @@
 import {invoke} from "@tauri-apps/api/core";
-import {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import {ReactNode, useEffect, useMemo, useState} from "react";
 
-export type ProductInfo = {
-  id: string;
-  name: string;
-  short_name: string;
-  repo_owner: string;
-  repo_name: string;
-  description: string;
-  version: string;
-};
+import {
+  ProductInfo,
+  ProductInfoProviderContext,
+  ProductInfoProviderState,
+} from "@/lib/product-info-context.ts";
 
 interface ProductInfoProviderProps {
   children: ReactNode;
-}
-
-interface ProductInfoProviderState {
-  productInfo: ProductInfo;
 }
 
 const DefaultProductInfo: ProductInfo = {
@@ -35,10 +20,6 @@ const DefaultProductInfo: ProductInfo = {
   description: "",
   version: "",
 };
-
-const ProductInfoProviderContext = createContext<
-  ProductInfoProviderState | undefined
->(undefined);
 
 export function ProductInfoProvider({
   children,
@@ -69,11 +50,3 @@ export function ProductInfoProvider({
     </ProductInfoProviderContext.Provider>
   );
 }
-
-export const useProductInfo = () => {
-  const context = useContext(ProductInfoProviderContext);
-  if (!context) {
-    throw new Error("useProductInfo must be used with a ProductInfoProvider");
-  }
-  return context;
-};

@@ -4,41 +4,16 @@ import {
   LogicalPosition,
   LogicalSize,
 } from "@tauri-apps/api/window";
+import {ReactNode, useCallback, useEffect, useMemo, useState} from "react";
+
 import {
-  createContext,
-  ReactNode,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
-
-export type Theme = 0 | 1 | 2;
-
-interface WindowGeometry {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-  isMaximized: boolean;
-}
-
-interface Configuration {
-  allowPreviewUpdates: boolean;
-  automaticallyCheckForUpdates: boolean;
-  theme: Theme;
-  translationLanguage: string;
-  windowGeometry: WindowGeometry;
-}
+  Configuration,
+  ConfigurationProviderContext,
+  ConfigurationProviderState,
+} from "@/lib/configuration-context.ts";
 
 interface ConfigurationProviderProps {
   children: ReactNode;
-}
-
-interface ConfigurationProviderState {
-  configuration: Configuration;
-  setConfiguration: (newConfiguration: Configuration) => void;
 }
 
 const DefaultConfiguration: Configuration = {
@@ -54,10 +29,6 @@ const DefaultConfiguration: Configuration = {
     isMaximized: false,
   },
 };
-
-const ConfigurationProviderContext = createContext<
-  ConfigurationProviderState | undefined
->(undefined);
 
 export function ConfigurationProvider({
   children,
@@ -174,13 +145,3 @@ export function ConfigurationProvider({
     </ConfigurationProviderContext.Provider>
   );
 }
-
-export const useConfiguration = () => {
-  const context = useContext(ConfigurationProviderContext);
-  if (!context) {
-    throw new Error(
-      "useConfiguration must be used with a ConfigurationProvider",
-    );
-  }
-  return context;
-};

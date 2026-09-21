@@ -14,10 +14,10 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip.tsx";
-import {useDialog} from "@/lib/dialog-provider.tsx";
-import {useFolderView} from "@/lib/folder-view-provider.tsx";
-import {useNavigation} from "@/lib/navigation-provider.tsx";
-import {useTranslation} from "@/lib/translation-provider.tsx";
+import {useDialog} from "@/lib/dialog-context.ts";
+import {useFolderView} from "@/lib/folder-view-context.ts";
+import {useNavigation} from "@/lib/navigation-context.ts";
+import {useTranslation} from "@/lib/translation-context.ts";
 import {platform} from "@tauri-apps/plugin-os";
 import {ArrowUpRightIcon, LucideIcon, Moon, MoonStar, Sun} from "lucide-react";
 import {useEffect, useState} from "react";

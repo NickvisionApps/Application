@@ -1,50 +1,15 @@
 import {invoke, InvokeArgs} from "@tauri-apps/api/core";
-import {
-  createContext,
-  ReactNode,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import {ReactNode, useCallback, useEffect, useMemo, useState} from "react";
 
-import {useConfiguration} from "@/lib/configuration-provider.tsx";
+import {useConfiguration} from "@/lib/configuration-context.ts";
+import {
+  TranslationProviderContext,
+  TranslationProviderState,
+} from "@/lib/translation-context.ts";
 
 interface TranslationProviderProps {
   children: ReactNode;
 }
-
-interface TranslationProviderState {
-  _g: (msgid: string) => string;
-  _f: (msgid: string, args: string[]) => string;
-  _n: (msgid: string, msgidPlural: string, n: number) => string;
-  _nf: (
-    msgid: string,
-    msgidPlural: string,
-    n: number,
-    args: string[],
-  ) => string;
-  _p: (msgctxt: string, msgid: string) => string;
-  _pf: (msgctxt: string, msgid: string, args: string[]) => string;
-  _np: (
-    msgctxt: string,
-    msgid: string,
-    msgidPlural: string,
-    n: number,
-  ) => string;
-  _npf: (
-    msgctxt: string,
-    msgid: string,
-    msgidPlural: string,
-    n: number,
-    args: string[],
-  ) => string;
-}
-
-const TranslationProviderContext = createContext<
-  TranslationProviderState | undefined
->(undefined);
 
 export function TranslationProvider({
   children,
@@ -193,11 +158,3 @@ export function TranslationProvider({
     </TranslationProviderContext.Provider>
   );
 }
-
-export const useTranslation = () => {
-  const context = useContext(TranslationProviderContext);
-  if (!context) {
-    throw new Error("useTranslation must be used with a TranslationProvider");
-  }
-  return context;
-};

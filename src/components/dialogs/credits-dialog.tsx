@@ -10,8 +10,8 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog.tsx";
 import {ScrollArea} from "@/components/ui/scroll-area.tsx";
-import {useDialog} from "@/lib/dialog-provider.tsx";
-import {useTranslation} from "@/lib/translation-provider.tsx";
+import {useDialog} from "@/lib/dialog-context.ts";
+import {useTranslation} from "@/lib/translation-context.ts";
 
 export function CreditsDialog() {
   const {closeDialog} = useDialog();

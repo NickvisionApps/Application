@@ -9,9 +9,9 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog.tsx";
 import {ScrollArea} from "@/components/ui/scroll-area.tsx";
-import {useDialog} from "@/lib/dialog-provider.tsx";
-import {useProductInfo} from "@/lib/product-info-provider.tsx";
-import {useTranslation} from "@/lib/translation-provider.tsx";
+import {useDialog} from "@/lib/dialog-context.ts";
+import {useProductInfo} from "@/lib/product-info-context.ts";
+import {useTranslation} from "@/lib/translation-context.ts";
 import {Streamdown} from "streamdown";
 
 export function ChangelogDialog() {

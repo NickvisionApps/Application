@@ -1,17 +1,13 @@
-import {createContext, ReactNode, useContext, useMemo, useState} from "react";
+import {ReactNode, useMemo, useState} from "react";
+
+import {
+  TitlebarProviderContext,
+  TitlebarProviderState,
+} from "@/lib/titlebar-context.ts";
 
 interface TitlebarProviderProps {
   children: ReactNode;
 }
-
-interface TitlebarProviderState {
-  content: ReactNode;
-  setContent: (content: ReactNode) => void;
-}
-
-const TitlebarProviderContext = createContext<
-  TitlebarProviderState | undefined
->(undefined);
 
 export function TitlebarProvider({children, ...props}: TitlebarProviderProps) {
   const [content, setContent] = useState<ReactNode>(null);
@@ -28,11 +24,3 @@ export function TitlebarProvider({children, ...props}: TitlebarProviderProps) {
     </TitlebarProviderContext.Provider>
   );
 }
-
-export const useTitlebar = () => {
-  const context = useContext(TitlebarProviderContext);
-  if (!context) {
-    throw new Error("useTitlebar must be used with a TitlebarProvider");
-  }
-  return context;
-};
