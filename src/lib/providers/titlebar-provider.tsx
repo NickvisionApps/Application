@@ -3,7 +3,7 @@ import {ReactNode, useMemo, useState} from "react";
 import {
   TitlebarProviderContext,
   TitlebarProviderState,
-} from "@/lib/titlebar-context.ts";
+} from "@/lib/contexts/titlebar-context.ts";
 
 interface TitlebarProviderProps {
   children: ReactNode;

@@ -4,7 +4,7 @@ import {
   NavigationProviderContext,
   NavigationProviderState,
   Page,
-} from "@/lib/navigation-context.ts";
+} from "@/lib/contexts/navigation-context.ts";
 
 interface NavigationProviderProps {
   children: ReactNode;

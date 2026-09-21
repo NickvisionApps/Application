@@ -1,11 +1,11 @@
 import {invoke, InvokeArgs} from "@tauri-apps/api/core";
 import {ReactNode, useCallback, useEffect, useMemo, useState} from "react";
 
-import {useConfiguration} from "@/lib/configuration-context.ts";
+import {useConfiguration} from "@/lib/contexts/configuration-context.ts";
 import {
   TranslationProviderContext,
   TranslationProviderState,
-} from "@/lib/translation-context.ts";
+} from "@/lib/contexts/translation-context.ts";
 
 interface TranslationProviderProps {
   children: ReactNode;

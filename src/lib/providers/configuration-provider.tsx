@@ -10,7 +10,7 @@ import {
   Configuration,
   ConfigurationProviderContext,
   ConfigurationProviderState,
-} from "@/lib/configuration-context.ts";
+} from "@/lib/contexts/configuration-context.ts";
 
 interface ConfigurationProviderProps {
   children: ReactNode;

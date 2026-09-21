@@ -15,8 +15,8 @@ import {
 } from "@/components/ui/dialog.tsx";
 import {ScrollArea, ScrollBar} from "@/components/ui/scroll-area.tsx";
 import {Spinner} from "@/components/ui/spinner.tsx";
-import {useDialog} from "@/lib/dialog-context.ts";
-import {useTranslation} from "@/lib/translation-context.ts";
+import {useDialog} from "@/lib/contexts/dialog-context.ts";
+import {useTranslation} from "@/lib/contexts/translation-context.ts";
 
 let cachedDebuggingInformation: string | null = null;
 

@@ -24,9 +24,9 @@ import {
 } from "@/components/ui/select.tsx";
 import {Switch} from "@/components/ui/switch.tsx";
 import {Tabs, TabsList, TabsTrigger} from "@/components/ui/tabs.tsx";
-import {useConfiguration} from "@/lib/configuration-context.ts";
-import {useDialog} from "@/lib/dialog-context.ts";
-import {useTranslation} from "@/lib/translation-context.ts";
+import {useConfiguration} from "@/lib/contexts/configuration-context.ts";
+import {useDialog} from "@/lib/contexts/dialog-context.ts";
+import {useTranslation} from "@/lib/contexts/translation-context.ts";
 import {invoke} from "@tauri-apps/api/core";
 import {CloudDownload, Settings2} from "lucide-react";
 import {useEffect, useState} from "react";

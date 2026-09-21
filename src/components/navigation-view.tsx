@@ -28,12 +28,12 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar.tsx";
 import {Spinner} from "@/components/ui/spinner.tsx";
-import {Theme, useConfiguration} from "@/lib/configuration-context.ts";
-import {useDialog} from "@/lib/dialog-context.ts";
-import {useFolderView} from "@/lib/folder-view-context.ts";
-import {Page, useNavigation} from "@/lib/navigation-context.ts";
-import {useProductInfo} from "@/lib/product-info-context.ts";
-import {useTranslation} from "@/lib/translation-context.ts";
+import {Theme, useConfiguration} from "@/lib/contexts/configuration-context.ts";
+import {useDialog} from "@/lib/contexts/dialog-context.ts";
+import {useFolderView} from "@/lib/contexts/folder-view-context.ts";
+import {Page, useNavigation} from "@/lib/contexts/navigation-context.ts";
+import {useProductInfo} from "@/lib/contexts/product-info-context.ts";
+import {useTranslation} from "@/lib/contexts/translation-context.ts";
 import {invoke} from "@tauri-apps/api/core";
 import {
   BadgeInfo,

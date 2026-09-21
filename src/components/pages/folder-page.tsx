@@ -21,9 +21,9 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip.tsx";
 import {useTitlebarControls} from "@/hooks/titlebar.tsx";
-import {useFolderView} from "@/lib/folder-view-context.ts";
-import {useNavigation} from "@/lib/navigation-context.ts";
-import {useTranslation} from "@/lib/translation-context.ts";
+import {useFolderView} from "@/lib/contexts/folder-view-context.ts";
+import {useNavigation} from "@/lib/contexts/navigation-context.ts";
+import {useTranslation} from "@/lib/contexts/translation-context.ts";
 import {convertFileSrc} from "@tauri-apps/api/core";
 import {platform} from "@tauri-apps/plugin-os";
 import {cn} from "cn";

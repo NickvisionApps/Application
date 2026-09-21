@@ -8,7 +8,7 @@ import {
   DialogName,
   DialogProviderContext,
   DialogProviderState,
-} from "@/lib/dialog-context.ts";
+} from "@/lib/contexts/dialog-context.ts";
 
 interface DialogProviderProps {
   children: ReactNode;

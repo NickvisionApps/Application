@@ -5,7 +5,7 @@ import {
   ProductInfo,
   ProductInfoProviderContext,
   ProductInfoProviderState,
-} from "@/lib/product-info-context.ts";
+} from "@/lib/contexts/product-info-context.ts";
 
 interface ProductInfoProviderProps {
   children: ReactNode;

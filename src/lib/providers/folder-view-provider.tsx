@@ -5,7 +5,7 @@ import {
   FolderView,
   FolderViewProviderContext,
   FolderViewProviderState,
-} from "@/lib/folder-view-context.ts";
+} from "@/lib/contexts/folder-view-context.ts";
 
 interface FolderViewProviderProps {
   children: ReactNode;

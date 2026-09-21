@@ -10,10 +10,10 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip.tsx";
 import {useKeyboardShortcut} from "@/hooks/use-keyboard-shortcut.ts";
-import {useFolderView} from "@/lib/folder-view-context.ts";
-import {useNavigation} from "@/lib/navigation-context.ts";
-import {useTitlebar} from "@/lib/titlebar-context.ts";
-import {useTranslation} from "@/lib/translation-context.ts";
+import {useFolderView} from "@/lib/contexts/folder-view-context.ts";
+import {useNavigation} from "@/lib/contexts/navigation-context.ts";
+import {useTitlebar} from "@/lib/contexts/titlebar-context.ts";
+import {useTranslation} from "@/lib/contexts/translation-context.ts";
 import {invoke} from "@tauri-apps/api/core";
 import {useEffect} from "react";
 
