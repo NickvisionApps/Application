@@ -20,7 +20,7 @@ jobs:
           - arch: arm64
             runner: macos-latest
           - arch: x64
-            runner: macos-15-intel
+            runner: macos-26-intel
     runs-on: ${{ matrix.variant.runner }}
     steps:
       - uses: actions/checkout@v7
@@ -40,7 +40,7 @@ jobs:
       - name: "Install frontend dependencies"
         run: npm ci
       - name: "Build"
-        run: npm run tauri build
+        run: npm run tauri build < /dev/null
       - uses: actions/upload-artifact@v7
         with:
           name: Application-${{ matrix.variant.arch }}

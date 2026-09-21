@@ -15,8 +15,8 @@ permissions:
   contents: write
   pull-requests: write
 jobs:
-  update-flatpak-sources:
-    name: "Update Flatpak Sources"
+  update-sources:
+    name: "Update Sources"
     if: ${{ github.event.pull_request.user.login != 'weblate' }}
     runs-on: ubuntu-latest
     steps:
@@ -46,16 +46,16 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add package-lock.json src-tauri/Cargo.lock build-aux/flatpak/cargo-sources.json build-aux/flatpak/node-sources.json
-          git commit -m "chore: Sync flatpak sources"
+          git commit -m "chore: Sync sources"
           git push
       - name: "Open PR with sync"
         if: steps.diff.outputs.changed == 'true' && github.event_name != 'pull_request'
         uses: peter-evans/create-pull-request@v7
         with:
-          commit-message: "chore: Sync flatpak sources"
-          title: "chore: Sync flatpak sources"
+          commit-message: "chore: Sync sources"
+          title: "chore: Sync sources"
           body: "Automated update of project dependencies (package-lock.json, src-tauri/Cargo.lock) and build-aux/flatpak/cargo-sources.json, build-aux/flatpak/node-sources.json to match."
-          branch: sync-flatpak-sources
+          branch: sync-sources
           add-paths: |
             package-lock.json
             src-tauri/Cargo.lock
