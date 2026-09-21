@@ -1,4 +1,4 @@
-import {VStack} from "@/components/layout/stack.tsx";
+import {HStack} from "@/components/layout/stack.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import {
   Dialog,
@@ -11,9 +11,14 @@ import {
 import {
   Field,
   FieldContent,
+  FieldDescription,
   FieldGroup,
-  FieldLabel,
+  FieldLegend,
+  FieldSeparator,
+  FieldSet,
+  FieldTitle,
 } from "@/components/ui/field.tsx";
+import {ScrollArea} from "@/components/ui/scroll-area.tsx";
 import {
   Select,
   SelectContent,
@@ -28,10 +33,10 @@ import {useConfiguration} from "@/lib/contexts/configuration-context.ts";
 import {useDialog} from "@/lib/contexts/dialog-context.ts";
 import {useTranslation} from "@/lib/contexts/translation-context.ts";
 import {invoke} from "@tauri-apps/api/core";
-import {CloudDownload, Settings2} from "lucide-react";
+import {Settings2} from "lucide-react";
 import {useEffect, useState} from "react";
 
-type SettingsDialogPage = "general" | "updates";
+type SettingsDialogPage = "general";
 
 export function SettingsDialog() {
   const {closeDialog} = useDialog();
@@ -69,117 +74,132 @@ export function SettingsDialog() {
         <DialogHeader>
           <DialogTitle>{_g("Settings")}</DialogTitle>
         </DialogHeader>
-        <VStack gap={4} className="min-h-64 flex-1">
+        <HStack gap={6} className="min-h-0 flex-1">
           <Tabs
+            orientation="vertical"
             defaultValue={page}
             onValueChange={(value) => setPage(value as SettingsDialogPage)}
+            className="min-h-64"
           >
-            <TabsList className="w-full">
+            <TabsList variant="line">
               <TabsTrigger value={"general"}>
                 <Settings2 />
                 <span>{_g("General")}</span>
               </TabsTrigger>
-              <TabsTrigger value={"updates"}>
-                <CloudDownload />
-                <span>{_g("Updates")}</span>
-              </TabsTrigger>
             </TabsList>
           </Tabs>
           {page === "general" && (
-            <FieldGroup>
-              <Field orientation="horizontal">
-                <FieldContent>
-                  <FieldLabel>{_g("Theme")}</FieldLabel>
-                </FieldContent>
-                <Select
-                  items={themeOptions}
-                  value={configuration.theme}
-                  onValueChange={(value) => {
-                    if (value !== null) {
-                      setConfiguration({...configuration, theme: value});
-                    }
-                  }}
-                >
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      {themeOptions.map((theme) => (
-                        <SelectItem key={theme.value} value={theme.value}>
-                          {theme.label}
-                        </SelectItem>
-                      ))}
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              </Field>
-              <Field orientation="horizontal">
-                <FieldContent>
-                  <FieldLabel>{_g("Language")}</FieldLabel>
-                </FieldContent>
-                <Select
-                  value={configuration.translationLanguage}
-                  onValueChange={(value) => {
-                    if (value !== null) {
-                      setConfiguration({
-                        ...configuration,
-                        translationLanguage: value,
-                      });
-                    }
-                  }}
-                >
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      {availableLanguages.map((language) => (
-                        <SelectItem key={language} value={language}>
-                          {language}
-                        </SelectItem>
-                      ))}
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              </Field>
-            </FieldGroup>
+            <ScrollArea className="flex-1">
+              <FieldGroup className="overflow-hidden">
+                <FieldSet>
+                  <FieldLegend>{_g("User Interface")}</FieldLegend>
+                  <FieldDescription>
+                    {_g("Customize the look and feel of the app")}
+                  </FieldDescription>
+                  <FieldGroup className="mt-2">
+                    <Field orientation="horizontal">
+                      <FieldContent>
+                        <FieldTitle>{_g("Theme")}</FieldTitle>
+                      </FieldContent>
+                      <Select
+                        items={themeOptions}
+                        value={configuration.theme}
+                        onValueChange={(value) => {
+                          if (value !== null) {
+                            setConfiguration({...configuration, theme: value});
+                          }
+                        }}
+                      >
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            {themeOptions.map((theme) => (
+                              <SelectItem key={theme.value} value={theme.value}>
+                                {theme.label}
+                              </SelectItem>
+                            ))}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </Field>
+                    <Field orientation="horizontal">
+                      <FieldContent>
+                        <FieldTitle>{_g("Language")}</FieldTitle>
+                      </FieldContent>
+                      <Select
+                        value={configuration.translationLanguage}
+                        onValueChange={(value) => {
+                          if (value !== null) {
+                            setConfiguration({
+                              ...configuration,
+                              translationLanguage: value,
+                            });
+                          }
+                        }}
+                      >
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            {availableLanguages.map((language) => (
+                              <SelectItem key={language} value={language}>
+                                {language}
+                              </SelectItem>
+                            ))}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </Field>
+                  </FieldGroup>
+                </FieldSet>
+                <FieldSeparator />
+                <FieldSet>
+                  <FieldLegend>{_g("Updates")}</FieldLegend>
+                  <FieldDescription>
+                    {_g("Configure how updates are handled")}
+                  </FieldDescription>
+                  <FieldGroup className="mt-2">
+                    <Field orientation="horizontal">
+                      <FieldContent>
+                        <FieldTitle>
+                          {_g("Automatically check for updates")}
+                        </FieldTitle>
+                      </FieldContent>
+                      <Switch
+                        checked={configuration.automaticallyCheckForUpdates}
+                        onCheckedChange={(checked) => {
+                          setConfiguration({
+                            ...configuration,
+                            automaticallyCheckForUpdates: checked,
+                          });
+                        }}
+                      />
+                    </Field>
+                    <Field orientation="horizontal">
+                      <FieldContent>
+                        <FieldTitle>
+                          {_g("Allow preview (beta) updates")}
+                        </FieldTitle>
+                      </FieldContent>
+                      <Switch
+                        checked={configuration.allowPreviewUpdates}
+                        onCheckedChange={(checked) => {
+                          setConfiguration({
+                            ...configuration,
+                            allowPreviewUpdates: checked,
+                          });
+                        }}
+                      />
+                    </Field>
+                  </FieldGroup>
+                </FieldSet>
+              </FieldGroup>
+            </ScrollArea>
           )}
-          {page === "updates" && (
-            <FieldGroup>
-              <Field orientation="horizontal">
-                <FieldContent>
-                  <FieldLabel>
-                    {_g("Automatically check for updates")}
-                  </FieldLabel>
-                </FieldContent>
-                <Switch
-                  checked={configuration.automaticallyCheckForUpdates}
-                  onCheckedChange={(checked) => {
-                    setConfiguration({
-                      ...configuration,
-                      automaticallyCheckForUpdates: checked,
-                    });
-                  }}
-                />
-              </Field>
-              <Field orientation="horizontal">
-                <FieldContent>
-                  <FieldLabel>{_g("Allow preview (beta) updates")}</FieldLabel>
-                </FieldContent>
-                <Switch
-                  checked={configuration.allowPreviewUpdates}
-                  onCheckedChange={(checked) => {
-                    setConfiguration({
-                      ...configuration,
-                      allowPreviewUpdates: checked,
-                    });
-                  }}
-                />
-              </Field>
-            </FieldGroup>
-          )}
-        </VStack>
+        </HStack>
         <DialogFooter>
           <DialogClose render={<Button variant="outline" />}>
             {_p("Dialog", "Close")}
