@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-20 22:24-0400\n"
+"POT-Creation-Date: 2026-09-20 23:02-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -76,25 +76,25 @@ msgid "Theme"
 msgstr "Тема"
 
 #: src/components/navigation-view.tsx:294
-#: src/components/dialogs/settings-dialog.tsx:55
+#: src/components/dialogs/settings-dialog.tsx:54
 msgctxt "Theme"
 msgid "Light"
 msgstr "Светлая"
 
 #: src/components/navigation-view.tsx:297
-#: src/components/dialogs/settings-dialog.tsx:56
+#: src/components/dialogs/settings-dialog.tsx:55
 msgctxt "Theme"
 msgid "Dark"
 msgstr "Тёмная"
 
 #: src/components/navigation-view.tsx:300
-#: src/components/dialogs/settings-dialog.tsx:57
+#: src/components/dialogs/settings-dialog.tsx:56
 msgctxt "Theme"
 msgid "System"
 msgstr "Системная"
 
 #: src/components/navigation-view.tsx:312
-#: src/components/dialogs/settings-dialog.tsx:71
+#: src/components/dialogs/settings-dialog.tsx:70
 msgid "Settings"
 msgstr ""
 
@@ -118,7 +118,7 @@ msgstr ""
 #: src/components/dialogs/changelog-dialog.tsx:46
 #: src/components/dialogs/debugging-dialog.tsx:85
 #: src/components/dialogs/credits-dialog.tsx:56
-#: src/components/dialogs/settings-dialog.tsx:178
+#: src/components/dialogs/settings-dialog.tsx:185
 #, fuzzy
 msgctxt "Dialog"
 msgid "Close"
@@ -132,23 +132,23 @@ msgstr ""
 msgid "Copy Code"
 msgstr ""
 
-#: src/components/dialogs/settings-dialog.tsx:81
+#: src/components/dialogs/settings-dialog.tsx:80
 msgid "General"
 msgstr ""
 
-#: src/components/dialogs/settings-dialog.tsx:85
-msgid "Advanced"
+#: src/components/dialogs/settings-dialog.tsx:84
+msgid "Updates"
 msgstr ""
 
-#: src/components/dialogs/settings-dialog.tsx:117
+#: src/components/dialogs/settings-dialog.tsx:119
 msgid "Language"
 msgstr ""
 
-#: src/components/dialogs/settings-dialog.tsx:144
+#: src/components/dialogs/settings-dialog.tsx:153
 msgid "Automatically check for updates"
 msgstr ""
 
-#: src/components/dialogs/settings-dialog.tsx:161
+#: src/components/dialogs/settings-dialog.tsx:168
 msgid "Allow preview (beta) updates"
 msgstr ""
 
