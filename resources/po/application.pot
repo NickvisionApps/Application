@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-21 21:22-0400\n"
+"POT-Creation-Date: 2026-09-21 22:41-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src-tauri/src/commands/window.rs:54 src/components/navigation-view.tsx:139
+#: src-tauri/src/commands/window.rs:22 src/components/navigation-view.tsx:139
 msgctxt "AppName"
 msgid "Application"
 msgstr ""
@@ -94,15 +94,15 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: src/components/window.tsx:66 src/components/pages/folder-page.tsx:118
+#: src/components/window.tsx:134 src/components/pages/folder-page.tsx:118
 msgid "Folder closed"
 msgstr ""
 
-#: src/components/window.tsx:83
+#: src/components/window.tsx:151
 msgid "Hide Sidebar"
 msgstr ""
 
-#: src/components/window.tsx:84
+#: src/components/window.tsx:152
 msgid "Show Sidebar"
 msgstr ""
 
@@ -150,6 +150,23 @@ msgstr ""
 
 #: src/components/dialogs/settings-dialog.tsx:271
 msgid "No results found for “{0}”"
+msgstr ""
+
+#: src/components/dialogs/close-dialog.tsx:32
+msgctxt "AppName"
+msgid "Exit Application?"
+msgstr ""
+
+#: src/components/dialogs/close-dialog.tsx:35
+msgid "Are you sure you want to exit?"
+msgstr ""
+
+#: src/components/dialogs/close-dialog.tsx:39
+msgid "No"
+msgstr ""
+
+#: src/components/dialogs/close-dialog.tsx:53
+msgid "Yes"
 msgstr ""
 
 #: src/components/pages/folder-page.tsx:98 src/components/pages/home-page.tsx:88

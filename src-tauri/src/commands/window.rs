@@ -1,49 +1,17 @@
-use crate::config::WindowGeometry;
 use crate::controller::AppController;
 use crate::translation::Translator;
 use std::sync::Mutex;
-use tauri::{Manager, State, WebviewWindow, Window, WindowEvent, command};
+use tauri::{State, WebviewWindow, command};
 use tauri_plugin_decoration::WebviewWindowExt;
 
-pub fn handle_window_event(window: &Window, event: &WindowEvent) {
-    if let WindowEvent::CloseRequested { api, .. } = event {
-        let state = window.state::<Mutex<AppController>>();
-        let mut controller = state.lock().unwrap();
-        if !controller.can_close() {
-            api.prevent_close();
-        } else {
-            controller.set_window_geometry(
-                if let Ok(maximized) = window.is_maximized()
-                    && maximized
-                {
-                    WindowGeometry::new(10, 10, 800, 600, true)
-                } else {
-                    if let Ok(scale) = window.scale_factor()
-                        && let Ok(size) = window.inner_size()
-                        && let Ok(position) = window.outer_position()
-                    {
-                        let logical_size = size.to_logical(scale);
-                        let logical_position = position.to_logical(scale);
-                        WindowGeometry::new(
-                            logical_position.x,
-                            logical_position.y,
-                            logical_size.width,
-                            logical_size.height,
-                            false,
-                        )
-                    } else {
-                        WindowGeometry::default()
-                    }
-                },
-            );
-            controller.save().unwrap();
-        }
-        #[cfg(target_os = "macos")]
-        {
-            window.hide().unwrap();
-            api.prevent_close();
-        }
-    }
+#[command]
+pub fn can_window_close(controller: State<'_, Mutex<AppController>>) -> bool {
+    controller.lock().unwrap().can_close()
+}
+
+#[command]
+pub fn confirm_window_close(controller: State<'_, Mutex<AppController>>) {
+    controller.lock().unwrap().confirm_close();
 }
 
 #[command]

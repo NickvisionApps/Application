@@ -9,6 +9,7 @@
     "core:default",
     "core:window:allow-close",
     "core:window:allow-center",
+    "core:window:allow-hide",
     "core:window:allow-internal-toggle-maximize",
     "core:window:allow-is-maximized",
     "core:window:allow-minimize",

@@ -13,6 +13,7 @@ pub struct AppController {
     configuration: Configuration,
     folder_view: Option<FolderView>,
     updater: GitHubUpdater,
+    can_close: bool,
 }
 
 impl AppController {
@@ -21,7 +22,11 @@ impl AppController {
     }
 
     pub fn can_close(&self) -> bool {
-        true
+        self.can_close
+    }
+
+    pub fn confirm_close(&mut self) {
+        self.can_close = true;
     }
 
     pub fn check_for_updates(&self) -> Option<Version> {
@@ -118,6 +123,10 @@ impl AppController {
         &self.product
     }
 
+    pub fn reset_close(&mut self) {
+        self.can_close = false;
+    }
+
     fn update_type(&self) -> UpdateType {
         if self.configuration.allow_preview_updates() {
             UpdateType::Preview
@@ -180,6 +189,7 @@ impl Default for AppController {
             configuration,
             folder_view: None,
             updater,
+            can_close: false,
         }
     }
 }

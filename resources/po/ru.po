@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-21 21:08-0400\n"
+"POT-Creation-Date: 2026-09-21 22:41-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: src-tauri/src/commands/window.rs:54 src/components/navigation-view.tsx:139
+#: src-tauri/src/commands/window.rs:22 src/components/navigation-view.tsx:139
 #, fuzzy
 msgctxt "AppName"
 msgid "Application"
@@ -100,16 +100,16 @@ msgstr "Системная"
 msgid "Settings"
 msgstr ""
 
-#: src/components/window.tsx:66 src/components/pages/folder-page.tsx:118
+#: src/components/window.tsx:134 src/components/pages/folder-page.tsx:118
 #, fuzzy
 msgid "Folder closed"
 msgstr "Папка закрыта."
 
-#: src/components/window.tsx:83
+#: src/components/window.tsx:151
 msgid "Hide Sidebar"
 msgstr ""
 
-#: src/components/window.tsx:84
+#: src/components/window.tsx:152
 msgid "Show Sidebar"
 msgstr ""
 
@@ -157,6 +157,25 @@ msgstr ""
 
 #: src/components/dialogs/settings-dialog.tsx:271
 msgid "No results found for “{0}”"
+msgstr ""
+
+#: src/components/dialogs/close-dialog.tsx:32
+#, fuzzy
+msgctxt "AppName"
+msgid "Exit Application?"
+msgstr "О приложении"
+
+#: src/components/dialogs/close-dialog.tsx:35
+#, fuzzy
+msgid "Are you sure you want to exit?"
+msgstr "Вы уверены, что хотите закрыть папку?"
+
+#: src/components/dialogs/close-dialog.tsx:39
+msgid "No"
+msgstr ""
+
+#: src/components/dialogs/close-dialog.tsx:53
+msgid "Yes"
 msgstr ""
 
 #: src/components/pages/folder-page.tsx:98
@@ -287,10 +306,6 @@ msgstr "Добрый вечер!"
 #~ msgstr "Application"
 
 #, fuzzy
-#~ msgid "Quit Application"
-#~ msgstr "О приложении"
-
-#, fuzzy
 #~ msgid "Close Folder (⇧⌘W)"
 #~ msgstr "Закрыть папку (Ctrl+W)"
 
@@ -407,9 +422,6 @@ msgstr "Добрый вечер!"
 #, fuzzy
 #~ msgid "No files in folder"
 #~ msgstr "В папке {0} файл."
-
-#~ msgid "Are you sure you want to close the folder?"
-#~ msgstr "Вы уверены, что хотите закрыть папку?"
 
 #~ msgid "Cancel"
 #~ msgstr "Отмена"

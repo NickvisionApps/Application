@@ -1,3 +1,8 @@
+import {
+  Configuration,
+  ConfigurationProviderContext,
+  ConfigurationProviderState,
+} from "@/lib/contexts/configuration-context.ts";
 import {invoke} from "@tauri-apps/api/core";
 import {
   getCurrentWindow,
@@ -5,12 +10,6 @@ import {
   LogicalSize,
 } from "@tauri-apps/api/window";
 import {ReactNode, useCallback, useEffect, useMemo, useState} from "react";
-
-import {
-  Configuration,
-  ConfigurationProviderContext,
-  ConfigurationProviderState,
-} from "@/lib/contexts/configuration-context.ts";
 
 interface ConfigurationProviderProps {
   children: ReactNode;
@@ -39,14 +38,7 @@ export function ConfigurationProvider({
 
   useEffect(() => {
     async function startup() {
-      setConfiguration(await invoke("get_configuration"));
-    }
-
-    void startup();
-  }, []);
-
-  useEffect(() => {
-    async function applySize() {
+      const configuration = await invoke<Configuration>("get_configuration");
       const window = getCurrentWindow();
       if (configuration.windowGeometry.isMaximized) {
         await window.maximize();
@@ -64,16 +56,11 @@ export function ConfigurationProvider({
           ),
         );
       }
+      setConfiguration(configuration);
     }
 
-    void applySize();
-  }, [
-    configuration.windowGeometry.x,
-    configuration.windowGeometry.y,
-    configuration.windowGeometry.width,
-    configuration.windowGeometry.height,
-    configuration.windowGeometry.isMaximized,
-  ]);
+    void startup();
+  }, []);
 
   useEffect(() => {
     const root = window.document.documentElement;
@@ -92,33 +79,6 @@ export function ConfigurationProvider({
   const handleSetConfiguration = useCallback(
     (newConfiguration: Configuration) => {
       async function saveConfiguration() {
-        const window = getCurrentWindow();
-        if ((await window.isMaximized()) || (await window.isFullscreen())) {
-          newConfiguration = {
-            ...newConfiguration,
-            windowGeometry: {
-              x: 10,
-              y: 10,
-              width: 800,
-              height: 600,
-              isMaximized: true,
-            },
-          };
-        } else {
-          const scale = await window.scaleFactor();
-          const size = (await window.innerSize()).toLogical(scale);
-          const position = (await window.outerPosition()).toLogical(scale);
-          newConfiguration = {
-            ...newConfiguration,
-            windowGeometry: {
-              x: Math.floor(position.x),
-              y: Math.floor(position.y),
-              width: Math.floor(size.width),
-              height: Math.floor(size.height),
-              isMaximized: false,
-            },
-          };
-        }
         await invoke("set_configuration", {
           configuration: newConfiguration,
         });

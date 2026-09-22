@@ -1,7 +1,7 @@
 import {createContext, useContext} from "react";
 
 export type DialogName =
-  "none" | "changelog" | "credits" | "debugging" | "settings";
+  "none" | "changelog" | "close" | "credits" | "debugging" | "settings";
 
 export interface DialogProviderState {
   dialog: DialogName;

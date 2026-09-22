@@ -55,11 +55,10 @@ pub fn run() {
             commands::translation::translate_npf,
             commands::translation::translate_p,
             commands::translation::translate_pf,
+            commands::window::can_window_close,
+            commands::window::confirm_window_close,
             commands::window::show_main_window,
         ])
-        .on_window_event(|window, event| {
-            commands::window::handle_window_event(window, event);
-        })
         .build(tauri::generate_context!())
         .expect("Error while running tauri application");
     app.run(|handle, event| {
@@ -71,6 +70,11 @@ pub fn run() {
             && !has_visible_windows
             && let Some(window) = handle.get_webview_window("main")
         {
+            handle
+                .state::<Mutex<AppController>>()
+                .lock()
+                .unwrap()
+                .reset_close();
             window.show().unwrap();
             window.set_focus().unwrap();
         }
