@@ -8,13 +8,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-21 00:17-0400\n"
+"POT-Creation-Date: 2026-09-21 21:08-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: src-tauri/src/commands/window.rs:54 src/components/navigation-view.tsx:139
@@ -65,30 +65,32 @@ msgid "Debugging Information"
 msgstr ""
 
 #: src/components/navigation-view.tsx:290
-#: src/components/dialogs/settings-dialog.tsx:102
+#: src/components/dialogs/settings-dialog.tsx:56
+#: src/components/dialogs/settings-dialog.tsx:141
+#: src/components/dialogs/settings-dialog.tsx:144
 msgid "Theme"
 msgstr ""
 
 #: src/components/navigation-view.tsx:304
-#: src/components/dialogs/settings-dialog.tsx:56
+#: src/components/dialogs/settings-dialog.tsx:47
 msgctxt "Theme"
 msgid "Light"
 msgstr ""
 
 #: src/components/navigation-view.tsx:307
-#: src/components/dialogs/settings-dialog.tsx:57
+#: src/components/dialogs/settings-dialog.tsx:48
 msgctxt "Theme"
 msgid "Dark"
 msgstr ""
 
 #: src/components/navigation-view.tsx:310
-#: src/components/dialogs/settings-dialog.tsx:58
+#: src/components/dialogs/settings-dialog.tsx:49
 msgctxt "Theme"
 msgid "System"
 msgstr ""
 
 #: src/components/navigation-view.tsx:322
-#: src/components/dialogs/settings-dialog.tsx:72
+#: src/components/dialogs/settings-dialog.tsx:98
 msgid "Settings"
 msgstr ""
 
@@ -116,32 +118,38 @@ msgstr ""
 msgid "Copy Code"
 msgstr ""
 
-#: src/components/dialogs/settings-dialog.tsx:77
-msgid "Search..."
-msgstr ""
-
-#: src/components/dialogs/settings-dialog.tsx:90
-msgid "General"
-msgstr ""
-
-#: src/components/dialogs/settings-dialog.tsx:98
-msgid "User Interface"
-msgstr ""
-
-#: src/components/dialogs/settings-dialog.tsx:135
+#: src/components/dialogs/settings-dialog.tsx:57
+#: src/components/dialogs/settings-dialog.tsx:177
+#: src/components/dialogs/settings-dialog.tsx:180
 msgid "Language"
 msgstr ""
 
-#: src/components/dialogs/settings-dialog.tsx:166
-msgid "Updates"
-msgstr ""
-
-#: src/components/dialogs/settings-dialog.tsx:171
+#: src/components/dialogs/settings-dialog.tsx:58
+#: src/components/dialogs/settings-dialog.tsx:220
+#: src/components/dialogs/settings-dialog.tsx:226
 msgid "Automatically check for updates"
 msgstr ""
 
-#: src/components/dialogs/settings-dialog.tsx:187
+#: src/components/dialogs/settings-dialog.tsx:59
+#: src/components/dialogs/settings-dialog.tsx:243
+#: src/components/dialogs/settings-dialog.tsx:249
 msgid "Allow preview (beta) updates"
+msgstr ""
+
+#: src/components/dialogs/settings-dialog.tsx:103
+msgid "Search..."
+msgstr ""
+
+#: src/components/dialogs/settings-dialog.tsx:123
+msgid "General"
+msgstr ""
+
+#: src/components/dialogs/settings-dialog.tsx:129
+msgid "Updates"
+msgstr ""
+
+#: src/components/dialogs/settings-dialog.tsx:271
+msgid "No results found for “{0}”"
 msgstr ""
 
 #: src/components/pages/folder-page.tsx:98 src/components/pages/home-page.tsx:88
