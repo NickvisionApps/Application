@@ -337,13 +337,6 @@
     },
     {
         "type": "file",
-        "url": "https://registry.npmjs.org/@fontsource-variable/inter/-/inter-5.3.0.tgz",
-        "sha512": "3aea4be3cbdae093687dbf7bc3a358785f52ed6fe41cd28cd04afc0de9b99ea8b88de38bad5243a04f2d644a673099ad92f35b0751083cfc0771d905e9bd6850",
-        "dest-filename": "4be3cbdae093687dbf7bc3a358785f52ed6fe41cd28cd04afc0de9b99ea8b88de38bad5243a04f2d644a673099ad92f35b0751083cfc0771d905e9bd6850",
-        "dest": "flatpak-node/npm-cache/_cacache/content-v2/sha512/3a/ea"
-    },
-    {
-        "type": "file",
         "url": "https://registry.npmjs.org/@hono/node-server/-/node-server-2.1.1.tgz",
         "sha512": "10bb9e8648f954205d804c3dcecfa2be42b0cb3cd409242e13de989a23ef9f51020686427336c55c92de106313623a613fa832761e291cca8460f54c61456042",
         "dest-filename": "9e8648f954205d804c3dcecfa2be42b0cb3cd409242e13de989a23ef9f51020686427336c55c92de106313623a613fa832761e291cca8460f54c61456042",
@@ -7699,12 +7692,6 @@
         "contents": "aa5eab77ed8bc340bb6296bd40939af235f6de8a\t{\"key\": \"make-fetch-happen:request-cache:https://registry.npmjs.org/web-namespaces/-/web-namespaces-2.0.1.tgz\", \"integrity\": \"sha512-bKr1DkiNa2krS7qxNtdrtHAmzuYGFQLiQ13TsorsdT6ULTkPLKuu5+GsFpDlg6JFjUTwX2DyhMPG2be8uPrqsQ==\", \"time\": 0, \"size\": 3038, \"metadata\": {\"url\": \"https://registry.npmjs.org/web-namespaces/-/web-namespaces-2.0.1.tgz\", \"reqHeaders\": {}, \"resHeaders\": {}}}",
         "dest-filename": "3666fdcd42a9a345138c2847b7d3c8c4c89991b2c9fd148148fb6a9e9b51",
         "dest": "flatpak-node/npm-cache/_cacache/index-v5/c5/73"
-    },
-    {
-        "type": "inline",
-        "contents": "aa693b2858909b5065b63e78d6bb0c7db6f7487f\t{\"key\": \"make-fetch-happen:request-cache:https://registry.npmjs.org/@fontsource-variable/inter/-/inter-5.3.0.tgz\", \"integrity\": \"sha512-OupL48va4JNofb97w6NYeF9S7W/kHNKM0Er8Dem5nqi4jeOLrVJDoE8tZEpnMJmtkvNbB1EIPPwHcdkF6b1oUA==\", \"time\": 0, \"size\": 1885281, \"metadata\": {\"url\": \"https://registry.npmjs.org/@fontsource-variable/inter/-/inter-5.3.0.tgz\", \"reqHeaders\": {}, \"resHeaders\": {}}}",
-        "dest-filename": "92c47074d18a45ff3c4ea8c03d976cdf06dc7bdc5855e56b7ddcd670b0bf",
-        "dest": "flatpak-node/npm-cache/_cacache/index-v5/3d/8a"
     },
     {
         "type": "inline",
