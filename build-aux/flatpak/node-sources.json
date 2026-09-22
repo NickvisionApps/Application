@@ -1884,10 +1884,10 @@
     },
     {
         "type": "file",
-        "url": "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.433.tgz",
-        "sha512": "e650806f26418ed994b7f44018746aacbdaad2810545384302c6471c39fd5c76bcf50c3b80c60e79289c053cbe0077efa34afabf0b19bea3494d0210cb504bcc",
-        "dest-filename": "806f26418ed994b7f44018746aacbdaad2810545384302c6471c39fd5c76bcf50c3b80c60e79289c053cbe0077efa34afabf0b19bea3494d0210cb504bcc",
-        "dest": "flatpak-node/npm-cache/_cacache/content-v2/sha512/e6/50"
+        "url": "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.434.tgz",
+        "sha512": "ec47855bd38b7f534df4d2903fdc5d384fd72aa8f1bfb2433cfe80100907962d75f8569ed4e68ba0db807f5de142fd4f3cdb6e112d292d048f936f9f4b7b3cc3",
+        "dest-filename": "855bd38b7f534df4d2903fdc5d384fd72aa8f1bfb2433cfe80100907962d75f8569ed4e68ba0db807f5de142fd4f3cdb6e112d292d048f936f9f4b7b3cc3",
+        "dest": "flatpak-node/npm-cache/_cacache/content-v2/sha512/ec/47"
     },
     {
         "type": "file",
@@ -8313,12 +8313,6 @@
     },
     {
         "type": "inline",
-        "contents": "d598a44b295ee3df7aac3e693be76b1d11a604de\t{\"key\": \"make-fetch-happen:request-cache:https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.433.tgz\", \"integrity\": \"sha512-5lCAbyZBjtmUt/RAGHRqrL2q0oEFRThDAsZHHDn9XHa89Qw7gMYOeSicBTy+AHfvo0r6vwsZvqNJTQIQy1BLzA==\", \"time\": 0, \"size\": 35400, \"metadata\": {\"url\": \"https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.433.tgz\", \"reqHeaders\": {}, \"resHeaders\": {}}}",
-        "dest-filename": "6d443fc78bd1fff3c52923b5ab4a8f34a2222763478cf578c10fe04ca8d0",
-        "dest": "flatpak-node/npm-cache/_cacache/index-v5/02/65"
-    },
-    {
-        "type": "inline",
         "contents": "d6a25101c15f476afd0ad12f0b160250041a6501\t{\"key\": \"make-fetch-happen:request-cache:https://registry.npmjs.org/react-resizable-panels/-/react-resizable-panels-4.13.2.tgz\", \"integrity\": \"sha512-iBcbYj/ki6Jdz5ZUH/6npl2nBd2s45c/Dd1VNghNDGDtIXjrFIDpZbCU8AlAKawtnyajiy02/xvUWWZZdVqauQ==\", \"time\": 0, \"size\": 158524, \"metadata\": {\"url\": \"https://registry.npmjs.org/react-resizable-panels/-/react-resizable-panels-4.13.2.tgz\", \"reqHeaders\": {}, \"resHeaders\": {}}}",
         "dest-filename": "75ba329a4cab02a97c05c3c337dc3c548ca96c74198cf4b94348341387e8",
         "dest": "flatpak-node/npm-cache/_cacache/index-v5/7c/a7"
@@ -8556,6 +8550,12 @@
         "contents": "e4c1d58948dbe286a8257726182d321049680100\t{\"key\": \"make-fetch-happen:request-cache:https://registry.npmjs.org/open/-/open-8.4.2.tgz\", \"integrity\": \"sha512-7x81NCL719oNbsq/3mh+hVrAWmFuEYUqrq/Iw3kUzH8ReypT9QQ0BLoJS7/G9k6N81XjW4qHWtjWwe/9eLy1EQ==\", \"time\": 0, \"size\": 12898, \"metadata\": {\"url\": \"https://registry.npmjs.org/open/-/open-8.4.2.tgz\", \"reqHeaders\": {}, \"resHeaders\": {}}}",
         "dest-filename": "5740271e0914db1cb1b976e5da0241d634b6607045a427beeed13b513a97",
         "dest": "flatpak-node/npm-cache/_cacache/index-v5/c7/ff"
+    },
+    {
+        "type": "inline",
+        "contents": "e54b79eeccdebdd8c355b6093aea9a91e5c587fe\t{\"key\": \"make-fetch-happen:request-cache:https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.434.tgz\", \"integrity\": \"sha512-7EeFW9OLf1NN9NKQP9xdOE/XKqjxv7JDPP6AEAkHli11+Fae1OaLoNuAf13hQv1PPNtuES0pLQSPk2+fS3s8ww==\", \"time\": 0, \"size\": 35410, \"metadata\": {\"url\": \"https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.434.tgz\", \"reqHeaders\": {}, \"resHeaders\": {}}}",
+        "dest-filename": "7d8d37fa5511d3cc839bf2c3e7bfdcde5c9c8a2233c7364fe02562e43073",
+        "dest": "flatpak-node/npm-cache/_cacache/index-v5/4f/3d"
     },
     {
         "type": "inline",
