@@ -1,5 +1,6 @@
 use crate::product::ProductInfo;
 use directories::BaseDirs;
+use reup::UpdateType;
 use serde::{Deserialize, Serialize};
 use serde_repr::{Deserialize_repr, Serialize_repr};
 
@@ -80,23 +81,6 @@ impl Default for WindowGeometry {
 }
 
 impl Configuration {
-    pub fn new(
-        allow_preview_updates: bool,
-        automatically_check_for_updates: bool,
-        theme: ApplicationTheme,
-        translation_language: String,
-        window_geometry: WindowGeometry,
-    ) -> Self {
-        Self {
-            app_name: String::default(),
-            allow_preview_updates,
-            automatically_check_for_updates,
-            theme,
-            translation_language,
-            window_geometry,
-        }
-    }
-
     pub fn load(app_name: impl Into<String>) -> Result<Self, Box<dyn std::error::Error>> {
         let app_name = app_name.into();
         let path = if ProductInfo::is_portable() {
@@ -183,6 +167,14 @@ impl Configuration {
 
     pub fn set_window_geometry(&mut self, geometry: WindowGeometry) {
         self.window_geometry = geometry;
+    }
+
+    pub fn update_type(&self) -> UpdateType {
+        if self.allow_preview_updates {
+            UpdateType::Preview
+        } else {
+            UpdateType::Stable
+        }
     }
 }
 

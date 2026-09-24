@@ -1,11 +1,10 @@
-import {invoke} from "@tauri-apps/api/core";
-import {ReactNode, useCallback, useMemo, useState} from "react";
-
 import {
   FolderView,
   FolderViewProviderContext,
   FolderViewProviderState,
 } from "@/lib/contexts/folder-view-context.ts";
+import {invoke} from "@tauri-apps/api/core";
+import {ReactNode, useCallback, useMemo, useState} from "react";
 
 interface FolderViewProviderProps {
   children: ReactNode;
@@ -31,10 +30,10 @@ export function FolderViewProvider({
     }
   }, []);
 
-  const handleCloseFolder = useCallback(async () => {
-    await invoke("close_folder");
-    setFolderView(DefaultFolderView);
-  }, []);
+  const handleCloseFolder = useCallback(
+    async () => setFolderView(await invoke("close_folder")),
+    [],
+  );
 
   return (
     <FolderViewProviderContext.Provider

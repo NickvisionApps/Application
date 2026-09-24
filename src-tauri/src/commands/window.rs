@@ -1,17 +1,17 @@
-use crate::controller::AppController;
+use crate::close::CloseManager;
 use crate::translation::Translator;
 use std::sync::Mutex;
 use tauri::{State, WebviewWindow, command};
 use tauri_plugin_decoration::WebviewWindowExt;
 
 #[command]
-pub fn can_window_close(controller: State<'_, Mutex<AppController>>) -> bool {
-    controller.lock().unwrap().can_close()
+pub fn can_window_close(close_manager: State<'_, Mutex<CloseManager>>) -> bool {
+    close_manager.lock().unwrap().can_close()
 }
 
 #[command]
-pub fn confirm_window_close(controller: State<'_, Mutex<AppController>>) {
-    controller.lock().unwrap().confirm_close();
+pub fn confirm_window_close(close_manager: State<'_, Mutex<CloseManager>>) {
+    close_manager.lock().unwrap().confirm_close();
 }
 
 #[command]

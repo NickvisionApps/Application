@@ -80,7 +80,7 @@ export function ConfigurationProvider({
     (newConfiguration: Configuration) => {
       async function saveConfiguration() {
         await invoke("set_configuration", {
-          configuration: newConfiguration,
+          newConfiguration,
         });
         setConfiguration(newConfiguration);
       }
