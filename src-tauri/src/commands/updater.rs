@@ -2,7 +2,6 @@ use crate::config::Configuration;
 use crate::product::{DeploymentMode, ProductInfo};
 use directories::BaseDirs;
 use reup::{GitHubUpdater, UpdateProvider};
-use semver::Version;
 use std::ops::ControlFlow;
 use std::sync::Mutex;
 use tauri::{AppHandle, Manager, State, command};
@@ -12,7 +11,7 @@ pub async fn check_for_updates(
     app: AppHandle,
     configuration: State<'_, Mutex<Configuration>>,
     product_info: State<'_, ProductInfo>,
-) -> Result<Version, tauri::Error> {
+) -> Result<String, tauri::Error> {
     let update_type = configuration.lock().unwrap().update_type();
     let version = app
         .state::<GitHubUpdater>()
@@ -21,7 +20,7 @@ pub async fn check_for_updates(
         .ok()
         .filter(|version| version > product_info.version());
     if let Some(version) = version {
-        Ok(version)
+        Ok(version.to_string())
     } else {
         Err(tauri::Error::AssetNotFound("No updates available".into()))
     }

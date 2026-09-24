@@ -106,6 +106,8 @@ pub fn run() {
             commands::translation::translate_npf,
             commands::translation::translate_p,
             commands::translation::translate_pf,
+            commands::updater::check_for_updates,
+            commands::updater::install_update,
             commands::window::can_window_close,
             commands::window::confirm_window_close,
             commands::window::show_main_window,
