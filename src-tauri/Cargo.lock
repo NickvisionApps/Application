@@ -3799,7 +3799,6 @@ dependencies = [
  "base64 0.23.1",
  "bytes",
  "encoding_rs",
- "futures-channel",
  "futures-core",
  "futures-util",
  "h2",
@@ -3836,11 +3835,12 @@ dependencies = [
 
 [[package]]
 name = "reup"
-version = "0.5.0"
+version = "0.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "79c71126d324a0bec64f88d60d6f4c83b03cc0fac17744aee97bf555c8e3448d"
+checksum = "831b9b89f53b94f4de37df4de4cf00cd4ba40248f4a36abf45dab3534cfbf38f"
 dependencies = [
  "directories",
+ "futures-util",
  "hex",
  "octocrab",
  "reqwest",

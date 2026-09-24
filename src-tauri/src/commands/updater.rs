@@ -14,15 +14,13 @@ pub async fn check_for_updates(
     product_info: State<'_, ProductInfo>,
 ) -> Result<Version, tauri::Error> {
     let update_type = configuration.lock().unwrap().update_type();
-    let current_version = product_info.version().clone();
-    let new_version = tauri::async_runtime::spawn_blocking(move || {
-        app.state::<GitHubUpdater>()
-            .get_latest_version(update_type)
-            .ok()
-            .filter(|version| version > &current_version)
-    })
-    .await?;
-    if let Some(version) = new_version {
+    let version = app
+        .state::<GitHubUpdater>()
+        .get_latest_version(update_type)
+        .await
+        .ok()
+        .filter(|version| version > product_info.version());
+    if let Some(version) = version {
         Ok(version)
     } else {
         Err(tauri::Error::AssetNotFound("No updates available".into()))
@@ -42,28 +40,20 @@ pub async fn install_update(
         )));
     }
     let path = BaseDirs::new()
-        .ok_or(tauri::Error::Io(std::io::Error::other(
-            "Unable to load base directories",
-        )))?
+        .ok_or_else(|| tauri::Error::Io(std::io::Error::other("Unable to load base directories")))?
         .cache_dir()
         .join(product_info.name())
         .join(updater.target_asset_name());
     let update_type = configuration.lock().unwrap().update_type();
-    std::fs::create_dir_all(path.parent().ok_or(tauri::Error::Io(std::io::Error::other(
-        "Download path has no parent",
-    )))?)?;
-    let path_clone = path.clone();
-    let result = tauri::async_runtime::spawn_blocking(move || {
-        app.state::<GitHubUpdater>()
-            .download_update(update_type, &path_clone, |_, _| ControlFlow::Continue(()))
-            .is_ok()
-    })
-    .await?;
-    if !result {
-        return Err(tauri::Error::Io(std::io::Error::other(
-            "Unable to download update",
-        )));
-    }
+    std::fs::create_dir_all(
+        path.parent().ok_or_else(|| {
+            tauri::Error::Io(std::io::Error::other("Download path has no parent"))
+        })?,
+    )?;
+    app.state::<GitHubUpdater>()
+        .download_update(update_type, &path, |_, _| ControlFlow::Continue(()))
+        .await
+        .map_err(|e| tauri::Error::Io(std::io::Error::other(e.to_string())))?;
     #[cfg(target_os = "windows")]
     {
         let status = std::process::Command::new(&path).status()?;
@@ -100,9 +90,11 @@ pub async fn install_update(
             .filter_map(Result::ok)
             .map(|entry| entry.path())
             .find(|p| p.extension().is_some_and(|ext| ext == "app"))
-            .ok_or(tauri::Error::Io(std::io::Error::other(
-                "No .app bundle found in update archive",
-            )))?;
+            .ok_or_else(|| {
+                tauri::Error::Io(std::io::Error::other(
+                    "No .app bundle found in update archive",
+                ))
+            })?;
         std::process::Command::new("xattr")
             .arg("-dr")
             .arg("com.apple.quarantine")
@@ -112,9 +104,11 @@ pub async fn install_update(
         let current_app = current_exe
             .ancestors()
             .find(|p| p.extension().is_some_and(|ext| ext == "app"))
-            .ok_or(tauri::Error::Io(std::io::Error::other(
-                "Unable to determine running app bundle",
-            )))?;
+            .ok_or_else(|| {
+                tauri::Error::Io(std::io::Error::other(
+                    "Unable to determine running app bundle",
+                ))
+            })?;
         let backup_app = current_app.with_extension("app.bak");
         if backup_app.exists() {
             std::fs::remove_dir_all(&backup_app)?;
@@ -126,17 +120,11 @@ pub async fn install_update(
         }
         std::fs::remove_dir_all(&backup_app)?;
         std::fs::remove_dir_all(&extract_dir)?;
-        std::process::Command::new(
-            current_app
-                .join("Contents/MacOS")
-                .join(
-                    current_exe
-                        .file_name()
-                        .ok_or(tauri::Error::Io(std::io::Error::other(
-                            "Unable to get exe file name",
-                        )))?,
-                ),
-        )
+        std::process::Command::new(current_app.join("Contents/MacOS").join(
+            current_exe.file_name().ok_or_else(|| {
+                tauri::Error::Io(std::io::Error::other("Unable to get exe file name"))
+            })?,
+        ))
         .spawn()?;
         std::process::exit(0);
     }
