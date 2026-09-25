@@ -44,6 +44,7 @@ export function CloseDialog() {
               async function confirmClose() {
                 await invoke("confirm_window_close");
                 await window.close();
+                await window.destroy();
               }
 
               closeDialog();
