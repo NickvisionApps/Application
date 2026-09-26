@@ -83,40 +83,42 @@ pub async fn install_update(
     app: AppHandle,
     pending_update: State<'_, Mutex<Option<Update>>>,
 ) -> Result<(), tauri::Error> {
-    if ProductInfo::deployment_mode() != DeploymentMode::Local {
+    let can_self_update = match ProductInfo::deployment_mode() {
+        DeploymentMode::AppImage => true,
+        #[cfg(any(target_os = "windows", target_os = "macos"))]
+        DeploymentMode::Local => true,
+        _ => false,
+    };
+    if !can_self_update {
         return Err(tauri::Error::Io(std::io::Error::other(
             "Unable to install update on non-local installations",
         )));
     }
-    #[cfg(target_os = "linux")]
-    {
-        return Ok(());
-    }
-    #[cfg(not(target_os = "linux"))]
-    {
-        let update = pending_update.lock().unwrap().clone().ok_or_else(|| {
+    let update =
+        pending_update.lock().unwrap().clone().ok_or_else(|| {
             tauri::Error::Io(std::io::Error::other("No update available to install"))
         })?;
-        update
-            .download_and_install(
-                |downloaded, total| {
-                    let _ = app.emit(
-                        "update-download-progress",
-                        UpdateDownloadProgress::new(downloaded, total.unwrap_or_default()),
-                    );
-                },
-                || {
-                    let _ = app.emit(
-                        "update-download-progress",
-                        UpdateDownloadProgress::new(100, 100),
-                    );
-                },
-            )
-            .await
-            .map_err(|e| tauri::Error::Io(std::io::Error::other(e.to_string())))?;
-        #[cfg(target_os = "macos")]
-        app.restart();
-        #[cfg(target_os = "windows")]
-        Ok(())
-    }
+    update
+        .download_and_install(
+            |downloaded, total| {
+                let _ = app.emit(
+                    "update-download-progress",
+                    UpdateDownloadProgress::new(downloaded, total.unwrap_or_default()),
+                );
+            },
+            || {
+                let _ = app.emit(
+                    "update-download-progress",
+                    UpdateDownloadProgress::new(100, 100),
+                );
+            },
+        )
+        .await
+        .map_err(|e| tauri::Error::Io(std::io::Error::other(e.to_string())))?;
+    // Windows' installer relaunches the app itself and exits the current process;
+    // macOS/Linux (AppImage) need an explicit restart to run the newly installed version.
+    #[cfg(any(target_os = "macos", target_os = "linux"))]
+    app.restart();
+    #[cfg(target_os = "windows")]
+    Ok(())
 }

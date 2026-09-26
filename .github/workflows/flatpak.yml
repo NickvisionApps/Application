@@ -5,13 +5,19 @@ on:
     branches: [ "main" ]
     types: [ "review_requested", "ready_for_review" ]
   workflow_dispatch:
+  workflow_call:
+    inputs:
+      tag:
+        description: "Git ref to check out"
+        type: string
+        required: true
 name: Flatpak
 permissions:
   id-token: write
   contents: read
 jobs:
-  gnome-flatpak:
-    name: "GNOME on Flatpak"
+  flatpak:
+    name: "Tauri on Flatpak"
     if: ${{ github.event.pull_request.user.login != 'weblate' }}
     container:
       image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-51
@@ -26,11 +32,14 @@ jobs:
     runs-on: ${{ matrix.variant.runner }}
     steps:
       - uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.tag || github.ref_name }}
       - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
         with:
-          bundle: org.nickvision.application.flatpak
+          bundle: org.nickvision.application.${{ matrix.variant.arch }}.flatpak
           manifest-path: build-aux/flatpak/org.nickvision.application.json
-          cache-key: flatpak-builder-${{ github.sha }}
+          cache-key: flatpak-builder-${{ inputs.tag || github.sha }}
           arch: ${{ matrix.variant.arch }}
           restore-cache: true
           verbose: true
+          artifact-name: org.nickvision.application.${{ matrix.variant.arch }}.flatpak

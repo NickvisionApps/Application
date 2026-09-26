@@ -24,22 +24,22 @@ on:
         type: string
         required: false
         default: ""
-name: macOS
+name: Linux
 permissions:
   id-token: write
   contents: write
 jobs:
-  tauri-macos:
-    name: "Tauri on macOS"
+  tauri-linux:
+    name: "Tauri on Linux"
     if: ${{ github.event.pull_request.user.login != 'weblate' }}
     strategy:
       fail-fast: false
       matrix:
         variant:
-          - arch: arm64
-            runner: macos-latest
-          - arch: x64
-            runner: macos-26-intel
+          - arch: x86_64
+            runner: ubuntu-latest
+          - arch: aarch64
+            runner: ubuntu-24.04-arm
     runs-on: ${{ matrix.variant.runner }}
     steps:
       - uses: actions/checkout@v7
@@ -47,8 +47,20 @@ jobs:
           ref: ${{ inputs.tag || github.ref_name }}
       - name: "Setup environment"
         run: |
-          brew install gettext
-          echo "$(brew --prefix gettext)/bin" >> "$GITHUB_PATH"
+          sudo apt-get update
+          sudo apt-get install -y \
+            libwebkit2gtk-4.1-dev \
+            libayatana-appindicator3-dev \
+            librsvg2-dev \
+            patchelf \
+            build-essential \
+            curl \
+            wget \
+            file \
+            libssl-dev \
+            libxdo-dev \
+            libfuse2 \
+            gettext
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@v2
         with:
