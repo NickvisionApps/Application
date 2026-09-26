@@ -1,6 +1,5 @@
 use crate::product::ProductInfo;
 use directories::BaseDirs;
-use reup::UpdateType;
 use serde::{Deserialize, Serialize};
 use serde_repr::{Deserialize_repr, Serialize_repr};
 
@@ -167,14 +166,6 @@ impl Configuration {
 
     pub fn set_window_geometry(&mut self, geometry: WindowGeometry) {
         self.window_geometry = geometry;
-    }
-
-    pub fn update_type(&self) -> UpdateType {
-        if self.allow_preview_updates {
-            UpdateType::Preview
-        } else {
-            UpdateType::Stable
-        }
     }
 }
 

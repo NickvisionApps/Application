@@ -14,7 +14,7 @@ jobs:
     name: "GNOME on Flatpak"
     if: ${{ github.event.pull_request.user.login != 'weblate' }}
     container:
-      image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-50
+      image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-51
       options: --privileged
     strategy:
       matrix:

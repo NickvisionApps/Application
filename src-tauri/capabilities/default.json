@@ -23,6 +23,8 @@
     "opener:allow-default-urls",
     "decoration:default",
     "dialog:default",
-    "os:default"
+    "os:default",
+    "process:default",
+    "updater:default"
   ]
 }

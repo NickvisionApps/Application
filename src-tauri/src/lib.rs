@@ -9,11 +9,11 @@ use crate::close::CloseManager;
 use crate::config::Configuration;
 use crate::product::ProductInfo;
 use crate::translation::Translator;
-use reup::GitHubUpdater;
 use semver::Version;
 use std::sync::Mutex;
 use std::time::Duration;
 use tauri::Manager;
+use tauri_plugin_updater::Update;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -26,6 +26,8 @@ pub fn run() {
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_os::init())
+        .plugin(tauri_plugin_process::init())
+        .plugin(tauri_plugin_updater::Builder::new().build())
         .setup(|app| {
             let product_info = ProductInfo::builder()
                 .id("org.nickvision.application")
@@ -42,47 +44,11 @@ pub fn run() {
                 app.path().resource_dir()?.join("locale"),
                 Some(configuration.translation_language()),
             );
-            #[cfg(all(target_os = "windows", target_arch = "x86_64"))]
-            let updater = GitHubUpdater::new(
-                product_info.repo_owner(),
-                product_info.repo_name(),
-                "NickvisionApplicationSetup.exe",
-            );
-            #[cfg(all(target_os = "windows", target_arch = "aarch64"))]
-            let updater = GitHubUpdater::new(
-                product_info.repo_owner(),
-                product_info.repo_name(),
-                "NickvisionApplicationSetup-arm64.exe",
-            );
-            #[cfg(all(target_os = "linux", target_arch = "x86_64"))]
-            let updater = GitHubUpdater::new(
-                product_info.repo_owner(),
-                product_info.repo_name(),
-                "org.nickvision.application.x64.flatpak",
-            );
-            #[cfg(all(target_os = "linux", target_arch = "aarch64"))]
-            let updater = GitHubUpdater::new(
-                product_info.repo_owner(),
-                product_info.repo_name(),
-                "org.nickvision.application.aarch64.flatpak",
-            );
-            #[cfg(all(target_os = "macos", target_arch = "x86_64"))]
-            let updater = GitHubUpdater::new(
-                product_info.repo_owner(),
-                product_info.repo_name(),
-                "Application-macOS-x64.zip",
-            );
-            #[cfg(all(target_os = "macos", target_arch = "aarch64"))]
-            let updater = GitHubUpdater::new(
-                product_info.repo_owner(),
-                product_info.repo_name(),
-                "Application-macOS-arm64.zip",
-            );
             configuration.set_translation_language(translator.language());
             app.manage(product_info);
             app.manage(Mutex::new(configuration));
             app.manage(Mutex::new(translator));
-            app.manage(updater);
+            app.manage(Mutex::<Option<Update>>::new(None));
             app.manage(Mutex::new(CloseManager::default()));
             Ok(())
         })

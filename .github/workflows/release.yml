@@ -1,0 +1,201 @@
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag to release (e.g. v2026.9.1 or v2026.9.1-beta.1)"
+        required: true
+name: Release
+permissions:
+  contents: write
+jobs:
+  channel:
+    name: "Determine release channel"
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.vars.outputs.tag }}
+      release_tag: ${{ steps.vars.outputs.release_tag }}
+      prerelease: ${{ steps.vars.outputs.prerelease }}
+    steps:
+      - id: vars
+        run: |
+          TAG="${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          if [[ "$TAG" == *-* ]]; then
+            echo "prerelease=true" >> "$GITHUB_OUTPUT"
+            echo "release_tag=preview" >> "$GITHUB_OUTPUT"
+          else
+            echo "prerelease=false" >> "$GITHUB_OUTPUT"
+            echo "release_tag=$TAG" >> "$GITHUB_OUTPUT"
+          fi
+  changelog:
+    name: "Read changelog"
+    needs: channel
+    runs-on: ubuntu-latest
+    outputs:
+      body: ${{ steps.read.outputs.body }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ needs.channel.outputs.tag }}
+      - id: read
+        run: |
+          {
+            echo 'body<<CHANGELOG_EOF'
+            cat resources/changelog.md
+            echo CHANGELOG_EOF
+          } >> "$GITHUB_OUTPUT"
+  windows:
+    name: "Tauri on Windows"
+    needs: [ channel, changelog ]
+    strategy:
+      fail-fast: false
+      matrix:
+        variant:
+          - arch: x64
+            runner: windows-latest
+            subsys: mingw64
+            type: x86_64
+          - arch: arm64
+            runner: windows-11-arm
+            subsys: clangarm64
+            type: clang-aarch64
+    runs-on: ${{ matrix.variant.runner }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ needs.channel.outputs.tag }}
+      - uses: msys2/setup-msys2@v2
+        id: msys2
+        with:
+          msystem: ${{ matrix.variant.subsys }}
+          install: mingw-w64-${{ matrix.variant.type }}-gettext-tools
+      - name: "Setup environment"
+        shell: pwsh
+        run: echo "${{ steps.msys2.outputs.msys2-location }}\${{ matrix.variant.subsys }}\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri -> target
+          key: release-${{ matrix.variant.arch }}
+      - uses: actions/setup-node@v7
+        with:
+          node-version: lts/*
+          cache: npm
+      - name: "Install frontend dependencies"
+        run: npm ci
+      - name: "Compute MSI version"
+        shell: pwsh
+        run: |
+          $version = (Get-Content src-tauri/tauri.conf.json | ConvertFrom-Json).version
+          $parts = $version -split '\.'
+          $wixVersion = "$([int]$parts[0] - 2000).$($parts[1]).$($parts[2])"
+          $conf = [ordered]@{
+            '$schema' = 'https://schema.tauri.app/config/2'
+            bundle = @{
+              targets = @('msi')
+              windows = @{
+                wix = @{
+                  version = $wixVersion
+                }
+              }
+            }
+          }
+          $conf | ConvertTo-Json -Depth 10 | Set-Content -Path src-tauri/tauri.windows.conf.json
+      - uses: tauri-apps/tauri-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+        with:
+          tagName: ${{ needs.channel.outputs.release_tag }}
+          releaseName: "Application ${{ needs.channel.outputs.tag }}"
+          releaseBody: ${{ needs.changelog.outputs.body }}
+          prerelease: ${{ needs.channel.outputs.prerelease }}
+          retryAttempts: 3
+  macos:
+    name: "Tauri on macOS"
+    needs: [ channel, changelog ]
+    strategy:
+      fail-fast: false
+      matrix:
+        variant:
+          - arch: arm64
+            runner: macos-latest
+          - arch: x64
+            runner: macos-26-intel
+    runs-on: ${{ matrix.variant.runner }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ needs.channel.outputs.tag }}
+      - name: "Setup environment"
+        run: |
+          brew install gettext
+          echo "$(brew --prefix gettext)/bin" >> "$GITHUB_PATH"
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri -> target
+          key: release-${{ matrix.variant.arch }}
+      - uses: actions/setup-node@v7
+        with:
+          node-version: lts/*
+          cache: npm
+      - name: "Install frontend dependencies"
+        run: npm ci
+      - uses: tauri-apps/tauri-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+        with:
+          tagName: ${{ needs.channel.outputs.release_tag }}
+          releaseName: "Application ${{ needs.channel.outputs.tag }}"
+          releaseBody: ${{ needs.changelog.outputs.body }}
+          prerelease: ${{ needs.channel.outputs.prerelease }}
+          retryAttempts: 3
+  flatpak-build:
+    name: "Build Flatpak bundle"
+    needs: channel
+    container:
+      image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-51
+      options: --privileged
+    strategy:
+      matrix:
+        variant:
+          - arch: x86_64
+            runner: ubuntu-latest
+            asset: org.nickvision.application.x64.flatpak
+          - arch: aarch64
+            runner: ubuntu-24.04-arm
+            asset: org.nickvision.application.aarch64.flatpak
+    runs-on: ${{ matrix.variant.runner }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ needs.channel.outputs.tag }}
+      - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
+        with:
+          bundle: ${{ matrix.variant.asset }}
+          manifest-path: build-aux/flatpak/org.nickvision.application.json
+          cache-key: flatpak-builder-release-${{ needs.channel.outputs.tag }}
+          arch: ${{ matrix.variant.arch }}
+          restore-cache: true
+          verbose: true
+          artifact-name: ${{ matrix.variant.asset }}
+  flatpak-release:
+    name: "Publish Flatpak bundle to release"
+    needs: [ channel, windows, macos, flatpak-build ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v7
+        with:
+          path: bundles
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ needs.channel.outputs.release_tag }}
+          prerelease: ${{ needs.channel.outputs.prerelease }}
+          files: bundles/**/*.flatpak

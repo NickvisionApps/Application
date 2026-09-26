@@ -1,3 +1,5 @@
+import {Streamdown} from "streamdown";
+
 import {VStack} from "@/components/layout/stack.tsx";
 import {
   Dialog,
@@ -10,15 +12,13 @@ import {ScrollArea} from "@/components/ui/scroll-area.tsx";
 import {useDialog} from "@/lib/contexts/dialog-context.ts";
 import {useProductInfo} from "@/lib/contexts/product-info-context.ts";
 import {useTranslation} from "@/lib/contexts/translation-context.ts";
-import {Streamdown} from "streamdown";
+
+import changelog from "../../../resources/changelog.md?raw";
 
 export function ChangelogDialog() {
   const {productInfo} = useProductInfo();
   const {closeDialog} = useDialog();
   const {_g} = useTranslation();
-
-  const changelog = `- Initial Release
-- Rewrote app in Rust and Tauri`;
 
   return (
     <Dialog
