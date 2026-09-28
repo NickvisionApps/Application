@@ -12,12 +12,16 @@
   "app": {
     "windows": [
       {
-        "visible": false,
+        "visible": true,
         "width": 800,
         "height": 600,
         "resizable": true,
         "titleBarStyle": "Overlay",
-        "hiddenTitle": true
+        "hiddenTitle": true,
+        "trafficLightPosition": {
+          "x": 20,
+          "y": 27
+        }
       }
     ],
     "macOSPrivateApi": true,
@@ -25,9 +29,7 @@
       "csp": {
         "default-src": "'self' customprotocol: asset:",
         "connect-src": "ipc: http://ipc.localhost",
-        "img-src": "'self' asset: http://asset.localhost data:",
-        "style-src": "'self' tauri-plugin-decoration: http://tauri-plugin-decoration.localhost https://tauri-plugin-decoration.localhost",
-        "style-src-elem": "'self' tauri-plugin-decoration: http://tauri-plugin-decoration.localhost https://tauri-plugin-decoration.localhost"
+        "img-src": "'self' asset: http://asset.localhost data:"
       },
       "assetProtocol": {
         "enable": true

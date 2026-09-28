@@ -1,24 +1,10 @@
 import {HStack, VStack} from "@/components/layout/stack.tsx";
 import {Button} from "@/components/ui/button.tsx";
-import {
-  Empty,
-  EmptyDescription,
-  EmptyHeader,
-  EmptyMedia,
-  EmptyTitle,
-} from "@/components/ui/empty.tsx";
+import {Empty, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle,} from "@/components/ui/empty.tsx";
 import {Kbd, KbdGroup} from "@/components/ui/kbd.tsx";
-import {
-  ResizableHandle,
-  ResizablePanel,
-  ResizablePanelGroup,
-} from "@/components/ui/resizable.tsx";
+import {ResizableHandle, ResizablePanel, ResizablePanelGroup,} from "@/components/ui/resizable.tsx";
 import {ScrollArea} from "@/components/ui/scroll-area.tsx";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip.tsx";
+import {Tooltip, TooltipContent, TooltipTrigger,} from "@/components/ui/tooltip.tsx";
 import {useTitlebarControls} from "@/hooks/titlebar.tsx";
 import {useFolderView} from "@/lib/contexts/folder-view-context.ts";
 import {useTranslation} from "@/lib/contexts/translation-context.ts";
@@ -67,8 +53,8 @@ export function FolderPage() {
 
   const selectedExtension = selectedFile
     ? selectedFile.path
-        .slice(selectedFile.path.lastIndexOf(".") + 1)
-        .toLowerCase()
+      .slice(selectedFile.path.lastIndexOf(".") + 1)
+      .toLowerCase()
     : "";
   const canPreviewImage =
     selectedFile !== null &&
@@ -76,7 +62,8 @@ export function FolderPage() {
     !imageLoadFailed;
 
   useTitlebarControls(
-    <HStack align="center" justify="end" gap={2} className="min-w-0 flex-1">
+    <HStack align="center" justify="end" gap={2}
+            className={platform() === "macos" ? "min-w-0 flex-1 mr-2 mt-2" : "min-w-0 flex-1"}>
       <Tooltip>
         <TooltipTrigger
           render={
@@ -87,7 +74,7 @@ export function FolderPage() {
                 void openFolder();
               }}
             >
-              <FolderOpenIcon />
+              <FolderOpenIcon/>
             </Button>
           }
         />
@@ -104,14 +91,14 @@ export function FolderPage() {
         <TooltipTrigger
           render={
             <HStack
-              render={<Button variant="outline" />}
+              render={<Button variant="outline"/>}
               align="center"
               gap={1.5}
               onClick={() => {
                 void closeFolder();
               }}
             >
-              <XIcon />
+              <XIcon/>
               {_p("Folder", "Close")}
             </HStack>
           }
@@ -140,7 +127,7 @@ export function FolderPage() {
                 files.map((file) => (
                   <HStack
                     key={file.path}
-                    render={<Button variant="ghost" />}
+                    render={<Button variant="ghost"/>}
                     align="center"
                     justify="start"
                     gap={1.5}
@@ -150,10 +137,10 @@ export function FolderPage() {
                     className={cn(
                       "w-full px-2 py-1 text-left text-sm",
                       selectedFile?.path === file.path &&
-                        "bg-muted font-medium",
+                      "bg-muted font-medium",
                     )}
                   >
-                    <FileIcon className="size-4 shrink-0 text-muted-foreground" />
+                    <FileIcon className="size-4 shrink-0 text-muted-foreground"/>
                     <span className="truncate">{file.name}</span>
                   </HStack>
                 ))
@@ -165,7 +152,7 @@ export function FolderPage() {
             </VStack>
           </ScrollArea>
         </ResizablePanel>
-        <ResizableHandle withHandle />
+        <ResizableHandle withHandle/>
         <ResizablePanel defaultSize="65" minSize="30">
           <HStack align="center" justify="center" className="h-full w-full p-4">
             {selectedFile === null ? (
@@ -190,7 +177,7 @@ export function FolderPage() {
               <Empty>
                 <EmptyHeader>
                   <EmptyMedia variant="icon">
-                    <FileIcon />
+                    <FileIcon/>
                   </EmptyMedia>
                   <EmptyTitle>{_g("No Preview Available")}</EmptyTitle>
                   <EmptyDescription>{selectedFile.name}</EmptyDescription>

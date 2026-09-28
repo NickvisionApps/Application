@@ -1,6 +1,16 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
+  "identifier": "org.nickvision.application",
+  "app": {
+    "windows": [
+      {
+        "decorations": false
+      }
+    ]
+  },
   "bundle": {
-    "targets": ["msi"]
+    "targets": [
+      "msi"
+    ]
   }
 }

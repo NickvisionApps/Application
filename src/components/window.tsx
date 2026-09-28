@@ -4,11 +4,8 @@ import {FolderPage} from "@/components/pages/folder-page.tsx";
 import {HomePage} from "@/components/pages/home-page.tsx";
 import {SidebarTrigger, useSidebar} from "@/components/ui/sidebar.tsx";
 import {Toaster} from "@/components/ui/toast.tsx";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip.tsx";
+import {Tooltip, TooltipContent, TooltipTrigger,} from "@/components/ui/tooltip.tsx";
+import {WindowControls} from "@/components/window-controls.tsx";
 import {useKeyboardShortcut} from "@/hooks/use-keyboard-shortcut.ts";
 import {useDialog} from "@/lib/contexts/dialog-context.ts";
 import {useFolderView} from "@/lib/contexts/folder-view-context.ts";
@@ -21,7 +18,7 @@ import {platform} from "@tauri-apps/plugin-os";
 import {useEffect} from "react";
 
 export function Window() {
-  const {_g} = useTranslation();
+  const {_g, _p} = useTranslation();
   const {page} = useNavigation();
   const {openDialog} = useDialog();
   const {open: sidebarOpen, isMobile, openMobile} = useSidebar();
@@ -33,7 +30,7 @@ export function Window() {
     let closeFn: () => void;
 
     async function startup() {
-      await invoke("show_main_window");
+      await window.setTitle(_p("AppName", "Application"));
       closeFn = await window.onCloseRequested(async (event) => {
         const canClose = await invoke<boolean>("can_window_close");
         if (!canClose) {
@@ -85,7 +82,7 @@ export function Window() {
     <>
       <div className="titlebar-drag-region" data-tauri-drag-region="deep">
         <Tooltip>
-          <TooltipTrigger render={<SidebarTrigger />} />
+          <TooltipTrigger render={<SidebarTrigger className={platform() === "macos" ? "mt-2" : ""}/>}/>
           <TooltipContent side="right">
             {(isMobile ? openMobile : sidebarOpen)
               ? _g("Hide Sidebar")
@@ -93,13 +90,16 @@ export function Window() {
           </TooltipContent>
         </Tooltip>
         {content}
+        {(platform() === "windows" || platform() === "linux") && (
+          <WindowControls/>
+        )}
       </div>
       <HStack className="h-screen w-full overflow-hidden">
-        <NavigationView />
-        <main className="min-w-0 flex-1 overflow-hidden pt-(--tauri-plugin-decoration-titlebar-height)">
-          {page === "home" && <HomePage />}
-          {page === "folder" && <FolderPage />}
-          <Toaster />
+        <NavigationView/>
+        <main className="min-w-0 flex-1 overflow-hidden pt-(--titlebar-height)">
+          {page === "home" && <HomePage/>}
+          {page === "folder" && <FolderPage/>}
+          <Toaster/>
         </main>
       </HStack>
     </>

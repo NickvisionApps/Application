@@ -21,7 +21,6 @@
     "core:window:allow-toggle-maximize",
     "opener:default",
     "opener:allow-default-urls",
-    "decoration:default",
     "dialog:default",
     "os:default",
     "process:default",

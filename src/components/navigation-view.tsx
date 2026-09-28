@@ -116,11 +116,7 @@ export function NavigationView() {
 
   return (
     <Sidebar>
-      <SidebarHeader
-        className={
-          isMobile ? "mt-8" : "pt-(--tauri-plugin-decoration-titlebar-height)"
-        }
-      >
+      <SidebarHeader className={isMobile ? "mt-8" : "pt-(--titlebar-height)"}>
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg">

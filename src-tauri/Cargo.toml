@@ -22,7 +22,6 @@ serde_repr = "0.1"
 serde_with = "3.23"
 sys-locale = "0.3"
 tauri = { version = "2", features = ["macos-private-api", "protocol-asset"] }
-tauri-plugin-decoration = "3"
 tauri-plugin-dialog = "2"
 tauri-plugin-opener = "2"
 tauri-plugin-os = "2"

@@ -12,17 +12,11 @@ use crate::product::ProductInfo;
 use crate::translation::Translator;
 use semver::Version;
 use std::sync::Mutex;
-use std::time::Duration;
 use tauri::Manager;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     let app = tauri::Builder::default()
-        .plugin(
-            tauri_plugin_decoration::builder()
-                .activation_timeout(Duration::from_secs(15))
-                .build(),
-        )
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_os::init())
@@ -75,8 +69,7 @@ pub fn run() {
             commands::update::get_new_update,
             commands::update::install_update,
             commands::window::can_window_close,
-            commands::window::confirm_window_close,
-            commands::window::show_main_window,
+            commands::window::confirm_window_close
         ])
         .build(tauri::generate_context!())
         .expect("Error while running tauri application");
