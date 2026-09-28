@@ -23,7 +23,7 @@ import {saveWindowState, StateFlags} from "@tauri-apps/plugin-window-state";
 import {useEffect} from "react";
 
 export function Window() {
-  const {_g, _p} = useTranslation();
+  const {_g} = useTranslation();
   const {page} = useNavigation();
   const {openDialog} = useDialog();
   const {open: sidebarOpen, isMobile, openMobile} = useSidebar();
@@ -35,7 +35,7 @@ export function Window() {
     let closeFn: () => void;
 
     async function startup() {
-      await window.setTitle(_p("AppName", "Application"));
+      await invoke("show_main_window");
       closeFn = await window.onCloseRequested(async (event) => {
         await saveWindowState(StateFlags.ALL);
         if (!(await invoke<boolean>("can_window_close"))) {

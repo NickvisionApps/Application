@@ -13,6 +13,7 @@ use crate::translation::Translator;
 use semver::Version;
 use std::sync::Mutex;
 use tauri::Manager;
+use tauri_plugin_window_state::StateFlags;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -22,7 +23,11 @@ pub fn run() {
         .plugin(tauri_plugin_os::init())
         .plugin(tauri_plugin_process::init())
         .plugin(tauri_plugin_updater::Builder::default().build())
-        .plugin(tauri_plugin_window_state::Builder::default().build())
+        .plugin(
+            tauri_plugin_window_state::Builder::default()
+                .with_state_flags(StateFlags::all() & !StateFlags::VISIBLE)
+                .build(),
+        )
         .setup(|app| {
             let product_info = ProductInfo::builder()
                 .id("org.nickvision.application")
@@ -69,7 +74,8 @@ pub fn run() {
             commands::update::get_new_update,
             commands::update::install_update,
             commands::window::can_window_close,
-            commands::window::confirm_window_close
+            commands::window::confirm_window_close,
+            commands::window::show_main_window
         ])
         .run(tauri::generate_context!())
         .expect("Error while running tauri application");

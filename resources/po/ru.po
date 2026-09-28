@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-28 00:44-0400\n"
+"POT-Creation-Date: 2026-09-28 01:12-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -18,6 +18,12 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
+#: src-tauri/src/commands/window.rs:21 src/components/navigation-view.tsx:135
+#, fuzzy
+msgctxt "AppName"
+msgid "Application"
+msgstr "Application"
+
 #: src/components/navigation-view.tsx:94
 msgid "Home"
 msgstr ""
@@ -26,12 +32,6 @@ msgstr ""
 #, fuzzy
 msgid "Folder"
 msgstr "Папка"
-
-#: src/components/navigation-view.tsx:135 src/components/window.tsx:38
-#, fuzzy
-msgctxt "AppName"
-msgid "Application"
-msgstr "Application"
 
 #: src/components/navigation-view.tsx:139
 msgid "Preview ({0})"
@@ -175,22 +175,22 @@ msgstr ""
 msgid "No results found for “{0}”"
 msgstr ""
 
-#: src/components/dialogs/close-dialog.tsx:32
+#: src/components/dialogs/close-dialog.tsx:33
 #, fuzzy
 msgctxt "AppName"
 msgid "Exit Application?"
 msgstr "О приложении"
 
-#: src/components/dialogs/close-dialog.tsx:35
+#: src/components/dialogs/close-dialog.tsx:36
 #, fuzzy
 msgid "Are you sure you want to exit?"
 msgstr "Вы уверены, что хотите закрыть папку?"
 
-#: src/components/dialogs/close-dialog.tsx:39
+#: src/components/dialogs/close-dialog.tsx:40
 msgid "No"
 msgstr ""
 
-#: src/components/dialogs/close-dialog.tsx:54
+#: src/components/dialogs/close-dialog.tsx:57
 msgid "Yes"
 msgstr ""
 

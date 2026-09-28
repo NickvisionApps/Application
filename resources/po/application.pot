@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-28 00:44-0400\n"
+"POT-Creation-Date: 2026-09-28 01:12-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,17 +17,17 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: src-tauri/src/commands/window.rs:21 src/components/navigation-view.tsx:135
+msgctxt "AppName"
+msgid "Application"
+msgstr ""
+
 #: src/components/navigation-view.tsx:94
 msgid "Home"
 msgstr ""
 
 #: src/components/navigation-view.tsx:100
 msgid "Folder"
-msgstr ""
-
-#: src/components/navigation-view.tsx:135 src/components/window.tsx:38
-msgctxt "AppName"
-msgid "Application"
 msgstr ""
 
 #: src/components/navigation-view.tsx:139
@@ -168,20 +168,20 @@ msgstr ""
 msgid "No results found for “{0}”"
 msgstr ""
 
-#: src/components/dialogs/close-dialog.tsx:32
+#: src/components/dialogs/close-dialog.tsx:33
 msgctxt "AppName"
 msgid "Exit Application?"
 msgstr ""
 
-#: src/components/dialogs/close-dialog.tsx:35
+#: src/components/dialogs/close-dialog.tsx:36
 msgid "Are you sure you want to exit?"
 msgstr ""
 
-#: src/components/dialogs/close-dialog.tsx:39
+#: src/components/dialogs/close-dialog.tsx:40
 msgid "No"
 msgstr ""
 
-#: src/components/dialogs/close-dialog.tsx:54
+#: src/components/dialogs/close-dialog.tsx:57
 msgid "Yes"
 msgstr ""
 

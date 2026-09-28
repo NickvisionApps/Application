@@ -1,6 +1,7 @@
 use crate::close::CloseManager;
+use crate::translation::Translator;
 use std::sync::Mutex;
-use tauri::{State, command};
+use tauri::{State, WebviewWindow, command};
 
 #[command]
 pub fn can_window_close(close_manager: State<'_, Mutex<CloseManager>>) -> bool {
@@ -10,4 +11,15 @@ pub fn can_window_close(close_manager: State<'_, Mutex<CloseManager>>) -> bool {
 #[command]
 pub fn confirm_window_close(close_manager: State<'_, Mutex<CloseManager>>) {
     close_manager.lock().unwrap().confirm_close();
+}
+
+#[command]
+pub async fn show_main_window(
+    window: WebviewWindow,
+    translator: State<'_, Mutex<Translator>>,
+) -> Result<(), tauri::Error> {
+    window.set_title(&translator.lock().unwrap()._p("AppName", "Application"))?;
+    window.show()?;
+    window.set_focus()?;
+    Ok(())
 }

@@ -85,14 +85,18 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
-  --titlebar-height: 40px;
+  --titlebar-height: 32px;
   --titlebar-z-index: 20;
+  --traffic-lights-width: 0px;
+}
+
+:root[data-platform="macos"] {
+  --titlebar-height: 42px;
   --traffic-lights-width: 90px;
 }
 
-:root[data-platform="windows"],
 :root[data-platform="linux"] {
-  --traffic-lights-width: 0px;
+  --titlebar-height: 36px;
 }
 
 .dark {
