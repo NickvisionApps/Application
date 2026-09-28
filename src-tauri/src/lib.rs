@@ -77,7 +77,7 @@ pub fn run() {
             commands::translation::translate_npf,
             commands::translation::translate_p,
             commands::translation::translate_pf,
-            commands::update::get_new_version,
+            commands::update::get_new_update,
             commands::update::install_update,
             commands::window::can_window_close,
             commands::window::confirm_window_close,

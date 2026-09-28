@@ -1,23 +1,20 @@
 use crate::config::Configuration;
 use crate::product::{DeploymentMode, ProductInfo};
-use crate::update::{UpdateDownloadProgress, latest_update};
-use semver::Version;
+use crate::update::{UpdateDownloadProgress, UpdateInformation, latest_update};
 use std::sync::Mutex;
 use tauri::{AppHandle, Emitter, State, command};
 
 #[command]
-pub async fn get_new_version(
+pub async fn get_new_update(
     app: AppHandle,
     configuration: State<'_, Mutex<Configuration>>,
     product_info: State<'_, ProductInfo>,
-) -> Result<String, tauri::Error> {
+) -> Result<Option<UpdateInformation>, tauri::Error> {
     let allow_preview = configuration.lock().unwrap().allow_preview_updates();
     if let Some(update) = latest_update(&app, &product_info, allow_preview).await {
-        Ok(Version::parse(&update.version).unwrap().to_string())
+        Ok(Some(UpdateInformation::new(&update)))
     } else {
-        Err(tauri::Error::Io(std::io::Error::other(
-            "No update available",
-        )))
+        Ok(None)
     }
 }
 
@@ -61,7 +58,5 @@ pub async fn install_update(
         #[cfg(any(target_os = "macos", target_os = "linux"))]
         app.restart();
     }
-    Err(tauri::Error::Io(std::io::Error::other(
-        "No update available",
-    )))
+    Ok(())
 }
