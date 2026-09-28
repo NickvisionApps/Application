@@ -14,7 +14,6 @@ use semver::Version;
 use std::sync::Mutex;
 use std::time::Duration;
 use tauri::Manager;
-use tauri_plugin_window_state::StateFlags;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -29,11 +28,7 @@ pub fn run() {
         .plugin(tauri_plugin_os::init())
         .plugin(tauri_plugin_process::init())
         .plugin(tauri_plugin_updater::Builder::default().build())
-        .plugin(
-            tauri_plugin_window_state::Builder::default()
-                .with_state_flags(StateFlags::all() & !StateFlags::VISIBLE)
-                .build(),
-        )
+        .plugin(tauri_plugin_window_state::Builder::default().build())
         .setup(|app| {
             let product_info = ProductInfo::builder()
                 .id("org.nickvision.application")
