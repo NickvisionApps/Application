@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-27 23:39-0400\n"
+"POT-Creation-Date: 2026-09-27 23:48-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,7 +34,7 @@ msgstr ""
 msgid "Preview ({0})"
 msgstr ""
 
-#: src/components/navigation-view.tsx:219 src/components/pages/home-page.tsx:110
+#: src/components/navigation-view.tsx:219 src/components/pages/home-page.tsx:102
 msgid "What's New?"
 msgstr ""
 
@@ -165,8 +165,8 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:95 src/components/pages/home-page.tsx:88
-#: src/components/pages/home-page.tsx:93
+#: src/components/pages/folder-page.tsx:95 src/components/pages/home-page.tsx:80
+#: src/components/pages/home-page.tsx:85
 msgid "Open Folder"
 msgstr ""
 
@@ -195,25 +195,25 @@ msgstr ""
 msgid "No Preview Available"
 msgstr ""
 
-#: src/components/pages/home-page.tsx:36
+#: src/components/pages/home-page.tsx:34
 msgid "Good Day!"
 msgstr ""
 
-#: src/components/pages/home-page.tsx:45
+#: src/components/pages/home-page.tsx:43
 msgctxt "Night"
 msgid "Good Morning!"
 msgstr ""
 
-#: src/components/pages/home-page.tsx:48
+#: src/components/pages/home-page.tsx:46
 msgctxt "Morning"
 msgid "Good Morning!"
 msgstr ""
 
-#: src/components/pages/home-page.tsx:50
+#: src/components/pages/home-page.tsx:48
 msgid "Good Afternoon!"
 msgstr ""
 
-#: src/components/pages/home-page.tsx:52
+#: src/components/pages/home-page.tsx:50
 msgid "Good Evening!"
 msgstr ""
 

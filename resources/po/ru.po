@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-27 23:33-0400\n"
+"POT-Creation-Date: 2026-09-27 23:48-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -38,7 +38,7 @@ msgid "Preview ({0})"
 msgstr ""
 
 #: src/components/navigation-view.tsx:219
-#: src/components/pages/home-page.tsx:110
+#: src/components/pages/home-page.tsx:102
 msgid "What's New?"
 msgstr ""
 
@@ -174,7 +174,7 @@ msgid "Yes"
 msgstr ""
 
 #: src/components/pages/folder-page.tsx:95
-#: src/components/pages/home-page.tsx:88 src/components/pages/home-page.tsx:93
+#: src/components/pages/home-page.tsx:80 src/components/pages/home-page.tsx:85
 msgid "Open Folder"
 msgstr "Открыть Папку"
 
@@ -206,25 +206,25 @@ msgstr ""
 msgid "No Preview Available"
 msgstr "Application"
 
-#: src/components/pages/home-page.tsx:36
+#: src/components/pages/home-page.tsx:34
 msgid "Good Day!"
 msgstr "Здравствуйте!"
 
-#: src/components/pages/home-page.tsx:45
+#: src/components/pages/home-page.tsx:43
 msgctxt "Night"
 msgid "Good Morning!"
 msgstr "Доброй ночи!"
 
-#: src/components/pages/home-page.tsx:48
+#: src/components/pages/home-page.tsx:46
 msgctxt "Morning"
 msgid "Good Morning!"
 msgstr "Доброе утро!"
 
-#: src/components/pages/home-page.tsx:50
+#: src/components/pages/home-page.tsx:48
 msgid "Good Afternoon!"
 msgstr "Добрый день!"
 
-#: src/components/pages/home-page.tsx:52
+#: src/components/pages/home-page.tsx:50
 msgid "Good Evening!"
 msgstr "Добрый вечер!"
 

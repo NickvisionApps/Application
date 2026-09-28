@@ -16,7 +16,6 @@ import {
 } from "@/components/ui/tooltip.tsx";
 import {useDialog} from "@/lib/contexts/dialog-context.ts";
 import {useFolderView} from "@/lib/contexts/folder-view-context.ts";
-import {useNavigation} from "@/lib/contexts/navigation-context.ts";
 import {useTranslation} from "@/lib/contexts/translation-context.ts";
 import {platform} from "@tauri-apps/plugin-os";
 import {ArrowUpRightIcon, LucideIcon, Moon, MoonStar, Sun} from "lucide-react";
@@ -30,7 +29,6 @@ interface Greeting {
 export function HomePage() {
   const {_g, _p} = useTranslation();
   const {openDialog} = useDialog();
-  const {setPage} = useNavigation();
   const {openFolder} = useFolderView();
   const [greeting, setGreeting] = useState<Greeting>({
     label: _g("Good Day!"),
@@ -76,13 +74,7 @@ export function HomePage() {
               render={
                 <Button
                   onClick={() => {
-                    async function handleOpenFolder() {
-                      if (await openFolder()) {
-                        setPage("folder");
-                      }
-                    }
-
-                    void handleOpenFolder();
+                    void openFolder();
                   }}
                 >
                   {_g("Open Folder")}
