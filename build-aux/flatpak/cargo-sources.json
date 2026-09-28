@@ -4903,19 +4903,6 @@
     {
         "type": "archive",
         "archive-type": "tar-gzip",
-        "url": "https://static.crates.io/crates/tauri-plugin-decoration/tauri-plugin-decoration-3.0.5.crate",
-        "sha256": "bd7e01544cbc9e7f55e94e034ec4cc75e3f520d6d67ee7d866ac9109017992b7",
-        "dest": "cargo/vendor/tauri-plugin-decoration-3.0.5"
-    },
-    {
-        "type": "inline",
-        "contents": "{\"package\": \"bd7e01544cbc9e7f55e94e034ec4cc75e3f520d6d67ee7d866ac9109017992b7\", \"files\": {}}",
-        "dest": "cargo/vendor/tauri-plugin-decoration-3.0.5",
-        "dest-filename": ".cargo-checksum.json"
-    },
-    {
-        "type": "archive",
-        "archive-type": "tar-gzip",
         "url": "https://static.crates.io/crates/tauri-plugin-dialog/tauri-plugin-dialog-2.8.0.crate",
         "sha256": "7527c5fd1678032d116c1a82e5d609c67370e56f858ae6cfd376bbca37fe0490",
         "dest": "cargo/vendor/tauri-plugin-dialog-2.8.0"
