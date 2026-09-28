@@ -96,7 +96,7 @@ jobs:
           tagName: ${{ inputs.release_tag }}
           releaseName: "Application ${{ inputs.tag }}"
           releaseBody: ${{ inputs.release_body }}
-          prerelease: ${{ inputs.prerelease }}
+          prerelease: ${{ inputs.prerelease == true }}
           retryAttempts: 3
           uploadWorkflowArtifacts: ${{ inputs.release_tag == '' }}
           workflowArtifactNamePattern: Application-${{ matrix.variant.arch }}
