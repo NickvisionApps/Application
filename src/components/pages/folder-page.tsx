@@ -14,7 +14,6 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable.tsx";
 import {ScrollArea} from "@/components/ui/scroll-area.tsx";
-import {toast} from "@/components/ui/toast.tsx";
 import {
   Tooltip,
   TooltipContent,
@@ -22,7 +21,6 @@ import {
 } from "@/components/ui/tooltip.tsx";
 import {useTitlebarControls} from "@/hooks/titlebar.tsx";
 import {useFolderView} from "@/lib/contexts/folder-view-context.ts";
-import {useNavigation} from "@/lib/contexts/navigation-context.ts";
 import {useTranslation} from "@/lib/contexts/translation-context.ts";
 import {convertFileSrc} from "@tauri-apps/api/core";
 import {platform} from "@tauri-apps/plugin-os";
@@ -48,7 +46,6 @@ interface FolderFile {
 
 export function FolderPage() {
   const {_g, _p} = useTranslation();
-  const {setPage} = useNavigation();
   const {folderView, closeFolder, openFolder} = useFolderView();
   const [selectedFile, setSelectedFile] = useState<FolderFile | null>(null);
   const [imageLoadFailed, setImageLoadFailed] = useState(false);
@@ -111,16 +108,7 @@ export function FolderPage() {
               align="center"
               gap={1.5}
               onClick={() => {
-                async function handleCloseFolder() {
-                  await closeFolder();
-                  toast.add({
-                    type: "info",
-                    title: _g("Folder closed"),
-                  });
-                  setPage("home");
-                }
-
-                void handleCloseFolder();
+                void closeFolder();
               }}
             >
               <XIcon />

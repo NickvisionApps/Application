@@ -7,7 +7,7 @@ export interface FolderView {
 
 export interface FolderViewProviderState {
   folderView: FolderView;
-  openFolder: () => Promise<boolean>;
+  openFolder: () => Promise<void>;
   closeFolder: () => Promise<void>;
 }
 

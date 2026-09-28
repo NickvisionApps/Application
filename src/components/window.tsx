@@ -3,7 +3,7 @@ import {NavigationView} from "@/components/navigation-view.tsx";
 import {FolderPage} from "@/components/pages/folder-page.tsx";
 import {HomePage} from "@/components/pages/home-page.tsx";
 import {SidebarTrigger, useSidebar} from "@/components/ui/sidebar.tsx";
-import {toast, Toaster} from "@/components/ui/toast.tsx";
+import {Toaster} from "@/components/ui/toast.tsx";
 import {
   Tooltip,
   TooltipContent,
@@ -22,7 +22,7 @@ import {useEffect} from "react";
 
 export function Window() {
   const {_g} = useTranslation();
-  const {page, setPage} = useNavigation();
+  const {page} = useNavigation();
   const {openDialog} = useDialog();
   const {open: sidebarOpen, isMobile, openMobile} = useSidebar();
   const {folderView, openFolder, closeFolder} = useFolderView();
@@ -70,28 +70,13 @@ export function Window() {
   );
 
   useKeyboardShortcut("o", () => {
-    async function handleOpenFolder() {
-      if (await openFolder()) {
-        setPage("folder");
-      }
-    }
-
-    void handleOpenFolder();
+    void openFolder();
   });
 
   useKeyboardShortcut(
     "w",
     () => {
-      async function handleCloseFolder() {
-        await closeFolder();
-        toast.add({
-          type: "info",
-          title: _g("Folder closed"),
-        });
-        setPage("home");
-      }
-
-      void handleCloseFolder();
+      void closeFolder();
     },
     {shift: true, enabled: Boolean(folderView.path)},
   );
