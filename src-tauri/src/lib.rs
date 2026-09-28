@@ -4,6 +4,7 @@ pub mod config;
 pub mod folder;
 pub mod product;
 pub mod translation;
+pub mod update;
 
 use crate::close::CloseManager;
 use crate::config::Configuration;
@@ -13,7 +14,6 @@ use semver::Version;
 use std::sync::Mutex;
 use std::time::Duration;
 use tauri::Manager;
-use tauri_plugin_updater::Update;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -48,7 +48,6 @@ pub fn run() {
             app.manage(product_info);
             app.manage(Mutex::new(configuration));
             app.manage(Mutex::new(translator));
-            app.manage(Mutex::<Option<Update>>::new(None));
             app.manage(Mutex::new(CloseManager::default()));
             Ok(())
         })
@@ -72,8 +71,8 @@ pub fn run() {
             commands::translation::translate_npf,
             commands::translation::translate_p,
             commands::translation::translate_pf,
-            commands::updater::check_for_updates,
-            commands::updater::install_update,
+            commands::update::get_new_version,
+            commands::update::install_update,
             commands::window::can_window_close,
             commands::window::confirm_window_close,
             commands::window::show_main_window,
