@@ -1,0 +1,99 @@
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag to release (e.g. v2026.9.1 or v2026.9.1-beta.1)"
+        required: true
+name: Release
+permissions:
+  contents: write
+jobs:
+  channel:
+    name: "Determine release channel"
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.vars.outputs.tag }}
+      release_tag: ${{ steps.vars.outputs.release_tag }}
+      prerelease: ${{ steps.vars.outputs.prerelease }}
+    steps:
+      - id: vars
+        run: |
+          TAG="${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          if [[ "$TAG" == *-* ]]; then
+            echo "prerelease=true" >> "$GITHUB_OUTPUT"
+            echo "release_tag=preview" >> "$GITHUB_OUTPUT"
+          else
+            echo "prerelease=false" >> "$GITHUB_OUTPUT"
+            echo "release_tag=$TAG" >> "$GITHUB_OUTPUT"
+          fi
+  changelog:
+    name: "Read changelog"
+    needs: channel
+    runs-on: ubuntu-latest
+    outputs:
+      body: ${{ steps.read.outputs.body }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ needs.channel.outputs.tag }}
+      - id: read
+        run: |
+          {
+            echo 'body<<CHANGELOG_EOF'
+            cat resources/changelog.md
+            echo CHANGELOG_EOF
+          } >> "$GITHUB_OUTPUT"
+  windows:
+    name: "Tauri on Windows"
+    needs: [ channel, changelog ]
+    uses: ./.github/workflows/windows.yml
+    secrets: inherit
+    with:
+      tag: ${{ needs.channel.outputs.tag }}
+      release_tag: ${{ needs.channel.outputs.release_tag }}
+      prerelease: ${{ needs.channel.outputs.prerelease == 'true' }}
+      release_body: ${{ needs.changelog.outputs.body }}
+  macos:
+    name: "Tauri on macOS"
+    needs: [ channel, changelog ]
+    uses: ./.github/workflows/macos.yml
+    secrets: inherit
+    with:
+      tag: ${{ needs.channel.outputs.tag }}
+      release_tag: ${{ needs.channel.outputs.release_tag }}
+      prerelease: ${{ needs.channel.outputs.prerelease == 'true' }}
+      release_body: ${{ needs.changelog.outputs.body }}
+  linux:
+    name: "Tauri on Linux"
+    needs: [ channel, changelog ]
+    uses: ./.github/workflows/linux.yml
+    secrets: inherit
+    with:
+      tag: ${{ needs.channel.outputs.tag }}
+      release_tag: ${{ needs.channel.outputs.release_tag }}
+      prerelease: ${{ needs.channel.outputs.prerelease == 'true' }}
+      release_body: ${{ needs.changelog.outputs.body }}
+  flatpak:
+    name: "Tauri on Flatpak"
+    needs: channel
+    uses: ./.github/workflows/flatpak.yml
+    secrets: inherit
+    with:
+      tag: ${{ needs.channel.outputs.tag }}
+  flatpak-release:
+    name: "Publish Flatpak"
+    needs: [ channel, windows, macos, linux, flatpak ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v7
+        with:
+          path: bundles
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ needs.channel.outputs.release_tag }}
+          prerelease: ${{ needs.channel.outputs.prerelease }}
+          files: bundles/**/*.flatpak

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-25 15:32-0400\n"
+"POT-Creation-Date: 2026-09-27 23:33-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -100,16 +100,11 @@ msgstr "Системная"
 msgid "Settings"
 msgstr ""
 
-#: src/components/window.tsx:134 src/components/pages/folder-page.tsx:118
-#, fuzzy
-msgid "Folder closed"
-msgstr "Папка закрыта."
-
-#: src/components/window.tsx:151
+#: src/components/window.tsx:91
 msgid "Hide Sidebar"
 msgstr ""
 
-#: src/components/window.tsx:152
+#: src/components/window.tsx:92
 msgid "Show Sidebar"
 msgstr ""
 
@@ -178,35 +173,35 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:98
+#: src/components/pages/folder-page.tsx:95
 #: src/components/pages/home-page.tsx:88 src/components/pages/home-page.tsx:93
 msgid "Open Folder"
 msgstr "Открыть Папку"
 
-#: src/components/pages/folder-page.tsx:127
+#: src/components/pages/folder-page.tsx:115
 #, fuzzy
 msgctxt "Folder"
 msgid "Close"
 msgstr "Закрыть"
 
-#: src/components/pages/folder-page.tsx:132
+#: src/components/pages/folder-page.tsx:120
 msgid "Close Folder"
 msgstr "Закрыть папку"
 
-#: src/components/pages/folder-page.tsx:174
+#: src/components/pages/folder-page.tsx:162
 msgid "This folder is empty."
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:186
+#: src/components/pages/folder-page.tsx:174
 #, fuzzy
 msgid "No File Selected"
 msgstr "Папка не открыта"
 
-#: src/components/pages/folder-page.tsx:188
+#: src/components/pages/folder-page.tsx:176
 msgid "Select a file to preview it here."
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:207
+#: src/components/pages/folder-page.tsx:195
 #, fuzzy
 msgid "No Preview Available"
 msgstr "Application"
@@ -232,6 +227,11 @@ msgstr "Добрый день!"
 #: src/components/pages/home-page.tsx:52
 msgid "Good Evening!"
 msgstr "Добрый вечер!"
+
+#: src/lib/providers/folder-view-provider.tsx:41
+#, fuzzy
+msgid "Folder closed"
+msgstr "Папка закрыта."
 
 #~ msgid "User Interface"
 #~ msgstr "Интерфейс"

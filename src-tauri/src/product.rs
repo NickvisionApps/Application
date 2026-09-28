@@ -9,6 +9,7 @@ pub enum DeploymentMode {
     Flatpak,
     Snap,
     Wsl,
+    AppImage,
 }
 
 #[serde_as]
@@ -110,6 +111,8 @@ impl ProductInfo {
                 DeploymentMode::Flatpak
             } else if std::env::var("SNAP").is_ok() {
                 DeploymentMode::Snap
+            } else if std::env::var("APPIMAGE").is_ok() {
+                DeploymentMode::AppImage
             } else if let Ok(res) = std::fs::exists("/proc/sys/fs/binfmt_misc/WSLInterop")
                 && res
             {
@@ -184,6 +187,7 @@ impl Display for DeploymentMode {
                 DeploymentMode::Flatpak => "Flatpak",
                 DeploymentMode::Snap => "Snap",
                 DeploymentMode::Wsl => "WSL",
+                DeploymentMode::AppImage => "AppImage",
             }
         )
     }

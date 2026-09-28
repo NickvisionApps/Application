@@ -35,9 +35,18 @@
     },
     "withGlobalTauri": true
   },
+  "plugins": {
+    "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDY4RjQyQzU0MEIyQThGN0UKUldSK2p5b0xWQ3owYUJFWnhWajErSExKUGRZZTdHNUZPMU0zdkMyNEE0ektoNWVyeEhHL1puUTgK",
+      "endpoints": [
+        "https://github.com/NickvisionApps/Application/releases/latest/download/latest.json"
+      ]
+    }
+  },
   "bundle": {
     "active": true,
     "targets": [],
+    "createUpdaterArtifacts": true,
     "icon": [
       "../resources/32x32.png",
       "../resources/128x128.png",
