@@ -2,20 +2,11 @@ import {createContext, useContext} from "react";
 
 export type Theme = 0 | 1 | 2;
 
-interface WindowGeometry {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-  isMaximized: boolean;
-}
-
 export interface Configuration {
   allowPreviewUpdates: boolean;
   automaticallyCheckForUpdates: boolean;
   theme: Theme;
   translationLanguage: string;
-  windowGeometry: WindowGeometry;
 }
 
 export interface ConfigurationProviderState {

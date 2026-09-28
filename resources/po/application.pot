@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-27 23:00-0400\n"
+"POT-Creation-Date: 2026-09-27 23:12-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -94,15 +94,15 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: src/components/window.tsx:134 src/components/pages/folder-page.tsx:118
+#: src/components/window.tsx:89 src/components/pages/folder-page.tsx:118
 msgid "Folder closed"
 msgstr ""
 
-#: src/components/window.tsx:151
+#: src/components/window.tsx:106
 msgid "Hide Sidebar"
 msgstr ""
 
-#: src/components/window.tsx:152
+#: src/components/window.tsx:107
 msgid "Show Sidebar"
 msgstr ""
 

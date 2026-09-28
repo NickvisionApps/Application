@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-25 15:32-0400\n"
+"POT-Creation-Date: 2026-09-27 23:07-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -100,16 +100,16 @@ msgstr "Системная"
 msgid "Settings"
 msgstr ""
 
-#: src/components/window.tsx:134 src/components/pages/folder-page.tsx:118
+#: src/components/window.tsx:89 src/components/pages/folder-page.tsx:118
 #, fuzzy
 msgid "Folder closed"
 msgstr "Папка закрыта."
 
-#: src/components/window.tsx:151
+#: src/components/window.tsx:106
 msgid "Hide Sidebar"
 msgstr ""
 
-#: src/components/window.tsx:152
+#: src/components/window.tsx:107
 msgid "Show Sidebar"
 msgstr ""
 

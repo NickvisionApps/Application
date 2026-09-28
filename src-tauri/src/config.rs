@@ -12,16 +12,6 @@ pub enum ApplicationTheme {
     System,
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct WindowGeometry {
-    x: i32,
-    y: i32,
-    width: u32,
-    height: u32,
-    is_maximized: bool,
-}
-
 #[derive(Debug, Clone, Default, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Configuration {
@@ -32,51 +22,6 @@ pub struct Configuration {
     automatically_check_for_updates: bool,
     theme: ApplicationTheme,
     translation_language: String,
-    window_geometry: WindowGeometry,
-}
-
-impl WindowGeometry {
-    pub fn new(x: i32, y: i32, width: u32, height: u32, is_maximized: bool) -> Self {
-        WindowGeometry {
-            x,
-            y,
-            width,
-            height,
-            is_maximized,
-        }
-    }
-
-    pub fn x(&self) -> i32 {
-        self.x
-    }
-
-    pub fn y(&self) -> i32 {
-        self.y
-    }
-
-    pub fn width(&self) -> u32 {
-        self.width
-    }
-
-    pub fn height(&self) -> u32 {
-        self.height
-    }
-
-    pub fn is_maximized(&self) -> bool {
-        self.is_maximized
-    }
-}
-
-impl Default for WindowGeometry {
-    fn default() -> Self {
-        Self {
-            x: 100,
-            y: 100,
-            width: 800,
-            height: 600,
-            is_maximized: false,
-        }
-    }
 }
 
 impl Configuration {
@@ -158,14 +103,6 @@ impl Configuration {
 
     pub fn set_translation_language(&mut self, language: impl Into<String>) {
         self.translation_language = language.into();
-    }
-
-    pub fn window_geometry(&self) -> &WindowGeometry {
-        &self.window_geometry
-    }
-
-    pub fn set_window_geometry(&mut self, geometry: WindowGeometry) {
-        self.window_geometry = geometry;
     }
 }
 

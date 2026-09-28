@@ -4,11 +4,6 @@ import {
   ConfigurationProviderState,
 } from "@/lib/contexts/configuration-context.ts";
 import {invoke} from "@tauri-apps/api/core";
-import {
-  getCurrentWindow,
-  LogicalPosition,
-  LogicalSize,
-} from "@tauri-apps/api/window";
 import {ReactNode, useCallback, useEffect, useMemo, useState} from "react";
 
 interface ConfigurationProviderProps {
@@ -20,13 +15,6 @@ const DefaultConfiguration: Configuration = {
   automaticallyCheckForUpdates: true,
   theme: 2,
   translationLanguage: "",
-  windowGeometry: {
-    x: 10,
-    y: 10,
-    width: 800,
-    height: 600,
-    isMaximized: false,
-  },
 };
 
 export function ConfigurationProvider({
@@ -38,25 +26,7 @@ export function ConfigurationProvider({
 
   useEffect(() => {
     async function startup() {
-      const configuration = await invoke<Configuration>("get_configuration");
-      const window = getCurrentWindow();
-      if (configuration.windowGeometry.isMaximized) {
-        await window.maximize();
-      } else {
-        await window.setPosition(
-          new LogicalPosition(
-            configuration.windowGeometry.x,
-            configuration.windowGeometry.y,
-          ),
-        );
-        await window.setSize(
-          new LogicalSize(
-            configuration.windowGeometry.width,
-            configuration.windowGeometry.height,
-          ),
-        );
-      }
-      setConfiguration(configuration);
+      setConfiguration(await invoke<Configuration>("get_configuration"));
     }
 
     void startup();

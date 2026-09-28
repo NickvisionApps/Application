@@ -20,7 +20,6 @@ pub fn set_configuration(
         .set_automatically_check_for_updates(new_configuration.automatically_check_for_updates());
     configuration.set_theme(*new_configuration.theme());
     configuration.set_translation_language(new_configuration.translation_language());
-    configuration.set_window_geometry(*new_configuration.window_geometry());
     configuration
         .save()
         .map_err(|e| tauri::Error::Setup(e.into()))?;
