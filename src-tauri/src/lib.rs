@@ -16,7 +16,7 @@ use tauri::Manager;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
-    let app = tauri::Builder::default()
+    tauri::Builder::default()
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_os::init())
@@ -71,24 +71,6 @@ pub fn run() {
             commands::window::can_window_close,
             commands::window::confirm_window_close
         ])
-        .build(tauri::generate_context!())
+        .run(tauri::generate_context!())
         .expect("Error while running tauri application");
-    app.run(|handle, event| {
-        #[cfg(target_os = "macos")]
-        if let tauri::RunEvent::Reopen {
-            has_visible_windows,
-            ..
-        } = event
-            && !has_visible_windows
-            && let Some(window) = handle.get_webview_window("main")
-        {
-            handle
-                .state::<Mutex<CloseManager>>()
-                .lock()
-                .unwrap()
-                .set_can_close(false);
-            window.show().unwrap();
-            window.set_focus().unwrap();
-        }
-    });
 }

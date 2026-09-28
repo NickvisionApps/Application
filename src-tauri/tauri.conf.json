@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "visible": true,
+        "visible": false,
         "width": 800,
         "height": 600,
         "resizable": true,
@@ -24,7 +24,6 @@
         }
       }
     ],
-    "macOSPrivateApi": true,
     "security": {
       "csp": {
         "default-src": "'self' customprotocol: asset:",
