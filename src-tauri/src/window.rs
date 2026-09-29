@@ -2,7 +2,10 @@ use directories::BaseDirs;
 
 #[cfg(target_os = "linux")]
 pub fn gnome_button_layout() -> Option<String> {
-    gtk::Settings::default()?.gtk_decoration_layout()
+    use gtk::prelude::GtkSettingsExt;
+    gtk::Settings::default()?
+        .gtk_decoration_layout()
+        .map(|value| value.to_string())
 }
 
 #[cfg(target_os = "linux")]
