@@ -2,8 +2,10 @@
 
 fn main() {
     #[cfg(target_os = "linux")]
-    unsafe {
-        std::env::set_var("WEBKIT_DISABLE_DMABUF_RENDERER", "1");
+    if std::path::Path::new("/proc/driver/nvidia/version").exists() {
+        unsafe {
+            std::env::set_var("WEBKIT_DISABLE_DMABUF_RENDERER", "1");
+        }
     }
     org_nickvision_application_lib::run()
 }

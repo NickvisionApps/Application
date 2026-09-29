@@ -5,6 +5,7 @@ import {
 } from "@/lib/contexts/configuration-context.ts";
 import {invoke} from "@tauri-apps/api/core";
 import {getCurrentWindow} from "@tauri-apps/api/window";
+import {platform} from "@tauri-apps/plugin-os";
 import {ReactNode, useCallback, useEffect, useMemo, useState} from "react";
 
 interface ConfigurationProviderProps {
@@ -45,13 +46,15 @@ export function ConfigurationProvider({
     }
 
     applyTheme();
-    void getCurrentWindow().setTheme(
-      configuration.theme === 2
-        ? null
-        : configuration.theme === 1
-          ? "dark"
-          : "light",
-    );
+    if (configuration.theme !== 2 || platform() !== "linux") {
+      void getCurrentWindow().setTheme(
+        configuration.theme === 2
+          ? null
+          : configuration.theme === 1
+            ? "dark"
+            : "light",
+      );
+    }
     if (configuration.theme !== 2) {
       return;
     }
