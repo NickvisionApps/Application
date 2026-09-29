@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-28 22:22-0400\n"
+"POT-Creation-Date: 2026-09-28 23:23-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: src-tauri/src/commands/window.rs:31 src/components/navigation-view.tsx:135
+#: src-tauri/src/commands/window.rs:59 src/components/navigation-view.tsx:135
 #, fuzzy
 msgctxt "AppName"
 msgid "Application"
@@ -100,32 +100,32 @@ msgstr "Системная"
 msgid "Settings"
 msgstr ""
 
-#: src/components/window-controls.tsx:39
+#: src/components/window-controls.tsx:125
 msgctxt "TitleBar"
 msgid "Minimize"
 msgstr ""
 
-#: src/components/window-controls.tsx:51
+#: src/components/window-controls.tsx:154
 msgctxt "TitleBar"
 msgid "Restore"
 msgstr ""
 
-#: src/components/window-controls.tsx:51
+#: src/components/window-controls.tsx:154
 msgctxt "TitleBar"
 msgid "Maximize"
 msgstr ""
 
-#: src/components/window-controls.tsx:73
+#: src/components/window-controls.tsx:216
 #, fuzzy
 msgctxt "TitleBar"
 msgid "Close"
 msgstr "Закрыть"
 
-#: src/components/window.tsx:99
+#: src/components/window.tsx:97
 msgid "Hide Sidebar"
 msgstr ""
 
-#: src/components/window.tsx:100
+#: src/components/window.tsx:98
 msgid "Show Sidebar"
 msgstr ""
 

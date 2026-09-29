@@ -195,8 +195,13 @@
   height: 10px;
 }
 
-.window-controls[data-platform="windows"] button:hover {
+.window-controls[data-platform="windows"] button:hover,
+.window-controls[data-platform="windows"] button.snap-hover {
   background: color-mix(in oklab, var(--foreground) 8%, transparent);
+}
+
+.window-controls[data-platform="windows"] button.snap-pressed {
+  background: color-mix(in oklab, var(--foreground) 12%, transparent);
 }
 
 .window-controls[data-platform="windows"] button.close:hover {
@@ -216,7 +221,8 @@
   border-radius: 999px;
 }
 
-.window-controls[data-platform="linux"] button svg {
+.window-controls[data-platform="linux"] button svg,
+.window-controls[data-platform="linux"] button img {
   width: 14px;
   height: 14px;
 }

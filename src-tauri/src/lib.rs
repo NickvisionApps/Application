@@ -2,10 +2,10 @@ pub mod close;
 pub mod commands;
 pub mod config;
 pub mod folder;
+pub mod platform;
 pub mod product;
 pub mod translation;
 pub mod update;
-pub mod window;
 
 use crate::close::CloseManager;
 use crate::config::Configuration;
@@ -75,9 +75,12 @@ pub fn run() {
             commands::update::get_new_update,
             commands::update::install_update,
             commands::window::can_window_close,
+            commands::window::clear_windows_snap_geometry,
             commands::window::confirm_window_close,
             commands::window::get_linux_button_layout,
-            commands::window::show_main_window
+            commands::window::get_linux_titlebar_icons,
+            commands::window::show_main_window,
+            commands::window::update_windows_snap_geometry
         ])
         .run(tauri::generate_context!())
         .expect("Error while running tauri application");

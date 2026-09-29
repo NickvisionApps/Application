@@ -1,8 +1,12 @@
 import {createContext, ReactNode, useContext} from "react";
 
+export type WindowButtonId = "minimize" | "maximize" | "close";
+
 export interface TitlebarProviderState {
   content: ReactNode;
   setContent: (content: ReactNode) => void;
+  side: "left" | "right";
+  order: WindowButtonId[];
 }
 
 export const TitlebarProviderContext = createContext<

@@ -11,7 +11,6 @@ import {
 } from "@/components/ui/tooltip.tsx";
 import {WindowControls} from "@/components/window-controls.tsx";
 import {useKeyboardShortcut} from "@/hooks/use-keyboard-shortcut.ts";
-import {useLinuxButtonLayout} from "@/hooks/use-linux-button-layout.ts";
 import {useDialog} from "@/lib/contexts/dialog-context.ts";
 import {useFolderView} from "@/lib/contexts/folder-view-context.ts";
 import {useNavigation} from "@/lib/contexts/navigation-context.ts";
@@ -29,8 +28,7 @@ export function Window() {
   const {openDialog} = useDialog();
   const {open: sidebarOpen, isMobile, openMobile} = useSidebar();
   const {folderView, openFolder, closeFolder} = useFolderView();
-  const {content} = useTitlebar();
-  const {side} = useLinuxButtonLayout();
+  const {content, side} = useTitlebar();
 
   useEffect(() => {
     const window = getCurrentWindow();

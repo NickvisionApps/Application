@@ -51,9 +51,11 @@ checksum = "330a5ed07fa54e4702c9d6c4174f74427fc0ef6e214bbd677ae50a5099946470"
 name = "application"
 version = "2026.9.0"
 dependencies = [
+ "base64 0.22.1",
  "directories",
  "gettext",
  "gtk",
+ "raw-window-handle",
  "semver",
  "serde",
  "serde_json",
@@ -70,6 +72,7 @@ dependencies = [
  "tauri-plugin-window-state",
  "url",
  "utente",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
