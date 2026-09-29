@@ -4,6 +4,7 @@ import {
   ConfigurationProviderState,
 } from "@/lib/contexts/configuration-context.ts";
 import {invoke} from "@tauri-apps/api/core";
+import {getCurrentWindow} from "@tauri-apps/api/window";
 import {ReactNode, useCallback, useEffect, useMemo, useState} from "react";
 
 interface ConfigurationProviderProps {
@@ -34,16 +35,30 @@ export function ConfigurationProvider({
 
   useEffect(() => {
     const root = window.document.documentElement;
-    root.classList.remove("light", "dark");
-    if (configuration.theme === 2) {
-      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
-        .matches
-        ? "dark"
-        : "light";
-      root.classList.add(systemTheme);
-    } else {
-      root.classList.add(configuration.theme === 0 ? "light" : "dark");
+    const mql = window.matchMedia("(prefers-color-scheme: dark)");
+
+    function applyTheme() {
+      const dark =
+        configuration.theme === 2 ? mql.matches : configuration.theme === 1;
+      root.classList.toggle("dark", dark);
+      root.classList.toggle("light", !dark);
     }
+
+    applyTheme();
+    void getCurrentWindow().setTheme(
+      configuration.theme === 2
+        ? null
+        : configuration.theme === 1
+          ? "dark"
+          : "light",
+    );
+    if (configuration.theme !== 2) {
+      return;
+    }
+    mql.addEventListener("change", applyTheme);
+    return () => {
+      mql.removeEventListener("change", applyTheme);
+    };
   }, [configuration.theme]);
 
   const handleSetConfiguration = useCallback(

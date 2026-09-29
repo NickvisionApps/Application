@@ -264,7 +264,8 @@
   left: var(--linux-window-bleed);
 }
 
-:root[data-platform="linux"] [data-slot="sidebar-container"][data-side="right"] {
+:root[data-platform="linux"]
+  [data-slot="sidebar-container"][data-side="right"] {
   right: var(--linux-window-bleed);
 }
 
@@ -283,16 +284,19 @@
   height: 100vh;
 }
 
-:root[data-platform="linux"][data-maximized="true"] [data-slot="sidebar-container"] {
+:root[data-platform="linux"][data-maximized="true"]
+  [data-slot="sidebar-container"] {
   top: 0;
   bottom: 0;
   height: 100svh;
 }
 
-:root[data-platform="linux"][data-maximized="true"] [data-slot="sidebar-container"][data-side="left"] {
+:root[data-platform="linux"][data-maximized="true"]
+  [data-slot="sidebar-container"][data-side="left"] {
   left: 0;
 }
 
-:root[data-platform="linux"][data-maximized="true"] [data-slot="sidebar-container"][data-side="right"] {
+:root[data-platform="linux"][data-maximized="true"]
+  [data-slot="sidebar-container"][data-side="right"] {
   right: 0;
 }

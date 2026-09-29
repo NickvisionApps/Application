@@ -36,9 +36,7 @@ export function useLinuxButtonLayout() {
           .map((token) => token.trim())
           .filter(
             (token): token is WindowButtonId =>
-              token === "minimize" ||
-              token === "maximize" ||
-              token === "close",
+              token === "minimize" || token === "maximize" || token === "close",
           );
       const left = parse(leftRaw);
       const right = parse(rightRaw);
