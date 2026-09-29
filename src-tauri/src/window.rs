@@ -19,6 +19,26 @@ pub fn apply_native_decorations(window: &tauri::WebviewWindow) {
         titlebar.set_size_request(0, 0);
         titlebar.show();
         gtk_window.set_titlebar(Some(&titlebar));
+        let provider = gtk::CssProvider::new();
+        provider
+            .load_from_data(
+                b"window.csd decoration {\n\
+                    border-radius: 12px;\n\
+                  }\n\
+                  window.csd.maximized decoration,\n\
+                  window.csd.fullscreen decoration,\n\
+                  window.csd.tiled decoration {\n\
+                    border-radius: 0;\n\
+                  }",
+            )
+            .unwrap();
+        if let Some(screen) = gtk_window.screen() {
+            gtk::StyleContext::add_provider_for_screen(
+                &screen,
+                &provider,
+                gtk::STYLE_PROVIDER_PRIORITY_APPLICATION,
+            );
+        }
     } else {
         gtk_window.set_decorated(false);
     }
