@@ -97,6 +97,12 @@
 
 :root[data-platform="linux"] {
   --titlebar-height: 36px;
+  --linux-button-diameter: 28px;
+  --linux-button-gap: 4px;
+  --linux-button-edge-margin: 6px;
+  --linux-window-radius: 12px;
+  --linux-window-bleed: 36px;
+  --linux-window-shadow: 0 10px 24px rgb(0 0 0 / 35%);
 }
 
 .dark {
@@ -171,6 +177,9 @@
 .window-controls {
   display: flex;
   align-self: stretch;
+}
+
+.window-controls[data-side="right"] {
   margin-left: auto;
 }
 
@@ -183,11 +192,107 @@
   color: var(--foreground);
 }
 
-.window-controls button:hover {
-  background: rgb(255 255 255 / 8%);
+.window-controls button svg {
+  display: block;
+  width: 10px;
+  height: 10px;
 }
 
-.window-controls button.close:hover {
-  background: #e5484d;
+.window-controls[data-platform="windows"] button:hover {
+  background: color-mix(in oklab, var(--foreground) 8%, transparent);
+}
+
+.window-controls[data-platform="windows"] button.close:hover {
+  background: var(--destructive);
   color: #fff;
+}
+
+.window-controls[data-platform="linux"] {
+  align-items: center;
+  gap: var(--linux-button-gap);
+  padding-right: var(--linux-button-edge-margin);
+}
+
+.window-controls[data-platform="linux"] button {
+  width: var(--linux-button-diameter);
+  height: var(--linux-button-diameter);
+  border-radius: 999px;
+}
+
+.window-controls[data-platform="linux"] button svg {
+  width: 14px;
+  height: 14px;
+}
+
+.window-controls[data-platform="linux"] button:hover {
+  background: color-mix(in oklab, var(--foreground) 10%, transparent);
+}
+
+.window-controls[data-platform="linux"] button.close:hover {
+  background: var(--destructive);
+  color: #fff;
+}
+
+:root[data-platform="linux"] body {
+  background: transparent;
+}
+
+:root[data-platform="linux"] #root {
+  height: calc(100vh - (var(--linux-window-bleed) * 2));
+  margin: var(--linux-window-bleed);
+  border-radius: var(--linux-window-radius);
+  box-shadow: var(--linux-window-shadow);
+  background: var(--background);
+  overflow: hidden;
+}
+
+:root[data-platform="linux"] .titlebar-drag-region {
+  inset: var(--linux-window-bleed) var(--linux-window-bleed) auto;
+}
+
+:root[data-platform="linux"] .app-shell {
+  height: calc(100vh - (var(--linux-window-bleed) * 2));
+}
+
+:root[data-platform="linux"] [data-slot="sidebar-container"] {
+  top: var(--linux-window-bleed);
+  bottom: var(--linux-window-bleed);
+  height: calc(100svh - (var(--linux-window-bleed) * 2));
+}
+
+:root[data-platform="linux"] [data-slot="sidebar-container"][data-side="left"] {
+  left: var(--linux-window-bleed);
+}
+
+:root[data-platform="linux"] [data-slot="sidebar-container"][data-side="right"] {
+  right: var(--linux-window-bleed);
+}
+
+:root[data-platform="linux"][data-maximized="true"] #root {
+  margin: 0;
+  height: 100vh;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+:root[data-platform="linux"][data-maximized="true"] .titlebar-drag-region {
+  inset: 0 0 auto;
+}
+
+:root[data-platform="linux"][data-maximized="true"] .app-shell {
+  height: 100vh;
+}
+
+:root[data-platform="linux"][data-maximized="true"] [data-slot="sidebar-container"] {
+  top: 0;
+  bottom: 0;
+  height: 100svh;
+}
+
+:root[data-platform="linux"][data-maximized="true"] [data-slot="sidebar-container"][data-side="left"] {
+  left: 0;
+}
+
+:root[data-platform="linux"][data-maximized="true"] [data-slot="sidebar-container"][data-side="right"] {
+  right: 0;
 }

@@ -1,35 +1,23 @@
+import {
+  useLinuxButtonLayout,
+  type WindowButtonId,
+} from "@/hooks/use-linux-button-layout.ts";
+import {useWindowMaximized} from "@/hooks/use-window-maximized.ts";
 import {useTranslation} from "@/lib/contexts/translation-context.ts";
 import {getCurrentWindow} from "@tauri-apps/api/window";
 import {platform} from "@tauri-apps/plugin-os";
-import {useEffect, useState} from "react";
+import {ReactNode} from "react";
 
 export function WindowControls() {
   const window = getCurrentWindow();
   const {_p} = useTranslation();
-  const [maximized, setMaximized] = useState(false);
+  const maximized = useWindowMaximized();
+  const {order, side} = useLinuxButtonLayout();
 
-  useEffect(() => {
-    let resizeFn: () => void;
-
-    async function startup() {
-      setMaximized(await window.isMaximized());
-      resizeFn = await window.onResized(async (_) => {
-        setMaximized(await window.isMaximized());
-      });
-    }
-
-    void startup();
-
-    return () => {
-      if (resizeFn) {
-        resizeFn();
-      }
-    };
-  }, []);
-
-  return (
-    <div className="window-controls" data-platform={platform()}>
+  const buttons: Record<WindowButtonId, ReactNode> = {
+    minimize: (
       <button
+        key="minimize"
         aria-label={_p("TitleBar", "Minimize")}
         onClick={() => void window.minimize()}
       >
@@ -37,7 +25,10 @@ export function WindowControls() {
           <path d="M0 5h10" stroke="currentColor" strokeWidth="1" />
         </svg>
       </button>
+    ),
+    maximize: (
       <button
+        key="maximize"
         aria-label={
           maximized ? _p("TitleBar", "Restore") : _p("TitleBar", "Maximize")
         }
@@ -56,7 +47,10 @@ export function WindowControls() {
           />
         </svg>
       </button>
+    ),
+    close: (
       <button
+        key="close"
         className="close"
         aria-label={_p("TitleBar", "Close")}
         onClick={() => void window.close()}
@@ -69,6 +63,16 @@ export function WindowControls() {
           />
         </svg>
       </button>
+    ),
+  };
+
+  return (
+    <div
+      className="window-controls"
+      data-platform={platform()}
+      data-side={side}
+    >
+      {order.map((id) => buttons[id])}
     </div>
   );
 }
