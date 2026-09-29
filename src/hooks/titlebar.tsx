@@ -6,7 +6,8 @@ import {HStack} from "@/components/layout/stack.tsx";
 import {useTitlebar} from "@/lib/contexts/titlebar-context.ts";
 
 export function useTitlebarControls(content: ReactNode) {
-  const {setContent} = useTitlebar();
+  const {setContent, side} = useTitlebar();
+  const hasTrailingControls = platform() === "macos" || side !== "left";
 
   useEffect(() => {
     setContent(
@@ -14,7 +15,11 @@ export function useTitlebarControls(content: ReactNode) {
         align="center"
         justify="end"
         gap={2}
-        className={cn("min-w-0 flex-1", platform() === "macos" && "mr-2 mt-2")}
+        className={cn(
+          "min-w-0 flex-1",
+          hasTrailingControls && "mr-2",
+          platform() === "macos" && "mt-2",
+        )}
       >
         {content}
       </HStack>,
@@ -22,5 +27,5 @@ export function useTitlebarControls(content: ReactNode) {
     return () => {
       setContent(null);
     };
-  }, [content, setContent]);
+  }, [content, setContent, hasTrailingControls]);
 }

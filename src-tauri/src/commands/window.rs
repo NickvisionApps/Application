@@ -12,7 +12,7 @@ pub fn can_window_close(close_manager: State<'_, Mutex<CloseManager>>) -> bool {
 pub fn clear_windows_snap_geometry(window: WebviewWindow) -> Result<(), String> {
     #[cfg(target_os = "windows")]
     {
-        crate::platform::windows::uninstall(&window)
+        crate::platform::windows::uninstall_snap_layout(&window)
     }
     #[cfg(not(target_os = "windows"))]
     {
@@ -76,7 +76,7 @@ pub fn update_windows_snap_geometry(
 ) -> Result<(), String> {
     #[cfg(target_os = "windows")]
     {
-        crate::platform::windows::install_or_update(
+        crate::platform::windows::install_or_update_snap_layout(
             &window,
             x,
             y,
