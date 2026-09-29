@@ -1,0 +1,2 @@
+- Initial Release
+- Rewrote app in Rust and Tauri

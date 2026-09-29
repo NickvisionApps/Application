@@ -1,2 +1,0 @@
-#!/bin/sh
-exec @LIB_DIR@/@OUTPUT_NAME@ "$@"

@@ -1,0 +1,62 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Application",
+  "version": "2026.9.0",
+  "identifier": "org.nickvision.application",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "visible": false,
+        "width": 800,
+        "height": 600,
+        "resizable": true,
+        "titleBarStyle": "Overlay",
+        "hiddenTitle": true,
+        "trafficLightPosition": {
+          "x": 20,
+          "y": 27
+        }
+      }
+    ],
+    "security": {
+      "csp": {
+        "default-src": "'self' customprotocol: asset:",
+        "connect-src": "ipc: http://ipc.localhost",
+        "img-src": "'self' asset: http://asset.localhost data:"
+      },
+      "assetProtocol": {
+        "enable": true
+      }
+    },
+    "withGlobalTauri": true
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDY4RjQyQzU0MEIyQThGN0UKUldSK2p5b0xWQ3owYUJFWnhWajErSExKUGRZZTdHNUZPMU0zdkMyNEE0ektoNWVyeEhHL1puUTgK",
+      "endpoints": [
+        "https://github.com/NickvisionApps/Application/releases/latest/download/latest.json"
+      ]
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": [],
+    "createUpdaterArtifacts": true,
+    "icon": [
+      "../resources/32x32.png",
+      "../resources/128x128.png",
+      "../resources/128x128@2x.png",
+      "../resources/icon.icns",
+      "../resources/icon.ico"
+    ],
+    "resources": {
+      "target/locale": "locale"
+    }
+  }
+}
