@@ -88,6 +88,7 @@ export function FolderPage() {
     <>
       <ToggleGroup
         variant="outline"
+        spacing={0}
         value={[viewMode]}
         onValueChange={(value) => {
           if (value.length > 0) {
