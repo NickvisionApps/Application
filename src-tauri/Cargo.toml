@@ -28,7 +28,6 @@ tauri-plugin-os = "2"
 tauri-plugin-process = "2"
 tauri-plugin-updater = "2"
 tauri-plugin-window-state = "2"
-tokio = { version = "1", features = ["full"] }
 url = "2.5"
 utente = "0.1"
 
