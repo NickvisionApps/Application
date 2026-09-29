@@ -100,9 +100,6 @@
   --linux-button-diameter: 28px;
   --linux-button-gap: 4px;
   --linux-button-edge-margin: 6px;
-  --linux-window-radius: 12px;
-  --linux-window-bleed: 36px;
-  --linux-window-shadow: 0 10px 24px rgb(0 0 0 / 35%);
 }
 
 .dark {
@@ -231,72 +228,4 @@
 .window-controls[data-platform="linux"] button.close:hover {
   background: var(--destructive);
   color: #fff;
-}
-
-:root[data-platform="linux"] body {
-  background: transparent;
-}
-
-:root[data-platform="linux"] #root {
-  height: calc(100vh - (var(--linux-window-bleed) * 2));
-  margin: var(--linux-window-bleed);
-  border-radius: var(--linux-window-radius);
-  box-shadow: var(--linux-window-shadow);
-  background: var(--background);
-  overflow: hidden;
-}
-
-:root[data-platform="linux"] .titlebar-drag-region {
-  inset: var(--linux-window-bleed) var(--linux-window-bleed) auto;
-}
-
-:root[data-platform="linux"] .app-shell {
-  height: calc(100vh - (var(--linux-window-bleed) * 2));
-}
-
-:root[data-platform="linux"] [data-slot="sidebar-container"] {
-  top: var(--linux-window-bleed);
-  bottom: var(--linux-window-bleed);
-  height: calc(100svh - (var(--linux-window-bleed) * 2));
-}
-
-:root[data-platform="linux"] [data-slot="sidebar-container"][data-side="left"] {
-  left: var(--linux-window-bleed);
-}
-
-:root[data-platform="linux"]
-  [data-slot="sidebar-container"][data-side="right"] {
-  right: var(--linux-window-bleed);
-}
-
-:root[data-platform="linux"][data-maximized="true"] #root {
-  margin: 0;
-  height: 100vh;
-  border-radius: 0;
-  box-shadow: none;
-}
-
-:root[data-platform="linux"][data-maximized="true"] .titlebar-drag-region {
-  inset: 0 0 auto;
-}
-
-:root[data-platform="linux"][data-maximized="true"] .app-shell {
-  height: 100vh;
-}
-
-:root[data-platform="linux"][data-maximized="true"]
-  [data-slot="sidebar-container"] {
-  top: 0;
-  bottom: 0;
-  height: 100svh;
-}
-
-:root[data-platform="linux"][data-maximized="true"]
-  [data-slot="sidebar-container"][data-side="left"] {
-  left: 0;
-}
-
-:root[data-platform="linux"][data-maximized="true"]
-  [data-slot="sidebar-container"][data-side="right"] {
-  right: 0;
 }

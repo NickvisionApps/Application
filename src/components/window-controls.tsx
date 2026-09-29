@@ -2,17 +2,35 @@ import {
   useLinuxButtonLayout,
   type WindowButtonId,
 } from "@/hooks/use-linux-button-layout.ts";
-import {useWindowMaximized} from "@/hooks/use-window-maximized.ts";
 import {useTranslation} from "@/lib/contexts/translation-context.ts";
 import {getCurrentWindow} from "@tauri-apps/api/window";
 import {platform} from "@tauri-apps/plugin-os";
-import {ReactNode} from "react";
+import {ReactNode, useEffect, useState} from "react";
 
 export function WindowControls() {
   const window = getCurrentWindow();
   const {_p} = useTranslation();
-  const maximized = useWindowMaximized();
   const {order, side} = useLinuxButtonLayout();
+  const [maximized, setMaximized] = useState(false);
+
+  useEffect(() => {
+    let resizeFn: () => void;
+
+    async function startup() {
+      setMaximized(await window.isMaximized());
+      resizeFn = await window.onResized(async (_) => {
+        setMaximized(await window.isMaximized());
+      });
+    }
+
+    void startup();
+
+    return () => {
+      if (resizeFn) {
+        resizeFn();
+      }
+    };
+  }, []);
 
   const buttons: Record<WindowButtonId, ReactNode> = {
     minimize: (

@@ -12,7 +12,6 @@ import {
 import {WindowControls} from "@/components/window-controls.tsx";
 import {useKeyboardShortcut} from "@/hooks/use-keyboard-shortcut.ts";
 import {useLinuxButtonLayout} from "@/hooks/use-linux-button-layout.ts";
-import {useWindowMaximized} from "@/hooks/use-window-maximized.ts";
 import {useDialog} from "@/lib/contexts/dialog-context.ts";
 import {useFolderView} from "@/lib/contexts/folder-view-context.ts";
 import {useNavigation} from "@/lib/contexts/navigation-context.ts";
@@ -31,7 +30,6 @@ export function Window() {
   const {open: sidebarOpen, isMobile, openMobile} = useSidebar();
   const {folderView, openFolder, closeFolder} = useFolderView();
   const {content} = useTitlebar();
-  const maximized = useWindowMaximized();
   const {side} = useLinuxButtonLayout();
 
   useEffect(() => {
@@ -58,10 +56,6 @@ export function Window() {
       }
     };
   }, []);
-
-  useEffect(() => {
-    document.documentElement.dataset.maximized = String(maximized);
-  }, [maximized]);
 
   useKeyboardShortcut(",", () => {
     openDialog("settings");
@@ -110,7 +104,7 @@ export function Window() {
         {(platform() === "windows" || platform() === "linux") &&
           side !== "left" && <WindowControls />}
       </div>
-      <HStack className="app-shell h-screen w-full overflow-hidden">
+      <HStack className="h-screen w-full overflow-hidden">
         <NavigationView />
         <main className="min-w-0 flex-1 overflow-hidden pt-(--titlebar-height)">
           {page === "home" && <HomePage />}

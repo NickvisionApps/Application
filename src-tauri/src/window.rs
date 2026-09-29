@@ -1,14 +1,24 @@
 use directories::BaseDirs;
-use std::process::Command;
 
+#[cfg(target_os = "linux")]
 pub fn gnome_button_layout() -> Option<String> {
-    Command::new("gsettings")
-        .args(["get", "org.gnome.desktop.wm.preferences", "button-layout"])
-        .output()
-        .ok()
-        .filter(|output| output.status.success())
-        .and_then(|output| String::from_utf8(output.stdout).ok())
-        .map(|value| value.trim().trim_matches('\'').to_string())
+    gtk::Settings::default()?.gtk_decoration_layout()
+}
+
+#[cfg(target_os = "linux")]
+pub fn apply_native_decorations(window: &tauri::WebviewWindow) {
+    use gtk::prelude::*;
+    let Ok(gtk_window) = window.gtk_window() else {
+        return;
+    };
+    if gtk_window.display().type_().name() == "GdkWaylandDisplay" {
+        let titlebar = gtk::Box::new(gtk::Orientation::Horizontal, 0);
+        titlebar.set_size_request(0, 0);
+        titlebar.show();
+        gtk_window.set_titlebar(Some(&titlebar));
+    } else {
+        gtk_window.set_decorated(false);
+    }
 }
 
 pub fn kde_button_layout() -> Result<String, Box<dyn std::error::Error>> {

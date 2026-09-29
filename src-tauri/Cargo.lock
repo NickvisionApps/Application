@@ -53,6 +53,7 @@ version = "2026.9.0"
 dependencies = [
  "directories",
  "gettext",
+ "gtk",
  "semver",
  "serde",
  "serde_json",
