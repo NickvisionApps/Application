@@ -4,7 +4,10 @@
   "app": {
     "windows": [
       {
-        "decorations": false
+        "decorations": false,
+        "transparent": true,
+        "width": 872,
+        "height": 672
       }
     ]
   },

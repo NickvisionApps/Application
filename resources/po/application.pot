@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-28 01:12-0400\n"
+"POT-Creation-Date: 2026-09-28 21:43-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src-tauri/src/commands/window.rs:21 src/components/navigation-view.tsx:135
+#: src-tauri/src/commands/window.rs:31 src/components/navigation-view.tsx:135
 msgctxt "AppName"
 msgid "Application"
 msgstr ""
@@ -94,31 +94,31 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: src/components/window-controls.tsx:33
+#: src/components/window-controls.tsx:21
 msgctxt "TitleBar"
 msgid "Minimize"
 msgstr ""
 
-#: src/components/window-controls.tsx:42
+#: src/components/window-controls.tsx:33
 msgctxt "TitleBar"
 msgid "Restore"
 msgstr ""
 
-#: src/components/window-controls.tsx:42
+#: src/components/window-controls.tsx:33
 msgctxt "TitleBar"
 msgid "Maximize"
 msgstr ""
 
-#: src/components/window-controls.tsx:61
+#: src/components/window-controls.tsx:55
 msgctxt "TitleBar"
 msgid "Close"
 msgstr ""
 
-#: src/components/window.tsx:95
+#: src/components/window.tsx:105
 msgid "Hide Sidebar"
 msgstr ""
 
-#: src/components/window.tsx:96
+#: src/components/window.tsx:106
 msgid "Show Sidebar"
 msgstr ""
 
@@ -168,20 +168,20 @@ msgstr ""
 msgid "No results found for “{0}”"
 msgstr ""
 
-#: src/components/dialogs/close-dialog.tsx:33
+#: src/components/dialogs/close-dialog.tsx:32
 msgctxt "AppName"
 msgid "Exit Application?"
 msgstr ""
 
-#: src/components/dialogs/close-dialog.tsx:36
+#: src/components/dialogs/close-dialog.tsx:35
 msgid "Are you sure you want to exit?"
 msgstr ""
 
-#: src/components/dialogs/close-dialog.tsx:40
+#: src/components/dialogs/close-dialog.tsx:39
 msgid "No"
 msgstr ""
 
-#: src/components/dialogs/close-dialog.tsx:57
+#: src/components/dialogs/close-dialog.tsx:53
 msgid "Yes"
 msgstr ""
 

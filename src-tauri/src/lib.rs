@@ -5,6 +5,7 @@ pub mod folder;
 pub mod product;
 pub mod translation;
 pub mod update;
+pub mod window;
 
 use crate::close::CloseManager;
 use crate::config::Configuration;
@@ -75,6 +76,7 @@ pub fn run() {
             commands::update::install_update,
             commands::window::can_window_close,
             commands::window::confirm_window_close,
+            commands::window::get_linux_button_layout,
             commands::window::show_main_window
         ])
         .run(tauri::generate_context!())
