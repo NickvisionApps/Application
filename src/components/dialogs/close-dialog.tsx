@@ -12,7 +12,6 @@ import {useDialog} from "@/lib/contexts/dialog-context.ts";
 import {useTranslation} from "@/lib/contexts/translation-context.ts";
 import {invoke} from "@tauri-apps/api/core";
 import {getCurrentWindow} from "@tauri-apps/api/window";
-import {platform} from "@tauri-apps/plugin-os";
 
 export function CloseDialog() {
   const {closeDialog} = useDialog();
@@ -45,9 +44,6 @@ export function CloseDialog() {
               async function confirmClose() {
                 await invoke("confirm_window_close");
                 await window.close();
-                if (platform() === "linux") {
-                  await window.destroy();
-                }
               }
 
               closeDialog();
