@@ -1,7 +1,7 @@
 {
   "app-id": "org.nickvision.application",
   "runtime": "org.gnome.Platform",
-  "runtime-version": "50",
+  "runtime-version": "51",
   "sdk": "org.gnome.Sdk",
   "sdk-extensions": [
     "org.freedesktop.Sdk.Extension.rust-stable",
@@ -16,7 +16,8 @@
     "--socket=fallback-x11",
     "--socket=wayland",
     "--device=dri",
-    "--share=ipc"
+    "--share=ipc",
+    "--filesystem=/proc/driver/nvidia:ro"
   ],
   "cleanup": [
     "/include",
