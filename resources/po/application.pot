@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-28 23:43-0400\n"
+"POT-Creation-Date: 2026-09-29 22:30-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,16 +22,177 @@ msgctxt "AppName"
 msgid "Application"
 msgstr ""
 
+#: src/components/dialogs/changelog-dialog.tsx:34
+msgid "Changelog"
+msgstr ""
+
+#: src/components/dialogs/close-dialog.tsx:32
+msgctxt "AppName"
+msgid "Exit Application?"
+msgstr ""
+
+#: src/components/dialogs/close-dialog.tsx:35
+msgid "Are you sure you want to exit?"
+msgstr ""
+
+#: src/components/dialogs/close-dialog.tsx:39
+msgid "No"
+msgstr ""
+
+#: src/components/dialogs/close-dialog.tsx:53
+msgid "Yes"
+msgstr ""
+
+#: src/components/dialogs/credits-dialog.tsx:40
+#: src/components/navigation-view.tsx:222
+msgid "Credits"
+msgstr ""
+
+#: src/components/dialogs/debugging-dialog.tsx:54
+#: src/components/navigation-view.tsx:230
+msgid "Debugging Information"
+msgstr ""
+
+#: src/components/dialogs/debugging-dialog.tsx:56
+msgid "Send this information to the developer when reporting issues"
+msgstr ""
+
+#: src/components/dialogs/debugging-dialog.tsx:74
+msgid "Copy Code"
+msgstr ""
+
+#: src/components/dialogs/settings-dialog.tsx:47
+#: src/components/navigation-view.tsx:264
+msgctxt "Theme"
+msgid "Light"
+msgstr ""
+
+#: src/components/dialogs/settings-dialog.tsx:48
+#: src/components/navigation-view.tsx:267
+msgctxt "Theme"
+msgid "Dark"
+msgstr ""
+
+#: src/components/dialogs/settings-dialog.tsx:49
+#: src/components/navigation-view.tsx:270
+msgctxt "Theme"
+msgid "System"
+msgstr ""
+
+#: src/components/dialogs/settings-dialog.tsx:56
+#: src/components/dialogs/settings-dialog.tsx:141
+#: src/components/dialogs/settings-dialog.tsx:144
+#: src/components/navigation-view.tsx:250
+msgid "Theme"
+msgstr ""
+
+#: src/components/dialogs/settings-dialog.tsx:57
+#: src/components/dialogs/settings-dialog.tsx:177
+#: src/components/dialogs/settings-dialog.tsx:180
+msgid "Language"
+msgstr ""
+
+#: src/components/dialogs/settings-dialog.tsx:58
+#: src/components/dialogs/settings-dialog.tsx:220
+#: src/components/dialogs/settings-dialog.tsx:226
+msgid "Automatically check for updates"
+msgstr ""
+
+#: src/components/dialogs/settings-dialog.tsx:59
+#: src/components/dialogs/settings-dialog.tsx:243
+#: src/components/dialogs/settings-dialog.tsx:249
+msgid "Allow preview (beta) updates"
+msgstr ""
+
+#: src/components/dialogs/settings-dialog.tsx:98
+#: src/components/navigation-view.tsx:282
+msgid "Settings"
+msgstr ""
+
+#: src/components/dialogs/settings-dialog.tsx:103
+msgid "Search..."
+msgstr ""
+
+#: src/components/dialogs/settings-dialog.tsx:123
+msgid "General"
+msgstr ""
+
+#: src/components/dialogs/settings-dialog.tsx:129
+msgid "Updates"
+msgstr ""
+
+#: src/components/dialogs/settings-dialog.tsx:271
+msgid "No results found for “{0}”"
+msgstr ""
+
+#: src/components/pages/home-page.tsx:34
+msgid "Good Day!"
+msgstr ""
+
+#: src/components/pages/home-page.tsx:43
+msgctxt "Night"
+msgid "Good Morning!"
+msgstr ""
+
+#: src/components/pages/home-page.tsx:46
+msgctxt "Morning"
+msgid "Good Morning!"
+msgstr ""
+
+#: src/components/pages/home-page.tsx:48
+msgid "Good Afternoon!"
+msgstr ""
+
+#: src/components/pages/home-page.tsx:50
+msgid "Good Evening!"
+msgstr ""
+
+#: src/components/pages/home-page.tsx:80 src/components/pages/home-page.tsx:85
+#: src/components/pages/folder-page.tsx:135
+msgid "Open Folder"
+msgstr ""
+
+#: src/components/pages/home-page.tsx:102 src/components/navigation-view.tsx:179
+msgid "What's New?"
+msgstr ""
+
+#: src/components/pages/folder-page.tsx:102
+#: src/components/pages/folder-page.tsx:107
+msgid "List View"
+msgstr ""
+
+#: src/components/pages/folder-page.tsx:112
+#: src/components/pages/folder-page.tsx:117
+msgid "Grid View"
+msgstr ""
+
+#: src/components/pages/folder-page.tsx:158
+msgid "Close Folder"
+msgstr ""
+
+#: src/components/pages/folder-page.tsx:201
+#: src/components/pages/folder-page.tsx:232
+msgid "This folder is empty."
+msgstr ""
+
+#: src/components/pages/folder-page.tsx:245
+msgid "No File Selected"
+msgstr ""
+
+#: src/components/pages/folder-page.tsx:247
+msgid "Select a file to preview it here."
+msgstr ""
+
+#: src/components/pages/folder-page.tsx:266
+msgid "No Preview Available"
+msgstr ""
+
 #: src/components/navigation-view.tsx:87
 msgid "Home"
 msgstr ""
 
 #: src/components/navigation-view.tsx:93
 msgid "Folder"
-msgstr ""
-
-#: src/components/navigation-view.tsx:179 src/components/pages/home-page.tsx:102
-msgid "What's New?"
 msgstr ""
 
 #: src/components/navigation-view.tsx:184
@@ -48,46 +209,6 @@ msgstr ""
 
 #: src/components/navigation-view.tsx:211
 msgid "Discussions"
-msgstr ""
-
-#: src/components/navigation-view.tsx:222
-#: src/components/dialogs/credits-dialog.tsx:40
-msgid "Credits"
-msgstr ""
-
-#: src/components/navigation-view.tsx:230
-#: src/components/dialogs/debugging-dialog.tsx:54
-msgid "Debugging Information"
-msgstr ""
-
-#: src/components/navigation-view.tsx:250
-#: src/components/dialogs/settings-dialog.tsx:56
-#: src/components/dialogs/settings-dialog.tsx:141
-#: src/components/dialogs/settings-dialog.tsx:144
-msgid "Theme"
-msgstr ""
-
-#: src/components/navigation-view.tsx:264
-#: src/components/dialogs/settings-dialog.tsx:47
-msgctxt "Theme"
-msgid "Light"
-msgstr ""
-
-#: src/components/navigation-view.tsx:267
-#: src/components/dialogs/settings-dialog.tsx:48
-msgctxt "Theme"
-msgid "Dark"
-msgstr ""
-
-#: src/components/navigation-view.tsx:270
-#: src/components/dialogs/settings-dialog.tsx:49
-msgctxt "Theme"
-msgid "System"
-msgstr ""
-
-#: src/components/navigation-view.tsx:282
-#: src/components/dialogs/settings-dialog.tsx:98
-msgid "Settings"
 msgstr ""
 
 #: src/components/window-controls.tsx:125
@@ -128,127 +249,6 @@ msgstr ""
 
 #: src/components/window.tsx:153
 msgid "Thank you for previewing the next version of {0}! ({1})"
-msgstr ""
-
-#: src/components/dialogs/changelog-dialog.tsx:34
-msgid "Changelog"
-msgstr ""
-
-#: src/components/dialogs/debugging-dialog.tsx:56
-msgid "Send this information to the developer when reporting issues"
-msgstr ""
-
-#: src/components/dialogs/debugging-dialog.tsx:74
-msgid "Copy Code"
-msgstr ""
-
-#: src/components/dialogs/settings-dialog.tsx:57
-#: src/components/dialogs/settings-dialog.tsx:177
-#: src/components/dialogs/settings-dialog.tsx:180
-msgid "Language"
-msgstr ""
-
-#: src/components/dialogs/settings-dialog.tsx:58
-#: src/components/dialogs/settings-dialog.tsx:220
-#: src/components/dialogs/settings-dialog.tsx:226
-msgid "Automatically check for updates"
-msgstr ""
-
-#: src/components/dialogs/settings-dialog.tsx:59
-#: src/components/dialogs/settings-dialog.tsx:243
-#: src/components/dialogs/settings-dialog.tsx:249
-msgid "Allow preview (beta) updates"
-msgstr ""
-
-#: src/components/dialogs/settings-dialog.tsx:103
-msgid "Search..."
-msgstr ""
-
-#: src/components/dialogs/settings-dialog.tsx:123
-msgid "General"
-msgstr ""
-
-#: src/components/dialogs/settings-dialog.tsx:129
-msgid "Updates"
-msgstr ""
-
-#: src/components/dialogs/settings-dialog.tsx:271
-msgid "No results found for “{0}”"
-msgstr ""
-
-#: src/components/dialogs/close-dialog.tsx:32
-msgctxt "AppName"
-msgid "Exit Application?"
-msgstr ""
-
-#: src/components/dialogs/close-dialog.tsx:35
-msgid "Are you sure you want to exit?"
-msgstr ""
-
-#: src/components/dialogs/close-dialog.tsx:39
-msgid "No"
-msgstr ""
-
-#: src/components/dialogs/close-dialog.tsx:53
-msgid "Yes"
-msgstr ""
-
-#: src/components/pages/folder-page.tsx:102
-#: src/components/pages/folder-page.tsx:107
-msgid "List View"
-msgstr ""
-
-#: src/components/pages/folder-page.tsx:112
-#: src/components/pages/folder-page.tsx:117
-msgid "Grid View"
-msgstr ""
-
-#: src/components/pages/folder-page.tsx:135
-#: src/components/pages/home-page.tsx:80 src/components/pages/home-page.tsx:85
-msgid "Open Folder"
-msgstr ""
-
-#: src/components/pages/folder-page.tsx:158
-msgid "Close Folder"
-msgstr ""
-
-#: src/components/pages/folder-page.tsx:201
-#: src/components/pages/folder-page.tsx:232
-msgid "This folder is empty."
-msgstr ""
-
-#: src/components/pages/folder-page.tsx:245
-msgid "No File Selected"
-msgstr ""
-
-#: src/components/pages/folder-page.tsx:247
-msgid "Select a file to preview it here."
-msgstr ""
-
-#: src/components/pages/folder-page.tsx:266
-msgid "No Preview Available"
-msgstr ""
-
-#: src/components/pages/home-page.tsx:34
-msgid "Good Day!"
-msgstr ""
-
-#: src/components/pages/home-page.tsx:43
-msgctxt "Night"
-msgid "Good Morning!"
-msgstr ""
-
-#: src/components/pages/home-page.tsx:46
-msgctxt "Morning"
-msgid "Good Morning!"
-msgstr ""
-
-#: src/components/pages/home-page.tsx:48
-msgid "Good Afternoon!"
-msgstr ""
-
-#: src/components/pages/home-page.tsx:50
-msgid "Good Evening!"
 msgstr ""
 
 #: src/lib/providers/folder-view-provider.tsx:41

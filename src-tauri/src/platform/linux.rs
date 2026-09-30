@@ -8,7 +8,8 @@ const TITLEBAR_ICON_CANDIDATES: [(&str, &[&str]); 4] = [
 ];
 
 pub fn apply_native_decorations(window: &tauri::WebviewWindow) {
-    use gtk::prelude::*;
+    use gtk::prelude::{CssProviderExt, GtkWindowExt, ObjectExt, WidgetExt};
+
     let Ok(gtk_window) = window.gtk_window() else {
         return;
     };
@@ -30,7 +31,7 @@ pub fn apply_native_decorations(window: &tauri::WebviewWindow) {
                   }",
             )
             .unwrap();
-        if let Some(screen) = gtk_window.screen() {
+        if let Some(screen) = GtkWindowExt::screen(&gtk_window) {
             gtk::StyleContext::add_provider_for_screen(
                 &screen,
                 &provider,
@@ -48,12 +49,8 @@ pub fn button_layout() -> Option<String> {
         .gtk_decoration_layout()
         .map(|value| value.to_string())
         .or_else(|| {
-            let contents = std::fs::read_to_string(
-                BaseDirs::new()
-                    .ok_or("Unable to load base directories")?
-                    .config_dir()
-                    .join("kwinrc"),
-            )?;
+            let contents =
+                std::fs::read_to_string(BaseDirs::new()?.config_dir().join("kwinrc")).ok()?;
             let mut in_section = false;
             let mut left = String::default();
             let mut right = String::default();
@@ -72,7 +69,7 @@ pub fn button_layout() -> Option<String> {
                     right = value.to_string();
                 }
             }
-            Ok(format!(
+            Some(format!(
                 "{}:{}",
                 translate_kde_codes(&left),
                 translate_kde_codes(&right)
