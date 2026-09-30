@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-29 23:18-0400\n"
+"POT-Creation-Date: 2026-09-29 23:26-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,35 +22,116 @@ msgctxt "AppName"
 msgid "Application"
 msgstr ""
 
-#: src/components/dialogs/changelog-dialog.tsx:34
-msgid "Changelog"
+#: src/components/navigation-view.tsx:87
+msgid "Home"
 msgstr ""
 
-#: src/components/dialogs/close-dialog.tsx:32
-msgctxt "AppName"
-msgid "Exit Application?"
+#: src/components/navigation-view.tsx:93
+msgid "Folder"
 msgstr ""
 
-#: src/components/dialogs/close-dialog.tsx:35
-msgid "Are you sure you want to exit?"
+#: src/components/navigation-view.tsx:179 src/components/pages/home-page.tsx:102
+msgid "What's New?"
 msgstr ""
 
-#: src/components/dialogs/close-dialog.tsx:39
-msgid "No"
+#: src/components/navigation-view.tsx:184
+msgid "Help"
 msgstr ""
 
-#: src/components/dialogs/close-dialog.tsx:53
-msgid "Yes"
+#: src/components/navigation-view.tsx:195
+msgid "GitHub Repository"
 msgstr ""
 
-#: src/components/dialogs/credits-dialog.tsx:40
+#: src/components/navigation-view.tsx:203
+msgid "Report a Bug"
+msgstr ""
+
+#: src/components/navigation-view.tsx:211
+msgid "Discussions"
+msgstr ""
+
 #: src/components/navigation-view.tsx:222
+#: src/components/dialogs/credits-dialog.tsx:40
 msgid "Credits"
 msgstr ""
 
-#: src/components/dialogs/debugging-dialog.tsx:54
 #: src/components/navigation-view.tsx:230
+#: src/components/dialogs/debugging-dialog.tsx:54
 msgid "Debugging Information"
+msgstr ""
+
+#: src/components/navigation-view.tsx:250
+#: src/components/dialogs/settings-dialog.tsx:56
+#: src/components/dialogs/settings-dialog.tsx:141
+#: src/components/dialogs/settings-dialog.tsx:144
+msgid "Theme"
+msgstr ""
+
+#: src/components/navigation-view.tsx:264
+#: src/components/dialogs/settings-dialog.tsx:47
+msgctxt "Theme"
+msgid "Light"
+msgstr ""
+
+#: src/components/navigation-view.tsx:267
+#: src/components/dialogs/settings-dialog.tsx:48
+msgctxt "Theme"
+msgid "Dark"
+msgstr ""
+
+#: src/components/navigation-view.tsx:270
+#: src/components/dialogs/settings-dialog.tsx:49
+msgctxt "Theme"
+msgid "System"
+msgstr ""
+
+#: src/components/navigation-view.tsx:282
+#: src/components/dialogs/settings-dialog.tsx:98
+msgid "Settings"
+msgstr ""
+
+#: src/components/window-controls.tsx:131
+msgctxt "TitleBar"
+msgid "Minimize"
+msgstr ""
+
+#: src/components/window-controls.tsx:160
+msgctxt "TitleBar"
+msgid "Restore"
+msgstr ""
+
+#: src/components/window-controls.tsx:160
+msgctxt "TitleBar"
+msgid "Maximize"
+msgstr ""
+
+#: src/components/window-controls.tsx:222
+msgctxt "TitleBar"
+msgid "Close"
+msgstr ""
+
+#: src/components/window.tsx:105
+msgid "Hide Sidebar"
+msgstr ""
+
+#: src/components/window.tsx:106
+msgid "Show Sidebar"
+msgstr ""
+
+#: src/components/window.tsx:125
+msgid "Back"
+msgstr ""
+
+#: src/components/window.tsx:143
+msgid "Forward"
+msgstr ""
+
+#: src/components/window.tsx:163
+msgid "Thank you for previewing the next version of {0}! ({1})"
+msgstr ""
+
+#: src/components/dialogs/changelog-dialog.tsx:34
+msgid "Changelog"
 msgstr ""
 
 #: src/components/dialogs/debugging-dialog.tsx:56
@@ -59,31 +140,6 @@ msgstr ""
 
 #: src/components/dialogs/debugging-dialog.tsx:74
 msgid "Copy Code"
-msgstr ""
-
-#: src/components/dialogs/settings-dialog.tsx:47
-#: src/components/navigation-view.tsx:264
-msgctxt "Theme"
-msgid "Light"
-msgstr ""
-
-#: src/components/dialogs/settings-dialog.tsx:48
-#: src/components/navigation-view.tsx:267
-msgctxt "Theme"
-msgid "Dark"
-msgstr ""
-
-#: src/components/dialogs/settings-dialog.tsx:49
-#: src/components/navigation-view.tsx:270
-msgctxt "Theme"
-msgid "System"
-msgstr ""
-
-#: src/components/dialogs/settings-dialog.tsx:56
-#: src/components/dialogs/settings-dialog.tsx:141
-#: src/components/dialogs/settings-dialog.tsx:144
-#: src/components/navigation-view.tsx:250
-msgid "Theme"
 msgstr ""
 
 #: src/components/dialogs/settings-dialog.tsx:57
@@ -104,11 +160,6 @@ msgstr ""
 msgid "Allow preview (beta) updates"
 msgstr ""
 
-#: src/components/dialogs/settings-dialog.tsx:98
-#: src/components/navigation-view.tsx:282
-msgid "Settings"
-msgstr ""
-
 #: src/components/dialogs/settings-dialog.tsx:103
 msgid "Search..."
 msgstr ""
@@ -125,35 +176,21 @@ msgstr ""
 msgid "No results found for “{0}”"
 msgstr ""
 
-#: src/components/pages/home-page.tsx:34
-msgid "Good Day!"
+#: src/components/dialogs/close-dialog.tsx:32
+msgctxt "AppName"
+msgid "Exit Application?"
 msgstr ""
 
-#: src/components/pages/home-page.tsx:43
-msgctxt "Night"
-msgid "Good Morning!"
+#: src/components/dialogs/close-dialog.tsx:35
+msgid "Are you sure you want to exit?"
 msgstr ""
 
-#: src/components/pages/home-page.tsx:46
-msgctxt "Morning"
-msgid "Good Morning!"
+#: src/components/dialogs/close-dialog.tsx:39
+msgid "No"
 msgstr ""
 
-#: src/components/pages/home-page.tsx:48
-msgid "Good Afternoon!"
-msgstr ""
-
-#: src/components/pages/home-page.tsx:50
-msgid "Good Evening!"
-msgstr ""
-
-#: src/components/pages/home-page.tsx:80 src/components/pages/home-page.tsx:85
-#: src/components/pages/folder-page.tsx:135
-msgid "Open Folder"
-msgstr ""
-
-#: src/components/pages/home-page.tsx:102 src/components/navigation-view.tsx:179
-msgid "What's New?"
+#: src/components/dialogs/close-dialog.tsx:53
+msgid "Yes"
 msgstr ""
 
 #: src/components/pages/folder-page.tsx:102
@@ -164,6 +201,11 @@ msgstr ""
 #: src/components/pages/folder-page.tsx:112
 #: src/components/pages/folder-page.tsx:117
 msgid "Grid View"
+msgstr ""
+
+#: src/components/pages/folder-page.tsx:135
+#: src/components/pages/home-page.tsx:80 src/components/pages/home-page.tsx:85
+msgid "Open Folder"
 msgstr ""
 
 #: src/components/pages/folder-page.tsx:158
@@ -187,68 +229,26 @@ msgstr ""
 msgid "No Preview Available"
 msgstr ""
 
-#: src/components/navigation-view.tsx:87
-msgid "Home"
+#: src/components/pages/home-page.tsx:34
+msgid "Good Day!"
 msgstr ""
 
-#: src/components/navigation-view.tsx:93
-msgid "Folder"
+#: src/components/pages/home-page.tsx:43
+msgctxt "Night"
+msgid "Good Morning!"
 msgstr ""
 
-#: src/components/navigation-view.tsx:184
-msgid "Help"
+#: src/components/pages/home-page.tsx:46
+msgctxt "Morning"
+msgid "Good Morning!"
 msgstr ""
 
-#: src/components/navigation-view.tsx:195
-msgid "GitHub Repository"
+#: src/components/pages/home-page.tsx:48
+msgid "Good Afternoon!"
 msgstr ""
 
-#: src/components/navigation-view.tsx:203
-msgid "Report a Bug"
-msgstr ""
-
-#: src/components/navigation-view.tsx:211
-msgid "Discussions"
-msgstr ""
-
-#: src/components/window-controls.tsx:129
-msgctxt "TitleBar"
-msgid "Minimize"
-msgstr ""
-
-#: src/components/window-controls.tsx:158
-msgctxt "TitleBar"
-msgid "Restore"
-msgstr ""
-
-#: src/components/window-controls.tsx:158
-msgctxt "TitleBar"
-msgid "Maximize"
-msgstr ""
-
-#: src/components/window-controls.tsx:220
-msgctxt "TitleBar"
-msgid "Close"
-msgstr ""
-
-#: src/components/window.tsx:105
-msgid "Hide Sidebar"
-msgstr ""
-
-#: src/components/window.tsx:106
-msgid "Show Sidebar"
-msgstr ""
-
-#: src/components/window.tsx:125
-msgid "Back"
-msgstr ""
-
-#: src/components/window.tsx:143
-msgid "Forward"
-msgstr ""
-
-#: src/components/window.tsx:163
-msgid "Thank you for previewing the next version of {0}! ({1})"
+#: src/components/pages/home-page.tsx:50
+msgid "Good Evening!"
 msgstr ""
 
 #: src/lib/providers/folder-view-provider.tsx:41

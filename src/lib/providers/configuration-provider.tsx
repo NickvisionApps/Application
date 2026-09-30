@@ -43,18 +43,20 @@ export function ConfigurationProvider({
         configuration.theme === 2 ? mql.matches : configuration.theme === 1;
       root.classList.toggle("dark", dark);
       root.classList.toggle("light", !dark);
-    }
-
-    applyTheme();
-    if (configuration.theme !== 2 || platform() !== "linux") {
       void getCurrentWindow().setTheme(
         configuration.theme === 2
-          ? null
+          ? platform() !== "linux"
+            ? null
+            : dark
+              ? "dark"
+              : "light"
           : configuration.theme === 1
             ? "dark"
             : "light",
       );
     }
+
+    applyTheme();
     if (configuration.theme !== 2) {
       return;
     }

@@ -1,3 +1,4 @@
+import {useConfiguration} from "@/lib/contexts/configuration-context.ts";
 import {
   useTitlebar,
   type WindowButtonId,
@@ -12,6 +13,7 @@ import {ReactNode, useEffect, useRef, useState} from "react";
 
 export function WindowControls() {
   const window = getCurrentWindow();
+  const {configuration} = useConfiguration();
   const {_p} = useTranslation();
   const {order, side} = useTitlebar();
   const [maximized, setMaximized] = useState(false);
@@ -51,7 +53,7 @@ export function WindowControls() {
     void invoke<Record<string, string> | null>("get_linux_titlebar_icons").then(
       setIcons,
     );
-  }, []);
+  }, [configuration.theme]);
 
   useEffect(() => {
     if (platform() !== "windows") {
