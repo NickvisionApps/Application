@@ -25,6 +25,9 @@ export function ConfigurationProvider({
 }: ConfigurationProviderProps) {
   const [configuration, setConfiguration] =
     useState<Configuration>(DefaultConfiguration);
+  const [initialSystemDark] = useState(
+    () => window.matchMedia("(prefers-color-scheme: dark)").matches,
+  );
 
   useEffect(() => {
     async function startup() {
@@ -40,16 +43,20 @@ export function ConfigurationProvider({
 
     function applyTheme() {
       const dark =
-        configuration.theme === 2 ? mql.matches : configuration.theme === 1;
+        configuration.theme === 2
+          ? platform() === "linux"
+            ? initialSystemDark
+            : mql.matches
+          : configuration.theme === 1;
       root.classList.toggle("dark", dark);
       root.classList.toggle("light", !dark);
       void getCurrentWindow().setTheme(
         configuration.theme === 2
-          ? platform() !== "linux"
-            ? null
-            : dark
+          ? platform() === "linux"
+            ? dark
               ? "dark"
               : "light"
+            : null
           : configuration.theme === 1
             ? "dark"
             : "light",
@@ -57,14 +64,14 @@ export function ConfigurationProvider({
     }
 
     applyTheme();
-    if (configuration.theme !== 2) {
+    if (configuration.theme !== 2 || platform() === "linux") {
       return;
     }
     mql.addEventListener("change", applyTheme);
     return () => {
       mql.removeEventListener("change", applyTheme);
     };
-  }, [configuration.theme]);
+  }, [configuration.theme, initialSystemDark]);
 
   const handleSetConfiguration = useCallback(
     (newConfiguration: Configuration) => {
