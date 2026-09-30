@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-28 23:43-0400\n"
+"POT-Creation-Date: 2026-09-29 23:09-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -221,22 +221,22 @@ msgstr ""
 msgid "Discussions"
 msgstr ""
 
-#: src/components/window-controls.tsx:125
+#: src/components/window-controls.tsx:129
 msgctxt "TitleBar"
 msgid "Minimize"
 msgstr ""
 
-#: src/components/window-controls.tsx:154
+#: src/components/window-controls.tsx:158
 msgctxt "TitleBar"
 msgid "Restore"
 msgstr ""
 
-#: src/components/window-controls.tsx:154
+#: src/components/window-controls.tsx:158
 msgctxt "TitleBar"
 msgid "Maximize"
 msgstr ""
 
-#: src/components/window-controls.tsx:216
+#: src/components/window-controls.tsx:220
 #, fuzzy
 msgctxt "TitleBar"
 msgid "Close"

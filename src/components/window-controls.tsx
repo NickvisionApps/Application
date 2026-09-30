@@ -27,7 +27,11 @@ export function WindowControls() {
     async function startup() {
       setMaximized(await window.isMaximized());
       resizeFn = await window.onResized(async (_) => {
-        setMaximized(await window.isMaximized());
+        const maximized = await window.isMaximized();
+        document.documentElement.dataset.maximized = maximized
+          ? "true"
+          : "false";
+        setMaximized(maximized);
       });
     }
 
@@ -245,7 +249,6 @@ export function WindowControls() {
       className="window-controls"
       data-platform={platform()}
       data-side={side}
-      data-maximized={maximized}
     >
       {order.map((id) => buttons[id])}
     </div>
