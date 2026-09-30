@@ -57,8 +57,6 @@ pub fn show_main_window(
     translator: State<'_, Mutex<Translator>>,
 ) -> Result<(), tauri::Error> {
     window.set_title(&translator.lock().unwrap()._p("AppName", "Application"))?;
-    #[cfg(target_os = "linux")]
-    crate::platform::linux::apply_native_decorations(&window);
     window.show()?;
     window.set_focus()?;
     Ok(())

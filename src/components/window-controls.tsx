@@ -245,6 +245,7 @@ export function WindowControls() {
       className="window-controls"
       data-platform={platform()}
       data-side={side}
+      data-maximized={maximized}
     >
       {order.map((id) => buttons[id])}
     </div>

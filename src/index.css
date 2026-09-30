@@ -100,6 +100,13 @@
   --linux-button-diameter: 28px;
   --linux-button-gap: 4px;
   --linux-button-edge-margin: 6px;
+  --window-radius: 12px;
+  clip-path: inset(0 round var(--window-radius));
+}
+
+:root[data-platform="linux"][data-maximized="true"] {
+  --window-radius: 0px;
+  clip-path: none;
 }
 
 .dark {
@@ -219,19 +226,15 @@
   width: var(--linux-button-diameter);
   height: var(--linux-button-diameter);
   border-radius: 999px;
+  background: color-mix(in oklab, var(--foreground) 10%, transparent);
 }
 
 .window-controls[data-platform="linux"] button svg,
 .window-controls[data-platform="linux"] button img {
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
 }
 
 .window-controls[data-platform="linux"] button:hover {
-  background: color-mix(in oklab, var(--foreground) 10%, transparent);
-}
-
-.window-controls[data-platform="linux"] button.close:hover {
-  background: var(--destructive);
-  color: #fff;
+  background: color-mix(in oklab, var(--foreground) 15%, transparent);
 }

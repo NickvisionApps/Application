@@ -10,20 +10,6 @@
     "frontendDist": "../dist"
   },
   "app": {
-    "windows": [
-      {
-        "visible": false,
-        "width": 800,
-        "height": 600,
-        "resizable": true,
-        "titleBarStyle": "Overlay",
-        "hiddenTitle": true,
-        "trafficLightPosition": {
-          "x": 20,
-          "y": 27
-        }
-      }
-    ],
     "security": {
       "csp": {
         "default-src": "'self' customprotocol: asset:",
