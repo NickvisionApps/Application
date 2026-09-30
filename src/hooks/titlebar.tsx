@@ -15,11 +15,7 @@ export function useTitlebarControls(content: ReactNode) {
         align="center"
         justify="end"
         gap={2}
-        className={cn(
-          "min-w-0 flex-1",
-          hasTrailingControls && "mr-2",
-          platform() === "macos" && "mt-2",
-        )}
+        className="min-w-0 flex-1 mt-2 mr-2"
       >
         {content}
       </HStack>,

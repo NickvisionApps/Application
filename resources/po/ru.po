@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-29 23:09-0400\n"
+"POT-Creation-Date: 2026-09-29 23:18-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: src-tauri/src/commands/window.rs:59 src/components/window.tsx:154
+#: src-tauri/src/commands/window.rs:59 src/components/window.tsx:164
 #, fuzzy
 msgctxt "AppName"
 msgid "Application"
@@ -242,23 +242,23 @@ msgctxt "TitleBar"
 msgid "Close"
 msgstr "Закрыть"
 
-#: src/components/window.tsx:103
+#: src/components/window.tsx:105
 msgid "Hide Sidebar"
 msgstr ""
 
-#: src/components/window.tsx:104
+#: src/components/window.tsx:106
 msgid "Show Sidebar"
 msgstr ""
 
-#: src/components/window.tsx:121
+#: src/components/window.tsx:125
 msgid "Back"
 msgstr ""
 
-#: src/components/window.tsx:137
+#: src/components/window.tsx:143
 msgid "Forward"
 msgstr ""
 
-#: src/components/window.tsx:153
+#: src/components/window.tsx:163
 msgid "Thank you for previewing the next version of {0}! ({1})"
 msgstr ""
 

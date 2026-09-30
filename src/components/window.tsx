@@ -92,7 +92,9 @@ export function Window() {
           <TooltipTrigger
             render={
               <SidebarTrigger
-                className={platform() === "macos" ? "mt-2" : ""}
+                className={
+                  platform() === "macos" || platform() === "linux" ? "mt-2" : ""
+                }
               />
             }
           />
@@ -110,7 +112,9 @@ export function Window() {
               <Button
                 variant="ghost"
                 size="icon-sm"
-                className={platform() === "macos" ? "mt-2" : ""}
+                className={
+                  platform() === "macos" || platform() === "linux" ? "mt-2" : ""
+                }
                 disabled={!canGoBack}
                 onClick={goBack}
               >
@@ -126,7 +130,9 @@ export function Window() {
               <Button
                 variant="ghost"
                 size="icon-sm"
-                className={platform() === "macos" ? "mt-2" : ""}
+                className={
+                  platform() === "macos" || platform() === "linux" ? "mt-2" : ""
+                }
                 disabled={!canGoForward}
                 onClick={goForward}
               >
@@ -143,7 +149,11 @@ export function Window() {
                 <Button
                   variant="ghost"
                   size="icon-sm"
-                  className={platform() === "macos" ? "mt-2" : ""}
+                  className={
+                    platform() === "macos" || platform() === "linux"
+                      ? "mt-2"
+                      : ""
+                  }
                 >
                   <PizzaIcon />
                 </Button>
