@@ -84,89 +84,94 @@ export function FolderPage() {
     IMAGE_EXTENSIONS.has(selectedExtension) &&
     !imageLoadFailed;
 
-  useTitlebarControls(
-    <>
-      <ToggleGroup
-        variant="outline"
-        spacing={0}
-        value={[viewMode]}
-        onValueChange={(value) => {
-          if (value.length > 0) {
-            setViewMode(value[0] as "list" | "grid");
-          }
-        }}
-      >
+  const titlebarControls = useMemo(
+    () => (
+      <>
+        <ToggleGroup
+          variant="outline"
+          spacing={0}
+          value={[viewMode]}
+          onValueChange={(value) => {
+            if (value.length > 0) {
+              setViewMode(value[0] as "list" | "grid");
+            }
+          }}
+        >
+          <Tooltip>
+            <TooltipTrigger
+              render={
+                <ToggleGroupItem value="list" aria-label={_g("List View")}>
+                  <ListIcon />
+                </ToggleGroupItem>
+              }
+            />
+            <TooltipContent>{_g("List View")}</TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger
+              render={
+                <ToggleGroupItem value="grid" aria-label={_g("Grid View")}>
+                  <LayoutGridIcon />
+                </ToggleGroupItem>
+              }
+            />
+            <TooltipContent>{_g("Grid View")}</TooltipContent>
+          </Tooltip>
+        </ToggleGroup>
         <Tooltip>
           <TooltipTrigger
             render={
-              <ToggleGroupItem value="list" aria-label={_g("List View")}>
-                <ListIcon />
-              </ToggleGroupItem>
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => {
+                  void openFolder();
+                }}
+              >
+                <FolderOpenIcon />
+              </Button>
             }
           />
-          <TooltipContent>{_g("List View")}</TooltipContent>
+          <TooltipContent>
+            {_g("Open Folder")}
+            <KbdGroup>
+              {platform() === "macos" && <Kbd>⌘</Kbd>}
+              {platform() !== "macos" && <Kbd>Ctrl</Kbd>}
+              <Kbd>O</Kbd>
+            </KbdGroup>
+          </TooltipContent>
         </Tooltip>
         <Tooltip>
           <TooltipTrigger
             render={
-              <ToggleGroupItem value="grid" aria-label={_g("Grid View")}>
-                <LayoutGridIcon />
-              </ToggleGroupItem>
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => {
+                  void closeFolder();
+                }}
+              >
+                <XIcon />
+              </Button>
             }
           />
-          <TooltipContent>{_g("Grid View")}</TooltipContent>
+          <TooltipContent>
+            {_g("Close Folder")}
+            <KbdGroup>
+              {platform() === "macos" && <Kbd>⌘</Kbd>}
+              {platform() !== "macos" && <Kbd>Ctrl</Kbd>}
+              <Kbd>Shift</Kbd>
+              <span>+</span>
+              <Kbd>W</Kbd>
+            </KbdGroup>
+          </TooltipContent>
         </Tooltip>
-      </ToggleGroup>
-      <Tooltip>
-        <TooltipTrigger
-          render={
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={() => {
-                void openFolder();
-              }}
-            >
-              <FolderOpenIcon />
-            </Button>
-          }
-        />
-        <TooltipContent>
-          {_g("Open Folder")}
-          <KbdGroup>
-            {platform() === "macos" && <Kbd>⌘</Kbd>}
-            {platform() !== "macos" && <Kbd>Ctrl</Kbd>}
-            <Kbd>O</Kbd>
-          </KbdGroup>
-        </TooltipContent>
-      </Tooltip>
-      <Tooltip>
-        <TooltipTrigger
-          render={
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={() => {
-                void closeFolder();
-              }}
-            >
-              <XIcon />
-            </Button>
-          }
-        />
-        <TooltipContent>
-          {_g("Close Folder")}
-          <KbdGroup>
-            {platform() === "macos" && <Kbd>⌘</Kbd>}
-            {platform() !== "macos" && <Kbd>Ctrl</Kbd>}
-            <Kbd>Shift</Kbd>
-            <span>+</span>
-            <Kbd>W</Kbd>
-          </KbdGroup>
-        </TooltipContent>
-      </Tooltip>
-    </>,
+      </>
+    ),
+    [viewMode, _g, openFolder, closeFolder],
   );
+
+  useTitlebarControls(titlebarControls);
 
   return (
     <VStack className="h-full w-full">
