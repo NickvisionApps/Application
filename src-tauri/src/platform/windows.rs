@@ -140,11 +140,13 @@ pub fn install_or_update_snap_layout(
         );
     }
     if registry().lock().unwrap().contains_key(&hwnd) {
-        let mut state = registry().lock().unwrap();
-        let Some(entry) = state.get_mut(&hwnd) else {
-            return Err("no snap overlay is installed for this window".to_string());
-        };
-        entry.geometry = geometry;
+        {
+            let mut state = registry().lock().unwrap();
+            let Some(entry) = state.get_mut(&hwnd) else {
+                return Err("no snap overlay is installed for this window".to_string());
+            };
+            entry.geometry = geometry;
+        }
         return update_overlay_position(hwnd);
     }
     static REGISTRATION: OnceLock<Result<isize, String>> = OnceLock::new();
@@ -170,7 +172,7 @@ pub fn install_or_update_snap_layout(
             lpszClassName: SNAP_CLASS.as_ptr(),
             hIconSm: std::ptr::null_mut(),
         };
-        if unsafe { RegisterClassExW(&class) } == 0 {
+        if RegisterClassExW(&class) == 0 {
             return Err(format!(
                 "RegisterClassExW failed: {}",
                 std::io::Error::last_os_error()
