@@ -84,7 +84,7 @@ export function WindowControls() {
         height: Math.round(rect.height * scale),
         titlebarHeight: Math.round(titlebarHeight * scale),
         controlBandWidth: Math.round(controlBandWidth * scale),
-      });
+      }).catch(() => {});
     }
 
     const handleResize = () => void reportGeometry();
