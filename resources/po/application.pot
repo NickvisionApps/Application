@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-28 01:12-0400\n"
+"POT-Creation-Date: 2026-10-02 18:47-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,109 +17,117 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src-tauri/src/commands/window.rs:21 src/components/navigation-view.tsx:135
+#: src-tauri/src/commands/window.rs:77 src/components/window.tsx:172
 msgctxt "AppName"
 msgid "Application"
 msgstr ""
 
-#: src/components/navigation-view.tsx:94
+#: src/components/navigation-view.tsx:87
 msgid "Home"
 msgstr ""
 
-#: src/components/navigation-view.tsx:100
+#: src/components/navigation-view.tsx:93
 msgid "Folder"
 msgstr ""
 
-#: src/components/navigation-view.tsx:139
-msgid "Preview ({0})"
-msgstr ""
-
-#: src/components/navigation-view.tsx:215 src/components/pages/home-page.tsx:102
+#: src/components/navigation-view.tsx:179 src/components/pages/home-page.tsx:102
 msgid "What's New?"
 msgstr ""
 
-#: src/components/navigation-view.tsx:220
+#: src/components/navigation-view.tsx:184
 msgid "Help"
 msgstr ""
 
-#: src/components/navigation-view.tsx:231
+#: src/components/navigation-view.tsx:195
 msgid "GitHub Repository"
 msgstr ""
 
-#: src/components/navigation-view.tsx:239
+#: src/components/navigation-view.tsx:203
 msgid "Report a Bug"
 msgstr ""
 
-#: src/components/navigation-view.tsx:247
+#: src/components/navigation-view.tsx:211
 msgid "Discussions"
 msgstr ""
 
-#: src/components/navigation-view.tsx:258
+#: src/components/navigation-view.tsx:222
 #: src/components/dialogs/credits-dialog.tsx:40
 msgid "Credits"
 msgstr ""
 
-#: src/components/navigation-view.tsx:266
+#: src/components/navigation-view.tsx:230
 #: src/components/dialogs/debugging-dialog.tsx:54
 msgid "Debugging Information"
 msgstr ""
 
-#: src/components/navigation-view.tsx:286
+#: src/components/navigation-view.tsx:250
 #: src/components/dialogs/settings-dialog.tsx:56
 #: src/components/dialogs/settings-dialog.tsx:141
 #: src/components/dialogs/settings-dialog.tsx:144
 msgid "Theme"
 msgstr ""
 
-#: src/components/navigation-view.tsx:300
+#: src/components/navigation-view.tsx:264
 #: src/components/dialogs/settings-dialog.tsx:47
 msgctxt "Theme"
 msgid "Light"
 msgstr ""
 
-#: src/components/navigation-view.tsx:303
+#: src/components/navigation-view.tsx:267
 #: src/components/dialogs/settings-dialog.tsx:48
 msgctxt "Theme"
 msgid "Dark"
 msgstr ""
 
-#: src/components/navigation-view.tsx:306
+#: src/components/navigation-view.tsx:270
 #: src/components/dialogs/settings-dialog.tsx:49
 msgctxt "Theme"
 msgid "System"
 msgstr ""
 
-#: src/components/navigation-view.tsx:318
+#: src/components/navigation-view.tsx:282
 #: src/components/dialogs/settings-dialog.tsx:98
 msgid "Settings"
 msgstr ""
 
-#: src/components/window-controls.tsx:33
+#: src/components/window-controls.tsx:131
 msgctxt "TitleBar"
 msgid "Minimize"
 msgstr ""
 
-#: src/components/window-controls.tsx:42
+#: src/components/window-controls.tsx:160
 msgctxt "TitleBar"
 msgid "Restore"
 msgstr ""
 
-#: src/components/window-controls.tsx:42
+#: src/components/window-controls.tsx:160
 msgctxt "TitleBar"
 msgid "Maximize"
 msgstr ""
 
-#: src/components/window-controls.tsx:61
+#: src/components/window-controls.tsx:222
 msgctxt "TitleBar"
 msgid "Close"
 msgstr ""
 
-#: src/components/window.tsx:95
+#: src/components/window.tsx:113
 msgid "Hide Sidebar"
 msgstr ""
 
-#: src/components/window.tsx:96
+#: src/components/window.tsx:114
 msgid "Show Sidebar"
+msgstr ""
+
+#: src/components/window.tsx:133
+msgid "Back"
+msgstr ""
+
+#: src/components/window.tsx:151
+msgid "Forward"
+msgstr ""
+
+#: src/components/window.tsx:171
+msgid "Thank you for previewing the next version of {0}! ({1})"
 msgstr ""
 
 #: src/components/dialogs/changelog-dialog.tsx:34
@@ -168,50 +176,56 @@ msgstr ""
 msgid "No results found for “{0}”"
 msgstr ""
 
-#: src/components/dialogs/close-dialog.tsx:33
+#: src/components/dialogs/close-dialog.tsx:32
 msgctxt "AppName"
 msgid "Exit Application?"
 msgstr ""
 
-#: src/components/dialogs/close-dialog.tsx:36
+#: src/components/dialogs/close-dialog.tsx:35
 msgid "Are you sure you want to exit?"
 msgstr ""
 
-#: src/components/dialogs/close-dialog.tsx:40
+#: src/components/dialogs/close-dialog.tsx:39
 msgid "No"
 msgstr ""
 
-#: src/components/dialogs/close-dialog.tsx:57
+#: src/components/dialogs/close-dialog.tsx:53
 msgid "Yes"
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:95 src/components/pages/home-page.tsx:80
-#: src/components/pages/home-page.tsx:85
+#: src/components/pages/folder-page.tsx:103
+#: src/components/pages/folder-page.tsx:108
+msgid "List View"
+msgstr ""
+
+#: src/components/pages/folder-page.tsx:113
+#: src/components/pages/folder-page.tsx:118
+msgid "Grid View"
+msgstr ""
+
+#: src/components/pages/folder-page.tsx:136
+#: src/components/pages/home-page.tsx:80 src/components/pages/home-page.tsx:85
 msgid "Open Folder"
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:115
-msgctxt "Folder"
-msgid "Close"
-msgstr ""
-
-#: src/components/pages/folder-page.tsx:120
+#: src/components/pages/folder-page.tsx:159
 msgid "Close Folder"
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:162
+#: src/components/pages/folder-page.tsx:211
+#: src/components/pages/folder-page.tsx:247
 msgid "This folder is empty."
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:174
+#: src/components/pages/folder-page.tsx:260
 msgid "No File Selected"
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:176
+#: src/components/pages/folder-page.tsx:262
 msgid "Select a file to preview it here."
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:195
+#: src/components/pages/folder-page.tsx:281
 msgid "No Preview Available"
 msgstr ""
 

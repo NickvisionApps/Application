@@ -2,6 +2,7 @@ pub mod close;
 pub mod commands;
 pub mod config;
 pub mod folder;
+pub mod platform;
 pub mod product;
 pub mod translation;
 pub mod update;
@@ -13,11 +14,13 @@ use crate::translation::Translator;
 use semver::Version;
 use std::sync::Mutex;
 use tauri::Manager;
+#[cfg(target_os = "macos")]
+use tauri::menu::{MenuItem, MenuItemKind};
 use tauri_plugin_window_state::StateFlags;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
-    tauri::Builder::default()
+    let builder = tauri::Builder::default()
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_os::init())
@@ -49,8 +52,34 @@ pub fn run() {
             app.manage(Mutex::new(configuration));
             app.manage(Mutex::new(translator));
             app.manage(Mutex::new(CloseManager::default()));
+            #[cfg(target_os = "macos")]
+            if let Some(window) = app.get_webview_window("main") {
+                crate::platform::macos::apply_window_vibrancy(&window);
+            }
             Ok(())
+        });
+    #[cfg(target_os = "macos")]
+    let builder = builder
+        .menu(|app_handle| {
+            let menu = tauri::menu::Menu::default(app_handle)?;
+            if let Some(MenuItemKind::Submenu(app_submenu)) = menu.items()?.into_iter().next() {
+                let quit_position = app_submenu.items()?.len().saturating_sub(1);
+                app_submenu.remove_at(quit_position)?;
+                app_submenu.insert(
+                    &MenuItem::with_id(app_handle, "quit", "Quit", true, Some("CmdOrCtrl+Q"))?,
+                    quit_position,
+                )?;
+            }
+            Ok(menu)
         })
+        .on_menu_event(|app_handle, event| {
+            if event.id() == "quit" {
+                if let Some(window) = app_handle.get_webview_window("main") {
+                    let _ = window.close();
+                }
+            }
+        });
+    builder
         .invoke_handler(tauri::generate_handler![
             commands::config::get_configuration,
             commands::config::set_configuration,
@@ -74,8 +103,14 @@ pub fn run() {
             commands::update::get_new_update,
             commands::update::install_update,
             commands::window::can_window_close,
+            commands::window::clear_windows_snap_geometry,
             commands::window::confirm_window_close,
-            commands::window::show_main_window
+            commands::window::get_accent_color,
+            commands::window::get_linux_button_layout,
+            commands::window::get_linux_titlebar_icons,
+            commands::window::show_main_window,
+            commands::window::update_window_vibrancy,
+            commands::window::update_windows_snap_geometry
         ])
         .run(tauri::generate_context!())
         .expect("Error while running tauri application");

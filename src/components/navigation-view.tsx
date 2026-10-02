@@ -1,4 +1,3 @@
-import {HStack, VStack} from "@/components/layout/stack.tsx";
 import {Avatar, AvatarFallback} from "@/components/ui/avatar.tsx";
 import {
   DropdownMenu,
@@ -22,7 +21,6 @@ import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
-  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -33,7 +31,6 @@ import {Theme, useConfiguration} from "@/lib/contexts/configuration-context.ts";
 import {useDialog} from "@/lib/contexts/dialog-context.ts";
 import {useFolderView} from "@/lib/contexts/folder-view-context.ts";
 import {Page, useNavigation} from "@/lib/contexts/navigation-context.ts";
-import {useProductInfo} from "@/lib/contexts/product-info-context.ts";
 import {useTranslation} from "@/lib/contexts/translation-context.ts";
 import {invoke} from "@tauri-apps/api/core";
 import {platform} from "@tauri-apps/plugin-os";
@@ -54,9 +51,6 @@ import {
 } from "lucide-react";
 import {useEffect, useState} from "react";
 
-import logoDevSrc from "../../resources/org.nickvision.application-devel.svg";
-import logoSrc from "../../resources/org.nickvision.application.svg";
-
 interface NavigationViewItem {
   title: string;
   page: Page;
@@ -74,9 +68,8 @@ interface User {
 }
 
 export function NavigationView() {
-  const {productInfo} = useProductInfo();
   const {configuration, setConfiguration} = useConfiguration();
-  const {_f, _g, _p} = useTranslation();
+  const {_g, _p} = useTranslation();
   const {openDialog} = useDialog();
   const {page, setPage} = useNavigation();
   const {isMobile} = useSidebar();
@@ -116,36 +109,7 @@ export function NavigationView() {
 
   return (
     <Sidebar>
-      <SidebarHeader className={isMobile ? "mt-8" : "pt-(--titlebar-height)"}>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton size="lg">
-              <HStack gap={3} align="center">
-                <VStack align="center" justify="center" className="size-8">
-                  <img
-                    src={
-                      productInfo.version.includes("-") ? logoDevSrc : logoSrc
-                    }
-                    alt=""
-                    className="size-8 rounded-lg"
-                  />
-                </VStack>
-                <VStack gap={0.5}>
-                  <span className="font-medium">
-                    {_p("AppName", "Application")}
-                  </span>
-                  {productInfo.version.includes("-") && (
-                    <span className="text-xs text-muted-foreground">
-                      {_f("Preview ({0})", [productInfo.version])}
-                    </span>
-                  )}
-                </VStack>
-              </HStack>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
-      </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className={isMobile ? "mt-8" : "pt-(--titlebar-height)"}>
         {items.map((section) => (
           <SidebarGroup key={section.title}>
             {section.title && (

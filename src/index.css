@@ -59,14 +59,14 @@
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
+  --primary: var(--os-accent-color, oklch(0.205 0 0));
+  --primary-foreground: var(--os-accent-foreground, oklch(0.985 0 0));
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
   --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --accent-foreground: var(--os-accent-color, oklch(0.205 0 0));
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
@@ -79,10 +79,10 @@
   --radius: 0.625rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-primary: var(--os-accent-color, oklch(0.205 0 0));
+  --sidebar-primary-foreground: var(--os-accent-foreground, oklch(0.985 0 0));
   --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-accent-foreground: var(--os-accent-color, oklch(0.205 0 0));
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
   --titlebar-height: 32px;
@@ -97,6 +97,28 @@
 
 :root[data-platform="linux"] {
   --titlebar-height: 36px;
+  --linux-button-diameter: 28px;
+  --linux-button-gap: 4px;
+  --linux-button-edge-margin: 6px;
+  --window-radius: 12px;
+  clip-path: inset(0 round var(--window-radius));
+}
+
+:root[data-platform="linux"][data-maximized="true"] {
+  --window-radius: 0px;
+  clip-path: none;
+}
+
+:root[data-platform="macos"],
+:root[data-platform="windows"] {
+  --background: oklch(1 0 0 / 85%);
+  --sidebar: oklch(1 0 0 / 55%);
+  --card: oklch(1 0 0 / 88%);
+}
+
+:root[data-platform="macos"] body,
+:root[data-platform="windows"] body {
+  background: transparent;
 }
 
 .dark {
@@ -106,14 +128,14 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
+  --primary: var(--os-accent-color, oklch(0.922 0 0));
+  --primary-foreground: var(--os-accent-foreground, oklch(0.205 0 0));
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.269 0 0);
   --muted-foreground: oklch(0.708 0 0);
   --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
+  --accent-foreground: var(--os-accent-color, oklch(0.985 0 0));
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
@@ -125,12 +147,30 @@
   --chart-5: oklch(0.269 0 0);
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-primary: var(--os-accent-color, oklch(0.488 0.243 264.376));
+  --sidebar-primary-foreground: var(--os-accent-foreground, oklch(0.985 0 0));
   --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-accent-foreground: var(--os-accent-color, oklch(0.985 0 0));
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+}
+
+:root.dark[data-platform="macos"],
+:root.dark[data-platform="windows"] {
+  --background: oklch(0.145 0 0 / 85%);
+  --sidebar: oklch(0.145 0 0 / 55%);
+  --card: oklch(0.205 0 0 / 88%);
+}
+
+:root[data-platform="macos"] [data-slot="sidebar-container"],
+:root[data-platform="windows"] [data-slot="sidebar-container"] {
+  border-color: transparent;
+}
+
+@layer components {
+  .selected-button {
+    @apply bg-primary text-primary-foreground font-medium hover:bg-primary! hover:text-primary-foreground!;
+  }
 }
 
 @layer base {
@@ -171,6 +211,9 @@
 .window-controls {
   display: flex;
   align-self: stretch;
+}
+
+.window-controls[data-side="right"] {
   margin-left: auto;
 }
 
@@ -183,11 +226,46 @@
   color: var(--foreground);
 }
 
-.window-controls button:hover {
-  background: rgb(255 255 255 / 8%);
+.window-controls button svg {
+  display: block;
+  width: 10px;
+  height: 10px;
 }
 
-.window-controls button.close:hover {
-  background: #e5484d;
+.window-controls[data-platform="windows"] button:hover,
+.window-controls[data-platform="windows"] button.snap-hover {
+  background: color-mix(in oklab, var(--foreground) 8%, transparent);
+}
+
+.window-controls[data-platform="windows"] button.snap-pressed {
+  background: color-mix(in oklab, var(--foreground) 12%, transparent);
+}
+
+.window-controls[data-platform="windows"] button.close:hover {
+  background: var(--destructive);
   color: #fff;
+}
+
+.window-controls[data-platform="linux"] {
+  align-items: center;
+  gap: var(--linux-button-gap);
+  padding-top: 8px;
+  padding-right: var(--linux-button-edge-margin);
+}
+
+.window-controls[data-platform="linux"] button {
+  width: var(--linux-button-diameter);
+  height: var(--linux-button-diameter);
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--foreground) 10%, transparent);
+}
+
+.window-controls[data-platform="linux"] button svg,
+.window-controls[data-platform="linux"] button img {
+  width: 16px;
+  height: 16px;
+}
+
+.window-controls[data-platform="linux"] button:hover {
+  background: color-mix(in oklab, var(--foreground) 15%, transparent);
 }

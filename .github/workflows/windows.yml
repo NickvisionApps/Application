@@ -74,17 +74,10 @@ jobs:
           $version = (Get-Content src-tauri/tauri.conf.json | ConvertFrom-Json).version
           $parts = $version -split '\.'
           $wixVersion = "$([int]$parts[0] - 2000).$($parts[1]).$($parts[2])"
-          $conf = [ordered]@{
-            '$schema' = 'https://schema.tauri.app/config/2'
-            bundle = @{
-              targets = @('msi')
-              windows = @{
-                wix = @{
-                  version = $wixVersion
-                }
-              }
-            }
-          }
+          $conf = Get-Content src-tauri/tauri.windows.conf.json -Raw | ConvertFrom-Json -AsHashtable
+          if (-not $conf.bundle.Contains('windows')) { $conf.bundle.windows = @{} }
+          if (-not $conf.bundle.windows.Contains('wix')) { $conf.bundle.windows.wix = @{} }
+          $conf.bundle.windows.wix.version = $wixVersion
           $conf | ConvertTo-Json -Depth 10 | Set-Content -Path src-tauri/tauri.windows.conf.json
       - name: "Build"
         uses: tauri-apps/tauri-action@v1
