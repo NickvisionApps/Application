@@ -27,6 +27,24 @@ pub fn confirm_window_close(close_manager: State<'_, Mutex<CloseManager>>) {
 }
 
 #[command]
+pub fn get_accent_color(app: tauri::AppHandle) -> Option<String> {
+    #[cfg(target_os = "macos")]
+    {
+        crate::platform::macos::accent_color(&app)
+    }
+    #[cfg(target_os = "windows")]
+    {
+        let _ = app;
+        crate::platform::windows::accent_color()
+    }
+    #[cfg(target_os = "linux")]
+    {
+        let _ = app;
+        crate::platform::linux::accent_color()
+    }
+}
+
+#[command]
 pub fn get_linux_button_layout() -> Option<String> {
     #[cfg(target_os = "linux")]
     {
@@ -59,6 +77,19 @@ pub fn show_main_window(
     window.set_title(&translator.lock().unwrap()._p("AppName", "Application"))?;
     window.show()?;
     window.set_focus()?;
+    Ok(())
+}
+
+#[command]
+pub fn update_window_vibrancy(window: WebviewWindow, dark: bool) -> Result<(), String> {
+    #[cfg(target_os = "windows")]
+    {
+        crate::platform::windows::apply_window_vibrancy(&window, dark);
+    }
+    #[cfg(not(target_os = "windows"))]
+    {
+        let _ = (window, dark);
+    }
     Ok(())
 }
 

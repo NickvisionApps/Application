@@ -226,6 +226,57 @@ pub fn uninstall_snap_layout(window: &WebviewWindow<Wry>) -> Result<(), String> 
     Ok(())
 }
 
+pub fn apply_window_vibrancy(window: &WebviewWindow<Wry>, dark: bool) {
+    if window_vibrancy::apply_mica(window, Some(dark)).is_err() {
+        let tint = if dark { (20, 20, 20, 160) } else { (240, 240, 240, 160) };
+        if window_vibrancy::apply_acrylic(window, Some(tint)).is_err() {
+            let _ = window_vibrancy::apply_blur(window, Some(tint));
+        }
+    }
+}
+
+pub fn accent_color() -> Option<String> {
+    use windows_sys::Win32::Foundation::ERROR_SUCCESS;
+    use windows_sys::Win32::System::Registry::{
+        HKEY, HKEY_CURRENT_USER, KEY_READ, REG_DWORD, RegCloseKey, RegOpenKeyExW,
+        RegQueryValueExW,
+    };
+
+    fn wide(s: &str) -> Vec<u16> {
+        s.encode_utf16().chain(std::iter::once(0)).collect()
+    }
+
+    unsafe {
+        let subkey = wide("Software\\Microsoft\\Windows\\DWM");
+        let mut hkey: HKEY = std::mem::zeroed();
+        if RegOpenKeyExW(HKEY_CURRENT_USER, subkey.as_ptr(), 0, KEY_READ, &mut hkey) != ERROR_SUCCESS
+        {
+            return None;
+        }
+        let value_name = wide("AccentColor");
+        let mut data: u32 = 0;
+        let mut data_len: u32 = size_of::<u32>() as u32;
+        let mut value_type: u32 = 0;
+        let status = RegQueryValueExW(
+            hkey,
+            value_name.as_ptr(),
+            std::ptr::null_mut(),
+            &mut value_type,
+            &mut data as *mut u32 as *mut u8,
+            &mut data_len,
+        );
+        RegCloseKey(hkey);
+        if status != ERROR_SUCCESS || value_type != REG_DWORD {
+            return None;
+        }
+        // AccentColor is stored as 0xAABBGGRR.
+        let r = (data & 0xFF) as u8;
+        let g = ((data >> 8) & 0xFF) as u8;
+        let b = ((data >> 16) & 0xFF) as u8;
+        Some(format!("#{r:02x}{g:02x}{b:02x}"))
+    }
+}
+
 fn emit_snap_event(hwnd: HWND, event: &str, value: bool) {
     let Some(window) = parent_for_overlay(hwnd).and_then(|parent| {
         registry()

@@ -193,11 +193,16 @@ export function FolderPage() {
                       }}
                       className={cn(
                         "w-full px-2 py-1 text-left text-sm",
-                        selectedFile?.path === file.path &&
-                          "bg-muted font-medium",
+                        selectedFile?.path === file.path && "selected-button",
                       )}
                     >
-                      <FileIcon className="size-4 shrink-0 text-muted-foreground" />
+                      <FileIcon
+                        className={cn(
+                          "size-4 shrink-0 text-muted-foreground",
+                          selectedFile?.path === file.path &&
+                            "text-primary-foreground",
+                        )}
+                      />
                       <span className="truncate">{file.name}</span>
                     </HStack>
                   ))
@@ -222,11 +227,16 @@ export function FolderPage() {
                       }}
                       className={cn(
                         "h-auto w-full p-3 text-center text-sm",
-                        selectedFile?.path === file.path &&
-                          "bg-muted font-medium",
+                        selectedFile?.path === file.path && "selected-button",
                       )}
                     >
-                      <FileIcon className="size-10 shrink-0 text-muted-foreground" />
+                      <FileIcon
+                        className={cn(
+                          "size-10 shrink-0 text-muted-foreground",
+                          selectedFile?.path === file.path &&
+                            "text-primary-foreground",
+                        )}
+                      />
                       <span className="line-clamp-2 w-full break-words text-xs">
                         {file.name}
                       </span>

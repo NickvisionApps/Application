@@ -50,6 +50,14 @@ export function Window() {
     }
 
     document.documentElement.dataset.platform = platform();
+    void invoke<string | null>("get_accent_color").then((hex) => {
+      if (!hex) {
+        return;
+      }
+      const root = document.documentElement;
+      root.style.setProperty("--os-accent-color", hex);
+      root.style.setProperty("--os-accent-foreground", "oklch(0.985 0 0)");
+    });
     void startup();
 
     return () => {
@@ -173,7 +181,7 @@ export function Window() {
       </div>
       <HStack className="h-screen w-full overflow-hidden">
         <NavigationView />
-        <main className="min-w-0 flex-1 overflow-hidden pt-(--titlebar-height)">
+        <main className="min-w-0 flex-1 overflow-hidden bg-background pt-(--titlebar-height)">
           {page === "home" && <HomePage />}
           {page === "folder" && <FolderPage />}
           <Toaster />

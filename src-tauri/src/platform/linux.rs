@@ -74,6 +74,57 @@ pub fn titlebar_icons(
     (!icons.is_empty()).then_some(icons)
 }
 
+const GNOME_ACCENT_COLORS: [(&str, &str); 9] = [
+    ("blue", "#3584e4"),
+    ("teal", "#2190a4"),
+    ("green", "#3a944a"),
+    ("yellow", "#c88800"),
+    ("orange", "#ed5b00"),
+    ("red", "#e62d42"),
+    ("pink", "#d56199"),
+    ("purple", "#9141ac"),
+    ("slate", "#6f8396"),
+];
+
+pub fn accent_color() -> Option<String> {
+    std::process::Command::new("gsettings")
+        .args(["get", "org.gnome.desktop.interface", "accent-color"])
+        .output()
+        .ok()
+        .filter(|output| output.status.success())
+        .and_then(|output| {
+            let name = String::from_utf8_lossy(&output.stdout);
+            let name = name.trim().trim_matches('\'');
+            GNOME_ACCENT_COLORS
+                .iter()
+                .find(|(candidate, _)| *candidate == name)
+                .map(|(_, hex)| hex.to_string())
+        })
+        .or_else(|| {
+            let contents =
+                std::fs::read_to_string(BaseDirs::new()?.config_dir().join("kdeglobals")).ok()?;
+            let mut in_section = false;
+            for line in contents.lines() {
+                let line = line.trim();
+                if line.starts_with('[') {
+                    in_section = line == "[General]";
+                    continue;
+                }
+                if !in_section {
+                    continue;
+                }
+                if let Some(value) = line.strip_prefix("AccentColor=") {
+                    let parts: Vec<&str> = value.split(',').collect();
+                    if let [r, g, b] = parts[..] {
+                        let (r, g, b) = (r.parse::<u8>().ok()?, g.parse::<u8>().ok()?, b.parse::<u8>().ok()?);
+                        return Some(format!("#{r:02x}{g:02x}{b:02x}"));
+                    }
+                }
+            }
+            None
+        })
+}
+
 fn translate_kde_codes(codes: &str) -> String {
     codes
         .chars()

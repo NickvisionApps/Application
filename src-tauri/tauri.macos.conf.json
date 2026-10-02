@@ -2,12 +2,14 @@
   "$schema": "https://schema.tauri.app/config/2",
   "identifier": "org.nickvision.application",
   "app": {
+    "macOSPrivateApi": true,
     "windows": [
       {
         "visible": false,
         "width": 800,
         "height": 600,
         "resizable": true,
+        "transparent": true,
         "titleBarStyle": "Overlay",
         "hiddenTitle": true,
         "trafficLightPosition": {
