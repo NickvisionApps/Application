@@ -1,9 +1,7 @@
-import {platform} from "@tauri-apps/plugin-os";
-import {cn} from "cn";
-import {ReactNode, useEffect} from "react";
-
 import {HStack} from "@/components/layout/stack.tsx";
 import {useTitlebar} from "@/lib/contexts/titlebar-context.ts";
+import {platform} from "@tauri-apps/plugin-os";
+import {ReactNode, useEffect} from "react";
 
 export function useTitlebarControls(content: ReactNode) {
   const {setContent, side} = useTitlebar();
