@@ -1,7 +1,16 @@
+import {getAccentColor} from "@nickvisionapps/plugin-window-integration";
+import {invoke} from "@tauri-apps/api/core";
+import {getCurrentWindow} from "@tauri-apps/api/window";
+import {platform} from "@tauri-apps/plugin-os";
+import {saveWindowState, StateFlags} from "@tauri-apps/plugin-window-state";
+import {ArrowLeftIcon, ArrowRightIcon, PizzaIcon} from "lucide-react";
+import {useEffect} from "react";
+
 import {HStack} from "@/components/layout/stack.tsx";
 import {NavigationView} from "@/components/navigation-view.tsx";
 import {FolderPage} from "@/components/pages/folder-page.tsx";
 import {HomePage} from "@/components/pages/home-page.tsx";
+import {Button} from "@/components/ui/button.tsx";
 import {SidebarTrigger, useSidebar} from "@/components/ui/sidebar.tsx";
 import {Toaster} from "@/components/ui/toast.tsx";
 import {
@@ -14,21 +23,18 @@ import {useKeyboardShortcut} from "@/hooks/use-keyboard-shortcut.ts";
 import {useDialog} from "@/lib/contexts/dialog-context.ts";
 import {useFolderView} from "@/lib/contexts/folder-view-context.ts";
 import {useNavigation} from "@/lib/contexts/navigation-context.ts";
+import {useProductInfo} from "@/lib/contexts/product-info-context.ts";
 import {useTitlebar} from "@/lib/contexts/titlebar-context.ts";
 import {useTranslation} from "@/lib/contexts/translation-context.ts";
-import {invoke} from "@tauri-apps/api/core";
-import {getCurrentWindow} from "@tauri-apps/api/window";
-import {platform} from "@tauri-apps/plugin-os";
-import {saveWindowState, StateFlags} from "@tauri-apps/plugin-window-state";
-import {useEffect} from "react";
 
 export function Window() {
-  const {_g} = useTranslation();
-  const {page} = useNavigation();
+  const {_f, _g, _p} = useTranslation();
+  const {page, canGoBack, canGoForward, goBack, goForward} = useNavigation();
   const {openDialog} = useDialog();
   const {open: sidebarOpen, isMobile, openMobile} = useSidebar();
   const {folderView, openFolder, closeFolder} = useFolderView();
-  const {content} = useTitlebar();
+  const {content, side} = useTitlebar();
+  const {productInfo} = useProductInfo();
 
   useEffect(() => {
     const window = getCurrentWindow();
@@ -46,6 +52,14 @@ export function Window() {
     }
 
     document.documentElement.dataset.platform = platform();
+    void getAccentColor().then((hex) => {
+      if (!hex) {
+        return;
+      }
+      const root = document.documentElement;
+      root.style.setProperty("--os-accent-color", hex);
+      root.style.setProperty("--os-accent-foreground", "oklch(0.985 0 0)");
+    });
     void startup();
 
     return () => {
@@ -81,29 +95,95 @@ export function Window() {
 
   return (
     <>
-      <div className="titlebar-drag-region" data-tauri-drag-region="deep">
+      <div className="titlebar-drag-region gap-1" data-tauri-drag-region="deep">
+        {(platform() === "windows" || platform() === "linux") &&
+          side === "left" && <WindowControls />}
         <Tooltip>
           <TooltipTrigger
             render={
               <SidebarTrigger
-                className={platform() === "macos" ? "mt-2" : ""}
+                className={
+                  platform() === "macos" || platform() === "linux" ? "mt-2" : ""
+                }
               />
             }
           />
           <TooltipContent side="right">
-            {(isMobile ? openMobile : sidebarOpen)
-              ? _g("Hide Sidebar")
-              : _g("Show Sidebar")}
+            {isMobile
+              ? openMobile
+              : sidebarOpen
+                ? _g("Hide Sidebar")
+                : _g("Show Sidebar")}
           </TooltipContent>
         </Tooltip>
-        {content}
-        {(platform() === "windows" || platform() === "linux") && (
-          <WindowControls />
+        <Tooltip>
+          <TooltipTrigger
+            render={
+              <Button
+                variant="ghost"
+                size="icon-sm"
+                className={
+                  platform() === "macos" || platform() === "linux" ? "mt-2" : ""
+                }
+                disabled={!canGoBack}
+                onClick={goBack}
+              >
+                <ArrowLeftIcon />
+              </Button>
+            }
+          />
+          <TooltipContent>{_g("Back")}</TooltipContent>
+        </Tooltip>
+        <Tooltip>
+          <TooltipTrigger
+            render={
+              <Button
+                variant="ghost"
+                size="icon-sm"
+                className={
+                  platform() === "macos" || platform() === "linux" ? "mt-2" : ""
+                }
+                disabled={!canGoForward}
+                onClick={goForward}
+              >
+                <ArrowRightIcon />
+              </Button>
+            }
+          />
+          <TooltipContent>{_g("Forward")}</TooltipContent>
+        </Tooltip>
+        {productInfo.version.includes("-") && (
+          <Tooltip>
+            <TooltipTrigger
+              render={
+                <Button
+                  variant="ghost"
+                  size="icon-sm"
+                  className={
+                    platform() === "macos" || platform() === "linux"
+                      ? "mt-2"
+                      : ""
+                  }
+                >
+                  <PizzaIcon />
+                </Button>
+              }
+            />
+            <TooltipContent>
+              {_f("Thank you for previewing the next version of {0}! ({1})", [
+                _p("AppName", "Application"),
+                productInfo.version,
+              ])}
+            </TooltipContent>
+          </Tooltip>
         )}
+        {content}
+        {(platform() === "windows" || platform() === "linux") &&
+          side !== "left" && <WindowControls />}
       </div>
       <HStack className="h-screen w-full overflow-hidden">
         <NavigationView />
-        <main className="min-w-0 flex-1 overflow-hidden pt-(--titlebar-height)">
+        <main className="min-w-0 flex-1 overflow-hidden bg-background pt-(--titlebar-height)">
           {page === "home" && <HomePage />}
           {page === "folder" && <FolderPage />}
           <Toaster />

@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",
+    "@nickvisionapps/plugin-window-integration": "^0.1.0",
     "@shadcn/react": "^0.3.1",
     "@streamdown/code": "^1.1.1",
     "@tailwindcss/vite": "^4.3.3",

@@ -14,7 +14,7 @@ pub fn confirm_window_close(close_manager: State<'_, Mutex<CloseManager>>) {
 }
 
 #[command]
-pub async fn show_main_window(
+pub fn show_main_window(
     window: WebviewWindow,
     translator: State<'_, Mutex<Translator>>,
 ) -> Result<(), tauri::Error> {
