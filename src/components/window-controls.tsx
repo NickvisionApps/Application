@@ -53,10 +53,11 @@ export function WindowControls() {
   }, []);
 
   useEffect(() => {
-    if (platform() !== "linux") {
-      return;
+    async function startup() {
+      setIcons(await getTitlebarIcons());
     }
-    void getTitlebarIcons().then(setIcons);
+
+    void startup();
   }, [configuration.theme]);
 
   useEffect(() => {

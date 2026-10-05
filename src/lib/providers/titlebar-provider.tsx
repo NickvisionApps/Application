@@ -1,5 +1,4 @@
 import {getButtonLayout} from "@nickvisionapps/plugin-window-integration";
-import {platform} from "@tauri-apps/plugin-os";
 import {ReactNode, useEffect, useMemo, useState} from "react";
 
 import {
@@ -22,10 +21,6 @@ export function TitlebarProvider({children, ...props}: TitlebarProviderProps) {
   ]);
 
   useEffect(() => {
-    if (platform() !== "linux") {
-      return;
-    }
-
     async function startup() {
       function parseTokens(tokens: string): WindowButtonId[] {
         return tokens

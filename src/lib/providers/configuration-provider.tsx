@@ -63,9 +63,7 @@ export function ConfigurationProvider({
             ? "dark"
             : "light",
       );
-      if (platform() === "windows") {
-        void updateVibrancy(dark);
-      }
+      void updateVibrancy(dark);
     }
 
     applyTheme();
