@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-02 18:47-0400\n"
+"POT-Creation-Date: 2026-10-04 23:04-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src-tauri/src/commands/window.rs:77 src/components/window.tsx:172
+#: src-tauri/src/commands/window.rs:21 src/components/window.tsx:174
 msgctxt "AppName"
 msgid "Application"
 msgstr ""
@@ -110,23 +110,23 @@ msgctxt "TitleBar"
 msgid "Close"
 msgstr ""
 
-#: src/components/window.tsx:113
+#: src/components/window.tsx:115
 msgid "Hide Sidebar"
 msgstr ""
 
-#: src/components/window.tsx:114
+#: src/components/window.tsx:116
 msgid "Show Sidebar"
 msgstr ""
 
-#: src/components/window.tsx:133
+#: src/components/window.tsx:135
 msgid "Back"
 msgstr ""
 
-#: src/components/window.tsx:151
+#: src/components/window.tsx:153
 msgid "Forward"
 msgstr ""
 
-#: src/components/window.tsx:171
+#: src/components/window.tsx:173
 msgid "Thank you for previewing the next version of {0}! ({1})"
 msgstr ""
 

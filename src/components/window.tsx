@@ -1,3 +1,11 @@
+import {getAccentColor} from "@nickvisionapps/plugin-window-integration";
+import {invoke} from "@tauri-apps/api/core";
+import {getCurrentWindow} from "@tauri-apps/api/window";
+import {platform} from "@tauri-apps/plugin-os";
+import {saveWindowState, StateFlags} from "@tauri-apps/plugin-window-state";
+import {ArrowLeftIcon, ArrowRightIcon, PizzaIcon} from "lucide-react";
+import {useEffect} from "react";
+
 import {HStack} from "@/components/layout/stack.tsx";
 import {NavigationView} from "@/components/navigation-view.tsx";
 import {FolderPage} from "@/components/pages/folder-page.tsx";
@@ -18,12 +26,6 @@ import {useNavigation} from "@/lib/contexts/navigation-context.ts";
 import {useProductInfo} from "@/lib/contexts/product-info-context.ts";
 import {useTitlebar} from "@/lib/contexts/titlebar-context.ts";
 import {useTranslation} from "@/lib/contexts/translation-context.ts";
-import {invoke} from "@tauri-apps/api/core";
-import {getCurrentWindow} from "@tauri-apps/api/window";
-import {platform} from "@tauri-apps/plugin-os";
-import {saveWindowState, StateFlags} from "@tauri-apps/plugin-window-state";
-import {ArrowLeftIcon, ArrowRightIcon, PizzaIcon} from "lucide-react";
-import {useEffect} from "react";
 
 export function Window() {
   const {_f, _g, _p} = useTranslation();
@@ -50,7 +52,7 @@ export function Window() {
     }
 
     document.documentElement.dataset.platform = platform();
-    void invoke<string | null>("get_accent_color").then((hex) => {
+    void getAccentColor().then((hex) => {
       if (!hex) {
         return;
       }

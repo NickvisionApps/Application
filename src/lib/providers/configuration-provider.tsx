@@ -1,12 +1,14 @@
+import {updateVibrancy} from "@nickvisionapps/plugin-window-integration";
+import {invoke} from "@tauri-apps/api/core";
+import {getCurrentWindow} from "@tauri-apps/api/window";
+import {platform} from "@tauri-apps/plugin-os";
+import {ReactNode, useCallback, useEffect, useMemo, useState} from "react";
+
 import {
   Configuration,
   ConfigurationProviderContext,
   ConfigurationProviderState,
 } from "@/lib/contexts/configuration-context.ts";
-import {invoke} from "@tauri-apps/api/core";
-import {getCurrentWindow} from "@tauri-apps/api/window";
-import {platform} from "@tauri-apps/plugin-os";
-import {ReactNode, useCallback, useEffect, useMemo, useState} from "react";
 
 interface ConfigurationProviderProps {
   children: ReactNode;
@@ -62,7 +64,7 @@ export function ConfigurationProvider({
             : "light",
       );
       if (platform() === "windows") {
-        void invoke("update_window_vibrancy", {dark});
+        void updateVibrancy(dark);
       }
     }
 

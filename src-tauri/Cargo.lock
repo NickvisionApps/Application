@@ -51,13 +51,8 @@ checksum = "330a5ed07fa54e4702c9d6c4174f74427fc0ef6e214bbd677ae50a5099946470"
 name = "application"
 version = "2026.9.0"
 dependencies = [
- "base64 0.22.1",
  "directories",
  "gettext",
- "gtk",
- "objc2",
- "objc2-app-kit",
- "raw-window-handle",
  "semver",
  "serde",
  "serde_json",
@@ -71,11 +66,10 @@ dependencies = [
  "tauri-plugin-os",
  "tauri-plugin-process",
  "tauri-plugin-updater",
+ "tauri-plugin-window-integration",
  "tauri-plugin-window-state",
  "url",
  "utente",
- "window-vibrancy",
- "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -4122,6 +4116,24 @@ dependencies = [
  "url",
  "windows-sys 0.61.2",
  "zip",
+]
+
+[[package]]
+name = "tauri-plugin-window-integration"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "aae554bf5713636b3fd3140811c638d993f94179660451e0325a13fc1406039a"
+dependencies = [
+ "base64 0.22.1",
+ "directories",
+ "gtk",
+ "objc2",
+ "objc2-app-kit",
+ "raw-window-handle",
+ "tauri",
+ "tauri-plugin",
+ "window-vibrancy",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]

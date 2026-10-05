@@ -1,11 +1,12 @@
+import {getButtonLayout} from "@nickvisionapps/plugin-window-integration";
+import {platform} from "@tauri-apps/plugin-os";
+import {ReactNode, useEffect, useMemo, useState} from "react";
+
 import {
   TitlebarProviderContext,
   TitlebarProviderState,
   WindowButtonId,
 } from "@/lib/contexts/titlebar-context.ts";
-import {invoke} from "@tauri-apps/api/core";
-import {platform} from "@tauri-apps/plugin-os";
-import {ReactNode, useEffect, useMemo, useState} from "react";
 
 interface TitlebarProviderProps {
   children: ReactNode;
@@ -36,7 +37,7 @@ export function TitlebarProvider({children, ...props}: TitlebarProviderProps) {
           );
       }
 
-      const raw = await invoke<string | null>("get_linux_button_layout");
+      const raw = await getButtonLayout();
       if (!raw) {
         return;
       }

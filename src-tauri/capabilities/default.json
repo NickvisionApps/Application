@@ -27,6 +27,7 @@
     "os:default",
     "process:default",
     "updater:default",
-    "window-state:default"
+    "window-state:default",
+    "window-integration:default"
   ]
 }

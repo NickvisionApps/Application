@@ -27,30 +27,10 @@ tauri-plugin-opener = "2"
 tauri-plugin-os = "2"
 tauri-plugin-process = "2"
 tauri-plugin-updater = "2"
+tauri-plugin-window-integration = "0.1.1"
 tauri-plugin-window-state = "2"
 url = "2.5"
 utente = "0.1"
-window-vibrancy = "0.8"
-
-[target.'cfg(target_os = "linux")'.dependencies]
-gtk = "0.18"
-base64 = "0.22"
-
-[target.'cfg(target_os = "macos")'.dependencies]
-objc2 = "0.6"
-objc2-app-kit = { version = "0.3.2", default-features = false, features = ["NSColor", "NSColorSpace"] }
-
-[target.'cfg(target_os = "windows")'.dependencies]
-raw-window-handle = "0.6"
-windows-sys = { version = "0.61", features = [
-    "Win32_Foundation",
-    "Win32_System_LibraryLoader",
-    "Win32_System_Registry",
-    "Win32_UI_HiDpi",
-    "Win32_UI_Input_KeyboardAndMouse",
-    "Win32_UI_Shell",
-    "Win32_UI_WindowsAndMessaging",
-] }
 
 [profile.release]
 codegen-units = 1

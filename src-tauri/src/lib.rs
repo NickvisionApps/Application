@@ -2,7 +2,6 @@ pub mod close;
 pub mod commands;
 pub mod config;
 pub mod folder;
-pub mod platform;
 pub mod product;
 pub mod translation;
 pub mod update;
@@ -31,6 +30,7 @@ pub fn run() {
                 .with_state_flags(StateFlags::all() & !StateFlags::VISIBLE)
                 .build(),
         )
+        .plugin(tauri_plugin_window_integration::init())
         .setup(|app| {
             let product_info = ProductInfo::builder()
                 .id("org.nickvision.application")
@@ -52,10 +52,6 @@ pub fn run() {
             app.manage(Mutex::new(configuration));
             app.manage(Mutex::new(translator));
             app.manage(Mutex::new(CloseManager::default()));
-            #[cfg(target_os = "macos")]
-            if let Some(window) = app.get_webview_window("main") {
-                crate::platform::macos::apply_window_vibrancy(&window);
-            }
             Ok(())
         });
     #[cfg(target_os = "macos")]
@@ -73,10 +69,10 @@ pub fn run() {
             Ok(menu)
         })
         .on_menu_event(|app_handle, event| {
-            if event.id() == "quit" {
-                if let Some(window) = app_handle.get_webview_window("main") {
-                    let _ = window.close();
-                }
+            if event.id() == "quit"
+                && let Some(window) = app_handle.get_webview_window("main")
+            {
+                let _ = window.close();
             }
         });
     builder
@@ -103,14 +99,8 @@ pub fn run() {
             commands::update::get_new_update,
             commands::update::install_update,
             commands::window::can_window_close,
-            commands::window::clear_windows_snap_geometry,
             commands::window::confirm_window_close,
-            commands::window::get_accent_color,
-            commands::window::get_linux_button_layout,
-            commands::window::get_linux_titlebar_icons,
-            commands::window::show_main_window,
-            commands::window::update_window_vibrancy,
-            commands::window::update_windows_snap_geometry
+            commands::window::show_main_window
         ])
         .run(tauri::generate_context!())
         .expect("Error while running tauri application");

@@ -1,15 +1,21 @@
+import {
+  clearSnapGeometry,
+  getTitlebarIcons,
+  onSnapHover,
+  onSnapPress,
+  updateSnapGeometry,
+} from "@nickvisionapps/plugin-window-integration";
+import {getCurrentWindow} from "@tauri-apps/api/window";
+import {platform} from "@tauri-apps/plugin-os";
+import {cn} from "cn";
+import {ReactNode, useEffect, useRef, useState} from "react";
+
 import {useConfiguration} from "@/lib/contexts/configuration-context.ts";
 import {
   useTitlebar,
   type WindowButtonId,
 } from "@/lib/contexts/titlebar-context.ts";
 import {useTranslation} from "@/lib/contexts/translation-context.ts";
-import {invoke} from "@tauri-apps/api/core";
-import {listen} from "@tauri-apps/api/event";
-import {getCurrentWindow} from "@tauri-apps/api/window";
-import {platform} from "@tauri-apps/plugin-os";
-import {cn} from "cn";
-import {ReactNode, useEffect, useRef, useState} from "react";
 
 export function WindowControls() {
   const window = getCurrentWindow();
@@ -50,9 +56,7 @@ export function WindowControls() {
     if (platform() !== "linux") {
       return;
     }
-    void invoke<Record<string, string> | null>("get_linux_titlebar_icons").then(
-      setIcons,
-    );
+    void getTitlebarIcons().then(setIcons);
   }, [configuration.theme]);
 
   useEffect(() => {
@@ -65,7 +69,7 @@ export function WindowControls() {
         return;
       }
       if (await window.isFullscreen()) {
-        await invoke("clear_windows_snap_geometry");
+        await clearSnapGeometry();
         return;
       }
       const scale = globalThis.devicePixelRatio;
@@ -77,7 +81,7 @@ export function WindowControls() {
           "--titlebar-height",
         ),
       );
-      await invoke("update_windows_snap_geometry", {
+      await updateSnapGeometry({
         x: Math.round(rect.left * scale),
         y: Math.round(rect.top * scale),
         width: Math.round(rect.width * scale),
@@ -99,12 +103,8 @@ export function WindowControls() {
     let unlistenPress: (() => void) | undefined;
 
     async function startup() {
-      unlistenHover = await listen<boolean>("snap-hover", (event) => {
-        setSnapHovered(event.payload);
-      });
-      unlistenPress = await listen<boolean>("snap-press", (event) => {
-        setSnapPressed(event.payload);
-      });
+      unlistenHover = await onSnapHover(setSnapHovered);
+      unlistenPress = await onSnapPress(setSnapPressed);
     }
 
     void startup();
@@ -118,7 +118,7 @@ export function WindowControls() {
       if (unlistenPress) {
         unlistenPress();
       }
-      void invoke("clear_windows_snap_geometry");
+      void clearSnapGeometry();
     };
   }, []);
 
