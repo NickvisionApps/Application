@@ -1,0 +1,3 @@
+#!/bin/sh
+export APPDIR=/app
+exec @LIB_DIR@/@OUTPUT_NAME@ "$@"
