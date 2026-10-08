@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-04 23:22-0400\n"
+"POT-Creation-Date: 2026-10-07 22:54-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -18,54 +18,62 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: src-tauri/src/commands/window.rs:21 src/components/window.tsx:174
+#: src-tauri/src/commands/window.rs:21 src/components/window.tsx:187
 #, fuzzy
 msgctxt "AppName"
 msgid "Application"
 msgstr "Application"
 
-#: src/components/navigation-view.tsx:87
+#: src/components/navigation-view.tsx:91
 msgid "Home"
 msgstr ""
 
-#: src/components/navigation-view.tsx:93
+#: src/components/navigation-view.tsx:97
 #, fuzzy
 msgid "Folder"
 msgstr "Папка"
 
-#: src/components/navigation-view.tsx:179
+#: src/components/navigation-view.tsx:154
+msgid "Checking for updates..."
+msgstr ""
+
+#: src/components/navigation-view.tsx:195
+msgid "Check for Updates"
+msgstr ""
+
+#: src/components/navigation-view.tsx:206
+msgid "Help"
+msgstr ""
+
+#: src/components/navigation-view.tsx:217
 #: src/components/pages/home-page.tsx:102
 msgid "What's New?"
 msgstr ""
 
-#: src/components/navigation-view.tsx:184
-msgid "Help"
-msgstr ""
-
-#: src/components/navigation-view.tsx:195
+#: src/components/navigation-view.tsx:229
 #, fuzzy
 msgid "GitHub Repository"
 msgstr "Репозиторий GitHub"
 
-#: src/components/navigation-view.tsx:203
+#: src/components/navigation-view.tsx:237
 msgid "Report a Bug"
 msgstr ""
 
-#: src/components/navigation-view.tsx:211
+#: src/components/navigation-view.tsx:245
 msgid "Discussions"
 msgstr ""
 
-#: src/components/navigation-view.tsx:222
+#: src/components/navigation-view.tsx:256
 #: src/components/dialogs/credits-dialog.tsx:40
 msgid "Credits"
 msgstr ""
 
-#: src/components/navigation-view.tsx:230
+#: src/components/navigation-view.tsx:264
 #: src/components/dialogs/debugging-dialog.tsx:54
 msgid "Debugging Information"
 msgstr ""
 
-#: src/components/navigation-view.tsx:250
+#: src/components/navigation-view.tsx:284
 #: src/components/dialogs/settings-dialog.tsx:56
 #: src/components/dialogs/settings-dialog.tsx:141
 #: src/components/dialogs/settings-dialog.tsx:144
@@ -73,25 +81,25 @@ msgstr ""
 msgid "Theme"
 msgstr "Тема"
 
-#: src/components/navigation-view.tsx:264
+#: src/components/navigation-view.tsx:298
 #: src/components/dialogs/settings-dialog.tsx:47
 msgctxt "Theme"
 msgid "Light"
 msgstr "Светлая"
 
-#: src/components/navigation-view.tsx:267
+#: src/components/navigation-view.tsx:301
 #: src/components/dialogs/settings-dialog.tsx:48
 msgctxt "Theme"
 msgid "Dark"
 msgstr "Тёмная"
 
-#: src/components/navigation-view.tsx:270
+#: src/components/navigation-view.tsx:304
 #: src/components/dialogs/settings-dialog.tsx:49
 msgctxt "Theme"
 msgid "System"
 msgstr "Системная"
 
-#: src/components/navigation-view.tsx:282
+#: src/components/navigation-view.tsx:316
 #: src/components/dialogs/settings-dialog.tsx:98
 msgid "Settings"
 msgstr ""
@@ -117,23 +125,23 @@ msgctxt "TitleBar"
 msgid "Close"
 msgstr "Закрыть"
 
-#: src/components/window.tsx:115
+#: src/components/window.tsx:128
 msgid "Hide Sidebar"
 msgstr ""
 
-#: src/components/window.tsx:116
+#: src/components/window.tsx:129
 msgid "Show Sidebar"
 msgstr ""
 
-#: src/components/window.tsx:135
+#: src/components/window.tsx:148
 msgid "Back"
 msgstr ""
 
-#: src/components/window.tsx:153
+#: src/components/window.tsx:166
 msgid "Forward"
 msgstr ""
 
-#: src/components/window.tsx:173
+#: src/components/window.tsx:186
 msgid "Thank you for previewing the next version of {0}! ({1})"
 msgstr ""
 
@@ -262,7 +270,25 @@ msgstr "Добрый день!"
 msgid "Good Evening!"
 msgstr "Добрый вечер!"
 
-#: src/lib/providers/folder-view-provider.tsx:41
+#: src/lib/providers/update-provider.tsx:31
+#: src/lib/providers/update-provider.tsx:64
+#: src/lib/providers/update-provider.tsx:81
+#: src/lib/providers/folder-view-provider.tsx:37
+#, fuzzy
+msgid "Error"
+msgstr "Папка"
+
+#: src/lib/providers/update-provider.tsx:54
+#, fuzzy
+msgid "No Update Available"
+msgstr "Application"
+
+#: src/lib/providers/update-provider.tsx:57
+msgctxt "AppName"
+msgid "You are already using the latest version of Application"
+msgstr ""
+
+#: src/lib/providers/folder-view-provider.tsx:48
 #, fuzzy
 msgid "Folder closed"
 msgstr "Папка закрыта."
@@ -349,10 +375,6 @@ msgstr "Папка закрыта."
 #~ msgstr "Закрыть папку (Ctrl+W)"
 
 #, fuzzy
-#~ msgid "Update Available"
-#~ msgstr "Application"
-
-#, fuzzy
 #~ msgid "A new update for {0} is available: {1}"
 #~ msgstr "Application"
 
@@ -375,10 +397,6 @@ msgstr "Папка закрыта."
 #, fuzzy
 #~ msgid "Show Application"
 #~ msgstr "Application"
-
-#, fuzzy
-#~ msgid "Error: {0}"
-#~ msgstr "Папка"
 
 #, fuzzy
 #~ msgid "Application Help"

@@ -14,6 +14,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu.tsx";
+import {Item, ItemContent, ItemMedia} from "@/components/ui/item.tsx";
 import {
   Sidebar,
   SidebarContent,
@@ -32,6 +33,7 @@ import {useDialog} from "@/lib/contexts/dialog-context.ts";
 import {useFolderView} from "@/lib/contexts/folder-view-context.ts";
 import {Page, useNavigation} from "@/lib/contexts/navigation-context.ts";
 import {useTranslation} from "@/lib/contexts/translation-context.ts";
+import {useUpdate} from "@/lib/contexts/update-context.ts";
 import {invoke} from "@tauri-apps/api/core";
 import {platform} from "@tauri-apps/plugin-os";
 import {
@@ -43,6 +45,7 @@ import {
   LifeBuoy,
   LucideIcon,
   MessageSquareShare,
+  RefreshCw,
   Settings,
   Sparkles,
   SquareLibrary,
@@ -70,6 +73,7 @@ interface User {
 export function NavigationView() {
   const {configuration, setConfiguration} = useConfiguration();
   const {_g, _p} = useTranslation();
+  const {checkingForUpdates, checkForUpdates} = useUpdate();
   const {openDialog} = useDialog();
   const {page, setPage} = useNavigation();
   const {isMobile} = useSidebar();
@@ -139,7 +143,19 @@ export function NavigationView() {
         ))}
       </SidebarContent>
       <SidebarFooter>
-        <SidebarMenu>
+        <SidebarMenu className="gap-2">
+          {checkingForUpdates && (
+            <Item>
+              <ItemMedia>
+                <Spinner className="size-3" />
+              </ItemMedia>
+              <ItemContent>
+                <span className="truncated text-xs text-muted-foreground">
+                  {_g("Checking for updates...")}
+                </span>
+              </ItemContent>
+            </Item>
+          )}
           <SidebarMenuItem>
             <DropdownMenu>
               <DropdownMenuTrigger render={<SidebarMenuButton size="lg" />}>
@@ -172,11 +188,17 @@ export function NavigationView() {
                 <DropdownMenuGroup>
                   <DropdownMenuItem
                     onClick={() => {
-                      openDialog("changelog");
+                      void checkForUpdates();
                     }}
                   >
-                    <Sparkles />
-                    <span>{_g("What's New?")}</span>
+                    <RefreshCw />
+                    <span>{_g("Check for Updates")}</span>
+                    {platform() === "macos" && (
+                      <DropdownMenuShortcut>⌘R</DropdownMenuShortcut>
+                    )}
+                    {platform() !== "macos" && (
+                      <DropdownMenuShortcut>Ctrl+R</DropdownMenuShortcut>
+                    )}
                   </DropdownMenuItem>
                   <DropdownMenuSub>
                     <DropdownMenuSubTrigger>
@@ -185,6 +207,18 @@ export function NavigationView() {
                     </DropdownMenuSubTrigger>
                     <DropdownMenuPortal>
                       <DropdownMenuSubContent>
+                        <DropdownMenuGroup>
+                          <DropdownMenuItem
+                            onClick={() => {
+                              openDialog("changelog");
+                            }}
+                          >
+                            <Sparkles />
+                            <span>{_g("What's New?")}</span>
+                            <DropdownMenuShortcut>F1</DropdownMenuShortcut>
+                          </DropdownMenuItem>
+                        </DropdownMenuGroup>
+                        <DropdownMenuSeparator />
                         <DropdownMenuGroup>
                           <DropdownMenuItem
                             onClick={() => {

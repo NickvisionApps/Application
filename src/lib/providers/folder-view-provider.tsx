@@ -28,9 +28,16 @@ export function FolderViewProvider({
 
   const handleOpenFolder = useCallback(async () => {
     try {
-      setFolderView(await invoke("open_folder"));
-      setPage("folder");
-    } catch {}
+      const newFolderView = await invoke<FolderView>("open_folder");
+      setFolderView(newFolderView);
+      setPage(newFolderView.path ? "folder" : "home");
+    } catch (error) {
+      toast.add({
+        type: "error",
+        title: _g("Error"),
+        description: String(error),
+      });
+    }
   }, []);
 
   const handleCloseFolder = useCallback(async () => {

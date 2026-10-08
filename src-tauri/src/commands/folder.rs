@@ -20,9 +20,6 @@ pub async fn open_folder(app: AppHandle) -> Result<FolderView, tauri::Error> {
         app.asset_protocol_scope().allow_directory(&path, false)?;
         FolderView::new(path).map_err(tauri::Error::Io)
     } else {
-        Err(tauri::Error::Io(std::io::Error::new(
-            std::io::ErrorKind::InvalidFilename,
-            "No file chosen",
-        )))
+        Ok(FolderView::default())
     }
 }

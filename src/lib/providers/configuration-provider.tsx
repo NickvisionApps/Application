@@ -1,14 +1,15 @@
-import {updateVibrancy} from "@nickvisionapps/plugin-window-integration";
-import {invoke} from "@tauri-apps/api/core";
-import {getCurrentWindow} from "@tauri-apps/api/window";
-import {platform} from "@tauri-apps/plugin-os";
-import {ReactNode, useCallback, useEffect, useMemo, useState} from "react";
+import {toast} from "@/components/ui/toast.tsx";
 
 import {
   Configuration,
   ConfigurationProviderContext,
   ConfigurationProviderState,
 } from "@/lib/contexts/configuration-context.ts";
+import {updateVibrancy} from "@nickvisionapps/plugin-window-integration";
+import {invoke} from "@tauri-apps/api/core";
+import {getCurrentWindow} from "@tauri-apps/api/window";
+import {platform} from "@tauri-apps/plugin-os";
+import {ReactNode, useCallback, useEffect, useMemo, useState} from "react";
 
 interface ConfigurationProviderProps {
   children: ReactNode;
@@ -79,10 +80,18 @@ export function ConfigurationProvider({
   const handleSetConfiguration = useCallback(
     (newConfiguration: Configuration) => {
       async function saveConfiguration() {
-        await invoke("set_configuration", {
-          newConfiguration,
-        });
-        setConfiguration(newConfiguration);
+        try {
+          await invoke("set_configuration", {
+            newConfiguration,
+          });
+          setConfiguration(newConfiguration);
+        } catch (error) {
+          toast.add({
+            type: "error",
+            title: "Error",
+            description: String(error),
+          });
+        }
       }
 
       void saveConfiguration();

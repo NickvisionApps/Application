@@ -8,25 +8,28 @@ import {NavigationProvider} from "@/lib/providers/navigation-provider.tsx";
 import {ProductInfoProvider} from "@/lib/providers/product-info-provider.tsx";
 import {TitlebarProvider} from "@/lib/providers/titlebar-provider.tsx";
 import {TranslationProvider} from "@/lib/providers/translation-provider.tsx";
+import {UpdateProvider} from "@/lib/providers/update-provider.tsx";
 
 export function App() {
   return (
     <ProductInfoProvider>
       <ConfigurationProvider>
         <TranslationProvider>
-          <TitlebarProvider>
-            <DialogProvider>
-              <NavigationProvider>
-                <TooltipProvider>
-                  <SidebarProvider>
-                    <FolderViewProvider>
-                      <Window />
-                    </FolderViewProvider>
-                  </SidebarProvider>
-                </TooltipProvider>
-              </NavigationProvider>
-            </DialogProvider>
-          </TitlebarProvider>
+          <UpdateProvider>
+            <TitlebarProvider>
+              <DialogProvider>
+                <NavigationProvider>
+                  <TooltipProvider>
+                    <SidebarProvider>
+                      <FolderViewProvider>
+                        <Window />
+                      </FolderViewProvider>
+                    </SidebarProvider>
+                  </TooltipProvider>
+                </NavigationProvider>
+              </DialogProvider>
+            </TitlebarProvider>
+          </UpdateProvider>
         </TranslationProvider>
       </ConfigurationProvider>
     </ProductInfoProvider>

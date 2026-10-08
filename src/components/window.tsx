@@ -1,11 +1,3 @@
-import {getAccentColor} from "@nickvisionapps/plugin-window-integration";
-import {invoke} from "@tauri-apps/api/core";
-import {getCurrentWindow} from "@tauri-apps/api/window";
-import {platform} from "@tauri-apps/plugin-os";
-import {saveWindowState, StateFlags} from "@tauri-apps/plugin-window-state";
-import {ArrowLeftIcon, ArrowRightIcon, PizzaIcon} from "lucide-react";
-import {useEffect} from "react";
-
 import {HStack} from "@/components/layout/stack.tsx";
 import {NavigationView} from "@/components/navigation-view.tsx";
 import {FolderPage} from "@/components/pages/folder-page.tsx";
@@ -26,9 +18,18 @@ import {useNavigation} from "@/lib/contexts/navigation-context.ts";
 import {useProductInfo} from "@/lib/contexts/product-info-context.ts";
 import {useTitlebar} from "@/lib/contexts/titlebar-context.ts";
 import {useTranslation} from "@/lib/contexts/translation-context.ts";
+import {useUpdate} from "@/lib/contexts/update-context.ts";
+import {getAccentColor} from "@nickvisionapps/plugin-window-integration";
+import {invoke} from "@tauri-apps/api/core";
+import {getCurrentWindow} from "@tauri-apps/api/window";
+import {platform} from "@tauri-apps/plugin-os";
+import {saveWindowState, StateFlags} from "@tauri-apps/plugin-window-state";
+import {ArrowLeftIcon, ArrowRightIcon, PizzaIcon} from "lucide-react";
+import {useEffect} from "react";
 
 export function Window() {
   const {_f, _g, _p} = useTranslation();
+  const {checkForUpdates} = useUpdate();
   const {page, canGoBack, canGoForward, goBack, goForward} = useNavigation();
   const {openDialog} = useDialog();
   const {open: sidebarOpen, isMobile, openMobile} = useSidebar();
@@ -69,9 +70,17 @@ export function Window() {
     };
   }, []);
 
-  useKeyboardShortcut(",", () => {
-    openDialog("settings");
+  useKeyboardShortcut("r", () => {
+    void checkForUpdates();
   });
+
+  useKeyboardShortcut(
+    "F1",
+    () => {
+      openDialog("changelog");
+    },
+    {control: false},
+  );
 
   useKeyboardShortcut(
     "d",
@@ -80,6 +89,10 @@ export function Window() {
     },
     {shift: true},
   );
+
+  useKeyboardShortcut(",", () => {
+    openDialog("settings");
+  });
 
   useKeyboardShortcut("o", () => {
     void openFolder();
