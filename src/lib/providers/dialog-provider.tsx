@@ -3,6 +3,7 @@ import {CloseDialog} from "@/components/dialogs/close-dialog.tsx";
 import {CreditsDialog} from "@/components/dialogs/credits-dialog.tsx";
 import {DebuggingDialog} from "@/components/dialogs/debugging-dialog.tsx";
 import {SettingsDialog} from "@/components/dialogs/settings-dialog.tsx";
+import {UpdateDialog} from "@/components/dialogs/update-dialog.tsx";
 import {
   DialogName,
   DialogProviderContext,
@@ -38,6 +39,7 @@ export function DialogProvider({children, ...props}: DialogProviderProps) {
       {dialog === "credits" && <CreditsDialog />}
       {dialog === "debugging" && <DebuggingDialog />}
       {dialog === "settings" && <SettingsDialog />}
+      {dialog === "update" && <UpdateDialog />}
       {children}
     </DialogProviderContext.Provider>
   );

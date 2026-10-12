@@ -1,4 +1,5 @@
 import {Avatar, AvatarFallback} from "@/components/ui/avatar.tsx";
+import {Badge} from "@/components/ui/badge.tsx";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -38,6 +39,7 @@ import {invoke} from "@tauri-apps/api/core";
 import {platform} from "@tauri-apps/plugin-os";
 import {
   BadgeInfo,
+  BadgePlus,
   Bug,
   ChevronsUpDown,
   Folder,
@@ -73,7 +75,7 @@ interface User {
 export function NavigationView() {
   const {configuration, setConfiguration} = useConfiguration();
   const {_g, _p} = useTranslation();
-  const {checkingForUpdates, checkForUpdates} = useUpdate();
+  const {checkingForUpdates, checkForUpdates, updateInformation} = useUpdate();
   const {openDialog} = useDialog();
   const {page, setPage} = useNavigation();
   const {isMobile} = useSidebar();
@@ -143,7 +145,7 @@ export function NavigationView() {
         ))}
       </SidebarContent>
       <SidebarFooter>
-        <SidebarMenu className="gap-2">
+        <SidebarMenu className={updateInformation ? "gap-2" : ""}>
           {checkingForUpdates && (
             <Item>
               <ItemMedia>
@@ -155,6 +157,18 @@ export function NavigationView() {
                 </span>
               </ItemContent>
             </Item>
+          )}
+          {updateInformation && (
+            <SidebarMenuItem>
+              <SidebarMenuButton
+                variant="outline"
+                onClick={() => openDialog("update")}
+              >
+                <BadgePlus />
+                <span className="truncated">{_g("Update Available")}</span>
+                <Badge variant="secondary">{updateInformation.version}</Badge>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
           )}
           <SidebarMenuItem>
             <DropdownMenu>

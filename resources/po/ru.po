@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-07 22:54-0400\n"
+"POT-Creation-Date: 2026-10-11 23:47-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -24,56 +24,61 @@ msgctxt "AppName"
 msgid "Application"
 msgstr "Application"
 
-#: src/components/navigation-view.tsx:91
+#: src/components/navigation-view.tsx:93
 msgid "Home"
 msgstr ""
 
-#: src/components/navigation-view.tsx:97
+#: src/components/navigation-view.tsx:99
 #, fuzzy
 msgid "Folder"
 msgstr "Папка"
 
-#: src/components/navigation-view.tsx:154
+#: src/components/navigation-view.tsx:156
 msgid "Checking for updates..."
 msgstr ""
 
-#: src/components/navigation-view.tsx:195
+#: src/components/navigation-view.tsx:168
+#, fuzzy
+msgid "Update Available"
+msgstr "Application"
+
+#: src/components/navigation-view.tsx:209
 msgid "Check for Updates"
 msgstr ""
 
-#: src/components/navigation-view.tsx:206
+#: src/components/navigation-view.tsx:220
 msgid "Help"
 msgstr ""
 
-#: src/components/navigation-view.tsx:217
+#: src/components/navigation-view.tsx:231
 #: src/components/pages/home-page.tsx:102
 msgid "What's New?"
 msgstr ""
 
-#: src/components/navigation-view.tsx:229
+#: src/components/navigation-view.tsx:243
 #, fuzzy
 msgid "GitHub Repository"
 msgstr "Репозиторий GitHub"
 
-#: src/components/navigation-view.tsx:237
+#: src/components/navigation-view.tsx:251
 msgid "Report a Bug"
 msgstr ""
 
-#: src/components/navigation-view.tsx:245
+#: src/components/navigation-view.tsx:259
 msgid "Discussions"
 msgstr ""
 
-#: src/components/navigation-view.tsx:256
+#: src/components/navigation-view.tsx:270
 #: src/components/dialogs/credits-dialog.tsx:40
 msgid "Credits"
 msgstr ""
 
-#: src/components/navigation-view.tsx:264
+#: src/components/navigation-view.tsx:278
 #: src/components/dialogs/debugging-dialog.tsx:54
 msgid "Debugging Information"
 msgstr ""
 
-#: src/components/navigation-view.tsx:284
+#: src/components/navigation-view.tsx:298
 #: src/components/dialogs/settings-dialog.tsx:56
 #: src/components/dialogs/settings-dialog.tsx:141
 #: src/components/dialogs/settings-dialog.tsx:144
@@ -81,25 +86,25 @@ msgstr ""
 msgid "Theme"
 msgstr "Тема"
 
-#: src/components/navigation-view.tsx:298
+#: src/components/navigation-view.tsx:312
 #: src/components/dialogs/settings-dialog.tsx:47
 msgctxt "Theme"
 msgid "Light"
 msgstr "Светлая"
 
-#: src/components/navigation-view.tsx:301
+#: src/components/navigation-view.tsx:315
 #: src/components/dialogs/settings-dialog.tsx:48
 msgctxt "Theme"
 msgid "Dark"
 msgstr "Тёмная"
 
-#: src/components/navigation-view.tsx:304
+#: src/components/navigation-view.tsx:318
 #: src/components/dialogs/settings-dialog.tsx:49
 msgctxt "Theme"
 msgid "System"
 msgstr "Системная"
 
-#: src/components/navigation-view.tsx:316
+#: src/components/navigation-view.tsx:330
 #: src/components/dialogs/settings-dialog.tsx:98
 msgid "Settings"
 msgstr ""
@@ -155,6 +160,15 @@ msgstr ""
 
 #: src/components/dialogs/debugging-dialog.tsx:74
 msgid "Copy Code"
+msgstr ""
+
+#: src/components/dialogs/update-dialog.tsx:28
+msgid "New Update!"
+msgstr ""
+
+#: src/components/dialogs/update-dialog.tsx:32
+msgctxt "AppName"
+msgid "Version {0} of Application is available for download and installation"
 msgstr ""
 
 #: src/components/dialogs/settings-dialog.tsx:57
