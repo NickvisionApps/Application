@@ -19,7 +19,6 @@ import {useProductInfo} from "@/lib/contexts/product-info-context.ts";
 import {useTitlebar} from "@/lib/contexts/titlebar-context.ts";
 import {useTranslation} from "@/lib/contexts/translation-context.ts";
 import {useUpdate} from "@/lib/contexts/update-context.ts";
-import {getAccentColor} from "@nickvisionapps/plugin-window-integration";
 import {invoke} from "@tauri-apps/api/core";
 import {getCurrentWindow} from "@tauri-apps/api/window";
 import {platform} from "@tauri-apps/plugin-os";
@@ -53,14 +52,6 @@ export function Window() {
     }
 
     document.documentElement.dataset.platform = platform();
-    void getAccentColor().then((hex) => {
-      if (!hex) {
-        return;
-      }
-      const root = document.documentElement;
-      root.style.setProperty("--os-accent-color", hex);
-      root.style.setProperty("--os-accent-foreground", "oklch(0.985 0 0)");
-    });
     void startup();
 
     return () => {

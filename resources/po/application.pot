@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-11 23:47-0400\n"
+"POT-Creation-Date: 2026-10-12 18:12-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src-tauri/src/commands/window.rs:21 src/components/window.tsx:187
+#: src-tauri/src/commands/window.rs:21 src/components/window.tsx:178
 msgctxt "AppName"
 msgid "Application"
 msgstr ""
@@ -122,23 +122,23 @@ msgctxt "TitleBar"
 msgid "Close"
 msgstr ""
 
-#: src/components/window.tsx:128
+#: src/components/window.tsx:119
 msgid "Hide Sidebar"
 msgstr ""
 
-#: src/components/window.tsx:129
+#: src/components/window.tsx:120
 msgid "Show Sidebar"
 msgstr ""
 
-#: src/components/window.tsx:148
+#: src/components/window.tsx:139
 msgid "Back"
 msgstr ""
 
-#: src/components/window.tsx:166
+#: src/components/window.tsx:157
 msgid "Forward"
 msgstr ""
 
-#: src/components/window.tsx:186
+#: src/components/window.tsx:177
 msgid "Thank you for previewing the next version of {0}! ({1})"
 msgstr ""
 
@@ -154,13 +154,23 @@ msgstr ""
 msgid "Copy Code"
 msgstr ""
 
-#: src/components/dialogs/update-dialog.tsx:28
+#: src/components/dialogs/update-dialog.tsx:33
 msgid "New Update!"
 msgstr ""
 
-#: src/components/dialogs/update-dialog.tsx:32
+#: src/components/dialogs/update-dialog.tsx:37
 msgctxt "AppName"
 msgid "Version {0} of Application is available for download and installation"
+msgstr ""
+
+#: src/components/dialogs/update-dialog.tsx:46
+#: src/components/dialogs/update-dialog.tsx:57
+msgid "Install"
+msgstr ""
+
+#: src/components/dialogs/update-dialog.tsx:48
+#: src/components/dialogs/update-dialog.tsx:55
+msgid "Cancel"
 msgstr ""
 
 #: src/components/dialogs/settings-dialog.tsx:57
@@ -214,39 +224,39 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:103
-#: src/components/pages/folder-page.tsx:108
+#: src/components/pages/folder-page.tsx:102
+#: src/components/pages/folder-page.tsx:107
 msgid "List View"
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:113
-#: src/components/pages/folder-page.tsx:118
+#: src/components/pages/folder-page.tsx:112
+#: src/components/pages/folder-page.tsx:117
 msgid "Grid View"
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:136
+#: src/components/pages/folder-page.tsx:135
 #: src/components/pages/home-page.tsx:80 src/components/pages/home-page.tsx:85
 msgid "Open Folder"
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:159
+#: src/components/pages/folder-page.tsx:158
 msgid "Close Folder"
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:211
-#: src/components/pages/folder-page.tsx:247
+#: src/components/pages/folder-page.tsx:209
+#: src/components/pages/folder-page.tsx:244
 msgid "This folder is empty."
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:260
+#: src/components/pages/folder-page.tsx:257
 msgid "No File Selected"
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:262
+#: src/components/pages/folder-page.tsx:259
 msgid "Select a file to preview it here."
 msgstr ""
 
-#: src/components/pages/folder-page.tsx:281
+#: src/components/pages/folder-page.tsx:278
 msgid "No Preview Available"
 msgstr ""
 

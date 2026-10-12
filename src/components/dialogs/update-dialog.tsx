@@ -38,20 +38,22 @@ export function UpdateDialog() {
               [updateInformation.version],
             )}
           </DialogDescription>
-          <VStack gap={4} className="min-h-0 flex-1">
-
-          </VStack>
+          <VStack gap={4} className="min-h-0 flex-1"></VStack>
         </DialogHeader>
         <DialogFooter>
           {platform() === "windows" && (
             <>
               <Button>{_g("Install")}</Button>
-              <DialogClose render={<Button variant="secondary">{_g("Cancel")}</Button>}/>
+              <DialogClose
+                render={<Button variant="secondary">{_g("Cancel")}</Button>}
+              />
             </>
           )}
           {platform() !== "windows" && (
             <>
-              <DialogClose render={<Button variant="secondary">{_g("Cancel")}</Button>}/>
+              <DialogClose
+                render={<Button variant="secondary">{_g("Cancel")}</Button>}
+              />
               <Button>{_g("Install")}</Button>
             </>
           )}

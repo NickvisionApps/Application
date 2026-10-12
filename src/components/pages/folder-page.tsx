@@ -26,7 +26,6 @@ import {useFolderView} from "@/lib/contexts/folder-view-context.ts";
 import {useTranslation} from "@/lib/contexts/translation-context.ts";
 import {convertFileSrc} from "@tauri-apps/api/core";
 import {platform} from "@tauri-apps/plugin-os";
-import {cn} from "cn";
 import {
   FileIcon,
   FolderOpenIcon,
@@ -184,25 +183,24 @@ export function FolderPage() {
                   files.map((file) => (
                     <HStack
                       key={file.path}
-                      render={<Button variant="ghost" />}
+                      render={
+                        <Button
+                          variant={
+                            selectedFile?.path === file.path
+                              ? "secondary"
+                              : "ghost"
+                          }
+                        />
+                      }
                       align="center"
                       justify="start"
                       gap={1.5}
                       onClick={() => {
                         setSelectedFile(file);
                       }}
-                      className={cn(
-                        "w-full px-2 py-1 text-left text-sm",
-                        selectedFile?.path === file.path && "selected-button",
-                      )}
+                      className="w-full px-2 py-1 text-left text-sm"
                     >
-                      <FileIcon
-                        className={cn(
-                          "size-4 shrink-0 text-muted-foreground",
-                          selectedFile?.path === file.path &&
-                            "text-primary-foreground",
-                        )}
-                      />
+                      <FileIcon className="size-4 shrink-0 text-muted-foreground" />
                       <span className="truncate">{file.name}</span>
                     </HStack>
                   ))
@@ -218,25 +216,24 @@ export function FolderPage() {
                   files.map((file) => (
                     <VStack
                       key={file.path}
-                      render={<Button variant="ghost" />}
+                      render={
+                        <Button
+                          variant={
+                            selectedFile?.path === file.path
+                              ? "secondary"
+                              : "ghost"
+                          }
+                        />
+                      }
                       align="center"
                       justify="center"
                       gap={1}
                       onClick={() => {
                         setSelectedFile(file);
                       }}
-                      className={cn(
-                        "h-auto w-full p-3 text-center text-sm",
-                        selectedFile?.path === file.path && "selected-button",
-                      )}
+                      className="h-auto w-full p-3 text-center text-sm"
                     >
-                      <FileIcon
-                        className={cn(
-                          "size-10 shrink-0 text-muted-foreground",
-                          selectedFile?.path === file.path &&
-                            "text-primary-foreground",
-                        )}
-                      />
+                      <FileIcon className="size-10 shrink-0 text-muted-foreground" />
                       <span className="line-clamp-2 w-full break-words text-xs">
                         {file.name}
                       </span>
