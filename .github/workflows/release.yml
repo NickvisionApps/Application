@@ -39,8 +39,12 @@ jobs:
       body: ${{ steps.read.outputs.body }}
     steps:
       - uses: actions/checkout@v7
-        with:
-          ref: ${{ needs.channel.outputs.tag }}
+      - if: github.event_name == 'workflow_dispatch'
+        run: |
+          if ! git ls-remote --exit-code --tags origin "refs/tags/${{ needs.channel.outputs.tag }}" > /dev/null; then
+            git tag "${{ needs.channel.outputs.tag }}"
+            git push origin "refs/tags/${{ needs.channel.outputs.tag }}"
+          fi
       - id: read
         run: |
           {
@@ -80,7 +84,7 @@ jobs:
       release_body: ${{ needs.changelog.outputs.body }}
   flatpak:
     name: "Tauri on Flatpak"
-    needs: channel
+    needs: [ channel, changelog ]
     uses: ./.github/workflows/flatpak.yml
     secrets: inherit
     with:
