@@ -4120,11 +4120,11 @@ dependencies = [
 
 [[package]]
 name = "tauri-plugin-window-integration"
-version = "0.1.1"
+version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "aae554bf5713636b3fd3140811c638d993f94179660451e0325a13fc1406039a"
+checksum = "540f0d18f882e5b8c22cc6686b4d44b88cd475885680cfee92cd2d0f2e75b1ac"
 dependencies = [
- "base64 0.22.1",
+ "base64 0.23.1",
  "directories",
  "gtk",
  "objc2",
