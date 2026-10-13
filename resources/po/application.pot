@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-12 21:20-0400\n"
+"POT-Creation-Date: 2026-10-12 21:33-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -54,7 +54,8 @@ msgstr ""
 msgid "Help"
 msgstr ""
 
-#: src/components/navigation-view.tsx:298 src/components/pages/home-page.tsx:102
+#: src/components/navigation-view.tsx:298 src/components/pages/home-page.tsx:161
+#: src/components/pages/home-page.tsx:166
 msgid "What's New?"
 msgstr ""
 
@@ -108,6 +109,7 @@ msgstr ""
 #: src/components/navigation-view.tsx:397
 #: src/components/dialogs/settings-dialog.tsx:106
 #: src/components/dialogs/settings-dialog.tsx:146
+#: src/components/pages/home-page.tsx:182 src/components/pages/home-page.tsx:187
 msgid "Settings"
 msgstr ""
 
@@ -245,7 +247,7 @@ msgid "Grid View"
 msgstr ""
 
 #: src/components/pages/folder-page.tsx:135
-#: src/components/pages/home-page.tsx:80 src/components/pages/home-page.tsx:85
+#: src/components/pages/home-page.tsx:135 src/components/pages/home-page.tsx:140
 msgid "Open Folder"
 msgstr ""
 
@@ -290,6 +292,10 @@ msgstr ""
 
 #: src/components/pages/home-page.tsx:50
 msgid "Good Evening!"
+msgstr ""
+
+#: src/components/pages/home-page.tsx:123
+msgid "Open a folder (or drag one in) to get started!"
 msgstr ""
 
 #: src/lib/providers/update-provider.tsx:47

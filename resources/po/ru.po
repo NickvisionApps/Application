@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-12 21:20-0400\n"
+"POT-Creation-Date: 2026-10-12 21:33-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -60,7 +60,8 @@ msgid "Help"
 msgstr ""
 
 #: src/components/navigation-view.tsx:298
-#: src/components/pages/home-page.tsx:102
+#: src/components/pages/home-page.tsx:161
+#: src/components/pages/home-page.tsx:166
 msgid "What's New?"
 msgstr ""
 
@@ -116,6 +117,8 @@ msgstr "Системная"
 #: src/components/navigation-view.tsx:397
 #: src/components/dialogs/settings-dialog.tsx:106
 #: src/components/dialogs/settings-dialog.tsx:146
+#: src/components/pages/home-page.tsx:182
+#: src/components/pages/home-page.tsx:187
 msgid "Settings"
 msgstr ""
 
@@ -256,7 +259,8 @@ msgid "Grid View"
 msgstr ""
 
 #: src/components/pages/folder-page.tsx:135
-#: src/components/pages/home-page.tsx:80 src/components/pages/home-page.tsx:85
+#: src/components/pages/home-page.tsx:135
+#: src/components/pages/home-page.tsx:140
 msgid "Open Folder"
 msgstr "Открыть Папку"
 
@@ -304,6 +308,11 @@ msgstr "Добрый день!"
 #: src/components/pages/home-page.tsx:50
 msgid "Good Evening!"
 msgstr "Добрый вечер!"
+
+#: src/components/pages/home-page.tsx:123
+#, fuzzy
+msgid "Open a folder (or drag one in) to get started!"
+msgstr "Откройте или перетащите папку, чтобы начать."
 
 #: src/lib/providers/update-provider.tsx:47
 #: src/lib/providers/update-provider.tsx:83
@@ -436,10 +445,6 @@ msgstr "Папка закрыта."
 #, fuzzy
 #~ msgid "Application Help"
 #~ msgstr "Application"
-
-#, fuzzy
-#~ msgid "Open a folder (or drag one into the app) to get started"
-#~ msgstr "Откройте или перетащите папку, чтобы начать."
 
 #~ msgctxt "Shortcut"
 #~ msgid "Application"
