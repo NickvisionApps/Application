@@ -9,6 +9,7 @@ on:
         required: true
 name: Release
 permissions:
+  id-token: write
   contents: write
 jobs:
   channel:
