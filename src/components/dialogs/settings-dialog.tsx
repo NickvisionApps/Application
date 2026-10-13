@@ -1,8 +1,7 @@
-import {HStack, VStack} from "@/components/layout/stack.tsx";
 import {
   Dialog,
   DialogContent,
-  DialogHeader,
+  DialogDescription,
   DialogTitle,
 } from "@/components/ui/dialog.tsx";
 import {
@@ -22,8 +21,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select.tsx";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+} from "@/components/ui/sidebar.tsx";
 import {Switch} from "@/components/ui/switch.tsx";
-import {Tabs, TabsList, TabsTrigger} from "@/components/ui/tabs.tsx";
 import {useConfiguration} from "@/lib/contexts/configuration-context.ts";
 import {useDialog} from "@/lib/contexts/dialog-context.ts";
 import {useTranslation} from "@/lib/contexts/translation-context.ts";
@@ -93,47 +101,57 @@ export function SettingsDialog() {
         }
       }}
     >
-      <DialogContent className="flex max-h-[95vh] flex-col sm:max-w-lg">
-        <DialogHeader>
-          <DialogTitle>{_g("Settings")}</DialogTitle>
-        </DialogHeader>
-        <VStack gap={4} className="min-h-0 flex-1">
-          <Input
-            type="search"
-            placeholder={_g("Search...")}
-            className="w-full"
-            value={search}
-            onChange={(event) => setSearch(event.target.value)}
-          />
-          <HStack gap={6} className="min-h-0 flex-1">
-            <Tabs
-              orientation="vertical"
-              value={page}
-              onValueChange={(value) => setPage(value as SettingsDialogPage)}
-              className={
-                !isSearching || matchingPages.has(page)
-                  ? "min-h-72 border-r border-border"
-                  : "min-h-72"
-              }
-            >
-              <TabsList variant="line">
-                {(!isSearching || matchingPages.has("general")) && (
-                  <TabsTrigger value={"general"}>
-                    <Settings2 />
-                    <span>{_g("General")}</span>
-                  </TabsTrigger>
-                )}
-                {(!isSearching || matchingPages.has("updates")) && (
-                  <TabsTrigger value={"updates"}>
-                    <CloudDownload />
-                    <span>{_g("Updates")}</span>
-                  </TabsTrigger>
-                )}
-              </TabsList>
-            </Tabs>
+      <DialogContent className="gap-0 overflow-hidden p-0 sm:max-w-3xl">
+        <DialogDescription className="sr-only">
+          {_g("Settings")}
+        </DialogDescription>
+        <SidebarProvider className="h-[480px] min-h-0 items-start">
+          <Sidebar collapsible="none">
+            <SidebarContent>
+              <SidebarGroup>
+                <SidebarGroupContent>
+                  <SidebarMenu>
+                    {(!isSearching || matchingPages.has("general")) && (
+                      <SidebarMenuItem>
+                        <SidebarMenuButton
+                          isActive={page === "general"}
+                          onClick={() => setPage("general")}
+                        >
+                          <Settings2 />
+                          <span>{_g("General")}</span>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    )}
+                    {(!isSearching || matchingPages.has("updates")) && (
+                      <SidebarMenuItem>
+                        <SidebarMenuButton
+                          isActive={page === "updates"}
+                          onClick={() => setPage("updates")}
+                        >
+                          <CloudDownload />
+                          <span>{_g("Updates")}</span>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    )}
+                  </SidebarMenu>
+                </SidebarGroupContent>
+              </SidebarGroup>
+            </SidebarContent>
+          </Sidebar>
+          <main className="flex h-full min-w-0 flex-1 flex-col overflow-hidden">
+            <header className="flex h-14 shrink-0 items-center justify-between gap-4 pr-12 pl-4">
+              <DialogTitle>{_g("Settings")}</DialogTitle>
+              <Input
+                type="search"
+                placeholder={_g("Search...")}
+                className="w-48"
+                value={search}
+                onChange={(event) => setSearch(event.target.value)}
+              />
+            </header>
             {page === "general" &&
               (!isSearching || matchingPages.has("general")) && (
-                <ScrollArea className="flex-1">
+                <ScrollArea className="min-h-0 flex-1 px-4">
                   <FieldGroup className="overflow-hidden">
                     <FieldSet>
                       <FieldGroup className="mt-2">
@@ -212,7 +230,7 @@ export function SettingsDialog() {
               )}
             {page === "updates" &&
               (!isSearching || matchingPages.has("updates")) && (
-                <ScrollArea className="flex-1">
+                <ScrollArea className="min-h-0 flex-1 px-4">
                   <FieldGroup className="overflow-hidden">
                     <FieldSet>
                       <FieldGroup className="mt-2">
@@ -266,14 +284,14 @@ export function SettingsDialog() {
                 </ScrollArea>
               )}
             {isSearching && !matchingPages.has(page) && (
-              <ScrollArea className="flex-1">
+              <ScrollArea className="min-h-0 flex-1 px-4">
                 <p className="py-8 text-center text-sm text-muted-foreground">
                   {_f("No results found for “{0}”", [search])}
                 </p>
               </ScrollArea>
             )}
-          </HStack>
-        </VStack>
+          </main>
+        </SidebarProvider>
       </DialogContent>
     </Dialog>
   );
