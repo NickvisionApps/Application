@@ -9,7 +9,14 @@ import {
 } from "@/lib/contexts/update-context.ts";
 import {invoke} from "@tauri-apps/api/core";
 import {listen} from "@tauri-apps/api/event";
-import {ReactNode, useCallback, useEffect, useMemo, useState} from "react";
+import {
+  ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 interface UpdateProviderProps {
   children: ReactNode;
@@ -24,6 +31,8 @@ export function UpdateProvider({children, ...props}: UpdateProviderProps) {
     useState<UpdateDownloadProgress | null>(null);
   const [updateInformation, setUpdateInformation] =
     useState<UpdateInformation | null>(null);
+  const gRef = useRef(_g);
+  gRef.current = _g;
 
   useEffect(() => {
     const unlisten = listen<UpdateDownloadProgress>(
@@ -44,7 +53,7 @@ export function UpdateProvider({children, ...props}: UpdateProviderProps) {
       } catch (error) {
         toast.add({
           type: "error",
-          title: _g("Error"),
+          title: gRef.current("Error"),
           description: String(error),
         });
       } finally {

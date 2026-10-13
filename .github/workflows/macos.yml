@@ -37,7 +37,7 @@ jobs:
       matrix:
         variant:
           - arch: arm64
-            runner: macos-latest
+            runner: xcode-27
           - arch: x64
             runner: macos-26-intel
     runs-on: ${{ matrix.variant.runner }}
@@ -45,6 +45,9 @@ jobs:
       - uses: actions/checkout@v7
         with:
           ref: ${{ inputs.tag || github.ref_name }}
+      - name: "Select Xcode"
+        if: ${{ matrix.variant.arch == 'x64' }}
+        run: sudo xcode-select -s /Applications/Xcode_26.4.1.app
       - name: "Setup environment"
         run: |
           brew install gettext

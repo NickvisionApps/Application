@@ -14,6 +14,12 @@ pub async fn open_folder(
     path: Option<PathBuf>,
 ) -> Result<FolderView, tauri::Error> {
     let path = if let Some(path) = path {
+        if !path.is_dir() {
+            return Err(tauri::Error::Io(std::io::Error::new(
+                std::io::ErrorKind::NotADirectory,
+                "Dropped item is not a folder",
+            )));
+        }
         path
     } else {
         let handle = app.clone();

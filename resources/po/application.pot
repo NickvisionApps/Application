@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-12 22:00-0400\n"
+"POT-Creation-Date: 2026-10-12 22:13-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -298,21 +298,20 @@ msgstr ""
 msgid "Open a folder (or drag one in) to get started!"
 msgstr ""
 
-#: src/lib/providers/update-provider.tsx:47
-#: src/lib/providers/update-provider.tsx:83
-#: src/lib/providers/update-provider.tsx:102
-#: src/lib/providers/folder-view-provider.tsx:38
-#: src/lib/providers/folder-view-provider.tsx:67
-msgid "Error"
-msgstr ""
-
-#: src/lib/providers/update-provider.tsx:73
+#: src/lib/providers/update-provider.tsx:82
 msgid "No Update Available"
 msgstr ""
 
-#: src/lib/providers/update-provider.tsx:76
+#: src/lib/providers/update-provider.tsx:85
 msgctxt "AppName"
 msgid "You are already using the latest version of Application"
+msgstr ""
+
+#: src/lib/providers/update-provider.tsx:92
+#: src/lib/providers/update-provider.tsx:111
+#: src/lib/providers/folder-view-provider.tsx:38
+#: src/lib/providers/folder-view-provider.tsx:67
+msgid "Error"
 msgstr ""
 
 #: src/lib/providers/folder-view-provider.tsx:49

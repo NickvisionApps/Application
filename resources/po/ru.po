@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-12 22:00-0400\n"
+"POT-Creation-Date: 2026-10-12 22:10-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -314,24 +314,23 @@ msgstr "Добрый вечер!"
 msgid "Open a folder (or drag one in) to get started!"
 msgstr "Откройте или перетащите папку, чтобы начать."
 
-#: src/lib/providers/update-provider.tsx:47
-#: src/lib/providers/update-provider.tsx:83
-#: src/lib/providers/update-provider.tsx:102
+#: src/lib/providers/update-provider.tsx:82
+#, fuzzy
+msgid "No Update Available"
+msgstr "Application"
+
+#: src/lib/providers/update-provider.tsx:85
+msgctxt "AppName"
+msgid "You are already using the latest version of Application"
+msgstr ""
+
+#: src/lib/providers/update-provider.tsx:92
+#: src/lib/providers/update-provider.tsx:111
 #: src/lib/providers/folder-view-provider.tsx:38
 #: src/lib/providers/folder-view-provider.tsx:67
 #, fuzzy
 msgid "Error"
 msgstr "Папка"
-
-#: src/lib/providers/update-provider.tsx:73
-#, fuzzy
-msgid "No Update Available"
-msgstr "Application"
-
-#: src/lib/providers/update-provider.tsx:76
-msgctxt "AppName"
-msgid "You are already using the latest version of Application"
-msgstr ""
 
 #: src/lib/providers/folder-view-provider.tsx:49
 #, fuzzy
