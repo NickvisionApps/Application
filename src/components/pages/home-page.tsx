@@ -57,7 +57,7 @@ export function HomePage() {
   }, []);
 
   return (
-    <div className="relative h-full w-full overflow-hidden">
+    <div className="relative -mt-(--titlebar-height) h-[calc(100%+var(--titlebar-height))] w-full overflow-hidden">
       <svg
         aria-hidden="true"
         viewBox="0 0 800 600"
@@ -109,10 +109,10 @@ export function HomePage() {
       <VStack
         align="center"
         justify="center"
-        gap={6}
-        className="relative z-10 h-full w-full overflow-y-auto p-8"
+        gap={4}
+        className="relative z-10 h-full w-full overflow-y-auto px-6 pt-[calc(var(--titlebar-height)+1.5rem)] pb-6"
       >
-        <VStack align="center" gap={3} className="text-center">
+        <VStack align="center" gap={2} className="text-center">
           <div className="flex size-12 items-center justify-center rounded-2xl bg-foreground/5 ring-1 ring-foreground/10">
             <greeting.icon size={24} />
           </div>
