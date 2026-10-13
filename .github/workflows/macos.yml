@@ -60,11 +60,6 @@ jobs:
           cache: npm
       - name: "Install frontend dependencies"
         run: npm ci
-      - name: "Warm up CoreSimulator"
-        run: |
-          sudo xcodebuild -runFirstLaunch
-          killall -9 com.apple.CoreSimulator.CoreSimulatorService || true
-          xcrun simctl list devices > /dev/null
       - name: "Build"
         uses: tauri-apps/tauri-action@v1
         env:
