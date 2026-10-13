@@ -1,7 +1,7 @@
 {
   "name": "application",
   "private": true,
-  "version": "2026.9.0",
+  "version": "2026.10.0",
   "type": "module",
   "scripts": {
     "dev": "prettier --write . && vite",

@@ -1,6 +1,6 @@
 [package]
 name = "application"
-version = "2026.9.0"
+version = "2026.10.0"
 description = "Create new Nickvision applications"
 authors = ["Nicholas Logozzo"]
 edition = "2024"
