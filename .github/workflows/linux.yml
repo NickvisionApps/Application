@@ -1,0 +1,88 @@
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+    types: [ "review_requested", "ready_for_review" ]
+  workflow_dispatch:
+  workflow_call:
+    inputs:
+      tag:
+        description: "Git ref to check out"
+        type: string
+        required: true
+      release_tag:
+        description: "GitHub release tag to publish to; leave empty to only build"
+        type: string
+        required: false
+        default: ""
+      prerelease:
+        type: boolean
+        required: false
+        default: false
+      release_body:
+        type: string
+        required: false
+        default: ""
+name: Linux
+permissions:
+  id-token: write
+  contents: write
+jobs:
+  tauri-linux:
+    name: "Tauri on Linux"
+    if: ${{ github.event.pull_request.user.login != 'weblate' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        variant:
+          - arch: x86_64
+            runner: ubuntu-latest
+          - arch: aarch64
+            runner: ubuntu-24.04-arm
+    runs-on: ${{ matrix.variant.runner }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.tag || github.ref_name }}
+      - name: "Setup environment"
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libwebkit2gtk-4.1-dev \
+            libayatana-appindicator3-dev \
+            librsvg2-dev \
+            patchelf \
+            build-essential \
+            curl \
+            wget \
+            file \
+            libssl-dev \
+            libxdo-dev \
+            libfuse2 \
+            gettext
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri -> target
+          key: ${{ (inputs.release_tag != '' && 'release-') || '' }}${{ matrix.variant.arch }}
+      - uses: actions/setup-node@v7
+        with:
+          node-version: lts/*
+          cache: npm
+      - name: "Install frontend dependencies"
+        run: npm ci
+      - name: "Build"
+        uses: tauri-apps/tauri-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+        with:
+          tagName: ${{ inputs.release_tag }}
+          releaseName: "Application ${{ inputs.tag }}"
+          releaseBody: ${{ inputs.release_body }}
+          prerelease: ${{ inputs.prerelease == true }}
+          retryAttempts: 3
+          uploadWorkflowArtifacts: ${{ inputs.release_tag == '' }}
+          workflowArtifactNamePattern: Application-${{ matrix.variant.arch }}
