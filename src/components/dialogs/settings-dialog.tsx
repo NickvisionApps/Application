@@ -105,7 +105,7 @@ export function SettingsDialog() {
         <DialogDescription className="sr-only">
           {_g("Settings")}
         </DialogDescription>
-        <SidebarProvider className="h-[480px] min-h-0 items-start">
+        <SidebarProvider className="h-120 min-h-0 items-start">
           <Sidebar collapsible="none" className="w-36 shrink-0 sm:w-44">
             <SidebarContent>
               <SidebarGroup>

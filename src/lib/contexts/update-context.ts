@@ -7,12 +7,14 @@ export interface UpdateDownloadProgress {
 
 export interface UpdateInformation {
   version: string;
-  changelog: string;
-  date: string;
+  changelog: string | null;
+  date: number | null;
 }
 
 export interface UpdateProviderState {
   checkingForUpdates: boolean;
+  installingUpdate: boolean;
+  updateDownloadProgress: UpdateDownloadProgress | null;
   updateInformation: UpdateInformation | null;
   checkForUpdates: () => Promise<void>;
   installUpdate: () => Promise<void>;

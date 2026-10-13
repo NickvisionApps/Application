@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-12 20:56-0400\n"
+"POT-Creation-Date: 2026-10-12 21:20-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,82 +22,90 @@ msgctxt "AppName"
 msgid "Application"
 msgstr ""
 
-#: src/components/navigation-view.tsx:93
+#: src/components/navigation-view.tsx:105
 msgid "Home"
 msgstr ""
 
-#: src/components/navigation-view.tsx:99
+#: src/components/navigation-view.tsx:111
 msgid "Folder"
 msgstr ""
 
-#: src/components/navigation-view.tsx:156
+#: src/components/navigation-view.tsx:170
 msgid "Checking for updates..."
 msgstr ""
 
-#: src/components/navigation-view.tsx:168
+#: src/components/navigation-view.tsx:187 src/components/navigation-view.tsx:224
+msgid "Downloading update..."
+msgstr ""
+
+#: src/components/navigation-view.tsx:215
+msgid "Downloading update... {0}% ({1} MB of {2} MB)"
+msgstr ""
+
+#: src/components/navigation-view.tsx:235
 msgid "Update Available"
 msgstr ""
 
-#: src/components/navigation-view.tsx:209
+#: src/components/navigation-view.tsx:276
 msgid "Check for Updates"
 msgstr ""
 
-#: src/components/navigation-view.tsx:220
+#: src/components/navigation-view.tsx:287
 msgid "Help"
 msgstr ""
 
-#: src/components/navigation-view.tsx:231 src/components/pages/home-page.tsx:102
+#: src/components/navigation-view.tsx:298 src/components/pages/home-page.tsx:102
 msgid "What's New?"
 msgstr ""
 
-#: src/components/navigation-view.tsx:243
+#: src/components/navigation-view.tsx:310
 msgid "GitHub Repository"
 msgstr ""
 
-#: src/components/navigation-view.tsx:251
+#: src/components/navigation-view.tsx:318
 msgid "Report a Bug"
 msgstr ""
 
-#: src/components/navigation-view.tsx:259
+#: src/components/navigation-view.tsx:326
 msgid "Discussions"
 msgstr ""
 
-#: src/components/navigation-view.tsx:270
+#: src/components/navigation-view.tsx:337
 #: src/components/dialogs/credits-dialog.tsx:40
 msgid "Credits"
 msgstr ""
 
-#: src/components/navigation-view.tsx:278
+#: src/components/navigation-view.tsx:345
 #: src/components/dialogs/debugging-dialog.tsx:56
 msgid "Debugging Information"
 msgstr ""
 
-#: src/components/navigation-view.tsx:298
+#: src/components/navigation-view.tsx:365
 #: src/components/dialogs/settings-dialog.tsx:64
 #: src/components/dialogs/settings-dialog.tsx:162
 #: src/components/dialogs/settings-dialog.tsx:165
 msgid "Theme"
 msgstr ""
 
-#: src/components/navigation-view.tsx:312
+#: src/components/navigation-view.tsx:379
 #: src/components/dialogs/settings-dialog.tsx:55
 msgctxt "Theme"
 msgid "Light"
 msgstr ""
 
-#: src/components/navigation-view.tsx:315
+#: src/components/navigation-view.tsx:382
 #: src/components/dialogs/settings-dialog.tsx:56
 msgctxt "Theme"
 msgid "Dark"
 msgstr ""
 
-#: src/components/navigation-view.tsx:318
+#: src/components/navigation-view.tsx:385
 #: src/components/dialogs/settings-dialog.tsx:57
 msgctxt "Theme"
 msgid "System"
 msgstr ""
 
-#: src/components/navigation-view.tsx:330
+#: src/components/navigation-view.tsx:397
 #: src/components/dialogs/settings-dialog.tsx:106
 #: src/components/dialogs/settings-dialog.tsx:146
 msgid "Settings"
@@ -144,6 +152,7 @@ msgid "Thank you for previewing the next version of {0}! ({1})"
 msgstr ""
 
 #: src/components/dialogs/changelog-dialog.tsx:34
+#: src/components/dialogs/update-dialog.tsx:50
 msgid "Changelog"
 msgstr ""
 
@@ -155,22 +164,22 @@ msgstr ""
 msgid "Copy"
 msgstr ""
 
-#: src/components/dialogs/update-dialog.tsx:33
-msgid "New Update!"
+#: src/components/dialogs/update-dialog.tsx:36
+msgid "New Update"
 msgstr ""
 
-#: src/components/dialogs/update-dialog.tsx:37
+#: src/components/dialogs/update-dialog.tsx:63
 msgctxt "AppName"
-msgid "Version {0} of Application is available for download and installation"
+msgid "Application will restart to finish installing the update"
 msgstr ""
 
-#: src/components/dialogs/update-dialog.tsx:46
-#: src/components/dialogs/update-dialog.tsx:57
+#: src/components/dialogs/update-dialog.tsx:77
+#: src/components/dialogs/update-dialog.tsx:98
 msgid "Install"
 msgstr ""
 
-#: src/components/dialogs/update-dialog.tsx:48
-#: src/components/dialogs/update-dialog.tsx:55
+#: src/components/dialogs/update-dialog.tsx:82
+#: src/components/dialogs/update-dialog.tsx:89
 msgid "Cancel"
 msgstr ""
 
@@ -283,18 +292,18 @@ msgstr ""
 msgid "Good Evening!"
 msgstr ""
 
-#: src/lib/providers/update-provider.tsx:31
-#: src/lib/providers/update-provider.tsx:64
-#: src/lib/providers/update-provider.tsx:81
+#: src/lib/providers/update-provider.tsx:47
+#: src/lib/providers/update-provider.tsx:83
+#: src/lib/providers/update-provider.tsx:102
 #: src/lib/providers/folder-view-provider.tsx:37
 msgid "Error"
 msgstr ""
 
-#: src/lib/providers/update-provider.tsx:54
+#: src/lib/providers/update-provider.tsx:73
 msgid "No Update Available"
 msgstr ""
 
-#: src/lib/providers/update-provider.tsx:57
+#: src/lib/providers/update-provider.tsx:76
 msgctxt "AppName"
 msgid "You are already using the latest version of Application"
 msgstr ""

@@ -38,23 +38,33 @@ pub async fn install_update(
                 "Unable to install update on non-AppImage installations",
             )));
         }
+        let mut downloaded = 0;
+        let emit_error = Mutex::new(None);
         update
             .download_and_install(
-                |downloaded, total| {
-                    let _ = app.emit(
+                |chunk, total| {
+                    downloaded += chunk;
+                    if let Err(e) = app.emit(
                         "update-download-progress",
                         UpdateDownloadProgress::new(downloaded, total.unwrap_or_default()),
-                    );
+                    ) {
+                        *emit_error.lock().unwrap() = Some(e);
+                    }
                 },
                 || {
-                    let _ = app.emit(
+                    if let Err(e) = app.emit(
                         "update-download-progress",
                         UpdateDownloadProgress::new(100, 100),
-                    );
+                    ) {
+                        *emit_error.lock().unwrap() = Some(e);
+                    }
                 },
             )
             .await
             .map_err(|e| tauri::Error::Io(std::io::Error::other(e.to_string())))?;
+        if let Some(e) = emit_error.into_inner().unwrap() {
+            return Err(e);
+        }
         #[cfg(any(target_os = "macos", target_os = "linux"))]
         app.restart();
     }

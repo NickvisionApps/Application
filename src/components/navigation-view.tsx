@@ -16,6 +16,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu.tsx";
 import {Item, ItemContent, ItemMedia} from "@/components/ui/item.tsx";
+import {Progress} from "@/components/ui/progress.tsx";
 import {
   Sidebar,
   SidebarContent,
@@ -29,6 +30,11 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar.tsx";
 import {Spinner} from "@/components/ui/spinner.tsx";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip.tsx";
 import {Theme, useConfiguration} from "@/lib/contexts/configuration-context.ts";
 import {useDialog} from "@/lib/contexts/dialog-context.ts";
 import {useFolderView} from "@/lib/contexts/folder-view-context.ts";
@@ -74,8 +80,14 @@ interface User {
 
 export function NavigationView() {
   const {configuration, setConfiguration} = useConfiguration();
-  const {_g, _p} = useTranslation();
-  const {checkingForUpdates, checkForUpdates, updateInformation} = useUpdate();
+  const {_f, _g, _p} = useTranslation();
+  const {
+    checkingForUpdates,
+    checkForUpdates,
+    installingUpdate,
+    updateDownloadProgress,
+    updateInformation,
+  } = useUpdate();
   const {openDialog} = useDialog();
   const {page, setPage} = useNavigation();
   const {isMobile} = useSidebar();
@@ -145,7 +157,9 @@ export function NavigationView() {
         ))}
       </SidebarContent>
       <SidebarFooter>
-        <SidebarMenu className={updateInformation ? "gap-2" : ""}>
+        <SidebarMenu
+          className={updateInformation || installingUpdate ? "gap-2" : ""}
+        >
           {checkingForUpdates && (
             <Item>
               <ItemMedia>
@@ -158,10 +172,63 @@ export function NavigationView() {
               </ItemContent>
             </Item>
           )}
-          {updateInformation && (
+          {installingUpdate && (
+            <Tooltip>
+              <TooltipTrigger render={<Item />}>
+                {(!updateDownloadProgress ||
+                  updateDownloadProgress.total === 0) && (
+                  <ItemMedia>
+                    <Spinner className="size-3" />
+                  </ItemMedia>
+                )}
+                <ItemContent>
+                  <div className="flex items-center justify-between gap-2 text-xs text-muted-foreground">
+                    <span className="truncated">
+                      {_g("Downloading update...")}
+                    </span>
+                    {updateDownloadProgress &&
+                      updateDownloadProgress.total > 0 && (
+                        <span className="tabular-nums">
+                          {Math.round(
+                            (updateDownloadProgress.downloaded /
+                              updateDownloadProgress.total) *
+                              100,
+                          )}
+                          %
+                        </span>
+                      )}
+                  </div>
+                  {updateDownloadProgress &&
+                    updateDownloadProgress.total > 0 && (
+                      <Progress
+                        value={
+                          (updateDownloadProgress.downloaded /
+                            updateDownloadProgress.total) *
+                          100
+                        }
+                      />
+                    )}
+                </ItemContent>
+              </TooltipTrigger>
+              <TooltipContent side="right">
+                {updateDownloadProgress && updateDownloadProgress.total > 0
+                  ? _f("Downloading update... {0}% ({1} MB of {2} MB)", [
+                      Math.round(
+                        (updateDownloadProgress.downloaded /
+                          updateDownloadProgress.total) *
+                          100,
+                      ).toString(),
+                      (updateDownloadProgress.downloaded / 1048576).toFixed(1),
+                      (updateDownloadProgress.total / 1048576).toFixed(1),
+                    ])
+                  : _g("Downloading update...")}
+              </TooltipContent>
+            </Tooltip>
+          )}
+          {updateInformation && !installingUpdate && (
             <SidebarMenuItem>
               <SidebarMenuButton
-                variant="outline"
+                className="bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground"
                 onClick={() => openDialog("update")}
               >
                 <BadgePlus />

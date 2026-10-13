@@ -2,11 +2,13 @@ import {toast} from "@/components/ui/toast.tsx";
 import {useConfiguration} from "@/lib/contexts/configuration-context.ts";
 import {useTranslation} from "@/lib/contexts/translation-context.ts";
 import {
+  UpdateDownloadProgress,
   UpdateInformation,
   UpdateProviderContext,
   UpdateProviderState,
 } from "@/lib/contexts/update-context.ts";
 import {invoke} from "@tauri-apps/api/core";
+import {listen} from "@tauri-apps/api/event";
 import {ReactNode, useCallback, useEffect, useMemo, useState} from "react";
 
 interface UpdateProviderProps {
@@ -17,8 +19,22 @@ export function UpdateProvider({children, ...props}: UpdateProviderProps) {
   const {configuration} = useConfiguration();
   const {_g, _p} = useTranslation();
   const [checkingForUpdates, setCheckingForUpdates] = useState(false);
+  const [installingUpdate, setInstallingUpdate] = useState(false);
+  const [updateDownloadProgress, setUpdateDownloadProgress] =
+    useState<UpdateDownloadProgress | null>(null);
   const [updateInformation, setUpdateInformation] =
     useState<UpdateInformation | null>(null);
+
+  useEffect(() => {
+    const unlisten = listen<UpdateDownloadProgress>(
+      "update-download-progress",
+      (event) => setUpdateDownloadProgress(event.payload),
+    );
+
+    return () => {
+      void unlisten.then((stop) => stop());
+    };
+  }, []);
 
   useEffect(() => {
     async function startup() {
@@ -43,6 +59,9 @@ export function UpdateProvider({children, ...props}: UpdateProviderProps) {
   }, [configuration.automaticallyCheckForUpdates]);
 
   const checkForUpdates = useCallback(async () => {
+    if (installingUpdate) {
+      return;
+    }
     setCheckingForUpdates(true);
     setUpdateInformation(null);
     try {
@@ -67,22 +86,26 @@ export function UpdateProvider({children, ...props}: UpdateProviderProps) {
     } finally {
       setCheckingForUpdates(false);
     }
-  }, [updateInformation]);
+  }, [installingUpdate]);
 
   const installUpdate = useCallback(async () => {
-    if (!updateInformation) {
+    if (!updateInformation || installingUpdate) {
       return;
     }
+    setInstallingUpdate(true);
+    setUpdateDownloadProgress(null);
     try {
-      setUpdateInformation(await invoke("install_update"));
+      await invoke("install_update");
     } catch (error) {
       toast.add({
         type: "error",
         title: _g("Error"),
         description: String(error),
       });
+    } finally {
+      setInstallingUpdate(false);
     }
-  }, [updateInformation]);
+  }, [updateInformation, installingUpdate]);
 
   return (
     <UpdateProviderContext.Provider
@@ -90,11 +113,20 @@ export function UpdateProvider({children, ...props}: UpdateProviderProps) {
       value={useMemo<UpdateProviderState>(
         () => ({
           checkingForUpdates,
+          installingUpdate,
+          updateDownloadProgress,
           updateInformation,
           checkForUpdates,
           installUpdate,
         }),
-        [checkingForUpdates, updateInformation, checkForUpdates, installUpdate],
+        [
+          checkingForUpdates,
+          installingUpdate,
+          updateDownloadProgress,
+          updateInformation,
+          checkForUpdates,
+          installUpdate,
+        ],
       )}
     >
       {children}

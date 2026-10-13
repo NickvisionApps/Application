@@ -17,7 +17,7 @@ pub struct UpdateDownloadProgress {
 pub struct UpdateInformation {
     version: String,
     changelog: Option<String>,
-    date: Option<String>,
+    date: Option<i64>,
 }
 
 impl UpdateDownloadProgress {
@@ -39,7 +39,7 @@ impl UpdateInformation {
         Self {
             version: update.version.clone(),
             changelog: update.body.clone(),
-            date: update.date.map(|d| d.to_string()),
+            date: update.date.map(|d| d.unix_timestamp()),
         }
     }
 
@@ -51,8 +51,8 @@ impl UpdateInformation {
         self.changelog.as_deref()
     }
 
-    pub fn date(&self) -> Option<&str> {
-        self.date.as_deref()
+    pub fn date(&self) -> Option<i64> {
+        self.date
     }
 }
 
