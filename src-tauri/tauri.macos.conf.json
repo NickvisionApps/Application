@@ -20,6 +20,14 @@
   },
   "bundle": {
     "targets": ["app"],
+    "icon": [
+      "../resources/32x32.png",
+      "../resources/128x128.png",
+      "../resources/128x128@2x.png",
+      "../resources/icon.icns",
+      "../resources/icon.ico",
+      "../resources/org.nickvision.application.icon"
+    ],
     "macOS": {
       "signingIdentity": "-"
     }
