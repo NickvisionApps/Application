@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-12 20:49-0400\n"
+"POT-Creation-Date: 2026-10-12 20:56-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -74,40 +74,39 @@ msgid "Credits"
 msgstr ""
 
 #: src/components/navigation-view.tsx:278
-#: src/components/dialogs/debugging-dialog.tsx:54
+#: src/components/dialogs/debugging-dialog.tsx:56
 msgid "Debugging Information"
 msgstr ""
 
 #: src/components/navigation-view.tsx:298
-#: src/components/dialogs/settings-dialog.tsx:71
-#: src/components/dialogs/settings-dialog.tsx:179
-#: src/components/dialogs/settings-dialog.tsx:182
+#: src/components/dialogs/settings-dialog.tsx:64
+#: src/components/dialogs/settings-dialog.tsx:162
+#: src/components/dialogs/settings-dialog.tsx:165
 #, fuzzy
 msgid "Theme"
 msgstr "Тема"
 
 #: src/components/navigation-view.tsx:312
-#: src/components/dialogs/settings-dialog.tsx:62
+#: src/components/dialogs/settings-dialog.tsx:55
 msgctxt "Theme"
 msgid "Light"
 msgstr "Светлая"
 
 #: src/components/navigation-view.tsx:315
-#: src/components/dialogs/settings-dialog.tsx:63
+#: src/components/dialogs/settings-dialog.tsx:56
 msgctxt "Theme"
 msgid "Dark"
 msgstr "Тёмная"
 
 #: src/components/navigation-view.tsx:318
-#: src/components/dialogs/settings-dialog.tsx:64
+#: src/components/dialogs/settings-dialog.tsx:57
 msgctxt "Theme"
 msgid "System"
 msgstr "Системная"
 
 #: src/components/navigation-view.tsx:330
-#: src/components/dialogs/settings-dialog.tsx:112
-#: src/components/dialogs/settings-dialog.tsx:114
-#: src/components/dialogs/settings-dialog.tsx:154
+#: src/components/dialogs/settings-dialog.tsx:106
+#: src/components/dialogs/settings-dialog.tsx:146
 msgid "Settings"
 msgstr ""
 
@@ -156,12 +155,12 @@ msgstr ""
 msgid "Changelog"
 msgstr ""
 
-#: src/components/dialogs/debugging-dialog.tsx:56
+#: src/components/dialogs/debugging-dialog.tsx:58
 msgid "Send this information to the developer when reporting issues"
 msgstr ""
 
-#: src/components/dialogs/debugging-dialog.tsx:74
-msgid "Copy Code"
+#: src/components/dialogs/debugging-dialog.tsx:104
+msgid "Copy"
 msgstr ""
 
 #: src/components/dialogs/update-dialog.tsx:33
@@ -183,39 +182,37 @@ msgstr ""
 msgid "Cancel"
 msgstr "Отмена"
 
-#: src/components/dialogs/settings-dialog.tsx:72
-#: src/components/dialogs/settings-dialog.tsx:215
-#: src/components/dialogs/settings-dialog.tsx:218
+#: src/components/dialogs/settings-dialog.tsx:65
+#: src/components/dialogs/settings-dialog.tsx:198
+#: src/components/dialogs/settings-dialog.tsx:201
 msgid "Language"
 msgstr ""
 
-#: src/components/dialogs/settings-dialog.tsx:73
-#: src/components/dialogs/settings-dialog.tsx:258
-#: src/components/dialogs/settings-dialog.tsx:264
+#: src/components/dialogs/settings-dialog.tsx:66
+#: src/components/dialogs/settings-dialog.tsx:241
+#: src/components/dialogs/settings-dialog.tsx:247
 msgid "Automatically check for updates"
 msgstr ""
 
-#: src/components/dialogs/settings-dialog.tsx:74
-#: src/components/dialogs/settings-dialog.tsx:281
-#: src/components/dialogs/settings-dialog.tsx:287
+#: src/components/dialogs/settings-dialog.tsx:67
+#: src/components/dialogs/settings-dialog.tsx:264
+#: src/components/dialogs/settings-dialog.tsx:270
 msgid "Allow preview (beta) updates"
 msgstr ""
 
-#: src/components/dialogs/settings-dialog.tsx:129
-#: src/components/dialogs/settings-dialog.tsx:159
+#: src/components/dialogs/settings-dialog.tsx:121
 msgid "General"
 msgstr ""
 
-#: src/components/dialogs/settings-dialog.tsx:140
-#: src/components/dialogs/settings-dialog.tsx:159
+#: src/components/dialogs/settings-dialog.tsx:132
 msgid "Updates"
 msgstr ""
 
-#: src/components/dialogs/settings-dialog.tsx:166
+#: src/components/dialogs/settings-dialog.tsx:149
 msgid "Search..."
 msgstr ""
 
-#: src/components/dialogs/settings-dialog.tsx:309
+#: src/components/dialogs/settings-dialog.tsx:292
 msgid "No results found for “{0}”"
 msgstr ""
 
