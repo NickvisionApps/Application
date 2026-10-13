@@ -28,6 +28,7 @@ export function ConfigurationProvider({
 }: ConfigurationProviderProps) {
   const [configuration, setConfiguration] =
     useState<Configuration>(DefaultConfiguration);
+  const [loaded, setLoaded] = useState(false);
   const [initialSystemDark] = useState(
     () => window.matchMedia("(prefers-color-scheme: dark)").matches,
   );
@@ -35,12 +36,16 @@ export function ConfigurationProvider({
   useEffect(() => {
     async function startup() {
       setConfiguration(await invoke<Configuration>("get_configuration"));
+      setLoaded(true);
     }
 
     void startup();
   }, []);
 
   useEffect(() => {
+    if (!loaded) {
+      return;
+    }
     const root = window.document.documentElement;
     const mql = window.matchMedia("(prefers-color-scheme: dark)");
 
@@ -75,7 +80,7 @@ export function ConfigurationProvider({
     return () => {
       mql.removeEventListener("change", applyTheme);
     };
-  }, [configuration.theme, initialSystemDark]);
+  }, [loaded, configuration.theme, initialSystemDark]);
 
   const handleSetConfiguration = useCallback(
     (newConfiguration: Configuration) => {
@@ -110,7 +115,7 @@ export function ConfigurationProvider({
         [configuration, handleSetConfiguration],
       )}
     >
-      {children}
+      {loaded && children}
     </ConfigurationProviderContext.Provider>
   );
 }
