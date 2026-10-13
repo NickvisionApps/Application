@@ -1,3 +1,4 @@
+import {useDialog} from "@/lib/contexts/dialog-context.ts";
 import {useEffect, useRef} from "react";
 
 export interface KeyboardShortcutOptions {
@@ -12,6 +13,7 @@ export function useKeyboardShortcut(
   handler: () => void,
   options?: KeyboardShortcutOptions,
 ) {
+  const {dialog} = useDialog();
   const handlerRef = useRef(handler);
   handlerRef.current = handler;
   const control = options?.control ?? true;
@@ -20,7 +22,7 @@ export function useKeyboardShortcut(
   const enabled = options?.enabled ?? true;
 
   useEffect(() => {
-    if (!enabled) {
+    if (!enabled || dialog !== "none") {
       return;
     }
 
@@ -43,5 +45,5 @@ export function useKeyboardShortcut(
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [key, shift, alt, enabled]);
+  }, [key, shift, alt, enabled, dialog]);
 }

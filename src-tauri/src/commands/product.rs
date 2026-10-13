@@ -14,36 +14,22 @@ pub fn get_debugging_information(product_info: State<'_, ProductInfo>) -> String
     let dir = std::env::current_exe()
         .or_else(|_| std::env::current_dir())
         .unwrap_or_default();
-    #[cfg(target_os = "windows")]
-    return format!(
-        "```\nApp: {}\nVersion: {}\n\nOperating System: Windows\nDeployment Mode: {}\nLocale: {}\n\nIs Portable: {}\nRunning From: {}\n```",
+    format!(
+        "```\nApp: {}\nVersion: {}\n\nOperating System: {}\nDeployment Mode: {}\nLocale: {}\n\nIs Portable: {}\nRunning From: {}\n```",
         product_info.name(),
         product_info.version(),
+        if cfg!(target_os = "windows") {
+            "Windows"
+        } else if cfg!(target_os = "macos") {
+            "macOS"
+        } else {
+            "Linux"
+        },
         ProductInfo::deployment_mode(),
         locale,
         ProductInfo::is_portable(),
         dir.to_str().unwrap_or("N/A")
-    );
-    #[cfg(target_os = "macos")]
-    return format!(
-        "```\nApp: {}\nVersion: {}\n\nOperating System: macOS\nDeployment Mode: {}\nLocale: {}\n\nIs Portable: {}\nRunning From: {}\n```",
-        product_info.name(),
-        product_info.version(),
-        ProductInfo::deployment_mode(),
-        locale,
-        ProductInfo::is_portable(),
-        dir.to_str().unwrap_or("N/A")
-    );
-    #[cfg(target_os = "linux")]
-    return format!(
-        "```\nApp: {}\nVersion: {}\n\nOperating System: Linux\nDeployment Mode: {}\nLocale: {}\n\nIs Portable: {}\nRunning From: {}\n```",
-        product_info.name(),
-        product_info.version(),
-        ProductInfo::deployment_mode(),
-        locale,
-        ProductInfo::is_portable(),
-        dir.to_str().unwrap_or("N/A")
-    );
+    )
 }
 
 #[command]

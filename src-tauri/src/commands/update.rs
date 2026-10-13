@@ -11,7 +11,10 @@ pub async fn get_new_update(
     product_info: State<'_, ProductInfo>,
 ) -> Result<Option<UpdateInformation>, tauri::Error> {
     let allow_preview = configuration.lock().unwrap().allow_preview_updates();
-    if let Some(update) = latest_update(&app, &product_info, allow_preview).await {
+    if let Some(update) = latest_update(&app, &product_info, allow_preview)
+        .await
+        .map_err(|e| tauri::Error::Io(std::io::Error::other(e.to_string())))?
+    {
         Ok(Some(UpdateInformation::new(&update)))
     } else {
         Ok(None)
@@ -25,7 +28,10 @@ pub async fn install_update(
     product_info: State<'_, ProductInfo>,
 ) -> Result<(), tauri::Error> {
     let allow_preview = configuration.lock().unwrap().allow_preview_updates();
-    if let Some(update) = latest_update(&app, &product_info, allow_preview).await {
+    if let Some(update) = latest_update(&app, &product_info, allow_preview)
+        .await
+        .map_err(|e| tauri::Error::Io(std::io::Error::other(e.to_string())))?
+    {
         #[cfg(any(target_os = "windows", target_os = "macos"))]
         if ProductInfo::deployment_mode() != DeploymentMode::Local {
             return Err(tauri::Error::Io(std::io::Error::other(

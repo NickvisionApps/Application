@@ -24,14 +24,6 @@ impl UpdateDownloadProgress {
     pub fn new(downloaded: usize, total: u64) -> Self {
         Self { downloaded, total }
     }
-
-    pub fn downloaded(&self) -> usize {
-        self.downloaded
-    }
-
-    pub fn total(&self) -> u64 {
-        self.total
-    }
 }
 
 impl UpdateInformation {
@@ -42,25 +34,13 @@ impl UpdateInformation {
             date: update.date.map(|d| d.unix_timestamp()),
         }
     }
-
-    pub fn version(&self) -> &str {
-        &self.version
-    }
-
-    pub fn changelog(&self) -> Option<&str> {
-        self.changelog.as_deref()
-    }
-
-    pub fn date(&self) -> Option<i64> {
-        self.date
-    }
 }
 
 pub async fn latest_update(
     app: &AppHandle,
     product_info: &ProductInfo,
     allow_preview: bool,
-) -> Option<Update> {
+) -> Result<Option<Update>, Box<dyn std::error::Error>> {
     let update = app
         .updater_builder()
         .endpoints(vec![
@@ -77,21 +57,16 @@ pub async fn latest_update(
                     product_info.repo_name()
                 )
             }
-            .parse::<Url>()
-            .unwrap(),
-        ])
-        .unwrap()
-        .build()
-        .unwrap()
+            .parse::<Url>()?,
+        ])?
+        .build()?
         .check()
-        .await
-        .ok()
-        .flatten();
+        .await?;
     if let Some(update) = update {
-        let version = Version::parse(&update.version).ok()?;
+        let version = Version::parse(&update.version)?;
         if &version > product_info.version() {
-            return Some(update);
+            return Ok(Some(update));
         }
     }
-    None
+    Ok(None)
 }

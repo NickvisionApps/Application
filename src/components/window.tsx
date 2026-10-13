@@ -35,29 +35,36 @@ export function Window() {
   const {folderView, openFolder, closeFolder} = useFolderView();
   const {content, side} = useTitlebar();
   const {productInfo} = useProductInfo();
+  const titlebarButtonClassName =
+    platform() === "macos" || platform() === "linux" ? "mt-2" : "";
 
   useEffect(() => {
     const window = getCurrentWindow();
-    let closeFn: () => void;
+    let closeFn: (() => void) | undefined;
+    let disposed = false;
 
     async function startup() {
       await invoke("show_main_window");
-      closeFn = await window.onCloseRequested(async (event) => {
+      const unlisten = await window.onCloseRequested(async (event) => {
         await saveWindowState(StateFlags.ALL);
         if (!(await invoke<boolean>("can_window_close"))) {
           openDialog("close");
           event.preventDefault();
         }
       });
+      if (disposed) {
+        unlisten();
+      } else {
+        closeFn = unlisten;
+      }
     }
 
     document.documentElement.dataset.platform = platform();
     void startup();
 
     return () => {
-      if (closeFn) {
-        closeFn();
-      }
+      disposed = true;
+      closeFn?.();
     };
   }, []);
 
@@ -104,20 +111,12 @@ export function Window() {
           side === "left" && <WindowControls />}
         <Tooltip>
           <TooltipTrigger
-            render={
-              <SidebarTrigger
-                className={
-                  platform() === "macos" || platform() === "linux" ? "mt-2" : ""
-                }
-              />
-            }
+            render={<SidebarTrigger className={titlebarButtonClassName} />}
           />
           <TooltipContent side="right">
-            {isMobile
-              ? openMobile
-              : sidebarOpen
-                ? _g("Hide Sidebar")
-                : _g("Show Sidebar")}
+            {(isMobile ? openMobile : sidebarOpen)
+              ? _g("Hide Sidebar")
+              : _g("Show Sidebar")}
           </TooltipContent>
         </Tooltip>
         <Tooltip>
@@ -126,9 +125,7 @@ export function Window() {
               <Button
                 variant="ghost"
                 size="icon-sm"
-                className={
-                  platform() === "macos" || platform() === "linux" ? "mt-2" : ""
-                }
+                className={titlebarButtonClassName}
                 disabled={!canGoBack}
                 onClick={goBack}
               >
@@ -144,9 +141,7 @@ export function Window() {
               <Button
                 variant="ghost"
                 size="icon-sm"
-                className={
-                  platform() === "macos" || platform() === "linux" ? "mt-2" : ""
-                }
+                className={titlebarButtonClassName}
                 disabled={!canGoForward}
                 onClick={goForward}
               >
@@ -163,11 +158,7 @@ export function Window() {
                 <Button
                   variant="ghost"
                   size="icon-sm"
-                  className={
-                    platform() === "macos" || platform() === "linux"
-                      ? "mt-2"
-                      : ""
-                  }
+                  className={titlebarButtonClassName}
                 >
                   <PizzaIcon />
                 </Button>
@@ -190,9 +181,9 @@ export function Window() {
         <main className="min-w-0 flex-1 overflow-hidden bg-background pt-(--titlebar-height)">
           {page === "home" && <HomePage />}
           {page === "folder" && <FolderPage />}
-          <Toaster />
         </main>
       </HStack>
+      <Toaster />
     </>
   );
 }

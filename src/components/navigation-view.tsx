@@ -166,7 +166,7 @@ export function NavigationView() {
                 <Spinner className="size-3" />
               </ItemMedia>
               <ItemContent>
-                <span className="truncated text-xs text-muted-foreground">
+                <span className="truncate text-xs text-muted-foreground">
                   {_g("Checking for updates...")}
                 </span>
               </ItemContent>
@@ -183,7 +183,7 @@ export function NavigationView() {
                 )}
                 <ItemContent>
                   <div className="flex items-center justify-between gap-2 text-xs text-muted-foreground">
-                    <span className="truncated">
+                    <span className="truncate">
                       {_g("Downloading update...")}
                     </span>
                     {updateDownloadProgress &&
@@ -232,7 +232,7 @@ export function NavigationView() {
                 onClick={() => openDialog("update")}
               >
                 <BadgePlus />
-                <span className="truncated">{_g("Update Available")}</span>
+                <span className="truncate">{_g("Update Available")}</span>
                 <Badge variant="secondary">{updateInformation.version}</Badge>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -251,11 +251,11 @@ export function NavigationView() {
                       </AvatarFallback>
                     </Avatar>
                     <div className="grid flex-1 text-left text-sm leading-tight">
-                      <span className="truncated font-medium">
+                      <span className="truncate font-medium">
                         {user.fullName}
                       </span>
                       {user.username !== user.fullName && (
-                        <span className="truncated text-xs text-muted-foreground">
+                        <span className="truncate text-xs text-muted-foreground">
                           {user.username}
                         </span>
                       )}

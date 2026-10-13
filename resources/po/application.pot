@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-12 21:38-0400\n"
+"POT-Creation-Date: 2026-10-12 22:00-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src-tauri/src/commands/window.rs:21 src/components/window.tsx:178
+#: src-tauri/src/commands/window.rs:21 src/components/window.tsx:169
 msgctxt "AppName"
 msgid "Application"
 msgstr ""
@@ -133,23 +133,23 @@ msgctxt "TitleBar"
 msgid "Close"
 msgstr ""
 
-#: src/components/window.tsx:119
+#: src/components/window.tsx:118
 msgid "Hide Sidebar"
 msgstr ""
 
-#: src/components/window.tsx:120
+#: src/components/window.tsx:119
 msgid "Show Sidebar"
 msgstr ""
 
-#: src/components/window.tsx:139
+#: src/components/window.tsx:136
 msgid "Back"
 msgstr ""
 
-#: src/components/window.tsx:157
+#: src/components/window.tsx:152
 msgid "Forward"
 msgstr ""
 
-#: src/components/window.tsx:177
+#: src/components/window.tsx:168
 msgid "Thank you for previewing the next version of {0}! ({1})"
 msgstr ""
 
@@ -301,7 +301,8 @@ msgstr ""
 #: src/lib/providers/update-provider.tsx:47
 #: src/lib/providers/update-provider.tsx:83
 #: src/lib/providers/update-provider.tsx:102
-#: src/lib/providers/folder-view-provider.tsx:37
+#: src/lib/providers/folder-view-provider.tsx:38
+#: src/lib/providers/folder-view-provider.tsx:67
 msgid "Error"
 msgstr ""
 
@@ -314,6 +315,6 @@ msgctxt "AppName"
 msgid "You are already using the latest version of Application"
 msgstr ""
 
-#: src/lib/providers/folder-view-provider.tsx:48
+#: src/lib/providers/folder-view-provider.tsx:49
 msgid "Folder closed"
 msgstr ""

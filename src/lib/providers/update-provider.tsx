@@ -59,13 +59,13 @@ export function UpdateProvider({children, ...props}: UpdateProviderProps) {
   }, [configuration.automaticallyCheckForUpdates]);
 
   const checkForUpdates = useCallback(async () => {
-    if (installingUpdate) {
+    if (checkingForUpdates || installingUpdate) {
       return;
     }
     setCheckingForUpdates(true);
     setUpdateInformation(null);
     try {
-      let update = await invoke<UpdateInformation | null>("get_new_update");
+      const update = await invoke<UpdateInformation | null>("get_new_update");
       setUpdateInformation(update);
       if (!update) {
         toast.add({
@@ -86,7 +86,7 @@ export function UpdateProvider({children, ...props}: UpdateProviderProps) {
     } finally {
       setCheckingForUpdates(false);
     }
-  }, [installingUpdate]);
+  }, [checkingForUpdates, installingUpdate, _g, _p]);
 
   const installUpdate = useCallback(async () => {
     if (!updateInformation || installingUpdate) {
@@ -105,7 +105,7 @@ export function UpdateProvider({children, ...props}: UpdateProviderProps) {
     } finally {
       setInstallingUpdate(false);
     }
-  }, [updateInformation, installingUpdate]);
+  }, [updateInformation, installingUpdate, _g]);
 
   return (
     <UpdateProviderContext.Provider

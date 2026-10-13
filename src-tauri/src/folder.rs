@@ -1,5 +1,5 @@
 use serde::{Deserialize, Serialize};
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
 
 #[derive(Debug, Clone, Default, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -20,13 +20,5 @@ impl FolderView {
         }
         files.sort();
         Ok(Self { path, files })
-    }
-
-    pub fn files(&self) -> &[PathBuf] {
-        &self.files
-    }
-
-    pub fn path(&self) -> &Path {
-        &self.path
     }
 }

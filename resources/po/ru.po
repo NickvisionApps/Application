@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-12 21:33-0400\n"
+"POT-Creation-Date: 2026-10-12 22:00-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: src-tauri/src/commands/window.rs:21 src/components/window.tsx:178
+#: src-tauri/src/commands/window.rs:21 src/components/window.tsx:169
 #, fuzzy
 msgctxt "AppName"
 msgid "Application"
@@ -143,23 +143,23 @@ msgctxt "TitleBar"
 msgid "Close"
 msgstr "Закрыть"
 
-#: src/components/window.tsx:119
+#: src/components/window.tsx:118
 msgid "Hide Sidebar"
 msgstr ""
 
-#: src/components/window.tsx:120
+#: src/components/window.tsx:119
 msgid "Show Sidebar"
 msgstr ""
 
-#: src/components/window.tsx:139
+#: src/components/window.tsx:136
 msgid "Back"
 msgstr ""
 
-#: src/components/window.tsx:157
+#: src/components/window.tsx:152
 msgid "Forward"
 msgstr ""
 
-#: src/components/window.tsx:177
+#: src/components/window.tsx:168
 msgid "Thank you for previewing the next version of {0}! ({1})"
 msgstr ""
 
@@ -317,7 +317,8 @@ msgstr "Откройте или перетащите папку, чтобы на
 #: src/lib/providers/update-provider.tsx:47
 #: src/lib/providers/update-provider.tsx:83
 #: src/lib/providers/update-provider.tsx:102
-#: src/lib/providers/folder-view-provider.tsx:37
+#: src/lib/providers/folder-view-provider.tsx:38
+#: src/lib/providers/folder-view-provider.tsx:67
 #, fuzzy
 msgid "Error"
 msgstr "Папка"
@@ -332,7 +333,7 @@ msgctxt "AppName"
 msgid "You are already using the latest version of Application"
 msgstr ""
 
-#: src/lib/providers/folder-view-provider.tsx:48
+#: src/lib/providers/folder-view-provider.tsx:49
 #, fuzzy
 msgid "Folder closed"
 msgstr "Папка закрыта."
