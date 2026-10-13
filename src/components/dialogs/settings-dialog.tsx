@@ -106,7 +106,7 @@ export function SettingsDialog() {
           {_g("Settings")}
         </DialogDescription>
         <SidebarProvider className="h-[480px] min-h-0 items-start">
-          <Sidebar collapsible="none">
+          <Sidebar collapsible="none" className="w-36 shrink-0 sm:w-44">
             <SidebarContent>
               <SidebarGroup>
                 <SidebarGroupContent>
@@ -139,12 +139,15 @@ export function SettingsDialog() {
             </SidebarContent>
           </Sidebar>
           <main className="flex h-full min-w-0 flex-1 flex-col overflow-hidden">
-            <header className="flex h-14 shrink-0 items-center justify-between gap-4 pr-12 pl-4">
-              <DialogTitle>{_g("Settings")}</DialogTitle>
+            <header
+              data-tauri-drag-region="deep"
+              className="flex h-14 shrink-0 items-center justify-between gap-4 pr-12 pl-4"
+            >
+              <DialogTitle className="shrink-0">{_g("Settings")}</DialogTitle>
               <Input
                 type="search"
                 placeholder={_g("Search...")}
-                className="w-48"
+                className="min-w-0 flex-1 sm:max-w-48"
                 value={search}
                 onChange={(event) => setSearch(event.target.value)}
               />
