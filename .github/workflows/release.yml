@@ -89,8 +89,8 @@ jobs:
     secrets: inherit
     with:
       tag: ${{ needs.channel.outputs.tag }}
-  flatpak-release:
-    name: "Publish Flatpak"
+  publish:
+    name: "Publish"
     needs: [ channel, windows, macos, linux, flatpak ]
     runs-on: ubuntu-latest
     steps:

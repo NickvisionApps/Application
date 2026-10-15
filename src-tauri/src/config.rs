@@ -12,16 +12,31 @@ pub enum ApplicationTheme {
     System,
 }
 
-#[derive(Debug, Clone, Default, PartialEq, Eq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase", default)]
 pub struct Configuration {
     #[serde(skip)]
     app_name: String,
+    #[serde(alias = "AllowPreviewUpdates")]
     allow_preview_updates: bool,
-    #[serde(default = "default_true")]
+    #[serde(alias = "AutomaticallyCheckForUpdates")]
     automatically_check_for_updates: bool,
+    #[serde(alias = "Theme")]
     theme: ApplicationTheme,
+    #[serde(alias = "TranslationLanguage")]
     translation_language: String,
+}
+
+impl Default for Configuration {
+    fn default() -> Self {
+        Self {
+            app_name: String::new(),
+            allow_preview_updates: false,
+            automatically_check_for_updates: true,
+            theme: ApplicationTheme::default(),
+            translation_language: String::new(),
+        }
+    }
 }
 
 impl Configuration {
@@ -104,8 +119,4 @@ impl Configuration {
     pub fn set_translation_language(&mut self, language: impl Into<String>) {
         self.translation_language = language.into();
     }
-}
-
-const fn default_true() -> bool {
-    true
 }

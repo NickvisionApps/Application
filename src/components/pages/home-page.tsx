@@ -1,15 +1,8 @@
 import {HStack, VStack} from "@/components/layout/stack.tsx";
 import {Button} from "@/components/ui/button.tsx";
-import {Kbd, KbdGroup} from "@/components/ui/kbd.tsx";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip.tsx";
 import {useDialog} from "@/lib/contexts/dialog-context.ts";
 import {useFolderView} from "@/lib/contexts/folder-view-context.ts";
 import {useTranslation} from "@/lib/contexts/translation-context.ts";
-import {platform} from "@tauri-apps/plugin-os";
 import {
   FolderOpen,
   LucideIcon,
@@ -123,75 +116,37 @@ export function HomePage() {
             {_g("Open a folder (or drag one in) to get started!")}
           </p>
         </VStack>
-        <Tooltip>
-          <TooltipTrigger
-            render={
-              <Button
-                onClick={() => {
-                  void openFolder();
-                }}
-              >
-                <FolderOpen />
-                {_g("Open Folder")}
-              </Button>
-            }
-          />
-          <TooltipContent>
-            {_g("Open Folder")}
-            <KbdGroup>
-              {platform() === "macos" && <Kbd>⌘</Kbd>}
-              {platform() !== "macos" && <Kbd>Ctrl</Kbd>}
-              <Kbd>O</Kbd>
-            </KbdGroup>
-          </TooltipContent>
-        </Tooltip>
+        <Button
+          onClick={() => {
+            void openFolder();
+          }}
+        >
+          <FolderOpen />
+          {_g("Open Folder")}
+        </Button>
         <HStack align="center" justify="center" gap={1}>
-          <Tooltip>
-            <TooltipTrigger
-              render={
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="text-xs text-muted-foreground"
-                  onClick={() => {
-                    openDialog("changelog");
-                  }}
-                >
-                  <Sparkles />
-                  {_g("What's New?")}
-                </Button>
-              }
-            />
-            <TooltipContent>
-              {_g("What's New?")}
-              <Kbd>F1</Kbd>
-            </TooltipContent>
-          </Tooltip>
-          <Tooltip>
-            <TooltipTrigger
-              render={
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="text-xs text-muted-foreground"
-                  onClick={() => {
-                    openDialog("settings");
-                  }}
-                >
-                  <Settings />
-                  {_g("Settings")}
-                </Button>
-              }
-            />
-            <TooltipContent>
-              {_g("Settings")}
-              <KbdGroup>
-                {platform() === "macos" && <Kbd>⌘</Kbd>}
-                {platform() !== "macos" && <Kbd>Ctrl</Kbd>}
-                <Kbd>,</Kbd>
-              </KbdGroup>
-            </TooltipContent>
-          </Tooltip>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="text-xs text-muted-foreground"
+            onClick={() => {
+              openDialog("changelog");
+            }}
+          >
+            <Sparkles />
+            {_g("What's New?")}
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="text-xs text-muted-foreground"
+            onClick={() => {
+              openDialog("settings");
+            }}
+          >
+            <Settings />
+            {_g("Settings")}
+          </Button>
         </HStack>
       </VStack>
     </div>
