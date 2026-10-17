@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-12 23:00-0400\n"
+"POT-Creation-Date: 2026-10-14 20:32-0400\n"
 "PO-Revision-Date: 2023-05-23 06:33+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language-Team: Russian\n"
@@ -60,8 +60,7 @@ msgid "Help"
 msgstr ""
 
 #: src/components/navigation-view.tsx:298
-#: src/components/pages/home-page.tsx:161
-#: src/components/pages/home-page.tsx:166
+#: src/components/pages/home-page.tsx:137
 msgid "What's New?"
 msgstr ""
 
@@ -79,21 +78,16 @@ msgid "Discussions"
 msgstr ""
 
 #: src/components/navigation-view.tsx:337
-#: ⁨src/components/dialogs/credits-dialog 2.tsx⁩:40
 #: src/components/dialogs/credits-dialog.tsx:40
 msgid "Credits"
 msgstr ""
 
 #: src/components/navigation-view.tsx:345
-#: ⁨src/components/dialogs/debugging-dialog 2.tsx⁩:56
 #: src/components/dialogs/debugging-dialog.tsx:56
 msgid "Debugging Information"
 msgstr ""
 
 #: src/components/navigation-view.tsx:365
-#: ⁨src/components/dialogs/settings-dialog 2.tsx⁩:64
-#: ⁨src/components/dialogs/settings-dialog 2.tsx⁩:162
-#: ⁨src/components/dialogs/settings-dialog 2.tsx⁩:165
 #: src/components/dialogs/settings-dialog.tsx:64
 #: src/components/dialogs/settings-dialog.tsx:162
 #: src/components/dialogs/settings-dialog.tsx:165
@@ -102,33 +96,27 @@ msgid "Theme"
 msgstr "Тема"
 
 #: src/components/navigation-view.tsx:379
-#: ⁨src/components/dialogs/settings-dialog 2.tsx⁩:55
 #: src/components/dialogs/settings-dialog.tsx:55
 msgctxt "Theme"
 msgid "Light"
 msgstr "Светлая"
 
 #: src/components/navigation-view.tsx:382
-#: ⁨src/components/dialogs/settings-dialog 2.tsx⁩:56
 #: src/components/dialogs/settings-dialog.tsx:56
 msgctxt "Theme"
 msgid "Dark"
 msgstr "Тёмная"
 
 #: src/components/navigation-view.tsx:385
-#: ⁨src/components/dialogs/settings-dialog 2.tsx⁩:57
 #: src/components/dialogs/settings-dialog.tsx:57
 msgctxt "Theme"
 msgid "System"
 msgstr "Системная"
 
 #: src/components/navigation-view.tsx:397
-#: ⁨src/components/dialogs/settings-dialog 2.tsx⁩:106
-#: ⁨src/components/dialogs/settings-dialog 2.tsx⁩:146
 #: src/components/dialogs/settings-dialog.tsx:106
 #: src/components/dialogs/settings-dialog.tsx:146
-#: src/components/pages/home-page.tsx:182
-#: src/components/pages/home-page.tsx:187
+#: src/components/pages/home-page.tsx:148
 msgid "Settings"
 msgstr ""
 
@@ -175,115 +163,88 @@ msgstr ""
 
 #: src/components/dialogs/changelog-dialog.tsx:34
 #: src/components/dialogs/update-dialog.tsx:50
-#: ⁨src/components/dialogs/changelog-dialog 2.tsx⁩:34
-#: ⁨src/components/dialogs/update-dialog 2.tsx⁩:50
 msgid "Changelog"
 msgstr ""
 
-#: ⁨src/components/dialogs/close-dialog 2.tsx⁩:32
-#: src/components/dialogs/close-dialog.tsx:32
-#, fuzzy
-msgctxt "AppName"
-msgid "Exit Application?"
-msgstr "О приложении"
-
-#: ⁨src/components/dialogs/close-dialog 2.tsx⁩:35
-#: src/components/dialogs/close-dialog.tsx:35
-#, fuzzy
-msgid "Are you sure you want to exit?"
-msgstr "Вы уверены, что хотите закрыть папку?"
-
-#: ⁨src/components/dialogs/close-dialog 2.tsx⁩:39
-#: src/components/dialogs/close-dialog.tsx:39
-msgid "No"
-msgstr ""
-
-#: ⁨src/components/dialogs/close-dialog 2.tsx⁩:53
-#: src/components/dialogs/close-dialog.tsx:53
-msgid "Yes"
-msgstr ""
-
-#: ⁨src/components/dialogs/debugging-dialog 2.tsx⁩:58
 #: src/components/dialogs/debugging-dialog.tsx:58
 msgid "Send this information to the developer when reporting issues"
 msgstr ""
 
-#: ⁨src/components/dialogs/debugging-dialog 2.tsx⁩:104
 #: src/components/dialogs/debugging-dialog.tsx:104
 msgid "Copy"
 msgstr ""
 
-#: ⁨src/components/dialogs/settings-dialog 2.tsx⁩:65
-#: ⁨src/components/dialogs/settings-dialog 2.tsx⁩:198
-#: ⁨src/components/dialogs/settings-dialog 2.tsx⁩:201
-#: src/components/dialogs/settings-dialog.tsx:65
-#: src/components/dialogs/settings-dialog.tsx:198
-#: src/components/dialogs/settings-dialog.tsx:201
-msgid "Language"
-msgstr ""
-
-#: ⁨src/components/dialogs/settings-dialog 2.tsx⁩:66
-#: ⁨src/components/dialogs/settings-dialog 2.tsx⁩:241
-#: ⁨src/components/dialogs/settings-dialog 2.tsx⁩:247
-#: src/components/dialogs/settings-dialog.tsx:66
-#: src/components/dialogs/settings-dialog.tsx:241
-#: src/components/dialogs/settings-dialog.tsx:247
-msgid "Automatically check for updates"
-msgstr ""
-
-#: ⁨src/components/dialogs/settings-dialog 2.tsx⁩:67
-#: ⁨src/components/dialogs/settings-dialog 2.tsx⁩:264
-#: ⁨src/components/dialogs/settings-dialog 2.tsx⁩:270
-#: src/components/dialogs/settings-dialog.tsx:67
-#: src/components/dialogs/settings-dialog.tsx:264
-#: src/components/dialogs/settings-dialog.tsx:270
-msgid "Allow preview (beta) updates"
-msgstr ""
-
-#: ⁨src/components/dialogs/settings-dialog 2.tsx⁩:121
-#: src/components/dialogs/settings-dialog.tsx:121
-msgid "General"
-msgstr ""
-
-#: ⁨src/components/dialogs/settings-dialog 2.tsx⁩:132
-#: src/components/dialogs/settings-dialog.tsx:132
-msgid "Updates"
-msgstr ""
-
-#: ⁨src/components/dialogs/settings-dialog 2.tsx⁩:149
-#: src/components/dialogs/settings-dialog.tsx:149
-msgid "Search..."
-msgstr ""
-
-#: ⁨src/components/dialogs/settings-dialog 2.tsx⁩:292
-#: src/components/dialogs/settings-dialog.tsx:292
-msgid "No results found for “{0}”"
-msgstr ""
-
 #: src/components/dialogs/update-dialog.tsx:36
-#: ⁨src/components/dialogs/update-dialog 2.tsx⁩:36
 msgid "New Update"
 msgstr ""
 
 #: src/components/dialogs/update-dialog.tsx:63
-#: ⁨src/components/dialogs/update-dialog 2.tsx⁩:63
 msgctxt "AppName"
 msgid "Application will restart to finish installing the update"
 msgstr ""
 
 #: src/components/dialogs/update-dialog.tsx:77
 #: src/components/dialogs/update-dialog.tsx:98
-#: ⁨src/components/dialogs/update-dialog 2.tsx⁩:77
-#: ⁨src/components/dialogs/update-dialog 2.tsx⁩:98
 msgid "Install"
 msgstr ""
 
 #: src/components/dialogs/update-dialog.tsx:82
 #: src/components/dialogs/update-dialog.tsx:89
-#: ⁨src/components/dialogs/update-dialog 2.tsx⁩:82
-#: ⁨src/components/dialogs/update-dialog 2.tsx⁩:89
 msgid "Cancel"
 msgstr "Отмена"
+
+#: src/components/dialogs/settings-dialog.tsx:65
+#: src/components/dialogs/settings-dialog.tsx:198
+#: src/components/dialogs/settings-dialog.tsx:201
+msgid "Language"
+msgstr ""
+
+#: src/components/dialogs/settings-dialog.tsx:66
+#: src/components/dialogs/settings-dialog.tsx:241
+#: src/components/dialogs/settings-dialog.tsx:247
+msgid "Automatically check for updates"
+msgstr ""
+
+#: src/components/dialogs/settings-dialog.tsx:67
+#: src/components/dialogs/settings-dialog.tsx:264
+#: src/components/dialogs/settings-dialog.tsx:270
+msgid "Allow preview (beta) updates"
+msgstr ""
+
+#: src/components/dialogs/settings-dialog.tsx:121
+msgid "General"
+msgstr ""
+
+#: src/components/dialogs/settings-dialog.tsx:132
+msgid "Updates"
+msgstr ""
+
+#: src/components/dialogs/settings-dialog.tsx:149
+msgid "Search..."
+msgstr ""
+
+#: src/components/dialogs/settings-dialog.tsx:292
+msgid "No results found for “{0}”"
+msgstr ""
+
+#: src/components/dialogs/close-dialog.tsx:32
+#, fuzzy
+msgctxt "AppName"
+msgid "Exit Application?"
+msgstr "О приложении"
+
+#: src/components/dialogs/close-dialog.tsx:35
+#, fuzzy
+msgid "Are you sure you want to exit?"
+msgstr "Вы уверены, что хотите закрыть папку?"
+
+#: src/components/dialogs/close-dialog.tsx:39
+msgid "No"
+msgstr ""
+
+#: src/components/dialogs/close-dialog.tsx:53
+msgid "Yes"
+msgstr ""
 
 #: src/components/pages/folder-page.tsx:102
 #: src/components/pages/folder-page.tsx:107
@@ -296,8 +257,7 @@ msgid "Grid View"
 msgstr ""
 
 #: src/components/pages/folder-page.tsx:135
-#: src/components/pages/home-page.tsx:135
-#: src/components/pages/home-page.tsx:140
+#: src/components/pages/home-page.tsx:125
 msgid "Open Folder"
 msgstr "Открыть Папку"
 
@@ -324,58 +284,51 @@ msgstr ""
 msgid "No Preview Available"
 msgstr "Application"
 
-#: src/components/pages/home-page.tsx:34
+#: src/components/pages/home-page.tsx:27
 msgid "Good Day!"
 msgstr "Здравствуйте!"
 
-#: src/components/pages/home-page.tsx:43
+#: src/components/pages/home-page.tsx:36
 msgctxt "Night"
 msgid "Good Morning!"
 msgstr "Доброй ночи!"
 
-#: src/components/pages/home-page.tsx:46
+#: src/components/pages/home-page.tsx:39
 msgctxt "Morning"
 msgid "Good Morning!"
 msgstr "Доброе утро!"
 
-#: src/components/pages/home-page.tsx:48
+#: src/components/pages/home-page.tsx:41
 msgid "Good Afternoon!"
 msgstr "Добрый день!"
 
-#: src/components/pages/home-page.tsx:50
+#: src/components/pages/home-page.tsx:43
 msgid "Good Evening!"
 msgstr "Добрый вечер!"
 
-#: src/components/pages/home-page.tsx:123
+#: src/components/pages/home-page.tsx:116
 #, fuzzy
 msgid "Open a folder (or drag one in) to get started!"
 msgstr "Откройте или перетащите папку, чтобы начать."
 
 #: src/lib/providers/update-provider.tsx:82
-#: ⁨src/lib/providers/update-provider 2.tsx⁩:82
 #, fuzzy
 msgid "No Update Available"
 msgstr "Application"
 
 #: src/lib/providers/update-provider.tsx:85
-#: ⁨src/lib/providers/update-provider 2.tsx⁩:85
 msgctxt "AppName"
 msgid "You are already using the latest version of Application"
 msgstr ""
 
 #: src/lib/providers/update-provider.tsx:92
 #: src/lib/providers/update-provider.tsx:111
-#: ⁨src/lib/providers/folder-view-provider 2.tsx⁩:38
-#: ⁨src/lib/providers/folder-view-provider 2.tsx⁩:67
-#: ⁨src/lib/providers/update-provider 2.tsx⁩:92
-#: ⁨src/lib/providers/update-provider 2.tsx⁩:111
 #: src/lib/providers/folder-view-provider.tsx:38
 #: src/lib/providers/folder-view-provider.tsx:67
 #, fuzzy
 msgid "Error"
 msgstr "Папка"
 
-#: ⁨src/lib/providers/folder-view-provider 2.tsx⁩:49
 #: src/lib/providers/folder-view-provider.tsx:49
 #, fuzzy
 msgid "Folder closed"
